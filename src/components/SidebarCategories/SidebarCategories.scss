@@ -1,0 +1,41 @@
+.SidebarCategories {
+  max-width: 300px;
+  width: 100%;
+  list-style: none;
+  @media (max-width: 1220px) {
+
+  }
+
+  li {
+    padding: 10px 25px 10px 10px;
+    display: flex;
+    justify-content: space-between;
+    background-color: inherit;
+    transition: background-color .25s linear;
+  }
+
+  a {
+    color: #4665d7;
+    font-size: 16px;
+  }
+
+
+  i:before {
+    content: "\276F";
+    text-align: center;
+    font: 400 15px/15px Verdana;
+    color: #e0e1f3;
+    transition: color .25s linear;
+  }
+
+  li:hover {
+    background-color: #f5f6fc;
+    transition: all .2s;
+    transform: scale(1.05);
+  }
+
+  li:hover i:before {
+    color: #4665d7;
+    transition: all .25s linear;
+  }
+}

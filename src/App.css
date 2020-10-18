@@ -1,38 +1,92 @@
+/*Обнуление*/
+*, *:before, *:after {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover, a:active {
+    text-decoration: none
+}
+
+.wrapper {
+    all: inherit;
+    max-width: 1240px;
+    margin: 0 auto;
+    width: 100%;
+}
+
 .App {
-  text-align: center;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0 auto;
+    /*max-width: 1440px;*/
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+@font-face {
+    font-family: 'Oswald-Regular';
+    src: url('./fonts/Oswald-Regular.ttf') format('truetype');
+
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+@font-face {
+    font-family: 'PTSans-Regular';
+    src: url('./fonts/PTSans-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+@font-face {
+    font-family: 'PTSans-Bold';
+    src: url('./fonts/PTSans-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
 }
 
-.App-link {
-  color: #61dafb;
+@font-face {
+    font-family: 'NotoSansJP-Regular';
+    src: url('./fonts/NotoSansJP-Regular.otf') format('opentype');
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+@font-face {
+    font-family: 'obliq';
+    src: url('./fonts/Evolventa Oblique.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'bold';
+    src: url('./fonts/Evolventa Bold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'obliqblack';
+    src: url('./fonts/Evolventa Oblique Bold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'regular';
+    src: url('./fonts/Evolventa.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: PTSans-Regular, Helvetica, Arial, sans-serif;
+    background-color: #f6f6f6;
+}
+
+.swiper-button-prev, .swiper-button-next {
+    color: white;
 }

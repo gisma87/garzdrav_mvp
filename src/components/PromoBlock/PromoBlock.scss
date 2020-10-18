@@ -1,0 +1,78 @@
+.PromoBlock {
+  display: flex;
+  flex-direction: column;
+  //max-height: 530px;
+  width: 100%;
+
+  &__title {
+    font-family: PTSans-Bold, Helvetica, Arial, sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    align-self: flex-start;
+    padding: 40px 20px 20px;
+    color: #000;
+    transition: all .3s;
+    display: flex;
+    align-items: baseline;
+
+    &:hover {
+      text-decoration: none;
+      color: #fc5808;
+      transition: all .3s;
+    }
+  }
+
+  &__more {
+    margin-left: 8px;
+    width: 22px;
+    height: 22px;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: #fff;
+    padding: 1px 0 0 1px;
+    outline: none;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.05);
+  }
+
+  &__knopi {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+  }
+
+  &__btnslide {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__btnslide div {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #737373;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    font-size: 20px;
+    color: #737373;
+    margin: 0 5px;
+  }
+
+  .swiper-container {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .swiper-slide {
+    width: 300px;
+    height: 100%;
+  }
+}

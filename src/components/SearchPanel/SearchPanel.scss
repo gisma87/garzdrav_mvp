@@ -1,0 +1,49 @@
+.SearchPanel {
+  flex: 1 1;
+  position: relative;
+
+
+  & input {
+    border-radius: 8px;
+    background: #eaeaea;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    color: #333;
+    padding: 10px 20px;
+    line-height: normal;
+    outline: none;
+    transition: background .3s;
+
+    &:hover, &:focus{
+      background-color: #fff;
+      box-shadow: 0 4px 12px 0 rgba(0,0,0,0.2);
+    }
+  }
+
+  & button {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #737373;
+    background: transparent;
+    border: none;
+    font-size: 26px;
+    outline: none;
+    display: flex;
+    align-items: center;
+  }
+
+  &__iconSearch {
+    color: #8c8c8c;
+    font-size: 20px;
+    //background: #fff center / contain no-repeat url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' height='24' width='24'%3E%3Cpath d='M21.793 20.839l-5.308-5.335a9.384 9.375 0 10-.966.965l5.348 5.334a.644.643 0 00.926 0 .667.667 0 000-.964zM1.306 9.36a8.065 8.057 0 118.064 8.057A8.08 8.073 0 011.306 9.36z' fill='%231C257B'/%3E%3C/svg%3E");
+    //width: 23px;
+    //height: 30px;
+    //display: flex;
+
+  }
+}

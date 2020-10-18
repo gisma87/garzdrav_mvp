@@ -1,0 +1,93 @@
+.DropDownMenu {
+  position: relative;
+  z-index: 2;
+  width: 18%;
+  max-height: 100%;
+
+  &__menu a:link {
+    color: #fff;
+    text-decoration: none;
+  }
+
+  &__menu a:visited {
+    color: #fff;
+    text-decoration: none;
+  }
+
+  &__menu a:hover {
+    text-decoration: none;
+  }
+
+  &__menu a:active {
+    text-decoration: none;
+  }
+
+  &__itemContainer {
+    text-align: left;
+    //display: inline;
+    margin: 0;
+    /*padding: 15px 4px 17px 0;*/
+    list-style: none;
+
+    display: grid;
+    grid-auto-flow: row dense;
+    grid-template-columns: repeat(auto-fill, minmax(276px, 1fr));
+    grid-gap: 1px;
+  }
+
+  &__item {
+    font: bold 12px/18px sans-serif;
+    color: #fff;
+    display: flex;
+    position: relative;
+    padding: 10px 20px;
+    background: #747474;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  &__itemContainer {
+    padding: 0;
+    position: absolute;
+    //top: 48px;
+    top: 60px;
+    left: -15px;
+    min-width: 280px;
+    max-width: 840px;
+    box-shadow: none;
+    opacity: 0;
+    max-height: 0;
+    visibility: hidden;
+    transition: opacity 0.4s, visibility 0.5s;
+
+    display: grid;
+    grid-auto-flow: row dense;
+    grid-template-columns: repeat(auto-fill, minmax(276px, 1fr));
+    grid-gap: 1px;
+  }
+
+  &__item {
+    outline: 1px solid snow;
+  }
+
+  &__item:hover {
+    //margin-top: 3px;
+    //margin-bottom: 3px;
+    transform: scale(1.05);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    z-index: 2;
+    background-color: #000;
+    transition: all .25s;
+  }
+
+  &__itemContainer_active {
+    opacity: 1;
+    visibility: visible;
+    max-height: 100%;
+    transition: all .4s ease-out;
+  }
+
+  &__item a {
+    color: #fff;
+  }
+}

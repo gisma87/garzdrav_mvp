@@ -1,0 +1,62 @@
+@keyframes shakeInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(400px);
+  }
+  20% {
+    transform: translateX(-30px);
+  }
+  40% {
+    transform: translateX(10px);
+  }
+  50%, 70%, 90% {
+    opacity: 1;
+    transform: translateX(-10px);
+  }
+  60%, 80% {
+    transform: translateX(10px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.ButtonTopScroll {
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+  position: fixed;
+  z-index: 3;
+  bottom: 5%;
+  right: 3%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: .85;
+  background: #fff;
+
+  &:hover i {
+    color: #000;
+    transform: scale(1.05);
+  }
+  &:hover {
+    opacity: 1;
+  }
+
+  & i {
+    font-size: 18px;
+    color: #8c8c8c;
+  }
+}
+
+.shakeInRight {
+  animation-name: shakeInRight;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+}
+
+
+
