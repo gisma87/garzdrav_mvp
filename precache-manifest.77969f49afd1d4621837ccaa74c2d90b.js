@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "eda25351df13dbe3d4803b2ec27afbed",
+    "revision": "1349167be0a2d8178f884daa6db02b45",
     "url": "/garzdrav_mvp/index.html"
   },
   {
-    "revision": "d991bf41b02ce2ca29e0",
+    "revision": "92b16091c6884f11e87d",
     "url": "/garzdrav_mvp/static/css/2.ef742aa5.chunk.css"
   },
   {
-    "revision": "41f62be7ce7e94eb1b34",
-    "url": "/garzdrav_mvp/static/css/main.66a40738.chunk.css"
+    "revision": "92ba5853bac899ce3027",
+    "url": "/garzdrav_mvp/static/css/main.7249c720.chunk.css"
   },
   {
-    "revision": "d991bf41b02ce2ca29e0",
-    "url": "/garzdrav_mvp/static/js/2.f63be9fd.chunk.js"
+    "revision": "92b16091c6884f11e87d",
+    "url": "/garzdrav_mvp/static/js/2.f5af4ef2.chunk.js"
   },
   {
     "revision": "9b318b6fb13190fe82c0677e9264b3c7",
-    "url": "/garzdrav_mvp/static/js/2.f63be9fd.chunk.js.LICENSE.txt"
+    "url": "/garzdrav_mvp/static/js/2.f5af4ef2.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "41f62be7ce7e94eb1b34",
-    "url": "/garzdrav_mvp/static/js/main.3dbc0d37.chunk.js"
+    "revision": "92ba5853bac899ce3027",
+    "url": "/garzdrav_mvp/static/js/main.737d3703.chunk.js"
   },
   {
     "revision": "ae931805772e757a2495",
@@ -68,8 +68,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/garzdrav_mvp/static/media/PTSans-Regular.4ea26cd5.ttf"
   },
   {
+    "revision": "cabbf486e27f48296812e7a9504307f2",
+    "url": "/garzdrav_mvp/static/media/arrow-right-solid.cabbf486.svg"
+  },
+  {
     "revision": "ecfced9d96dad8e5c31c391d01d9dfd7",
     "url": "/garzdrav_mvp/static/media/bg-light-4827.ecfced9d.png"
+  },
+  {
+    "revision": "2929d1c591b819580dd022edacf169d3",
+    "url": "/garzdrav_mvp/static/media/calendar-alt-regular.2929d1c5.svg"
   },
   {
     "revision": "ace73688d2971d5abdd54e2d98067781",
@@ -104,6 +112,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/garzdrav_mvp/static/media/news.51f3cb56.jpg"
   },
   {
+    "revision": "c40d0a362e9f1b9e29b6c047964e66b6",
+    "url": "/garzdrav_mvp/static/media/search-solid.c40d0a36.svg"
+  },
+  {
     "revision": "0c27341139666fc2ddbf27e228845b80",
     "url": "/garzdrav_mvp/static/media/test1.0c273411.jpg"
   },
@@ -118,9 +130,5 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "320f84647eb93085205b8ef33a76f333",
     "url": "/garzdrav_mvp/static/media/test4.320f8464.jpg"
-  },
-  {
-    "revision": "0a4c2c8a3252c5a64bd0fde07e3b171a",
-    "url": "/garzdrav_mvp/static/media/tov.0a4c2c8a.jpg"
   }
 ]);
