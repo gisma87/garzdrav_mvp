@@ -1,5 +1,6 @@
 import React from "react";
 import './CardItem.scss'
+import SvgShoppingCartSolid from "../../img/SVGcomponents/SvgShoppingCartSolid";
 // import img from '../../img/tov.jpg'
 
 // const nameItem = 'Librederm Hyaluronic крем для тела увлажняющий 200 мл легкий'
@@ -19,8 +20,10 @@ const CardItem = ({id, title, maker, img, minPrice, classStyle = '', onItemSelec
         <div className='CardItem__price'>
           {/*<p className='CardItem__priceText'>Цена</p>*/}
           <p>от <span className='CardItem__priceNumber'>{minPrice}</span> р.</p>
-          <button className='CardItem__cart buttonActive' onClick={()=>{console.log('на меня нажали')}}>
-            <i className="fas fa-shopping-cart"/>
+          <button className='CardItem__cart buttonActive' onClick={() => {
+            console.log('на меня нажали')
+          }}>
+            <SvgShoppingCartSolid/>
             {/*<span>в корзину</span>*/}
           </button>
         </div>

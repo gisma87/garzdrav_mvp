@@ -1,6 +1,7 @@
 import React from "react"
 import './SearchPanel.scss'
 import {withRouter} from 'react-router-dom'
+import searchIcon from "../../img/search-solid.svg"
 
 class SearchPanel extends React.Component {
 
@@ -33,7 +34,9 @@ class SearchPanel extends React.Component {
           onChange={this.handleInputChange}
           value={this.state.value}
         />
-        <button><i className="fas fa-search SearchPanel__iconSearch"/></button>
+        <button>
+          <img src={searchIcon} alt=""/>
+        </button>
       </form>
     )
   }

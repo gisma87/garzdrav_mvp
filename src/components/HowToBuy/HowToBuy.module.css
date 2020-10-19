@@ -5,7 +5,8 @@
     flex-direction: column;
     width: 100%;
 }
-.howtobuy h2{
+
+.howtobuy h2 {
     color: #fff;
     text-align: center;
     font-family: bold, serif;
@@ -13,10 +14,17 @@
     margin-bottom: 40px;
 }
 
-.blockbuy .icon{
+.arrowRight {
+    color: #fff;
+    width: 22px;
+    height: 22px;
+}
+
+.blockbuy .icon {
     position: relative;
 }
-.blockbuy .icon:after{
+
+.blockbuy .icon:after {
     display: block;
     content: '';
     height: 2px;
@@ -25,7 +33,8 @@
     position: absolute;
     bottom: -10px;
 }
-.blockbuy{
+
+.blockbuy {
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -33,11 +42,13 @@
     font-size: 22px;
     line-height: 22px;
 }
-.blockbuy .item{
+
+.blockbuy .item {
     display: flex;
     align-items: flex-end;
 }
-.blockbuy .item .text{
+
+.blockbuy .item .text {
     color: #fff;
     font-family: bold, serif;
     font-size: 22px;

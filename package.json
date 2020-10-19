@@ -2,7 +2,7 @@
   "name": "garzdrav_mvp",
   "version": "0.1.0",
   "private": true,
-  "homepage": ".",
+  "homepage": "https://gisma87.github.io/garzdrav_mvp/.",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -25,6 +25,10 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gisma87/garzdrav_mvp.git"
   },
   "eslintConfig": {
     "extends": "react-app"

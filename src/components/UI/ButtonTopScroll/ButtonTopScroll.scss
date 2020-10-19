@@ -38,16 +38,17 @@
   opacity: .85;
   background: #fff;
 
-  &:hover i {
+  &:hover .ButtonTopScroll__arrowIcon {
     color: #000;
     transform: scale(1.05);
   }
+
   &:hover {
     opacity: 1;
   }
 
-  & i {
-    font-size: 18px;
+  &__arrowIcon {
+    font-size: 26px;
     color: #8c8c8c;
   }
 }

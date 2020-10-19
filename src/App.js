@@ -12,6 +12,7 @@ import News from "./containers/News";
 import Articles from "./containers/Articles";
 import Card from "./containers/Card/Card";
 import Cards from "./containers/Cards";
+import PromoPage from "./containers/PromoPage";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/company/" component={Company}/>
           <Route path="/news/" component={News}/>
           <Route path="/articles/" component={Articles}/>
+          <Route path="/promo/" component={PromoPage}/>
           <Route path="/Cards/" exact component={Cards}/>
           <Route path="/Cards/:id"
                  render={({match}) => <Card itemId={match.params.id}/>}/>

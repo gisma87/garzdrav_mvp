@@ -35,6 +35,13 @@
     outline: none;
     display: flex;
     align-items: center;
+
+    img {
+      border-style: none;
+      width: 26px;
+      height: 26px;
+      color: #737373;
+    }
   }
 
   &__iconSearch {

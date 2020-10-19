@@ -1,0 +1,84 @@
+.FooterDesktop {
+  background: #737373;
+  padding: 30px 0;
+  display: flex;
+  flex-direction: column;
+
+
+  &__bottomContainer_lineStyle {
+    border-top: 1px solid #cdffcc;
+    padding-top: 15px;
+  }
+
+  &__infoGrid {
+    width: 100%;
+    display: grid;
+    grid-auto-flow: row dense;
+    grid-template-columns: repeat(3, minmax(280px, 1fr));
+    grid-gap: 15px;
+    margin: 0 auto;
+
+    p {
+      font-size: 14px;
+      color: #F5F5F5;
+      margin: 0;
+    }
+  }
+
+  &__copyright {
+    text-align: right;
+  }
+
+  &__row {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0;
+    //border-top: 1px solid #fc8507;
+  }
+
+  &__logo {
+    max-height: 95px;
+
+    img {
+      height: 95px;
+      object-fit: contain;
+    }
+  }
+
+  &__wrapperTop, &__wrapperBottom {
+    border: none;
+  }
+
+
+  img {
+    width: 80%;
+  }
+
+  h6 {
+    color: #fff;
+    font-size: 20px;
+    font-family: bold, serif;
+    margin-bottom: 5px;
+  }
+
+  ul {
+    list-style: none;
+  }
+
+  ul li a {
+    font-size: 16px;
+    color: #fff;
+  }
+
+
+  @media (max-width: 970px) {
+    .row {
+      flex-wrap: wrap;
+    }
+    .logo {
+      flex: 1 1 100%;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+  }
+}

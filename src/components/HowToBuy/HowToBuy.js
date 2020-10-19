@@ -4,6 +4,8 @@ import imgPills from "../../img/pills.png"
 import imgStack from "../../img/Stack.png"
 import imgRoad from "../../img/road.png"
 import imgMan from "../../img/man.png"
+import SvgArrowRightSolid from "../../img/SVGcomponents/SvgArrowRightSolid";
+import arrowRightIcon from "../../img/arrow-right-solid.svg"
 
 class HowToBuy extends React.Component {
   render() {
@@ -21,7 +23,7 @@ class HowToBuy extends React.Component {
               </div>
             </div>
 
-            <i className="fas fa-arrow-right"/>
+            <img className={classes.arrowRight} src={arrowRightIcon} alt=""/>
 
             <div className={classes.item}>
               <div className={classes.icon}>
@@ -32,7 +34,7 @@ class HowToBuy extends React.Component {
               </div>
             </div>
 
-            <i className="fas fa-arrow-right"/>
+            <img className={classes.arrowRight} src={arrowRightIcon} alt=""/>
 
             <div className={classes.item}>
               <div className={classes.icon}>
@@ -43,7 +45,7 @@ class HowToBuy extends React.Component {
               </div>
             </div>
 
-            <i className="fas fa-arrow-right"/>
+            <img className={classes.arrowRight} src={arrowRightIcon} alt=""/>
 
             <div className={classes.item}>
               <div className={classes.icon}>

@@ -57,10 +57,12 @@
 
   &__cartText {
     margin-left: 10px;
+    color: #333;
   }
 
   &__logIn {
     color: #000;
+    cursor: pointer;
     border: 1px solid #d9d9d9;
     background-color: #fff;
     padding: 10px 15px;

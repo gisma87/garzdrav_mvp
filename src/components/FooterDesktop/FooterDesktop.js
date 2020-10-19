@@ -1,5 +1,5 @@
 import React from "react"
-import classes from "./FooterDesktop.module.css"
+import './FooterDesktop.scss'
 import logof from "../../img/logof.png";
 import {NavLink} from "react-router-dom";
 
@@ -7,10 +7,10 @@ class FooterDesktop extends React.Component {
 
   render() {
     return (
-      <footer>
-        <div className='wrapper'>
-          <div className={classes.row}>
-            <NavLink to="/" className={classes.logo}>
+      <footer className='FooterDesktop'>
+        <div className='FooterDesktop__row'>
+          <div className='wrapper FooterDesktop__wrapperTop'>
+            <NavLink to="/" className='FooterDesktop__logo'>
               <img src={logof} alt="logo"/>
             </NavLink>
             <div>
@@ -59,21 +59,21 @@ class FooterDesktop extends React.Component {
               </ul>
             </div>
           </div>
-          <div>
+        </div>
+        <div className='FooterDesktop__bottomContainer FooterDesktop__bottomContainer_lineStyle'>
+          <div className='wrapper FooterDesktop__wrapperBottom FooterDesktop__infoGrid'>
             <p>
-              ВАЖНО! Мы не продаем товары на сайте и не доставляем заказы на дом. Под «заказом» на сайте понимается
-              должным образом оформленный запрос Клиента на бронирование в аптечных
-              организациях группы компаний ООО аптечная сеть «Гармония здоровья», а также ее партнеров по указанному
-              на
-              сайте адресу перечня Товаров, выбранных на сайте. Товар вам продает
-              аптечная организация. Дистанционная продажа лекарственных средств (в том числе, с доставкой на дом)
-              запрещена действующим законодательством Российской Федерации.
+              Любая информация, размещенная на сайте, не является публичной офертой
             </p>
             <p>
               Лицензия на осуществление фармацевтической деятельности № Л------------ от -- -----
             </p>
+
+            <p className='FooterDesktop__copyright'>© 2020 Гарздрав.ру</p>
           </div>
         </div>
+
+
       </footer>
     )
   }

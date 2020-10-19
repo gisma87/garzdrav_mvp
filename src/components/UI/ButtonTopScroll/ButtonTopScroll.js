@@ -1,5 +1,6 @@
 import React from "react";
 import './ButtonTopScroll.scss'
+import SvgAngleUpSolid from "../../../img/SVGcomponents/SvgAngleUpSolid";
 
 const ButtonTopScroll = () => {
   return (
@@ -10,7 +11,7 @@ const ButtonTopScroll = () => {
         behavior: 'smooth'
       });
     }}>
-      <i className="fas fa-arrow-up"/>
+      <SvgAngleUpSolid className='ButtonTopScroll__arrowIcon' />
     </div>
   )
 }
