@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/garzdrav_mvp/static/css/main.7249c720.chunk.css",
-    "main.js": "/garzdrav_mvp/static/js/main.737d3703.chunk.js",
-    "main.js.map": "/garzdrav_mvp/static/js/main.737d3703.chunk.js.map",
+    "main.css": "/garzdrav_mvp/static/css/main.0dba72a2.chunk.css",
+    "main.js": "/garzdrav_mvp/static/js/main.c4e64b4d.chunk.js",
+    "main.js.map": "/garzdrav_mvp/static/js/main.c4e64b4d.chunk.js.map",
     "runtime-main.js": "/garzdrav_mvp/static/js/runtime-main.b8c2c304.js",
     "runtime-main.js.map": "/garzdrav_mvp/static/js/runtime-main.b8c2c304.js.map",
     "static/css/2.ef742aa5.chunk.css": "/garzdrav_mvp/static/css/2.ef742aa5.chunk.css",
-    "static/js/2.f5af4ef2.chunk.js": "/garzdrav_mvp/static/js/2.f5af4ef2.chunk.js",
-    "static/js/2.f5af4ef2.chunk.js.map": "/garzdrav_mvp/static/js/2.f5af4ef2.chunk.js.map",
+    "static/js/2.325d4de2.chunk.js": "/garzdrav_mvp/static/js/2.325d4de2.chunk.js",
+    "static/js/2.325d4de2.chunk.js.map": "/garzdrav_mvp/static/js/2.325d4de2.chunk.js.map",
     "index.html": "/garzdrav_mvp/index.html",
-    "precache-manifest.77969f49afd1d4621837ccaa74c2d90b.js": "/garzdrav_mvp/precache-manifest.77969f49afd1d4621837ccaa74c2d90b.js",
+    "precache-manifest.fa900d1c6bd733fa00a72b16fe9c3ae2.js": "/garzdrav_mvp/precache-manifest.fa900d1c6bd733fa00a72b16fe9c3ae2.js",
     "service-worker.js": "/garzdrav_mvp/service-worker.js",
     "static/css/2.ef742aa5.chunk.css.map": "/garzdrav_mvp/static/css/2.ef742aa5.chunk.css.map",
-    "static/css/main.7249c720.chunk.css.map": "/garzdrav_mvp/static/css/main.7249c720.chunk.css.map",
-    "static/js/2.f5af4ef2.chunk.js.LICENSE.txt": "/garzdrav_mvp/static/js/2.f5af4ef2.chunk.js.LICENSE.txt",
+    "static/css/main.0dba72a2.chunk.css.map": "/garzdrav_mvp/static/css/main.0dba72a2.chunk.css.map",
+    "static/js/2.325d4de2.chunk.js.LICENSE.txt": "/garzdrav_mvp/static/js/2.325d4de2.chunk.js.LICENSE.txt",
     "static/media/5-nok-600x600.jpg": "/garzdrav_mvp/static/media/5-nok-600x600.7c873928.jpg",
     "static/media/9-mesyatsev-folievaya-kislota-600x600.jpg": "/garzdrav_mvp/static/media/9-mesyatsev-folievaya-kislota-600x600.38b902f2.jpg",
     "static/media/App.css": "/garzdrav_mvp/static/media/PTSans-Regular.4ea26cd5.ttf",
@@ -21,6 +21,7 @@
     "static/media/Card.scss": "/garzdrav_mvp/static/media/bg-light-4827.ecfced9d.png",
     "static/media/calendar-alt-regular.svg": "/garzdrav_mvp/static/media/calendar-alt-regular.2929d1c5.svg",
     "static/media/HeaderFixed.scss": "/garzdrav_mvp/static/media/evalar.ace73688.png",
+    "static/media/heartIcon.svg": "/garzdrav_mvp/static/media/heartIcon.311b7fc9.svg",
     "static/media/map-pin.svg": "/garzdrav_mvp/static/media/map-pin.2e49efb3.svg",
     "static/media/nazivin-sensitiv5.jpg": "/garzdrav_mvp/static/media/nazivin-sensitiv5.478ee362.jpg",
     "static/media/nazivin1.jpg": "/garzdrav_mvp/static/media/nazivin1.8d374e4d.jpg",
@@ -28,6 +29,7 @@
     "static/media/nazivin3.jpg": "/garzdrav_mvp/static/media/nazivin3.1a4f7282.jpg",
     "static/media/nazivin4.jpg": "/garzdrav_mvp/static/media/nazivin4.b54b7f74.jpg",
     "static/media/news.jpg": "/garzdrav_mvp/static/media/news.51f3cb56.jpg",
+    "static/media/pills.svg": "/garzdrav_mvp/static/media/pills.dbbcac68.svg",
     "static/media/search-solid.svg": "/garzdrav_mvp/static/media/search-solid.c40d0a36.svg",
     "static/media/test1.jpg": "/garzdrav_mvp/static/media/test1.0c273411.jpg",
     "static/media/test2.jpg": "/garzdrav_mvp/static/media/test2.e0026dec.jpg",
@@ -37,8 +39,8 @@
   "entrypoints": [
     "static/js/runtime-main.b8c2c304.js",
     "static/css/2.ef742aa5.chunk.css",
-    "static/js/2.f5af4ef2.chunk.js",
-    "static/css/main.7249c720.chunk.css",
-    "static/js/main.737d3703.chunk.js"
+    "static/js/2.325d4de2.chunk.js",
+    "static/css/main.0dba72a2.chunk.css",
+    "static/js/main.c4e64b4d.chunk.js"
   ]
 }

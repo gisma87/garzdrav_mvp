@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "1349167be0a2d8178f884daa6db02b45",
+    "revision": "a6569cea714b32e35baba43bfe1b013b",
     "url": "/garzdrav_mvp/index.html"
   },
   {
-    "revision": "92b16091c6884f11e87d",
+    "revision": "1ffb901fbaf5eb69db35",
     "url": "/garzdrav_mvp/static/css/2.ef742aa5.chunk.css"
   },
   {
-    "revision": "92ba5853bac899ce3027",
-    "url": "/garzdrav_mvp/static/css/main.7249c720.chunk.css"
+    "revision": "9652bd8c4785b40d2e5d",
+    "url": "/garzdrav_mvp/static/css/main.0dba72a2.chunk.css"
   },
   {
-    "revision": "92b16091c6884f11e87d",
-    "url": "/garzdrav_mvp/static/js/2.f5af4ef2.chunk.js"
+    "revision": "1ffb901fbaf5eb69db35",
+    "url": "/garzdrav_mvp/static/js/2.325d4de2.chunk.js"
   },
   {
     "revision": "9b318b6fb13190fe82c0677e9264b3c7",
-    "url": "/garzdrav_mvp/static/js/2.f5af4ef2.chunk.js.LICENSE.txt"
+    "url": "/garzdrav_mvp/static/js/2.325d4de2.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "92ba5853bac899ce3027",
-    "url": "/garzdrav_mvp/static/js/main.737d3703.chunk.js"
+    "revision": "9652bd8c4785b40d2e5d",
+    "url": "/garzdrav_mvp/static/js/main.c4e64b4d.chunk.js"
   },
   {
     "revision": "ae931805772e757a2495",
@@ -84,6 +84,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/garzdrav_mvp/static/media/evalar.ace73688.png"
   },
   {
+    "revision": "311b7fc943f6469bbe77fe30e939cfc2",
+    "url": "/garzdrav_mvp/static/media/heartIcon.311b7fc9.svg"
+  },
+  {
     "revision": "2e49efb3bbf37189045ef2974789d4f4",
     "url": "/garzdrav_mvp/static/media/map-pin.2e49efb3.svg"
   },
@@ -110,6 +114,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "51f3cb568b07385251be7bd70354eaf2",
     "url": "/garzdrav_mvp/static/media/news.51f3cb56.jpg"
+  },
+  {
+    "revision": "dbbcac68180cea6e76c90090ec4a4331",
+    "url": "/garzdrav_mvp/static/media/pills.dbbcac68.svg"
   },
   {
     "revision": "c40d0a362e9f1b9e29b6c047964e66b6",
