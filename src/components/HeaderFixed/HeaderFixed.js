@@ -12,6 +12,11 @@ const HeaderFixed = () => {
 
 
   useEffect(() => {
+    // УДАЛИТЬ - ТЕСТОВОЕ
+    const x = localStorage.getItem('count') || 0 ? localStorage.getItem('count') : 0
+    setCount(x)
+
+
     const handleScroll = () => {
       setLastScrollY(window.scrollY)
       console.log(window.scrollY)
@@ -33,7 +38,7 @@ const HeaderFixed = () => {
             {count !== 0 ? <span className='HeaderFixed__cartCount'>{count}</span> :
               <span className='HeaderFixed__cartText'>Корзина</span>}
           </NavLink>
-          <button className='HeaderFixed__logIn'>Войти</button>
+          <button className='HeaderFixed__logIn' onClick={() => localStorage.clear()}>Войти</button>
         </div>
       </div>
       {lastScrollY > 400 && <ButtonTopScroll/>}

@@ -62,13 +62,12 @@ class FooterDesktop extends React.Component {
         </div>
         <div className='FooterDesktop__bottomContainer FooterDesktop__bottomContainer_lineStyle'>
           <div className='wrapper FooterDesktop__wrapperBottom FooterDesktop__infoGrid'>
-            <p>
+            <p className='FooterDesktop__infoItem' >
               Любая информация, размещенная на сайте, не является публичной офертой
             </p>
-            <p>
+            <p className='FooterDesktop__infoItem'>
               Лицензия на осуществление фармацевтической деятельности № Л------------ от -- -----
             </p>
-
             <p className='FooterDesktop__copyright'>© 2020 Гарздрав.ру</p>
           </div>
         </div>

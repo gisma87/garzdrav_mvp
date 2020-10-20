@@ -17,18 +17,12 @@
   background: #fff;
 
   &:hover {
-    //outline-color: #9ea7ca;
-    //box-shadow: 0 0 1px 2px rgba(0, 0, 0, 0.25);
     outline: none;
     box-shadow: 0 4px 20px 0 rgba(0, 0, 0, .16);
     transform: translate(0, -8px);
     transition: all .2s;
-    //z-index: 2;
-  }
 
-  //&:hover .CardItem__textContainer {
-  //  background-color: rgba(250, 238, 221, .2);
-  //}
+  }
 
   &:hover .CardItem__cart {
     visibility: visible;
@@ -161,6 +155,10 @@
       transform: translateY(2px);
       transition: all 0.1s ease 0s;
       box-shadow: 0 2px 0 0 gray;
+    }
+
+    &_visible {
+      visibility: visible;
     }
 
     span {

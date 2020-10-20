@@ -1,11 +1,24 @@
-import React from "react";
+import React, {useState} from "react";
 import './CardItem.scss'
 import SvgShoppingCartSolid from "../../img/SVGcomponents/SvgShoppingCartSolid";
-// import img from '../../img/tov.jpg'
-
-// const nameItem = 'Librederm Hyaluronic крем для тела увлажняющий 200 мл легкий'
+import SvgCheck from "../UI/icons/SvgCheck";
 
 const CardItem = ({id, title, maker, img, minPrice, classStyle = '', onItemSelected}) => {
+
+  const [active, setActive] = useState(false);
+
+  const setCount = () => {
+    if (localStorage.getItem('count')>=0) {
+      const x = localStorage.getItem('count')
+      !active ? localStorage.setItem('count', +x + 1) : (x > 0 ? localStorage.setItem('count', +x - 1) : localStorage.setItem('count', 0))
+      console.log(x)
+    } else {
+      localStorage.setItem('count', 0);
+    }
+    setActive(state => !state)
+
+  }
+
   return (
     <div className={'CardItem ' + classStyle}
          onClick={(event) => onItemSelected(id, event)}>
@@ -18,13 +31,10 @@ const CardItem = ({id, title, maker, img, minPrice, classStyle = '', onItemSelec
           <h4 className='CardItem__maker'>{maker}</h4>
         </div>
         <div className='CardItem__price'>
-          {/*<p className='CardItem__priceText'>Цена</p>*/}
           <p>от <span className='CardItem__priceNumber'>{minPrice}</span> р.</p>
-          <button className='CardItem__cart buttonActive' onClick={() => {
-            console.log('на меня нажали')
-          }}>
-            <SvgShoppingCartSolid/>
-            {/*<span>в корзину</span>*/}
+          <button className={'CardItem__cart buttonActive ' + (active ? 'CardItem__cart_visible' : '')}
+                  onClick={setCount}>
+            {active ? <SvgCheck style={{color: 'green'}}/> : <SvgShoppingCartSolid/>}
           </button>
         </div>
       </div>

@@ -3,6 +3,23 @@
   padding: 30px 0;
   display: flex;
   flex-direction: column;
+  font-family: PTSans-Regular, Helvetica, Arial, sans-serif;
+
+
+  li {
+    cursor: pointer;
+
+    &:hover {
+      color: #cdffcc;
+      transform: scale(1.015);
+      transition: all .2s;
+
+      a {
+        color: #cdffcc;
+        text-shadow: 1px 1px #000;
+      }
+    }
+  }
 
 
   &__bottomContainer_lineStyle {
@@ -12,21 +29,25 @@
 
   &__infoGrid {
     width: 100%;
-    display: grid;
-    grid-auto-flow: row dense;
-    grid-template-columns: repeat(3, minmax(280px, 1fr));
-    grid-gap: 15px;
+    display: flex;
+    flex-wrap: wrap;
     margin: 0 auto;
 
     p {
       font-size: 14px;
       color: #F5F5F5;
-      margin: 0;
+      margin: 10px;
     }
+  }
+
+  &__infoItem {
+    flex: 0 1 33%;
+    min-width: 300px;
   }
 
   &__copyright {
     text-align: right;
+    flex: 1 0 20%
   }
 
   &__row {
@@ -34,10 +55,19 @@
     justify-content: space-between;
     padding: 20px 0;
     //border-top: 1px solid #fc8507;
+    @media (max-width: 970px) {
+      flex-wrap: wrap;
+    }
   }
 
   &__logo {
     max-height: 95px;
+
+    @media (max-width: 970px) {
+      flex: 1 1 100%;
+      margin-bottom: 30px;
+      text-align: center;
+    }
 
     img {
       height: 95px;
@@ -45,7 +75,11 @@
     }
   }
 
-  &__wrapperTop, &__wrapperBottom {
+  &__wrapperTop {
+    padding: 0 30px;
+  }
+
+  &__wrapperBottom {
     border: none;
   }
 
@@ -55,9 +89,9 @@
   }
 
   h6 {
+    font-family: PTSans-Bold, Helvetica, Arial, sans-serif;
     color: #fff;
     font-size: 20px;
-    font-family: bold, serif;
     margin-bottom: 5px;
   }
 
@@ -68,17 +102,5 @@
   ul li a {
     font-size: 16px;
     color: #fff;
-  }
-
-
-  @media (max-width: 970px) {
-    .row {
-      flex-wrap: wrap;
-    }
-    .logo {
-      flex: 1 1 100%;
-      margin-bottom: 30px;
-      text-align: center;
-    }
   }
 }

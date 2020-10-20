@@ -5,12 +5,16 @@ import LayoutDesktop from "../../hoc/LayoutDesktop";
 import CardItem from "../../components/CardItem";
 import dataCatds from "../../testData/dataCards"
 import SidebarCategories from "../../components/SidebarCategories";
+import { connect } from 'react-redux'
 
-const Cards = ({history}) => {
+
+const Cards = ({history, pills}) => {
 
   const onItemSelected = (itemId, event) => {
     if (!event.target.closest('button')) history.push(`${itemId}`);
   }
+
+  console.log(pills)
 
   return (
     <LayoutDesktop>
@@ -39,4 +43,10 @@ const Cards = ({history}) => {
   )
 }
 
-export default withRouter(Cards)
+const mapStateToProps = (state) => {
+  return {
+    pills: state.pills
+  }
+}
+
+export default connect(mapStateToProps)(withRouter(Cards))

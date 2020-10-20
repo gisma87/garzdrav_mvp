@@ -1,5 +1,6 @@
 import React from 'react';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
+import {Provider} from 'react-redux'
 import './App.css';
 import 'normalize.css';
 import IndexPage from "./containers/IndexPage/IndexPage";
@@ -13,27 +14,33 @@ import Articles from "./containers/Articles";
 import Card from "./containers/Card/Card";
 import Cards from "./containers/Cards";
 import PromoPage from "./containers/PromoPage";
+import CardPage from "./containers/CardPage";
+import store from "./store";
 
 function App() {
   return (
     <div className="App">
-      <BrowserRouter basename="/">
-        <Switch>
-          <Route exact path="/" component={IndexPage}/>
-          <Route path="/address/" component={Cities}/>
-          <Route path="/howOrder/" component={HowOrder}/>
-          <Route path="/cities/" component={Cities}/>
-          <Route path="/cart/" component={Cart}/>
-          <Route path="/company/" component={Company}/>
-          <Route path="/news/" component={News}/>
-          <Route path="/articles/" component={Articles}/>
-          <Route path="/promo/" component={PromoPage}/>
-          <Route path="/Cards/" exact component={Cards}/>
-          <Route path="/Cards/:id"
-                 render={({match}) => <Card itemId={match.params.id}/>}/>
-          <Route component={IndexPage}/>
-        </Switch>
-      </BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter basename="/">
+          <Switch>
+            <Route exact path="/" component={IndexPage}/>
+            <Route path="/address/" component={Cities}/>
+            <Route path="/howOrder/" component={HowOrder}/>
+            <Route path="/cities/" component={Cities}/>
+            <Route path="/cart/" component={Cart}/>
+            <Route path="/company/" component={Company}/>
+            <Route path="/news/" component={News}/>
+            <Route path="/articles/" component={Articles}/>
+            <Route path="/promo/" component={PromoPage}/>
+            <Route path="/Cards/" exact component={Cards}/>
+            {/*<Route path="/Cards/:id"*/}
+            {/*       render={({match}) => <Card itemId={match.params.id}/>}/>*/}
+            <Route path="/Cards/:id"
+                   render={({match}) => <CardPage itemId={match.params.id}/>}/>
+            <Route component={IndexPage}/>
+          </Switch>
+        </BrowserRouter>
+      </Provider>
     </div>
   );
 }
