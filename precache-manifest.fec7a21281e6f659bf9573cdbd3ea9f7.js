@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "a7fb771a950ac26ca204ebecc9fc3c06",
+    "revision": "8aaaa8c0582fc82b19ddd7f5849b9f90",
     "url": "/garzdrav_mvp/index.html"
   },
   {
-    "revision": "75784657d463c07f19cf",
+    "revision": "132309b73543a7cc32d0",
     "url": "/garzdrav_mvp/static/css/2.ef742aa5.chunk.css"
   },
   {
-    "revision": "0475534571ec984a1e3e",
-    "url": "/garzdrav_mvp/static/css/main.bca0ce51.chunk.css"
+    "revision": "5da544cc8c36d6c2987d",
+    "url": "/garzdrav_mvp/static/css/main.4d81c3e3.chunk.css"
   },
   {
-    "revision": "75784657d463c07f19cf",
-    "url": "/garzdrav_mvp/static/js/2.b628b789.chunk.js"
+    "revision": "132309b73543a7cc32d0",
+    "url": "/garzdrav_mvp/static/js/2.b0b8e152.chunk.js"
   },
   {
     "revision": "9b318b6fb13190fe82c0677e9264b3c7",
-    "url": "/garzdrav_mvp/static/js/2.b628b789.chunk.js.LICENSE.txt"
+    "url": "/garzdrav_mvp/static/js/2.b0b8e152.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "0475534571ec984a1e3e",
-    "url": "/garzdrav_mvp/static/js/main.70346d9a.chunk.js"
+    "revision": "5da544cc8c36d6c2987d",
+    "url": "/garzdrav_mvp/static/js/main.818891ed.chunk.js"
   },
   {
     "revision": "ae931805772e757a2495",
@@ -72,10 +72,6 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/garzdrav_mvp/static/media/arrow-right-solid.cabbf486.svg"
   },
   {
-    "revision": "ecfced9d96dad8e5c31c391d01d9dfd7",
-    "url": "/garzdrav_mvp/static/media/bg-light-4827.ecfced9d.png"
-  },
-  {
     "revision": "a1e769e212c0db1efe242aab30f89300",
     "url": "/garzdrav_mvp/static/media/breakingPrices.a1e769e2.jpg"
   },
@@ -86,10 +82,6 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "ace73688d2971d5abdd54e2d98067781",
     "url": "/garzdrav_mvp/static/media/evalar.ace73688.png"
-  },
-  {
-    "revision": "311b7fc943f6469bbe77fe30e939cfc2",
-    "url": "/garzdrav_mvp/static/media/heartIcon.311b7fc9.svg"
   },
   {
     "revision": "0b5e8b6cb607cfb68fb1a5d4c8877b4e",
@@ -126,6 +118,14 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "dbbcac68180cea6e76c90090ec4a4331",
     "url": "/garzdrav_mvp/static/media/pills.dbbcac68.svg"
+  },
+  {
+    "revision": "34a78b85f6f695025b9a52efd66d567b",
+    "url": "/garzdrav_mvp/static/media/promotion1.34a78b85.jpg"
+  },
+  {
+    "revision": "4bc75975898738b62137eae22863ac10",
+    "url": "/garzdrav_mvp/static/media/promotion2.4bc75975.png"
   },
   {
     "revision": "c40d0a362e9f1b9e29b6c047964e66b6",
