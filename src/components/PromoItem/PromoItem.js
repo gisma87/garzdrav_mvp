@@ -4,13 +4,15 @@ import calendarIcon from "../../img/calendar-alt-regular.svg";
 import BlockWrapper from "../BlockWrapper";
 
 const PromoItem = (props) => {
-  const {title, description, image, date} = props.item
-  console.log(props.item)
+  const {id, title, description, image, date} = props.item
+  const onItemSelected = props.onItemSelected
   return (
-    <BlockWrapper style='PromoItem__item'>
+    <BlockWrapper style='PromoItem' onClick={(event) => {
+      onItemSelected(id, event)
+    }}>
       <img src={image} alt={title} className='PromoItem__image'/>
       <div className="PromoItem__content">
-        <h3 className="PromoItem__itle">{title}</h3>
+        <h3 className="PromoItem__title">{title}</h3>
 
         <p className="PromoItem__description">
           {description}

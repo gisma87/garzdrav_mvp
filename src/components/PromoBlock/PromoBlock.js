@@ -34,7 +34,7 @@ const PromoBlock = () => {
       </div>
 
       <div className='wrapper'>
-        <TitleSection title='Акции' link='/promo/'/>
+        <TitleSection title='Акции' link='/promotions/'/>
         <Swiper
           style={{padding: '10px 0'}}
           spaceBetween={5}

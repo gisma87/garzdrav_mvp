@@ -1,0 +1,44 @@
+.Promotion {
+  font-family: PTSans-Regular, Helvetica, Arial, sans-serif;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  :first-child {
+    margin: 0;
+  }
+
+  &__image {
+    object-fit: contain;
+    max-width: 100%;
+    margin: 20px 0;
+  }
+
+  &__moreInfo {
+    margin-top: 30px;
+
+    h3 {
+      font-size: 24px;
+      line-height: 28px;
+    }
+
+    h4 {
+      color: #777;
+      font-size: 20px;
+      line-height: 28px;
+      margin-bottom: 6px;
+    }
+
+    p {
+      color: #3e3e3e;
+      font-size: 17px;
+      line-height: 20px;
+      margin: 15px 0;
+    }
+  }
+
+  &__description {
+    margin: 20px 0;
+  }
+}

@@ -1,0 +1,18 @@
+.Articles {
+  font-family: PTSans-Regular, Helvetica, Arial, sans-serif;
+  padding: 0 20px 20px;
+
+  &__title {
+    margin: 0 0 30px;
+    font-weight: 700;
+  }
+
+  &__container {
+    width: 100%;
+    display: grid;
+    grid-auto-flow: row dense;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    grid-gap: 20px 10px;
+    margin: 0 auto;
+  }
+}
