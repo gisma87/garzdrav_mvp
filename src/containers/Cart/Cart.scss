@@ -3,115 +3,25 @@
   flex-direction: column;
   font-family: PTSans-Regular, Helvetica, Arial, sans-serif;
 
-  &__block {
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.16);
-    border: solid 1px transparent;
-    background-color: #fff;
-  }
-
   &__mainContainer {
     display: flex;
     justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  &__itemContainer {
+    display: flex;
+    flex-direction: column;
   }
 
   &__item {
-    display: flex;
-    flex-direction: column;
-    max-width: 860px;
-    margin-right: 20px;
-  }
-
-  &__descriptionContainerTop {
-    display: flex;
+    margin: 0 20px 20px 0;
   }
 
   &__pricePanel {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-  }
-
-  &__imageContainer {
-    //flex: 1 0 30%;
-    margin: 0 20px 0 0;
-    max-width: 120px;
-    width: 100%;
-  }
-
-  &__image {
-    color: #999;
-    min-width: 100px;
-    max-width: 120px;
-    object-fit: contain;
-  }
-
-  &__caption {
-    margin-top: auto;
-    color: #999;
-    font-size: 13px;
-  }
-
-  &__descriptionContainer {
-    margin-right: 30px;
-    display: flex;
-    flex-direction: column;
-
-    h3 {
-      font-weight: normal;
-      font-size: 18px;
-      line-height: 1.2em;
-      overflow: hidden;
-      margin-bottom: 8px;
-    }
-  }
-
-  &__maker {
-    margin: 0;
-    color: #777;
-  }
-
-  &__buttonToDescription {
-    display: flex;
-    margin: auto 0 0;
-
-    button {
-      white-space: nowrap;
-      cursor: pointer;
-      background: #fff;
-      border: none;
-      outline: none;
-
-      padding: 0;
-      margin: 0 20px 0 0;
-      box-shadow: none;
-      color: gray;
-      font-size: 14px;
-      line-height: 1.42857;
-      border-radius: 4px;
-
-      &:hover:not([disabled]) {
-        text-decoration: none;
-        color: #e66800;
-        cursor: pointer;
-      }
-    }
-  }
-
-  &__itemPrice {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-  }
-
-  &__price {
-    font-weight: bold;
-    font-size: 16px;
-    line-height: 1.4;
-    color: #333;
-    white-space: nowrap;
-    margin-bottom: 30px;
   }
 
   &__retail {
@@ -162,74 +72,6 @@
     font-weight: bold;
     font-size: 20px;
     padding: 20px 0;
-  }
-
-  &__countButtons {
-    display: flex;
-    font-size: 16px;
-    line-height: 1.42857;
-    color: #333;
-    width: 100%;
-  }
-
-  &__countButton {
-    box-shadow: none;
-    background: #fff;
-    color: #ababab;
-    font-size: 22px;
-    font-weight: bold;
-    overflow: hidden;
-    padding: 0;
-    border: 1px solid #ddd;
-    display: inline-block;
-    height: 38px;
-    text-align: center;
-    vertical-align: top;
-    width: calc(100% / 3);
-    line-height: 1.5;
-    outline: none;
-
-    &:disabled {
-      color: #ddd;
-    }
-
-    &:hover:not([disabled]) {
-      border-color: #aaa;
-      color: #333;
-    }
-
-    &:active:not([disabled]) {
-      color: #fff;
-      background: #e66800;
-    }
-  }
-
-  &__countButtonMinus {
-    border-radius: 8px 0 0 8px;
-    border-right: none;
-    color: #ddd;
-  }
-
-  &__countButtonPlus {
-    border-radius: 0 8px 8px 0;
-    border-left: none;
-    color: #ddd;
-  }
-
-  &__countInput {
-    border: 1px solid #ddd;
-    display: inline-block;
-    height: 38px;
-    text-align: center;
-    vertical-align: top;
-    width: calc(100% / 3);
-    border-left: none;
-    border-right: none;
-    font-size: 14px;
-    line-height: 33px;
-    color: #666;
-    -webkit-appearance: none;
-    border-radius: 0;
   }
 
   &__choiceRetail {

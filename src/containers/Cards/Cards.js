@@ -1,20 +1,28 @@
-import React from "react"
+import React, {useEffect} from "react"
 import {withRouter} from 'react-router-dom'
 import './Cards.scss'
 import LayoutDesktop from "../../hoc/LayoutDesktop";
 import CardItem from "../../components/CardItem";
 import dataCatds from "../../testData/dataCards"
 import SidebarCategories from "../../components/SidebarCategories";
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
+import withStoreService from "../../hoc/withStoreService/withStoreService";
+import {pillsLoaded} from "../../actions";
+import {compose} from "../../utils";
 
 
-const Cards = ({history, pills}) => {
+const Cards = ({history, pills, storeService, pillsLoaded}) => {
 
   const onItemSelected = (itemId, event) => {
     if (!event.target.closest('button')) history.push(`${itemId}`);
   }
 
-  console.log(pills)
+  useEffect(() => {
+    const data = storeService.getBooks();
+    pillsLoaded(data)
+  }, [])
+
+  console.log('pills: ', pills)
 
   return (
     <LayoutDesktop>
@@ -22,7 +30,7 @@ const Cards = ({history, pills}) => {
         <h1 className='Cards__title'>Результаты поиска</h1>
         <div className='Cards__mainContainer'>
 
-          <SidebarCategories styleName='Cards__SidebarCategories' />
+          <SidebarCategories styleName='Cards__SidebarCategories'/>
 
           <div className='Cards__cardList'>
             {
@@ -49,4 +57,13 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(withRouter(Cards))
+const mapDispatchToProps = {pillsLoaded}
+
+export default compose(
+  withStoreService(),
+  connect(mapStateToProps, mapDispatchToProps)
+)(withRouter(Cards))
+
+// withStoreService()(
+//   connect(mapStateToProps, mapDispatchToProps)(withRouter(Cards))
+// )

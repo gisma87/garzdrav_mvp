@@ -1,0 +1,17 @@
+.PromoPage {
+
+  padding: 0 20px 20px;
+
+  &__title {
+    margin: 0 0 30px;
+  }
+
+  &__container {
+    width: 100%;
+    display: grid;
+    grid-auto-flow: row dense;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    grid-gap: 10px;
+    margin: 0 auto;
+  }
+}

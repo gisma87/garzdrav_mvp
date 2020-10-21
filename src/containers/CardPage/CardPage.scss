@@ -1,14 +1,6 @@
 .CardPage {
   font-family: PTSans-Regular, Helvetica, Arial, sans-serif;
 
-  &__main {
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.16);
-    border: solid 1px transparent;
-    background-color: #fff;
-  }
-
   a {
     color: blue;
     cursor: pointer;
@@ -226,11 +218,6 @@
 
   &__moreInfo {
     margin-top: 30px;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.16);
-    border: solid 1px transparent;
-    background-color: #fff;
     font-family: PTSans-Regular, Helvetica, Arial, sans-serif;
 
     h3 {

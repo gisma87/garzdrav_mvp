@@ -1,5 +1,5 @@
 const initialState = {
-  pills: ['asdf', ';ljk']
+  pills: []
 }
 
 const reducer = (state = initialState, action) => {

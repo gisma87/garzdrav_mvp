@@ -7,10 +7,8 @@ import calendarIcon from '../../img/calendar-alt-regular.svg'
 const ArticleCard = ({image, title, description}) => {
   return (
     <div className='ArticleCard'>
-
       <img src={image}
            className="ArticleCard__image" alt='фото для статьи'/>
-
       <div className="ArticleCard__content">
         <h3 className="ArticleCard__title">{title}</h3>
 
@@ -22,8 +20,6 @@ const ArticleCard = ({image, title, description}) => {
         <img src={calendarIcon} alt="calendar icon"/>
         <span>8 октября 2020 г.</span>
       </div>
-
-
     </div>
   )
 }

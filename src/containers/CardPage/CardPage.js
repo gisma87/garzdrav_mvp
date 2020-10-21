@@ -8,6 +8,7 @@ import SvgHeartIcon from "../../components/UI/icons/SvgHeartIcon";
 import SvgHeartSolid from "../../components/UI/icons/SvgHeartActive";
 import pillsIcon from "../../img/pills.svg"
 import {Link, animateScroll} from 'react-scroll'
+import BlockWrapper from "../../components/BlockWrapper";
 
 const CardPage = ({itemId}) => {
   const [active, setActive] = useState(false);
@@ -16,7 +17,7 @@ const CardPage = ({itemId}) => {
   return (
     <LayoutDesktop>
       <section className='CardPage wrapper'>
-        <div className='CardPage__main'>
+        <BlockWrapper>
           <div className='CardPage__titleContainer'>
             <h1 className='CardPage__title'>{title}
               <p className='CardPage__like' onClick={() => setLike(!like)}
@@ -84,9 +85,9 @@ const CardPage = ({itemId}) => {
 
             </div>
           </div>
-        </div>
+        </BlockWrapper>
 
-        <div className='CardPage__moreInfo'>
+        <BlockWrapper style='CardPage__moreInfo'>
           <div className='CardPage__instruction'>
             <h3 id="anchor">Инструкция</h3>
             <div className='CardPage__instructionBlock'>
@@ -177,7 +178,7 @@ const CardPage = ({itemId}) => {
                 медицинского наблюдения.</p>
             </div>
           </div>
-        </div>
+        </BlockWrapper>
       </section>
     </LayoutDesktop>
   )

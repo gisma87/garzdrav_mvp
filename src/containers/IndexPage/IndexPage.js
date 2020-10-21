@@ -9,8 +9,8 @@ function IndexPage() {
   return (
     <Fragment>
       <Media queries={{
-        mobile: "(max-width: 770px)",
-        desktop: "(min-width: 771px)"
+        mobile: "(max-width: 766px)",
+        desktop: "(min-width: 768px)"
       }}>
         {matches => (
           <Fragment>

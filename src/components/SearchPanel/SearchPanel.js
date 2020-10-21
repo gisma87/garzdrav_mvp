@@ -30,7 +30,7 @@ class SearchPanel extends React.Component {
         <input
           id="searchPanel"
           type="text"
-          placeholder="Поиск по названию, действующему веществу, производителю"
+          placeholder={window.innerWidth > 1000 ? "Поиск по названию, действующему веществу, производителю" : "Поиск по названию"}
           onChange={this.handleInputChange}
           value={this.state.value}
         />
