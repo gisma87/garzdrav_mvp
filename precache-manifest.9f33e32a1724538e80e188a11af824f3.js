@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "a6569cea714b32e35baba43bfe1b013b",
+    "revision": "a7fb771a950ac26ca204ebecc9fc3c06",
     "url": "/garzdrav_mvp/index.html"
   },
   {
-    "revision": "1ffb901fbaf5eb69db35",
+    "revision": "75784657d463c07f19cf",
     "url": "/garzdrav_mvp/static/css/2.ef742aa5.chunk.css"
   },
   {
-    "revision": "9652bd8c4785b40d2e5d",
-    "url": "/garzdrav_mvp/static/css/main.0dba72a2.chunk.css"
+    "revision": "0475534571ec984a1e3e",
+    "url": "/garzdrav_mvp/static/css/main.bca0ce51.chunk.css"
   },
   {
-    "revision": "1ffb901fbaf5eb69db35",
-    "url": "/garzdrav_mvp/static/js/2.325d4de2.chunk.js"
+    "revision": "75784657d463c07f19cf",
+    "url": "/garzdrav_mvp/static/js/2.b628b789.chunk.js"
   },
   {
     "revision": "9b318b6fb13190fe82c0677e9264b3c7",
-    "url": "/garzdrav_mvp/static/js/2.325d4de2.chunk.js.LICENSE.txt"
+    "url": "/garzdrav_mvp/static/js/2.b628b789.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "9652bd8c4785b40d2e5d",
-    "url": "/garzdrav_mvp/static/js/main.c4e64b4d.chunk.js"
+    "revision": "0475534571ec984a1e3e",
+    "url": "/garzdrav_mvp/static/js/main.70346d9a.chunk.js"
   },
   {
     "revision": "ae931805772e757a2495",
@@ -76,6 +76,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/garzdrav_mvp/static/media/bg-light-4827.ecfced9d.png"
   },
   {
+    "revision": "a1e769e212c0db1efe242aab30f89300",
+    "url": "/garzdrav_mvp/static/media/breakingPrices.a1e769e2.jpg"
+  },
+  {
     "revision": "2929d1c591b819580dd022edacf169d3",
     "url": "/garzdrav_mvp/static/media/calendar-alt-regular.2929d1c5.svg"
   },
@@ -86,6 +90,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "311b7fc943f6469bbe77fe30e939cfc2",
     "url": "/garzdrav_mvp/static/media/heartIcon.311b7fc9.svg"
+  },
+  {
+    "revision": "0b5e8b6cb607cfb68fb1a5d4c8877b4e",
+    "url": "/garzdrav_mvp/static/media/imgPromo3.0b5e8b6c.jpg"
   },
   {
     "revision": "2e49efb3bbf37189045ef2974789d4f4",
@@ -138,5 +146,9 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "320f84647eb93085205b8ef33a76f333",
     "url": "/garzdrav_mvp/static/media/test4.320f8464.jpg"
+  },
+  {
+    "revision": "267966e3fb4588fdfb7f5db15ebbb4f2",
+    "url": "/garzdrav_mvp/static/media/timthumb.267966e3.jpg"
   }
 ]);
