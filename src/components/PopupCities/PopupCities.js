@@ -17,7 +17,6 @@ const PopupCities = props => {
 
     getCities()
       .then((data) => {
-        console.log(data)
         setCities(data)
       })
   }, [])
@@ -33,7 +32,6 @@ const PopupCities = props => {
 
   const renderItems = (arr) => {
     return cities.map((item) => {
-      console.log(item)
       return <div key={item.guid}>
         <li onClick={() => props.onSelectCity(item)}>{item.title}</li>
       </div>

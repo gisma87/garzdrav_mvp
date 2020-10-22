@@ -7,22 +7,32 @@ import dataCatds from "../../testData/dataCards"
 import SidebarCategories from "../../components/SidebarCategories";
 import {connect} from 'react-redux'
 import withStoreService from "../../hoc/withStoreService/withStoreService";
-import {pillsLoaded} from "../../actions";
+import {pillsLoaded, pillsRequested, pillsError} from "../../actions";
 import {compose} from "../../utils";
 
 
-const Cards = ({history, pills, storeService, pillsLoaded}) => {
+const Cards = props => {
+
+  const {history, pills, storeService, pillsLoaded, pillsRequested, pillsError, loading, error} = props;
 
   const onItemSelected = (itemId, event) => {
     if (!event.target.closest('button')) history.push(`${itemId}`);
   }
 
   useEffect(() => {
-    const data = storeService.getBooks();
-    pillsLoaded(data)
+    pillsRequested()
+    const data = storeService.getBooks()
+      .then((data) => {
+        pillsLoaded(data)
+      })
+      .catch((error) => pillsError(error))
   }, [])
 
   console.log('pills: ', pills)
+
+  if (loading) return <div>LOADING...</div>
+
+  if(error) return <div>...ERROR...</div>
 
   return (
     <LayoutDesktop>
@@ -51,13 +61,11 @@ const Cards = ({history, pills, storeService, pillsLoaded}) => {
   )
 }
 
-const mapStateToProps = (state) => {
-  return {
-    pills: state.pills
-  }
+const mapStateToProps = ({pills, loading, error}) => {
+  return {pills, loading, error}
 }
 
-const mapDispatchToProps = {pillsLoaded}
+const mapDispatchToProps = {pillsLoaded, pillsRequested, pillsError}
 
 export default compose(
   withStoreService(),
