@@ -20,25 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="78173063-124b-4432-8c91-25d7c3ae2a6a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/UI/CheckboxOrange/CheckboxOrange.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/UI/CheckboxOrange/CheckboxOrange.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/UI/CheckboxOrange/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/img/clock-regular.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/img/location.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/img/phone-solid.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/img/vector.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CartItem/CartItem.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CartItem/CartItem.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/HeaderTop/HeaderTop.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/HeaderTop/HeaderTop.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/HeaderTop/HeaderTop.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/HeaderTop/HeaderTop.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/PopupCities/PopupCities.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PopupCities/PopupCities.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/PopupCities/PopupCities.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PopupCities/PopupCities.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/RetailCheckPanel/RetailCheckPanel.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/RetailCheckPanel/RetailCheckPanel.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/RetailCheckPanel/RetailCheckPanel.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/RetailCheckPanel/RetailCheckPanel.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/Cards/Cards.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Cards/Cards.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/Cards/Cards.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Cards/Cards.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/Cart/Cart.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Cart/Cart.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/service/apiService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/apiService.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

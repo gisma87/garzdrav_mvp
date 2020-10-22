@@ -27,8 +27,8 @@
     position: relative;
     box-sizing: border-box;
     padding: 34px 36px;
-    overflow-x: hidden;
-    overflow-y: auto;
+    //overflow-x: hidden;
+    //overflow-y: auto;
 
     @media screen and (max-width: 540px) {
       width: calc(100% - 60px);
