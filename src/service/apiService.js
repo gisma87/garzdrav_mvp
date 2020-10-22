@@ -2,6 +2,7 @@ class ApiService {
 
   // _apiBase = 'https://jsonplaceholder.typicode.com/photos';
   _apiBase = 'http://172.16.17.7:5000';
+
   // _apiBase = 'http://localhost:3000'
 
   async getResource(url = '') {
@@ -13,6 +14,22 @@ class ApiService {
     }
     return await res.json();
   }
+
+  async getCities() {
+    const res = await fetch('http://172.16.17.7:5000/Cities',
+      {
+        method: 'GET',
+        headers: {
+          accept: 'application/json'
+        }
+      }
+    )
+    if (!res.ok) {
+      throw new Error(`Не могу выполнить fetch, статус ошибки: ${res.status}`)
+    }
+    return await res.json();
+  }
+
 
   async getRetails() {
     return await this.getResource(`/Retails`);

@@ -1,0 +1,33 @@
+.CheckboxOrange {
+  display: block;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  margin-right: 24px;
+
+  &__input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    font-family: inherit;
+
+    &:checked + .CheckboxOrange__span {
+      background-color: #E26C2D;
+      background-image: url('../../../img/vector.png');
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+  }
+
+  &__span {
+    display: inline-block;
+    vertical-align: middle;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    margin-right: 8px;
+    border: 1px solid #E26C2D;
+  }
+}

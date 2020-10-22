@@ -15,16 +15,20 @@
   visibility: hidden;
   opacity: 0;
   transition: all 0.8s ease 0s;
-  z-index: 3;
+  z-index: 4;
 
   &__content {
-    width: 430px;
+    min-width: 430px;
+    max-width: 90%;
     min-height: 330px;
+    max-height: 90%;
     background-color: #fff;
     border-radius: 10px;
     position: relative;
     box-sizing: border-box;
     padding: 34px 36px;
+    overflow-x: hidden;
+    overflow-y: auto;
 
     @media screen and (max-width: 540px) {
       width: calc(100% - 60px);
@@ -56,6 +60,31 @@
 
   &__form {
     margin-top: 20px;
+    display: grid;
+    grid-template-rows: repeat(10, 1fr);
+    grid-template-columns: repeat(auto-fill, 1fr);
+    grid-gap: 0 30px;
+    grid-auto-flow: column;
+
+
+    li {
+      cursor: pointer;
+      padding: 5px;
+      font-size: 18px;
+      list-style-type: none;
+
+      &:hover {
+        background: #eaeaea;
+        transform: scale(1.02);
+        transition: all .2s;
+      }
+
+      &:active, &:target {
+        background: #E26C2D;
+        color: white;
+        font-weight: bold;
+      }
+    }
   }
 
   &__input {

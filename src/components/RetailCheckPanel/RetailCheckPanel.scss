@@ -1,11 +1,90 @@
+@keyframes bounceInLeft {
+  0% {
+    opacity: 0;
+
+    transform: translateX(-400px);
+  }
+  60% {
+
+    transform: translateX(30px);
+  }
+  80% {
+    transform: translateX(-10px);
+  }
+  100% {
+    opacity: 1;
+
+    transform: translateX(0);
+  }
+}
+
 .RetailCheckPanel {
-  display: flex;
+  max-width: 860px;
+  padding: 0;
+
+  &__wrapperOnClick {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 20px 20px 40px;
+  }
+
+  &__checkbox {
+
+  }
+
+  &__content {
+    flex: 1 1;
+
+    p {
+      color: #3e3e3e;
+      margin: 5px 0;
+      font-weight: 700;
+
+      span {
+        color: #000;
+        font-weight: normal;
+        margin-left: 5px;
+        font-size: 18px;
+      }
+
+      img {
+        width: 20px;
+        height: 20px;
+        transform: translate(-10px, 5px);
+      }
+    }
+  }
 
   &__block {
     margin-right: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   &__check {
+    opacity: 0;
+  }
 
+  .bounceInLeft {
+    animation-name: bounceInLeft;
+    animation-duration: 1s;
+    animation-fill-mode: both;
+  }
+
+  &__price {
+    min-width: 105px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    p {
+      font-weight: bold;
+      font-size: 18px;
+      line-height: 1.4;
+      color: #333;
+      white-space: nowrap;
+    }
   }
 }

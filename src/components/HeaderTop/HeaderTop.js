@@ -5,13 +5,13 @@ import PopupCities from "../PopupCities";
 
 const HeaderTop = () => {
   const [popup, setPopup] = useState(false)
+  const [city, setCity] = useState({title: 'Красноярск'})
 
   return (
     <div className='HeaderTop'>
       <div className='wrapper'>
-        <div className='HeaderTop__headItem'>
-          <i className={'fas fa-map-marker-alt'}/>
-          <span onClick={() => setPopup(true)}>Красноярск</span>
+        <div className='HeaderTop__headItem' onClick={() => setPopup(true)}>
+          <span>{city.title}</span>
         </div>
         <ul className='HeaderTop__headItems'>
           <li>
@@ -26,7 +26,13 @@ const HeaderTop = () => {
         </ul>
         <span className='HeaderTop__headItem'>Задать вопрос</span>
       </div>
-      <PopupCities active={popup} onClick={() => setPopup(false)}/>
+      <PopupCities active={popup}
+                   onClick={() => setPopup(false)}
+                   onSelectCity={(item) => {
+                     setCity(item);
+                     setPopup(false);
+                   }}
+      />
     </div>
   )
 }

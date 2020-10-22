@@ -20,30 +20,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="78173063-124b-4432-8c91-25d7c3ae2a6a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/ArticleCard/ArticleCard.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/ArticleCard/ArticleCard.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/ArticleCard/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/containers/Promotion/Promotion.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/containers/Promotion/Promotion.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/containers/Promotion/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/img/test/promotion1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/img/test/promotion2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/testData/articlesANDpromo.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/UI/CheckboxOrange/CheckboxOrange.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/UI/CheckboxOrange/CheckboxOrange.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/UI/CheckboxOrange/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/img/clock-regular.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/img/location.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/img/phone-solid.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/img/vector.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug.log" beforeDir="false" afterPath="$PROJECT_DIR$/debug.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ArticlesBlock/ArticlesBlock.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ArticlesBlock/ArticlesBlock.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/BlockWrapper/BlockWrapper.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/BlockWrapper/BlockWrapper.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/HeaderFixed/HeaderFixed.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/HeaderFixed/HeaderFixed.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/PromoBlock/PromoBlock.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PromoBlock/PromoBlock.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/PromoItem/PromoItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PromoItem/PromoItem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/PromoItem/PromoItem.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PromoItem/PromoItem.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/Articles/Articles.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Articles/Articles.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/Articles/Articles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Articles/Articles.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/CardPage/CardPage.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/CardPage/CardPage.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CartItem/CartItem.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CartItem/CartItem.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/HeaderTop/HeaderTop.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/HeaderTop/HeaderTop.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/HeaderTop/HeaderTop.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/HeaderTop/HeaderTop.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PopupCities/PopupCities.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PopupCities/PopupCities.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PopupCities/PopupCities.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PopupCities/PopupCities.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/RetailCheckPanel/RetailCheckPanel.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/RetailCheckPanel/RetailCheckPanel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/RetailCheckPanel/RetailCheckPanel.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/RetailCheckPanel/RetailCheckPanel.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/Cards/Cards.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Cards/Cards.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/Cards/Cards.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Cards/Cards.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/containers/Cart/Cart.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Cart/Cart.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/PromoPage/PromoPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/PromoPage/PromoPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/PromoPage/PromoPage.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/PromoPage/PromoPage.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/service/apiService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/apiService.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,19 +70,20 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../#learn/react1/03.10ReactLearn/todo" />
     <property name="list.type.of.created.stylesheet" value="SCSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\workProject\garzdrav_mvp\src" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\workProject\garzdrav_mvp\src\img" />
+      <recent name="D:\workProject\garzdrav_mvp\src\img\test" />
       <recent name="D:\workProject\garzdrav_mvp" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\workProject\garzdrav_mvp\src\img\test" />
+    <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\workProject\garzdrav_mvp\src\img" />
+      <recent name="D:\workProject\garzdrav_mvp\src" />
       <recent name="D:\workProject\garzdrav_mvp" />
     </key>
   </component>
@@ -105,7 +101,8 @@
       <workItem from="1603121847372" duration="5490000" />
       <workItem from="1603158876709" duration="29843000" />
       <workItem from="1603204975528" duration="5038000" />
-      <workItem from="1603245801984" duration="23599000" />
+      <workItem from="1603245801984" duration="27798000" />
+      <workItem from="1603331793446" duration="12963000" />
     </task>
     <servers />
   </component>
@@ -136,17 +133,18 @@
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
     <state x="-1369" y="177" key="#Intentions/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1603247233621" />
-    <state x="739" y="274" key="FileChooserDialogImpl" timestamp="1603029745062">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="-1181" y="274" key="FileChooserDialogImpl" timestamp="1603341044213">
+      <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
+    <state x="-1181" y="274" key="FileChooserDialogImpl/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1603341044213" />
     <state x="739" y="274" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1603029745062" />
     <state x="-1253" y="253" width="586" height="534" key="find.popup" timestamp="1603272082902">
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
     <state x="-1253" y="253" width="586" height="534" key="find.popup/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1603272082902" />
-    <state x="-1297" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1603162731113">
+    <state x="-1297" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1603277697645">
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="-1297" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1603162731113" />
+    <state x="-1297" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1603277697645" />
   </component>
 </project>

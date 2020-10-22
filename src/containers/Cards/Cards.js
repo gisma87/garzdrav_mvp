@@ -26,11 +26,11 @@ const Cards = ({history, pills, storeService, pillsLoaded}) => {
 
   return (
     <LayoutDesktop>
-      <section className='Cards'>
+      <section className='Cards wrapper'>
         <h1 className='Cards__title'>Результаты поиска</h1>
         <div className='Cards__mainContainer'>
 
-          <SidebarCategories styleName='Cards__SidebarCategories'/>
+          {/*<SidebarCategories styleName='Cards__SidebarCategories'/>*/}
 
           <div className='Cards__cardList'>
             {

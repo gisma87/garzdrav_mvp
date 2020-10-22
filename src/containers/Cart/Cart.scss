@@ -81,6 +81,9 @@
 
   &__choiceRetail {
     padding: 20px 0 20px;
+    display: flex;
+    flex-direction: column;
+    //align-items: flex-start;
 
   }
 
