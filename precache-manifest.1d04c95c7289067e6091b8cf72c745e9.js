@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "8aaaa8c0582fc82b19ddd7f5849b9f90",
+    "revision": "95ed02146954b506d014ff1a36944208",
     "url": "/garzdrav_mvp/index.html"
   },
   {
-    "revision": "132309b73543a7cc32d0",
+    "revision": "b51ca123058afed558e9",
     "url": "/garzdrav_mvp/static/css/2.ef742aa5.chunk.css"
   },
   {
-    "revision": "5da544cc8c36d6c2987d",
-    "url": "/garzdrav_mvp/static/css/main.4d81c3e3.chunk.css"
+    "revision": "3ab44defb8c5d915436f",
+    "url": "/garzdrav_mvp/static/css/main.fb5d3251.chunk.css"
   },
   {
-    "revision": "132309b73543a7cc32d0",
-    "url": "/garzdrav_mvp/static/js/2.b0b8e152.chunk.js"
+    "revision": "b51ca123058afed558e9",
+    "url": "/garzdrav_mvp/static/js/2.745d2911.chunk.js"
   },
   {
     "revision": "9b318b6fb13190fe82c0677e9264b3c7",
-    "url": "/garzdrav_mvp/static/js/2.b0b8e152.chunk.js.LICENSE.txt"
+    "url": "/garzdrav_mvp/static/js/2.745d2911.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "5da544cc8c36d6c2987d",
-    "url": "/garzdrav_mvp/static/js/main.818891ed.chunk.js"
+    "revision": "3ab44defb8c5d915436f",
+    "url": "/garzdrav_mvp/static/js/main.536d9200.chunk.js"
   },
   {
     "revision": "ae931805772e757a2495",
@@ -80,12 +80,20 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/garzdrav_mvp/static/media/calendar-alt-regular.2929d1c5.svg"
   },
   {
+    "revision": "d9b062eb2a9969b258b0b0b87c5b1fb1",
+    "url": "/garzdrav_mvp/static/media/clock-regular.d9b062eb.svg"
+  },
+  {
     "revision": "ace73688d2971d5abdd54e2d98067781",
     "url": "/garzdrav_mvp/static/media/evalar.ace73688.png"
   },
   {
     "revision": "0b5e8b6cb607cfb68fb1a5d4c8877b4e",
     "url": "/garzdrav_mvp/static/media/imgPromo3.0b5e8b6c.jpg"
+  },
+  {
+    "revision": "5b41e5bb134a86d392958b1082a39036",
+    "url": "/garzdrav_mvp/static/media/location.5b41e5bb.svg"
   },
   {
     "revision": "2e49efb3bbf37189045ef2974789d4f4",
@@ -114,6 +122,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "51f3cb568b07385251be7bd70354eaf2",
     "url": "/garzdrav_mvp/static/media/news.51f3cb56.jpg"
+  },
+  {
+    "revision": "f8f8e673daedbc32416cb25b759557d2",
+    "url": "/garzdrav_mvp/static/media/phone-solid.f8f8e673.svg"
   },
   {
     "revision": "dbbcac68180cea6e76c90090ec4a4331",
