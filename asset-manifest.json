@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/garzdrav_mvp/static/css/main.fb5d3251.chunk.css",
-    "main.js": "/garzdrav_mvp/static/js/main.536d9200.chunk.js",
-    "main.js.map": "/garzdrav_mvp/static/js/main.536d9200.chunk.js.map",
+    "main.css": "/garzdrav_mvp/static/css/main.dc413e9f.chunk.css",
+    "main.js": "/garzdrav_mvp/static/js/main.bb1156d2.chunk.js",
+    "main.js.map": "/garzdrav_mvp/static/js/main.bb1156d2.chunk.js.map",
     "runtime-main.js": "/garzdrav_mvp/static/js/runtime-main.b8c2c304.js",
     "runtime-main.js.map": "/garzdrav_mvp/static/js/runtime-main.b8c2c304.js.map",
     "static/css/2.ef742aa5.chunk.css": "/garzdrav_mvp/static/css/2.ef742aa5.chunk.css",
-    "static/js/2.745d2911.chunk.js": "/garzdrav_mvp/static/js/2.745d2911.chunk.js",
-    "static/js/2.745d2911.chunk.js.map": "/garzdrav_mvp/static/js/2.745d2911.chunk.js.map",
+    "static/js/2.fd838165.chunk.js": "/garzdrav_mvp/static/js/2.fd838165.chunk.js",
+    "static/js/2.fd838165.chunk.js.map": "/garzdrav_mvp/static/js/2.fd838165.chunk.js.map",
     "index.html": "/garzdrav_mvp/index.html",
-    "precache-manifest.1d04c95c7289067e6091b8cf72c745e9.js": "/garzdrav_mvp/precache-manifest.1d04c95c7289067e6091b8cf72c745e9.js",
+    "precache-manifest.cf778023ce879335122f08aad565841b.js": "/garzdrav_mvp/precache-manifest.cf778023ce879335122f08aad565841b.js",
     "service-worker.js": "/garzdrav_mvp/service-worker.js",
     "static/css/2.ef742aa5.chunk.css.map": "/garzdrav_mvp/static/css/2.ef742aa5.chunk.css.map",
-    "static/css/main.fb5d3251.chunk.css.map": "/garzdrav_mvp/static/css/main.fb5d3251.chunk.css.map",
-    "static/js/2.745d2911.chunk.js.LICENSE.txt": "/garzdrav_mvp/static/js/2.745d2911.chunk.js.LICENSE.txt",
+    "static/css/main.dc413e9f.chunk.css.map": "/garzdrav_mvp/static/css/main.dc413e9f.chunk.css.map",
+    "static/js/2.fd838165.chunk.js.LICENSE.txt": "/garzdrav_mvp/static/js/2.fd838165.chunk.js.LICENSE.txt",
     "static/media/5-nok-600x600.jpg": "/garzdrav_mvp/static/media/5-nok-600x600.7c873928.jpg",
     "static/media/9-mesyatsev-folievaya-kislota-600x600.jpg": "/garzdrav_mvp/static/media/9-mesyatsev-folievaya-kislota-600x600.38b902f2.jpg",
     "static/media/App.css": "/garzdrav_mvp/static/media/PTSans-Regular.4ea26cd5.ttf",
@@ -45,8 +45,8 @@
   "entrypoints": [
     "static/js/runtime-main.b8c2c304.js",
     "static/css/2.ef742aa5.chunk.css",
-    "static/js/2.745d2911.chunk.js",
-    "static/css/main.fb5d3251.chunk.css",
-    "static/js/main.536d9200.chunk.js"
+    "static/js/2.fd838165.chunk.js",
+    "static/css/main.dc413e9f.chunk.css",
+    "static/js/main.bb1156d2.chunk.js"
   ]
 }

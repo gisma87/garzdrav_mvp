@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "95ed02146954b506d014ff1a36944208",
+    "revision": "bccb1c3c6306e381ac57483e2c495c8a",
     "url": "/garzdrav_mvp/index.html"
   },
   {
-    "revision": "b51ca123058afed558e9",
+    "revision": "0b00df13946834705ebe",
     "url": "/garzdrav_mvp/static/css/2.ef742aa5.chunk.css"
   },
   {
-    "revision": "3ab44defb8c5d915436f",
-    "url": "/garzdrav_mvp/static/css/main.fb5d3251.chunk.css"
+    "revision": "f0bb519128968ef852dd",
+    "url": "/garzdrav_mvp/static/css/main.dc413e9f.chunk.css"
   },
   {
-    "revision": "b51ca123058afed558e9",
-    "url": "/garzdrav_mvp/static/js/2.745d2911.chunk.js"
+    "revision": "0b00df13946834705ebe",
+    "url": "/garzdrav_mvp/static/js/2.fd838165.chunk.js"
   },
   {
     "revision": "9b318b6fb13190fe82c0677e9264b3c7",
-    "url": "/garzdrav_mvp/static/js/2.745d2911.chunk.js.LICENSE.txt"
+    "url": "/garzdrav_mvp/static/js/2.fd838165.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "3ab44defb8c5d915436f",
-    "url": "/garzdrav_mvp/static/js/main.536d9200.chunk.js"
+    "revision": "f0bb519128968ef852dd",
+    "url": "/garzdrav_mvp/static/js/main.bb1156d2.chunk.js"
   },
   {
     "revision": "ae931805772e757a2495",
