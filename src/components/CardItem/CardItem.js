@@ -3,21 +3,21 @@ import './CardItem.scss'
 import SvgShoppingCartSolid from "../../img/SVGcomponents/SvgShoppingCartSolid";
 import SvgCheck from "../UI/icons/SvgCheck";
 
-const CardItem = ({id, title, maker, img, minPrice, classStyle = '', onItemSelected}) => {
+const CardItem = ({active, id, title, maker, img, minPrice, classStyle = '', onItemSelected, updateToCart}) => {
 
-  const [active, setActive] = useState(false);
+  // const [active, setActive] = useState(false);
 
-  const setCount = () => {
-    if (localStorage.getItem('count')>=0) {
-      const x = localStorage.getItem('count')
-      !active ? localStorage.setItem('count', +x + 1) : (x > 0 ? localStorage.setItem('count', +x - 1) : localStorage.setItem('count', 0))
-      console.log(x)
-    } else {
-      localStorage.setItem('count', 0);
-    }
-    setActive(state => !state)
-
-  }
+  // const setCount = () => {
+  //   if (localStorage.getItem('count')>=0) {
+  //     const x = localStorage.getItem('count')
+  //     !active ? localStorage.setItem('count', +x + 1) : (x > 0 ? localStorage.setItem('count', +x - 1) : localStorage.setItem('count', 0))
+  //     console.log(x)
+  //   } else {
+  //     localStorage.setItem('count', 0);
+  //   }
+  //   setActive(state => !state)
+  //
+  // }
 
   return (
     <div className={'CardItem ' + classStyle}
@@ -33,7 +33,10 @@ const CardItem = ({id, title, maker, img, minPrice, classStyle = '', onItemSelec
         <div className='CardItem__price'>
           <p>от <span className='CardItem__priceNumber'>{minPrice}</span> р.</p>
           <button className={'CardItem__cart buttonActive ' + (active ? 'CardItem__cart_visible' : '')}
-                  onClick={setCount}>
+                  onClick={() => {
+                    // setActive(state => !state)
+                    updateToCart(active)
+                  }}>
             {active ? <SvgCheck style={{color: 'green'}}/> : <SvgShoppingCartSolid/>}
           </button>
         </div>

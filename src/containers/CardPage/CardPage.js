@@ -2,15 +2,20 @@ import React, {useState} from "react";
 import './CardPage.scss'
 import LayoutDesktop from "../../hoc/LayoutDesktop";
 import dataCatds from "../../testData/dataCards";
-import SvgShoppingCartSolid from "../../img/SVGcomponents/SvgShoppingCartSolid";
 import SvgCheck from "../../components/UI/icons/SvgCheck";
 import SvgHeartIcon from "../../components/UI/icons/SvgHeartIcon";
 import SvgHeartSolid from "../../components/UI/icons/SvgHeartActive";
 import pillsIcon from "../../img/pills.svg"
 import {Link, animateScroll} from 'react-scroll'
 import BlockWrapper from "../../components/BlockWrapper";
+import {addedToCart, allItemRemovedFromCart, itemRemovedFromCart} from "../../actions";
+import {compose} from "../../utils";
+import withStoreService from "../../hoc/withStoreService/withStoreService";
+import {connect} from "react-redux";
+import {withRouter} from "react-router-dom";
 
-const CardPage = ({itemId}) => {
+const CardPage = (props) => {
+  const {itemId, addedToCart, itemRemovedFromCart} = props;
   const [active, setActive] = useState(false);
   const [like, setLike] = useState(false)
   const {title, maker, minPrice, img = undefined} = dataCatds[itemId - 1]
@@ -55,6 +60,7 @@ const CardPage = ({itemId}) => {
               <div className='CardPage__buttons'>
                 <button className='CardPage__button CardPage__buttonToCart' onClick={() => {
                   setActive(state => !state)
+                  !active ? addedToCart(itemId) : itemRemovedFromCart(itemId)
                 }}>
                   {active ? <SvgCheck style={{color: 'white'}}/> : 'Добавить в корзину'}
                 </button>
@@ -184,4 +190,20 @@ const CardPage = ({itemId}) => {
   )
 }
 
-export default CardPage
+
+const mapStateToProps = ({cart}) => {
+  return {cart}
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addedToCart: (item) => dispatch(addedToCart(item)),
+    itemRemovedFromCart: (item) => dispatch(itemRemovedFromCart(item)),
+    allItemRemovedFromCart: (item) => dispatch(allItemRemovedFromCart(item))
+  }
+}
+
+export default compose(
+  withStoreService(),
+  connect(mapStateToProps, mapDispatchToProps)
+)(withRouter(CardPage))

@@ -38,4 +38,19 @@ export default class StoreService {
     return await res.json();
   }
 
+  async getRetailsCity(cityId) {
+    const res = await fetch(`http://172.16.17.7:5000/Retails/${cityId}`,
+      {
+        method: 'GET',
+        headers: {
+          accept: 'application/json'
+        }
+      }
+    )
+    if (!res.ok) {
+      throw new Error(`Не могу выполнить fetch, статус ошибки: ${res.status}`)
+    }
+    return await res.json();
+  }
+
 }

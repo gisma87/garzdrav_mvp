@@ -1,22 +1,21 @@
 import React, {useEffect, useState} from "react"
 import './HeaderFixed.scss'
-import {NavLink} from "react-router-dom";
+import {NavLink, withRouter} from "react-router-dom";
 import SearchPanel from "../SearchPanel";
 import iconCart from '../../img/cartmin.png'
 import ButtonTopScroll from "../UI/ButtonTopScroll";
+import {addedToCart, fetchCities} from "../../actions";
+import {compose} from "../../utils";
+import withStoreService from "../../hoc/withStoreService/withStoreService";
+import {connect} from "react-redux";
 
-const HeaderFixed = () => {
-  const [count, setCount] = useState(0);
+const HeaderFixed = (props) => {
+  const count = props.cart.length;
   const [isLogin, setIsLogin] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0)
 
 
   useEffect(() => {
-    // УДАЛИТЬ - ТЕСТОВОЕ
-    const x = localStorage.getItem('count') || 0 ? localStorage.getItem('count') : 0
-    setCount(x)
-
-
     const handleScroll = () => {
       setLastScrollY(window.scrollY)
     };
@@ -45,5 +44,20 @@ const HeaderFixed = () => {
   )
 }
 
-export default HeaderFixed
+const mapStateToProps = ({cart}) => {
+  return {cart}
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  const {storeService} = ownProps;
+  return {
+    fetchCities: fetchCities(storeService, dispatch),
+    addedToCart: (item) => dispatch(addedToCart(item))
+  }
+}
+
+export default compose(
+  withStoreService(),
+  connect(mapStateToProps, mapDispatchToProps)
+)(withRouter(HeaderFixed))
 

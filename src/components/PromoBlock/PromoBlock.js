@@ -8,16 +8,21 @@ import 'swiper/components/autoplay'
 import SvgAngleRightSolid from '../../img/SVGcomponents/SvgAngleRightSolid'
 import SvgAngleLeftSolid from "../../img/SVGcomponents/SvgAngleLeftSolid";
 import TitleSection from "../UI/TitleSection";
-// import 'swiper/swiper-bundle.css';
 import './PromoBlock.scss'
 import CardItem from "../CardItem";
 import dataCatds from "../../testData/dataCards";
-import {NavLink} from "react-router-dom";
+import {NavLink, withRouter} from "react-router-dom";
+import {compose} from "../../utils";
+import withStoreService from "../../hoc/withStoreService/withStoreService";
+import {connect} from "react-redux";
+import {addedToCart, allItemRemovedFromCart, itemRemovedFromCart} from "../../actions";
 
-const PromoBlock = () => {
+const PromoBlock = (props) => {
+
+  const {history, addedToCart, itemRemovedFromCart} = props;
 
   const onItemSelected = (itemId, event) => {
-    console.log('Нажали на: ', itemId, event.target)
+    if (!event.target.closest('button')) history.push(`Cards/${itemId}`);
   }
 
   SwiperCore.use([Navigation, Pagination, Autoplay])
@@ -50,8 +55,12 @@ const PromoBlock = () => {
           }
         >
           {
-            dataCatds.map(({id, title, maker, img, minPrice}) => {
+            dataCatds.map((item) => {
+              const {id, title, maker, img, minPrice} = item;
               return <CardItem onItemSelected={onItemSelected}
+                               updateToCart={(active) => {
+                                 active ? addedToCart(id) : itemRemovedFromCart(id)
+                               }}
                                key={id}
                                id={id}
                                title={title}
@@ -73,4 +82,18 @@ const PromoBlock = () => {
   )
 }
 
-export default PromoBlock
+const mapStateToProps = () => {
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addedToCart: (item) => dispatch(addedToCart(item)),
+    itemRemovedFromCart: (item) => dispatch(itemRemovedFromCart(item)),
+    allItemRemovedFromCart: (item) => dispatch(allItemRemovedFromCart(item))
+  }
+}
+
+export default compose(
+  withStoreService(),
+  connect(mapStateToProps, mapDispatchToProps)
+)(withRouter(PromoBlock))
