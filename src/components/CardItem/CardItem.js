@@ -35,7 +35,7 @@ const CardItem = ({active, id, title, maker, img, minPrice, classStyle = '', onI
           <button className={'CardItem__cart buttonActive ' + (active ? 'CardItem__cart_visible' : '')}
                   onClick={() => {
                     // setActive(state => !state)
-                    updateToCart(active)
+                    updateToCart()
                   }}>
             {active ? <SvgCheck style={{color: 'green'}}/> : <SvgShoppingCartSolid/>}
           </button>

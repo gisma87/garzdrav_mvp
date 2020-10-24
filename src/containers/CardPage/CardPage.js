@@ -15,10 +15,12 @@ import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
 
 const CardPage = (props) => {
-  const {itemId, addedToCart, itemRemovedFromCart} = props;
+  const {itemId, addedToCart, itemRemovedFromCart, cart} = props;
   const [active, setActive] = useState(false);
   const [like, setLike] = useState(false)
   const {title, maker, minPrice, img = undefined} = dataCatds[itemId - 1]
+  const itemIndex = cart.findIndex((item) => item.itemId === itemId);
+  const isActive = itemIndex >= 0;
   return (
     <LayoutDesktop>
       <section className='CardPage wrapper'>
@@ -59,10 +61,10 @@ const CardPage = (props) => {
               </div>
               <div className='CardPage__buttons'>
                 <button className='CardPage__button CardPage__buttonToCart' onClick={() => {
-                  setActive(state => !state)
-                  !active ? addedToCart(itemId) : itemRemovedFromCart(itemId)
+                  // setActive(state => !state)
+                  !isActive ? addedToCart(itemId) : itemRemovedFromCart(itemId)
                 }}>
-                  {active ? <SvgCheck style={{color: 'white'}}/> : 'Добавить в корзину'}
+                  {isActive ? <SvgCheck style={{color: 'white'}}/> : 'Добавить в корзину'}
                 </button>
                 <button className='CardPage__button CardPage__buttonBuy'>Быстрый заказ</button>
               </div>

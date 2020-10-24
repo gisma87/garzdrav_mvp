@@ -44,8 +44,8 @@ const Cards = props => {
                 const itemIndex = cart.findIndex((item) => item.itemId === id);
                 const isActive = itemIndex >= 0;
                 return <CardItem onItemSelected={onItemSelected}
-                                 updateToCart={(active) => {
-                                   active ? addedToCart(id) : itemRemovedFromCart(id)
+                                 updateToCart={() => {
+                                   !isActive ? addedToCart(id) : itemRemovedFromCart(id)
                                  }}
                                  active={isActive}
                                  key={id}

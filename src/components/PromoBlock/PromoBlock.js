@@ -19,7 +19,7 @@ import {addedToCart, allItemRemovedFromCart, itemRemovedFromCart} from "../../ac
 
 const PromoBlock = (props) => {
 
-  const {history, addedToCart, itemRemovedFromCart} = props;
+  const {history, addedToCart, itemRemovedFromCart, cart} = props;
 
   const onItemSelected = (itemId, event) => {
     if (!event.target.closest('button')) history.push(`Cards/${itemId}`);
@@ -57,10 +57,13 @@ const PromoBlock = (props) => {
           {
             dataCatds.map((item) => {
               const {id, title, maker, img, minPrice} = item;
+              const itemIndex = cart.findIndex((item) => item.itemId === id);
+              const isActive = itemIndex >= 0;
               return <CardItem onItemSelected={onItemSelected}
-                               updateToCart={(active) => {
-                                 active ? addedToCart(id) : itemRemovedFromCart(id)
+                               updateToCart={() => {
+                                 !isActive ? addedToCart(id) : itemRemovedFromCart(id)
                                }}
+                               active={isActive}
                                key={id}
                                id={id}
                                title={title}
@@ -82,7 +85,10 @@ const PromoBlock = (props) => {
   )
 }
 
-const mapStateToProps = () => {
+const mapStateToProps = ({cart}) => {
+  return {
+    cart
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {

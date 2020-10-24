@@ -21,22 +21,11 @@
   <component name="ChangeListManager">
     <list default="true" id="78173063-124b-4432-8c91-25d7c3ae2a6a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug.log" beforeDir="false" afterPath="$PROJECT_DIR$/debug.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/CardItem/CardItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CardItem/CardItem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/HeaderFixed/HeaderFixed.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/HeaderFixed/HeaderFixed.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/HeaderTop/HeaderTop.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/HeaderTop/HeaderTop.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/PopupCities/PopupCities.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PopupCities/PopupCities.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/PromoBlock/PromoBlock.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PromoBlock/PromoBlock.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/containers/CardPage/CardPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/CardPage/CardPage.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/containers/Cards/Cards.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Cards/Cards.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/Cart/Cart.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Cart/Cart.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/Cities/Cities.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Cities/Cities.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/Cities/Cities.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Cities/Cities.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/reducers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/service/StoreService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/StoreService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/testData/dataCards.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/testData/dataCards.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,7 +91,9 @@
       <workItem from="1603204975528" duration="5038000" />
       <workItem from="1603245801984" duration="27798000" />
       <workItem from="1603331793446" duration="12963000" />
-      <workItem from="1603418775479" duration="25767000" />
+      <workItem from="1603418775479" duration="26188000" />
+      <workItem from="1603451076547" duration="7000" />
+      <workItem from="1603543718996" duration="1607000" />
     </task>
     <servers />
   </component>
