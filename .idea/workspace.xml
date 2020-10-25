@@ -21,11 +21,15 @@
   <component name="ChangeListManager">
     <list default="true" id="78173063-124b-4432-8c91-25d7c3ae2a6a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CardItem/CardItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CardItem/CardItem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/debug.log" beforeDir="false" afterPath="$PROJECT_DIR$/debug.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CartItem/CartItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CartItem/CartItem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/HeaderTop/HeaderTop.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/HeaderTop/HeaderTop.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/PromoBlock/PromoBlock.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PromoBlock/PromoBlock.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/containers/CardPage/CardPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/CardPage/CardPage.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/containers/Cards/Cards.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Cards/Cards.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/testData/dataCards.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/testData/dataCards.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/Cart/Cart.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Cart/Cart.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/reducers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,15 +67,15 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\workProject\garzdrav_mvp\src\img" />
+      <recent name="D:\workProject\garzdrav_mvp\src\img\test" />
+      <recent name="D:\workProject\garzdrav_mvp" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\workProject\garzdrav_mvp\src\reducers" />
       <recent name="D:\workProject\garzdrav_mvp\src\img" />
       <recent name="D:\workProject\garzdrav_mvp\src" />
-      <recent name="D:\workProject\garzdrav_mvp" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\workProject\garzdrav_mvp\src\img" />
-      <recent name="D:\workProject\garzdrav_mvp\src\img\test" />
       <recent name="D:\workProject\garzdrav_mvp" />
     </key>
   </component>
@@ -93,7 +97,11 @@
       <workItem from="1603331793446" duration="12963000" />
       <workItem from="1603418775479" duration="26188000" />
       <workItem from="1603451076547" duration="7000" />
-      <workItem from="1603543718996" duration="1607000" />
+      <workItem from="1603543718996" duration="10262000" />
+      <workItem from="1603595762514" duration="835000" />
+      <workItem from="1603598455843" duration="1283000" />
+      <workItem from="1603620398969" duration="87000" />
+      <workItem from="1603621950084" duration="3293000" />
     </task>
     <servers />
   </component>

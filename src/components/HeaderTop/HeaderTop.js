@@ -25,7 +25,7 @@ const HeaderTop = (props) => {
             <NavLink className='HeaderTop__link' to="/howOrder/">Как сделать заказ</NavLink>
           </li>
           <li>
-            <NavLink className='HeaderTop__link' to="/howOrder/">Акции</NavLink>
+            <NavLink className='HeaderTop__link' to="/promotions/">Акции</NavLink>
           </li>
         </ul>
         <span className='HeaderTop__headItem'>Задать вопрос</span>

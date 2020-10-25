@@ -48,7 +48,8 @@ function App(props) {
   );
 }
 
-const mapStateToProps = () => {
+const mapStateToProps = ({cart}) => {
+  return {cart}
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {

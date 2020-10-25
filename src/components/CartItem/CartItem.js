@@ -4,7 +4,9 @@ import pillsIcon from "../../img/pills.svg";
 import BlockWrapper from "../BlockWrapper";
 
 const CartItem = (props) => {
-  const {img, title, maker, minPrice} = props.item
+  const {allItemRemovedFromCart, itemRemovedFromCart, addedToCart, count} = props;
+  const {id, img, title, maker, minPrice} = props.item
+
   return (
     <BlockWrapper style={'CartItem ' + `${props.style}`}>
       <div className='CartItem__container'>
@@ -18,16 +20,22 @@ const CartItem = (props) => {
           <p className='CartItem__maker'>{maker}</p>
           <div className='CartItem__buttonToDescription'>
             <button>В избранное</button>
-            <button>Удалить</button>
+            <button onClick={() => allItemRemovedFromCart()}>Удалить</button>
           </div>
         </div>
 
         <div className='CartItem__itemPrice'>
           <p className='CartItem__price'>от {minPrice} ₽</p>
           <div className='CartItem__countButtons'>
-            <button className='CartItem__countButtonMinus CartItem__countButton'>-</button>
-            <input className='CartItem__countInput' type="text" defaultValue='1'/>
-            <button className='CartItem__countButtonPlus CartItem__countButton'>+</button>
+            <button className='CartItem__countButtonMinus CartItem__countButton'
+                    onClick={() => itemRemovedFromCart()}
+            >-
+            </button>
+            <input className='CartItem__countInput' type="text" value={count} readOnly/>
+            <button className='CartItem__countButtonPlus CartItem__countButton'
+                    onClick={() => addedToCart()}
+            >+
+            </button>
           </div>
         </div>
       </div>

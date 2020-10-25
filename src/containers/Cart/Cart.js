@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, {useEffect, useState} from "react"
 import './Cart.scss'
 import LayoutDesktop from "../../hoc/LayoutDesktop";
 import dataCatds from "../../testData/dataCards";
@@ -6,11 +6,34 @@ import SvgCheck from "../../components/UI/icons/SvgCheck";
 import CartItem from "../../components/CartItem";
 import RetailCheckPanel from "../../components/RetailCheckPanel";
 import BlockWrapper from "../../components/BlockWrapper";
+import {addedToCart, allItemRemovedFromCart, itemRemovedFromCart} from "../../actions";
+import {compose} from "../../utils";
+import withStoreService from "../../hoc/withStoreService/withStoreService";
+import {connect} from "react-redux";
+import {withRouter} from "react-router-dom";
 
-const {id, img, title, maker, minPrice} = dataCatds[6]
+const Cart = (props) => {
+  const {cart, addedToCart, allItemRemovedFromCart, itemRemovedFromCart} = props;
 
-const Cart = () => {
   const [active, setActive] = useState(false);
+  const [items, setItems] = useState([])
+
+
+  useEffect(() => {
+    const cartItems = []
+
+    dataCatds.forEach((item) => {
+      cart.forEach((cartItem) => {
+        if (item.id === cartItem.itemId) {
+          cartItems.push(item)
+        }
+      })
+    })
+
+    setItems(cartItems)
+  }, cart)
+
+
   return (
     <LayoutDesktop>
       <div className='Cart wrapper'>
@@ -18,10 +41,19 @@ const Cart = () => {
         <section className='Cart__mainContainer'>
 
           <div className='Cart__itemContainer'>
-            <CartItem item={dataCatds[6]} style={'Cart__item'}/>
-            <CartItem item={dataCatds[5]} style={'Cart__item'}/>
-            <CartItem item={dataCatds[4]} style={'Cart__item'}/>
-            <CartItem item={dataCatds[3]} style={'Cart__item'}/>
+            {cart.length === 0 ? "Корзина пуста" :
+              items.map((item) => {
+                const index = cart.findIndex((cartItem) => cartItem.itemId === item.id);
+                return cart[index] !== undefined && <CartItem item={item}
+                                                              style={'Cart__item'}
+                                                              count={cart[index].count}
+                                                              addedToCart={() => addedToCart(item.id)}
+                                                              itemRemovedFromCart={() => itemRemovedFromCart(item.id)}
+                                                              allItemRemovedFromCart={() => allItemRemovedFromCart(item.id)}
+                                                              key={item.id}
+                />
+              })
+            }
           </div>
 
           <BlockWrapper style='Cart__pricePanel'>
@@ -47,4 +79,21 @@ const Cart = () => {
   )
 }
 
-export default Cart
+const mapStateToProps = ({cart}) => {
+  return {
+    cart
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addedToCart: (item) => dispatch(addedToCart(item)),
+    itemRemovedFromCart: (item) => dispatch(itemRemovedFromCart(item)),
+    allItemRemovedFromCart: (item) => dispatch(allItemRemovedFromCart(item))
+  }
+}
+
+export default compose(
+  withStoreService(),
+  connect(mapStateToProps, mapDispatchToProps)
+)(withRouter(Cart))

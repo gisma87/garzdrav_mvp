@@ -6,7 +6,7 @@ import SvgCheck from "../../components/UI/icons/SvgCheck";
 import SvgHeartIcon from "../../components/UI/icons/SvgHeartIcon";
 import SvgHeartSolid from "../../components/UI/icons/SvgHeartActive";
 import pillsIcon from "../../img/pills.svg"
-import {Link, animateScroll} from 'react-scroll'
+import {Link} from 'react-scroll'
 import BlockWrapper from "../../components/BlockWrapper";
 import {addedToCart, allItemRemovedFromCart, itemRemovedFromCart} from "../../actions";
 import {compose} from "../../utils";
@@ -16,7 +16,6 @@ import {withRouter} from "react-router-dom";
 
 const CardPage = (props) => {
   const {itemId, addedToCart, itemRemovedFromCart, cart} = props;
-  const [active, setActive] = useState(false);
   const [like, setLike] = useState(false)
   const {title, maker, minPrice, img = undefined} = dataCatds[itemId - 1]
   const itemIndex = cart.findIndex((item) => item.itemId === itemId);
@@ -61,7 +60,6 @@ const CardPage = (props) => {
               </div>
               <div className='CardPage__buttons'>
                 <button className='CardPage__button CardPage__buttonToCart' onClick={() => {
-                  // setActive(state => !state)
                   !isActive ? addedToCart(itemId) : itemRemovedFromCart(itemId)
                 }}>
                   {isActive ? <SvgCheck style={{color: 'white'}}/> : 'Добавить в корзину'}

@@ -11,7 +11,7 @@ import TitleSection from "../UI/TitleSection";
 import './PromoBlock.scss'
 import CardItem from "../CardItem";
 import dataCatds from "../../testData/dataCards";
-import {NavLink, withRouter} from "react-router-dom";
+import {withRouter} from "react-router-dom";
 import {compose} from "../../utils";
 import withStoreService from "../../hoc/withStoreService/withStoreService";
 import {connect} from "react-redux";
