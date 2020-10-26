@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useEffect} from "react"
 import {withRouter} from 'react-router-dom'
 import './Cards.scss'
 import LayoutDesktop from "../../hoc/LayoutDesktop";
@@ -19,9 +19,9 @@ const Cards = props => {
     if (!event.target.closest('button')) history.push(`${itemId}`);
   }
 
-  // useEffect(() => {
-  //   props.fetchCities();
-  // }, [])
+  useEffect(() => {
+    props.storeService.setLocal(cart)
+  })
 
   // console.log('pills: ', pills)
 
@@ -45,7 +45,7 @@ const Cards = props => {
                 const isActive = itemIndex >= 0;
                 return <CardItem onItemSelected={onItemSelected}
                                  updateToCart={() => {
-                                   !isActive ? addedToCart(id) : itemRemovedFromCart(id)
+                                   !isActive ? addedToCart(id) : itemRemovedFromCart(id);
                                  }}
                                  active={isActive}
                                  key={id}

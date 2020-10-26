@@ -21,7 +21,7 @@ const RetailCheckPanel = () => {
         return !state
       })}>
         <div className='RetailCheckPanel__checkbox RetailCheckPanel__block'>
-          <CheckboxOrange check={checked} onCheck={onCheck} />
+          <CheckboxOrange check={checked} onCheck={onCheck} id={'orange1'} name={'orange'} type={'checkbox'}/>
         </div>
         <div className='RetailCheckPanel__content RetailCheckPanel__block'>
           <p className='RetailCheckPanel__name'><img src={iconLocation} alt="Адрес"/> Адрес: <span>г. Красноярск, ул. Дмитрия Мартынова, 24</span>

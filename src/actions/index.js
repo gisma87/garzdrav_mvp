@@ -54,6 +54,13 @@ const retailsCityLoaded = (retailsCity) => {
   }
 }
 
+const rewriteCart = (cart) => {
+  return {
+    type: 'REWRITE_CART',
+    payload: cart
+  }
+}
+
 // const fetchRetailsCity = (storeService, dispatch, cityId) => () => {
 //   // console.log('я в ACTIONS')
 //   storeService.getRetailsCity(cityId)
@@ -69,5 +76,5 @@ const fetchCities = (storeService, dispatch) => () => {
 }
 
 export {
-  fetchCities, setIsCity, retailsCityLoaded, addedToCart, itemRemovedFromCart, allItemRemovedFromCart
+  fetchCities, setIsCity, retailsCityLoaded, addedToCart, itemRemovedFromCart, allItemRemovedFromCart, rewriteCart
 }

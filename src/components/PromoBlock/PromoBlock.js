@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import SwiperCore, {Navigation, Pagination, Autoplay} from "swiper";
 import {Swiper, SwiperSlide} from 'swiper/react';
 import 'swiper/swiper.scss'
@@ -15,11 +15,15 @@ import {withRouter} from "react-router-dom";
 import {compose} from "../../utils";
 import withStoreService from "../../hoc/withStoreService/withStoreService";
 import {connect} from "react-redux";
-import {addedToCart, allItemRemovedFromCart, itemRemovedFromCart} from "../../actions";
+import {addedToCart, allItemRemovedFromCart, itemRemovedFromCart, rewriteCart} from "../../actions";
 
 const PromoBlock = (props) => {
 
-  const {history, addedToCart, itemRemovedFromCart, cart} = props;
+  const {history, addedToCart, itemRemovedFromCart, cart, rewriteCart} = props;
+
+  useEffect(() => {
+    props.storeService.setLocal(cart)
+  }, cart)
 
   const onItemSelected = (itemId, event) => {
     if (!event.target.closest('button')) history.push(`Cards/${itemId}`);
@@ -95,7 +99,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     addedToCart: (item) => dispatch(addedToCart(item)),
     itemRemovedFromCart: (item) => dispatch(itemRemovedFromCart(item)),
-    allItemRemovedFromCart: (item) => dispatch(allItemRemovedFromCart(item))
+    allItemRemovedFromCart: (item) => dispatch(allItemRemovedFromCart(item)),
+    rewriteCart: (item) => dispatch(rewriteCart(item))
   }
 }
 

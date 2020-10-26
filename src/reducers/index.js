@@ -112,6 +112,11 @@ const reducer = (state = initialState, action) => {
       const item = state.cart.find(({itemId}) => itemId === action.payload);
       return updateOrder(state, action.payload, -item.count);
 
+    case 'REWRITE_CART':
+      return {
+        ...state,
+        cart: action.payload
+      };
 
     case 'FETCH_CITIES_SUCCESS':
       return {

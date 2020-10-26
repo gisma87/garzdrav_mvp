@@ -18,6 +18,7 @@ import {fetchCities} from "./actions";
 import {compose} from "./utils";
 import withStoreService from "./hoc/withStoreService/withStoreService";
 import {connect} from "react-redux";
+import Profile from "./containers/Profile";
 
 function App(props) {
 
@@ -36,6 +37,7 @@ function App(props) {
         <Route path="/company/" component={Company}/>
         <Route path="/news/" component={News}/>
         <Route path="/articles/" component={Articles}/>
+        <Route path="/profile/" component={Profile}/>
         <Route path="/promotions/" exact component={PromoPage}/>
         <Route path="/promotions/:id"
                render={({match}) => <Promotion itemId={match.params.id}/>}/>

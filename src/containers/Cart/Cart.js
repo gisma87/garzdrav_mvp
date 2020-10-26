@@ -6,18 +6,17 @@ import SvgCheck from "../../components/UI/icons/SvgCheck";
 import CartItem from "../../components/CartItem";
 import RetailCheckPanel from "../../components/RetailCheckPanel";
 import BlockWrapper from "../../components/BlockWrapper";
-import {addedToCart, allItemRemovedFromCart, itemRemovedFromCart} from "../../actions";
+import {addedToCart, allItemRemovedFromCart, itemRemovedFromCart, rewriteCart} from "../../actions";
 import {compose} from "../../utils";
 import withStoreService from "../../hoc/withStoreService/withStoreService";
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
 
 const Cart = (props) => {
-  const {cart, addedToCart, allItemRemovedFromCart, itemRemovedFromCart} = props;
+  const {cart, addedToCart, allItemRemovedFromCart, itemRemovedFromCart, rewriteCart} = props;
 
   const [active, setActive] = useState(false);
   const [items, setItems] = useState([])
-
 
   useEffect(() => {
     const cartItems = []
@@ -31,7 +30,8 @@ const Cart = (props) => {
     })
 
     setItems(cartItems)
-  }, cart)
+    // props.storeService.setLocal(cart)
+  })
 
 
   return (
@@ -89,7 +89,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     addedToCart: (item) => dispatch(addedToCart(item)),
     itemRemovedFromCart: (item) => dispatch(itemRemovedFromCart(item)),
-    allItemRemovedFromCart: (item) => dispatch(allItemRemovedFromCart(item))
+    allItemRemovedFromCart: (item) => dispatch(allItemRemovedFromCart(item)),
+    rewriteCart: (item) => dispatch(rewriteCart(item))
   }
 }
 

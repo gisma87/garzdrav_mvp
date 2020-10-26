@@ -20,16 +20,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="78173063-124b-4432-8c91-25d7c3ae2a6a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/containers/Profile/Profile.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/containers/Profile/Profile.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/containers/Profile/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug.log" beforeDir="false" afterPath="$PROJECT_DIR$/debug.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CartItem/CartItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CartItem/CartItem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/HeaderTop/HeaderTop.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/HeaderTop/HeaderTop.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/actions/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/HeaderFixed/HeaderFixed.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/HeaderFixed/HeaderFixed.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/PromoBlock/PromoBlock.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PromoBlock/PromoBlock.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/CardPage/CardPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/CardPage/CardPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/RetailCheckPanel/RetailCheckPanel.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/RetailCheckPanel/RetailCheckPanel.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/containers/Cards/Cards.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Cards/Cards.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/containers/Cart/Cart.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Cart/Cart.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/reducers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/service/StoreService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/StoreService.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,7 +64,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/reducers" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="SCSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
@@ -101,7 +104,9 @@
       <workItem from="1603595762514" duration="835000" />
       <workItem from="1603598455843" duration="1283000" />
       <workItem from="1603620398969" duration="87000" />
-      <workItem from="1603621950084" duration="3293000" />
+      <workItem from="1603621950084" duration="4605000" />
+      <workItem from="1603678217140" duration="4259000" />
+      <workItem from="1603685907253" duration="21136000" />
     </task>
     <servers />
   </component>
@@ -132,15 +137,15 @@
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
     <state x="-1369" y="177" key="#Intentions/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1603247233621" />
-    <state x="-1181" y="274" key="FileChooserDialogImpl" timestamp="1603444112516">
+    <state x="-1181" y="274" key="FileChooserDialogImpl" timestamp="1603685901474">
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="-1181" y="274" key="FileChooserDialogImpl/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1603444112516" />
+    <state x="-1181" y="274" key="FileChooserDialogImpl/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1603685901474" />
     <state x="739" y="274" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1603029745062" />
-    <state x="-1253" y="253" width="586" height="534" key="find.popup" timestamp="1603438068580">
+    <state x="-1253" y="253" width="586" height="534" key="find.popup" timestamp="1603708228961">
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="-1253" y="253" width="586" height="534" key="find.popup/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1603438068580" />
+    <state x="-1253" y="253" width="586" height="534" key="find.popup/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1603708228961" />
     <state x="-1297" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1603277697645">
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
