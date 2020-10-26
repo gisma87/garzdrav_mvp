@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import './CardPage.scss'
 import LayoutDesktop from "../../hoc/LayoutDesktop";
 import dataCatds from "../../testData/dataCards";
@@ -20,6 +20,11 @@ const CardPage = (props) => {
   const {title, maker, minPrice, img = undefined} = dataCatds[itemId - 1]
   const itemIndex = cart.findIndex((item) => item.itemId === itemId);
   const isActive = itemIndex >= 0;
+
+  useEffect(() => {
+    props.storeService.setLocal(cart)
+  })
+
   return (
     <LayoutDesktop>
       <section className='CardPage wrapper'>

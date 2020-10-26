@@ -16,11 +16,13 @@ const Cart = (props) => {
   const {cart, addedToCart, allItemRemovedFromCart, itemRemovedFromCart, rewriteCart} = props;
 
   const [active, setActive] = useState(false);
-  const [items, setItems] = useState([])
 
   useEffect(() => {
-    const cartItems = []
+    props.storeService.setLocal(cart)
+  })
 
+  const newArr = () => {
+    const cartItems = []
     dataCatds.forEach((item) => {
       cart.forEach((cartItem) => {
         if (item.id === cartItem.itemId) {
@@ -28,11 +30,8 @@ const Cart = (props) => {
         }
       })
     })
-
-    setItems(cartItems)
-    // props.storeService.setLocal(cart)
-  })
-
+    return cartItems
+  }
 
   return (
     <LayoutDesktop>
@@ -42,7 +41,7 @@ const Cart = (props) => {
 
           <div className='Cart__itemContainer'>
             {cart.length === 0 ? "Корзина пуста" :
-              items.map((item) => {
+              newArr().map((item) => {
                 const index = cart.findIndex((cartItem) => cartItem.itemId === item.id);
                 return cart[index] !== undefined && <CartItem item={item}
                                                               style={'Cart__item'}

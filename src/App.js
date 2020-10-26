@@ -14,7 +14,7 @@ import PromoPage from "./containers/PromoPage";
 import CardPage from "./containers/CardPage";
 import Promotion from "./containers/Promotion";
 
-import {fetchCities} from "./actions";
+import {fetchCities, rewriteCart} from "./actions";
 import {compose} from "./utils";
 import withStoreService from "./hoc/withStoreService/withStoreService";
 import {connect} from "react-redux";
@@ -24,6 +24,7 @@ function App(props) {
 
   useEffect(() => {
     props.fetchCities();
+    props.storeService.setCartFromLocalStorage(props.rewriteCart)
   }, [])
 
   return (
@@ -57,7 +58,8 @@ const mapStateToProps = ({cart}) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   const {storeService} = ownProps;
   return {
-    fetchCities: fetchCities(storeService, dispatch)
+    fetchCities: fetchCities(storeService, dispatch),
+    rewriteCart: (item) => dispatch(rewriteCart(item))
   }
 }
 

@@ -15,78 +15,85 @@ import {withRouter} from "react-router-dom";
 import {compose} from "../../utils";
 import withStoreService from "../../hoc/withStoreService/withStoreService";
 import {connect} from "react-redux";
-import {addedToCart, allItemRemovedFromCart, itemRemovedFromCart, rewriteCart} from "../../actions";
+import {addedToCart, allItemRemovedFromCart, itemRemovedFromCart} from "../../actions";
 
-const PromoBlock = (props) => {
-
-  const {history, addedToCart, itemRemovedFromCart, cart, rewriteCart} = props;
-
-  useEffect(() => {
-    props.storeService.setLocal(cart)
-  }, cart)
-
-  const onItemSelected = (itemId, event) => {
-    if (!event.target.closest('button')) history.push(`Cards/${itemId}`);
+class PromoBlock extends React.Component {
+  constructor(props) {
+    super(props);
+    // history =
+    // addedToCart
+    // itemRemovedFromCart
+    // cart
   }
 
-  SwiperCore.use([Navigation, Pagination, Autoplay])
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    this.props.storeService.setLocal(this.props.cart)
+  }
 
-  return (
-    <div className="PromoBlock">
+  onItemSelected = (itemId, event) => {
+    if (!event.target.closest('button')) this.props.history.push(`Cards/${itemId}`);
+  }
 
-      <div className="prev slideButton">
-        <SvgAngleLeftSolid/>
-      </div>
 
-      <div className="next slideButton">
-        <SvgAngleRightSolid/>
-      </div>
+  render() {
+    SwiperCore.use([Navigation, Pagination, Autoplay])
+    return (
+      <div className="PromoBlock">
 
-      <div className='wrapper'>
-        <TitleSection title='Акции' link='/promotions/'/>
-        <Swiper
-          style={{padding: '10px 0'}}
-          spaceBetween={5}
-          slidesPerView={'auto'}
-          tag="section" wrapperTag="ul"
-          loop={'false'}
-          // autoplay={{delay: 5000}}
-          navigation={
-            {
-              nextEl: '.next',
-              prevEl: '.prev'
+        <div className="prev slideButton">
+          <SvgAngleLeftSolid/>
+        </div>
+
+        <div className="next slideButton">
+          <SvgAngleRightSolid/>
+        </div>
+
+        <div className='wrapper'>
+          <TitleSection title='Акции' link='/promotions/'/>
+          <Swiper
+            style={{padding: '10px 0'}}
+            spaceBetween={5}
+            slidesPerView={'auto'}
+            tag="section" wrapperTag="ul"
+            loop={'false'}
+            // autoplay={{delay: 5000}}
+            navigation={
+              {
+                nextEl: '.next',
+                prevEl: '.prev'
+              }
             }
-          }
-        >
-          {
-            dataCatds.map((item) => {
-              const {id, title, maker, img, minPrice} = item;
-              const itemIndex = cart.findIndex((item) => item.itemId === id);
-              const isActive = itemIndex >= 0;
-              return <CardItem onItemSelected={onItemSelected}
-                               updateToCart={() => {
-                                 !isActive ? addedToCart(id) : itemRemovedFromCart(id)
-                               }}
-                               active={isActive}
-                               key={id}
-                               id={id}
-                               title={title}
-                               maker={maker}
-                               img={img}
-                               minPrice={minPrice}/>
-            }).map((item, index) => {
-              return (
-                <SwiperSlide tag="li" key={index} style={{listStyleType: 'none'}}>
-                  {item}
-                </SwiperSlide>
-              )
-            })
-          }
+          >
+            {
+              dataCatds.map((item) => {
+                const {id, title, maker, img, minPrice} = item;
+                const itemIndex = this.props.cart.findIndex((item) => item.itemId === id);
+                const isActive = itemIndex >= 0;
+                return <CardItem onItemSelected={this.onItemSelected}
+                                 updateToCart={() => {
+                                   !isActive ? this.props.addedToCart(id) : this.props.itemRemovedFromCart(id)
+                                 }}
+                                 active={isActive}
+                                 key={id}
+                                 id={id}
+                                 title={title}
+                                 maker={maker}
+                                 img={img}
+                                 minPrice={minPrice}/>
+              }).map((item, index) => {
+                return (
+                  <SwiperSlide tag="li" key={index} style={{listStyleType: 'none'}}>
+                    {item}
+                  </SwiperSlide>
+                )
+              })
+            }
 
-        </Swiper>
+          </Swiper>
+        </div>
       </div>
-    </div>
-  )
+    )
+  }
 }
 
 const mapStateToProps = ({cart}) => {
@@ -99,8 +106,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     addedToCart: (item) => dispatch(addedToCart(item)),
     itemRemovedFromCart: (item) => dispatch(itemRemovedFromCart(item)),
-    allItemRemovedFromCart: (item) => dispatch(allItemRemovedFromCart(item)),
-    rewriteCart: (item) => dispatch(rewriteCart(item))
+    allItemRemovedFromCart: (item) => dispatch(allItemRemovedFromCart(item))
   }
 }
 
