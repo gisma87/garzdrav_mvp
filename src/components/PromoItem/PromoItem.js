@@ -7,7 +7,7 @@ const PromoItem = (props) => {
   const {id, title, description, image, date} = props.item
   const onItemSelected = props.onItemSelected
   return (
-    <BlockWrapper style='PromoItem' onClick={(event) => {
+    <BlockWrapper classStyle='PromoItem' onClick={(event) => {
       onItemSelected(id, event)
     }}>
       <img src={image} alt={title} className='PromoItem__image'/>

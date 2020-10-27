@@ -9,7 +9,7 @@ import './BlockNews.scss'
 class BlockNews extends React.Component {
 
   item = <div className='BlockNews__item'>
-    <a href="#" className='BlockNews__image'><img src={imgNews}/></a>
+    <a href="/" className='BlockNews__image'><img src={imgNews}/></a>
     <div className='BlockNews__text'>
       <h3>
         <a href="#">

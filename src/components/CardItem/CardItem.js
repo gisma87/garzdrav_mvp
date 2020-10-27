@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import './CardItem.scss'
 import SvgShoppingCartSolid from "../../img/SVGcomponents/SvgShoppingCartSolid";
 import SvgCheck from "../UI/icons/SvgCheck";

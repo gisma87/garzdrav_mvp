@@ -2,7 +2,6 @@ import React from "react"
 import classes from './IndexDesktop.module.css'
 import Advertising from "../../components/Advertising/Advertising";
 import HowToBuy from "../../components/HowToBuy/HowToBuy";
-import BlockNews from "../../components/BlockNews/BlockNews";
 import PromoBlock from "../../components/PromoBlock";
 import ArticlesBlock from "../../components/ArticlesBlock";
 

@@ -1,20 +1,20 @@
-import React, {useState} from "react";
+import React from "react";
 import './Promotion.scss'
 import LayoutDesktop from "../../hoc/LayoutDesktop";
-import data from "../../testData/articlesANDpromo";
+// import data from "../../testData/articlesANDpromo";
 import BlockWrapper from "../../components/BlockWrapper";
 import imgPromo1 from "../../img/test/promotion1.jpg";
 import imgPromo2 from "../../img/test/promotion2.png";
 
 const Promotion = ({itemId}) => {
-  const {title, description, image, date} = data[itemId - 1]
+  // const {title, description, image, date} = data[itemId - 1]
   return (
     <LayoutDesktop>
       <section className='Promotion wrapper'>
 
         <img className='Promotion__image' src={imgPromo1} alt=""/>
 
-        <BlockWrapper style='Promotion__moreInfo'>
+        <BlockWrapper classStyle='Promotion__moreInfo'>
           <h3>Ломаем цены!</h3>
           <div className='Promotion__description'>
             <h4>C 1 по 31 октября</h4>

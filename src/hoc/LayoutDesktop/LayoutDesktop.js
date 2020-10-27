@@ -1,4 +1,4 @@
-import React, {useEffect} from "react"
+import React from "react"
 import classes from './LayoutDesktop.module.css'
 import HeaderDesktop from "../../components/HeaderDesktop";
 import FooterDesktop from "../../components/FooterDesktop";

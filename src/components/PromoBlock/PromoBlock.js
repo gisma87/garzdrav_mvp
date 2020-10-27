@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import SwiperCore, {Navigation, Pagination, Autoplay} from "swiper";
 import {Swiper, SwiperSlide} from 'swiper/react';
 import 'swiper/swiper.scss'
@@ -18,13 +18,13 @@ import {connect} from "react-redux";
 import {addedToCart, allItemRemovedFromCart, itemRemovedFromCart} from "../../actions";
 
 class PromoBlock extends React.Component {
-  constructor(props) {
-    super(props);
-    // history =
-    // addedToCart
-    // itemRemovedFromCart
-    // cart
-  }
+  // constructor(props) {
+  //   super(props);
+  //   // history =
+  //   // addedToCart
+  //   // itemRemovedFromCart
+  //   // cart
+  // }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     this.props.storeService.setLocal(this.props.cart)

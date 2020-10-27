@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from "react"
+import React from "react"
 import './PopupCities.scss'
 import SvgClose from "../UI/icons/SvgClose";
-import ApiService from "../../service/apiService";
+// import ApiService from "../../service/apiService";
 
-const apiService = new ApiService()
+// const apiService = new ApiService()
 
 const PopupCities = props => {
   const {cities} = props

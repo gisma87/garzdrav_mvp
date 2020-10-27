@@ -7,36 +7,36 @@ import SvgCheck from "../../components/UI/icons/SvgCheck";
 
 const ProfileSetting = () => {
   return (
-    <BlockWrapper style='ProfileSetting'>
+    <BlockWrapper classStyle='ProfileSetting'>
       <h4>Настройки профиля</h4>
       <form>
-        <BlockWrapper style='ProfileSetting__item'>
+        <BlockWrapper classStyle='ProfileSetting__item'>
           <p className='ProfileSetting__itemTitle'>Телефон</p>
           <div className='ProfileSetting__itemContent'>
             <p className='ProfileSetting__info'>+7 965 324 XX XX</p>
             <div className='ProfileSetting__check'><SvgCheck style={{color: 'green'}}/></div>
           </div>
         </BlockWrapper>
-        <BlockWrapper style='ProfileSetting__item'>
+        <BlockWrapper classStyle='ProfileSetting__item'>
           <p className='ProfileSetting__itemTitle'>E-mail</p>
           <div className='ProfileSetting__itemContent'>
             <p className='ProfileSetting__info'>natan78@mail.ru</p>
             <div className='ProfileSetting__check'><SvgCheck style={{color: 'green'}}/></div>
           </div>
         </BlockWrapper>
-        <BlockWrapper style='ProfileSetting__item'>
+        <BlockWrapper classStyle='ProfileSetting__item'>
           <p className='ProfileSetting__itemTitle'>Имя</p>
           <div className='ProfileSetting__itemContent'>
             <p className='ProfileSetting__info'>Ярополк</p>
           </div>
         </BlockWrapper>
-        <BlockWrapper style='ProfileSetting__item'>
+        <BlockWrapper classStyle='ProfileSetting__item'>
           <p className='ProfileSetting__itemTitle'>Дата рождения</p>
           <div className='ProfileSetting__itemContent'>
             <p className='ProfileSetting__info'>30.12.1978</p>
           </div>
         </BlockWrapper>
-        <BlockWrapper style='ProfileSetting__item'>
+        <BlockWrapper classStyle='ProfileSetting__item'>
           <p className='ProfileSetting__itemTitle'>Пол</p>
 
           <div className='ProfileSetting__itemContainer'>
@@ -74,30 +74,30 @@ const Profile = (props) => {
         <h1>Личный кабинет</h1>
         <div className='Profile__mainContainer'>
 
-          {block === 'main' && <BlockWrapper style='Profile__menu'>
+          {block === 'main' && <BlockWrapper classStyle='Profile__menu'>
             <p>БОНУСЫ</p>
           </BlockWrapper>}
 
-          {block === 'order' && <BlockWrapper style='Profile__menu'>
+          {block === 'order' && <BlockWrapper classStyle='Profile__menu'>
             <p>ЗАКАЗЫ</p>
           </BlockWrapper>}
 
-          {block === 'historyOrder' && <BlockWrapper style='Profile__menu'>
+          {block === 'historyOrder' && <BlockWrapper classStyle='Profile__menu'>
             <p>ИСТОРИИ ЗАКАЗОВ</p>
           </BlockWrapper>}
 
-          {block === 'favorits' && <BlockWrapper style='Profile__menu'>
+          {block === 'favorits' && <BlockWrapper classStyle='Profile__menu'>
             <p>ИЗБРАННОЕ</p>
           </BlockWrapper>}
 
-          {block === 'favoritRetail' && <BlockWrapper style='Profile__menu'>
+          {block === 'favoritRetail' && <BlockWrapper classStyle='Profile__menu'>
             <p>ЛЮБИМАЯ АПТЕКА</p>
           </BlockWrapper>}
 
           {block === 'profileSettings' && <ProfileSetting/>}
 
 
-          <BlockWrapper style='Profile__menu'>
+          <BlockWrapper classStyle='Profile__menu'>
             <ul className='Profile__items'>
               <li className='Profile__item' onClick={() => setBlock('main')}>Бонусы</li>
               <li className='Profile__item' onClick={() => setBlock('order')}>Заказы</li>

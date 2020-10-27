@@ -111,7 +111,7 @@ const Cities = props => {
         <div className='Cities wrapper'>
           <h1>Аптеки в г. {isCity.title}</h1>
           <div className='Cities__mainContainer'>
-            <BlockWrapper style='Cities__retails'>
+            <BlockWrapper classStyle='Cities__retails'>
               <ul>
                 {
                   retailsCity.map((item) => {

@@ -16,7 +16,7 @@ const RetailCheckPanel = () => {
   }
 
   return (
-    <BlockWrapper style='RetailCheckPanel'>
+    <BlockWrapper classStyle='RetailCheckPanel'>
       <div className='RetailCheckPanel__wrapperOnClick' onClick={() => setChecked((state) => {
         return !state
       })}>

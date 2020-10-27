@@ -8,7 +8,7 @@ const CartItem = (props) => {
   const {id, img, title, maker, minPrice} = props.item
 
   return (
-    <BlockWrapper style={'CartItem ' + `${props.style}`}>
+    <BlockWrapper classStyle={'CartItem ' + `${props.classStyle}`}>
       <div className='CartItem__container'>
         <div className='CartItem__imageContainer'>
           {img !== undefined ? <img className='CartItem__image' src={img} alt=""/> :

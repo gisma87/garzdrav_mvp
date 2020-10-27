@@ -1,6 +1,5 @@
 import React from "react";
 import './ArticlesBlock.scss'
-import {NavLink} from "react-router-dom";
 import TitleSection from "../UI/TitleSection/TitleSection";
 import calendarIcon from '../../img/calendar-alt-regular.svg'
 
