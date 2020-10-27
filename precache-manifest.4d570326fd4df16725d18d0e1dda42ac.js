@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "71a26dab6f2d3ee7e65bf1da63aafce5",
+    "revision": "62551a434be80ccd83919103d1aa7898",
     "url": "//gisma87.github.io/garzdrav_mvp/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "//gisma87.github.io/garzdrav_mvp/static/css/2.ef742aa5.chunk.css"
   },
   {
-    "revision": "d1d2030ed4404e3ff397",
+    "revision": "803088fe4edece10b072",
     "url": "//gisma87.github.io/garzdrav_mvp/static/css/main.e01df8de.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "//gisma87.github.io/garzdrav_mvp/static/js/2.5b7ac3f6.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "d1d2030ed4404e3ff397",
-    "url": "//gisma87.github.io/garzdrav_mvp/static/js/main.82d6054b.chunk.js"
+    "revision": "803088fe4edece10b072",
+    "url": "//gisma87.github.io/garzdrav_mvp/static/js/main.6fe9f4cd.chunk.js"
   },
   {
     "revision": "af6a278bae26ccec9b43",
