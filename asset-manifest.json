@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "./static/css/main.e7cb2929.chunk.css",
-    "main.js": "./static/js/main.42b397fe.chunk.js",
-    "main.js.map": "./static/js/main.42b397fe.chunk.js.map",
+    "main.css": "./static/css/main.187bb791.chunk.css",
+    "main.js": "./static/js/main.a554fa94.chunk.js",
+    "main.js.map": "./static/js/main.a554fa94.chunk.js.map",
     "runtime-main.js": "./static/js/runtime-main.55a1f725.js",
     "runtime-main.js.map": "./static/js/runtime-main.55a1f725.js.map",
     "static/css/2.ef742aa5.chunk.css": "./static/css/2.ef742aa5.chunk.css",
-    "static/js/2.46787fcd.chunk.js": "./static/js/2.46787fcd.chunk.js",
-    "static/js/2.46787fcd.chunk.js.map": "./static/js/2.46787fcd.chunk.js.map",
+    "static/js/2.5b7ac3f6.chunk.js": "./static/js/2.5b7ac3f6.chunk.js",
+    "static/js/2.5b7ac3f6.chunk.js.map": "./static/js/2.5b7ac3f6.chunk.js.map",
     "index.html": "./index.html",
-    "precache-manifest.c454dc4642a791c476262100a3c0f828.js": "./precache-manifest.c454dc4642a791c476262100a3c0f828.js",
+    "precache-manifest.90417e12748445e8f57d81f0ea6408e3.js": "./precache-manifest.90417e12748445e8f57d81f0ea6408e3.js",
     "service-worker.js": "./service-worker.js",
     "static/css/2.ef742aa5.chunk.css.map": "./static/css/2.ef742aa5.chunk.css.map",
-    "static/css/main.e7cb2929.chunk.css.map": "./static/css/main.e7cb2929.chunk.css.map",
-    "static/js/2.46787fcd.chunk.js.LICENSE.txt": "./static/js/2.46787fcd.chunk.js.LICENSE.txt",
+    "static/css/main.187bb791.chunk.css.map": "./static/css/main.187bb791.chunk.css.map",
+    "static/js/2.5b7ac3f6.chunk.js.LICENSE.txt": "./static/js/2.5b7ac3f6.chunk.js.LICENSE.txt",
     "static/media/5-nok-600x600.jpg": "./static/media/5-nok-600x600.7c873928.jpg",
     "static/media/9-mesyatsev-folievaya-kislota-600x600.jpg": "./static/media/9-mesyatsev-folievaya-kislota-600x600.38b902f2.jpg",
     "static/media/App.css": "./static/media/PTSans-Regular.4ea26cd5.ttf",
@@ -30,7 +30,6 @@
     "static/media/nazivin2.jpg": "./static/media/nazivin2.0128b414.jpg",
     "static/media/nazivin3.jpg": "./static/media/nazivin3.1a4f7282.jpg",
     "static/media/nazivin4.jpg": "./static/media/nazivin4.b54b7f74.jpg",
-    "static/media/news.jpg": "./static/media/news.51f3cb56.jpg",
     "static/media/phone-solid.svg": "./static/media/phone-solid.f8f8e673.svg",
     "static/media/pills.svg": "./static/media/pills.dbbcac68.svg",
     "static/media/promotion1.jpg": "./static/media/promotion1.34a78b85.jpg",
@@ -45,8 +44,8 @@
   "entrypoints": [
     "static/js/runtime-main.55a1f725.js",
     "static/css/2.ef742aa5.chunk.css",
-    "static/js/2.46787fcd.chunk.js",
-    "static/css/main.e7cb2929.chunk.css",
-    "static/js/main.42b397fe.chunk.js"
+    "static/js/2.5b7ac3f6.chunk.js",
+    "static/css/main.187bb791.chunk.css",
+    "static/js/main.a554fa94.chunk.js"
   ]
 }
