@@ -99,47 +99,45 @@ const Profile = (props) => {
   const [block, setBlock] = useState('favorites');
 
   return (
-    <LayoutDesktop>
-      <section className='Profile wrapper'>
-        <h1>Личный кабинет</h1>
-        <div className='Profile__mainContainer'>
+    <section className='Profile wrapper'>
+      <h1>Личный кабинет</h1>
+      <div className='Profile__mainContainer'>
 
-          {block === 'main' && <BlockWrapper classStyle='Profile__menu'>
-            <p>БОНУСЫ</p>
-          </BlockWrapper>}
+        {block === 'main' && <BlockWrapper classStyle='Profile__menu'>
+          <p>БОНУСЫ</p>
+        </BlockWrapper>}
 
-          {block === 'order' && <BlockWrapper classStyle='Profile__menu'>
-            <p>ЗАКАЗЫ</p>
-          </BlockWrapper>}
+        {block === 'order' && <BlockWrapper classStyle='Profile__menu'>
+          <p>ЗАКАЗЫ</p>
+        </BlockWrapper>}
 
-          {block === 'historyOrder' && <BlockWrapper classStyle='Profile__menu'>
-            <p>ИСТОРИИ ЗАКАЗОВ</p>
-          </BlockWrapper>}
+        {block === 'historyOrder' && <BlockWrapper classStyle='Profile__menu'>
+          <p>ИСТОРИИ ЗАКАЗОВ</p>
+        </BlockWrapper>}
 
-          {block === 'favorites' && <Favorites item={{addedToCart, itemRemovedFromCart, cart, history, favorites}}/>}
+        {block === 'favorites' && <Favorites item={{addedToCart, itemRemovedFromCart, cart, history, favorites}}/>}
 
-          {block === 'favoriteRetail' && <BlockWrapper classStyle='Profile__menu'>
-            <p>ЛЮБИМАЯ АПТЕКА</p>
-          </BlockWrapper>}
+        {block === 'favoriteRetail' && <BlockWrapper classStyle='Profile__menu'>
+          <p>ЛЮБИМАЯ АПТЕКА</p>
+        </BlockWrapper>}
 
-          {block === 'profileSettings' && <ProfileSetting/>}
+        {block === 'profileSettings' && <ProfileSetting/>}
 
 
-          <BlockWrapper classStyle='Profile__menu'>
-            <ul className='Profile__items'>
-              <li className='Profile__item' onClick={() => setBlock('main')}>Бонусы</li>
-              <li className='Profile__item' onClick={() => setBlock('order')}>Заказы</li>
-              <li className='Profile__item' onClick={() => setBlock('historyOrder')}>Истории заказов</li>
-              <li className='Profile__item' onClick={() => setBlock('favorites')}>Избранное</li>
-              <li className='Profile__item' onClick={() => setBlock('favoriteRetail')}>Любимая аптека</li>
-              <li className='Profile__item' onClick={() => setBlock('profileSettings')}>Настройка профиля</li>
-            </ul>
+        <BlockWrapper classStyle='Profile__menu'>
+          <ul className='Profile__items'>
+            <li className='Profile__item' onClick={() => setBlock('main')}>Бонусы</li>
+            <li className='Profile__item' onClick={() => setBlock('order')}>Заказы</li>
+            <li className='Profile__item' onClick={() => setBlock('historyOrder')}>Истории заказов</li>
+            <li className='Profile__item' onClick={() => setBlock('favorites')}>Избранное</li>
+            <li className='Profile__item' onClick={() => setBlock('favoriteRetail')}>Любимая аптека</li>
+            <li className='Profile__item' onClick={() => setBlock('profileSettings')}>Настройка профиля</li>
+          </ul>
 
-            <Link to='/' className='Profile__btnOut' href="#">Выход из аккаунта</Link>
-          </BlockWrapper>
-        </div>
-      </section>
-    </LayoutDesktop>
+          <Link to='/' className='Profile__btnOut' href="#">Выход из аккаунта</Link>
+        </BlockWrapper>
+      </div>
+    </section>
   )
 }
 

@@ -4,11 +4,9 @@ import LayoutDesktop from "../../hoc/LayoutDesktop";
 
 const Company = () => {
   return (
-    <LayoutDesktop>
-      <div className='AddressPharmacy'>
-        <h1>О компании</h1>
-      </div>
-    </LayoutDesktop>
+    <div className='HowOrder wrapper'>
+      <h1>О компании</h1>
+    </div>
   )
 }
 

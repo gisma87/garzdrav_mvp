@@ -20,17 +20,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="78173063-124b-4432-8c91-25d7c3ae2a6a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/FavoriteItem/FavoriteItem.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/FavoriteItem/FavoriteItem.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/FavoriteItem/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/HeaderDesktop/HeaderDesktop.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/HeaderDesktop/HeaderDesktop.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/Articles/Articles.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Articles/Articles.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/containers/CardPage/CardPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/CardPage/CardPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/Cards/Cards.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Cards/Cards.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/Cart/Cart.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Cart/Cart.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/Cities/Cities.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Cities/Cities.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/Company/Company.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Company/Company.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/HowOrder/HowOrder.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/HowOrder/HowOrder.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/HowOrder/HowOrder.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/HowOrder/HowOrder.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/News/News.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/News/News.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/containers/Profile/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Profile/Profile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/Profile/Profile.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Profile/Profile.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/reducers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/PromoPage/PromoPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/PromoPage/PromoPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/Promotion/Promotion.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Promotion/Promotion.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,7 +113,7 @@
       <workItem from="1603722217224" duration="203000" />
       <workItem from="1603723533497" duration="3813000" />
       <workItem from="1603768632277" duration="7593000" />
-      <workItem from="1603781978307" duration="12087000" />
+      <workItem from="1603781978307" duration="13184000" />
     </task>
     <servers />
   </component>

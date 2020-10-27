@@ -1,10 +1,9 @@
 import React, {useEffect} from "react"
 import {withRouter} from 'react-router-dom'
 import './Cards.scss'
-import LayoutDesktop from "../../hoc/LayoutDesktop";
 import CardItem from "../../components/CardItem";
 import dataCatds from "../../testData/dataCards"
-import SidebarCategories from "../../components/SidebarCategories";
+// import SidebarCategories from "../../components/SidebarCategories";
 import {connect} from 'react-redux'
 import withStoreService from "../../hoc/withStoreService/withStoreService";
 import {addedToCart, itemRemovedFromCart, allItemRemovedFromCart} from "../../actions";
@@ -30,7 +29,6 @@ const Cards = props => {
   // if (error) return <div>...ERROR...</div>
 
   return (
-    <LayoutDesktop>
       <section className='Cards wrapper'>
         <h1 className='Cards__title'>Результаты поиска</h1>
         <div className='Cards__mainContainer'>
@@ -59,7 +57,6 @@ const Cards = props => {
           </div>
         </div>
       </section>
-    </LayoutDesktop>
   )
 }
 

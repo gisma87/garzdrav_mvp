@@ -4,7 +4,6 @@ import iconLoc from '../../img/test/map-pin.svg'
 import iconGZ from '../../img/iconmap/gz.png'
 import iconDA from '../../img/iconmap/da.png'
 import './Cities.scss'
-import LayoutDesktop from "../../hoc/LayoutDesktop";
 import points from "../../testData/points";
 import {fetchCities, fetchRetailsCity, retailsCityLoaded} from "../../actions";
 import {compose} from "../../utils";
@@ -107,7 +106,6 @@ const Cities = props => {
       }}
       version={"2.1"}
     >
-      <LayoutDesktop>
         <div className='Cities wrapper'>
           <h1>Аптеки в г. {isCity.title}</h1>
           <div className='Cities__mainContainer'>
@@ -169,7 +167,6 @@ const Cities = props => {
             </Map>
           </div>
         </div>
-      </LayoutDesktop>
     </YMaps>
   )
 }
