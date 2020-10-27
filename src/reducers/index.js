@@ -7,7 +7,8 @@ const initialState = {
     "title": "Красноярск"
   },
   retailsCity: [],
-  cart: []
+  cart: [],
+  favorites: []
 }
 
 const updateCartItems = (cart, item, idx) => {
@@ -55,6 +56,16 @@ const reducer = (state = initialState, action) => {
 
   console.log(action.type, action.payload);
   switch (action.type) {
+
+    case 'ADDED_TO_FAVORITS':
+      return {
+        ...state,
+        favorites: [
+          ...state.favorites,
+          action.payload
+        ]
+      };
+
     case 'FETCH_RETAILS_CITY_SUCCESS':
       return {
         ...state,

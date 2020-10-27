@@ -61,6 +61,13 @@ const rewriteCart = (cart) => {
   }
 }
 
+const addedToFavorits = (item) => {
+  return {
+    type: 'ADDED_TO_FAVORITS',
+    payload: item
+  }
+}
+
 // const fetchRetailsCity = (storeService, dispatch, cityId) => () => {
 //   // console.log('я в ACTIONS')
 //   storeService.getRetailsCity(cityId)
@@ -76,5 +83,12 @@ const fetchCities = (storeService, dispatch) => () => {
 }
 
 export {
-  fetchCities, setIsCity, retailsCityLoaded, addedToCart, itemRemovedFromCart, allItemRemovedFromCart, rewriteCart
+  fetchCities,
+  setIsCity,
+  retailsCityLoaded,
+  addedToCart,
+  itemRemovedFromCart,
+  allItemRemovedFromCart,
+  rewriteCart,
+  addedToFavorits
 }

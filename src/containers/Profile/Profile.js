@@ -2,8 +2,13 @@ import React, {useState} from "react"
 import './Profile.scss'
 import LayoutDesktop from "../../hoc/LayoutDesktop";
 import BlockWrapper from "../../components/BlockWrapper";
-import {Link} from "react-router-dom";
+import FavoriteItem from "../../components/FavoriteItem";
+import {Link, withRouter} from "react-router-dom";
 import SvgCheck from "../../components/UI/icons/SvgCheck";
+import {addedToCart, allItemRemovedFromCart, itemRemovedFromCart} from "../../actions";
+import {compose} from "../../utils";
+import withStoreService from "../../hoc/withStoreService/withStoreService";
+import {connect} from "react-redux";
 
 const ProfileSetting = () => {
   return (
@@ -63,10 +68,35 @@ const ProfileSetting = () => {
   )
 }
 
+const Favorites = ({item}) => {
+  const {addedToCart, itemRemovedFromCart, cart, history, favorites} = item;
+  const handlerToCards = (itemId) => {
+    history.push(`/Cards/${itemId}`)
+    window.scroll(0, 0)
+  }
+  return (
+    <BlockWrapper classStyle='Favorites'>
+      <h4>Избранное</h4>
+      <div className='Favorites__container'>
+        {
+          favorites.map((item) => {
+            return <FavoriteItem key={item}
+                                 itemId={item}
+                                 item={{addedToCart, itemRemovedFromCart, cart, handlerToCards}}/>
+          })
+        }
+
+      </div>
+    </BlockWrapper>
+  )
+}
+
 
 const Profile = (props) => {
 
-  const [block, setBlock] = useState('profileSettings');
+  const {addedToCart, itemRemovedFromCart, cart, history, favorites} = props;
+
+  const [block, setBlock] = useState('favorites');
 
   return (
     <LayoutDesktop>
@@ -86,11 +116,9 @@ const Profile = (props) => {
             <p>ИСТОРИИ ЗАКАЗОВ</p>
           </BlockWrapper>}
 
-          {block === 'favorits' && <BlockWrapper classStyle='Profile__menu'>
-            <p>ИЗБРАННОЕ</p>
-          </BlockWrapper>}
+          {block === 'favorites' && <Favorites item={{addedToCart, itemRemovedFromCart, cart, history, favorites}}/>}
 
-          {block === 'favoritRetail' && <BlockWrapper classStyle='Profile__menu'>
+          {block === 'favoriteRetail' && <BlockWrapper classStyle='Profile__menu'>
             <p>ЛЮБИМАЯ АПТЕКА</p>
           </BlockWrapper>}
 
@@ -102,8 +130,8 @@ const Profile = (props) => {
               <li className='Profile__item' onClick={() => setBlock('main')}>Бонусы</li>
               <li className='Profile__item' onClick={() => setBlock('order')}>Заказы</li>
               <li className='Profile__item' onClick={() => setBlock('historyOrder')}>Истории заказов</li>
-              <li className='Profile__item' onClick={() => setBlock('favorits')}>Избранное</li>
-              <li className='Profile__item' onClick={() => setBlock('favoritRetail')}>Любимая аптека</li>
+              <li className='Profile__item' onClick={() => setBlock('favorites')}>Избранное</li>
+              <li className='Profile__item' onClick={() => setBlock('favoriteRetail')}>Любимая аптека</li>
               <li className='Profile__item' onClick={() => setBlock('profileSettings')}>Настройка профиля</li>
             </ul>
 
@@ -115,4 +143,20 @@ const Profile = (props) => {
   )
 }
 
-export default Profile
+
+const mapStateToProps = ({cart, favorites}) => {
+  return {cart, favorites}
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addedToCart: (item) => dispatch(addedToCart(item)),
+    itemRemovedFromCart: (item) => dispatch(itemRemovedFromCart(item)),
+    allItemRemovedFromCart: (item) => dispatch(allItemRemovedFromCart(item))
+  }
+}
+
+export default compose(
+  withStoreService(),
+  connect(mapStateToProps, mapDispatchToProps)
+)(withRouter(Profile))

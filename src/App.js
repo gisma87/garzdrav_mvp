@@ -2,7 +2,6 @@ import React, {useEffect} from 'react';
 import {Switch, Route} from 'react-router-dom';
 import './App.css';
 import 'normalize.css';
-import IndexPage from "./containers/IndexPage/IndexPage";
 import HowOrder from "./containers/HowOrder";
 import Cities from "./containers/Cities";
 import Cart from "./containers/Cart";
@@ -19,18 +18,24 @@ import {compose} from "./utils";
 import withStoreService from "./hoc/withStoreService/withStoreService";
 import {connect} from "react-redux";
 import Profile from "./containers/Profile";
+import HeaderDesktop from "./components/HeaderDesktop";
+import FooterDesktop from "./components/FooterDesktop";
+import IndexDesktop from "./containers/IndexDesktop/IndexDesktop";
 
 function App(props) {
 
   useEffect(() => {
     props.fetchCities();
-    props.storeService.setCartFromLocalStorage(props.rewriteCart)
+    if (localStorage.getItem("arrItemId")) {
+      props.storeService.setCartFromLocalStorage(props.rewriteCart)
+    }
   }, [])
 
   return (
     <div className="App">
+      <HeaderDesktop/>
       <Switch>
-        <Route exact path="/" component={IndexPage}/>
+        <Route exact path="/" component={IndexDesktop}/>
         <Route path="/address/" component={Cities}/>
         <Route path="/howOrder/" component={HowOrder}/>
         <Route path="/cities/" component={Cities}/>
@@ -45,8 +50,9 @@ function App(props) {
         <Route path="/Cards/" exact component={Cards}/>
         <Route path="/Cards/:id"
                render={({match}) => <CardPage itemId={match.params.id}/>}/>
-        <Route component={IndexPage}/>
+        <Route component={IndexDesktop}/>
       </Switch>
+      <FooterDesktop/>
     </div>
   );
 }
