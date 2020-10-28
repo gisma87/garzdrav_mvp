@@ -1,6 +1,5 @@
 import React, {useState} from "react"
 import './Profile.scss'
-import LayoutDesktop from "../../hoc/LayoutDesktop";
 import BlockWrapper from "../../components/BlockWrapper";
 import FavoriteItem from "../../components/FavoriteItem";
 import {Link, withRouter} from "react-router-dom";

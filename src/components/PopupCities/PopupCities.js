@@ -1,9 +1,6 @@
 import React from "react"
 import './PopupCities.scss'
 import SvgClose from "../UI/icons/SvgClose";
-// import ApiService from "../../service/apiService";
-
-// const apiService = new ApiService()
 
 const PopupCities = props => {
   const {cities} = props

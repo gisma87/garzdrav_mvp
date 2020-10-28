@@ -1,0 +1,23 @@
+.PrivacyPolicy {
+  font-family: PTSans-Regular, Helvetica, Arial, sans-serif;
+  flex: 1 1;
+  min-height: 100%;
+  padding-bottom: 50px;
+
+  ol {
+    list-style-type: none;
+  }
+
+  h3 {
+    font-size: 24px;
+    margin: 15px 0 10px;
+    padding-top: 20px;
+    border-top: 2px solid #E26C2D;
+  }
+
+  p {
+    font-size: 16px;
+    margin: 5px 0;
+  }
+
+}

@@ -1,6 +1,6 @@
 import React, {useState} from "react"
 import './HeaderTop.scss'
-import {NavLink} from "react-router-dom";
+import {Link, NavLink, withRouter} from "react-router-dom";
 import PopupCities from "../PopupCities";
 import {setIsCity} from "../../actions";
 import {compose} from "../../utils";
@@ -8,7 +8,7 @@ import withStoreService from "../../hoc/withStoreService/withStoreService";
 import {connect} from "react-redux";
 
 const HeaderTop = (props) => {
-  const {cities, isCity, setIsCity} = props;
+  const {cities, isCity, setIsCity, history} = props;
   const [popup, setPopup] = useState(false)
 
   return (
@@ -19,16 +19,26 @@ const HeaderTop = (props) => {
         </div>
         <ul className='HeaderTop__headItems'>
           <li>
-            <NavLink className='HeaderTop__link' to="/address/">Аптеки</NavLink>
+            <Link className='HeaderTop__link' to="/address/">Аптеки</Link>
           </li>
           <li>
-            <NavLink className='HeaderTop__link' to="/howOrder/">Как сделать заказ</NavLink>
+            <Link className='HeaderTop__link' to='/'
+                  onClick={(event) => {
+                    event.preventDefault()
+                    history.push('/')
+                    window.scrollTo({
+                      top: 780,
+                      left: 0,
+                      behavior: 'smooth'
+                    });
+                  }}
+            >Как сделать заказ</Link>
           </li>
           <li>
-            <NavLink className='HeaderTop__link' to="/promotions/">Акции</NavLink>
+            <Link className='HeaderTop__link' to="/promotions/">Акции</Link>
           </li>
         </ul>
-        <span className='HeaderTop__headItem'>Задать вопрос</span>
+        <Link to='/ask-question/' className='HeaderTop__headItem HeaderTop__link'>Задать вопрос</Link>
       </div>
       <PopupCities active={popup}
                    cities={cities}
@@ -55,4 +65,4 @@ const mapDispatchToProps = (dispatch) => {
 export default compose(
   withStoreService(),
   connect(mapStateToProps, mapDispatchToProps)
-)(HeaderTop)
+)(withRouter(HeaderTop))

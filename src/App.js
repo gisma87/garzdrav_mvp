@@ -21,6 +21,8 @@ import Profile from "./containers/Profile";
 import HeaderDesktop from "./components/HeaderDesktop";
 import FooterDesktop from "./components/FooterDesktop";
 import IndexDesktop from "./containers/IndexDesktop/IndexDesktop";
+import PrivacyPolicy from "./containers/PrivacyPolicy";
+import AskQuestion from "./containers/AskQuestion";
 
 function App(props) {
 
@@ -40,6 +42,8 @@ function App(props) {
         <Route path="/howOrder/" component={HowOrder}/>
         <Route path="/cities/" component={Cities}/>
         <Route path="/cart/" component={Cart}/>
+        <Route path="/ask-question/" component={AskQuestion}/>
+        <Route path="/confidentiality/" component={PrivacyPolicy}/>
         <Route path="/company/" component={Company}/>
         <Route path="/news/" component={News}/>
         <Route path="/articles/" component={Articles}/>

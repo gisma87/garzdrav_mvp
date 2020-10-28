@@ -4,13 +4,12 @@ import imgPills from "../../img/pills.png"
 import imgStack from "../../img/Stack.png"
 import imgRoad from "../../img/road.png"
 import imgMan from "../../img/man.png"
-import SvgArrowRightSolid from "../../img/SVGcomponents/SvgArrowRightSolid";
 import arrowRightIcon from "../../img/arrow-right-solid.svg"
 
 class HowToBuy extends React.Component {
   render() {
     return (
-      <div className={classes.howtobuy}>
+      <div className={classes.howtobuy} id='HowOrder'>
         <div className='wrapper'>
           <h2>как купить нужные лекарства на сайте</h2>
           <div className={classes.blockbuy}>
