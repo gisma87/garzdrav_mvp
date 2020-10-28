@@ -12,9 +12,12 @@ import PopupLogin from "../PopupLogin";
 
 const HeaderFixed = (props) => {
   const count = props.cart.length;
-  const [isLogin, setIsLogin] = useState(false);
+  // const [isLogin, setIsLogin] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0)
   const [popup, setPopup] = useState(false)
+  const isLogin = () => {
+    return localStorage.getItem('isLogin') === 'true'
+  }
 
   // useEffect(() => {
   //   props.storeService.setCartFromLocalStorage(rewriteCart)
@@ -42,17 +45,18 @@ const HeaderFixed = (props) => {
               <span className='HeaderFixed__cartText'>Корзина</span>}
           </NavLink>
           <button className='HeaderFixed__logIn' onClick={() => {
-            setPopup(true)
-            // setIsLogin(true)
-            // props.history.push('/profile/')
-            // window.scroll(0, 0)
-          }}>{isLogin ? 'Личный кабинет' : 'Войти'}
+            if (isLogin()) {
+              props.history.push('/profile/')
+              window.scroll(0, 0)
+            } else setPopup(true)
+          }}>{isLogin() ? 'Личный кабинет' : 'Войти'}
           </button>
         </div>
       </div>
       {lastScrollY > 400 && <ButtonTopScroll/>}
       <PopupLogin active={popup}
                   onClick={() => setPopup(false)}
+                  // isLogin={() => setIsLogin(true)}
       />
     </div>
   )

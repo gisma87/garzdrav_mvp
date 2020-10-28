@@ -20,6 +20,7 @@ const PopupLogin = props => {
         </div>
         <h3 className="PopupLogin__title">Войти или зарегистрироваться</h3>
         <form className="PopupLogin__form" name="new"
+              onSubmit={(event) => event.preventDefault()}
               onChange={(event) => {
                 const input = event.target;
                 if (input.id === 'PopupLogin-contact') {
@@ -49,7 +50,12 @@ const PopupLogin = props => {
 
           <div className='PopupLogin__buttonContainer'>
             <button type='submit'
-                    className={"PopupLogin__button " + (formValid ? "PopupLogin__button_active" : '')}>
+                    className={"PopupLogin__button " + (formValid ? "PopupLogin__button_active" : '')}
+                    onClick={() => {
+                      localStorage.setItem('isLogin', 'true')
+                      props.onClick()
+                    }}
+            >
               Войти
             </button>
             <button className={"PopupLogin__button " + (formValid ? "PopupLogin__button_active" : '')}>

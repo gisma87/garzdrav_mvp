@@ -20,26 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="78173063-124b-4432-8c91-25d7c3ae2a6a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/HeaderTop/test.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/PopupLogin/PopupLogin.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/PopupLogin/PopupLogin.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/PopupLogin/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/containers/AskQuestion/AskQuestion.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/containers/AskQuestion/AskQuestion.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/containers/AskQuestion/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/containers/PrivacyPolicy/PrivacyPolicy.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/containers/PrivacyPolicy/PrivacyPolicy.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/containers/PrivacyPolicy/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug.log" beforeDir="false" afterPath="$PROJECT_DIR$/debug.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/FooterDesktop/FooterDesktop.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FooterDesktop/FooterDesktop.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/HeaderFixed/HeaderFixed.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/HeaderFixed/HeaderFixed.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/HeaderTop/HeaderTop.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/HeaderTop/HeaderTop.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/HowToBuy/HowToBuy.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/HowToBuy/HowToBuy.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/PopupCities/PopupCities.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PopupCities/PopupCities.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/UI/icons/SvgClose.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UI/icons/SvgClose.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/IndexDesktop/IndexDesktop.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/IndexDesktop/IndexDesktop.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PopupLogin/PopupLogin.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PopupLogin/PopupLogin.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/containers/Profile/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Profile/Profile.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -123,7 +106,7 @@
       <workItem from="1603723533497" duration="3813000" />
       <workItem from="1603768632277" duration="7593000" />
       <workItem from="1603781978307" duration="13711000" />
-      <workItem from="1603849956899" duration="25010000" />
+      <workItem from="1603849956899" duration="27421000" />
     </task>
     <servers />
   </component>
@@ -159,10 +142,10 @@
     </state>
     <state x="-1181" y="274" key="FileChooserDialogImpl/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1603873857208" />
     <state x="739" y="274" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1603029745062" />
-    <state x="-1253" y="253" width="1131" height="726" key="find.popup" timestamp="1603859589014">
+    <state x="-1253" y="253" width="1131" height="726" key="find.popup" timestamp="1603877673505">
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="-1253" y="253" width="1131" height="726" key="find.popup/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1603859589014" />
+    <state x="-1253" y="253" width="1131" height="726" key="find.popup/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1603877673505" />
     <state x="667" y="253" width="586" height="534" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1603725229112" />
     <state x="-1297" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1603277697645">
       <screen x="-1920" y="0" width="1920" height="1040" />

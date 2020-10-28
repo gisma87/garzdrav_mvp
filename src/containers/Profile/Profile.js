@@ -133,7 +133,9 @@ const Profile = (props) => {
             <li className='Profile__item' onClick={() => setBlock('profileSettings')}>Настройка профиля</li>
           </ul>
 
-          <Link to='/' className='Profile__btnOut' href="#">Выход из аккаунта</Link>
+          <Link to='/' className='Profile__btnOut'
+                onClick={() => localStorage.setItem('isLogin', 'false')}
+          >Выход из аккаунта</Link>
         </BlockWrapper>
       </div>
     </section>
