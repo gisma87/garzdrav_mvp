@@ -1,6 +1,5 @@
 import React from "react";
 import './AskQuestion.scss'
-import BlockWrapper from "../../components/BlockWrapper";
 
 const AskQuestion = () => {
 

@@ -11,7 +11,11 @@ import {connect} from "react-redux";
 import PopupLogin from "../PopupLogin";
 
 const HeaderFixed = (props) => {
-  const count = props.cart.length;
+  // const count = props.cart.length;
+  const count = props.cart.reduce((sum, item) => {
+    return item.count + sum
+  }, 0)
+
   // const [isLogin, setIsLogin] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0)
   const [popup, setPopup] = useState(false)
@@ -56,7 +60,7 @@ const HeaderFixed = (props) => {
       {lastScrollY > 400 && <ButtonTopScroll/>}
       <PopupLogin active={popup}
                   onClick={() => setPopup(false)}
-                  // isLogin={() => setIsLogin(true)}
+        // isLogin={() => setIsLogin(true)}
       />
     </div>
   )

@@ -29,31 +29,48 @@
     display: block;
     border: 3px solid #bce072;
     overflow: hidden;
-    border-radius: 20px;
-    margin: 40px 0 20px 30px;
+    border-radius: 0 20px 20px 0;
+    margin: 0 0 20px 0;
   }
 
   &__retails {
-    flex: 1 1;
+    min-width: 300px;
+    flex: 0 1;
+    max-height: calc(100vh - 174px);
+    overflow-y: auto;
   }
 
   &__retailItem {
+    display: flex;
+    flex-direction: column;
     list-style-type: none;
     border-bottom: 2px solid #b8b8b8;
-    padding: 20px 5px 7px;
-    display: grid;
-    //grid-template-rows: repeat(10, 1fr);
-    grid-template-columns: repeat(auto-fill, 210px);
-    grid-gap: 0 10px;
-    grid-auto-flow: column;
+    padding: 10px 5px 7px 10px;
+    cursor: pointer;
+
+    &:hover {
+      background: #eaeaea;
+      transform: scale(1.02);
+      transition: all .2s;
+    }
+
+
+    //display: grid;
+    //grid-template-columns: repeat(auto-fill, 210px);
+    //grid-gap: 0 10px;
+    //grid-auto-flow: column;
+
+    span {
+      margin: 3px 0;
+    }
 
     &:nth-child(2n) {
       border-bottom: 1px solid #E26C2D;
     }
 
     @media (max-width: 950px) {
-      grid-template-columns: 180px 210px;
-      grid-gap: 0 5px;
+      //grid-template-columns: 180px 210px;
+      //grid-gap: 0 5px;
     }
 
   }

@@ -1,4 +1,4 @@
-import React, {useEffect} from "react"
+import React, {useEffect, useState} from "react"
 import {YMaps, Map, Placemark, Clusterer, GeolocationControl, SearchControl} from "react-yandex-maps";
 import iconLoc from '../../img/test/map-pin.svg'
 import iconGZ from '../../img/iconmap/gz.png'
@@ -11,26 +11,56 @@ import withStoreService from "../../hoc/withStoreService/withStoreService";
 import {connect} from "react-redux";
 import StoreService from "../../service/StoreService";
 import BlockWrapper from "../../components/BlockWrapper";
-import SearchPanel from "../../components/SearchPanel/SearchPanel";
 
 
 const Cities = props => {
 
-  const {cities, loading, error, isCity, retailsCity} = props;
+  const [mutationRetailsCity, setMutationRetailsCity] = useState([])
+
+  const {cities, isCity, retailsCity} = props;
   const storeService = new StoreService()
   const keyGeocode = 'a4f732e5-2172-4695-ac03-e3a81556557e'
   const url = `https://geocode-maps.yandex.ru/1.x/?apikey=${keyGeocode}&format=json&geocode=`
-  const getGeoCode = async () => {
-    const res = await fetch(url + 'Красноярск, Вавилова, 39')
+  const getGeoCode = async (address) => {
+    const res = await fetch(url + address)
     if (!res.ok) {
       throw new Error(`Не могу выполнить fetch ${this.url}, статус ошибки: ${res.status}`)
     }
     return await res.json();
   }
-  const geoCode = async () => {
-    const res = await getGeoCode()
+  const geoCode = async (address) => {
+    const res = await getGeoCode(address)
     return await res.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos.split(' ')
   }
+
+
+  useEffect(() => {
+    const newArr1 = [];
+    const mutation = () => {
+      // пример: 'Красноярск, Вавилова, 39'
+      retailsCity.forEach((item) => {
+        geoCode(`Красноярск, ${item.street}, ${item.buildNumber}`)
+          .then((res) => {
+            const {guid, title, street, buildNumber} = item;
+            newArr1.push({
+              guid,
+              title,
+              street,
+              buildNumber,
+              coordinates: [+res[1], +res[0]],
+              type: 'gz'
+            })
+            // item.coordinates = [56.010563, 92.852572];
+            // [+res[1], +res[0]];
+            // item.type = 'gz';
+          })
+
+        setMutationRetailsCity(newArr1)
+      })
+    }
+    mutation()
+    console.log('mutationRetailsCity', mutationRetailsCity);
+  }, [])
 
   useEffect(() => {
     storeService.getRetailsCity(isCity.guid)
@@ -106,67 +136,76 @@ const Cities = props => {
       }}
       version={"2.1"}
     >
-        <div className='Cities wrapper'>
-          <h1>Аптеки в г. {isCity.title}</h1>
-          <div className='Cities__mainContainer'>
-            <BlockWrapper classStyle='Cities__retails'>
-              <ul>
-                {
-                  retailsCity.map((item) => {
-                    return <li className='Cities__retailItem' key={item.guid}>
-                      <span>{item.title}</span> <span>{item.street} {item.buildNumber}</span>
-                    </li>
-                  })
-                }
-              </ul>
-            </BlockWrapper>
+      <div className='Cities wrapper'>
+        <h1>Аптеки в г. {isCity.title}</h1>
+        <div className='Cities__mainContainer'>
+          <BlockWrapper classStyle='Cities__retails'>
+            <ul>
+              {
+                retailsCity.map((item) => {
+                  return <li className='Cities__retailItem' key={item.guid}>
+                    <span>{item.title}</span>
+                    <span>{item.street} {item.buildNumber}</span>
+                    <span>Часы работы:&nbsp;9:00 - 22:00</span>
+                  </li>
+                })
+              }
+            </ul>
+          </BlockWrapper>
 
-            <Map className='Cities__mapContainer' defaultState={mapState}
-                 modules={['control.ZoomControl', 'control.FullscreenControl', "templateLayoutFactory", "layout.ImageWithContent"]}
+          <Map className='Cities__mapContainer' defaultState={mapState}
+               modules={['control.ZoomControl', 'control.FullscreenControl', "templateLayoutFactory", "layout.ImageWithContent"]}
+          >
+            {/*<Placemark*/}
+            {/*  modules={['geoObject.addon.balloon', 'geoObject.addon.hint']}*/}
+            {/*  defaultGeometry={[56.010563, 92.852572]}*/}
+            {/*  properties={{*/}
+            {/*    balloonContentBody:*/}
+            {/*      'эта штука написано в balloonContentBody в Placemark',*/}
+            {/*    hintContent: 'Атмосфера дома',*/}
+            {/*    balloonContent: 'Гармония здоровья',*/}
+            {/*    iconCaption: 'asd'*/}
+            {/*  }}*/}
+            {/*  options={{*/}
+            {/*    iconLayout: 'default#imageWithContent',*/}
+            {/*    iconImageHref: iconLoc,*/}
+            {/*    iconImageSize: [30, 42],*/}
+            {/*    iconImageOffset: [-5, -38],*/}
+            {/*  }}*/}
+            {/*/>*/}
+
+            <Clusterer
+              options={{
+                preset: 'islands#invertedVioletClusterIcons',
+                groupByCoordinates: false,
+              }}
             >
-              {/*<Placemark*/}
-              {/*  modules={['geoObject.addon.balloon', 'geoObject.addon.hint']}*/}
-              {/*  defaultGeometry={[56.010563, 92.852572]}*/}
-              {/*  properties={{*/}
-              {/*    balloonContentBody:*/}
-              {/*      'эта штука написано в balloonContentBody в Placemark',*/}
-              {/*    hintContent: 'Атмосфера дома',*/}
-              {/*    balloonContent: 'Гармония здоровья',*/}
-              {/*    iconCaption: 'asd'*/}
-              {/*  }}*/}
-              {/*  options={{*/}
-              {/*    iconLayout: 'default#imageWithContent',*/}
-              {/*    iconImageHref: iconLoc,*/}
-              {/*    iconImageSize: [30, 42],*/}
-              {/*    iconImageOffset: [-5, -38],*/}
-              {/*  }}*/}
-              {/*/>*/}
+              {
+                (mutationRetailsCity) ?
+                  points.map(({coordinates, type}, index) => (
+                    <Placemark key={index}
+                               {...placeMark}
+                               geometry={coordinates}
+                               options={{
+                                 // iconLayout: 'default#imageWithContent',
+                                 iconLayout: 'default#image',
+                                 iconImageHref: setIcon(type),
+                                 iconImageSize: [45, 61],
+                                 iconImageOffset: [-22, -61],
+                               }}
+                    />
+                  ))
+                  : ''
 
-              <Clusterer
-                options={{
-                  preset: 'islands#invertedVioletClusterIcons',
-                  groupByCoordinates: false,
-                }}
-              >
-                {points.map(({coordinates, type}, index) => (
-                  <Placemark key={index}
-                             {...placeMark}
-                             geometry={coordinates}
-                             options={{
-                               // iconLayout: 'default#imageWithContent',
-                               iconLayout: 'default#image',
-                               iconImageHref: setIcon(type),
-                               iconImageSize: [45, 61],
-                               iconImageOffset: [-22, -61],
-                             }}
-                  />
-                ))}
-              </Clusterer>
-              <GeolocationControl options={{float: 'left'}}/>
-              <SearchControl options={{float: 'right'}}/>
-            </Map>
-          </div>
+              }
+            </Clusterer>
+            <GeolocationControl options={{float: 'left'}}/>
+            <SearchControl options={{float: 'right'}}/>
+          </Map>
         </div>
+        {JSON.stringify(mutationRetailsCity)}
+
+      </div>
     </YMaps>
   )
 }
