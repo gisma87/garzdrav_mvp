@@ -20,12 +20,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="78173063-124b-4432-8c91-25d7c3ae2a6a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/containers/Cities/Cities2.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/containers/Cities/CitiesOld.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/PopupMapCart/PopupMapCart.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/PopupMapCart/PopupMapCart.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/PopupMapCart/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/containers/Cities/Cities.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Cities/Cities.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/testData/mutationRetails.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/testData/mutationRetails.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/testData/points.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/testData/points.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/Cities/Cities.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Cities/Cities.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,7 +109,8 @@
       <workItem from="1603768632277" duration="7593000" />
       <workItem from="1603781978307" duration="13711000" />
       <workItem from="1603849956899" duration="30013000" />
-      <workItem from="1603937477538" duration="26865000" />
+      <workItem from="1603937477538" duration="26988000" />
+      <workItem from="1604023012375" duration="5261000" />
     </task>
     <servers />
   </component>
@@ -145,10 +146,14 @@
     </state>
     <state x="-1181" y="274" key="FileChooserDialogImpl/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1603873857208" />
     <state x="739" y="274" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1603029745062" />
-    <state x="-1253" y="253" width="1131" height="726" key="find.popup" timestamp="1603877673505">
+    <state x="-1144" y="433" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1604026325168">
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="-1253" y="253" width="1131" height="726" key="find.popup/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1603877673505" />
+    <state x="-1144" y="433" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1604026325168" />
+    <state x="-1253" y="253" width="1131" height="726" key="find.popup" timestamp="1604026460739">
+      <screen x="-1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="-1253" y="253" width="1131" height="726" key="find.popup/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1604026460739" />
     <state x="667" y="253" width="586" height="534" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1603725229112" />
     <state x="-1297" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1603277697645">
       <screen x="-1920" y="0" width="1920" height="1040" />

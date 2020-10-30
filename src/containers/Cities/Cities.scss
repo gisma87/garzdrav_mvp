@@ -23,6 +23,30 @@
     width: 100%;
   }
 
+  &__textClock {
+    white-space: nowrap;
+    font-size: 14px;
+    color: #4e4e4e;
+  }
+
+  &__itemAddress {
+    white-space: nowrap;
+    font-size: 14px;
+    color: #4e4e4e;
+  }
+
+  &__itemTitle {
+    font-weight: 500;
+    color: #000;
+  }
+
+  &__acitveItem {
+    background-color: #FFF9E5;
+    transform: scale(1.05);
+    border: 1px solid #E26C2D;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+  }
+
   &__mapContainer {
     flex: 1 1;
     height: 500px;
@@ -54,12 +78,6 @@
       transition: all .2s;
     }
 
-
-    //display: grid;
-    //grid-template-columns: repeat(auto-fill, 210px);
-    //grid-gap: 0 10px;
-    //grid-auto-flow: column;
-
     span {
       margin: 3px 0;
     }
@@ -69,8 +87,7 @@
     }
 
     @media (max-width: 950px) {
-      //grid-template-columns: 180px 210px;
-      //grid-gap: 0 5px;
+
     }
 
   }
