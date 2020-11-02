@@ -14,22 +14,22 @@ const PopupMapCart = props => {
   const [activeMarker, setActiveMarker] = useState(null)
   const {retails, onSelectItem} = props;
 
-  const popup = `
+  const popup = ({title, address, clock, tel}) => `
   <div>
-    <p><strong>Гармония здоровья</strong><br></p>
+    <p><strong>${title}</strong><br></p>
     <ul>
-      <li><strong>Адрес:&nbsp;</strong>г. Красноярск , ул. Академика Вавилова, 1 стр. 39</li>
-      <li><strong>Часы работы:&nbsp;</strong>9:00 - 22:00</li>
-      <li><strong>Телефон:&nbsp;</strong>(391) 274-29-79</li>
+      <li><strong>Адрес:&nbsp;</strong>${address}</li>
+      <li><strong>Часы работы:&nbsp;</strong>${clock}</li>
+      <li><strong>Телефон:&nbsp;</strong>${tel}</li>
     </ul>
   </div>`
 
-  const placeMark = (price) => {
+  const placeMark = (price, popupInfo, flag = false) => {
     return {
       properties: {
-        iconContent: `<div class="icn_content">${price} ₽</div>`,
-        balloonContentBody: popup,
-        hintContent: 'Гармония здоровья',
+        iconContent: `<div class="icn_content ${flag ? 'colorRed' : ''}">${price} ₽</div>`,
+        balloonContentBody: popup(popupInfo),
+        hintContent: `${popupInfo.title}`,
         // balloonContent: 'Гармония здоровья',
         iconCaption: '157р.'
       },
@@ -67,7 +67,9 @@ const PopupMapCart = props => {
       return props.onClick()
     }
   }
-  const cityTitle = retails[0].title.match(/^([а-яА-Я])*/)[0]
+  // const cityTitle = retails[0].title.match(/^([а-яА-Я])*/)[0]
+
+  const buttonActive = (id) => props.activeRetail === id
 
   return (
     <div className={"PopupMapCart" + (props.active ? " PopupMapCart_is-opened" : "")} onClick={close}>
@@ -75,31 +77,37 @@ const PopupMapCart = props => {
         <div className="PopupMapCart__close">
           <SvgClose/>
         </div>
-        <h1>Аптеки в г. {cityTitle}</h1>
+        <h1>Аптеки в г. Красноярск</h1>
         <div className='PopupMapCart__mainContainer'>
 
           <BlockWrapper classStyle='PopupMapCart__retails'>
             <ul>
               {
-                retails.map((item) => {
+                retails.map(({retail, items, sum}) => {
+                  const notFullItems = () => items.length < 3
                   return <li
-                    className={'PopupMapCart__retailItem' + (item.guid === activeMarker ? ' PopupMapCart__activeItem' : '')}
-                    key={item.guid}
+                    className={'PopupMapCart__retailItem' + (retail.guid === activeMarker ? ' PopupMapCart__activeItem' : '')}
+                    key={retail.guid}
                     onClick={() => {
-                      setPoint(item.coordinates)
+                      setPoint(retail.coordinates)
                       setZoom(17)
                       setActiveMarker(null)
                     }}
                   >
-                    <div className='PopupMapCart__itemBlock'>
-                      <span className='PopupMapCart__itemTitle'>{item.title}</span>
-                      <span className='PopupMapCart__itemAddress'>{item.street} {item.buildNumber}</span>
-                      <span className='PopupMapCart__textClock'>Часы работы:&nbsp;9:00 - 22:00</span>
-                    </div>
+                    <div className='PopupMapCart__retailItemContainer'>
+                      <div className='PopupMapCart__itemBlock'>
+                        <span className='PopupMapCart__itemTitle'>{retail.title}</span>
+                        <span className='PopupMapCart__itemAddress'>{retail.street} {retail.buildNumber}</span>
+                        <span className='PopupMapCart__textClock'>Часы работы:&nbsp;{retail.clock}</span>
+                      </div>
 
-                    <button className='PopupMapCart__button'
-                            onClick={() => onSelectItem(item)}>Выбрать
-                    </button>
+                      <button
+                        className={'PopupMapCart__button ' + (buttonActive(retail.guid) ? 'PopupMapCart__buttonActive' : '')}
+                        onClick={() => onSelectItem(retail.guid)}>
+                        {buttonActive(retail.guid) ? 'Выбран' : 'Выбрать'}
+                      </button>
+                    </div>
+                    {notFullItems() && <p className='colorRed'>не все позиции в наличии</p>}
                   </li>
                 })
               }
@@ -117,23 +125,33 @@ const PopupMapCart = props => {
                 }}
               >
                 {
-                  retails.map(({coordinates, guid, price}) => (
-                    <Placemark key={guid}
-                               onClick={() => onItemClick(guid)}
-                               {...placeMark(price)}
-                               geometry={coordinates}
-                               options={{
-                                 // iconLayout: 'default#imageWithContent',
-                                 // iconLayout: 'default#image',
-                                 // iconImageHref: setIcon(type),
-                                 // iconImageSize: [45, 61],
-                                 // iconImageOffset: [-22, -61],
-                                 preset: 'islands#redStretchyIcon',
-                                 draggable: true,
-                                 // iconColor: 'red'
-                               }}
-                    />
-                  ))
+                  retails.map(({retail, items, sum}) => {
+                    const {coordinates, guid} = retail;
+                    const popup = {
+                      title: retail.title,
+                      address: `г. ${retail.city},  ${retail.street} ${retail.buildNumber}`,
+                      clock: retail.clock,
+                      tel: retail.tel
+                    }
+                    const notFullItems = () => items.length < 3
+                    return (
+                      <Placemark key={guid}
+                                 onClick={() => onItemClick(guid)}
+                                 {...placeMark(sum, popup, notFullItems())}
+                                 geometry={coordinates}
+                                 options={{
+                                   // iconLayout: 'default#imageWithContent',
+                                   // iconLayout: 'default#image',
+                                   // iconImageHref: setIcon(type),
+                                   // iconImageSize: [45, 61],
+                                   // iconImageOffset: [-22, -61],
+                                   preset: 'islands#redStretchyIcon',
+                                   draggable: true,
+                                   // iconColor: 'red'
+                                 }}
+                      />
+                    )
+                  })
                 }
               </Clusterer>
               <GeolocationControl options={{float: 'left'}}/>

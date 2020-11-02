@@ -1,16 +1,11 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import './CartItem.scss'
 import pillsIcon from "../../img/pills.svg";
 import BlockWrapper from "../BlockWrapper";
 
 const CartItem = (props) => {
-  const {allItemRemovedFromCart, itemRemovedFromCart, addedToCart, addedToFavorits, isFavorite, count, classStyle = ''} = props;
+  const {allItemRemovedFromCart, itemRemovedFromCart, addedToCart, addedToFavorits, count, isFavorite, classStyle = ''} = props;
   const {id, img, title, maker, minPrice} = props.item;
-
-
-  const [like, setLike] = useState(false)
-
-  // useEffect(() => updateCart())
 
   return (
     <BlockWrapper classStyle={'CartItem ' + `${classStyle}`}>
@@ -26,7 +21,6 @@ const CartItem = (props) => {
           <div className='CartItem__buttonToDescription'>
             <button
               onClick={() => {
-                setLike(like => !like)
                 addedToFavorits()
               }}
             >{isFavorite ? 'Удалить из избранного' : 'В избранное'}
