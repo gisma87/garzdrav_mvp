@@ -20,12 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="78173063-124b-4432-8c91-25d7c3ae2a6a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/PopupOrder/PopupOrder.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/PopupOrder/PopupOrder.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/PopupOrder/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/RetailCheckPanel/RetailCheckPanel.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/RetailCheckPanel/RetailCheckPanel.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/RetailCheckPanel/RetailCheckPanel.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/RetailCheckPanel/RetailCheckPanel.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PopupOrder/PopupOrder.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PopupOrder/PopupOrder.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PopupOrder/PopupOrder.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PopupOrder/PopupOrder.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/containers/Cart/Cart.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Cart/Cart.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -120,7 +117,7 @@
       <workItem from="1604168934614" duration="3455000" />
       <workItem from="1604217640357" duration="7396000" />
       <workItem from="1604229061026" duration="75000" />
-      <workItem from="1604282103123" duration="22721000" />
+      <workItem from="1604282103123" duration="30649000" />
     </task>
     <servers />
   </component>
@@ -151,20 +148,24 @@
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
     <state x="-1369" y="177" key="#Intentions/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1603247233621" />
-    <state x="-1181" y="274" key="FileChooserDialogImpl" timestamp="1603873857208">
+    <state x="-1181" y="274" key="FileChooserDialogImpl" timestamp="1604308997688">
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="-1181" y="274" key="FileChooserDialogImpl/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1603873857208" />
+    <state x="-1181" y="274" key="FileChooserDialogImpl/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1604308997688" />
     <state x="739" y="274" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1603029745062" />
     <state x="-1144" y="433" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1604026325168">
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
     <state x="-1144" y="433" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1604026325168" />
-    <state x="-1231" y="167" width="1131" height="726" key="find.popup" timestamp="1604306726521">
+    <state x="-1231" y="167" width="1131" height="726" key="find.popup" timestamp="1604314175995">
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="-1231" y="167" width="1131" height="726" key="find.popup/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1604306726521" />
+    <state x="-1231" y="167" width="1131" height="726" key="find.popup/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1604314175995" />
     <state x="667" y="253" width="586" height="534" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1604126116198" />
+    <state x="-1304" y="240" key="run.anything.popup" timestamp="1604308875998">
+      <screen x="-1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="-1304" y="240" key="run.anything.popup/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1604308875998" />
     <state x="-1297" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1604306615446">
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>

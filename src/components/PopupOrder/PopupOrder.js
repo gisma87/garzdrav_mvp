@@ -1,68 +1,104 @@
 import React, {useState} from "react";
 import './PopupOrder.scss'
 import SvgClose from "../UI/icons/SvgClose";
+// import {Link} from "react-router-dom";
+
 
 const PopupOrder = props => {
 
   const [formValid, setFormValid] = useState(false)
 
   const close = (event) => {
-    if (event.target.closest('.PopupLogin__close') || (!event.target.closest('.PopupLogin__content'))) {
+    if (event.target.closest('.PopupOrder__close') || (!event.target.closest('.PopupOrder__content'))) {
       return props.onClick()
     }
   }
 
+  const [buy, setBuy] = useState(false)
+
+  const checkedItem = () => {
+    return props.retails.find((item) => item.retail.guid === props.checked)
+  }
+
   return (
-    <div className={"PopupLogin" + (props.active ? " PopupLogin_is-opened" : "")} onClick={close}>
-      <div className="PopupLogin__content">
-        <div className="PopupLogin__close">
+    <div className={"PopupOrder" + (props.active ? " PopupOrder_is-opened" : "")} onClick={close}>
+      <div className="PopupOrder__content">
+        <div className="PopupOrder__close">
           <SvgClose/>
         </div>
-        <h3 className="PopupLogin__title">Войти или зарегистрироваться</h3>
-        <form className="PopupLogin__form" name="new"
-              onSubmit={(event) => event.preventDefault()}
-              onChange={(event) => {
-                const input = event.target;
-                if (input.id === 'PopupLogin-contact') {
-                  setFormValid(input.checkValidity())
-                }
-              }}
-        >
-          <input
-            type="text"
-            name="PopupLogin-contact"
-            className="PopupLogin__input PopupLogin__input_type_name"
-            placeholder="Телефон или e-mail"
-            required
-            minLength="6"
-            maxLength="30"
-            id="PopupLogin-contact"
-          />
-          <span id="error-newPlace" className="popup__error-message"/>
-          <input
-            type="text"
-            name="PopupLogin-pwd"
-            className="PopupLogin__input PopupLogin__input_type_link-url"
-            placeholder="Код или пароль"
-            id="PopupLogin-pwd"
-          />
-          <span id="error-linkPlace" className="popup__error-message"/>
+        <h3 className="PopupOrder__title">{!buy ? 'Оформить заказ' : 'Заказ принят к исполнению'}</h3>
 
-          <div className='PopupLogin__buttonContainer'>
+        {!buy ? <form className="PopupOrder__form" name="PopupOrder__form"
+                     onSubmit={(event) => event.preventDefault()}
+                     onChange={(event) => {
+                       const input = event.target;
+                       if (input.id === 'PopupOrder-contact') {
+                         setFormValid(input.checkValidity())
+                       }
+                     }}
+        >
+          <div className='PopupOrder__selectContainer'>
+            <p className='PopupOrder__titleInput'>Забрать из аптеки</p>
+            <select name="PopupOrder-retails" id="PopupOrder-retails" className="PopupOrder__select"
+                    onChange={props.onChange}>
+              {props.retails.map((item) => {
+                  return (
+                    <option key={item.retail.guid} value={item.retail.guid}
+                            selected={item.retail.guid === props.checked}>
+                      г. {item.retail.city}, {item.retail.street}, {item.retail.buildNumber}
+                    </option>
+                  )
+                }
+              )}
+            </select>
+          </div>
+          <div className='PopupOrder__priceContainer'>
+            <p>Cумма заказа: </p>
+            <p className='PopupOrder__sum'>{checkedItem().sum} ₽</p>
+          </div>
+
+
+          <div className='PopupOrder__inputLabel'>
+            <label htmlFor="PopupOrder-contact">
+              <fieldset>
+                <legend>Введите телефон</legend>
+                <input
+                  type="text"
+                  name="PopupOrder-contact"
+                  className="PopupOrder__input PopupOrder__input_type_name"
+                  placeholder="8-XXX-XXX-XXXX"
+                  required
+                  minLength="6"
+                  maxLength="30"
+                  id="PopupOrder-contact"
+                />
+                <span id="error-PopupOrder-contact" className="popup__error-message"/>
+              </fieldset>
+            </label>
+          </div>
+
+          <div className='PopupOrder__buttonContainer'>
             <button type='submit'
-                    className={"PopupLogin__button " + (formValid ? "PopupLogin__button_active" : '')}
+                    className={"PopupOrder__button " + (formValid ? "PopupOrder__button_active" : '')}
                     onClick={() => {
-                      localStorage.setItem('isLogin', 'true')
-                      props.onClick()
+                      setBuy(true)
+                      // props.onClick()
                     }}
             >
-              Войти
+              Заказать
             </button>
-            <button className={"PopupLogin__button " + (formValid ? "PopupLogin__button_active" : '')}>
-              Получить код
-            </button>
+            {/*<button className={"PopupLogin__button " + (formValid ? "PopupLogin__button_active" : '')}>*/}
+            {/*  Получить код*/}
+            {/*</button>*/}
           </div>
-        </form>
+          <p className='PopupOrder__confidentiality'>
+            Нажимая кнопку "Заказать" Вы соглашаетесь с
+            <a href={'/confidentiality/'} target="_blank">политикой конфиденциальности Компании</a>
+          </p>
+        </form> : <div className='PopupOrder__buyTrue'>
+          <p>Ваш заказ N-XXX-XXX-XXX принят к исполнению.</p>
+          <p>О изменении статуса заказа будет сообщено по СМС</p>
+        </div>}
       </div>
 
 

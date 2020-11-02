@@ -13,6 +13,8 @@ import {withRouter} from "react-router-dom";
 import PopupMapCart from "../../components/PopupMapCart/PopupMapCart";
 // import points from "../../testData/points";
 import dataCart from "../../testData/dataCart";
+import PopupLogin from "../../components/PopupLogin";
+import PopupOrder from "../../components/PopupOrder";
 
 
 class Cart extends React.Component {
@@ -24,6 +26,7 @@ class Cart extends React.Component {
   state = {
     active: false,
     popupMap: false,
+    popupOrder: false,
     checked: this.fullRetailItemState[0].retail.guid
   }
 
@@ -111,13 +114,9 @@ class Cart extends React.Component {
               <span>г. {dataCart[this.indexActiveRetail()].retail.city} {dataCart[this.indexActiveRetail()].retail.street} {dataCart[this.indexActiveRetail()].retail.buildNumber}</span>
             </div>
             <button className='Cart__button Cart__buttonToCart' onClick={() => {
-              this.setState(prevState => {
-                return {
-                  active: !prevState.active,
-                }
-              })
+              this.setState({popupOrder: true})
             }}>
-              {this.state.active ? <SvgCheck style={{color: 'white'}}/> : 'Купить'}
+              Купить
             </button>
           </BlockWrapper>
         </section>
@@ -179,6 +178,12 @@ class Cart extends React.Component {
                       onSelectItem={(item) => {
                         this.onCheck(item)
                       }}
+        />
+        <PopupOrder active={this.state.popupOrder}
+                    checked={this.state.checked}
+                    onClick={() => this.setState({popupOrder: false})}
+                    onChange={(e) => this.setState({checked: e.target.value})}
+                    retails={this.retailItems()}
         />
 
       </div>

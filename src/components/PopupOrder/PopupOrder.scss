@@ -1,0 +1,186 @@
+.PopupOrder {
+  font-family: PTSans-Regular, Helvetica, Arial, sans-serif;
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  align-items: center;
+  justify-content: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.8s ease 0s;
+  z-index: 4;
+
+  &__titleInput {
+    color: #777;
+    margin-bottom: 7px;
+  }
+
+  &__select {
+    border-bottom: 1px solid #fc8507;
+    margin-bottom: 15px;
+  }
+
+  &__content {
+    width: 375px;
+    min-height: 330px;
+    background-color: #fff;
+    border-radius: 10px;
+    position: relative;
+    box-sizing: border-box;
+    padding: 30px 25px;
+
+    @media screen and (max-width: 540px) {
+      width: calc(100% - 60px);
+    }
+  }
+
+  &__priceContainer {
+    display: flex;
+    align-items: center;
+  }
+
+  &__title {
+    color: #000;
+    margin: 0;
+    font-size: 24px;
+    line-height: 30px;
+  }
+
+  &__close {
+    width: 40px;
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    cursor: pointer;
+    opacity: 1;
+    transition: opacity 0.3s;
+    padding: 5px;
+  }
+
+  &__close:hover {
+    opacity: .5;
+    transition: all 0.3s ease-in-out;
+  }
+
+  &__form {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__sum {
+    margin-left: 15px;
+    color: #E26C2D;
+    font-weight: bold;
+    font-size: 18px;
+  }
+
+  &__inputLabel {
+    margin-top: 25px;
+
+    p {
+      color: #777;
+    }
+  }
+
+  &__confidentiality {
+    margin-top: 15px;
+    color: #777;
+    font-size: 12px;
+  }
+
+  fieldset {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #fc8507;
+    background: #fff;
+    border-radius: 8px;
+    //box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+  }
+
+  &__input {
+    width: 100%;
+    height: 47px;
+    border: 0;
+    //border: 1px solid #e5e5e5;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    line-height: 17px;
+    box-sizing: border-box;
+    padding: 5px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    outline: none;
+
+    &:focus {
+      border-color: #66afe9;
+      outline: 0;
+      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+    }
+  }
+
+  &__selectContainer {
+
+  }
+
+  &__buttonContainer {
+    display: flex;
+  }
+
+  &__button {
+    width: 100%;
+    height: 50px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    margin-top: 24px;
+    color: rgba(0, 0, 0, 0.2);
+    font-size: 18px;
+    display: block;
+    cursor: pointer;
+    background-color: transparent;
+    transition: .1s ease-in-out;
+
+    &:active {
+      transform: scale(.98);
+      transition: .1s ease-in-out;
+    }
+
+    &:focus {
+      outline: 1px solid greenyellow;
+    }
+  }
+
+  &_is-opened {
+    visibility: visible;
+    opacity: 1;
+    transition: all 0.8s ease 0s;
+  }
+
+  &__button_active {
+    background: linear-gradient(to top, #fc8507, #ffa218);
+    border: 1px solid transparent;
+    border-top-color: #fc8507;
+    border-bottom-color: #ffa218;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 8px;
+
+    &:hover {
+      color: #fff;
+      background-image: linear-gradient(to bottom, #ffbc0b, #ff7400);
+      box-shadow: inset 0 -2px 0 0 rgba(0, 0, 0, 0.2);
+      border-top-color: #ffbc0b;
+      border-bottom-color: #ff7400;
+    }
+  }
+
+  &__buyTrue {
+    margin-top: 30px;
+    p {
+      margin: 10px 0;
+    }
+  }
+}
