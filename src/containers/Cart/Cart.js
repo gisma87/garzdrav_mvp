@@ -14,6 +14,7 @@ import PopupMapCart from "../../components/PopupMapCart/PopupMapCart";
 import points from "../../testData/points";
 import dataCart from "../../testData/dataCart";
 
+
 const Cart = (props) => {
   const {cart, favorites, addedToCart, allItemRemovedFromCart, itemRemovedFromCart, addedToFavorits} = props;
 
@@ -22,9 +23,8 @@ const Cart = (props) => {
   // const [fullRetailItem, setFullRetailItem] = useState([])
   // const [activeRetail, setActiveRetail] = useState()
 
-  // useEffect(() => {
-  //   props.storeService.setLocal(cart)
-  // })
+
+  // useEffect(() => props.storeService.setLocal(cart))
 
   const newArr = () => {
     const cartItems = []
@@ -81,13 +81,23 @@ const Cart = (props) => {
               const isFavorite = favorites.includes(item.id);
               return cart[index] !== undefined && <CartItem item={item}
                                                             classStyle={'Cart__item'}
-                                                            updateCart={() => props.storeService.setLocal(cart)}
+                                                            cart={cart}
+                                                            // updateCart={() => props.storeService.setLocal(cart)}
                                                             isFavorite={isFavorite}
                                                             count={cart[index].count}
                                                             addedToFavorits={() => addedToFavorits(item.id)}
-                                                            addedToCart={() => addedToCart(item.id)}
-                                                            itemRemovedFromCart={() => itemRemovedFromCart(item.id)}
-                                                            allItemRemovedFromCart={() => allItemRemovedFromCart(item.id)}
+                                                            addedToCart={() => {
+                                                              addedToCart(item.id)
+                                                              // props.storeService.setLocal(cart)
+                                                            }}
+                                                            itemRemovedFromCart={() => {
+                                                              itemRemovedFromCart(item.id)
+                                                              // props.storeService.setLocal(cart)
+                                                            }}
+                                                            allItemRemovedFromCart={() => {
+                                                              allItemRemovedFromCart(item.id)
+                                                              // props.storeService.setLocal(cart)
+                                                            }}
                                                             key={item.id}
               />
             })

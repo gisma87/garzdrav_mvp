@@ -62,6 +62,12 @@ export default class StoreService {
     })
     localStorage.setItem('arrItemId', JSON.stringify(arrItemId));
     localStorage.setItem('arrCountCart', JSON.stringify(arrCountCart));
+    console.log('====================================================')
+    console.log('Обновился LocalStorage')
+    console.log('arrItemId', JSON.stringify(arrItemId))
+    console.log('arrCountCart', JSON.stringify(arrCountCart))
+    console.log('CART', cart)
+    console.log('====================================================')
   }
 
   setCartFromLocalStorage(funcSet) {

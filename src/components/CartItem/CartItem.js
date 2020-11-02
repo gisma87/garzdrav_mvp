@@ -4,14 +4,16 @@ import pillsIcon from "../../img/pills.svg";
 import BlockWrapper from "../BlockWrapper";
 
 const CartItem = (props) => {
-  const {allItemRemovedFromCart, itemRemovedFromCart, addedToCart, count, addedToFavorits, isFavorite, updateCart} = props;
-  const {id, img, title, maker, minPrice} = props.item
+  const {allItemRemovedFromCart, itemRemovedFromCart, addedToCart, addedToFavorits, isFavorite, count, classStyle = ''} = props;
+  const {id, img, title, maker, minPrice} = props.item;
+
+
   const [like, setLike] = useState(false)
 
-  useEffect(() => updateCart())
+  // useEffect(() => updateCart())
 
   return (
-    <BlockWrapper classStyle={'CartItem ' + `${props.classStyle}`}>
+    <BlockWrapper classStyle={'CartItem ' + `${classStyle}`}>
       <div className='CartItem__container'>
         <div className='CartItem__imageContainer'>
           {img !== undefined ? <img className='CartItem__image' src={img} alt=""/> :
@@ -24,15 +26,12 @@ const CartItem = (props) => {
           <div className='CartItem__buttonToDescription'>
             <button
               onClick={() => {
-                setLike(!like)
+                setLike(like => !like)
                 addedToFavorits()
               }}
             >{isFavorite ? 'Удалить из избранного' : 'В избранное'}
             </button>
-            <button onClick={() => {
-              allItemRemovedFromCart()
-              updateCart()
-            }}>Удалить
+            <button onClick={allItemRemovedFromCart}>Удалить
             </button>
           </div>
         </div>
@@ -41,12 +40,12 @@ const CartItem = (props) => {
           <p className='CartItem__price'>{count * minPrice} ₽</p>
           <div className='CartItem__countButtons'>
             <button className='CartItem__countButtonMinus CartItem__countButton'
-                    onClick={() => itemRemovedFromCart()}
+                    onClick={itemRemovedFromCart}
             >-
             </button>
             <input className='CartItem__countInput' type="text" value={count} readOnly/>
             <button className='CartItem__countButtonPlus CartItem__countButton'
-                    onClick={() => addedToCart()}
+                    onClick={addedToCart}
             >+
             </button>
           </div>
