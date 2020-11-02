@@ -29,13 +29,13 @@ const PopupOrder = props => {
         <h3 className="PopupOrder__title">{!buy ? 'Оформить заказ' : 'Заказ принят к исполнению'}</h3>
 
         {!buy ? <form className="PopupOrder__form" name="PopupOrder__form"
-                     onSubmit={(event) => event.preventDefault()}
-                     onChange={(event) => {
-                       const input = event.target;
-                       if (input.id === 'PopupOrder-contact') {
-                         setFormValid(input.checkValidity())
-                       }
-                     }}
+                      onSubmit={(event) => event.preventDefault()}
+                      onChange={(event) => {
+                        const input = event.target;
+                        if (input.id === 'PopupOrder-contact') {
+                          setFormValid(input.checkValidity())
+                        }
+                      }}
         >
           <div className='PopupOrder__selectContainer'>
             <p className='PopupOrder__titleInput'>Забрать из аптеки</p>
@@ -82,6 +82,7 @@ const PopupOrder = props => {
                     className={"PopupOrder__button " + (formValid ? "PopupOrder__button_active" : '')}
                     onClick={() => {
                       setBuy(true)
+
                       // props.onClick()
                     }}
             >
@@ -96,8 +97,19 @@ const PopupOrder = props => {
             <a href={'/confidentiality/'} target="_blank">политикой конфиденциальности Компании</a>
           </p>
         </form> : <div className='PopupOrder__buyTrue'>
-          <p>Ваш заказ N-XXX-XXX-XXX принят к исполнению.</p>
-          <p>О изменении статуса заказа будет сообщено по СМС</p>
+          <div className='PopupOrder__buyTrueContent'>
+            <p>Ваш заказ N-XXX-XXX-XXX принят к исполнению.</p>
+            <p>О изменении статуса заказа будет сообщено по СМС</p>
+          </div>
+          <button type='submit'
+                  className={"PopupOrder__button PopupOrder__button_active"}
+                  onClick={() => {
+                    props.onClick()
+                    setTimeout(() => setBuy(false), 2000)
+                  }}
+          >
+            ОК
+          </button>
         </div>}
       </div>
 

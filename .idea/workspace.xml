@@ -23,7 +23,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/PopupOrder/PopupOrder.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PopupOrder/PopupOrder.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/PopupOrder/PopupOrder.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PopupOrder/PopupOrder.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/Cart/Cart.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Cart/Cart.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -118,6 +117,8 @@
       <workItem from="1604217640357" duration="7396000" />
       <workItem from="1604229061026" duration="75000" />
       <workItem from="1604282103123" duration="30649000" />
+      <workItem from="1604315337712" duration="34000" />
+      <workItem from="1604329421611" duration="712000" />
     </task>
     <servers />
   </component>
