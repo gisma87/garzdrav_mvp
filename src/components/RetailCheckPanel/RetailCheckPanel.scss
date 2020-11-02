@@ -124,7 +124,8 @@
 .RetailCheckPanelIncomplete {
   display: flex;
   justify-content: space-between;
-  padding: 3px 20px 3px 40px;
+  //padding: 3px 20px 3px 40px;
+  margin: 3px 20px 3px 40px;
   background-color: #F5F5F5;
   border-bottom: 1px solid #8c8c8c;
 
@@ -142,5 +143,10 @@
   &__price {
     flex: 1 1 20%;
     text-align: right;
+    span {
+      font-size: 12px;
+      color: #737373;
+      margin-right: 3px;
+    }
   }
 }

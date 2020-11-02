@@ -83,7 +83,7 @@ const RetailCheckPanel = (props) => {
             return (
               <div className='RetailCheckPanelIncomplete' key={item.id}>
                 <p className='RetailCheckPanelIncomplete__title'>{item.title}</p>
-                <p className='RetailCheckPanelIncomplete__price'>за 1шт: {item.price} ₽</p>
+                <p className='RetailCheckPanelIncomplete__price'><span>за 1шт:</span> {item.price} ₽</p>
               </div>
             )
           })

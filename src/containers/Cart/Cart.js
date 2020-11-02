@@ -11,7 +11,7 @@ import withStoreService from "../../hoc/withStoreService/withStoreService";
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
 import PopupMapCart from "../../components/PopupMapCart/PopupMapCart";
-import points from "../../testData/points";
+// import points from "../../testData/points";
 import dataCart from "../../testData/dataCart";
 
 
@@ -23,7 +23,7 @@ class Cart extends React.Component {
 
   state = {
     active: false,
-    popup: false,
+    popupMap: false,
     checked: this.fullRetailItemState[0].retail.guid
   }
 
@@ -126,7 +126,7 @@ class Cart extends React.Component {
           <div className='Cart__blockTitle'>
             <h2 className='Cart__titleChoice'>Дешевле всего: </h2>
             <button className='Cart__button Cart__buttonMap' onClick={() => {
-              this.setState({popup: true})
+              this.setState({popupMap: true})
               document.body.style.overflow = 'hidden'
             }}>Выбрать аптеку на КАРТЕ
             </button>
@@ -157,7 +157,7 @@ class Cart extends React.Component {
           <h2 className='Cart__titleChoice'>В этих аптеках не полное наличие: </h2>
           <BlockWrapper classStyle='Cart__blockMoreItems'>
             {
-              this.incompleteRetailItemState.map((item, index) => {
+              this.incompleteRetailItemState.map((item) => {
                 return <RetailCheckPanel key={item.retail.guid}
                                          item={item}
                                          list='incomplete'
@@ -169,17 +169,18 @@ class Cart extends React.Component {
             }
           </BlockWrapper>
         </section>
-        <PopupMapCart active={this.state.popup}
+        <PopupMapCart active={this.state.popupMap}
                       retails={this.retailItems().reverse()}
                       activeRetail={this.state.checked}
                       onClick={() => {
-                        this.setState({popup: false})
+                        this.setState({popupMap: false})
                         document.body.style.overflow = 'auto'
                       }}
                       onSelectItem={(item) => {
                         this.onCheck(item)
                       }}
         />
+
       </div>
     )
   }
