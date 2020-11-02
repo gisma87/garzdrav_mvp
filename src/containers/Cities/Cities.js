@@ -68,6 +68,9 @@ const Cities = props => {
     const activeItem = document.querySelector('.Cities__acitveItem');
     let y = activeItem.getBoundingClientRect().top;
     const CitiesRetails = document.querySelector('.Cities__retails');
+    const boxHeight = CitiesRetails.clientHeight;
+    // activeItem.scrollIntoView({block: "center", behavior: "smooth"})
+
     CitiesRetails.scrollTo({
       top: y,
       left: 0,

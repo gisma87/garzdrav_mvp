@@ -8,38 +8,77 @@ import iconLocation from "../../img/location.svg"
 import iconPhone from "../../img/phone-solid.svg"
 import iconClock from "../../img/clock-regular.svg"
 
-const RetailCheckPanel = () => {
-  const [checked, setChecked] = useState(true)
+const RetailCheckPanel = (props) => {
 
-  const onCheck = () => {
-    setChecked(state => !state)
-  }
+  const {retail, sum} = props.item
+  const {list = false, isChecked, onCheck} = props;
 
-  return (
-    <BlockWrapper classStyle='RetailCheckPanel'>
-      <div className='RetailCheckPanel__wrapperOnClick' onClick={() => setChecked((state) => {
-        return !state
-      })}>
-        <div className='RetailCheckPanel__checkbox RetailCheckPanel__block'>
-          <CheckboxOrange check={checked} onCheck={onCheck} id={'orange1'} name={'orange'} type={'checkbox'}/>
-        </div>
-        <div className='RetailCheckPanel__content RetailCheckPanel__block'>
-          <p className='RetailCheckPanel__name'><img src={iconLocation} alt="Адрес"/> Адрес: <span>г. Красноярск, ул. Дмитрия Мартынова, 24</span>
-          </p>
-          <p className='RetailCheckPanel__openHours'><img src={iconClock} alt="Часы работы"/>Часы работы: <span>8:00 - 22:00</span>
-          </p>
-          <p className='RetailCheckPanel__tel'><img src={iconPhone} alt="Телефон"/>Контактный телефон: <span>(391) 218-18-90</span>
-          </p>
-        </div>
-        <div className='RetailCheckPanel__price'>
-          <p>Сумма: 580 ₽</p>
-          <div className={'RetailCheckPanel__check ' + (checked ? 'bounceInLeft' : '')}>
-            <SvgCheck style={{color: 'green'}}/>
+  if (list) {
+    return (
+      <div className='RetailCheckPanel RetailCheckPanelList'>
+        <div className='RetailCheckPanel__wrapperOnClick RetailCheckPanelList__wrapperOnClick'
+             onClick={onCheck}>
+          <div className='RetailCheckPanel__checkbox RetailCheckPanel__block'>
+            <CheckboxOrange check={isChecked}
+                            onCheck={() => onCheck()}
+                            id={retail.guid}
+                            name={'RetailCheckPanel'}
+                            type={'radio'}
+            />
+          </div>
+          <div className='RetailCheckPanel__content RetailCheckPanel__block RetailCheckPanelList__content'>
+            <p className='RetailCheckPanel__name'><img src={iconLocation}
+                                                       alt="Адрес"/> Адрес: <span>г. {retail.city}, ул. {retail.street}, {retail.buildNumber}</span>
+            </p>
+            <p className='RetailCheckPanel__openHours'><img src={iconClock} alt="Часы работы"/>Часы
+              работы: <span>{retail.clock}</span>
+            </p>
+            <p className='RetailCheckPanel__tel'><img src={iconPhone} alt="Телефон"/>Контактный
+              телефон: <span>{retail.tel}</span>
+            </p>
+          </div>
+          <div className='RetailCheckPanel__price'>
+            <p>Сумма: {sum} ₽</p>
+            <div className={'RetailCheckPanel__check ' + (isChecked ? 'bounceInLeft' : '')}>
+              <SvgCheck style={{color: 'green'}}/>
+            </div>
           </div>
         </div>
       </div>
-    </BlockWrapper>
-  )
+    )
+  } else {
+    return (
+      <BlockWrapper classStyle='RetailCheckPanel'>
+        <div className='RetailCheckPanel__wrapperOnClick' onClick={onCheck}>
+          <div className='RetailCheckPanel__checkbox RetailCheckPanel__block'>
+            <CheckboxOrange check={isChecked}
+                            onCheck={onCheck}
+                            id={retail.guid}
+                            name={'RetailCheckPanel'}
+                            type={'radio'}
+            />
+          </div>
+          <div className='RetailCheckPanel__content RetailCheckPanel__block'>
+            <p className='RetailCheckPanel__name'><img src={iconLocation}
+                                                       alt="Адрес"/> Адрес: <span>г. {retail.city}, ул. {retail.street}, {retail.buildNumber}</span>
+            </p>
+            <p className='RetailCheckPanel__openHours'><img src={iconClock} alt="Часы работы"/>Часы
+              работы: <span>{retail.clock}</span>
+            </p>
+            <p className='RetailCheckPanel__tel'><img src={iconPhone} alt="Телефон"/>Контактный
+              телефон: <span>{retail.tel}</span>
+            </p>
+          </div>
+          <div className='RetailCheckPanel__price'>
+            <p>Сумма: {sum} ₽</p>
+            <div className={'RetailCheckPanel__check ' + (isChecked ? 'bounceInLeft' : '')}>
+              <SvgCheck style={{color: 'green'}}/>
+            </div>
+          </div>
+        </div>
+      </BlockWrapper>
+    )
+  }
 }
 
 export default RetailCheckPanel

@@ -7,7 +7,8 @@ const points = [
         "buildNumber": "3А",
         "office": null,
         coordinates: [56.010563, 92.852572],
-        type: 'gz'
+        type: 'gz',
+        price: '157'
     },
     {
         "guid": "2f2e74d5-e0c4-4790-9d1f-87614312d541",
@@ -17,7 +18,8 @@ const points = [
         "buildNumber": "1 ст4",
         "office": null,
         coordinates: [56.013988, 92.975262],
-        type: 'gz'
+        type: 'gz',
+        price: '237'
     },
     {
         "guid": "9ca5cce1-db41-49a8-a619-9206455f7d4a",
@@ -27,7 +29,8 @@ const points = [
         "buildNumber": "1 ст 4",
         "office": null,
         coordinates: [55.992087, 92.954804],
-        type: 'gz'
+        type: 'gz',
+        price: '145'
     },
     {
         "guid": "389e216c-d91f-417a-bfe2-d26942332fc5",
@@ -37,7 +40,8 @@ const points = [
         "buildNumber": "12",
         "office": null,
         coordinates: [55.994058, 92.897699],
-        type: 'gz'
+        type: 'gz',
+        price: '174'
     },
     {
         "guid": "e3cdeec0-afba-4bc3-943c-5e3c4f0a6a6f",
@@ -47,7 +51,8 @@ const points = [
         "buildNumber": "1",
         "office": null,
         coordinates: [55.988213, 92.880087],
-        type: 'gz'
+        type: 'gz',
+        price: '133'
     },
     {
         "guid": "6a582b65-03fc-45b3-aaf2-178f3a26b299",
@@ -57,7 +62,8 @@ const points = [
         "buildNumber": "27",
         "office": null,
         coordinates: [55.976723, 92.843230],
-        type: 'gz'
+        type: 'gz',
+        price: '932'
     },
     {
         "guid": "2db67c25-4d27-437e-a2aa-e900b0c45451",
@@ -67,7 +73,8 @@ const points = [
         "buildNumber": "6",
         "office": null,
         coordinates: [55.987620, 92.888635],
-        type: 'da'
+        type: 'da',
+        price: '90'
     },
     {
         "guid": "d75c02a0-2b05-40e5-b39d-1a74ac03c9e9",
@@ -77,7 +84,8 @@ const points = [
         "buildNumber": "34",
         "office": null,
         coordinates: [55.998239, 92.932789],
-        type: 'da'
+        type: 'da',
+        price: '129'
     },
     {
         "guid": "73125d04-0f40-41a4-9ed8-c5935a1d7bdd",
@@ -87,7 +95,8 @@ const points = [
         "buildNumber": "10",
         "office": null,
         coordinates: [56.007519, 92.962113],
-        type: 'da'
+        type: 'da',
+        price: '159'
     },
     {
         "guid": "3608a5bd-a61f-41c8-abf4-eb0f9f1aa5c3",
@@ -97,7 +106,8 @@ const points = [
         "buildNumber": "55",
         "office": null,
         coordinates: [55.991752, 92.910253],
-        type: 'gz'
+        type: 'gz',
+        price: '144'
     }
 ]
 

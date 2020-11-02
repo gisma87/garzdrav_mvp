@@ -20,12 +20,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="78173063-124b-4432-8c91-25d7c3ae2a6a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/PopupMapCart/PopupMapCart.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/PopupMapCart/PopupMapCart.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/PopupMapCart/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/testData/dataCart.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/ScrollToTop.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/debug.log" beforeDir="false" afterPath="$PROJECT_DIR$/debug.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CartItem/CartItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CartItem/CartItem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PopupMapCart/PopupMapCart.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PopupMapCart/PopupMapCart.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PopupMapCart/PopupMapCart.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PopupMapCart/PopupMapCart.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/RetailCheckPanel/RetailCheckPanel.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/RetailCheckPanel/RetailCheckPanel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/RetailCheckPanel/RetailCheckPanel.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/RetailCheckPanel/RetailCheckPanel.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/CheckboxOrange/CheckboxOrange.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UI/CheckboxOrange/CheckboxOrange.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/Cart/Cart.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Cart/Cart.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/Cart/Cart.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Cart/Cart.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/containers/Cities/Cities.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Cities/Cities.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/containers/Cities/Cities.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Cities/Cities.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/testData/points.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/testData/points.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,16 +76,16 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\workProject\garzdrav_mvp\src\img" />
-      <recent name="D:\workProject\garzdrav_mvp\src\img\test" />
-      <recent name="D:\workProject\garzdrav_mvp" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\gisma\OneDrive\Рабочий стол\TEST" />
       <recent name="D:\workProject\garzdrav_mvp\src\reducers" />
       <recent name="D:\workProject\garzdrav_mvp\src\img" />
       <recent name="D:\workProject\garzdrav_mvp\src" />
+      <recent name="D:\workProject\garzdrav_mvp" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\workProject\garzdrav_mvp\src\img" />
+      <recent name="D:\workProject\garzdrav_mvp\src\img\test" />
       <recent name="D:\workProject\garzdrav_mvp" />
     </key>
   </component>
@@ -110,7 +121,15 @@
       <workItem from="1603781978307" duration="13711000" />
       <workItem from="1603849956899" duration="30013000" />
       <workItem from="1603937477538" duration="26988000" />
-      <workItem from="1604023012375" duration="5261000" />
+      <workItem from="1604023012375" duration="28665000" />
+      <workItem from="1604121580423" duration="487000" />
+      <workItem from="1604125530609" duration="708000" />
+      <workItem from="1604147719430" duration="189000" />
+      <workItem from="1604150083465" duration="4136000" />
+      <workItem from="1604164549570" duration="1439000" />
+      <workItem from="1604168934614" duration="3455000" />
+      <workItem from="1604217640357" duration="7396000" />
+      <workItem from="1604229061026" duration="75000" />
     </task>
     <servers />
   </component>
@@ -150,11 +169,11 @@
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
     <state x="-1144" y="433" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1604026325168" />
-    <state x="-1253" y="253" width="1131" height="726" key="find.popup" timestamp="1604026460739">
+    <state x="-1231" y="167" width="1131" height="726" key="find.popup" timestamp="1604171457660">
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="-1253" y="253" width="1131" height="726" key="find.popup/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1604026460739" />
-    <state x="667" y="253" width="586" height="534" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1603725229112" />
+    <state x="-1231" y="167" width="1131" height="726" key="find.popup/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1604171457660" />
+    <state x="667" y="253" width="586" height="534" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1604126116198" />
     <state x="-1297" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1603277697645">
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>

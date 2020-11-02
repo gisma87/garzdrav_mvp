@@ -23,6 +23,7 @@ import FooterDesktop from "./components/FooterDesktop";
 import IndexDesktop from "./containers/IndexDesktop/IndexDesktop";
 import PrivacyPolicy from "./containers/PrivacyPolicy";
 import AskQuestion from "./containers/AskQuestion";
+import ScrollToTop from "./utils/ScrollToTop";
 
 function App(props) {
 
@@ -35,6 +36,7 @@ function App(props) {
 
   return (
     <div className="App">
+      <ScrollToTop/>
       <HeaderDesktop/>
       <Switch>
         <Route exact path="/" component={IndexDesktop}/>

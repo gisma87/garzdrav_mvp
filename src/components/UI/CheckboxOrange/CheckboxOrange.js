@@ -1,19 +1,21 @@
 import React from "react";
 import './CheckboxOrange.scss'
 
-const CheckboxOrange = ({check, onCheck}) => {
+const CheckboxOrange = ({check, onCheck, type, name}) => {
   return (
-    <label htmlFor="orange" className="CheckboxOrange">
+    <div
+      // htmlFor="orange"
+      className="CheckboxOrange">
       <input
-        type="checkbox"
+        type={type}
         id="orange"
-        name="orange"
+        name={name}
         className="CheckboxOrange__input CheckboxOrange__input_color_orange"
         checked={check}
         onChange={onCheck}
       />
       <span className="CheckboxOrange__span"/>
-    </label>
+    </div>
   )
 }
 

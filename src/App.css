@@ -90,3 +90,7 @@ body {
 .swiper-button-prev, .swiper-button-next {
     color: white;
 }
+
+.owerflowHidden {
+    overflow: hidden;
+}
