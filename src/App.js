@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Switch, Route} from 'react-router-dom';
+import {Redirect, Switch, Route} from 'react-router-dom';
 import './App.css';
 import 'normalize.css';
 import HowOrder from "./containers/HowOrder";
@@ -24,6 +24,7 @@ import IndexDesktop from "./containers/IndexDesktop/IndexDesktop";
 import PrivacyPolicy from "./containers/PrivacyPolicy";
 import AskQuestion from "./containers/AskQuestion";
 import ScrollToTop from "./utils/ScrollToTop";
+import Loader from "./components/Loader";
 
 function App(props) {
 
@@ -34,9 +35,12 @@ function App(props) {
     }
   }, [])
 
+  useEffect(() => console.log('RENDER APP'))
+
   return (
     <div className="App">
       <ScrollToTop/>
+      <Loader classStyle={props.loading ? 'Loader_is-opened' : ''}/>
       <HeaderDesktop/>
       <Switch>
         <Route exact path="/" component={IndexDesktop}/>
@@ -56,15 +60,16 @@ function App(props) {
         <Route path="/Cards/" exact component={Cards}/>
         <Route path="/Cards/:id"
                render={({match}) => <CardPage itemId={match.params.id}/>}/>
-        <Route component={IndexDesktop}/>
+        {/*<Route component={IndexDesktop}/>*/}
+        <Redirect to={'/'}/>
       </Switch>
       <FooterDesktop/>
     </div>
   );
 }
 
-const mapStateToProps = ({cart}) => {
-  return {cart}
+const mapStateToProps = ({cart, loading}) => {
+  return {cart, loading}
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {

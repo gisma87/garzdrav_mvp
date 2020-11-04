@@ -1,7 +1,6 @@
 import React from "react"
 import './Cart.scss'
 import dataCatds from "../../testData/dataCards";
-import SvgCheck from "../../components/UI/icons/SvgCheck";
 import CartItem from "../../components/CartItem";
 import RetailCheckPanel from "../../components/RetailCheckPanel";
 import BlockWrapper from "../../components/BlockWrapper";
@@ -13,7 +12,6 @@ import {withRouter} from "react-router-dom";
 import PopupMapCart from "../../components/PopupMapCart/PopupMapCart";
 // import points from "../../testData/points";
 import dataCart from "../../testData/dataCart";
-import PopupLogin from "../../components/PopupLogin";
 import PopupOrder from "../../components/PopupOrder";
 
 
