@@ -12,7 +12,7 @@ import {compose} from "../../utils";
 
 const Cards = props => {
 
-  const {history, cart, addedToCart, itemRemovedFromCart} = props;
+  const {history, cart, addedToCart, itemRemovedFromCart, productsFromSearch} = props;
 
   const onItemSelected = (itemId, event) => {
     if (!event.target.closest('button')) history.push(`${itemId}`);
@@ -60,8 +60,8 @@ const Cards = props => {
   )
 }
 
-const mapStateToProps = ({cart}) => {
-  return {cart}
+const mapStateToProps = ({cart, productsFromSearch}) => {
+  return {cart, productsFromSearch}
 }
 
 const mapDispatchToProps = (dispatch) => {
