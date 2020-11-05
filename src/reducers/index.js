@@ -3,12 +3,13 @@ const initialState = {
   loading: true,
   error: null,
   isCity: {
-    "guid": "c073f480-6d97-4af3-976b-3c069f39db52",
-    "title": "Красноярск"
+    "guid": "c384a061-7641-4605-a340-afb825fdcb70",
+    "title": "Абакан"
   },
   retailsCity: [],
   cart: [],
-  favorites: []
+  favorites: [],
+  productsFromSearch: []
 }
 
 const updateCartItems = (cart, item, idx) => {
@@ -129,6 +130,20 @@ const reducer = (state = initialState, action) => {
         cart: action.payload
       };
 
+      //запрос списка продукта из поисковой строки
+    case 'LOADING' :
+      return {
+        ...state,
+        loading: true,
+      };
+    case 'FETCH_PRODUCTS_FROM_SEARCH_SUCCESS':
+      return {
+        ...state,
+        productsFromSearch: action.payload,
+        loading: false,
+      };
+
+      //запрос списка городов
     case 'FETCH_CITIES_SUCCESS':
       return {
         ...state,

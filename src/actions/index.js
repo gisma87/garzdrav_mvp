@@ -47,7 +47,6 @@ const allItemRemovedFromCart = (ItemId) => {
 }
 
 const retailsCityLoaded = (retailsCity) => {
-  // console.log('я в ACTIONS', retailsCity)
   return {
     type: 'FETCH_RETAILS_CITY_SUCCESS',
     payload: retailsCity
@@ -82,6 +81,30 @@ const fetchCities = (storeService, dispatch) => () => {
     .catch((error) => dispatch(pillsError(error)));
 }
 
+
+
+//запрос ProductsFromSearch
+const loadingTrue = () => {
+  return {
+    type: 'LOADING'
+  }
+}
+
+const ProductsFromSearchLoaded = (products) => {
+  return {
+    type: 'FETCH_PRODUCTS_FROM_SEARCH_SUCCESS',
+    payload: products
+  }
+}
+
+const fetchProductsFromSearch = (storeService, dispatch) => () => {
+  dispatch(loadingTrue());
+  storeService.getProductsFromSearch()
+    .then((data) => dispatch(ProductsFromSearchLoaded(data)))
+    .catch((error) => console.log(error));
+}
+
+
 export {
   fetchCities,
   setIsCity,
@@ -90,5 +113,8 @@ export {
   itemRemovedFromCart,
   allItemRemovedFromCart,
   rewriteCart,
-  addedToFavorits
+  addedToFavorits,
+  fetchProductsFromSearch,
+  loadingTrue,
+  ProductsFromSearchLoaded
 }

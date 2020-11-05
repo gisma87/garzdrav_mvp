@@ -20,15 +20,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="78173063-124b-4432-8c91-25d7c3ae2a6a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/Loader/Loader.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Loader/Loader.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Loader/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/delete.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/debug.log" beforeDir="false" afterPath="$PROJECT_DIR$/debug.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/Cart/Cart.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Cart/Cart.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/Cart/Cart.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Cart/Cart.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/actions/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SearchPanel/SearchPanel.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SearchPanel/SearchPanel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/reducers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/service/StoreService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/StoreService.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -128,6 +125,7 @@
       <workItem from="1604368560452" duration="3945000" />
       <workItem from="1604384929820" duration="6352000" />
       <workItem from="1604471168809" duration="457000" />
+      <workItem from="1604563362909" duration="6517000" />
     </task>
     <servers />
   </component>
@@ -167,10 +165,10 @@
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
     <state x="-1144" y="433" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1604026325168" />
-    <state x="-1231" y="167" width="1131" height="726" key="find.popup" timestamp="1604390880116">
+    <state x="-1231" y="167" width="1131" height="726" key="find.popup" timestamp="1604565564908">
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="-1231" y="167" width="1131" height="726" key="find.popup/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1604390880116" />
+    <state x="-1231" y="167" width="1131" height="726" key="find.popup/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1604565564908" />
     <state x="667" y="253" width="586" height="534" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1604126116198" />
     <state x="-1304" y="240" key="run.anything.popup" timestamp="1604308875998">
       <screen x="-1920" y="0" width="1920" height="1040" />

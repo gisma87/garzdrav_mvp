@@ -53,6 +53,21 @@ export default class StoreService {
     return await res.json();
   }
 
+  async getProductsFromSearch(productName, cityId) {
+    const res = await fetch(`http://172.16.17.7:5000/Products/byName?str=${productName}&cityGuid=${cityId}`,
+      {
+        method: 'GET',
+        headers: {
+          accept: 'application/json'
+        }
+      }
+    )
+    if (!res.ok) {
+      throw new Error(`Не могу выполнить fetch, статус ошибки: ${res.status}`)
+    }
+    return await res.json();
+  }
+
   setLocal(cart) {
     const arrItemId = [];
     const arrCountCart = [];
@@ -62,12 +77,12 @@ export default class StoreService {
     })
     localStorage.setItem('arrItemId', JSON.stringify(arrItemId));
     localStorage.setItem('arrCountCart', JSON.stringify(arrCountCart));
-    console.log('====================================================')
-    console.log('Обновился LocalStorage')
-    console.log('arrItemId', JSON.stringify(arrItemId))
-    console.log('arrCountCart', JSON.stringify(arrCountCart))
-    console.log('CART', cart)
-    console.log('====================================================')
+    // console.log('====================================================')
+    // console.log('Обновился LocalStorage')
+    // console.log('arrItemId', JSON.stringify(arrItemId))
+    // console.log('arrCountCart', JSON.stringify(arrCountCart))
+    // console.log('CART', cart)
+    // console.log('====================================================')
   }
 
   setCartFromLocalStorage(funcSet) {
