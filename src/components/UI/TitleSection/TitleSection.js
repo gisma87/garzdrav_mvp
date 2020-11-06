@@ -3,9 +3,9 @@ import './TitleSection.scss'
 import SvgAngleRightSolid from "../../../img/SVGcomponents/SvgAngleRightSolid";
 import {NavLink} from "react-router-dom";
 
-const TitleSection = ({title, link}) => {
+const TitleSection = ({title, link, classStyle = ''}) => {
   return (
-    <NavLink className='TitleSection' to={link}>
+    <NavLink className={'TitleSection ' + classStyle} to={link}>
       {title}
       <span className="TitleSection__more">
             <SvgAngleRightSolid/>

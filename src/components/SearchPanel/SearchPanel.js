@@ -9,7 +9,7 @@ import {connect} from "react-redux";
 
 const SearchPanel = (props) => {
 
-  const {isCity, productsFromSearch, ProductsFromSearchLoaded} = props;
+  const {isCity, productsFromSearch, ProductsFromSearchLoaded, isMobile = false} = props;
 
   const [value, setValue] = useState('')
 
@@ -41,6 +41,7 @@ const SearchPanel = (props) => {
     <form className='SearchPanel' onSubmit={handleSubmit}>
       <input
         id="searchPanel"
+        style={isMobile ? {'font-size': 14} : {}}
         type="text"
         placeholder={window.innerWidth > 1000 ? "Поиск по названию, действующему веществу, производителю" : "Поиск по названию"}
         onChange={handleInputChange}

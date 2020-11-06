@@ -3,12 +3,14 @@ import {Swiper, SwiperSlide} from 'swiper/react';
 import SwiperCore, {Navigation, Pagination, Autoplay} from "swiper";
 import 'swiper/swiper-bundle.css';
 import './Advertising.scss'
+import {useMediaQuery} from 'react-responsive'
 import test1 from '../../img/slider/test1.jpg'
 import test2 from '../../img/slider/test2.jpg'
 import test3 from '../../img/slider/test3.jpg'
 import test4 from '../../img/slider/test4.jpg'
 
 const Advertising = () => {
+  const isMobile = useMediaQuery({query: '(max-width: 800px)'})
   SwiperCore.use([Navigation, Pagination, Autoplay])
   return (
     <Swiper
@@ -17,7 +19,7 @@ const Advertising = () => {
       tag="section" wrapperTag="ul"
       // navigation
       loop={true}
-      pagination={{clickable: true}}
+      pagination={!isMobile && {clickable: true}}
       autoplay={{delay: 5000}}
       style={{width: '100%'}}
     >

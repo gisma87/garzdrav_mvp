@@ -20,9 +20,42 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="78173063-124b-4432-8c91-25d7c3ae2a6a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/AppMobile/AppMobile.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/AppMobile/AppMobile.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/AppMobile/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/MobileOrDesktop.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Advertising/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/CardItemMobile/CardItemMobile.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/CardItemMobile/CardItemMobile.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/CardItemMobile/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/MobileBottomNavbar/MobileBottomNavbar.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/MobileBottomNavbar/MobileBottomNavbar.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/MobileBottomNavbar/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/PromoBlockMobile/PromoBlockMobile.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/PromoBlockMobile/PromoBlockMobile.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/UI/icons/SvgIconCart.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/UI/icons/SvgIconHome.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/UI/icons/SvgIconLocation.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/UI/icons/SvgIconSearch.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/UI/icons/SvgIconUser.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/containers/IndexMobile/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/img/bottomNavbar/iconCart.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/img/bottomNavbar/iconHome.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/img/bottomNavbar/iconLocation.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/img/bottomNavbar/iconSearch.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/img/bottomNavbar/iconUser.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CardItem/CardItem.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CardItem/CardItem.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/Cards/Cards.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Cards/Cards.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Advertising/Advertising.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Advertising/Advertising.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Advertising/Advertising.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Advertising/Advertising.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SearchPanel/SearchPanel.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SearchPanel/SearchPanel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/TitleSection/TitleSection.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UI/TitleSection/TitleSection.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/IndexMobile/IndexMobile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/IndexMobile/IndexMobile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/IndexMobile/IndexMobile.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/IndexMobile/IndexMobile.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/service/StoreService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/StoreService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,23 +89,24 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../au.ru_11.09" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/img/bottomNavbar" />
     <property name="list.type.of.created.stylesheet" value="SCSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\workProject\garzdrav_mvp\src\AppMobile" />
+      <recent name="D:\workProject\garzdrav_mvp\src\img" />
+      <recent name="D:\workProject\garzdrav_mvp\src\img\test" />
+      <recent name="D:\workProject\garzdrav_mvp" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\workProject\garzdrav_mvp\src\img\bottomNavbar" />
       <recent name="C:\Users\gisma\OneDrive\Рабочий стол\TEST" />
       <recent name="D:\workProject\garzdrav_mvp\src\reducers" />
       <recent name="D:\workProject\garzdrav_mvp\src\img" />
       <recent name="D:\workProject\garzdrav_mvp\src" />
-      <recent name="D:\workProject\garzdrav_mvp" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\workProject\garzdrav_mvp\src\img" />
-      <recent name="D:\workProject\garzdrav_mvp\src\img\test" />
-      <recent name="D:\workProject\garzdrav_mvp" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -123,7 +157,9 @@
       <workItem from="1604384929820" duration="6352000" />
       <workItem from="1604471168809" duration="457000" />
       <workItem from="1604563362909" duration="7420000" />
-      <workItem from="1604572951882" duration="886000" />
+      <workItem from="1604572951882" duration="1604000" />
+      <workItem from="1604584342797" duration="2291000" />
+      <workItem from="1604627879943" duration="23215000" />
     </task>
     <servers />
   </component>
@@ -154,27 +190,31 @@
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
     <state x="-1369" y="177" key="#Intentions/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1603247233621" />
-    <state x="-1181" y="274" key="FileChooserDialogImpl" timestamp="1604308997688">
+    <state x="-1563" y="324" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1604646211900">
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
+    <state x="-1563" y="324" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1604646211900" />
+    <state x="739" y="274" key="FileChooserDialogImpl" timestamp="1604584365602">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
     <state x="-1181" y="274" key="FileChooserDialogImpl/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1604308997688" />
-    <state x="739" y="274" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1603029745062" />
+    <state x="739" y="274" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1604584365602" />
     <state x="-1144" y="433" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1604026325168">
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
     <state x="-1144" y="433" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1604026325168" />
-    <state x="-1231" y="167" width="1131" height="726" key="find.popup" timestamp="1604565564908">
+    <state x="-1231" y="167" width="1131" height="726" key="find.popup" timestamp="1604646601016">
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="-1231" y="167" width="1131" height="726" key="find.popup/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1604565564908" />
+    <state x="-1231" y="167" width="1131" height="726" key="find.popup/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1604646601016" />
     <state x="667" y="253" width="586" height="534" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1604126116198" />
     <state x="-1304" y="240" key="run.anything.popup" timestamp="1604308875998">
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
     <state x="-1304" y="240" key="run.anything.popup/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1604308875998" />
-    <state x="-1297" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1604306615446">
+    <state x="-1297" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1604645424850">
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="-1297" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1604306615446" />
+    <state x="-1297" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1604645424850" />
   </component>
 </project>

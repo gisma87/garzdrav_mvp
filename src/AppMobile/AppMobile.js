@@ -1,0 +1,86 @@
+import React, {useEffect} from "react";
+import './AppMobile.scss'
+import ScrollToTop from "../utils/ScrollToTop";
+import Loader from "../components/Loader";
+import HeaderDesktop from "../components/HeaderDesktop";
+import {Redirect, Route, Switch} from "react-router-dom";
+import IndexDesktop from "../containers/IndexDesktop/IndexDesktop";
+import Cities from "../containers/Cities";
+import HowOrder from "../containers/HowOrder";
+import Cart from "../containers/Cart";
+import AskQuestion from "../containers/AskQuestion";
+import PrivacyPolicy from "../containers/PrivacyPolicy";
+import Company from "../containers/Company";
+import News from "../containers/News";
+import Articles from "../containers/Articles";
+import Profile from "../containers/Profile";
+import PromoPage from "../containers/PromoPage";
+import Promotion from "../containers/Promotion";
+import Cards from "../containers/Cards";
+import CardPage from "../containers/CardPage";
+import FooterDesktop from "../components/FooterDesktop";
+import {fetchCities, rewriteCart} from "../actions";
+import {compose} from "../utils";
+import withStoreService from "../hoc/withStoreService/withStoreService";
+import {connect} from "react-redux";
+
+import MobileBottomNavbar from "../components/MobileBottomNavbar";
+import indexMobile from "../containers/IndexMobile";
+
+function AppMobile(props) {
+
+  useEffect(() => {
+    props.fetchCities();
+    if (localStorage.getItem("arrItemId")) {
+      props.storeService.setCartFromLocalStorage(props.rewriteCart)
+    }
+  }, [])
+
+  useEffect(() => console.log('RENDER APP'))
+
+  return (
+    <div className="App">
+      <ScrollToTop/>
+      <Loader classStyle={props.loading ? 'Loader_is-opened' : ''}/>
+      <Switch>
+        <Route exact path="/" component={indexMobile}/>
+        <Route path="/address/" component={Cities}/>
+        <Route path="/howOrder/" component={HowOrder}/>
+        <Route path="/cities/" component={Cities}/>
+        <Route path="/cart/" component={Cart}/>
+        <Route path="/ask-question/" component={AskQuestion}/>
+        <Route path="/confidentiality/" component={PrivacyPolicy}/>
+        <Route path="/company/" component={Company}/>
+        <Route path="/news/" component={News}/>
+        <Route path="/articles/" component={Articles}/>
+        <Route path="/profile/" component={Profile}/>
+        <Route path="/promotions/" exact component={PromoPage}/>
+        <Route path="/promotions/:id"
+               render={({match}) => <Promotion itemId={match.params.id}/>}/>
+        <Route path="/Cards/" exact component={Cards}/>
+        <Route path="/Cards/:id"
+               render={({match}) => <CardPage itemId={match.params.id}/>}/>
+        {/*<Route component={IndexDesktop}/>*/}
+        <Redirect to={'/'}/>
+      </Switch>
+      <MobileBottomNavbar/>
+    </div>
+  );
+}
+
+const mapStateToProps = ({cart, loading}) => {
+  return {cart, loading}
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  const {storeService} = ownProps;
+  return {
+    fetchCities: fetchCities(storeService, dispatch),
+    rewriteCart: (item) => dispatch(rewriteCart(item))
+  }
+}
+
+export default compose(
+  withStoreService(),
+  connect(mapStateToProps, mapDispatchToProps)
+)(AppMobile)
