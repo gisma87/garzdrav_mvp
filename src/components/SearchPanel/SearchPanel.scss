@@ -17,9 +17,9 @@
     outline: none;
     transition: background .3s;
 
-    &:hover, &:focus{
+    &:hover, &:focus {
       background-color: #fff;
-      box-shadow: 0 4px 12px 0 rgba(0,0,0,0.2);
+      box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.2);
     }
   }
 
@@ -52,5 +52,13 @@
     //height: 30px;
     //display: flex;
 
+  }
+}
+
+.SearchPanel-mobile {
+  input {
+    border: 1px solid #333;
+    border-radius: 4px;
+    min-height: 50px;
   }
 }

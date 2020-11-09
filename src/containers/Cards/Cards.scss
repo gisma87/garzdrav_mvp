@@ -3,11 +3,60 @@
   flex-direction: column;
   padding: 0 20px 30px;
 
+  @media (max-width: 800px) {
+    padding: 0 0 65px;
+  }
+
+  &__searchPanel {
+    background-color: #fff;
+    min-height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 15px;
+    box-shadow: 0 10px 10px 0 rgba(0, 0, 0, .2);
+    margin-bottom: 12px;
+    transition: all .3s;
+
+    &_center {
+      background-color: transparent;
+      box-shadow: none;
+    }
+  }
+
+  div.Cards__logoPanel {
+    visibility: hidden;
+    transition: all .3s;
+    max-height: 0;
+    padding: 0;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+
+    p {
+      color: #333;
+    }
+
+  }
+
+  div.Cards__center {
+    max-height: 65px;
+    padding: 5px 16px;
+    visibility: visible;
+    margin-top: 30vh;
+    transition: all .3s;
+  }
+
   &__title {
     font-weight: 700;
     font-size: 24px;
     margin: 0 0 30px 0;
     text-transform: uppercase;
+
+    @media (max-width: 800px) {
+      padding: 5px 20px 0;
+      margin: 0 0 15px 0;
+    }
   }
 
   &__mainContainer {

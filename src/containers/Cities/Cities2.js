@@ -109,7 +109,7 @@ const MapGZ = (props) => {
 
   useEffect(() => {
     setCoordinates(new ClassMap(17, point).render())
-  }, check)
+  }, [check])
 
 
   return ccc
@@ -179,7 +179,7 @@ const Cities = props => {
     //     console.log('x = ', x)
     //     console.log('y = ', y)
     //   })
-  }, isCity.guid)
+  }, [isCity.guid])
 
   // let centerPoint = points[1].coordinates;
   // let zoomPoint = 11;

@@ -20,7 +20,7 @@ const MobileBottomNavbar = () => {
         <SvgIconLocation className='MobileBottomNavbar__icon'/>
       </NavLink>
 
-      <NavLink to='/searchMobile' className="MobileBottomNavbar__btn" activeClassName="MobileBottomNavbar__btn-active">
+      <NavLink to='/Cards/' className="MobileBottomNavbar__btn" activeClassName="MobileBottomNavbar__btn-active">
         <SvgIconSearch className='MobileBottomNavbar__icon'/>
       </NavLink>
 

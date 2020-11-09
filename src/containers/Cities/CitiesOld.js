@@ -22,7 +22,7 @@ const MapGZ = (props) => {
     // centerPoint = points[point].coordinates;
     zoomPoint = 17;
     console.log('ПОИНТЫ ', point.coordinates)
-  }, point)
+  }, [point])
 
   if (true) {
     return (
@@ -153,7 +153,7 @@ const Cities = props => {
     //     console.log('x = ', x)
     //     console.log('y = ', y)
     //   })
-  }, isCity.guid)
+  }, [isCity.guid])
 
   // let centerPoint = points[1].coordinates;
   // let zoomPoint = 11;

@@ -9,7 +9,10 @@ import {connect} from "react-redux";
 
 const SearchPanel = (props) => {
 
-  const {isCity, productsFromSearch, ProductsFromSearchLoaded, isMobile = false} = props;
+  const {
+    isCity, productsFromSearch, ProductsFromSearchLoaded, isMobile = false, touched = true, onTouched = () => {
+    }
+  } = props;
 
   const [value, setValue] = useState('')
 
@@ -23,6 +26,7 @@ const SearchPanel = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    onTouched()
 
     props.storeService.getProductsFromSearch(value, isCity.guid)
       .then((data) => {
@@ -38,7 +42,7 @@ const SearchPanel = (props) => {
   }
 
   return (
-    <form className='SearchPanel' onSubmit={handleSubmit}>
+    <form className={'SearchPanel' + (touched ? '' : ' SearchPanel-mobile')} onSubmit={handleSubmit}>
       <input
         id="searchPanel"
         style={isMobile ? {'font-size': 14} : {}}

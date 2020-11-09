@@ -58,7 +58,7 @@ const CitiesMobile = props => {
     storeService.getRetailsCity(isCity.guid)
       .then((data) => props.retailsCityLoaded(data))
       .catch((error) => console.log('ОШИБКА в fetchRetailsCity ', error));
-  }, isCity.guid)
+  }, [isCity.guid])
 
   const mapState = {
     center: point,
