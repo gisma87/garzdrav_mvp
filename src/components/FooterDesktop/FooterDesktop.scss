@@ -5,6 +5,10 @@
   flex-direction: column;
   font-family: PTSans-Regular, Helvetica, Arial, sans-serif;
 
+  @media (max-width: 800px) {
+    padding: 20px 0;
+  }
+
 
   li {
     cursor: pointer;
@@ -25,6 +29,10 @@
   &__bottomContainer_lineStyle {
     border-top: 1px solid #cdffcc;
     padding-top: 15px;
+    @media (max-width: 800px) {
+      text-align: left;
+      padding-top: 5px;
+    }
   }
 
   &__infoGrid {
@@ -58,6 +66,10 @@
     @media (max-width: 970px) {
       flex-wrap: wrap;
     }
+    @media (max-width: 800px) {
+      padding: 0 0 20px;
+    }
+
   }
 
   &__logo {
@@ -68,6 +80,9 @@
       margin-bottom: 30px;
       text-align: center;
     }
+    @media (max-width: 800px) {
+      margin-bottom: 15px;
+    }
 
     img {
       height: 95px;
@@ -77,6 +92,13 @@
 
   &__wrapperTop {
     padding: 0 30px;
+    @media (max-width: 800px) {
+      text-align: left;
+
+      div {
+        margin-top: 15px;
+      }
+    }
   }
 
   &__wrapperBottom {

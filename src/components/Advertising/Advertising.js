@@ -9,6 +9,21 @@ import test2 from '../../img/slider/test2.jpg'
 import test3 from '../../img/slider/test3.jpg'
 import test4 from '../../img/slider/test4.jpg'
 
+// const ImageBlock = ({image, color}) => {
+//   return (
+//     <div className='Advertising__box' style={{backgroundColor: color}}>
+//       <img className='Advertising' src={image} alt={'slide ' + Math.random()}/>
+//     </div>
+//   )
+// }
+
+const imgData = [
+  {src: test1, color: '#f1adba'},
+  {src: test2, color: '#0068b9'},
+  {src: test3, color: '#fbdad5'},
+  {src: test4, color: '#a2ddfb'}
+]
+
 const Advertising = () => {
   const isMobile = useMediaQuery({query: '(max-width: 800px)'})
   SwiperCore.use([Navigation, Pagination, Autoplay])
@@ -23,10 +38,11 @@ const Advertising = () => {
       autoplay={{delay: 5000}}
       style={{width: '100%'}}
     >
-      {[test1, test2, test3, test4].map((item, index) => {
+      {imgData.map((item, index) => {
         return (
           <SwiperSlide tag="li" key={index} style={{display: 'flex', justifyContent: 'center'}}>
-            <img className='Advertising' src={item} alt={index + ' slide'}/>
+            {/*<ImageBlock image={item.src} color={item.color}/>*/}
+            <img className='Advertising' src={item.src} alt={index + ' slide'}/>
           </SwiperSlide>
         )
       })}

@@ -1,5 +1,9 @@
 .ArticlesBlock {
   padding: 0 0 30px;
+  @media (max-width: 800px) {
+    padding: 0 0 30px;
+  }
+
 
   &__container {
     justify-content: center;
@@ -9,5 +13,10 @@
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     grid-gap: 15px;
     margin: 0 auto;
+
+    @media (max-width: 800px) {
+      padding-top: 10px;
+      //grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    }
   }
 }

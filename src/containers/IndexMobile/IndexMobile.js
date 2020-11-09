@@ -4,6 +4,8 @@ import SearchPanel from "../../components/SearchPanel";
 import Advertising from "../../components/Advertising";
 import logo from '../../img/evalar.png'
 import PromoBlockMobile from "../../components/PromoBlockMobile/PromoBlockMobile";
+import ArticlesBlock from "../../components/ArticlesBlock";
+import FooterDesktop from "../../components/FooterDesktop";
 
 
 const indexMobile = () => {
@@ -17,7 +19,9 @@ const indexMobile = () => {
         <SearchPanel/>
       </div>
       <Advertising/>
-      <PromoBlockMobile/>
+      <PromoBlockMobile sizeTitle='16px'/>
+      <ArticlesBlock sizeTitle='16px'/>
+      <FooterDesktop/>
     </div>
   )
 }

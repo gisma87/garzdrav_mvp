@@ -31,9 +31,9 @@ class PromoBlockMobile extends React.Component {
       <div className="PromoBlockMobile">
 
         <div>
-          <TitleSection classStyle='PromoBlockMobile__titleSection' title='Акции' link='/promotions/'/>
+          <TitleSection size={this.props.sizeTitle} title='Акции' link='/promotions/'/>
           <Swiper
-            style={{padding: '10px 0'}}
+            style={{padding: '5px 0 10px'}}
             spaceBetween={5}
             slidesPerView={'auto'}
             tag="section" wrapperTag="ul"
@@ -45,16 +45,16 @@ class PromoBlockMobile extends React.Component {
                 const itemIndex = this.props.cart.findIndex((item) => item.itemId === id);
                 const isActive = itemIndex >= 0;
                 return <CardItemMobile onItemSelected={this.onItemSelected}
-                                 updateToCart={() => {
-                                   !isActive ? this.props.addedToCart(id) : this.props.itemRemovedFromCart(id)
-                                 }}
-                                 active={isActive}
-                                 key={id}
-                                 id={id}
-                                 title={title}
-                                 maker={maker}
-                                 img={img}
-                                 minPrice={minPrice}/>
+                                       updateToCart={() => {
+                                         !isActive ? this.props.addedToCart(id) : this.props.itemRemovedFromCart(id)
+                                       }}
+                                       active={isActive}
+                                       key={id}
+                                       id={id}
+                                       title={title}
+                                       maker={maker}
+                                       img={img}
+                                       minPrice={minPrice}/>
               }).map((item, index) => {
                 return (
                   <SwiperSlide tag="li" key={index} style={{listStyleType: 'none'}}>
