@@ -1,14 +1,22 @@
 import React from "react";
-import {NavLink} from "react-router-dom";
+import {NavLink, withRouter} from "react-router-dom";
 import './MobileBottomNavbar.scss'
 import SvgIconCart from "../UI/icons/SvgIconCart";
 import SvgIconHome from "../UI/icons/SvgIconHome";
 import SvgIconLocation from "../UI/icons/SvgIconLocation";
 import SvgIconSearch from "../UI/icons/SvgIconSearch";
 import SvgIconUser from "../UI/icons/SvgIconUser";
+import {rewriteCart} from "../../actions";
+import {compose} from "../../utils";
+import withStoreService from "../../hoc/withStoreService/withStoreService";
+import {connect} from "react-redux";
 
 
-const MobileBottomNavbar = () => {
+const MobileBottomNavbar = (props) => {
+
+  const count = props.cart.reduce((sum, item) => {
+    return item.count + sum
+  }, 0)
 
   return (
     <div className="MobileBottomNavbar">
@@ -25,6 +33,7 @@ const MobileBottomNavbar = () => {
       </NavLink>
 
       <NavLink to='/cart' className="MobileBottomNavbar__btn" activeClassName="MobileBottomNavbar__btn-active">
+        {count > 0 && <p className='MobileBottomNavbar__cartCount'>{count}</p>}
         <SvgIconCart className='MobileBottomNavbar__icon'/>
       </NavLink>
 
@@ -36,4 +45,17 @@ const MobileBottomNavbar = () => {
   )
 }
 
-export default MobileBottomNavbar
+const mapStateToProps = ({cart}) => {
+  return {cart}
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    rewriteCart: (item) => dispatch(rewriteCart(item))
+  }
+}
+
+export default compose(
+  withStoreService(),
+  connect(mapStateToProps, mapDispatchToProps)
+)(withRouter(MobileBottomNavbar))

@@ -2,18 +2,29 @@
   font-family: PTSans-Regular, Helvetica, Arial, sans-serif;
   display: flex;
   flex-direction: column;
-  max-width: 860px;
+  width: 100%;
+  max-width: 450px;
+  @media(max-width: 800px) {
+    padding: 10px 5px;
+  }
 
   &__container {
     display: flex;
     margin-bottom: 20px;
     justify-content: space-between;
+    @media(max-width: 800px) {
+      flex-wrap: wrap;
+    }
   }
 
   &__imageContainer {
     margin: 0 20px 0 0;
     max-width: 120px;
     width: 100%;
+    @media(max-width: 800px) {
+      margin: 0 5px 0 0;
+      max-width: 85px;
+    }
   }
 
   &__image {
@@ -21,6 +32,11 @@
     min-width: 100px;
     max-width: 120px;
     object-fit: contain;
+
+    @media(max-width: 800px) {
+      min-width: 75px;
+      max-width: 80px;
+    }
   }
 
   &__descriptionContainer {
@@ -28,6 +44,9 @@
     display: flex;
     flex-direction: column;
     flex: 1 1;
+    @media(max-width: 800px) {
+      margin-right: 0;
+    }
 
     h3 {
       font-weight: normal;
@@ -35,17 +54,42 @@
       line-height: 1.2em;
       overflow: hidden;
       margin-bottom: 8px;
+      @media(max-width: 800px) {
+        font-size: 16px;
+
+        overflow: hidden;
+        white-space: normal;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+      }
     }
   }
 
   &__maker {
     margin: 0;
     color: #777;
+    @media(max-width: 800px) {
+      font-size: 14px;
+
+      overflow: hidden;
+      white-space: normal;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+    }
   }
 
   &__buttonToDescription {
     display: flex;
     margin: auto 0 0;
+
+    @media(max-width: 800px) {
+      font-size: 14px;
+      margin-top: 20px;
+    }
 
     button {
       white-space: nowrap;
@@ -62,6 +106,10 @@
       line-height: 1.42857;
       border-radius: 4px;
 
+      @media(max-width: 800px) {
+        margin: 0 30px 0 0;
+      }
+
       &:hover:not([disabled]) {
         text-decoration: none;
         color: #e66800;
@@ -75,15 +123,26 @@
     flex-direction: column;
     align-items: flex-end;
     min-width: 105px;
+    @media(max-width: 800px) {
+      flex-direction: row;
+      flex-basis: 100%;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 10px;
+      margin-top: 5px;
+    }
   }
 
   &__price {
     font-weight: bold;
-    font-size: 16px;
+    font-size: 18px;
     line-height: 1.4;
     color: #333;
     white-space: nowrap;
     margin-bottom: 30px;
+    @media(max-width: 800px) {
+      margin: 0 40px 0 0;
+    }
   }
 
   &__countButtons {

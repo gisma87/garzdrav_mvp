@@ -49,7 +49,7 @@ function AppMobile(props) {
         {/*<Route path="/address/" component={Cities}/>*/}
         {/*<Route path="/howOrder/" component={HowOrder}/>*/}
         {/*<Route path="/cities/" component={Cities}/>*/}
-        {/*<Route path="/cart/" component={Cart}/>*/}
+        <Route path="/cart/" component={Cart}/>
         {/*<Route path="/ask-question/" component={AskQuestion}/>*/}
         {/*<Route path="/confidentiality/" component={PrivacyPolicy}/>*/}
         {/*<Route path="/company/" component={Company}/>*/}

@@ -40,15 +40,17 @@ const PopupOrder = props => {
           <div className='PopupOrder__selectContainer'>
             <p className='PopupOrder__titleInput'>Забрать из аптеки</p>
             <select name="PopupOrder-retails" id="PopupOrder-retails" className="PopupOrder__select"
+                    value={props.checked}
                     onChange={props.onChange}>
               {props.retails.map((item) => {
-                  return (
-                    <option key={item.retail.guid} value={item.retail.guid}
-                            selected={item.retail.guid === props.checked}>
-                      г. {item.retail.city}, {item.retail.street}, {item.retail.buildNumber}
-                    </option>
-                  )
-                }
+                return (
+                  <option key={item.retail.guid} value={item.retail.guid}
+                    // selected={item.retail.guid === props.checked}
+                  >
+                    г. {item.retail.city}, {item.retail.street}, {item.retail.buildNumber}
+                  </option>
+                )
+              }
               )}
             </select>
           </div>
