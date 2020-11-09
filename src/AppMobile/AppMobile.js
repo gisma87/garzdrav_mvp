@@ -26,6 +26,7 @@ import {connect} from "react-redux";
 
 import MobileBottomNavbar from "../components/MobileBottomNavbar";
 import indexMobile from "../containers/IndexMobile";
+import CitiesMobile from "../components/CitiesMobile/CitiesMobile";
 
 function AppMobile(props) {
 
@@ -44,17 +45,18 @@ function AppMobile(props) {
       <Loader classStyle={props.loading ? 'Loader_is-opened' : ''}/>
       <Switch>
         <Route exact path="/" component={indexMobile}/>
-        <Route path="/address/" component={Cities}/>
-        <Route path="/howOrder/" component={HowOrder}/>
-        <Route path="/cities/" component={Cities}/>
-        <Route path="/cart/" component={Cart}/>
-        <Route path="/ask-question/" component={AskQuestion}/>
-        <Route path="/confidentiality/" component={PrivacyPolicy}/>
-        <Route path="/company/" component={Company}/>
-        <Route path="/news/" component={News}/>
-        <Route path="/articles/" component={Articles}/>
-        <Route path="/profile/" component={Profile}/>
-        <Route path="/promotions/" exact component={PromoPage}/>
+        <Route exact path="/cities/" component={CitiesMobile}/>
+        {/*<Route path="/address/" component={Cities}/>*/}
+        {/*<Route path="/howOrder/" component={HowOrder}/>*/}
+        {/*<Route path="/cities/" component={Cities}/>*/}
+        {/*<Route path="/cart/" component={Cart}/>*/}
+        {/*<Route path="/ask-question/" component={AskQuestion}/>*/}
+        {/*<Route path="/confidentiality/" component={PrivacyPolicy}/>*/}
+        {/*<Route path="/company/" component={Company}/>*/}
+        {/*<Route path="/news/" component={News}/>*/}
+        {/*<Route path="/articles/" component={Articles}/>*/}
+        {/*<Route path="/profile/" component={Profile}/>*/}
+        {/*<Route path="/promotions/" exact component={PromoPage}/>*/}
         <Route path="/promotions/:id"
                render={({match}) => <Promotion itemId={match.params.id}/>}/>
         <Route path="/Cards/" exact component={Cards}/>

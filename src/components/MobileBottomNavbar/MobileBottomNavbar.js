@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import {NavLink} from "react-router-dom";
 import './MobileBottomNavbar.scss'
 import SvgIconCart from "../UI/icons/SvgIconCart";
@@ -16,7 +16,7 @@ const MobileBottomNavbar = () => {
         <SvgIconHome className='MobileBottomNavbar__icon'/>
       </NavLink>
 
-      <NavLink to='/location' className="MobileBottomNavbar__btn" activeClassName="MobileBottomNavbar__btn-active">
+      <NavLink to='/cities/' className="MobileBottomNavbar__btn" activeClassName="MobileBottomNavbar__btn-active">
         <SvgIconLocation className='MobileBottomNavbar__icon'/>
       </NavLink>
 
