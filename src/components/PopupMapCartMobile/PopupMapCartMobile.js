@@ -1,14 +1,9 @@
 import React, {useState} from "react";
-import './PopupMapCart.scss'
-// import iconLoc from "../../img/test/map-pin.svg";
-// import iconGZ from "../../img/iconmap/gz.png";
-// import iconDA from "../../img/iconmap/da.png";
-import BlockWrapper from "../BlockWrapper";
+import './PopupMapCartMobile.scss'
 import {Clusterer, GeolocationControl, Map, Placemark, SearchControl, YMaps} from "react-yandex-maps";
 import SvgClose from "../UI/icons/SvgClose";
-import RetailItem from "../RetailItem";
 
-const PopupMapCart = props => {
+const PopupMapCartMobile = props => {
 
   const [point, setPoint] = useState([56.010563, 92.852572])
   const [zoom, setZoom] = useState(11)
@@ -37,18 +32,6 @@ const PopupMapCart = props => {
       modules: ['geoObject.addon.balloon', 'geoObject.addon.hint']
     }
   }
-  // let iconImage = iconLoc;
-
-  // function setIcon(type) {
-  //   switch (type) {
-  //     case 'gz':
-  //       return iconImage = iconGZ;
-  //     case 'da':
-  //       return iconImage = iconDA;
-  //     default:
-  //       return iconImage = iconLoc;
-  //   }
-  // }
 
   const mapState = {
     center: point,
@@ -59,80 +42,27 @@ const PopupMapCart = props => {
 
   const onItemClick = (idMarker) => {
     setActiveMarker(idMarker)
-    // const activeItem = document.querySelector('.PopupMapCart__activeItem');
     const activeItem = document.querySelector('.RetailItem__activeItem');
     activeItem.scrollIntoView({behavior: "smooth"})
   }
 
   const close = (event) => {
-    if (event.target.closest('.PopupMapCart__close') || (!event.target.closest('.PopupMapCart__content'))) {
+    if (event.target.closest('.PopupMapCartMobile__close') || (!event.target.closest('.PopupMapCartMobile__content'))) {
       return props.onClick()
     }
   }
-  // const cityTitle = retails[0].title.match(/^([а-яА-Я])*/)[0]
-
-  const buttonActive = (id) => props.activeRetail === id
 
   return (
-    <div className={"PopupMapCart" + (props.active ? " PopupMapCart_is-opened" : "")} onClick={close}>
-      <div className="PopupMapCart__content">
-        <div className="PopupMapCart__close">
+    <div className={"PopupMapCartMobile" + (props.active ? " PopupMapCartMobile_is-opened" : "")} onClick={close}>
+      <div className="PopupMapCartMobile__content">
+        <div className="PopupMapCartMobile__close">
           <SvgClose/>
         </div>
         <h1>Аптеки в г. Красноярск</h1>
-        <div className='PopupMapCart__mainContainer'>
+        <div className='PopupMapCartMobile__mainContainer'>
 
-          <BlockWrapper classStyle='PopupMapCart__retails'>
-            <ul>
-              {
-                retails.map((retailItem) => {
-                  const {retail, items, sum} = retailItem
-                  const notFullItems = () => items.length < 3
-                  return (
-                    <RetailItem
-                      retailItem={retailItem}
-                      notFullItems={notFullItems()}
-                      active={retailItem.retail.guid === activeMarker}
-                      buttonActive={props.activeRetail === retail.guid}
-                      onSelectItem={() => onSelectItem(retail.guid)}
-                      setMapSetting={() => {
-                        setPoint(retail.coordinates)
-                        setZoom(17)
-                        setActiveMarker(null)
-                      }}
-                    />
-
-                    // <li
-                    //   className={'PopupMapCart__retailItem' + (retail.guid === activeMarker ? ' PopupMapCart__activeItem' : '')}
-                    //   key={retail.guid}
-                    //   onClick={() => {
-                    //     setPoint(retail.coordinates)
-                    //     setZoom(17)
-                    //     setActiveMarker(null)
-                    //   }}
-                    // >
-                    //   <div className='PopupMapCart__retailItemContainer'>
-                    //     <div className='PopupMapCart__itemBlock'>
-                    //       <span className='PopupMapCart__itemTitle'>{retail.title}</span>
-                    //       <span className='PopupMapCart__itemAddress'>{retail.street} {retail.buildNumber}</span>
-                    //       <span className='PopupMapCart__textClock'>Часы работы:&nbsp;{retail.clock}</span>
-                    //     </div>
-                    //
-                    //     <button
-                    //       className={'PopupMapCart__button ' + (buttonActive(retail.guid) ? 'PopupMapCart__buttonActive' : '')}
-                    //       onClick={() => onSelectItem(retail.guid)}>
-                    //       {buttonActive(retail.guid) ? 'Выбран' : 'Выбрать'}
-                    //     </button>
-                    //   </div>
-                    //   {notFullItems() && <p className='colorRed'>не все позиции в наличии</p>}
-                    // </li>
-                  )
-                })
-              }
-            </ul>
-          </BlockWrapper>
           <YMaps>
-            <Map className='PopupMapCart__mapContainer'
+            <Map className='PopupMapCartMobile__mapContainer'
                  state={mapState}
                  modules={['control.ZoomControl', 'control.FullscreenControl', "templateLayoutFactory", "layout.ImageWithContent"]}
             >
@@ -184,4 +114,4 @@ const PopupMapCart = props => {
   )
 }
 
-export default PopupMapCart
+export default PopupMapCartMobile

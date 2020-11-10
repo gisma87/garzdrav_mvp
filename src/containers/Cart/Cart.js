@@ -14,6 +14,8 @@ import PopupMapCart from "../../components/PopupMapCart/PopupMapCart";
 // import points from "../../testData/points";
 import dataCart from "../../testData/dataCart";
 import PopupOrder from "../../components/PopupOrder";
+import RetailItem from "../../components/RetailItem";
+import PopupMapCartMobile from "../../components/PopupMapCartMobile/PopupMapCartMobile";
 
 
 class Cart extends React.Component {
@@ -27,7 +29,7 @@ class Cart extends React.Component {
     popupMap: false,
     popupOrder: false,
     checked: this.fullRetailItemState[0].retail.guid,
-    view: true
+    view: false
   }
 
   indexActiveRetail = () => dataCart.findIndex((item) => item.retail.guid === this.state.checked);
@@ -128,10 +130,25 @@ class Cart extends React.Component {
               <p onClick={() => this.setState({view: false})}
                  className={'CitiesMobile__btn ' + (!this.state.view ? 'CitiesMobile__btn_active' : '')}
               >Список</p>
-              <p onClick={() => this.setState({view: true})}
+              <p onClick={() => {
+                this.setState({popupMap: true})
+                document.body.style.overflow = 'hidden'
+              }}
                  className={'CitiesMobile__btn ' + (this.state.view ? 'CitiesMobile__btn_active' : '')}
               >Карта</p>
             </div>
+
+            <PopupMapCartMobile active={this.state.popupMap}
+                                retails={this.retailItems().reverse()}
+                                activeRetail={this.state.checked}
+                                onClick={() => {
+                                  this.setState({popupMap: false})
+                                  document.body.style.overflow = 'auto'
+                                }}
+                                onSelectItem={(item) => {
+                                  this.onCheck(item)
+                                }}
+            />
           </MediaQuery>
 
           <MediaQuery minWidth={801}>
@@ -143,57 +160,123 @@ class Cart extends React.Component {
               }}>Выбрать аптеку на КАРТЕ
               </button>
             </div>
+
+            <PopupMapCart active={this.state.popupMap}
+                          retails={this.retailItems().reverse()}
+                          activeRetail={this.state.checked}
+                          onClick={() => {
+                            this.setState({popupMap: false})
+                            document.body.style.overflow = 'auto'
+                          }}
+                          onSelectItem={(item) => {
+                            this.onCheck(item)
+                          }}
+            />
           </MediaQuery>
 
-          <RetailCheckPanel item={this.fullRetailItemState[0]}
-                            isChecked={this.isChecked(this.fullRetailItemState[0].retail.guid)}
-                            onCheck={() => {
-                              this.onCheck(this.fullRetailItemState[0].retail.guid)
-                            }}
-          />
+          <MediaQuery maxWidth={800}>
+            <RetailItem
+              retailItem={this.fullRetailItemState[0]}
+              notFullItems={false}
+              active={this.isChecked(this.fullRetailItemState[0].retail.guid)}
+              buttonActive={this.isChecked(this.fullRetailItemState[0].retail.guid)}
 
-          <h2 className='Cart__titleChoice'>В других аптеках: </h2>
-          <BlockWrapper classStyle='Cart__blockMoreItems'>
-            {
-              this.fullRetailItemState.map((item, index) => {
-                if (index === 0) return null;
-                return <RetailCheckPanel key={item.retail.guid}
-                                         item={item}
-                                         list='list'
-                                         isChecked={this.isChecked(item.retail.guid)}
-                                         onCheck={() => {
-                                           this.onCheck(item.retail.guid)
-                                         }}/>
-              })
-            }
-          </BlockWrapper>
+              onSelectItem={() => {
+                this.onCheck(this.fullRetailItemState[0].retail.guid)
+              }}
+              setMapSetting={() => {
+                // setPoint(retail.coordinates)
+                // setZoom(17)
+                // setActiveMarker(null)
+              }}
+            />
+
+            <BlockWrapper classStyle='Cart__blockMoreItems'>
+              {
+                this.fullRetailItemState.map((item, index) => {
+                  if (index === 0) return null;
+                  return <RetailItem
+                    key={item.retail.guid}
+                    retailItem={item}
+                    notFullItems={false}
+                    active={this.isChecked(item.retail.guid)}
+                    buttonActive={this.isChecked(item.retail.guid)}
+                    onSelectItem={() => {
+                      this.onCheck(item.retail.guid)
+                    }}
+                    setMapSetting={() => {
+                    }}
+                  />
+                })
+              }
+            </BlockWrapper>
+          </MediaQuery>
+
+          <MediaQuery minWidth={801}>
+            <RetailCheckPanel item={this.fullRetailItemState[0]}
+                              isChecked={this.isChecked(this.fullRetailItemState[0].retail.guid)}
+                              onCheck={() => {
+                                this.onCheck(this.fullRetailItemState[0].retail.guid)
+                              }}
+            />
+
+            <h2 className='Cart__titleChoice'>В других аптеках: </h2>
+            <BlockWrapper classStyle='Cart__blockMoreItems'>
+              {
+                this.fullRetailItemState.map((item, index) => {
+                  if (index === 0) return null;
+                  return <RetailCheckPanel key={item.retail.guid}
+                                           item={item}
+                                           list='list'
+                                           isChecked={this.isChecked(item.retail.guid)}
+                                           onCheck={() => {
+                                             this.onCheck(item.retail.guid)
+                                           }}/>
+                })
+              }
+            </BlockWrapper>
+          </MediaQuery>
 
           <h2 className='Cart__titleChoice'>В этих аптеках не полное наличие: </h2>
-          <BlockWrapper classStyle='Cart__blockMoreItems'>
-            {
-              this.incompleteRetailItemState.map((item) => {
-                return <RetailCheckPanel key={item.retail.guid}
-                                         item={item}
-                                         list='incomplete'
-                                         isChecked={this.isChecked(item.retail.guid)}
-                                         onCheck={() => {
-                                           this.onCheck(item.retail.guid)
-                                         }}/>
-              })
-            }
-          </BlockWrapper>
+
+          <MediaQuery maxWidth={800}>
+            <BlockWrapper classStyle='Cart__blockMoreItems'>
+              {
+                this.incompleteRetailItemState.map((item) => {
+                  return <RetailItem
+                    key={item.retail.guid}
+                    retailItem={item}
+                    notFullItems={true}
+                    active={this.isChecked(item.retail.guid)}
+                    buttonActive={this.isChecked(item.retail.guid)}
+                    onSelectItem={() => {
+                      this.onCheck(item.retail.guid)
+                    }}
+                    setMapSetting={() => {
+                    }}
+                  />
+                })
+              }
+            </BlockWrapper>
+          </MediaQuery>
+
+          <MediaQuery minWidth={801}>
+            <BlockWrapper classStyle='Cart__blockMoreItems'>
+              {
+                this.incompleteRetailItemState.map((item) => {
+                  return <RetailCheckPanel key={item.retail.guid}
+                                           item={item}
+                                           list='incomplete'
+                                           isChecked={this.isChecked(item.retail.guid)}
+                                           onCheck={() => {
+                                             this.onCheck(item.retail.guid)
+                                           }}/>
+                })
+              }
+            </BlockWrapper>
+          </MediaQuery>
         </section>
-        <PopupMapCart active={this.state.popupMap}
-                      retails={this.retailItems().reverse()}
-                      activeRetail={this.state.checked}
-                      onClick={() => {
-                        this.setState({popupMap: false})
-                        document.body.style.overflow = 'auto'
-                      }}
-                      onSelectItem={(item) => {
-                        this.onCheck(item)
-                      }}
-        />
+
         <PopupOrder active={this.state.popupOrder}
                     checked={this.state.checked}
                     onClick={() => this.setState({popupOrder: false})}

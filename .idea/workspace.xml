@@ -20,14 +20,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="78173063-124b-4432-8c91-25d7c3ae2a6a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/RetailItem/RetailItem.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/RetailItem/RetailItem.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/RetailItem/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/PopupMapCartMobile/PopupMapCartMobile.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/PopupMapCartMobile/PopupMapCartMobile.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug.log" beforeDir="false" afterPath="$PROJECT_DIR$/debug.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CartItem/CartItem.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CartItem/CartItem.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CitiesMobile/CitiesMobile.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CitiesMobile/CitiesMobile.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/PopupMapCart/PopupMapCart.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PopupMapCart/PopupMapCart.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PopupOrder/PopupOrder.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PopupOrder/PopupOrder.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PopupOrder/PopupOrder.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PopupOrder/PopupOrder.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/RetailItem/RetailItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/RetailItem/RetailItem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/RetailItem/RetailItem.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/RetailItem/RetailItem.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/Cards/Cards.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Cards/Cards.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/Cards/Cards.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Cards/Cards.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/containers/Cart/Cart.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Cart/Cart.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/containers/Cart/Cart.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Cart/Cart.scss" afterDir="false" />
     </list>
@@ -40,8 +42,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
-        <option value="SCSS File" />
         <option value="JavaScript File" />
+        <option value="SCSS File" />
       </list>
     </option>
   </component>
@@ -138,7 +140,7 @@
       <workItem from="1604714495964" duration="228000" />
       <workItem from="1604887032584" duration="30063000" />
       <workItem from="1604939318385" duration="735000" />
-      <workItem from="1604973369004" duration="8039000" />
+      <workItem from="1604973369004" duration="20785000" />
     </task>
     <servers />
   </component>

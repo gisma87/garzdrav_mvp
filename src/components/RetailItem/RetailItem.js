@@ -1,43 +1,55 @@
 import React from "react";
 import './RetailItem.scss'
+import {useMediaQuery} from 'react-responsive'
 
 const RetailItem = (props) => {
   const {
-    retails, // массив аптек
+    retailItem,
+    notFullItems,
+    active,
     buttonActive,
     onSelectItem,
-    activeMarker,
     setMapSetting
   } = props;
 
-  return (
-    <ul className='RetailItem'>
-      {
-        retails.map(({retail, items, sum}) => {
-          const notFullItems = () => items.length < 3
-          return <li
-            className={'RetailItem__retailItem' + (retail.guid === activeMarker ? ' RetailItem__activeItem' : '')}
-            key={retail.guid}
-            onClick={setMapSetting(retail.coordinates)}
-          >
-            <div className='RetailItem__retailItemContainer'>
-              <div className='RetailItem__itemBlock'>
-                <span className='RetailItem__itemTitle'>{retail.title}</span>
-                <span className='RetailItem__itemAddress'>{retail.street} {retail.buildNumber}</span>
-                <span className='RetailItem__textClock'>Часы работы:&nbsp;{retail.clock}</span>
-              </div>
+  const isMobile = useMediaQuery({query: '(max-width: 800px)'})
 
-              <button
-                className={'RetailItem__button ' + (buttonActive(retail.guid) ? 'RetailItem__buttonActive' : '')}
-                onClick={() => onSelectItem(retail.guid)}>
-                {buttonActive(retail.guid) ? 'Выбран' : 'Выбрать'}
-              </button>
-            </div>
-            {notFullItems() && <p className='colorRed'>не все позиции в наличии</p>}
-          </li>
-        })
+  return (
+    <li
+      className={'RetailItem' + (active ? ' RetailItem__activeItem' : '')}
+      key={retailItem.retail.guid}
+      onClick={setMapSetting}
+    >
+      <div className='RetailItem__retailItemContainer'>
+        <div className='RetailItem__itemBlock'>
+          <span className='RetailItem__itemTitle'>{retailItem.retail.title}</span>
+          <span className='RetailItem__itemAddress'>{retailItem.retail.street} {retailItem.retail.buildNumber}</span>
+          <span className='RetailItem__textClock'>Часы работы:&nbsp;{retailItem.retail.clock}</span>
+        </div>
+
+
+        <div className='RetailItem__priceContainer'>
+          <p>{retailItem.sum} ₽</p>
+          <button
+            className={'RetailItem__button ' + (buttonActive ? 'RetailItem__buttonActive' : '')}
+            onClick={onSelectItem}>
+            {buttonActive ? 'Выбран' : 'Выбрать'}
+          </button>
+        </div>
+      </div>
+      {notFullItems && <p className='colorRed'>не все позиции в наличии</p>}
+      {notFullItems && isMobile &&
+      retailItem.items.map((item) => {
+        return (
+          <div className='RetailItem__incomplete' key={item.id}>
+            <p className='RetailItem__incomplete-title'>{item.title}</p>
+            <p className='RetailItem__incomplete-price'><span>за 1шт:</span> {item.price} ₽</p>
+          </div>
+        )
+      })
       }
-    </ul>
+
+    </li>
   )
 }
 

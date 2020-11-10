@@ -1,8 +1,6 @@
 import React, {useState} from "react";
 import './PopupOrder.scss'
 import SvgClose from "../UI/icons/SvgClose";
-// import {Link} from "react-router-dom";
-
 
 const PopupOrder = props => {
 

@@ -21,6 +21,16 @@
     &_center {
       background-color: transparent;
       box-shadow: none;
+      @media (min-width: 550px) {
+        padding: 0 13vw;
+      }
+    }
+
+    &_text {
+      padding: 0 20px;
+      @media (min-width: 550px) {
+        padding: 0 13vw;
+      }
     }
   }
 
@@ -45,6 +55,10 @@
     visibility: visible;
     margin-top: 30vh;
     transition: all .3s;
+    @media (min-width: 550px) {
+      padding: 5px 13vw;
+    }
+
   }
 
   &__title {

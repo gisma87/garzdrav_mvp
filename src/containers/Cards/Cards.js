@@ -61,7 +61,7 @@ const Cards = props => {
                 setTouchedSearch(true)
               }}/>
           </div>
-          {!touchedSearch && <p style={{padding: '0 50px'}}>
+          {!touchedSearch && <p className='Cards__searchPanel_text'>
             Поиск по названию, действующему веществу, производителю ...
           </p>}
 
