@@ -1,0 +1,109 @@
+.RetailItem {
+
+  &__retailItem {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    list-style-type: none;
+    border-bottom: 2px solid #b8b8b8;
+    padding: 10px 5px 7px 10px;
+    cursor: pointer;
+
+    &:hover {
+      background: #eaeaea;
+      //transform: scale(1.02);
+      transition: all .2s;
+    }
+
+    span {
+      margin: 3px 0;
+    }
+
+    &:nth-child(2n) {
+      border-bottom: 1px solid #E26C2D;
+    }
+
+    @media (max-width: 950px) {
+
+    }
+
+  }
+
+  &__activeItem {
+    background-color: #FFF9E5;
+    //transform: scale(1.05);
+    border: 1px solid #E26C2D;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+  }
+
+  &__itemBlock {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__button {
+    background: #fff;
+    color: #333;
+    border: 1px solid #d9d9d9;
+    max-height: 50px;
+    max-width: 100px;
+    border-radius: 8px;
+    outline: none;
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    font-size: 16px;
+    height: 40px;
+    justify-content: center;
+    padding: 0 8px;
+    text-align: center;
+
+    &:hover {
+      background-image: linear-gradient(to bottom, #ffbc0b, #ff7400);
+      box-shadow: inset 0 -2px 0 0 rgba(0, 0, 0, 0.2);
+      color: #fff;
+      border: none;
+      font-weight: bold;
+    }
+  }
+
+  &__buttonActive {
+    background-image: linear-gradient(to top, #fc8507, #ffa218);
+    background-color: #E26C2D;
+    color: #fff;
+    border: none;
+    font-weight: bold;
+
+    &:hover {
+      background-image: linear-gradient(to bottom, #ffbc0b, #ff7400);
+      box-shadow: inset 0 -2px 0 0 rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  &__retailItemContainer {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  &__textClock {
+    white-space: nowrap;
+    font-size: 14px;
+    color: #4e4e4e;
+  }
+
+  &__itemAddress {
+    white-space: nowrap;
+    font-size: 14px;
+    color: #4e4e4e;
+  }
+
+  &__itemTitle {
+    font-weight: 500;
+    color: #000;
+  }
+
+  .colorRed {
+    color: red;
+  }
+}

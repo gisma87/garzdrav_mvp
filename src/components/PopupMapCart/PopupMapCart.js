@@ -6,6 +6,7 @@ import './PopupMapCart.scss'
 import BlockWrapper from "../BlockWrapper";
 import {Clusterer, GeolocationControl, Map, Placemark, SearchControl, YMaps} from "react-yandex-maps";
 import SvgClose from "../UI/icons/SvgClose";
+import RetailItem from "../RetailItem";
 
 const PopupMapCart = props => {
 
@@ -81,6 +82,23 @@ const PopupMapCart = props => {
         <div className='PopupMapCart__mainContainer'>
 
           <BlockWrapper classStyle='PopupMapCart__retails'>
+            {/*<RetailItem*/}
+            {/*  retails={retails}*/}
+            {/*  buttonActive={(id) => {*/}
+            {/*    buttonActive(id)*/}
+            {/*  }}*/}
+            {/*  onSelectItem={(id) => {*/}
+            {/*    onSelectItem(id)*/}
+            {/*  }}*/}
+            {/*  activeMarker={activeMarker}*/}
+            {/*  setMapSetting = {(coordinates) => {*/}
+            {/*    setPoint(coordinates)*/}
+            {/*    setZoom(17)*/}
+            {/*    setActiveMarker(null)*/}
+            {/*  }}*/}
+            {/*/>*/}
+
+
             <ul>
               {
                 retails.map(({retail, items, sum}) => {

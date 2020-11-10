@@ -1,5 +1,6 @@
 import React from "react"
 import './Cart.scss'
+import MediaQuery from 'react-responsive'
 import dataCatds from "../../testData/dataCards";
 import CartItem from "../../components/CartItem";
 import RetailCheckPanel from "../../components/RetailCheckPanel";
@@ -25,7 +26,8 @@ class Cart extends React.Component {
     active: false,
     popupMap: false,
     popupOrder: false,
-    checked: this.fullRetailItemState[0].retail.guid
+    checked: this.fullRetailItemState[0].retail.guid,
+    view: true
   }
 
   indexActiveRetail = () => dataCart.findIndex((item) => item.retail.guid === this.state.checked);
@@ -120,14 +122,29 @@ class Cart extends React.Component {
         </section>
 
         <section className='Cart__choiceRetail'>
-          <div className='Cart__blockTitle'>
-            <h2 className='Cart__titleChoice'>Дешевле всего: </h2>
-            <button className='Cart__button Cart__buttonMap' onClick={() => {
-              this.setState({popupMap: true})
-              document.body.style.overflow = 'hidden'
-            }}>Выбрать аптеку на КАРТЕ
-            </button>
-          </div>
+
+          <MediaQuery maxWidth={800}>
+            <div className='CitiesMobile__menu Cart__menu'>
+              <p onClick={() => this.setState({view: false})}
+                 className={'CitiesMobile__btn ' + (!this.state.view ? 'CitiesMobile__btn_active' : '')}
+              >Список</p>
+              <p onClick={() => this.setState({view: true})}
+                 className={'CitiesMobile__btn ' + (this.state.view ? 'CitiesMobile__btn_active' : '')}
+              >Карта</p>
+            </div>
+          </MediaQuery>
+
+          <MediaQuery minWidth={801}>
+            <div className='Cart__blockTitle'>
+              <h2 className='Cart__titleChoice'>Дешевле всего: </h2>
+              <button className='Cart__button Cart__buttonMap' onClick={() => {
+                this.setState({popupMap: true})
+                document.body.style.overflow = 'hidden'
+              }}>Выбрать аптеку на КАРТЕ
+              </button>
+            </div>
+          </MediaQuery>
+
           <RetailCheckPanel item={this.fullRetailItemState[0]}
                             isChecked={this.isChecked(this.fullRetailItemState[0].retail.guid)}
                             onCheck={() => {
