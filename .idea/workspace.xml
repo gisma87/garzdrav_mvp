@@ -20,18 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="78173063-124b-4432-8c91-25d7c3ae2a6a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/PopupMapCartMobile/PopupMapCartMobile.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/PopupMapCartMobile/PopupMapCartMobile.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/PopupMapCart/PopupMapCart.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PopupMapCart/PopupMapCart.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/PopupOrder/PopupOrder.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PopupOrder/PopupOrder.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/PopupOrder/PopupOrder.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PopupOrder/PopupOrder.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/RetailItem/RetailItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/RetailItem/RetailItem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/RetailItem/RetailItem.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/RetailItem/RetailItem.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/Cards/Cards.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Cards/Cards.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/Cards/Cards.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Cards/Cards.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/Cart/Cart.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Cart/Cart.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/Cart/Cart.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Cart/Cart.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/CardPage/CardPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/CardPage/CardPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/CardPage/CardPage.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/CardPage/CardPage.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -140,7 +131,7 @@
       <workItem from="1604714495964" duration="228000" />
       <workItem from="1604887032584" duration="30063000" />
       <workItem from="1604939318385" duration="735000" />
-      <workItem from="1604973369004" duration="20785000" />
+      <workItem from="1604973369004" duration="21934000" />
     </task>
     <servers />
   </component>

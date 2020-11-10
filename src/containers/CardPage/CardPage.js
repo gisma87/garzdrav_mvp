@@ -12,6 +12,7 @@ import {compose} from "../../utils";
 import withStoreService from "../../hoc/withStoreService/withStoreService";
 import {connect} from "react-redux";
 import {NavLink, withRouter} from "react-router-dom";
+import {useMediaQuery} from 'react-responsive'
 
 const CardPage = (props) => {
   const {itemId, addedToCart, itemRemovedFromCart, addedToFavorits, cart, favorites} = props;
@@ -20,7 +21,7 @@ const CardPage = (props) => {
   const itemIndex = cart.findIndex((item) => item.itemId === itemId);
   const isFavorite = favorites.includes(itemId);
   const isActive = itemIndex >= 0;
-
+  const isMobile = useMediaQuery({query: '(max-width: 800px)'})
 
   useEffect(() => {
     props.storeService.setLocal(cart)

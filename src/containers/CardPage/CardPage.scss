@@ -18,6 +18,9 @@
       line-height: 24px;
       color: #333;
       margin: 0;
+      @media(max-width: 800px) {
+        font-size: 16px;
+      }
     }
   }
 
@@ -28,6 +31,10 @@
     margin: 0;
     display: flex;
     justify-content: space-between;
+    @media(max-width: 800px) {
+      font-size: 22px;
+      line-height: 24px;
+    }
   }
 
   &__like {
@@ -57,6 +64,10 @@
     @media (max-width: 1130px) {
       margin: 0 30px 15px 0;
     }
+    @media(max-width: 800px) {
+      max-width: 160px;
+      margin: 0;
+    }
   }
 
   &__image {
@@ -64,6 +75,11 @@
     min-width: 320px;
     max-height: 320px;
     object-fit: contain;
+
+    @media(max-width: 800px) {
+      min-width: 160px;
+      max-height: 160px;
+    }
   }
 
   &__caption {
