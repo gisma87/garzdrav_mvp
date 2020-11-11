@@ -4,6 +4,9 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  @media(max-width: 800px) {
+    padding: 0 0 60px;
+  }
 
   :first-child {
     margin: 0;

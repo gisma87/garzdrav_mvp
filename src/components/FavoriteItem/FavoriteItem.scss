@@ -56,6 +56,10 @@
     cursor: pointer;
     margin: 20px 0 10px 20px;
     align-self: flex-end;
+    @media(max-width: 800px) {
+      margin: 0 10px 0 0;
+      align-self: center;
+    }
 
     &:hover {
       color: #e66800;
@@ -85,6 +89,13 @@
 
     color: #fff;
     border-radius: 8px;
+    @media(max-width: 800px) {
+      max-height: 40px;
+      max-width: 140px;
+      font-size: 14px;
+      padding: 10px 5px;
+      min-width: 135px;
+    }
 
     &:hover {
       background-image: linear-gradient(to bottom, #ffbc0b, #ff7400);

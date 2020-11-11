@@ -15,13 +15,13 @@ class FooterDesktop extends React.Component {
               <h6>о компании</h6>
               <ul>
                 <li><NavLink to="/company/">о нас</NavLink></li>
-                <li><NavLink to="/address/">адреса аптек</NavLink></li>
+                <li><NavLink to="/cities/">адреса аптек</NavLink></li>
               </ul>
             </div>
             <div>
               <h6>помощь</h6>
               <ul>
-                <li><NavLink to="/ask-question/">вопрос-ответ</NavLink></li>
+                <li><NavLink to="/faq/">вопрос-ответ</NavLink></li>
                 <li><NavLink to="/ask-question/">задать вопрос</NavLink></li>
               </ul>
             </div>

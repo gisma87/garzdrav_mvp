@@ -8,7 +8,7 @@ const initialState = {
   },
   retailsCity: [],
   cart: [],
-  favorites: [],
+  favorites: [5, 6],
   productsFromSearch: []
 }
 
@@ -130,7 +130,7 @@ const reducer = (state = initialState, action) => {
         cart: action.payload
       };
 
-      //запрос списка продукта из поисковой строки
+    //запрос списка продукта из поисковой строки
     case 'LOADING' :
       return {
         ...state,
@@ -143,7 +143,7 @@ const reducer = (state = initialState, action) => {
         loading: false,
       };
 
-      //запрос списка городов
+    //запрос списка городов
     case 'FETCH_CITIES_SUCCESS':
       return {
         ...state,

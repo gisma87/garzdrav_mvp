@@ -3,7 +3,18 @@ import './CardItemMobile.scss'
 import SvgShoppingCartSolid from "../../img/SVGcomponents/SvgShoppingCartSolid";
 import SvgCheck from "../UI/icons/SvgCheck";
 
-const CardItemMobile = ({active, id, title, maker, img, minPrice, classStyle = '', onItemSelected, updateToCart}) => {
+const CardItemMobile = ({
+                          active,
+                          id,
+                          title,
+                          maker,
+                          img,
+                          minPrice,
+                          classStyle = '',
+                          favoriteButton = false,
+                          onItemSelected,
+                          updateToCart
+                        }) => {
 
   return (
     <div className={'CardItemMobile ' + classStyle}>
@@ -29,6 +40,7 @@ const CardItemMobile = ({active, id, title, maker, img, minPrice, classStyle = '
           <h4 className='CardItemMobile__maker'>{maker}</h4>
         </div>
       </div>
+      {favoriteButton && <p className='CardItemMobile__buttonDel'>Удалить из избранного</p>}
     </div>
   )
 }

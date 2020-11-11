@@ -1,6 +1,5 @@
 import React from "react"
 import './Articles.scss'
-import LayoutDesktop from "../../hoc/LayoutDesktop";
 import ArticleCard from "../../components/ArticleCard";
 import data from "../../testData/articlesANDpromo";
 

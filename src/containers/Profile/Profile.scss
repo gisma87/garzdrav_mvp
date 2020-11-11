@@ -2,8 +2,22 @@
   font-family: PTSans-Regular, Helvetica, Arial, sans-serif;
   padding: 0 15px;
 
+  @media(max-width: 800px) {
+    padding-bottom: 60px;
+  }
+
+  @media(max-width: 390px) {
+    padding: 0 0 60px;
+  }
+
   h1 {
     margin: 0 0 20px;
+    @media(max-width: 800px) {
+      padding-top: 20px;
+    }
+    @media(max-width: 390px) {
+      padding-left: 15px;
+    }
   }
 
   &__mainContainer {
@@ -11,6 +25,10 @@
     justify-content: space-between;
     align-items: flex-end;
     flex-wrap: wrap-reverse;
+    @media(max-width: 800px) {
+      align-items: center;
+      flex-direction: column-reverse;
+    }
   }
 
   &__menu {
@@ -19,6 +37,10 @@
     display: flex;
     flex-direction: column;
     margin: 0 0 20px 0;
+    @media(max-width: 800px) {
+      width: 100%;
+      max-width: 600px;
+    }
 
     p {
       color: blue;
@@ -50,6 +72,12 @@
 .ProfileSetting {
   flex: 1 1;
   margin-right: 30px;
+
+  @media(max-width: 800px) {
+    margin: 0;
+    width: 100%;
+    max-width: 600px;
+  }
 
   h4 {
     margin-bottom: 15px;
@@ -156,6 +184,13 @@
 .Favorites {
   flex: 1 1;
   margin-right: 50px;
+  @media(max-width: 800px) {
+    width: 100%;
+    max-width: 670px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
 
   h4 {
     margin: 0 0 15px 0;
@@ -164,6 +199,10 @@
   &__container {
     display: flex;
     flex-direction: column;
+    @media(max-width: 800px) {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
   }
 
 }

@@ -20,9 +20,33 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="78173063-124b-4432-8c91-25d7c3ae2a6a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/containers/Faq/Faq.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/containers/Faq/Faq.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/debug.log" beforeDir="false" afterPath="$PROJECT_DIR$/debug.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AppMobile/AppMobile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppMobile/AppMobile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/BlockWrapper/BlockWrapper.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/BlockWrapper/BlockWrapper.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CardItemMobile/CardItemMobile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CardItemMobile/CardItemMobile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CardItemMobile/CardItemMobile.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CardItemMobile/CardItemMobile.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/FavoriteItem/FavoriteItem.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FavoriteItem/FavoriteItem.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/FooterDesktop/FooterDesktop.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FooterDesktop/FooterDesktop.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/MobileBottomNavbar/MobileBottomNavbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MobileBottomNavbar/MobileBottomNavbar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/MobileBottomNavbar/MobileBottomNavbar.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MobileBottomNavbar/MobileBottomNavbar.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PopupLogin/PopupLogin.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PopupLogin/PopupLogin.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PromoItem/PromoItem.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PromoItem/PromoItem.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/Articles/Articles.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Articles/Articles.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/Articles/Articles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Articles/Articles.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/AskQuestion/AskQuestion.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/AskQuestion/AskQuestion.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/AskQuestion/AskQuestion.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/AskQuestion/AskQuestion.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/containers/CardPage/CardPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/CardPage/CardPage.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/containers/CardPage/CardPage.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/CardPage/CardPage.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/PrivacyPolicy/PrivacyPolicy.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/PrivacyPolicy/PrivacyPolicy.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/Profile/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Profile/Profile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/Profile/Profile.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Profile/Profile.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/PromoPage/PromoPage.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/PromoPage/PromoPage.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/Promotion/Promotion.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Promotion/Promotion.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/reducers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -131,7 +155,8 @@
       <workItem from="1604714495964" duration="228000" />
       <workItem from="1604887032584" duration="30063000" />
       <workItem from="1604939318385" duration="735000" />
-      <workItem from="1604973369004" duration="21934000" />
+      <workItem from="1604973369004" duration="22091000" />
+      <workItem from="1605019489276" duration="20337000" />
     </task>
     <servers />
   </component>

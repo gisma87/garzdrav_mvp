@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {NavLink, withRouter} from "react-router-dom";
 import './MobileBottomNavbar.scss'
 import SvgIconCart from "../UI/icons/SvgIconCart";
@@ -10,9 +10,16 @@ import {rewriteCart} from "../../actions";
 import {compose} from "../../utils";
 import withStoreService from "../../hoc/withStoreService/withStoreService";
 import {connect} from "react-redux";
+import PopupLogin from "../PopupLogin";
 
 
 const MobileBottomNavbar = (props) => {
+
+  const [popup, setPopup] = useState(false)
+
+  const isLogin = () => {
+    return localStorage.getItem('isLogin') === 'true'
+  }
 
   const count = props.cart.reduce((sum, item) => {
     return item.count + sum
@@ -37,9 +44,22 @@ const MobileBottomNavbar = (props) => {
         <SvgIconCart className='MobileBottomNavbar__icon'/>
       </NavLink>
 
-      <NavLink to='/profile' className="MobileBottomNavbar__btn" activeClassName="MobileBottomNavbar__btn-active">
-        <SvgIconUser className='MobileBottomNavbar__icon'/>
-      </NavLink>
+      {/*<NavLink to='/profile/' className="MobileBottomNavbar__btn" activeClassName="MobileBottomNavbar__btn-active">*/}
+      {/*  <SvgIconUser className='MobileBottomNavbar__icon'/>*/}
+      {/*</NavLink>*/}
+
+      <button className={'MobileBottomNavbar__btn' + (isLogin() ? ' MobileBottomNavbar__btn-active' : '')}
+              onClick={() => {
+                if (isLogin()) {
+                  props.history.push('/profile/')
+                  window.scroll(0, 0)
+                } else setPopup(true)
+              }}><SvgIconUser className='MobileBottomNavbar__icon MobileBottomNavbar__iconProfile'/></button>
+
+      <PopupLogin active={popup}
+                  onClick={() => setPopup(false)}
+        // isLogin={() => setIsLogin(true)}
+      />
 
     </div>
   )

@@ -3,11 +3,14 @@ import './Profile.scss'
 import BlockWrapper from "../../components/BlockWrapper";
 import FavoriteItem from "../../components/FavoriteItem";
 import {Link, withRouter} from "react-router-dom";
+import {useMediaQuery} from 'react-responsive'
 import SvgCheck from "../../components/UI/icons/SvgCheck";
 import {addedToCart, allItemRemovedFromCart, itemRemovedFromCart} from "../../actions";
 import {compose} from "../../utils";
 import withStoreService from "../../hoc/withStoreService/withStoreService";
 import {connect} from "react-redux";
+import CardItemMobile from "../../components/CardItemMobile";
+import dataCatds from "../../testData/dataCards";
 
 const ProfileSetting = () => {
   return (
@@ -68,6 +71,7 @@ const ProfileSetting = () => {
 }
 
 const Favorites = ({item}) => {
+  const isMobile = useMediaQuery({query: '(max-width: 800px)'})
   const {addedToCart, itemRemovedFromCart, cart, history, favorites} = item;
   const handlerToCards = (itemId) => {
     history.push(`/Cards/${itemId}`)
@@ -77,13 +81,34 @@ const Favorites = ({item}) => {
     <BlockWrapper classStyle='Favorites'>
       <h4>Избранное</h4>
       <div className='Favorites__container'>
-        {
-          favorites.map((item) => {
-            return <FavoriteItem key={item}
-                                 itemId={item}
-                                 item={{addedToCart, itemRemovedFromCart, cart, handlerToCards}}/>
-          })
+        {!isMobile &&
+        favorites.map((item) => {
+
+          return <FavoriteItem key={item}
+                               itemId={item}
+                               item={{addedToCart, itemRemovedFromCart, cart, handlerToCards}}/>
+        })
         }
+
+        {isMobile && favorites.map((itemId) => {
+          const itemIndex = cart.findIndex((item) => +item.itemId === +itemId);
+          const isActive = itemIndex >= 0;
+          const {img, title, maker, minPrice, id} = dataCatds[itemId - 1];
+          return <CardItemMobile onItemSelected={handlerToCards}
+                                 updateToCart={() => {
+                                   !isActive ? addedToCart(id) : itemRemovedFromCart(id);
+                                 }}
+                                 active={isActive}
+                                 key={itemId}
+                                 id={itemId}
+                                 title={title}
+                                 maker={maker}
+                                 img={img}
+                                 minPrice={minPrice}
+                                 favoriteButton={true}
+
+          />
+        })}
 
       </div>
     </BlockWrapper>

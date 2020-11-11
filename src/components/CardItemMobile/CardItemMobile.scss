@@ -1,4 +1,5 @@
 .CardItemMobile {
+  position: relative;
   outline: 1px solid #e0e1f3;
   display: flex;
   flex-direction: column;
@@ -23,6 +24,26 @@
     background-color: #f6f6f6;
     box-shadow: 1px 1px 1px gray;
     transition: all .2s;
+  }
+
+  &__buttonDel {
+    padding: 0 20px 10px;
+    font-size: 12px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    color: grey;
+    cursor: pointer;
+    margin: 0 10px 0 0;
+    align-self: center;
+
+    &:hover {
+      color: #e66800;
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
   }
 
   &__imageContainer {

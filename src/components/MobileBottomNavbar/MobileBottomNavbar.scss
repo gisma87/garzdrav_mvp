@@ -19,10 +19,14 @@
     text-align: center;
     width: 19%;
     position: relative;
+    background: transparent;
 
     &-active {
       .MobileBottomNavbar__icon {
         color: #fc8507;
+      }
+      .MobileBottomNavbar__iconProfile {
+        color: #44944A;
       }
     }
   }

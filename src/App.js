@@ -25,6 +25,7 @@ import PrivacyPolicy from "./containers/PrivacyPolicy";
 import AskQuestion from "./containers/AskQuestion";
 import ScrollToTop from "./utils/ScrollToTop";
 import Loader from "./components/Loader";
+import Faq from "./containers/Faq/Faq";
 
 function App(props) {
 
@@ -45,13 +46,14 @@ function App(props) {
       <Switch>
         <Route exact path="/" component={IndexDesktop}/>
         <Route path="/address/" component={Cities}/>
-        <Route path="/howOrder/" component={HowOrder}/>
+        {/*<Route path="/howOrder/" component={HowOrder}/>*/}
         <Route path="/cities/" component={Cities}/>
         <Route path="/cart/" component={Cart}/>
         <Route path="/ask-question/" component={AskQuestion}/>
+        <Route path="/faq/" component={Faq}/>
         <Route path="/confidentiality/" component={PrivacyPolicy}/>
         <Route path="/company/" component={Company}/>
-        <Route path="/news/" component={News}/>
+        {/*<Route path="/news/" component={News}/>*/}
         <Route path="/articles/" component={Articles}/>
         <Route path="/profile/" component={Profile}/>
         <Route path="/promotions/" exact component={PromoPage}/>

@@ -13,6 +13,9 @@
   transition: box-shadow .3s;
   cursor: pointer;
   margin: 0 auto;
+  @media(max-width: 800px) {
+    max-width: 400px;
+  }
 
   &:hover {
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.47);

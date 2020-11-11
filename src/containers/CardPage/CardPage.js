@@ -17,6 +17,7 @@ import {useMediaQuery} from 'react-responsive'
 const CardPage = (props) => {
   const {itemId, addedToCart, itemRemovedFromCart, addedToFavorits, cart, favorites} = props;
   const [like, setLike] = useState(false)
+
   const {id, title, maker, minPrice, img = undefined} = dataCatds[itemId - 1]
   const itemIndex = cart.findIndex((item) => item.itemId === itemId);
   const isFavorite = favorites.includes(itemId);
@@ -29,7 +30,9 @@ const CardPage = (props) => {
 
   return (
     <section className='CardPage wrapper'>
-      <BlockWrapper>
+
+      {/* ДЛЯ DESKTOP ВЕРСИИ */}
+      {!isMobile && <BlockWrapper>
         <div className='CardPage__titleContainer'>
           <h1 className='CardPage__title'>{title}
             <p className='CardPage__like' onClick={() => {
@@ -102,7 +105,86 @@ const CardPage = (props) => {
 
           </div>
         </div>
-      </BlockWrapper>
+      </BlockWrapper>}
+
+
+      {/* ДЛЯ MOBILE ВЕРСИИ */}
+      {isMobile && <BlockWrapper classStyle='CardPage__mobile'>
+
+        <div className='CardPage__imageContainer'>
+          {img !== undefined ? <img className='CardPage__image' src={img} alt=""/> :
+            <img src={pillsIcon} alt="pills icon" className='CardPage__image'/>}
+          <p className='CardPage__caption'>Внешний вид товара может отличаться от изображения на
+            сайте</p>
+          <p className='CardPage__like' onClick={() => {
+            setLike(!like)
+            addedToFavorits(id)
+          }}
+             style={{color: "red", marginLeft: 15, fontSize: 20}}>
+            {isFavorite ? <SvgHeartSolid/> : <SvgHeartIcon/>}
+            <span>В избранное</span>
+          </p>
+        </div>
+
+        <div className='CardPage__titleContainer'>
+          <h1 className='CardPage__title'>{title}</h1>
+          <p>Спрей, 10 мл, 22,5 мкг/доза</p>
+        </div>
+
+        <div className='CardPage__contentContainer'>
+
+
+          <div className='CardPage__priceContainer'>
+            <div className='CardPage__priceContent'>
+              <p className='CardPage__priceText'>Цена в наших аптеках: </p>
+              <p className='CardPage__price'>от {minPrice} ₽</p>
+            </div>
+            <div className='CardPage__amount'>
+              <div className='CardPage__amountBlock CardPage__activePrice'>
+                <span className='CardPage__amountText'>10 мл</span>
+                <span className='CardPage__amountText'>22,5 мкг/доза</span>
+                <span className='CardPage__amountPrice'>от {minPrice} ₽</span>
+              </div>
+              <div className='CardPage__amountBlock'>
+                <span className='CardPage__amountText'>10 мл</span>
+                <span className='CardPage__amountPrice'>от 188 ₽</span>
+              </div>
+            </div>
+            <div className='CardPage__buttons'>
+              <button className='CardPage__button CardPage__buttonToCart' onClick={() => {
+                !isActive ? addedToCart(itemId) : itemRemovedFromCart(itemId)
+              }}>
+                {isActive ? <SvgCheck style={{color: 'white'}}/> : 'Добавить в корзину'}
+              </button>
+              <button className='CardPage__button CardPage__buttonBuy'>Быстрый заказ</button>
+            </div>
+            <p className='CardPage__priceText CardPage__priceCaption'>Цена зависит от выбранной
+              аптеки</p>
+          </div>
+
+          <div className='CardPage__descriptionContainer'>
+            <p className='CardPage__maker CardPage__description'>
+              <span>Производитель</span>
+              <NavLink to={props.history.location}>{maker}</NavLink>
+            </p>
+            <p className='CardPage__substance CardPage__description'>
+              <span>Действующее вещество:</span>
+              <NavLink to={props.history.location}>Оксиметазолин</NavLink>
+            </p>
+            <p className='CardPage__characteristic CardPage__description'>
+              <span>Общее описание:</span>
+              <span className='CardPage__textCharacteristic'>Сосудосуживающий препарат для местного применения. При нанесении на воспаленную слизистую оболочку полости носа уменьшает ее отечность и выделения из носа. Восстанавливает носовое дыхание. Устранение отека слизистой оболочки полости носа способствует восстановлению аэрации придаточных пазух полости носа, полости среднего уха, что уменьшает вероятность возникновения бактериальных осложнений (гайморита, синусита, среднего отита). При местном интраназальном применении в терапевтических концентрациях не раздражает и не вызывает гиперемию слизистой оболочки полости носа. При местном интраназальном применении оксиметазолин не обладает системным действием. Оксиметазолин начинает действовать быстро, в течение нескольких минут. Продолжительность действия препарата Називин Сенситив - до 12 ч.</span>
+              <Link to="anchor"
+                    smooth={true}
+                    offset={-150}
+                    duration={500}>
+                Инструкция
+              </Link>
+            </p>
+
+          </div>
+        </div>
+      </BlockWrapper>}
 
       <BlockWrapper classStyle='CardPage__moreInfo'>
         <div className='CardPage__instruction'>
