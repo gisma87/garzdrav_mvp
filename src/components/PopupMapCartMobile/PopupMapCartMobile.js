@@ -4,6 +4,7 @@ import {Clusterer, GeolocationControl, Map, Placemark, SearchControl, YMaps} fro
 import SvgClose from "../UI/icons/SvgClose";
 import RetailItem from "../RetailItem";
 import SvgIconHome from "../UI/icons/SvgIconHome";
+import Backdrop from "../UI/Backdrop/Backdrop";
 
 const PopupMapCartMobile = props => {
 
@@ -57,10 +58,17 @@ const PopupMapCartMobile = props => {
   }
 
   return (
-    <div className={"PopupMapCartMobile" + (props.active ? " PopupMapCartMobile_is-opened" : "")} onClick={close}>
+
+    <div className={"PopupMapCartMobile" + (props.active ? " PopupMapCartMobile_is-opened" : "")}
+      // onClick={close}
+    >
+      {props.active && <Backdrop onClick={props.onClick}/>}
       <div className="PopupMapCartMobile__content">
-        <div className="PopupMapCartMobile__close">
-          <SvgClose color='#000'/>
+        <div className="PopupMapCartMobile__close" onClick={props.onClick}>
+          <SvgClose
+            className = 'closeIcon'
+            // color='#000'
+          />
         </div>
         <h1>Аптеки в г. Красноярск</h1>
         <div className='PopupMapCartMobile__mainContainer'>
@@ -69,6 +77,9 @@ const PopupMapCartMobile = props => {
             <Map className='PopupMapCartMobile__mapContainer'
                  state={mapState}
                  modules={['control.ZoomControl', 'control.FullscreenControl', "templateLayoutFactory", "layout.ImageWithContent"]}
+                 onClick={() => {
+                   setActiveMarker(null)
+                 }}
             >
               <Clusterer
                 options={{
@@ -121,15 +132,15 @@ const PopupMapCartMobile = props => {
           buttonActive={props.activeRetail === retails[activeItem].retail.guid}
           onSelectItem={() => onSelectItem(retails[activeItem].retail.guid)}
           setMapSetting={() => {
-            setPoint(retails[activeItem].retail.coordinates)
-            setZoom(17)
-            setActiveMarker(null)
+            // setPoint(retails[activeItem].retail.coordinates)
+            // setZoom(17)
+            // setActiveMarker(null)
           }}
         />}
       </div>
 
-
     </div>
+
   )
 }
 

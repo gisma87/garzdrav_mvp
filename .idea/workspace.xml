@@ -20,10 +20,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="78173063-124b-4432-8c91-25d7c3ae2a6a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/components/UI/PopupWrapper/PopupWrapper.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/UI/PopupWrapper/PopupWrapper.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/PopupMapCartMobile/PopupMapCartMobile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PopupMapCartMobile/PopupMapCartMobile.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/PopupMapCartMobile/PopupMapCartMobile.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PopupMapCartMobile/PopupMapCartMobile.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/Backdrop/Backdrop.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UI/Backdrop/Backdrop.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/UI/icons/SvgClose.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UI/icons/SvgClose.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,7 +140,7 @@
       <workItem from="1604973369004" duration="22091000" />
       <workItem from="1605019489276" duration="23629000" />
       <workItem from="1605103303734" duration="121000" />
-      <workItem from="1605146078065" duration="16281000" />
+      <workItem from="1605146078065" duration="19843000" />
     </task>
     <servers />
   </component>
