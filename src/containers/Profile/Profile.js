@@ -84,7 +84,7 @@ const Favorites = ({item}) => {
         {!isMobile &&
         favorites.map((item) => {
 
-          return <FavoriteItem key={item}
+          return <FavoriteItem key={item+Math.random()}
                                itemId={item}
                                item={{addedToCart, itemRemovedFromCart, cart, handlerToCards}}/>
         })

@@ -20,64 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="78173063-124b-4432-8c91-25d7c3ae2a6a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/UI/Burger/Burger.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AppMobile/AppMobile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppMobile/AppMobile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AlphabetItem/Alphabet-Item.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/BlockNews/BlockNews.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/BlockNews/BlockNews.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Burger/Burger.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UI/Burger/Burger.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Burger/Burger.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/BurgerMobule/Button-burger-mobile.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/BurgerMobule/Button-burger-mobile.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CardItem/CardItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CardItem/CardItem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CardItemMobile/CardItemMobile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CardItemMobile/CardItemMobile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CitiesMobile/CitiesMobile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/CitiesMobile/CitiesMobile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CitiesMobile/CitiesMobile.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/CitiesMobile/CitiesMobile.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/HeaderTop/HeaderTop.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/HeaderTop/HeaderTop.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/HeaderTop/test.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Loader/Loader.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UI/Loader/Loader.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Loader/Loader.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UI/Loader/Loader.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Loader/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UI/Loader/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/MenuMobile/Menu.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/testData/MenuMobile/Menu.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/MenuMobile/Menu.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/testData/MenuMobile/Menu.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/MobileBottomNavbar/MobileBottomNavbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MobileBottomNavbar/MobileBottomNavbar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Popular/Popular.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/testData/Popular/Popular.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Popular/Popular.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/testData/Popular/Popular.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Popular/PopularItem/PopularItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/testData/Popular/PopularItem/PopularItem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Popular/PopularItem/PopularItem.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/testData/Popular/PopularItem/PopularItem.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Popular/PopularItem/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/testData/Popular/PopularItem/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/PopupMapCart/PopupMapCart.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PopupMapCart/PopupMapCart.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/PromoBlock/PromoBlock.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PromoBlock/PromoBlock.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SearchDesktop/SearchDesctop.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/testData/SearchDesktop/SearchDesctop.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SearchDesktop/SearchDesktop.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/testData/SearchDesktop/SearchDesktop.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SearchDesktop/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/testData/SearchDesktop/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SectionIndexMobile/Section-index.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SectionIndexMobile/Section-index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/StickPanel/Stick-panel.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/StickPanel/Stick-panel.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/Card/Card.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/Card/Card.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/Card/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/Company/Company.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Company/Company.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/HowOrder/HowOrder.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/HowOrder/HowOrder.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/HowOrder/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/IndexDesktop/IndexDesktop.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/IndexDesktop/IndexDesktop.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/IndexPage/IndexPage.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/News/News.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/News/News.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/News/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/SearchPageMobile/SearchPageMobile.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/SearchPageMobile/SearchPageMobile.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/data/alphabet.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/testData/data/alphabet.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hoc/LayoutDesktop/LayoutDesktop.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/oldComponent/LayoutDesktop/LayoutDesktop.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hoc/LayoutDesktop/LayoutDesktop.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/oldComponent/LayoutDesktop/LayoutDesktop.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hoc/LayoutDesktop/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/oldComponent/LayoutDesktop/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hoc/LayoutMobile/LayoutMobile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/oldComponent/LayoutMobile/LayoutMobile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hoc/LayoutMobile/LayoutMobile.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/oldComponent/LayoutMobile/LayoutMobile.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/testData/info.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/testData/info.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/Profile/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Profile/Profile.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -190,7 +134,7 @@
       <workItem from="1604973369004" duration="22091000" />
       <workItem from="1605019489276" duration="23629000" />
       <workItem from="1605103303734" duration="121000" />
-      <workItem from="1605146078065" duration="8673000" />
+      <workItem from="1605146078065" duration="10062000" />
     </task>
     <servers />
   </component>
