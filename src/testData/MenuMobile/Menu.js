@@ -1,6 +1,6 @@
 import React from "react";
 import './Menu.css'
-import DropdownItem from "../DropdownItem/Dropdown-item";
+import DropdownItem from "../../components/DropdownItem/Dropdown-item";
 
 class Menu extends React.Component {
 

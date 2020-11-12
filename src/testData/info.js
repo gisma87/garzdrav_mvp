@@ -1,7 +1,7 @@
 import React from "react";
 import DG from "2gis-maps";
 import iconLoc from "../img/test/map-pin.svg";
-import LayoutDesktop from "../hoc/LayoutDesktop";
+import LayoutDesktop from "../oldComponent/LayoutDesktop";
 
 
 // запрос, отправленный бэкендерами:

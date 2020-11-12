@@ -44,10 +44,6 @@ const MobileBottomNavbar = (props) => {
         <SvgIconCart className='MobileBottomNavbar__icon'/>
       </NavLink>
 
-      {/*<NavLink to='/profile/' className="MobileBottomNavbar__btn" activeClassName="MobileBottomNavbar__btn-active">*/}
-      {/*  <SvgIconUser className='MobileBottomNavbar__icon'/>*/}
-      {/*</NavLink>*/}
-
       <button className={'MobileBottomNavbar__btn' + (isLogin() ? ' MobileBottomNavbar__btn-active' : '')}
               onClick={() => {
                 if (isLogin()) {

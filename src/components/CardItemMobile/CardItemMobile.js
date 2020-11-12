@@ -1,6 +1,5 @@
 import React from "react";
 import './CardItemMobile.scss'
-import SvgShoppingCartSolid from "../../img/SVGcomponents/SvgShoppingCartSolid";
 import SvgCheck from "../UI/icons/SvgCheck";
 
 const CardItemMobile = ({

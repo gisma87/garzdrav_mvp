@@ -1,32 +1,25 @@
 import React, {useEffect} from "react";
 import './AppMobile.scss'
 import ScrollToTop from "../utils/ScrollToTop";
-import Loader from "../components/Loader";
-import HeaderDesktop from "../components/HeaderDesktop";
+import Loader from "../components/UI/Loader";
 import {Redirect, Route, Switch} from "react-router-dom";
-import IndexDesktop from "../containers/IndexDesktop/IndexDesktop";
-import Cities from "../containers/Cities";
-import HowOrder from "../containers/HowOrder";
 import Cart from "../containers/Cart";
 import AskQuestion from "../containers/AskQuestion";
 import PrivacyPolicy from "../containers/PrivacyPolicy";
 import Company from "../containers/Company";
-import News from "../containers/News";
 import Articles from "../containers/Articles";
 import Profile from "../containers/Profile";
 import PromoPage from "../containers/PromoPage";
 import Promotion from "../containers/Promotion";
 import Cards from "../containers/Cards";
 import CardPage from "../containers/CardPage";
-import FooterDesktop from "../components/FooterDesktop";
 import {fetchCities, rewriteCart} from "../actions";
 import {compose} from "../utils";
 import withStoreService from "../hoc/withStoreService/withStoreService";
 import {connect} from "react-redux";
-
 import MobileBottomNavbar from "../components/MobileBottomNavbar";
 import indexMobile from "../containers/IndexMobile";
-import CitiesMobile from "../components/CitiesMobile/CitiesMobile";
+import CitiesMobile from "../containers/CitiesMobile/CitiesMobile";
 import Faq from "../containers/Faq/Faq";
 
 function AppMobile(props) {
@@ -48,7 +41,6 @@ function AppMobile(props) {
         <Route exact path="/" component={indexMobile}/>
         <Route exact path="/cities/" component={CitiesMobile}/>
         {/*<Route path="/address/" component={Cities}/>*/}
-        {/*<Route path="/howOrder/" component={HowOrder}/>*/}
         {/*<Route path="/cities/" component={Cities}/>*/}
         <Route path="/cart/" component={Cart}/>
         <Route path="/ask-question/" component={AskQuestion}/>

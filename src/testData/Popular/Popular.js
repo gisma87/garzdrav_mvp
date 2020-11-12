@@ -8,7 +8,6 @@ import 'swiper/components/pagination/pagination.scss'
 import 'swiper/components/autoplay'
 // import 'swiper/swiper-bundle.css';
 import './Popular.scss'
-import CardItem from "../CardItem";
 
 class Popular extends React.Component {
 

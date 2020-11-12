@@ -2,17 +2,14 @@ import React, {useEffect} from 'react';
 import {Redirect, Switch, Route} from 'react-router-dom';
 import './App.css';
 import 'normalize.css';
-import HowOrder from "./containers/HowOrder";
 import Cities from "./containers/Cities";
 import Cart from "./containers/Cart";
 import Company from "./containers/Company";
-import News from "./containers/News";
 import Articles from "./containers/Articles";
 import Cards from "./containers/Cards";
 import PromoPage from "./containers/PromoPage";
 import CardPage from "./containers/CardPage";
 import Promotion from "./containers/Promotion";
-
 import {fetchCities, rewriteCart} from "./actions";
 import {compose} from "./utils";
 import withStoreService from "./hoc/withStoreService/withStoreService";
@@ -24,7 +21,7 @@ import IndexDesktop from "./containers/IndexDesktop/IndexDesktop";
 import PrivacyPolicy from "./containers/PrivacyPolicy";
 import AskQuestion from "./containers/AskQuestion";
 import ScrollToTop from "./utils/ScrollToTop";
-import Loader from "./components/Loader";
+import Loader from "./components/UI/Loader";
 import Faq from "./containers/Faq/Faq";
 
 function App(props) {
@@ -46,7 +43,6 @@ function App(props) {
       <Switch>
         <Route exact path="/" component={IndexDesktop}/>
         <Route path="/address/" component={Cities}/>
-        {/*<Route path="/howOrder/" component={HowOrder}/>*/}
         <Route path="/cities/" component={Cities}/>
         <Route path="/cart/" component={Cart}/>
         <Route path="/ask-question/" component={AskQuestion}/>

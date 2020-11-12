@@ -5,20 +5,6 @@ import SvgCheck from "../UI/icons/SvgCheck";
 
 const CardItem = ({active, id, title, maker, img, minPrice, classStyle = '', onItemSelected, updateToCart}) => {
 
-  // const [active, setActive] = useState(false);
-
-  // const setCount = () => {
-  //   if (localStorage.getItem('count')>=0) {
-  //     const x = localStorage.getItem('count')
-  //     !active ? localStorage.setItem('count', +x + 1) : (x > 0 ? localStorage.setItem('count', +x - 1) : localStorage.setItem('count', 0))
-  //     console.log(x)
-  //   } else {
-  //     localStorage.setItem('count', 0);
-  //   }
-  //   setActive(state => !state)
-  //
-  // }
-
   return (
     <div className={'CardItem ' + classStyle}
          onClick={(event) => onItemSelected(id, event)}>

@@ -71,7 +71,7 @@ const PopupMapCart = props => {
   }
   // const cityTitle = retails[0].title.match(/^([а-яА-Я])*/)[0]
 
-  const buttonActive = (id) => props.activeRetail === id
+  // const buttonActive = (id) => props.activeRetail === id
 
   return (
     <div className={"PopupMapCart" + (props.active ? " PopupMapCart_is-opened" : "")} onClick={close}>

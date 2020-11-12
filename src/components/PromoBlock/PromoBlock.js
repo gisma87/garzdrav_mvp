@@ -18,13 +18,6 @@ import {connect} from "react-redux";
 import {addedToCart, allItemRemovedFromCart, itemRemovedFromCart} from "../../actions";
 
 class PromoBlock extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  //   // history =
-  //   // addedToCart
-  //   // itemRemovedFromCart
-  //   // cart
-  // }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     this.props.storeService.setLocal(this.props.cart)

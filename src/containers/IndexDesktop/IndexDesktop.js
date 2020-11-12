@@ -4,7 +4,6 @@ import Advertising from "../../components/Advertising/Advertising";
 import HowToBuy from "../../components/HowToBuy/HowToBuy";
 import PromoBlock from "../../components/PromoBlock";
 import ArticlesBlock from "../../components/ArticlesBlock";
-import HowOrder from "../HowOrder";
 
 class IndexDesktop extends React.Component {
   render() {

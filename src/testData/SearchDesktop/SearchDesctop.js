@@ -1,10 +1,10 @@
 import React from "react"
 import {withRouter} from 'react-router-dom'
 import './SearchDesktop.scss'
-import Burger from "../Burger/Burger";
-import DropDownMenu from "../DropDownMenu/DropDownMenu";
-import ButtonTopScroll from "../UI/ButtonTopScroll";
-import SearchPanel from "../SearchPanel";
+// import Burger from "../UI/Burger/Burger";
+// import DropDownMenu from "../DropDownMenu/DropDownMenu";
+import ButtonTopScroll from "../../components/UI/ButtonTopScroll";
+import SearchPanel from "../../components/SearchPanel";
 
 class SearchDesktop extends React.Component {
 

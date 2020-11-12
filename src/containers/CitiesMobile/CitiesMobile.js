@@ -11,7 +11,7 @@ import withStoreService from "../../hoc/withStoreService/withStoreService";
 import {connect} from "react-redux";
 import StoreService from "../../service/StoreService";
 import BlockWrapper from "../../components/BlockWrapper";
-import Select from "../UI/Select/Select";
+import Select from "../../components/UI/Select/Select";
 
 const CitiesMobile = props => {
 

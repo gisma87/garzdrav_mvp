@@ -1,6 +1,6 @@
 import React, {useState} from "react"
 import './HeaderTop.scss'
-import {Link, NavLink, withRouter} from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
 import PopupCities from "../PopupCities";
 import {setIsCity} from "../../actions";
 import {compose} from "../../utils";
