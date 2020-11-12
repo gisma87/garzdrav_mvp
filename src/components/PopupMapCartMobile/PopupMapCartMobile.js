@@ -2,6 +2,8 @@ import React, {useState} from "react";
 import './PopupMapCartMobile.scss'
 import {Clusterer, GeolocationControl, Map, Placemark, SearchControl, YMaps} from "react-yandex-maps";
 import SvgClose from "../UI/icons/SvgClose";
+import RetailItem from "../RetailItem";
+import SvgIconHome from "../UI/icons/SvgIconHome";
 
 const PopupMapCartMobile = props => {
 
@@ -9,6 +11,8 @@ const PopupMapCartMobile = props => {
   const [zoom, setZoom] = useState(11)
   const [activeMarker, setActiveMarker] = useState(null)
   const {retails, onSelectItem} = props;
+  const activeItem = retails.findIndex(item => activeMarker === item.retail.guid)
+  console.log(activeItem);
 
   const popup = ({title, address, clock, tel}) => `
   <div>
@@ -24,7 +28,7 @@ const PopupMapCartMobile = props => {
     return {
       properties: {
         iconContent: `<div class="icn_content ${flag ? 'colorRed' : ''}">${price} ₽</div>`,
-        balloonContentBody: popup(popupInfo),
+        // balloonContentBody: popup(popupInfo),
         hintContent: `${popupInfo.title}`,
         // balloonContent: 'Гармония здоровья',
         iconCaption: '157р.'
@@ -56,7 +60,7 @@ const PopupMapCartMobile = props => {
     <div className={"PopupMapCartMobile" + (props.active ? " PopupMapCartMobile_is-opened" : "")} onClick={close}>
       <div className="PopupMapCartMobile__content">
         <div className="PopupMapCartMobile__close">
-          <SvgClose/>
+          <SvgClose color='#000'/>
         </div>
         <h1>Аптеки в г. Красноярск</h1>
         <div className='PopupMapCartMobile__mainContainer'>
@@ -107,8 +111,23 @@ const PopupMapCartMobile = props => {
             </Map>
           </YMaps>
         </div>
-
       </div>
+
+      <div className='PopupMapCartMobile__absoluteCardItem'>
+        {activeItem >= 0 && <RetailItem
+          retailItem={retails[activeItem]}
+          notFullItems={retails[activeItem].items.length < 3}
+          active={retails[activeItem].retail.guid === activeMarker}
+          buttonActive={props.activeRetail === retails[activeItem].retail.guid}
+          onSelectItem={() => onSelectItem(retails[activeItem].retail.guid)}
+          setMapSetting={() => {
+            setPoint(retails[activeItem].retail.coordinates)
+            setZoom(17)
+            setActiveMarker(null)
+          }}
+        />}
+      </div>
+
 
     </div>
   )

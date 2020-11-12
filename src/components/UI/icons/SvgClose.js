@@ -1,10 +1,12 @@
 import React from "react";
 
 function SvgClose(props) {
+  const {color = "#fff"} = props
   return (
-    <svg width={28} height={27} fill="none" {...props}>
+    <svg width={28} height={27} fill="none"  {...props}>
       <path
-        stroke="#fff"
+        fill="currentColor"
+        stroke={color}
         strokeWidth={5}
         d="M1.939 25.939l24-24M2.061 1.939l24 24"
       />
