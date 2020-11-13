@@ -89,7 +89,7 @@ const PopupOrder = props => {
 
         <div className='PopupOrder__buyTrueContent'>
           <p>Ваш заказ N-XXX-XXX-XXX принят к исполнению.</p>
-          <p>О изменении статуса заказа будет сообщено по СМС</p>
+          <p>Об изменении статуса заказа будет сообщено по СМС</p>
         </div>
         <button type='submit'
                 className={"PopupOrder__button PopupOrder__button_active"}

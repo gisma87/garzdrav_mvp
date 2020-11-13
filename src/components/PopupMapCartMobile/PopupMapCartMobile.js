@@ -11,7 +11,6 @@ const PopupMapCartMobile = props => {
   const [activeMarker, setActiveMarker] = useState(null)
   const {retails, onSelectItem} = props;
   const activeItem = retails.findIndex(item => activeMarker === item.retail.guid)
-  console.log(activeItem);
 
   const popup = ({title, address, clock, tel}) => `
   <div>
@@ -41,13 +40,6 @@ const PopupMapCartMobile = props => {
     zoom: zoom,
     controls: ['zoomControl', 'fullscreenControl']
   };
-
-
-  const onItemClick = (idMarker) => {
-    setActiveMarker(idMarker)
-    const activeItem = document.querySelector('.RetailItem__activeItem');
-    activeItem.scrollIntoView({behavior: "smooth"})
-  }
 
   return (
 
@@ -81,7 +73,7 @@ const PopupMapCartMobile = props => {
                   const notFullItems = () => items.length < 3
                   return (
                     <Placemark key={guid}
-                               onClick={() => onItemClick(guid)}
+                               onClick={() => setActiveMarker(guid)}
                                {...placeMark(sum, popup, notFullItems())}
                                geometry={coordinates}
                                options={{

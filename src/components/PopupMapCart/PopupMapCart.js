@@ -60,7 +60,6 @@ const PopupMapCart = props => {
 
   const onItemClick = (idMarker) => {
     setActiveMarker(idMarker)
-    // const activeItem = document.querySelector('.PopupMapCart__activeItem');
     const activeItem = document.querySelector('.RetailItem__activeItem');
     activeItem.scrollIntoView({behavior: "smooth"})
   }

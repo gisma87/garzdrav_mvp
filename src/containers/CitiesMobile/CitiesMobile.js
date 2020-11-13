@@ -66,21 +66,6 @@ const CitiesMobile = props => {
     controls: ['zoomControl', 'fullscreenControl']
   };
 
-  const onItemClick = (idMarker) => {
-    setActiveMarker(idMarker)
-    const activeItem = document.querySelector('.Cities__acitveItem');
-    let y = activeItem.getBoundingClientRect().top;
-    const CitiesRetails = document.querySelector('.Cities__retails');
-    const boxHeight = CitiesRetails.clientHeight;
-    // activeItem.scrollIntoView({block: "center", behavior: "smooth"})
-
-    CitiesRetails.scrollTo({
-      top: y,
-      left: 0,
-      behavior: 'smooth'
-    });
-  }
-
   const selectChangeHandler = (event) => {
     const guid = event.target.value
     const city = cities.find(element => element.guid === guid)
@@ -149,7 +134,7 @@ const CitiesMobile = props => {
               {
                 points.map(({coordinates, guid, type}) => (
                   <Placemark key={guid}
-                             // onClick={() => onItemClick(guid)}
+                    // onClick={() => setActiveMarker(guid)}
                              {...placeMark}
                              geometry={coordinates}
                              options={{

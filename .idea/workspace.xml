@@ -20,15 +20,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="78173063-124b-4432-8c91-25d7c3ae2a6a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/UI/icons/svgClose.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/PopupMapCartMobile/PopupMapCartMobile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PopupMapCartMobile/PopupMapCartMobile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/PopupMapCartMobile/PopupMapCartMobile.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PopupMapCartMobile/PopupMapCartMobile.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/RetailItem/RetailItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/RetailItem/RetailItem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/UI/PopupWrapper/PopupWrapper.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UI/PopupWrapper/PopupWrapper.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/UI/PopupWrapper/PopupWrapper.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UI/PopupWrapper/PopupWrapper.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/UI/icons/SvgClose.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UI/icons/SvgClose.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/Cart/Cart.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Cart/Cart.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PopupOrder/PopupOrder.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PopupOrder/PopupOrder.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/RetailItem/RetailItem.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/RetailItem/RetailItem.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/icons/svgClose.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/img/svgClose.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/Cities/Cities.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Cities/Cities.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/CitiesMobile/CitiesMobile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/CitiesMobile/CitiesMobile.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,11 +67,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\workProject\garzdrav_mvp\src\img" />
       <recent name="D:\workProject\garzdrav_mvp\src\oldComponent" />
       <recent name="D:\workProject\garzdrav_mvp\src\testData" />
       <recent name="D:\workProject\garzdrav_mvp\src\components\UI" />
       <recent name="D:\workProject\garzdrav_mvp\src\containers" />
-      <recent name="D:\workProject\garzdrav_mvp\src\AppMobile" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\workProject\garzdrav_mvp\src\components\PopupLogin" />
@@ -142,7 +140,7 @@
       <workItem from="1605019489276" duration="23629000" />
       <workItem from="1605103303734" duration="121000" />
       <workItem from="1605146078065" duration="19887000" />
-      <workItem from="1605232639973" duration="12904000" />
+      <workItem from="1605232639973" duration="17215000" />
     </task>
     <servers />
   </component>
@@ -191,11 +189,11 @@
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
     <state x="-1144" y="433" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1604026325168" />
-    <state x="-1328" y="154" width="1131" height="726" key="find.popup" timestamp="1605152019035">
+    <state x="-1153" y="120" width="1131" height="726" key="find.popup" timestamp="1605258762420">
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
     <state x="-1231" y="167" width="1131" height="726" key="find.popup/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1604976482267" />
-    <state x="-1328" y="154" width="1131" height="726" key="find.popup/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1605152019035" />
+    <state x="-1153" y="120" width="1131" height="726" key="find.popup/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1605258762420" />
     <state x="667" y="253" width="586" height="534" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1604126116198" />
     <state x="-1304" y="240" key="run.anything.popup" timestamp="1604899359278">
       <screen x="-1920" y="0" width="1920" height="1040" />

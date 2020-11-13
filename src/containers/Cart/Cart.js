@@ -130,10 +130,7 @@ class Cart extends React.Component {
               <p onClick={() => this.setState({view: false})}
                  className={'CitiesMobile__btn ' + (!this.state.view ? 'CitiesMobile__btn_active' : '')}
               >Список</p>
-              <p onClick={() => {
-                this.setState({popupMap: true})
-                // document.body.style.overflow = 'hidden'
-              }}
+              <p onClick={() => {this.setState({popupMap: true})}}
                  className={'CitiesMobile__btn ' + (this.state.view ? 'CitiesMobile__btn_active' : '')}
               >Карта</p>
             </div>
@@ -141,10 +138,7 @@ class Cart extends React.Component {
             <PopupMapCartMobile active={this.state.popupMap}
                                 retails={this.retailItems().reverse()}
                                 activeRetail={this.state.checked}
-                                onClick={() => {
-                                  this.setState({popupMap: false})
-                                  // document.body.style.overflow = 'auto'
-                                }}
+                                onClick={() => {this.setState({popupMap: false})}}
                                 onSelectItem={(item) => {
                                   this.onCheck(item)
                                 }}
@@ -156,7 +150,6 @@ class Cart extends React.Component {
               <h2 className='Cart__titleChoice'>Дешевле всего: </h2>
               <button className='Cart__button Cart__buttonMap' onClick={() => {
                 this.setState({popupMap: true})
-                // document.body.style.overflow = 'hidden'
               }}>Выбрать аптеку на КАРТЕ
               </button>
             </div>
@@ -164,13 +157,8 @@ class Cart extends React.Component {
             <PopupMapCart active={this.state.popupMap}
                           retails={this.retailItems().reverse()}
                           activeRetail={this.state.checked}
-                          onClick={() => {
-                            this.setState({popupMap: false})
-                            // document.body.style.overflow = 'auto'
-                          }}
-                          onSelectItem={(item) => {
-                            this.onCheck(item)
-                          }}
+                          onClick={() => {this.setState({popupMap: false})}}
+                          onSelectItem={(item) => {this.onCheck(item)}}
             />
           </MediaQuery>
 
