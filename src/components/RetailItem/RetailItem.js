@@ -25,6 +25,7 @@ const RetailItem = (props) => {
           <span className='RetailItem__itemTitle'>{retailItem.retail.title}</span>
           <span className='RetailItem__itemAddress'>{retailItem.retail.street} {retailItem.retail.buildNumber}</span>
           <span className='RetailItem__textClock'>Часы работы:&nbsp;{retailItem.retail.clock}</span>
+          <span className='RetailItem__textClock'>Телефон:&nbsp;{retailItem.retail.tel}</span>
         </div>
 
 

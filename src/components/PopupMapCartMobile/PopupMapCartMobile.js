@@ -1,10 +1,8 @@
 import React, {useState} from "react";
 import './PopupMapCartMobile.scss'
 import {Clusterer, GeolocationControl, Map, Placemark, SearchControl, YMaps} from "react-yandex-maps";
-import SvgClose from "../UI/icons/SvgClose";
 import RetailItem from "../RetailItem";
-import SvgIconHome from "../UI/icons/SvgIconHome";
-import Backdrop from "../UI/Backdrop/Backdrop";
+import PopupWrapper from "../UI/PopupWrapper/PopupWrapper";
 
 const PopupMapCartMobile = props => {
 
@@ -51,77 +49,60 @@ const PopupMapCartMobile = props => {
     activeItem.scrollIntoView({behavior: "smooth"})
   }
 
-  const close = (event) => {
-    if (event.target.closest('.PopupMapCartMobile__close') || (!event.target.closest('.PopupMapCartMobile__content'))) {
-      return props.onClick()
-    }
-  }
-
   return (
 
-    <div className={"PopupMapCartMobile" + (props.active ? " PopupMapCartMobile_is-opened" : "")}
-      // onClick={close}
-    >
-      {props.active && <Backdrop onClick={props.onClick}/>}
-      <div className="PopupMapCartMobile__content">
-        <div className="PopupMapCartMobile__close" onClick={props.onClick}>
-          <SvgClose
-            className = 'closeIcon'
-            // color='#000'
-          />
-        </div>
-        <h1>Аптеки в г. Красноярск</h1>
-        <div className='PopupMapCartMobile__mainContainer'>
+    <PopupWrapper onClick={props.onClick} active={props.active} classStyle='PopupMapCartMobile'>
+      <h1>Аптеки в г. Красноярск</h1>
+      <div className='PopupMapCartMobile__mainContainer'>
 
-          <YMaps>
-            <Map className='PopupMapCartMobile__mapContainer'
-                 state={mapState}
-                 modules={['control.ZoomControl', 'control.FullscreenControl', "templateLayoutFactory", "layout.ImageWithContent"]}
-                 onClick={() => {
-                   setActiveMarker(null)
-                 }}
+        <YMaps>
+          <Map className='PopupMapCartMobile__mapContainer'
+               state={mapState}
+               modules={['control.ZoomControl', 'control.FullscreenControl', "templateLayoutFactory", "layout.ImageWithContent"]}
+               onClick={() => {
+                 setActiveMarker(null)
+               }}
+          >
+            <Clusterer
+              options={{
+                preset: 'islands#invertedVioletClusterIcons',
+                groupByCoordinates: false,
+              }}
             >
-              <Clusterer
-                options={{
-                  preset: 'islands#invertedVioletClusterIcons',
-                  groupByCoordinates: false,
-                }}
-              >
-                {
-                  retails.map(({retail, items, sum}) => {
-                    const {coordinates, guid} = retail;
-                    const popup = {
-                      title: retail.title,
-                      address: `г. ${retail.city},  ${retail.street} ${retail.buildNumber}`,
-                      clock: retail.clock,
-                      tel: retail.tel
-                    }
-                    const notFullItems = () => items.length < 3
-                    return (
-                      <Placemark key={guid}
-                                 onClick={() => onItemClick(guid)}
-                                 {...placeMark(sum, popup, notFullItems())}
-                                 geometry={coordinates}
-                                 options={{
-                                   // iconLayout: 'default#imageWithContent',
-                                   // iconLayout: 'default#image',
-                                   // iconImageHref: setIcon(type),
-                                   // iconImageSize: [45, 61],
-                                   // iconImageOffset: [-22, -61],
-                                   preset: 'islands#redStretchyIcon',
-                                   draggable: false, // передвигать маркеры
-                                   // iconColor: 'red'
-                                 }}
-                      />
-                    )
-                  })
-                }
-              </Clusterer>
-              <GeolocationControl options={{float: 'left'}}/>
-              <SearchControl options={{float: 'right'}}/>
-            </Map>
-          </YMaps>
-        </div>
+              {
+                retails.map(({retail, items, sum}) => {
+                  const {coordinates, guid} = retail;
+                  const popup = {
+                    title: retail.title,
+                    address: `г. ${retail.city},  ${retail.street} ${retail.buildNumber}`,
+                    clock: retail.clock,
+                    tel: retail.tel
+                  }
+                  const notFullItems = () => items.length < 3
+                  return (
+                    <Placemark key={guid}
+                               onClick={() => onItemClick(guid)}
+                               {...placeMark(sum, popup, notFullItems())}
+                               geometry={coordinates}
+                               options={{
+                                 // iconLayout: 'default#imageWithContent',
+                                 // iconLayout: 'default#image',
+                                 // iconImageHref: setIcon(type),
+                                 // iconImageSize: [45, 61],
+                                 // iconImageOffset: [-22, -61],
+                                 preset: 'islands#redStretchyIcon',
+                                 draggable: false, // передвигать маркеры
+                                 // iconColor: 'red'
+                               }}
+                    />
+                  )
+                })
+              }
+            </Clusterer>
+            <GeolocationControl options={{float: 'left'}}/>
+            <SearchControl options={{float: 'right'}}/>
+          </Map>
+        </YMaps>
       </div>
 
       <div className='PopupMapCartMobile__absoluteCardItem'>
@@ -138,8 +119,8 @@ const PopupMapCartMobile = props => {
           }}
         />}
       </div>
+    </PopupWrapper>
 
-    </div>
 
   )
 }

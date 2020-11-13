@@ -132,7 +132,7 @@ class Cart extends React.Component {
               >Список</p>
               <p onClick={() => {
                 this.setState({popupMap: true})
-                document.body.style.overflow = 'hidden'
+                // document.body.style.overflow = 'hidden'
               }}
                  className={'CitiesMobile__btn ' + (this.state.view ? 'CitiesMobile__btn_active' : '')}
               >Карта</p>
@@ -143,7 +143,7 @@ class Cart extends React.Component {
                                 activeRetail={this.state.checked}
                                 onClick={() => {
                                   this.setState({popupMap: false})
-                                  document.body.style.overflow = 'auto'
+                                  // document.body.style.overflow = 'auto'
                                 }}
                                 onSelectItem={(item) => {
                                   this.onCheck(item)
@@ -156,7 +156,7 @@ class Cart extends React.Component {
               <h2 className='Cart__titleChoice'>Дешевле всего: </h2>
               <button className='Cart__button Cart__buttonMap' onClick={() => {
                 this.setState({popupMap: true})
-                document.body.style.overflow = 'hidden'
+                // document.body.style.overflow = 'hidden'
               }}>Выбрать аптеку на КАРТЕ
               </button>
             </div>
@@ -166,7 +166,7 @@ class Cart extends React.Component {
                           activeRetail={this.state.checked}
                           onClick={() => {
                             this.setState({popupMap: false})
-                            document.body.style.overflow = 'auto'
+                            // document.body.style.overflow = 'auto'
                           }}
                           onSelectItem={(item) => {
                             this.onCheck(item)

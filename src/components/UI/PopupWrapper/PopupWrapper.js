@@ -9,11 +9,7 @@ const PopupWrapper = props => {
       <Backdrop onClick={props.onClick}/>
       <div className={"PopupWrapper__content " + props.classStyle}>
         <div className="PopupWrapper__close" onClick={props.onClick}>
-          <SvgClose
-            className='closeIcon'
-            onClick={props.onClick}
-            // color='#000'
-          />
+          <SvgClose className='closeIcon'/>
         </div>
         {props.children}
       </div>
