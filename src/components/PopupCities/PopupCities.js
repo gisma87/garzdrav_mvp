@@ -1,15 +1,9 @@
 import React from "react"
 import './PopupCities.scss'
-import SvgClose from "../UI/icons/SvgClose";
+import PopupWrapper from "../UI/PopupWrapper/PopupWrapper";
 
 const PopupCities = props => {
   const {cities} = props
-
-  const close = (event) => {
-    if (event.target.closest('.popup__close') || (!event.target.closest('.popup__content'))) {
-      return props.onClick()
-    }
-  }
 
   const renderItems = (arr) => {
     return arr.map((item) => {
@@ -20,17 +14,12 @@ const PopupCities = props => {
   }
 
   return (
-    <div className={"popup" + (props.active ? " popup_is-opened" : "")} onClick={close}>
-      <div className="popup__content">
-        <div className="popup__close">
-          <SvgClose/>
-        </div>
-        <h3 className="popup__title">Список городов</h3>
-        <ul className="popup__form">
-          {renderItems(cities)}
-        </ul>
-      </div>
-    </div>
+    <PopupWrapper onClick={props.onClick} active={props.active} classStyle='PopupCities'>
+      <h3 className="PopupCities__title">Список городов</h3>
+      <ul className="PopupCities__form">
+        {renderItems(cities)}
+      </ul>
+    </PopupWrapper>
   )
 }
 
