@@ -20,14 +20,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="78173063-124b-4432-8c91-25d7c3ae2a6a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/UI/PopupWrapper/PopupWrapper.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/UI/PopupWrapper/PopupWrapper.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/PopupMapCartMobile/PopupMapCartMobile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PopupMapCartMobile/PopupMapCartMobile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/PopupMapCartMobile/PopupMapCartMobile.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PopupMapCartMobile/PopupMapCartMobile.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/UI/Backdrop/Backdrop.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UI/Backdrop/Backdrop.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/UI/icons/SvgClose.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UI/icons/SvgClose.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PopupLogin/PopupLogin.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PopupLogin/PopupLogin.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PopupLogin/PopupLogin.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PopupLogin/PopupLogin.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/PopupWrapper/PopupWrapper.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UI/PopupWrapper/PopupWrapper.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/PopupWrapper/PopupWrapper.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UI/PopupWrapper/PopupWrapper.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,25 +58,25 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/components/UI" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/components/PopupLogin" />
     <property name="list.type.of.created.stylesheet" value="SCSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\workProject\garzdrav_mvp\src\components\UI" />
-      <recent name="D:\workProject\garzdrav_mvp\src\img\bottomNavbar" />
-      <recent name="C:\Users\gisma\OneDrive\Рабочий стол\TEST" />
-      <recent name="D:\workProject\garzdrav_mvp\src\reducers" />
-      <recent name="D:\workProject\garzdrav_mvp\src\img" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\workProject\garzdrav_mvp\src\oldComponent" />
       <recent name="D:\workProject\garzdrav_mvp\src\testData" />
       <recent name="D:\workProject\garzdrav_mvp\src\components\UI" />
       <recent name="D:\workProject\garzdrav_mvp\src\containers" />
       <recent name="D:\workProject\garzdrav_mvp\src\AppMobile" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\workProject\garzdrav_mvp\src\components\PopupLogin" />
+      <recent name="D:\workProject\garzdrav_mvp\src\components\PopupLogin1" />
+      <recent name="D:\workProject\garzdrav_mvp\src\components\UI" />
+      <recent name="D:\workProject\garzdrav_mvp\src\img\bottomNavbar" />
+      <recent name="C:\Users\gisma\OneDrive\Рабочий стол\TEST" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -140,7 +137,8 @@
       <workItem from="1604973369004" duration="22091000" />
       <workItem from="1605019489276" duration="23629000" />
       <workItem from="1605103303734" duration="121000" />
-      <workItem from="1605146078065" duration="19843000" />
+      <workItem from="1605146078065" duration="19887000" />
+      <workItem from="1605232639973" duration="3565000" />
     </task>
     <servers />
   </component>
@@ -175,6 +173,10 @@
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
     <state x="-1563" y="324" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1604646211900" />
+    <state x="-1231" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1605235811389">
+      <screen x="-1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="-1231" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1605235811389" />
     <state x="-1181" y="274" key="FileChooserDialogImpl" timestamp="1605083269780">
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
