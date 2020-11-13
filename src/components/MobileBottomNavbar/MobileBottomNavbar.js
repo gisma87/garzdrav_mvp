@@ -12,7 +12,6 @@ import withStoreService from "../../hoc/withStoreService/withStoreService";
 import {connect} from "react-redux";
 import PopupLogin from "../PopupLogin";
 
-
 const MobileBottomNavbar = (props) => {
 
   const [popup, setPopup] = useState(false)

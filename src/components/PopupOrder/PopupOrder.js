@@ -12,7 +12,7 @@ const PopupOrder = props => {
   }
 
   return (
-    <PopupWrapper onClick={props.onClick} active={props.active} classStyle='PopupLogin'>
+    <PopupWrapper onClick={props.onClick} active={props.active} classStyle='PopupOrder'>
       <h3 className="PopupOrder__title">{!buy ? 'Оформить заказ' : 'Заказ принят к исполнению'}</h3>
 
       {!buy ? <form className="PopupOrder__form" name="PopupOrder__form"

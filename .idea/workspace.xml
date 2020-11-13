@@ -21,8 +21,10 @@
   <component name="ChangeListManager">
     <list default="true" id="78173063-124b-4432-8c91-25d7c3ae2a6a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/MobileBottomNavbar/MobileBottomNavbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MobileBottomNavbar/MobileBottomNavbar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PopupMapCart/PopupMapCart.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PopupMapCart/PopupMapCart.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PopupMapCart/PopupMapCart.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PopupMapCart/PopupMapCart.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/PopupOrder/PopupOrder.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PopupOrder/PopupOrder.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/PopupOrder/PopupOrder.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PopupOrder/PopupOrder.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,7 +138,7 @@
       <workItem from="1605019489276" duration="23629000" />
       <workItem from="1605103303734" duration="121000" />
       <workItem from="1605146078065" duration="19887000" />
-      <workItem from="1605232639973" duration="4625000" />
+      <workItem from="1605232639973" duration="9981000" />
     </task>
     <servers />
   </component>
