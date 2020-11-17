@@ -74,7 +74,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     fetchCities: fetchCities(storeService, dispatch),
     rewriteCart: (item) => dispatch(rewriteCart(item)),
-    fetchCartItems: () => dispatch(fetchCartItems())
+    fetchCartItems: () => dispatch(fetchCartItems()),
   }
 }
 

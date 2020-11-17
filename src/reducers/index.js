@@ -11,7 +11,8 @@ const initialState = {
   favorites: [5, 6],
   productsFromSearch: [],
   productInfo: '',
-  cartItems: []
+  cartItems: [],
+  retailsArr: []
 }
 
 const updateCartItems = (cart, item, idx) => {
@@ -154,11 +155,65 @@ const reducer = (state = initialState, action) => {
           loading: false
         }
       } else {
+        const retailsArr = [...state.retailsArr]
+        action.product.retails.forEach(retail => {
+          // копируем товар
+          const productItem = {...action.product} // в итоге - это товар без списка аптек
+          // удаляем из него список аптек
+          delete productItem.retails
+          // копируем аптеку
+          const retailItem = {...retail}
+
+          // добавляем в аптеку данные товара без списка аптек
+          retailItem.product = []
+          retailItem.product.push(productItem)
+
+          if (retailsArr.length > 0) {
+            // если это не первая итерация - проверяем, есть ли уже такая аптека в списке
+            const some = retailsArr.some(i => i.guid === retail.guid)
+            if (some) {
+              // если аптека уже есть, проверяем, есть ли в ней уже данный товар
+              let a = false
+              retailsArr.forEach(retailArrItem => {
+                if (retailArrItem.product.some(pdItem => pdItem.guid === action.product.guid)) {
+                  a = true
+                }
+              })
+              if (a) {
+                // если товар есть в этой аптеке, выходим
+                return
+              } else {
+                // если товара ещё нет в этой аптеке - добавляем
+                const index = state.retailsArr.findIndex((i => i.guid === retail.guid))
+                retailsArr[index].product.push(productItem)
+              }
+
+            } else {
+              retailsArr.push(retailItem)
+            }
+          } else {
+            retailsArr.push(retailItem)
+          }
+        })
         return {
           ...state,
           cartItems: [...state.cartItems, action.product],
+          retailsArr: [...retailsArr],
           loading: false
         }
+      }
+
+    // записать массив аптек с товаром
+    case 'SET_RETAILS_ARR':
+      return {
+        ...state,
+        retailsArr: action.payload
+      }
+
+    case 'DEL_CART_ITEM':
+      return {
+        ...state,
+        cartItems: []
       }
 
     //запрос списка продуктов из поисковой строки

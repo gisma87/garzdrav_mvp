@@ -12,7 +12,8 @@ import {
   fetchProductInfo,
   itemRemovedFromCart,
   rewriteCart,
-  fetchCartItems
+  fetchCartItems,
+  // convertRetailsArrFromCartItems
 } from "../../actions";
 import {compose} from "../../utils";
 import withStoreService from "../../hoc/withStoreService/withStoreService";
@@ -49,39 +50,44 @@ class Cart extends React.Component {
       this.props.storeService.setCartFromLocalStorage(this.props.rewriteCart)
     }
     this.props.fetchCartItems()
+    console.log('componentDidMount cartItems', this.props.cartItems)
+    // this.convertArrToRetails()
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (prevProps.cart !== this.props.cart) {
       this.props.storeService.setLocal(this.props.cart)
+      this.props.fetchCartItems()
+      // this.props.convertRetailsArrFromCartItems()
+      // this.convertArrToRetails()
     }
     // this.props.fetchCartItems()
   }
 
   // convertArrToRetails() {
-  //   const newArr = []
-  //   this.props.cartItems.forEach(item => {
-  //     item.retails.forEach(retail => {
+  //   const retailArr = []
+  //   this.props.cartItems.forEach(cartItem => {
+  //     cartItem.retails.forEach(retail => {
   //       // копируем товар
-  //       const productItem = {...item} // в итоге - это товар без списка аптек
+  //       const productItem = {...cartItem} // в итоге - это товар без списка аптек
   //       // удаляем из него список аптек
   //       delete productItem.retails
   //       // копируем аптеку
-  //       const arrRetail = {...retail}
+  //       const retailItem = {...retail}
   //
   //       // добавляем в аптеку данные товара без списка аптек
-  //       arrRetail.product = []
-  //       arrRetail.product.push(productItem)
+  //       retailItem.product = []
+  //       retailItem.product.push(productItem)
   //
-  //       if (newArr.length > 0) {
+  //       if (retailArr.length > 0) {
   //         // если это не первая итерация - проверяем, есть ли уже такая аптека в списке
-  //         const some = newArr.some(i => i.guid === retail.guid)
+  //         const some = retailArr.some(i => i.guid === retail.guid)
   //         if (some) {
   //           // если аптека уже есть, проверяем, есть ли в ней уже данный товар
   //           // const productSome = retail.product.some(i => i.guid === item.guid)
   //           let a = false
-  //           newArr.forEach(newArrItem => {
-  //             if (newArrItem.product.some(pdId => pdId.guid === item.guid)) {
+  //           retailArr.forEach(retailArrItem => {
+  //             if (retailArrItem.product.some(pdItem => pdItem.guid === cartItem.guid)) {
   //               a = true
   //             }
   //           })
@@ -93,30 +99,30 @@ class Cart extends React.Component {
   //           } else {
   //             // если товара ещё нет в этой аптеке - добавляем
   //             // retail.product.push(productItem)
-  //             const index = newArr.findIndex((i => i.guid === retail.guid))
-  //             newArr[index].product.push(productItem)
+  //             const index = retailArr.findIndex((i => i.guid === retail.guid))
+  //             retailArr[index].product.push(productItem)
   //           }
   //
   //
   //         } else {
-  //           newArr.push(arrRetail)
+  //           retailArr.push(retailItem)
   //         }
   //       } else {
-  //         newArr.push(arrRetail)
+  //         retailArr.push(retailItem)
   //       }
   //     })
   //   })
-  //   this.setState({...this.state, newArr: [...this.state.newArr, ...newArr]})
+  //   this.setState({...this.state, newArr: [...retailArr]})
   // }
 
-  setCartItems = () => {
-    if (this.props.cart.length > 0) {
-      this.props.cart.map((productId) => {
-        this.props.fetchCartItem(productId.itemId, this.props.isCity.guid)
-
-      })
-    }
-  }
+  // setCartItems = () => {
+  //   if (this.props.cart.length > 0) {
+  //     this.props.cart.map((productId) => {
+  //       this.props.fetchCartItem(productId.itemId, this.props.isCity.guid)
+  //
+  //     })
+  //   }
+  // }
 
 
   newArr = () => {
@@ -394,7 +400,8 @@ const mapDispatchToProps = (dispatch) => {
     rewriteCart: (item) => dispatch(rewriteCart(item)),
     addedToFavorits: (itemId) => dispatch(addedToFavorits(itemId)),
     fetchProductInfo: (productId, cityId) => dispatch(fetchProductInfo(productId, cityId)),
-    fetchCartItems: () => dispatch(fetchCartItems())
+    fetchCartItems: () => dispatch(fetchCartItems()),
+    // convertRetailsArrFromCartItems: () => dispatch(convertRetailsArrFromCartItems())
   }
 }
 
