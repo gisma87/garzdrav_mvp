@@ -45,12 +45,16 @@ class Cart extends React.Component {
   indexActiveRetail = () => dataCart.findIndex((item) => item.retail.guid === this.state.checked);
 
   componentDidMount() {
+    if (localStorage.getItem("arrItemId")) {
+      this.props.storeService.setCartFromLocalStorage(this.props.rewriteCart)
+    }
     this.props.fetchCartItems()
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    // this.props.storeService.setLocal(this.props.cart)
-
+    if (prevProps.cart !== this.props.cart) {
+      this.props.storeService.setLocal(this.props.cart)
+    }
     // this.props.fetchCartItems()
   }
 
@@ -164,33 +168,33 @@ class Cart extends React.Component {
           <div className='Cart__itemContainer'>
             {this.props.cart.length === 0 ? "Корзина пуста" :
               this.props.cartItems.length >= this.props.cart.length
-                && this.props.cartItems.map((item) => {
-                  const index = this.props.cart.findIndex((cartItem) => cartItem.itemId === item.guid);
-                  const isFavorites = this.props.favorites.includes(item.guid);
-                  return this.props.cart[index] !== undefined && <CartItem item={{
-                    id: item.guid,
-                    img: null,
-                    title: item.product,
-                    maker: item.manufacturer,
-                    minPrice: item.retails.sort((a, b) => a.priceRetail > b.priceRetail ? 1 : -1)[0].priceRetail
-                  }}
-                                                                           classStyle={'Cart__item'}
-                                                                           cart={this.props.cart}
-                                                                           isFavorite={isFavorites}
-                                                                           count={this.props.cart[index].count}
-                                                                           addedToFavorits={() => this.props.addedToFavorits(item.guid)}
-                                                                           addedToCart={() => {
-                                                                             this.props.addedToCart(item.guid)
-                                                                           }}
-                                                                           itemRemovedFromCart={() => {
-                                                                             this.props.itemRemovedFromCart(item.guid)
-                                                                           }}
-                                                                           allItemRemovedFromCart={() => {
-                                                                             this.props.allItemRemovedFromCart(item.guid)
-                                                                           }}
-                                                                           key={item.guid}
-                  />
-                })
+              && this.props.cartItems.map((item) => {
+                const index = this.props.cart.findIndex((cartItem) => cartItem.itemId === item.guid);
+                const isFavorites = this.props.favorites.includes(item.guid);
+                return this.props.cart[index] !== undefined && <CartItem item={{
+                  id: item.guid,
+                  img: null,
+                  title: item.product,
+                  maker: item.manufacturer,
+                  minPrice: item.retails.sort((a, b) => a.priceRetail > b.priceRetail ? 1 : -1)[0].priceRetail
+                }}
+                                                                         classStyle={'Cart__item'}
+                                                                         cart={this.props.cart}
+                                                                         isFavorite={isFavorites}
+                                                                         count={this.props.cart[index].count}
+                                                                         addedToFavorits={() => this.props.addedToFavorits(item.guid)}
+                                                                         addedToCart={() => {
+                                                                           this.props.addedToCart(item.guid)
+                                                                         }}
+                                                                         itemRemovedFromCart={() => {
+                                                                           this.props.itemRemovedFromCart(item.guid)
+                                                                         }}
+                                                                         allItemRemovedFromCart={() => {
+                                                                           this.props.allItemRemovedFromCart(item.guid)
+                                                                         }}
+                                                                         key={item.guid}
+                />
+              })
             }
           </div>
 
