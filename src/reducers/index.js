@@ -161,8 +161,12 @@ const reducer = (state = initialState, action) => {
           const productItem = {...action.product} // в итоге - это товар без списка аптек
           // удаляем из него список аптек
           delete productItem.retails
+          // добавляем цену товара текущей аптеке
+          productItem.priceRetail = retail.priceRetail
           // копируем аптеку
           const retailItem = {...retail}
+          // удаляем цену товара
+          delete retailItem.priceRetail
 
           // добавляем в аптеку данные товара без списка аптек
           retailItem.product = []
