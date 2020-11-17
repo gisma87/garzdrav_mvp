@@ -9,7 +9,9 @@ const initialState = {
   retailsCity: [],
   cart: [],
   favorites: [5, 6],
-  productsFromSearch: []
+  productsFromSearch: [],
+  productInfo: '',
+  cartItems: []
 }
 
 const updateCartItems = (cart, item, idx) => {
@@ -51,7 +53,6 @@ const updateOrder = (state, itemId, quantity) => {
     cart: updateCartItems(state.cart, newItem, itemIndex)
   }
 };
-
 
 const reducer = (state = initialState, action) => {
 
@@ -130,12 +131,37 @@ const reducer = (state = initialState, action) => {
         cart: action.payload
       };
 
-    //запрос списка продукта из поисковой строки
     case 'LOADING' :
       return {
         ...state,
         loading: true,
       };
+
+    // подробная информация о товаре
+    case 'LOADING_PRODUCT_INFO':
+      return {
+        ...state,
+        productInfo: action.product,
+        loading: false
+      };
+
+    // записать в массив cartItems объекты товаров из cart
+    case 'SET_CART_ITEM':
+      const itemInCart = state.cartItems.findIndex((item) => item.guid === action.product.guid);
+      if (itemInCart >= 0) {
+        return {
+          ...state,
+          loading: false
+        }
+      } else {
+        return {
+          ...state,
+          cartItems: [...state.cartItems, action.product],
+          loading: false
+        }
+      }
+
+    //запрос списка продуктов из поисковой строки
     case 'FETCH_PRODUCTS_FROM_SEARCH_SUCCESS':
       return {
         ...state,

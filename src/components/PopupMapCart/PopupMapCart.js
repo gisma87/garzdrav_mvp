@@ -77,6 +77,7 @@ const PopupMapCart = props => {
                 const notFullItems = () => items.length < 3
                 return (
                   <RetailItem
+                    key={retailItem.retail.guid}
                     retailItem={retailItem}
                     notFullItems={notFullItems()}
                     active={retailItem.retail.guid === activeMarker}

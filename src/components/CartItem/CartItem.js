@@ -1,7 +1,7 @@
 import React from "react";
 import './CartItem.scss'
-import pillsIcon from "../../img/pills.svg";
 import BlockWrapper from "../BlockWrapper";
+import notPhoto from "../../img/notPhoto.svg";
 
 const CartItem = (props) => {
   const {allItemRemovedFromCart, itemRemovedFromCart, addedToCart, addedToFavorits, count, isFavorite, classStyle = ''} = props;
@@ -11,8 +11,10 @@ const CartItem = (props) => {
     <BlockWrapper classStyle={'CartItem ' + `${classStyle}`}>
       <div className='CartItem__container'>
         <div className='CartItem__imageContainer'>
-          {img !== undefined ? <img className='CartItem__image' src={img} alt=""/> :
-            <img src={pillsIcon} alt="pills icon" className='CartItem__image'/>}
+          {img
+            ? <img className='CartItem__image' src={img} alt=""/>
+            : <img src={notPhoto} alt="pills icon" className='CartItem__image'/>
+          }
         </div>
 
         <div className='CartItem__descriptionContainer'>

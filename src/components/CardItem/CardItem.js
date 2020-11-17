@@ -2,6 +2,7 @@ import React from "react";
 import './CardItem.scss'
 import SvgShoppingCartSolid from "../../img/SVGcomponents/SvgShoppingCartSolid";
 import SvgCheck from "../UI/icons/SvgCheck";
+import notPhoto from '../../img/notPhoto.svg'
 
 const CardItem = ({active, id, title, maker, img, minPrice, classStyle = '', onItemSelected, updateToCart}) => {
 
@@ -9,7 +10,9 @@ const CardItem = ({active, id, title, maker, img, minPrice, classStyle = '', onI
     <div className={'CardItem ' + classStyle}
          onClick={(event) => onItemSelected(id, event)}>
       <div className='CardItem__imageContainer'>
-        {img ? <img className='CardItem__image' src={img} alt=""/> : <i className="fas fa-pills"/>}
+        {img
+          ? <img className='CardItem__image' src={img} alt="photo"/>
+          : <img className='CardItem__image' src={notPhoto} alt="notPhoto"/>}
       </div>
       <div className='CardItem__textContainer'>
         <div className='CardItem__containerInfo'>

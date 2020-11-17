@@ -1,3 +1,5 @@
+import axios from "axios";
+
 const pillsLoaded = (cities) => {
   return {
     type: 'FETCH_CITIES_SUCCESS',
@@ -82,7 +84,6 @@ const fetchCities = (storeService, dispatch) => () => {
 }
 
 
-
 //запрос ProductsFromSearch
 const loadingTrue = () => {
   return {
@@ -97,13 +98,66 @@ const ProductsFromSearchLoaded = (products) => {
   }
 }
 
+const fetchProductInfo = (productId, cityId) => {
+  return async dispatch => {
+    dispatch(loadingTrue())
+    try {
+      const response = await axios.get(`http://172.16.17.7:5000/Products/byGuid?productGuid=${productId}&cityGuid=${cityId}`)
+
+      dispatch(loadingProductInfo(response.data))
+    } catch (e) {
+      console.log(e)
+    }
+  }
+}
+
+const setCartItem = (product) => {
+  return {
+    type: 'SET_CART_ITEM',
+    product
+  }
+}
+
+const fetchCartItem = (productId) => {
+  return async (dispatch, getState) => {
+    dispatch(loadingTrue())
+    const {isCity, cartItems} = getState()
+    try {
+      const response = await axios.get(`http://172.16.17.7:5000/Products/byGuid?productGuid=${productId}&cityGuid=${isCity.guid}`)
+      // const index = cartItems.findIndex((item) => item.guid === response.data.guid)
+      // let data;
+      // index >= 0 ? data = cartItems : data = [...cartItems, response.data];
+      dispatch(setCartItem(response.data))
+    } catch (e) {
+      console.log(e)
+    }
+  }
+}
+const fetchCartItems = () => {
+  return (dispatch, getState) => {
+    const {cart} = getState()
+
+    if (cart.length > 0) {
+      cart.forEach(product => {
+        dispatch(fetchCartItem(product.itemId))
+      })
+    }
+  }
+}
+
+const loadingProductInfo = (product) => {
+  return {
+    type: 'LOADING_PRODUCT_INFO',
+    product
+  }
+}
+
 const fetchProductsFromSearch = (storeService, dispatch) => () => {
   dispatch(loadingTrue());
   storeService.getProductsFromSearch()
     .then((data) => dispatch(ProductsFromSearchLoaded(data)))
     .catch((error) => console.log(error));
 }
-
 
 export {
   fetchCities,
@@ -116,5 +170,7 @@ export {
   addedToFavorits,
   fetchProductsFromSearch,
   loadingTrue,
-  ProductsFromSearchLoaded
+  ProductsFromSearchLoaded,
+  fetchProductInfo,
+  fetchCartItems
 }

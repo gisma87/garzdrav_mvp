@@ -10,7 +10,13 @@ import {connect} from "react-redux";
 const SearchPanel = (props) => {
 
   const {
-    isCity, productsFromSearch, ProductsFromSearchLoaded, isMobile = false, touched = true, onTouched = () => {
+    isCity,
+    productsFromSearch,
+    loadingTrue,
+    ProductsFromSearchLoaded,
+    isMobile = false,
+    touched = true,
+    onTouched = () => {
     }
   } = props;
 
@@ -18,23 +24,17 @@ const SearchPanel = (props) => {
 
   const handleInputChange = (e) => {
     const input = e.target
-    // const id = e.target.id
     const value = input.value;
-
     setValue(value)
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
     onTouched()
-
+    loadingTrue()
     props.storeService.getProductsFromSearch(value, isCity.guid)
-      .then((data) => {
-        ProductsFromSearchLoaded(data)
-        console.log(data);
-      })
+      .then((data) => ProductsFromSearchLoaded(data))
       .catch((error) => console.log(error));
-
 
     setValue('')
     props.history.push('/Cards/')
@@ -67,7 +67,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   const {storeService} = ownProps;
   return {
     // fetchProductsFromSearch: fetchProductsFromSearch(storeService, dispatch),
-    // loadingTrue: dispatch(loadingTrue),
+    loadingTrue: () => dispatch(loadingTrue()),
     ProductsFromSearchLoaded: (data) => dispatch(ProductsFromSearchLoaded(data))
   }
 }

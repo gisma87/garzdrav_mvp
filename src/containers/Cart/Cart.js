@@ -5,7 +5,15 @@ import dataCatds from "../../testData/dataCards";
 import CartItem from "../../components/CartItem";
 import RetailCheckPanel from "../../components/RetailCheckPanel";
 import BlockWrapper from "../../components/BlockWrapper";
-import {addedToCart, addedToFavorits, allItemRemovedFromCart, itemRemovedFromCart, rewriteCart} from "../../actions";
+import {
+  addedToCart,
+  addedToFavorits,
+  allItemRemovedFromCart,
+  fetchProductInfo,
+  itemRemovedFromCart,
+  rewriteCart,
+  fetchCartItems
+} from "../../actions";
 import {compose} from "../../utils";
 import withStoreService from "../../hoc/withStoreService/withStoreService";
 import {connect} from "react-redux";
@@ -16,6 +24,7 @@ import dataCart from "../../testData/dataCart";
 import PopupOrder from "../../components/PopupOrder";
 import RetailItem from "../../components/RetailItem";
 import PopupMapCartMobile from "../../components/PopupMapCartMobile/PopupMapCartMobile";
+import Loader from "../../components/UI/Loader";
 
 
 class Cart extends React.Component {
@@ -29,14 +38,82 @@ class Cart extends React.Component {
     popupMap: false,
     popupOrder: false,
     checked: this.fullRetailItemState[0].retail.guid,
-    view: false
+    view: false,
+    newArr: []
   }
 
   indexActiveRetail = () => dataCart.findIndex((item) => item.retail.guid === this.state.checked);
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    this.props.storeService.setLocal(this.props.cart)
+  componentDidMount() {
+    this.props.fetchCartItems()
   }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    // this.props.storeService.setLocal(this.props.cart)
+
+    // this.props.fetchCartItems()
+  }
+
+  // convertArrToRetails() {
+  //   const newArr = []
+  //   this.props.cartItems.forEach(item => {
+  //     item.retails.forEach(retail => {
+  //       // копируем товар
+  //       const productItem = {...item} // в итоге - это товар без списка аптек
+  //       // удаляем из него список аптек
+  //       delete productItem.retails
+  //       // копируем аптеку
+  //       const arrRetail = {...retail}
+  //
+  //       // добавляем в аптеку данные товара без списка аптек
+  //       arrRetail.product = []
+  //       arrRetail.product.push(productItem)
+  //
+  //       if (newArr.length > 0) {
+  //         // если это не первая итерация - проверяем, есть ли уже такая аптека в списке
+  //         const some = newArr.some(i => i.guid === retail.guid)
+  //         if (some) {
+  //           // если аптека уже есть, проверяем, есть ли в ней уже данный товар
+  //           // const productSome = retail.product.some(i => i.guid === item.guid)
+  //           let a = false
+  //           newArr.forEach(newArrItem => {
+  //             if (newArrItem.product.some(pdId => pdId.guid === item.guid)) {
+  //               a = true
+  //             }
+  //           })
+  //
+  //           // const productSome = newArr.some(i => i.guid === item.guid)
+  //           if (a) {
+  //             // если товар есть в этой аптеке, выходим
+  //             return
+  //           } else {
+  //             // если товара ещё нет в этой аптеке - добавляем
+  //             // retail.product.push(productItem)
+  //             const index = newArr.findIndex((i => i.guid === retail.guid))
+  //             newArr[index].product.push(productItem)
+  //           }
+  //
+  //
+  //         } else {
+  //           newArr.push(arrRetail)
+  //         }
+  //       } else {
+  //         newArr.push(arrRetail)
+  //       }
+  //     })
+  //   })
+  //   this.setState({...this.state, newArr: [...this.state.newArr, ...newArr]})
+  // }
+
+  setCartItems = () => {
+    if (this.props.cart.length > 0) {
+      this.props.cart.map((productId) => {
+        this.props.fetchCartItem(productId.itemId, this.props.isCity.guid)
+
+      })
+    }
+  }
+
 
   newArr = () => {
     const cartItems = []
@@ -77,6 +154,8 @@ class Cart extends React.Component {
       return currentValue.minPrice + accumulator
     }, 0)
 
+    // this.convertArrToRetails()
+
     return (
       <div className='Cart wrapper'>
         <h1>Корзина</h1>
@@ -84,27 +163,34 @@ class Cart extends React.Component {
 
           <div className='Cart__itemContainer'>
             {this.props.cart.length === 0 ? "Корзина пуста" :
-              this.newArr().map((item) => {
-                const index = this.props.cart.findIndex((cartItem) => cartItem.itemId === item.id);
-                const isFavorites = this.props.favorites.includes(item.id);
-                return this.props.cart[index] !== undefined && <CartItem item={item}
-                                                                         classStyle={'Cart__item'}
-                                                                         cart={this.props.cart}
-                                                                         isFavorite={isFavorites}
-                                                                         count={this.props.cart[index].count}
-                                                                         addedToFavorits={() => this.props.addedToFavorits(item.id)}
-                                                                         addedToCart={() => {
-                                                                           this.props.addedToCart(item.id)
-                                                                         }}
-                                                                         itemRemovedFromCart={() => {
-                                                                           this.props.itemRemovedFromCart(item.id)
-                                                                         }}
-                                                                         allItemRemovedFromCart={() => {
-                                                                           this.props.allItemRemovedFromCart(item.id)
-                                                                         }}
-                                                                         key={item.id}
-                />
-              })
+              this.props.cartItems.length >= this.props.cart.length
+                && this.props.cartItems.map((item) => {
+                  const index = this.props.cart.findIndex((cartItem) => cartItem.itemId === item.guid);
+                  const isFavorites = this.props.favorites.includes(item.guid);
+                  return this.props.cart[index] !== undefined && <CartItem item={{
+                    id: item.guid,
+                    img: null,
+                    title: item.product,
+                    maker: item.manufacturer,
+                    minPrice: item.retails.sort((a, b) => a.priceRetail > b.priceRetail ? 1 : -1)[0].priceRetail
+                  }}
+                                                                           classStyle={'Cart__item'}
+                                                                           cart={this.props.cart}
+                                                                           isFavorite={isFavorites}
+                                                                           count={this.props.cart[index].count}
+                                                                           addedToFavorits={() => this.props.addedToFavorits(item.guid)}
+                                                                           addedToCart={() => {
+                                                                             this.props.addedToCart(item.guid)
+                                                                           }}
+                                                                           itemRemovedFromCart={() => {
+                                                                             this.props.itemRemovedFromCart(item.guid)
+                                                                           }}
+                                                                           allItemRemovedFromCart={() => {
+                                                                             this.props.allItemRemovedFromCart(item.guid)
+                                                                           }}
+                                                                           key={item.guid}
+                  />
+                })
             }
           </div>
 
@@ -130,7 +216,9 @@ class Cart extends React.Component {
               <p onClick={() => this.setState({view: false})}
                  className={'CitiesMobile__btn ' + (!this.state.view ? 'CitiesMobile__btn_active' : '')}
               >Список</p>
-              <p onClick={() => {this.setState({popupMap: true})}}
+              <p onClick={() => {
+                this.setState({popupMap: true})
+              }}
                  className={'CitiesMobile__btn ' + (this.state.view ? 'CitiesMobile__btn_active' : '')}
               >Карта</p>
             </div>
@@ -138,7 +226,9 @@ class Cart extends React.Component {
             <PopupMapCartMobile active={this.state.popupMap}
                                 retails={this.retailItems().reverse()}
                                 activeRetail={this.state.checked}
-                                onClick={() => {this.setState({popupMap: false})}}
+                                onClick={() => {
+                                  this.setState({popupMap: false})
+                                }}
                                 onSelectItem={(item) => {
                                   this.onCheck(item)
                                 }}
@@ -157,8 +247,12 @@ class Cart extends React.Component {
             <PopupMapCart active={this.state.popupMap}
                           retails={this.retailItems().reverse()}
                           activeRetail={this.state.checked}
-                          onClick={() => {this.setState({popupMap: false})}}
-                          onSelectItem={(item) => {this.onCheck(item)}}
+                          onClick={() => {
+                            this.setState({popupMap: false})
+                          }}
+                          onSelectItem={(item) => {
+                            this.onCheck(item)
+                          }}
             />
           </MediaQuery>
 
@@ -279,10 +373,12 @@ class Cart extends React.Component {
 
 }
 
-const mapStateToProps = ({cart, favorites}) => {
+const mapStateToProps = ({cart, favorites, isCity, cartItems}) => {
   return {
     cart,
-    favorites
+    favorites,
+    isCity,
+    cartItems
   }
 }
 
@@ -292,7 +388,9 @@ const mapDispatchToProps = (dispatch) => {
     itemRemovedFromCart: (item) => dispatch(itemRemovedFromCart(item)),
     allItemRemovedFromCart: (item) => dispatch(allItemRemovedFromCart(item)),
     rewriteCart: (item) => dispatch(rewriteCart(item)),
-    addedToFavorits: (itemId) => dispatch(addedToFavorits(itemId))
+    addedToFavorits: (itemId) => dispatch(addedToFavorits(itemId)),
+    fetchProductInfo: (productId, cityId) => dispatch(fetchProductInfo(productId, cityId)),
+    fetchCartItems: () => dispatch(fetchCartItems())
   }
 }
 

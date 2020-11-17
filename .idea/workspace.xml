@@ -20,13 +20,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="78173063-124b-4432-8c91-25d7c3ae2a6a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/img/notPhoto.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/PopupMapCartMobile/PopupMapCartMobile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PopupMapCartMobile/PopupMapCartMobile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/PopupOrder/PopupOrder.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PopupOrder/PopupOrder.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/RetailItem/RetailItem.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/RetailItem/RetailItem.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/UI/icons/svgClose.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/img/svgClose.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/Cities/Cities.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Cities/Cities.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/CitiesMobile/CitiesMobile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/CitiesMobile/CitiesMobile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/actions/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CardItem/CardItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CardItem/CardItem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CardItemMobile/CardItemMobile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CardItemMobile/CardItemMobile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CartItem/CartItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CartItem/CartItem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PopupMapCart/PopupMapCart.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PopupMapCart/PopupMapCart.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SearchPanel/SearchPanel.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SearchPanel/SearchPanel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/CardPage/CardPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/CardPage/CardPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/Cards/Cards.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Cards/Cards.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/Cart/Cart.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Cart/Cart.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/delete.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/reducers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/service/StoreService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/StoreService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,19 +77,19 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\workProject\garzdrav_mvp\src\img" />
-      <recent name="D:\workProject\garzdrav_mvp\src\oldComponent" />
-      <recent name="D:\workProject\garzdrav_mvp\src\testData" />
-      <recent name="D:\workProject\garzdrav_mvp\src\components\UI" />
-      <recent name="D:\workProject\garzdrav_mvp\src\containers" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\workProject\garzdrav_mvp\src\components\PopupLogin" />
       <recent name="D:\workProject\garzdrav_mvp\src\components\PopupLogin1" />
       <recent name="D:\workProject\garzdrav_mvp\src\components\UI" />
       <recent name="D:\workProject\garzdrav_mvp\src\img\bottomNavbar" />
       <recent name="C:\Users\gisma\OneDrive\Рабочий стол\TEST" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\workProject\garzdrav_mvp\src\img" />
+      <recent name="D:\workProject\garzdrav_mvp\src\oldComponent" />
+      <recent name="D:\workProject\garzdrav_mvp\src\testData" />
+      <recent name="D:\workProject\garzdrav_mvp\src\components\UI" />
+      <recent name="D:\workProject\garzdrav_mvp\src\containers" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -140,7 +151,11 @@
       <workItem from="1605019489276" duration="23629000" />
       <workItem from="1605103303734" duration="121000" />
       <workItem from="1605146078065" duration="19887000" />
-      <workItem from="1605232639973" duration="17215000" />
+      <workItem from="1605232639973" duration="24104000" />
+      <workItem from="1605276068975" duration="148000" />
+      <workItem from="1605336495605" duration="107000" />
+      <workItem from="1605491717386" duration="24596000" />
+      <workItem from="1605521884656" duration="2791000" />
     </task>
     <servers />
   </component>
@@ -189,20 +204,20 @@
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
     <state x="-1144" y="433" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1604026325168" />
-    <state x="-1153" y="120" width="1131" height="726" key="find.popup" timestamp="1605258762420">
+    <state x="-1153" y="120" width="1131" height="726" key="find.popup" timestamp="1605508756142">
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
     <state x="-1231" y="167" width="1131" height="726" key="find.popup/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1604976482267" />
-    <state x="-1153" y="120" width="1131" height="726" key="find.popup/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1605258762420" />
+    <state x="-1153" y="120" width="1131" height="726" key="find.popup/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1605508756142" />
     <state x="667" y="253" width="586" height="534" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1604126116198" />
     <state x="-1304" y="240" key="run.anything.popup" timestamp="1604899359278">
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
     <state x="-1304" y="240" key="run.anything.popup/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1604899359278" />
-    <state x="-1297" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1605174287321">
+    <state x="-1297" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1605513801652">
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
     <state x="-1297" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1604991339804" />
-    <state x="-1297" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1605174287321" />
+    <state x="-1297" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1605513801652" />
   </component>
 </project>

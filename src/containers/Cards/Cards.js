@@ -74,32 +74,33 @@ const Cards = props => {
 
         <div className='Cards__cardList'>
           {(touchedSearch || !isMobile) &&
-          dataCatds.map((item) => {
-            const {id, title, maker, img, minPrice} = item;
-            const itemIndex = cart.findIndex((item) => item.itemId === id);
+          // dataCatds
+          productsFromSearch.map((item) => {
+            const {guid, product, manufacturer, img = null, minPrice} = item;
+            const itemIndex = cart.findIndex((item) => item.itemId === guid);
             const isActive = itemIndex >= 0;
             return (
               isMobile
                 ? <CardItemMobile onItemSelected={onItemSelected}
                                   updateToCart={() => {
-                                    !isActive ? addedToCart(id) : itemRemovedFromCart(id);
+                                    !isActive ? addedToCart(guid) : itemRemovedFromCart(guid);
                                   }}
                                   active={isActive}
-                                  key={id}
-                                  id={id}
-                                  title={title}
-                                  maker={maker}
+                                  key={guid}
+                                  id={guid}
+                                  title={product}
+                                  maker={manufacturer}
                                   img={img}
                                   minPrice={minPrice}/>
                 : <CardItem onItemSelected={onItemSelected}
                             updateToCart={() => {
-                              !isActive ? addedToCart(id) : itemRemovedFromCart(id);
+                              !isActive ? addedToCart(guid) : itemRemovedFromCart(guid);
                             }}
                             active={isActive}
-                            key={id}
-                            id={id}
-                            title={title}
-                            maker={maker}
+                            key={guid}
+                            id={guid}
+                            title={product}
+                            maker={manufacturer}
                             img={img}
                             minPrice={minPrice}/>
             )
