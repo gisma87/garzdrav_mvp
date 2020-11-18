@@ -6,11 +6,12 @@ import PopupWrapper from "../UI/PopupWrapper/PopupWrapper";
 
 const PopupMapCartMobile = props => {
 
-  const [point, setPoint] = useState([56.010563, 92.852572])
+  const [point, setPoint] = useState(props.point)
   const [zoom, setZoom] = useState(11)
   const [activeMarker, setActiveMarker] = useState(null)
   const {retails, onSelectItem} = props;
-  const activeItem = retails.findIndex(item => activeMarker === item.retail.guid)
+  const activeItem = retails.findIndex(item => activeMarker === item.guid)
+  console.log('КООРДИНАТЫ', point)
 
   const popup = ({title, address, clock, tel}) => `
   <div>
@@ -62,15 +63,15 @@ const PopupMapCartMobile = props => {
               }}
             >
               {
-                retails.map(({retail, items, sum}) => {
-                  const {coordinates, guid} = retail;
+                retails.map(item => {
+                  const {coordinates, guid, sum, brand, city, street, buildNumber, weekDayTime, phone} = item;
                   const popup = {
-                    title: retail.title,
-                    address: `г. ${retail.city},  ${retail.street} ${retail.buildNumber}`,
-                    clock: retail.clock,
-                    tel: retail.tel
+                    title: brand,
+                    address: `г. ${city},  ${street} ${buildNumber}`,
+                    clock: weekDayTime,
+                    tel: phone
                   }
-                  const notFullItems = () => items.length < 3
+                  const notFullItems = () => item.product.length < props.cartLength
                   return (
                     <Placemark key={guid}
                                onClick={() => setActiveMarker(guid)}
@@ -100,10 +101,10 @@ const PopupMapCartMobile = props => {
       <div className='PopupMapCartMobile__absoluteCardItem'>
         {activeItem >= 0 && <RetailItem
           retailItem={retails[activeItem]}
-          notFullItems={retails[activeItem].items.length < 3}
-          active={retails[activeItem].retail.guid === activeMarker}
-          buttonActive={props.activeRetail === retails[activeItem].retail.guid}
-          onSelectItem={() => onSelectItem(retails[activeItem].retail.guid)}
+          notFullItems={retails[activeItem].product.length < props.cartLength}
+          active={retails[activeItem].guid === activeMarker}
+          buttonActive={props.activeRetail === retails[activeItem].guid}
+          onSelectItem={() => onSelectItem(retails[activeItem].guid)}
           setMapSetting={() => {
             // setPoint(retails[activeItem].retail.coordinates)
             // setZoom(17)

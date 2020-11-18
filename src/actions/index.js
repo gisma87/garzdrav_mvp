@@ -144,14 +144,30 @@ const delCartItems = () => {
   }
 }
 
-const fetchCartItems = (funcSetStateToCart) => {
+const setCartItems = (cartItems) => {
+  return {
+    type: 'SET_CART_ITEMS',
+    payload: cartItems
+  }
+}
+
+const fetchCartItems = () => {
   return (dispatch, getState) => {
-    const {cart} = getState()
+    const {cart, isCity} = getState()
     dispatch(delCartItems())
 
     if (cart.length > 0) {
-      cart.forEach(product => {
-        dispatch(fetchCartItem(product.itemId))
+      dispatch(loadingTrue())
+      const arrFetch = cart.map(product => {
+        // dispatch(fetchCartItem(product.itemId))
+        return axios.get(`http://172.16.17.7:5000/Products/byGuid?productGuid=${product.itemId}&cityGuid=${isCity.guid}`)
+      })
+
+      Promise.all([
+        ...arrFetch
+      ]).then(allResponses => {
+        const cartItems = allResponses.map(item => item.data)
+        dispatch(setCartItems(cartItems))
       })
     }
   }
@@ -227,6 +243,13 @@ const fetchProductsFromSearch = (storeService, dispatch) => () => {
     .catch((error) => console.log(error));
 }
 
+const onSelectRetail = (id) => {
+  return {
+    type: 'ON_SELECT_RETAIL',
+    payload: id
+  }
+}
+
 export {
   fetchCities,
   setIsCity,
@@ -241,4 +264,5 @@ export {
   ProductsFromSearchLoaded,
   fetchProductInfo,
   fetchCartItems,
+  onSelectRetail
 }

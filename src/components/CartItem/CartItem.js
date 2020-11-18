@@ -5,7 +5,7 @@ import notPhoto from "../../img/notPhoto.svg";
 
 const CartItem = (props) => {
   const {allItemRemovedFromCart, itemRemovedFromCart, addedToCart, addedToFavorits, count, isFavorite, classStyle = ''} = props;
-  const {id, img, title, maker, minPrice} = props.item;
+  const {id, img, title, maker, price, sum} = props.item;
 
   return (
     <BlockWrapper classStyle={'CartItem ' + `${classStyle}`}>
@@ -33,7 +33,7 @@ const CartItem = (props) => {
         </div>
 
         <div className='CartItem__itemPrice'>
-          <p className='CartItem__price'>{count * minPrice} ₽</p>
+          <p className='CartItem__price'>{sum} ₽</p>
           <div className='CartItem__countButtons'>
             <button className='CartItem__countButtonMinus CartItem__countButton'
                     onClick={itemRemovedFromCart}

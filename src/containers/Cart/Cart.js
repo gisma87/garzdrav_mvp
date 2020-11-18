@@ -12,7 +12,7 @@ import {
   fetchProductInfo,
   itemRemovedFromCart,
   rewriteCart,
-  fetchCartItems,
+  fetchCartItems, onSelectRetail,
   // convertRetailsArrFromCartItems
 } from "../../actions";
 import {compose} from "../../utils";
@@ -127,18 +127,6 @@ class Cart extends React.Component {
   // }
 
 
-  newArr = () => {
-    const cartItems = []
-    dataCatds.forEach((item) => {
-      this.props.cart.forEach((cartItem) => {
-        if (item.id === cartItem.itemId) {
-          cartItems.push(item)
-        }
-      })
-    })
-    return cartItems
-  }
-
   // retailItems() {
   //   const retailItems = this.props.retailsArr.map((item) => {
   //     return {
@@ -156,250 +144,271 @@ class Cart extends React.Component {
   }
 
   isChecked = (id) => {
-    if (this.state.checked === id) {
-      return true
-    } else return false
+    return this.props.selectedRetail === id;
+  }
+
+  checkRetailItem = () => {
+    return this.props.retailsArr.find(item => item.guid === this.props.selectedRetail)
+  }
+
+  getFullRetailItemState = () => {
+    const itemArr = this.props.retailsArr.filter(item => item.product.length >= this.props.cart.length)
+    if (itemArr.length > 0) {
+      return itemArr
+    }
+    return null
+  }
+
+  calculateAmountArray = () => {
+    const cartItems = []
+    this.props.cartItems.forEach(item => {
+      const count = this.props.cart.find(cartItem => cartItem.itemId === item.guid).count
+      const retailIndex = item.retails.findIndex(retail => retail.guid === this.props.selectedRetail)
+      const sum = item.retails[retailIndex].priceRetail * count
+      cartItems.push({guid: item.guid, sum})
+    })
+    return cartItems
   }
 
   render() {
-    const sum = this.newArr().reduce((accumulator, currentValue) => {
-      return currentValue.minPrice + accumulator
+    const sum = this.calculateAmountArray().reduce((accumulator, currentValue) => {
+      return currentValue.sum + accumulator
     }, 0)
 
     const fullRetailItemState = this.props.retailsArr.filter(item => item.product.length >= this.props.cart.length)
-    const checked = this.props.retailsArr.filter(item => item.product.length >= this.props.cart.length)[0]?.guid
-
-    console.log('fullRetailItemState', fullRetailItemState)
-    console.log('fullRetailItemState111', this.props.retailsArr.filter(item => item.product.length >= this.props.cart.length))
-
-    // this.convertArrToRetails()
+    console.log('ВЫБРАННАЯ АПТЕКА: ', this.checkRetailItem());
 
     return (
       <div className='Cart wrapper'>
         <h1>Корзина</h1>
-        {this.props.loading
+        {(this.props.selectedRetail === null) && (this.props.cart.length > 0)
           ? <p>Загрузка ...</p>
-          : <section className='Cart__mainContainer'>
-
-            <div className='Cart__itemContainer'>
-              {this.props.cart.length === 0 ? "Корзина пуста" :
-                this.props.cartItems.length === this.props.cart.length
-                && this.props.cartItems.map((item) => {
-                  const index = this.props.cart.findIndex((cartItem) => cartItem.itemId === item.guid);
-                  const isFavorites = this.props.favorites.includes(item.guid);
-                  return this.props.cart[index] !== undefined && <CartItem item={{
-                    id: item.guid,
-                    img: null,
-                    title: item.product,
-                    maker: item.manufacturer,
-                    minPrice: item.retails.sort((a, b) => a.priceRetail > b.priceRetail ? 1 : -1)[0].priceRetail
-                  }}
-                                                                           classStyle={'Cart__item'}
-                                                                           cart={this.props.cart}
-                                                                           isFavorite={isFavorites}
-                                                                           count={this.props.cart[index].count}
-                                                                           addedToFavorits={() => this.props.addedToFavorits(item.guid)}
-                                                                           addedToCart={() => {
-                                                                             this.props.addedToCart(item.guid)
-                                                                           }}
-                                                                           itemRemovedFromCart={() => {
-                                                                             this.props.itemRemovedFromCart(item.guid)
-                                                                           }}
-                                                                           allItemRemovedFromCart={() => {
-                                                                             this.props.allItemRemovedFromCart(item.guid)
-                                                                           }}
-                                                                           key={item.guid}
-                  />
-                })
-              }
-            </div>
-
-            <BlockWrapper classStyle='Cart__pricePanel'>
-              <div className='Cart__resultPrice'>Итого: {this.props.cart.length} товара на сумму {sum} ₽
-              </div>
-              <div className='Cart__retail'>
-                <p>Забрать из аптеки:</p>
-                <span>г.
-                  {this.props.retailsArr[this.indexActiveRetail()]?.city}
-                  {this.props.retailsArr[this.indexActiveRetail()]?.street}
-                  {this.props.retailsArr[this.indexActiveRetail()]?.buildNumber}
-              </span>
-              </div>
-              <button className='Cart__button Cart__buttonToCart' onClick={() => {
-                this.setState({popupOrder: true})
-              }}>
-                Купить
-              </button>
-            </BlockWrapper>
-          </section>
-        }
-
-        <section className='Cart__choiceRetail'>
-
-
-          <MediaQuery maxWidth={800}>
-            <div className='CitiesMobile__menu Cart__menu'>
-              <p onClick={() => this.setState({view: false})}
-                 className={'CitiesMobile__btn ' + (!this.state.view ? 'CitiesMobile__btn_active' : '')}
-              >Список</p>
-              <p onClick={() => {
-                this.setState({popupMap: true})
-              }}
-                 className={'CitiesMobile__btn ' + (this.state.view ? 'CitiesMobile__btn_active' : '')}
-              >Карта</p>
-            </div>
-
-            {/*<PopupMapCartMobile active={this.state.popupMap}*/}
-            {/*                    retails={this.props.retailsArr.reverse()}*/}
-            {/*                    activeRetail={this.state.checked}*/}
-            {/*                    onClick={() => {*/}
-            {/*                      this.setState({popupMap: false})*/}
-            {/*                    }}*/}
-            {/*                    onSelectItem={(item) => {*/}
-            {/*                      this.onCheck(item)*/}
-            {/*                    }}*/}
-            {/*/>*/}
-          </MediaQuery>
-
-
-          <MediaQuery minWidth={801}>
-            <div className='Cart__blockTitle'>
-              <h2 className='Cart__titleChoice'>Дешевле всего: </h2>
-              <button className='Cart__button Cart__buttonMap' onClick={() => {
-                this.setState({popupMap: true})
-              }}>Выбрать аптеку на КАРТЕ
-              </button>
-            </div>
-
-            {/*{fullRetailItemState[0] && <PopupMapCart active={this.state.popupMap}*/}
-            {/*                                         retails={this.props.retailsArr.reverse()}*/}
-            {/*                                         activeRetail={this.state.checked}*/}
-            {/*                                         cartLength = {this.props.cart.length}*/}
-            {/*                                         onClick={() => {*/}
-            {/*                                           this.setState({popupMap: false})*/}
-            {/*                                         }}*/}
-            {/*                                         onSelectItem={(item) => {*/}
-            {/*                                           this.onCheck(item)*/}
-            {/*                                         }}*/}
-            {/*/>}*/}
-          </MediaQuery>
-
-
-          <MediaQuery maxWidth={800}>
-            <RetailItem
-              retailItem={fullRetailItemState[0]}
-              notFullItems={false}
-              active={this.isChecked(fullRetailItemState[0]?.guid)}
-              buttonActive={this.isChecked(fullRetailItemState[0]?.guid)}
-
-              onSelectItem={() => {
-                this.onCheck(fullRetailItemState[0]?.guid)
-              }}
-              setMapSetting={() => {
-                // setPoint(retail.coordinates)
-                // setZoom(17)
-                // setActiveMarker(null)
-              }}
-            />
-
-            <BlockWrapper classStyle='Cart__blockMoreItems'>
-              {
-                fullRetailItemState.map((item, index) => {
-                  if (index === 0) return null;
-                  return <RetailItem
-                    key={item.guid}
-                    retailItem={item}
-                    notFullItems={false}
-                    active={this.isChecked(item.guid)}
-                    buttonActive={this.isChecked(item.guid)}
-                    onSelectItem={() => {
-                      this.onCheck(item.guid)
-                    }}
-                    setMapSetting={() => {
-                    }}
-                  />
-                })
-              }
-            </BlockWrapper>
-          </MediaQuery>
-
-
-          <MediaQuery minWidth={801}>
-            {fullRetailItemState[0] && <RetailCheckPanel item={fullRetailItemState[0]}
-                                                         isChecked={this.isChecked(fullRetailItemState[0]?.guid)}
-                                                         checked={this.state.checked}
-                                                         onCheck={() => {
-                                                           this.onCheck(fullRetailItemState[0]?.guid)
-                                                         }}
-            />}
-
-            <h2 className='Cart__titleChoice'>В других аптеках: </h2>
-            <BlockWrapper classStyle='Cart__blockMoreItems'>
-              {
-                fullRetailItemState.length === 1
-                  ? <p style={{padding: 20}}>Товара нет в наличии</p>
-                  : fullRetailItemState.map((item, index) => {
-                    if (index === 0) return null;
-                    return <RetailCheckPanel key={item.guid}
-                                             item={item}
-                                             list='list'
-                                             isChecked={this.isChecked(item.guid)}
-                                             onCheck={() => {
-                                               this.onCheck(item.guid)
-                                             }}/>
+          : <>
+            <section className='Cart__mainContainer'>
+              <div className='Cart__itemContainer'>
+                {this.props.cart.length === 0 ? "Корзина пуста" :
+                  this.props.cartItems.length === this.props.cart.length
+                  && this.props.cartItems.map((item) => {
+                    const index = this.props.cart.findIndex((cartItem) => cartItem.itemId === item.guid);
+                    const isFavorites = this.props.favorites.includes(item.guid);
+                    const price = item.retails.find(retail => retail.guid === this.props.selectedRetail).priceRetail
+                    const sum = this.calculateAmountArray().find(itemArr => itemArr.guid === item.guid).sum
+                    return this.props.cart[index] !== undefined
+                      && <CartItem item={{
+                        id: item.guid,
+                        img: null,
+                        title: item.product,
+                        maker: item.manufacturer,
+                        price,
+                        sum
+                      }}
+                                   classStyle={'Cart__item'}
+                                   isFavorite={isFavorites}
+                                   count={this.props.cart[index].count}
+                                   addedToFavorits={() => this.props.addedToFavorits(item.guid)}
+                                   addedToCart={() => {
+                                     this.props.addedToCart(item.guid)
+                                   }}
+                                   itemRemovedFromCart={() => {
+                                     this.props.itemRemovedFromCart(item.guid)
+                                   }}
+                                   allItemRemovedFromCart={() => {
+                                     this.props.allItemRemovedFromCart(item.guid)
+                                   }}
+                                   key={item.guid}
+                      />
                   })
-              }
-            </BlockWrapper>
-          </MediaQuery>
+                }
+              </div>
 
-          <h2 className='Cart__titleChoice'>В этих аптеках не полное наличие: </h2>
+              <BlockWrapper classStyle='Cart__pricePanel'>
+                <div className='Cart__resultPrice'>Итого: {this.props.cart.length} товара на сумму {sum} ₽
+                </div>
+                <div className='Cart__retail'>
+                  <p>Забрать из аптеки:</p>
+                  <span>г.&nbsp;
+                    {this.checkRetailItem()?.city},&nbsp;
+                    {this.checkRetailItem()?.street},&nbsp;
+                    {this.checkRetailItem()?.buildNumber}
+                  </span>
+                </div>
+                <button className='Cart__button Cart__buttonToCart'
+                        onClick={() => this.setState({popupOrder: true})}
+                >
+                  Купить
+                </button>
+              </BlockWrapper>
+            </section>
 
-          <MediaQuery maxWidth={800}>
-            <BlockWrapper classStyle='Cart__blockMoreItems'>
-              {
-                this.incompleteRetailItemState.map((item) => {
-                  return <RetailItem
-                    key={item.guid}
-                    retailItem={item}
-                    notFullItems={true}
-                    active={this.isChecked(item.guid)}
-                    buttonActive={this.isChecked(item.guid)}
-                    onSelectItem={() => {
-                      this.onCheck(item.guid)
-                    }}
-                    setMapSetting={() => {
-                    }}
+            {/*---------ПРОВЕРЕН--JSX------------------------------------------------------*/}
+
+            <section className='Cart__choiceRetail'>
+
+              <MediaQuery maxWidth={800}>
+                <div className='CitiesMobile__menu Cart__menu'>
+                  <p onClick={() => this.setState({view: false})}
+                     className={'CitiesMobile__btn ' + (!this.state.view ? 'CitiesMobile__btn_active' : '')}
+                  >
+                    Список
+                  </p>
+                  <p onClick={() => this.setState({popupMap: true})}
+                     className={'CitiesMobile__btn ' + (this.state.view ? 'CitiesMobile__btn_active' : '')}
+                  >
+                    Карта
+                  </p>
+                </div>
+
+                <PopupMapCartMobile active={this.state.popupMap}
+                                    retails={this.props.retailsArr.reverse()}
+                                    activeRetail={this.props.selectedRetail}
+                                    cartLength={this.props.cart.length}
+                                    point={this.checkRetailItem()?.coordinates}
+                                    onClick={() => this.setState({popupMap: false})}
+                                    onSelectItem={idSelectRetail => this.props.onSelectRetail(idSelectRetail)}
+                />
+              </MediaQuery>
+
+              {/*---------НеПРОВЕРЕН------------------------------------------------------*/}
+
+              <MediaQuery minWidth={801}>
+                <div className='Cart__blockTitle'>
+                  <h2 className='Cart__titleChoice'>Дешевле всего: </h2>
+                  <button className='Cart__button Cart__buttonMap'
+                          onClick={() => this.setState({popupMap: true})}>
+                    Выбрать аптеку на КАРТЕ
+                  </button>
+                </div>
+
+                {/*{fullRetailItemState[0] && <PopupMapCart active={this.state.popupMap}*/}
+                {/*                                         retails={this.props.retailsArr.reverse()}*/}
+                {/*                                         activeRetail={this.state.checked}*/}
+                {/*                                         cartLength = {this.props.cart.length}*/}
+                {/*                                         onClick={() => {*/}
+                {/*                                           this.setState({popupMap: false})*/}
+                {/*                                         }}*/}
+                {/*                                         onSelectItem={(item) => {*/}
+                {/*                                           this.onCheck(item)*/}
+                {/*                                         }}*/}
+                {/*/>}*/}
+              </MediaQuery>
+
+
+              <MediaQuery maxWidth={800}>
+                {this.getFullRetailItemState()
+                && <RetailItem
+                  retailItem={this.getFullRetailItemState()[0]}
+                  notFullItems={false}
+                  active={this.isChecked(this.getFullRetailItemState()[0]?.guid)}
+                  buttonActive={this.isChecked(this.getFullRetailItemState()[0]?.guid)}
+                  onSelectItem={() => this.props.onSelectRetail(this.getFullRetailItemState()[0]?.guid)}
+                  setMapSetting={() => {
+                    // setPoint(retail.coordinates)
+                    // setZoom(17)
+                    // setActiveMarker(null)
+                  }}
+                />}
+
+                <BlockWrapper classStyle='Cart__blockMoreItems'>
+                  {
+                    fullRetailItemState.map((item, index) => {
+                      if (index === 0) return null;
+                      return <RetailItem
+                        key={item.guid}
+                        retailItem={item}
+                        notFullItems={false}
+                        active={this.isChecked(item.guid)}
+                        buttonActive={this.isChecked(item.guid)}
+                        onSelectItem={() => {
+                          this.onCheck(item.guid)
+                        }}
+                        setMapSetting={() => {
+                        }}
+                      />
+                    })
+                  }
+                </BlockWrapper>
+              </MediaQuery>
+
+
+              <MediaQuery minWidth={801}>
+                {
+                  fullRetailItemState[0]
+                  && <RetailCheckPanel item={fullRetailItemState[0]}
+                                       isChecked={this.isChecked(fullRetailItemState[0]?.guid)}
+                                       checked={this.state.checked}
+                                       onCheck={() => {
+                                         this.onCheck(fullRetailItemState[0]?.guid)
+                                       }}
                   />
-                })
-              }
-            </BlockWrapper>
-          </MediaQuery>
+                }
 
-          <MediaQuery minWidth={801}>
-            <BlockWrapper classStyle='Cart__blockMoreItems'>
-              {
-                this.incompleteRetailItemState.map((item) => {
-                  return <RetailCheckPanel key={item.guid}
-                                           item={item}
-                                           list='incomplete'
-                                           isChecked={this.isChecked(item.guid)}
-                                           onCheck={() => {
-                                             this.onCheck(item.guid)
-                                           }}/>
-                })
-              }
-            </BlockWrapper>
-          </MediaQuery>
-        </section>
+                <h2 className='Cart__titleChoice'>В других аптеках: </h2>
+                <BlockWrapper classStyle='Cart__blockMoreItems'>
+                  {
+                    fullRetailItemState.length === 1
+                      ? <p style={{padding: 20}}>Товара нет в наличии</p>
+                      : fullRetailItemState.map((item, index) => {
+                        if (index === 0) return null;
+                        return <RetailCheckPanel key={item.guid}
+                                                 item={item}
+                                                 list='list'
+                                                 isChecked={this.isChecked(item.guid)}
+                                                 onCheck={() => {
+                                                   this.onCheck(item.guid)
+                                                 }}/>
+                      })
+                  }
+                </BlockWrapper>
+              </MediaQuery>
 
-        {/*{fullRetailItemState[0] && <PopupOrder active={this.state.popupOrder}*/}
-        {/*                                       checked={this.state.checked}*/}
-        {/*                                       onClick={() => this.setState({popupOrder: false})}*/}
-        {/*                                       onChange={(e) => this.setState({checked: e.target.value})}*/}
-        {/*                                       retails={this.props.retailsArr}*/}
-        {/*/>}*/}
+              <h2 className='Cart__titleChoice'>В этих аптеках не полное наличие: </h2>
+
+              <MediaQuery maxWidth={800}>
+                <BlockWrapper classStyle='Cart__blockMoreItems'>
+                  {
+                    this.incompleteRetailItemState.map((item) => {
+                      return <RetailItem
+                        key={item.guid}
+                        retailItem={item}
+                        notFullItems={true}
+                        active={this.isChecked(item.guid)}
+                        buttonActive={this.isChecked(item.guid)}
+                        onSelectItem={() => {
+                          this.onCheck(item.guid)
+                        }}
+                        setMapSetting={() => {
+                        }}
+                      />
+                    })
+                  }
+                </BlockWrapper>
+              </MediaQuery>
+
+              <MediaQuery minWidth={801}>
+                <BlockWrapper classStyle='Cart__blockMoreItems'>
+                  {
+                    this.incompleteRetailItemState.map((item) => {
+                      return <RetailCheckPanel key={item.guid}
+                                               item={item}
+                                               list='incomplete'
+                                               isChecked={this.isChecked(item.guid)}
+                                               onCheck={() => {
+                                                 this.onCheck(item.guid)
+                                               }}/>
+                    })
+                  }
+                </BlockWrapper>
+              </MediaQuery>
+            </section>
+
+            {/*{fullRetailItemState[0] && <PopupOrder active={this.state.popupOrder}*/}
+            {/*                                       checked={this.state.checked}*/}
+            {/*                                       onClick={() => this.setState({popupOrder: false})}*/}
+            {/*                                       onChange={(e) => this.setState({checked: e.target.value})}*/}
+            {/*                                       retails={this.props.retailsArr}*/}
+            {/*/>}*/}
+          </>
         }
-
       </div>
     )
   }
@@ -407,14 +416,15 @@ class Cart extends React.Component {
 
 }
 
-const mapStateToProps = ({cart, favorites, isCity, cartItems, retailsArr, loading}) => {
+const mapStateToProps = ({cart, favorites, isCity, cartItems, retailsArr, loading, selectedRetail}) => {
   return {
     cart,
     favorites,
     isCity,
     cartItems,
     retailsArr,
-    loading
+    loading,
+    selectedRetail
   }
 }
 
@@ -427,6 +437,7 @@ const mapDispatchToProps = (dispatch) => {
     addedToFavorits: (itemId) => dispatch(addedToFavorits(itemId)),
     fetchProductInfo: (productId, cityId) => dispatch(fetchProductInfo(productId, cityId)),
     fetchCartItems: () => dispatch(fetchCartItems()),
+    onSelectRetail: (id) => dispatch(onSelectRetail(id))
     // convertRetailsArrFromCartItems: () => dispatch(convertRetailsArrFromCartItems())
   }
 }

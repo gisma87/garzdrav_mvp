@@ -12,7 +12,8 @@ const initialState = {
   productsFromSearch: [],
   productInfo: '',
   cartItems: [],
-  retailsArr: []
+  retailsArr: [],
+  selectedRetail: null
 }
 
 const upgradeRetailItems = (array) => {
@@ -158,27 +159,26 @@ const reducer = (state = initialState, action) => {
         loading: false
       };
 
-    // записать в массив cartItems объекты товаров из cart
-    case 'SET_CART_ITEM':
-      const itemInCart = state.cartItems.findIndex((item) => item.guid === action.product.guid);
-      if (itemInCart >= 0) {
-        return {
-          ...state,
-          loading: false
-        }
-      } else {
-        const retailsArr = [...state.retailsArr]
-        action.product.retails.forEach(retail => {
+    case 'SET_CART_ITEMS':
+
+      const retailsArr = [...state.retailsArr]
+      action.payload.forEach(item => {
+        item.retails.forEach(retail => {
           // копируем товар
-          const productItem = {...action.product} // в итоге - это товар без списка аптек
+          const productItem = {...item} // в итоге - это товар без списка аптек
+
           // удаляем из него список аптек
           delete productItem.retails
+
           // добавляем цену товара текущей аптеке
           productItem.priceRetail = retail.priceRetail
+
           // копируем аптеку
           const retailItem = {...retail}
+
           // удаляем цену товара
           delete retailItem.priceRetail
+          retailItem.weekDayTime = retailItem.weekDayTime.match(/\d\d:\d\d/g).join(' - ')
 
           // добавляем в аптеку данные товара без списка аптек
           retailItem.product = []
@@ -191,7 +191,7 @@ const reducer = (state = initialState, action) => {
               // если аптека уже есть, проверяем, есть ли в ней уже данный товар
               let a = false
               retailsArr.forEach(retailArrItem => {
-                if (retailArrItem.product.some(pdItem => pdItem.guid === action.product.guid)) {
+                if (retailArrItem.product.some(pdItem => pdItem.guid === item.guid)) {
                   a = true
                 }
               })
@@ -200,7 +200,7 @@ const reducer = (state = initialState, action) => {
                 return
               } else {
                 // если товара ещё нет в этой аптеке - добавляем
-                const index = state.retailsArr.findIndex((i => i.guid === retail.guid))
+                const index = retailsArr.findIndex((i => i.guid === retail.guid))
                 retailsArr[index].product.push(productItem)
               }
 
@@ -211,13 +211,84 @@ const reducer = (state = initialState, action) => {
             retailsArr.push(retailItem)
           }
         })
-        return {
-          ...state,
-          cartItems: [...state.cartItems, action.product],
-          retailsArr: [...upgradeRetailItems(retailsArr)],
-          loading: false
-        }
+      })
+      const fullProductArr = retailsArr.filter(item => item.product.length === state.cart.length)
+      let selectedRetail = null
+      if (fullProductArr.length > 0) {
+        selectedRetail = fullProductArr[0].guid
       }
+
+      return {
+        ...state,
+        cartItems: action.payload,
+        retailsArr: [...upgradeRetailItems(retailsArr)],
+        selectedRetail,
+        loading: false
+      }
+
+    case 'ON_SELECT_RETAIL':
+      return {
+        ...state,
+        selectedRetail: action.payload
+      }
+
+    // записать в массив cartItems объекты товаров из cart
+    case 'SET_CART_ITEM':
+    // const itemInCart = state.cartItems.findIndex((item) => item.guid === action.product.guid);
+    // if (itemInCart >= 0) {
+    //   return {
+    //     ...state,
+    //     loading: false
+    //   }
+    // } else {
+    // const retailsArr = [...state.retailsArr]
+    // action.payload.forEach((item => {
+    //   item.retails.forEach(retail => {
+    //     // копируем товар
+    //     const productItem = {...item} // в итоге - это товар без списка аптек
+    //     // удаляем из него список аптек
+    //     delete productItem.retails
+    //     // добавляем цену товара текущей аптеке
+    //     productItem.priceRetail = retail.priceRetail
+    //     // копируем аптеку
+    //     const retailItem = {...retail}
+    //     // удаляем цену товара
+    //     delete retailItem.priceRetail
+    //
+    //     // добавляем в аптеку данные товара без списка аптек
+    //     retailItem.product = []
+    //     retailItem.product.push(productItem)
+    //
+    //     if (retailsArr.length > 0) {
+    //       // если это не первая итерация - проверяем, есть ли уже такая аптека в списке
+    //       const some = retailsArr.some(i => i.guid === retail.guid)
+    //       if (some) {
+    //         // если аптека уже есть, проверяем, есть ли в ней уже данный товар
+    //         let a = false
+    //         retailsArr.forEach(retailArrItem => {
+    //           if (retailArrItem.product.some(pdItem => pdItem.guid === item.guid)) {
+    //             a = true
+    //           }
+    //         })
+    //         if (a) {
+    //           // если товар есть в этой аптеке, выходим
+    //           return
+    //         } else {
+    //           // если товара ещё нет в этой аптеке - добавляем
+    //           const index = state.retailsArr.findIndex((i => i.guid === retail.guid))
+    //           retailsArr[index].product.push(productItem)
+    //         }
+    //
+    //       } else {
+    //         retailsArr.push(retailItem)
+    //       }
+    //     } else {
+    //       retailsArr.push(retailItem)
+    //     }
+    //   })
+    // }))
+
+    // }
 
     // записать массив аптек с товаром
     case 'SET_RETAILS_ARR':
