@@ -17,15 +17,15 @@ const RetailItem = (props) => {
   return (
     <li
       className={'RetailItem' + (active ? ' RetailItem__activeItem' : '')}
-      key={retailItem.retail.guid}
+      key={retailItem.guid}
       onClick={setMapSetting}
     >
       <div className='RetailItem__retailItemContainer'>
         <div className='RetailItem__itemBlock'>
-          <span className='RetailItem__itemTitle'>{retailItem.retail.title}</span>
-          <span className='RetailItem__itemAddress'>{retailItem.retail.street} {retailItem.retail.buildNumber}</span>
-          <span className='RetailItem__textClock'>Часы работы:&nbsp;{retailItem.retail.clock}</span>
-          <span className='RetailItem__textClock'>Телефон:&nbsp;{retailItem.retail.tel}</span>
+          <span className='RetailItem__itemTitle'>{retailItem.brand}</span>
+          <span className='RetailItem__itemAddress'>{retailItem.street} {retailItem.buildNumber}</span>
+          <span className='RetailItem__textClock'>Часы работы:&nbsp;{retailItem.weekDayTime}</span>
+          <span className='RetailItem__textClock'>Телефон:&nbsp;{retailItem.phone}</span>
         </div>
 
 
@@ -40,11 +40,11 @@ const RetailItem = (props) => {
       </div>
       {notFullItems && <p className='colorRed'>не все позиции в наличии</p>}
       {notFullItems && isMobile &&
-      retailItem.items.map((item) => {
+      retailItem.product.map((item) => {
         return (
-          <div className='RetailItem__incomplete' key={item.id}>
-            <p className='RetailItem__incomplete-title'>{item.title}</p>
-            <p className='RetailItem__incomplete-price'><span>за 1шт:</span> {item.price} ₽</p>
+          <div className='RetailItem__incomplete' key={item.guid}>
+            <p className='RetailItem__incomplete-title'>{item.product}</p>
+            <p className='RetailItem__incomplete-price'><span>за 1шт:</span> {item.priceRetail} ₽</p>
           </div>
         )
       })

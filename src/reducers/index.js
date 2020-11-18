@@ -15,6 +15,18 @@ const initialState = {
   retailsArr: []
 }
 
+const upgradeRetailItems = (array) => {
+  const retailItems = array.map((item) => {
+    return {
+      ...item,
+      sum: item.product.reduce((accumulator, currentValue) => {
+        return currentValue.priceRetail + accumulator
+      }, 0)
+    }
+  })
+  return retailItems.sort((a, b) => a.sum > b.sum ? 1 : -1)
+}
+
 const updateCartItems = (cart, item, idx) => {
   if (item.count === 0) {
     return [
@@ -202,7 +214,7 @@ const reducer = (state = initialState, action) => {
         return {
           ...state,
           cartItems: [...state.cartItems, action.product],
-          retailsArr: [...retailsArr],
+          retailsArr: [...upgradeRetailItems(retailsArr)],
           loading: false
         }
       }
@@ -217,7 +229,8 @@ const reducer = (state = initialState, action) => {
     case 'DEL_CART_ITEM':
       return {
         ...state,
-        cartItems: []
+        cartItems: [],
+        retailsArr: []
       }
 
     //запрос списка продуктов из поисковой строки

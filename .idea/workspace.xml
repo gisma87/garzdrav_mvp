@@ -21,6 +21,12 @@
   <component name="ChangeListManager">
     <list default="true" id="78173063-124b-4432-8c91-25d7c3ae2a6a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/actions/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PopupMapCart/PopupMapCart.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PopupMapCart/PopupMapCart.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PopupOrder/PopupOrder.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PopupOrder/PopupOrder.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/RetailCheckPanel/RetailCheckPanel.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/RetailCheckPanel/RetailCheckPanel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/RetailItem/RetailItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/RetailItem/RetailItem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/Cart/Cart.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Cart/Cart.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/reducers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -142,6 +148,8 @@
       <workItem from="1605521884656" duration="2791000" />
       <workItem from="1605578946897" duration="1155000" />
       <workItem from="1605582728975" duration="638000" />
+      <workItem from="1605622270320" duration="236000" />
+      <workItem from="1605622912590" duration="2770000" />
     </task>
     <servers />
   </component>

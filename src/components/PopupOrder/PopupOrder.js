@@ -8,7 +8,12 @@ const PopupOrder = props => {
   const [buy, setBuy] = useState(false)
 
   const checkedItem = () => {
-    return props.retails.find((item) => item.retail.guid === props.checked)
+    const item = props.retails.find((item) => item.guid === props.checked)
+    console.log(item);
+    // if (item < 0) {
+    //   return null
+    // }
+    return item
   }
 
   return (
@@ -31,10 +36,10 @@ const PopupOrder = props => {
                   onChange={props.onChange}>
             {props.retails.map((item) => {
                 return (
-                  <option key={item.retail.guid} value={item.retail.guid}
+                  <option key={item.guid} value={item.guid}
                     // selected={item.retail.guid === props.checked}
                   >
-                    г. {item.retail.city}, {item.retail.street}, {item.retail.buildNumber}
+                    г. {item.city}, {item.street}, {item.buildNumber}
                   </option>
                 )
               }
@@ -43,7 +48,7 @@ const PopupOrder = props => {
         </div>
         <div className='PopupOrder__priceContainer'>
           <p>Cумма заказа: </p>
-          <p className='PopupOrder__sum'>{checkedItem().sum} ₽</p>
+          <p className='PopupOrder__sum'>{checkedItem()} ₽</p>
         </div>
 
 

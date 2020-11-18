@@ -144,7 +144,7 @@ const delCartItems = () => {
   }
 }
 
-const fetchCartItems = () => {
+const fetchCartItems = (funcSetStateToCart) => {
   return (dispatch, getState) => {
     const {cart} = getState()
     dispatch(delCartItems())
