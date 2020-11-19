@@ -1,7 +1,6 @@
 import React from "react"
 import './Cart.scss'
 import MediaQuery from 'react-responsive'
-import dataCatds from "../../testData/dataCards";
 import CartItem from "../../components/CartItem";
 import RetailCheckPanel from "../../components/RetailCheckPanel";
 import BlockWrapper from "../../components/BlockWrapper";
@@ -12,21 +11,17 @@ import {
   fetchProductInfo,
   itemRemovedFromCart,
   rewriteCart,
-  fetchCartItems, onSelectRetail,
-  // convertRetailsArrFromCartItems
+  fetchCartItems,
+  onSelectRetail,
 } from "../../actions";
 import {compose} from "../../utils";
 import withStoreService from "../../hoc/withStoreService/withStoreService";
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
 import PopupMapCart from "../../components/PopupMapCart/PopupMapCart";
-// import points from "../../testData/points";
-import dataCart from "../../testData/dataCart";
 import PopupOrder from "../../components/PopupOrder";
 import RetailItem from "../../components/RetailItem";
 import PopupMapCartMobile from "../../components/PopupMapCartMobile/PopupMapCartMobile";
-import Loader from "../../components/UI/Loader";
-
 
 class Cart extends React.Component {
 
@@ -51,28 +46,6 @@ class Cart extends React.Component {
       this.props.fetchCartItems()
     }
   }
-
-  // setCartItems = () => {
-  //   if (this.props.cart.length > 0) {
-  //     this.props.cart.map((productId) => {
-  //       this.props.fetchCartItem(productId.itemId, this.props.isCity.guid)
-  //
-  //     })
-  //   }
-  // }
-
-
-  // retailItems() {
-  //   const retailItems = this.props.retailsArr.map((item) => {
-  //     return {
-  //       ...item,
-  //       sum: item.product.reduce((accumulator, currentValue) => {
-  //         return currentValue.priceRetail + accumulator
-  //       }, 0)
-  //     }
-  //   })
-  //   return retailItems.sort((a, b) => a.sum > b.sum ? 1 : -1)
-  // }
 
   isChecked = (id) => this.props.selectedRetail === id;
 
@@ -111,10 +84,8 @@ class Cart extends React.Component {
 
   render() {
     const sum = this.getSum()
-    console.log('sum = ', sum, typeof sum)
-
-    const fullRetailItemState = this.props.retailsArr.filter(item => item.product.length >= this.props.cart.length)
-    const incompleteRetailItemState = this.props.retailsArr.filter(item => item.product.length < this.props.cart.length)
+    let incompleteRetailItemState = []
+    incompleteRetailItemState = this.props.retailsArr.filter(item => item.product.length < this.props.cart.length)
     console.log('ВЫБРАННАЯ АПТЕКА: ', this.checkRetailItem());
 
     return (
@@ -134,7 +105,6 @@ class Cart extends React.Component {
                     const priceIndex = item.retails.findIndex(retail => retail.guid === this.props.selectedRetail)
                     const price = priceIndex >= 0 ? item.retails[priceIndex].priceRetail : null
                     const sum = this.calculateAmountArray().find(itemArr => itemArr.guid === item.guid).sum
-                    // const minPrice = item.retails.length > 1 ? item.retails.sort((a, b) => a.priceRetail > b.priceRetail ? 1 : -1)[0] :
                     return this.props.cart[index] !== undefined
                       && <CartItem item={{
                         id: item.guid,
@@ -184,7 +154,7 @@ class Cart extends React.Component {
               </BlockWrapper>
             </section>
 
-            <section className='Cart__choiceRetail'>
+            {this.props.cart.length !== 0 && <section className='Cart__choiceRetail'>
 
               <MediaQuery maxWidth={800}>
                 <div className='CitiesMobile__menu Cart__menu'>
@@ -230,60 +200,59 @@ class Cart extends React.Component {
                 />
               </MediaQuery>
 
-              {/*---------ПРОВЕРЕН--JSX------------------------------------------------------*/}
-
-              {/*<MediaQuery maxWidth={800}>*/}
-              {/*  {this.getFullRetailItemState()*/}
-              {/*  && <RetailItem*/}
-              {/*    retailItem={this.getFullRetailItemState()[0]}*/}
-              {/*    notFullItems={false}*/}
-              {/*    active={this.isChecked(this.getFullRetailItemState()[0]?.guid)}*/}
-              {/*    buttonActive={this.isChecked(this.getFullRetailItemState()[0]?.guid)}*/}
-              {/*    onSelectItem={() => this.props.onSelectRetail(this.getFullRetailItemState()[0]?.guid)}*/}
-              {/*    setMapSetting={() => {*/}
-              {/*      // setPoint(retail.coordinates)*/}
-              {/*      // setZoom(17)*/}
-              {/*      // setActiveMarker(null)*/}
-              {/*    }}*/}
-              {/*  />}*/}
-
-              {/*  <BlockWrapper classStyle='Cart__blockMoreItems'>*/}
-              {/*    {*/}
-              {/*      fullRetailItemState.map((item, index) => {*/}
-              {/*        if (index === 0) return null;*/}
-              {/*        return <RetailItem*/}
-              {/*          key={item.guid}*/}
-              {/*          retailItem={item}*/}
-              {/*          notFullItems={false}*/}
-              {/*          active={this.isChecked(item.guid)}*/}
-              {/*          buttonActive={this.isChecked(item.guid)}*/}
-              {/*          onSelectItem={() => {*/}
-              {/*            this.onCheck(item.guid)*/}
-              {/*          }}*/}
-              {/*          setMapSetting={() => {*/}
-              {/*          }}*/}
-              {/*        />*/}
-              {/*      })*/}
-              {/*    }*/}
-              {/*  </BlockWrapper>*/}
-              {/*</MediaQuery>*/}
-
-
-              <MediaQuery minWidth={801}>
+              <MediaQuery maxWidth={800}>
                 {
-                  fullRetailItemState[0]
-                  && <RetailCheckPanel item={fullRetailItemState[0]}
-                                       isChecked={this.isChecked(fullRetailItemState[0]?.guid)}
-                                       onCheck={() => this.props.onSelectRetail(fullRetailItemState[0]?.guid)}
+                  this.getFullRetailItemState()
+                  && <RetailItem
+                    retailItem={this.getFullRetailItemState()[0]}
+                    notFullItems={false}
+                    active={this.isChecked(this.getFullRetailItemState()[0]?.guid)}
+                    buttonActive={this.isChecked(this.getFullRetailItemState()[0]?.guid)}
+                    onSelectItem={() => this.props.onSelectRetail(this.getFullRetailItemState()[0]?.guid)}
+                    setMapSetting={() => {
+                      // setPoint(retail.coordinates)
+                      // setZoom(17)
+                      // setActiveMarker(null)
+                    }}
                   />
                 }
 
+                <BlockWrapper classStyle='Cart__blockMoreItems'>
+                  {
+                    this.getFullRetailItemState() === null
+                      ? <p style={{padding: 20}}>Товара нет в наличии</p>
+                      : this.getFullRetailItemState().map((item, index) => {
+                        if (index === 0) return null;
+                        return <RetailItem
+                          key={item.guid}
+                          retailItem={item}
+                          notFullItems={false}
+                          active={this.isChecked(item.guid)}
+                          buttonActive={this.isChecked(item.guid)}
+                          onSelectItem={() => this.props.onSelectRetail(item.guid)}
+                          setMapSetting={() => {
+                          }}
+                        />
+                      })
+                  }
+                </BlockWrapper>
+              </MediaQuery>
+
+              {this.getFullRetailItemState() !== null
+              && <MediaQuery minWidth={801}>
+                {
+                  this.getFullRetailItemState()[0]
+                  && <RetailCheckPanel item={this.getFullRetailItemState()[0]}
+                                       isChecked={this.isChecked(this.getFullRetailItemState()[0]?.guid)}
+                                       onCheck={() => this.props.onSelectRetail(this.getFullRetailItemState()[0]?.guid)}
+                  />
+                }
                 <h2 className='Cart__titleChoice'>В других аптеках: </h2>
                 <BlockWrapper classStyle='Cart__blockMoreItems'>
                   {
-                    fullRetailItemState.length === 1
+                    this.getFullRetailItemState().length === 1
                       ? <p style={{padding: 20}}>Товара нет в наличии</p>
-                      : fullRetailItemState.map((item, index) => {
+                      : this.getFullRetailItemState().map((item, index) => {
                         if (index === 0) return null;
                         return <RetailCheckPanel key={item.guid}
                                                  item={item}
@@ -294,30 +263,29 @@ class Cart extends React.Component {
                       })
                   }
                 </BlockWrapper>
-              </MediaQuery>
+              </MediaQuery>}
 
               <h2 className='Cart__titleChoice'>В этих аптеках не полное наличие: </h2>
 
-              {/*<MediaQuery maxWidth={800}>*/}
-              {/*  <BlockWrapper classStyle='Cart__blockMoreItems'>*/}
-              {/*    {*/}
-              {/*      incompleteRetailItemState.map((item) => {*/}
-              {/*        return <RetailItem*/}
-              {/*          key={item.guid}*/}
-              {/*          retailItem={item}*/}
-              {/*          notFullItems={true}*/}
-              {/*          active={this.isChecked(item.guid)}*/}
-              {/*          buttonActive={this.isChecked(item.guid)}*/}
-              {/*          onSelectItem={() => {*/}
-              {/*            this.onCheck(item.guid)*/}
-              {/*          }}*/}
-              {/*          setMapSetting={() => {*/}
-              {/*          }}*/}
-              {/*        />*/}
-              {/*      })*/}
-              {/*    }*/}
-              {/*  </BlockWrapper>*/}
-              {/*</MediaQuery>*/}
+              <MediaQuery maxWidth={800}>
+                <BlockWrapper classStyle='Cart__blockMoreItems'>
+                  {
+                    incompleteRetailItemState.length > 0
+                    && incompleteRetailItemState.map((item) => {
+                      return <RetailItem
+                        key={item.guid}
+                        retailItem={item}
+                        notFullItems={true}
+                        active={this.isChecked(item.guid)}
+                        buttonActive={this.isChecked(item.guid)}
+                        onSelectItem={() => this.props.onSelectRetail(item.guid)}
+                        setMapSetting={() => {
+                        }}
+                      />
+                    })
+                  }
+                </BlockWrapper>
+              </MediaQuery>
 
               <MediaQuery minWidth={801}>
                 <BlockWrapper classStyle='Cart__blockMoreItems'>
@@ -334,7 +302,7 @@ class Cart extends React.Component {
                 </BlockWrapper>
               </MediaQuery>
 
-            </section>
+            </section>}
 
             {
               this.props.retailsArr.length > 0
@@ -350,11 +318,19 @@ class Cart extends React.Component {
       </div>
     )
   }
-
-
 }
 
-const mapStateToProps = ({cart, favorites, isCity, cartItems, retailsArr, loading, selectedRetail, isRetailAllProduct}) => {
+const mapStateToProps = (
+  {
+    cart,
+    favorites,
+    isCity,
+    cartItems,
+    retailsArr,
+    loading,
+    selectedRetail,
+    isRetailAllProduct
+  }) => {
   return {
     cart,
     favorites,

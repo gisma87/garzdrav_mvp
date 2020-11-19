@@ -64,6 +64,7 @@ const PopupMapCartMobile = props => {
             >
               {
                 retails.map(item => {
+                  if ((typeof item.coordinates !== 'object') || item.coordinates.length < 1) return;
                   const {coordinates, guid, sum, brand, city, street, buildNumber, weekDayTime, phone} = item;
                   const popup = {
                     title: brand,
