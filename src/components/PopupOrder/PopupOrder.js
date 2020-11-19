@@ -8,12 +8,7 @@ const PopupOrder = props => {
   const [buy, setBuy] = useState(false)
 
   const checkedItem = () => {
-    const item = props.retails.find((item) => item.guid === props.checked)
-    console.log(item);
-    // if (item < 0) {
-    //   return null
-    // }
-    return item
+    return props.retails.find((item) => item.guid === props.checked)
   }
 
   return (
@@ -31,14 +26,14 @@ const PopupOrder = props => {
       >
         <div className='PopupOrder__selectContainer'>
           <p className='PopupOrder__titleInput'>Забрать из аптеки</p>
-          <select name="PopupOrder-retails" id="PopupOrder-retails" className="PopupOrder__select"
+          <select name="PopupOrder-retails"
+                  id="PopupOrder-retails"
+                  className="PopupOrder__select"
                   value={props.checked}
                   onChange={props.onChange}>
             {props.retails.map((item) => {
                 return (
-                  <option key={item.guid} value={item.guid}
-                    // selected={item.retail.guid === props.checked}
-                  >
+                  <option key={item.guid} value={item.guid}>
                     г. {item.city}, {item.street}, {item.buildNumber}
                   </option>
                 )
@@ -48,7 +43,7 @@ const PopupOrder = props => {
         </div>
         <div className='PopupOrder__priceContainer'>
           <p>Cумма заказа: </p>
-          <p className='PopupOrder__sum'>{checkedItem()} ₽</p>
+          <p className='PopupOrder__sum'>{checkedItem().sum} ₽</p>
         </div>
 
 
@@ -76,9 +71,10 @@ const PopupOrder = props => {
                   className={"PopupOrder__button " + (formValid ? "PopupOrder__button_active" : '')}
                   onClick={() => {
                     setBuy(true)
-
+                    setFormValid(false)
                     // props.onClick()
                   }}
+                  disabled={!formValid}
           >
             Заказать
           </button>

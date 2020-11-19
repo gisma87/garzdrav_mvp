@@ -94,11 +94,11 @@ const CardPage = (props) => {
               <div className='CardPage__amountBlock CardPage__activePrice'>
                 <span className='CardPage__amountText'>10 мл</span>
                 <span className='CardPage__amountText'>22,5 мкг/доза</span>
-                <span className='CardPage__amountPrice'>от {productInfo.minPrice} ₽</span>
+                <span className='CardPage__amountPrice'>от {priceRetail()} ₽</span>
               </div>
               <div className='CardPage__amountBlock'>
                 <span className='CardPage__amountText'>10 мл</span>
-                <span className='CardPage__amountPrice'>от --- ₽</span>
+                <span className='CardPage__amountPrice'>от {priceRetail()} ₽</span>
               </div>
             </div>
             <div className='CardPage__buttons'>
@@ -168,17 +168,17 @@ const CardPage = (props) => {
           <div className='CardPage__priceContainer'>
             <div className='CardPage__priceContent'>
               <p className='CardPage__priceText'>Цена в наших аптеках: </p>
-              <p className='CardPage__price'>от {productInfo.minPrice} ₽</p>
+              <p className='CardPage__price'>от {priceRetail()} ₽</p>
             </div>
             <div className='CardPage__amount'>
               <div className='CardPage__amountBlock CardPage__activePrice'>
                 <span className='CardPage__amountText'>10 мл</span>
                 <span className='CardPage__amountText'>22,5 мкг/доза</span>
-                <span className='CardPage__amountPrice'>от {productInfo.minPrice} ₽</span>
+                <span className='CardPage__amountPrice'>от {priceRetail()} ₽</span>
               </div>
               <div className='CardPage__amountBlock'>
                 <span className='CardPage__amountText'>10 мл</span>
-                <span className='CardPage__amountPrice'>от 188 ₽</span>
+                <span className='CardPage__amountPrice'>от {priceRetail()} ₽</span>
               </div>
             </div>
             <div className='CardPage__buttons'>

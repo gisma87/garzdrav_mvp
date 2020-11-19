@@ -21,10 +21,7 @@ const RetailCheckPanel = (props) => {
     product = ''
   } = props.item
 
-  let {list = 'main', isChecked, onCheck, checked} = props;
-  if(checked === null) {
-    isChecked = true
-  }
+  const {list = 'main', isChecked, onCheck} = props;
 
   if (list === 'list') {
     return (

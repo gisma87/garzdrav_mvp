@@ -10,7 +10,6 @@ import RetailItem from "../RetailItem";
 import PopupWrapper from "../UI/PopupWrapper/PopupWrapper";
 
 const PopupMapCart = props => {
-
   const [point, setPoint] = useState([56.010563, 92.852572])
   const [zoom, setZoom] = useState(11)
   const [activeMarker, setActiveMarker] = useState(null)
@@ -131,6 +130,7 @@ const PopupMapCart = props => {
             >
               {
                 retails.map((item) => {
+                  if ((typeof item.coordinates !== 'object') || item.coordinates.length < 1) return;
                   const {coordinates, guid, sum, brand, city, street, buildNumber, phone, weekDayTime, product} = item;
                   const popup = {
                     title: brand,

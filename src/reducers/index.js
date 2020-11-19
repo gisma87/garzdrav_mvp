@@ -2,27 +2,26 @@ const initialState = {
   cities: [],
   loading: true,
   error: null,
-  isCity: {
-    "guid": "c384a061-7641-4605-a340-afb825fdcb70",
-    "title": "Абакан"
-  },
+  isCity: {guid: "c073f480-6d97-4af3-976b-3c069f39db52", title: "Красноярск"},
   retailsCity: [],
   cart: [],
-  favorites: [5, 6],
+  favorites: [],
   productsFromSearch: [],
   productInfo: '',
   cartItems: [],
   retailsArr: [],
-  selectedRetail: null
+  selectedRetail: null,
+  isRetailAllProduct: true
 }
 
 const upgradeRetailItems = (array) => {
   const retailItems = array.map((item) => {
+    const sum = item.product.reduce((accumulator, currentValue) => {
+      return currentValue.priceRetail + accumulator
+    }, 0)
     return {
       ...item,
-      sum: item.product.reduce((accumulator, currentValue) => {
-        return currentValue.priceRetail + accumulator
-      }, 0)
+      sum: +sum.toFixed(2)
     }
   })
   return retailItems.sort((a, b) => a.sum > b.sum ? 1 : -1)
@@ -212,17 +211,23 @@ const reducer = (state = initialState, action) => {
           }
         })
       })
+
       const fullProductArr = retailsArr.filter(item => item.product.length === state.cart.length)
       let selectedRetail = null
       if (fullProductArr.length > 0) {
         selectedRetail = fullProductArr[0].guid
       }
+      let isRetailAllProduct = selectedRetail !== null;
+
+      const retailsByNumberOfProducts = retailsArr.sort((a, b) => a.product.length < b.product.length ? 1 : -1)
+      selectedRetail = retailsByNumberOfProducts[0].guid
 
       return {
         ...state,
         cartItems: action.payload,
         retailsArr: [...upgradeRetailItems(retailsArr)],
         selectedRetail,
+        isRetailAllProduct,
         loading: false
       }
 

@@ -5,7 +5,7 @@ import notPhoto from "../../img/notPhoto.svg";
 
 const CartItem = (props) => {
   const {allItemRemovedFromCart, itemRemovedFromCart, addedToCart, addedToFavorits, count, isFavorite, classStyle = ''} = props;
-  const {id, img, title, maker, price, sum} = props.item;
+  const {id, img, title, maker, price, sum, minPrice} = props.item;
 
   return (
     <BlockWrapper classStyle={'CartItem ' + `${classStyle}`}>
@@ -33,7 +33,7 @@ const CartItem = (props) => {
         </div>
 
         <div className='CartItem__itemPrice'>
-          <p className='CartItem__price'>{sum} ₽</p>
+          <p className='CartItem__price'>{sum ? sum : `от ${minPrice}`} ₽</p>
           <div className='CartItem__countButtons'>
             <button className='CartItem__countButtonMinus CartItem__countButton'
                     onClick={itemRemovedFromCart}
@@ -47,7 +47,10 @@ const CartItem = (props) => {
           </div>
         </div>
       </div>
-      <p className='CartItem__caption'>Внешний вид товара может отличаться от изображения на сайте</p>
+      {sum
+        ? <p className='CartItem__caption'>Внешний вид товара может отличаться от изображения на сайте</p>
+        : <p className='CartItem__caption' style={{color: 'red'}}>В выбранной аптеке нет данного препарата</p>
+      }
     </BlockWrapper>
   )
 }

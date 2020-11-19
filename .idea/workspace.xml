@@ -20,12 +20,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="78173063-124b-4432-8c91-25d7c3ae2a6a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/containers/Cart/oldCart.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CardItem/CardItem.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CardItem/CardItem.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/CartItem/CartItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CartItem/CartItem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/PopupMapCartMobile/PopupMapCartMobile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PopupMapCartMobile/PopupMapCartMobile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PopupMapCart/PopupMapCart.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PopupMapCart/PopupMapCart.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PopupOrder/PopupOrder.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PopupOrder/PopupOrder.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/RetailCheckPanel/RetailCheckPanel.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/RetailCheckPanel/RetailCheckPanel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/CardPage/CardPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/CardPage/CardPage.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/containers/Cart/Cart.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Cart/Cart.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/Cart/Cart.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Cart/Cart.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/reducers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -149,7 +152,8 @@
       <workItem from="1605582728975" duration="638000" />
       <workItem from="1605622270320" duration="236000" />
       <workItem from="1605622912590" duration="2770000" />
-      <workItem from="1605668729080" duration="17853000" />
+      <workItem from="1605668729080" duration="17889000" />
+      <workItem from="1605751246197" duration="16003000" />
     </task>
     <servers />
   </component>
@@ -176,10 +180,11 @@
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
     <state x="-1335" y="197" key="#Inspections/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1603170239704" />
-    <state x="-1369" y="177" key="#Intentions" timestamp="1603247233621">
+    <state x="-1369" y="177" width="818" height="731" key="#Intentions" timestamp="1605761685315">
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
     <state x="-1369" y="177" key="#Intentions/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1603247233621" />
+    <state x="-1369" y="177" width="818" height="731" key="#Intentions/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1605761685315" />
     <state x="-1563" y="324" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1604646211900">
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>

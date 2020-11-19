@@ -103,6 +103,9 @@
     font-weight: bold;
     font-size: 20px;
     padding: 0 0 20px 0;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
   }
 
   &__menu {
