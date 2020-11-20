@@ -1,16 +1,5 @@
 export default class StoreService {
 
-  // getBooks() {
-  //   return new Promise((resolve, reject) => {
-  //     setTimeout(() => {
-  //       if (Math.random() > 0.75) {
-  //         reject(new Error('Something bad happened'))
-  //       } else resolve(this.data)
-  //     }, 800)
-  //   })
-  // }
-
-
   // Список городов
   async getCities() {
     const res = await fetch('http://172.16.17.7:5000/Cities',
@@ -76,35 +65,4 @@ export default class StoreService {
     }
     return await res.json();
   }
-
-  setLocal(cart) {
-    const arrItemId = [];
-    const arrCountCart = [];
-    cart.forEach((item) => {
-      arrItemId.push(item.itemId)
-      arrCountCart.push(item.count)
-    })
-    localStorage.setItem('arrItemId', JSON.stringify(arrItemId));
-    localStorage.setItem('arrCountCart', JSON.stringify(arrCountCart));
-    // console.log('====================================================')
-    // console.log('Обновился LocalStorage')
-    // console.log('arrItemId', JSON.stringify(arrItemId))
-    // console.log('arrCountCart', JSON.stringify(arrCountCart))
-    // console.log('CART', cart)
-    // console.log('====================================================')
-  }
-
-  setCartFromLocalStorage(funcSet) {
-    const arrItemIdParse = JSON.parse(localStorage.getItem("arrItemId"));
-    const arrCountCartParse = JSON.parse(localStorage.getItem("arrCountCart"));
-    const arr = [];
-    arrItemIdParse.forEach((item) => {
-      arr.push({itemId: item})
-    })
-    arrCountCartParse.forEach((item, id) => {
-      arr[id].count = item
-    })
-    funcSet(arr)
-  }
-
 }

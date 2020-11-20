@@ -3,8 +3,6 @@ import {withRouter} from 'react-router-dom'
 import {useMediaQuery} from 'react-responsive'
 import './Cards.scss'
 import CardItem from "../../components/CardItem";
-import dataCatds from "../../testData/dataCards"
-// import SidebarCategories from "../../components/SidebarCategories";
 import {connect} from 'react-redux'
 import withStoreService from "../../hoc/withStoreService/withStoreService";
 import {addedToCart, itemRemovedFromCart, allItemRemovedFromCart} from "../../actions";
@@ -24,18 +22,10 @@ const Cards = props => {
     if (!event.target.closest('button')) history.push(`${itemId}`);
   }
 
-  // function visible() {
-  //   const timeout = window.setTimeout(() => {
-  //     setTouchedSearchTimeout(false)
-  //     window.clearTimeout(timeout)
-  //   }, 300)
-  //
-  // }
-
   const isMobile = useMediaQuery({query: '(max-width: 800px)'})
 
   useEffect(() => {
-    props.storeService.setLocal(cart)
+    localStorage.setItem('cart', JSON.stringify(cart));
   })
 
   // console.log('pills: ', pills)

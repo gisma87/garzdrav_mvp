@@ -35,14 +35,14 @@ class Cart extends React.Component {
   indexActiveRetail = () => this.props.retailsArr.findIndex((item) => item.guid === this.state.checked);
 
   componentDidMount() {
-    if (localStorage.getItem("arrItemId")) {
-      this.props.storeService.setCartFromLocalStorage(this.props.rewriteCart)
+    if (localStorage.getItem("cart")) {
+      this.props.rewriteCart(JSON.parse(localStorage.getItem("cart")))
     }
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (prevProps.cart !== this.props.cart) {
-      this.props.storeService.setLocal(this.props.cart)
+      localStorage.setItem('cart', JSON.stringify(this.props.cart));
       this.props.fetchCartItems()
     }
   }
@@ -134,7 +134,7 @@ class Cart extends React.Component {
                 }
               </div>
 
-              <BlockWrapper classStyle='Cart__pricePanel'>
+              {this.props.cart.length > 0 && <BlockWrapper classStyle='Cart__pricePanel'>
                 <div className='Cart__resultPrice'>
                   <span>Общая сумма:</span> <span>{sum} ₽</span>
                 </div>
@@ -151,7 +151,7 @@ class Cart extends React.Component {
                 >
                   Купить
                 </button>
-              </BlockWrapper>
+              </BlockWrapper>}
             </section>
 
             {this.props.cart.length !== 0 && <section className='Cart__choiceRetail'>

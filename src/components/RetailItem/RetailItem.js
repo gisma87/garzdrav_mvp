@@ -49,7 +49,6 @@ const RetailItem = (props) => {
         )
       })
       }
-
     </li>
   )
 }

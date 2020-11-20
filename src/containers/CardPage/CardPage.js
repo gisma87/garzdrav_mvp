@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import './CardPage.scss'
-import dataCatds from "../../testData/dataCards";
 import SvgCheck from "../../components/UI/icons/SvgCheck";
 import SvgHeartIcon from "../../components/UI/icons/SvgHeartIcon";
 import SvgHeartSolid from "../../components/UI/icons/SvgHeartActive";
@@ -41,14 +40,9 @@ const CardPage = (props) => {
   const isMobile = useMediaQuery({query: '(max-width: 800px)'})
 
   useEffect(() => {
-    props.storeService.setLocal(cart)
-
-    // props.storeService.getProductInfo(itemId, isCity.guid)
-    //   .then((data) => loadingProductInfo(data))
-    //   .catch((error) => console.log(error));
+    localStorage.setItem('cart', JSON.stringify(cart));
 
     props.fetchProductInfo(itemId, isCity.guid)
-
   }, [])
 
   const priceRetail = () => {

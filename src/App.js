@@ -28,8 +28,8 @@ function App(props) {
 
   useEffect(() => {
     props.fetchCities();
-    if (localStorage.getItem("arrItemId")) {
-      props.storeService.setCartFromLocalStorage(props.rewriteCart)
+    if (localStorage.getItem("cart")) {
+      props.rewriteCart(JSON.parse(localStorage.getItem("cart")))
       props.fetchCartItems()
     }
   }, [])

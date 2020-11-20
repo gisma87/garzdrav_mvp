@@ -18,7 +18,7 @@ import CardItemMobile from "../CardItemMobile";
 class PromoBlockMobile extends React.Component {
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    this.props.storeService.setLocal(this.props.cart)
+    localStorage.setItem('cart', JSON.stringify(this.props.cart))
   }
 
   onItemSelected = (itemId, event) => {

@@ -11,7 +11,6 @@ const SearchPanel = (props) => {
 
   const {
     isCity,
-    productsFromSearch,
     loadingTrue,
     ProductsFromSearchLoaded,
     isMobile = false,

@@ -46,8 +46,8 @@ class Cart extends React.Component {
   indexActiveRetail = () => this.props.retailsArr.findIndex((item) => item.guid === this.state.checked);
 
   componentDidMount() {
-    if (localStorage.getItem("arrItemId")) {
-      this.props.storeService.setCartFromLocalStorage(this.props.rewriteCart)
+    if (localStorage.getItem("cart")) {
+      this.props.rewriteCart(JSON.parse(localStorage.getItem("cart")))
     }
 // можно поставить здесь промис с интервалом проверки состояния retailsArr,и когда не null, делать setState
     // или первую попавшуюся аптеку возвращать из actions
@@ -58,7 +58,7 @@ class Cart extends React.Component {
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (prevProps.cart !== this.props.cart) {
-      this.props.storeService.setLocal(this.props.cart)
+      localStorage.setItem('cart', JSON.stringify(this.props.cart));
       this.props.fetchCartItems()
       // this.props.convertRetailsArrFromCartItems()
       // this.convertArrToRetails()
