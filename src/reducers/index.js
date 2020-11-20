@@ -14,10 +14,11 @@ const initialState = {
   isRetailAllProduct: true
 }
 
-const upgradeRetailItems = (array) => {
+const upgradeRetailItems = (array, cart) => {
   const retailItems = array.map((item) => {
     const sum = item.product.reduce((accumulator, currentValue) => {
-      return currentValue.priceRetail + accumulator
+      const count = cart.find(item => item.itemId === currentValue.guid).count
+      return ((currentValue.priceRetail * count) + accumulator)
     }, 0)
     return {
       ...item,
@@ -133,8 +134,11 @@ const reducer = (state = initialState, action) => {
           // удаляем из него список аптек
           delete productItem.retails
 
-          // добавляем цену товара текущей аптеке
+          // добавляем цену товара в текущей аптеке
           productItem.priceRetail = retail.priceRetail
+
+          // добавляем количество товара из корзины в продукт
+          productItem.count = state.cart.find(cartItem => cartItem.itemId === item.guid).count
 
           // копируем аптеку
           const retailItem = {...retail}
@@ -189,7 +193,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         cartItems: action.payload,
-        retailsArr: [...upgradeRetailItems(retailsArr)],
+        retailsArr: [...upgradeRetailItems(retailsArr, state.cart)],
         selectedRetail,
         isRetailAllProduct,
         loading: false
