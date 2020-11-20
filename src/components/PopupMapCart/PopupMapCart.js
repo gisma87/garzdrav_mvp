@@ -10,7 +10,6 @@ import RetailItem from "../RetailItem";
 import PopupWrapper from "../UI/PopupWrapper/PopupWrapper";
 
 const PopupMapCart = props => {
-
   const [point, setPoint] = useState([56.010563, 92.852572])
   const [zoom, setZoom] = useState(11)
   const [activeMarker, setActiveMarker] = useState(null)
@@ -73,17 +72,17 @@ const PopupMapCart = props => {
           <ul>
             {
               retails.map((retailItem) => {
-                const {retail, items, sum} = retailItem
-                const notFullItems = () => items.length < 3
+                const notFullItems = () => retailItem.product.length < props.cartLength
                 return (
                   <RetailItem
+                    key={retailItem.guid}
                     retailItem={retailItem}
                     notFullItems={notFullItems()}
-                    active={retailItem.retail.guid === activeMarker}
-                    buttonActive={props.activeRetail === retail.guid}
-                    onSelectItem={() => onSelectItem(retail.guid)}
+                    active={retailItem.guid === activeMarker}
+                    buttonActive={props.activeRetail === retailItem.guid}
+                    onSelectItem={() => onSelectItem(retailItem.guid)}
                     setMapSetting={() => {
-                      setPoint(retail.coordinates)
+                      setPoint(retailItem.coordinates)
                       setZoom(17)
                       setActiveMarker(null)
                     }}
@@ -130,15 +129,16 @@ const PopupMapCart = props => {
               }}
             >
               {
-                retails.map(({retail, items, sum}) => {
-                  const {coordinates, guid} = retail;
+                retails.map((item) => {
+                  if ((typeof item.coordinates !== 'object') || item.coordinates.length < 1) return;
+                  const {coordinates, guid, sum, brand, city, street, buildNumber, phone, weekDayTime, product} = item;
                   const popup = {
-                    title: retail.title,
-                    address: `г. ${retail.city},  ${retail.street} ${retail.buildNumber}`,
-                    clock: retail.clock,
-                    tel: retail.tel
+                    title: brand,
+                    address: `г. ${city},  ${street} ${buildNumber}`,
+                    clock: weekDayTime,
+                    tel: phone
                   }
-                  const notFullItems = () => items.length < 3
+                  const notFullItems = () => product.length < props.cartLength
                   return (
                     <Placemark key={guid}
                                onClick={() => onItemClick(guid)}

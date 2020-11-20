@@ -1,13 +1,18 @@
 import React, {useEffect, useState} from "react";
 import './CardPage.scss'
-import dataCatds from "../../testData/dataCards";
 import SvgCheck from "../../components/UI/icons/SvgCheck";
 import SvgHeartIcon from "../../components/UI/icons/SvgHeartIcon";
 import SvgHeartSolid from "../../components/UI/icons/SvgHeartActive";
-import pillsIcon from "../../img/pills.svg"
+import notPhoto from "../../img/notPhoto.svg"
 import {Link} from 'react-scroll'
 import BlockWrapper from "../../components/BlockWrapper";
-import {addedToCart, allItemRemovedFromCart, itemRemovedFromCart, addedToFavorits} from "../../actions";
+import {
+  addedToCart,
+  allItemRemovedFromCart,
+  itemRemovedFromCart,
+  addedToFavorits,
+  fetchProductInfo
+} from "../../actions";
 import {compose} from "../../utils";
 import withStoreService from "../../hoc/withStoreService/withStoreService";
 import {connect} from "react-redux";
@@ -15,18 +20,36 @@ import {NavLink, withRouter} from "react-router-dom";
 import {useMediaQuery} from 'react-responsive'
 
 const CardPage = (props) => {
-  const {itemId, addedToCart, itemRemovedFromCart, addedToFavorits, cart, favorites} = props;
+  const {
+    itemId,
+    isCity,
+    addedToCart,
+    itemRemovedFromCart,
+    addedToFavorits,
+    cart,
+    favorites,
+    productInfo
+  } = props;
   const [like, setLike] = useState(false)
+  const img = null
 
-  const {id, title, maker, minPrice, img = undefined} = dataCatds[itemId - 1]
+  // const {id, title, maker, minPrice, img = null} = dataCatds[itemId - 1]
   const itemIndex = cart.findIndex((item) => item.itemId === itemId);
   const isFavorite = favorites.includes(itemId);
   const isActive = itemIndex >= 0;
   const isMobile = useMediaQuery({query: '(max-width: 800px)'})
 
   useEffect(() => {
-    props.storeService.setLocal(cart)
-  })
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    props.fetchProductInfo(itemId, isCity.guid)
+  }, [])
+
+  const priceRetail = () => {
+    if (typeof productInfo === 'string') {
+      return null
+    } else return productInfo.retails[0].priceRetail
+  }
 
   return (
     <section className='CardPage wrapper'>
@@ -34,10 +57,10 @@ const CardPage = (props) => {
       {/* ДЛЯ DESKTOP ВЕРСИИ */}
       {!isMobile && <BlockWrapper>
         <div className='CardPage__titleContainer'>
-          <h1 className='CardPage__title'>{title}
+          <h1 className='CardPage__title'>{productInfo.product}
             <p className='CardPage__like' onClick={() => {
               setLike(!like)
-              addedToFavorits(id)
+              addedToFavorits(productInfo.guid)
             }}
                style={{color: "red", marginLeft: 15, fontSize: 26}}>
               {isFavorite ? <SvgHeartSolid/> : <SvgHeartIcon/>}
@@ -49,8 +72,9 @@ const CardPage = (props) => {
 
         <div className='CardPage__contentContainer'>
           <div className='CardPage__imageContainer'>
-            {img !== undefined ? <img className='CardPage__image' src={img} alt=""/> :
-              <img src={pillsIcon} alt="pills icon" className='CardPage__image'/>}
+            {img
+              ? <img className='CardPage__image' src={img} alt="photo"/>
+              : <img src={notPhoto} alt="pills icon" className='CardPage__image'/>}
             <p className='CardPage__caption'>Внешний вид товара может отличаться от изображения на
               сайте</p>
           </div>
@@ -58,17 +82,17 @@ const CardPage = (props) => {
           <div className='CardPage__priceContainer'>
             <div className='CardPage__priceContent'>
               <p className='CardPage__priceText'>Цена в наших аптеках: </p>
-              <p className='CardPage__price'>от {minPrice} ₽</p>
+              <p className='CardPage__price'>от {priceRetail()} ₽</p>
             </div>
             <div className='CardPage__amount'>
               <div className='CardPage__amountBlock CardPage__activePrice'>
                 <span className='CardPage__amountText'>10 мл</span>
                 <span className='CardPage__amountText'>22,5 мкг/доза</span>
-                <span className='CardPage__amountPrice'>от {minPrice} ₽</span>
+                <span className='CardPage__amountPrice'>от {priceRetail()} ₽</span>
               </div>
               <div className='CardPage__amountBlock'>
                 <span className='CardPage__amountText'>10 мл</span>
-                <span className='CardPage__amountPrice'>от 188 ₽</span>
+                <span className='CardPage__amountPrice'>от {priceRetail()} ₽</span>
               </div>
             </div>
             <div className='CardPage__buttons'>
@@ -86,7 +110,7 @@ const CardPage = (props) => {
           <div className='CardPage__descriptionContainer'>
             <p className='CardPage__maker CardPage__description'>
               <span>Производитель</span>
-              <NavLink to={props.history.location}>{maker}</NavLink>
+              <NavLink to={props.history.location}>{productInfo.manufacturer}</NavLink>
             </p>
             <p className='CardPage__substance CardPage__description'>
               <span>Действующее вещество:</span>
@@ -112,13 +136,14 @@ const CardPage = (props) => {
       {isMobile && <BlockWrapper classStyle='CardPage__mobile'>
 
         <div className='CardPage__imageContainer'>
-          {img !== undefined ? <img className='CardPage__image' src={img} alt=""/> :
-            <img src={pillsIcon} alt="pills icon" className='CardPage__image'/>}
+          {img
+            ? <img className='CardPage__image' src={img} alt="photo"/>
+            : <img src={notPhoto} alt="pills icon" className='CardPage__image'/>}
           <p className='CardPage__caption'>Внешний вид товара может отличаться от изображения на
             сайте</p>
           <p className='CardPage__like' onClick={() => {
             setLike(!like)
-            addedToFavorits(id)
+            addedToFavorits(productInfo.guid)
           }}
              style={{color: "red", marginLeft: 15, fontSize: 20}}>
             {isFavorite ? <SvgHeartSolid/> : <SvgHeartIcon/>}
@@ -127,7 +152,7 @@ const CardPage = (props) => {
         </div>
 
         <div className='CardPage__titleContainer'>
-          <h1 className='CardPage__title'>{title}</h1>
+          <h1 className='CardPage__title'>{productInfo.product}</h1>
           <p>Спрей, 10 мл, 22,5 мкг/доза</p>
         </div>
 
@@ -137,22 +162,22 @@ const CardPage = (props) => {
           <div className='CardPage__priceContainer'>
             <div className='CardPage__priceContent'>
               <p className='CardPage__priceText'>Цена в наших аптеках: </p>
-              <p className='CardPage__price'>от {minPrice} ₽</p>
+              <p className='CardPage__price'>от {priceRetail()} ₽</p>
             </div>
             <div className='CardPage__amount'>
               <div className='CardPage__amountBlock CardPage__activePrice'>
                 <span className='CardPage__amountText'>10 мл</span>
                 <span className='CardPage__amountText'>22,5 мкг/доза</span>
-                <span className='CardPage__amountPrice'>от {minPrice} ₽</span>
+                <span className='CardPage__amountPrice'>от {priceRetail()} ₽</span>
               </div>
               <div className='CardPage__amountBlock'>
                 <span className='CardPage__amountText'>10 мл</span>
-                <span className='CardPage__amountPrice'>от 188 ₽</span>
+                <span className='CardPage__amountPrice'>от {priceRetail()} ₽</span>
               </div>
             </div>
             <div className='CardPage__buttons'>
               <button className='CardPage__button CardPage__buttonToCart' onClick={() => {
-                !isActive ? addedToCart(itemId) : itemRemovedFromCart(itemId)
+                !isActive ? addedToCart(productInfo.guid) : itemRemovedFromCart(productInfo.guid)
               }}>
                 {isActive ? <SvgCheck style={{color: 'white'}}/> : 'Добавить в корзину'}
               </button>
@@ -165,7 +190,7 @@ const CardPage = (props) => {
           <div className='CardPage__descriptionContainer'>
             <p className='CardPage__maker CardPage__description'>
               <span>Производитель</span>
-              <NavLink to={props.history.location}>{maker}</NavLink>
+              <NavLink to={props.history.location}>{productInfo.manufacturer}</NavLink>
             </p>
             <p className='CardPage__substance CardPage__description'>
               <span>Действующее вещество:</span>
@@ -332,8 +357,8 @@ const CardPage = (props) => {
 }
 
 
-const mapStateToProps = ({cart, favorites}) => {
-  return {cart, favorites}
+const mapStateToProps = ({cart, favorites, productInfo, isCity}) => {
+  return {cart, favorites, productInfo, isCity}
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -341,7 +366,8 @@ const mapDispatchToProps = (dispatch) => {
     addedToCart: (item) => dispatch(addedToCart(item)),
     itemRemovedFromCart: (item) => dispatch(itemRemovedFromCart(item)),
     allItemRemovedFromCart: (item) => dispatch(allItemRemovedFromCart(item)),
-    addedToFavorits: (itemId) => dispatch(addedToFavorits(itemId))
+    addedToFavorits: (itemId) => dispatch(addedToFavorits(itemId)),
+    fetchProductInfo: (productId, cityId) => dispatch(fetchProductInfo(productId, cityId)),
   }
 }
 

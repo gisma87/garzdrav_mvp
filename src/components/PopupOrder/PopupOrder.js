@@ -8,7 +8,7 @@ const PopupOrder = props => {
   const [buy, setBuy] = useState(false)
 
   const checkedItem = () => {
-    return props.retails.find((item) => item.retail.guid === props.checked)
+    return props.retails.find((item) => item.guid === props.checked)
   }
 
   return (
@@ -26,15 +26,15 @@ const PopupOrder = props => {
       >
         <div className='PopupOrder__selectContainer'>
           <p className='PopupOrder__titleInput'>Забрать из аптеки</p>
-          <select name="PopupOrder-retails" id="PopupOrder-retails" className="PopupOrder__select"
+          <select name="PopupOrder-retails"
+                  id="PopupOrder-retails"
+                  className="PopupOrder__select"
                   value={props.checked}
                   onChange={props.onChange}>
             {props.retails.map((item) => {
                 return (
-                  <option key={item.retail.guid} value={item.retail.guid}
-                    // selected={item.retail.guid === props.checked}
-                  >
-                    г. {item.retail.city}, {item.retail.street}, {item.retail.buildNumber}
+                  <option key={item.guid} value={item.guid}>
+                    г. {item.city}, {item.street}, {item.buildNumber}
                   </option>
                 )
               }
@@ -71,9 +71,10 @@ const PopupOrder = props => {
                   className={"PopupOrder__button " + (formValid ? "PopupOrder__button_active" : '')}
                   onClick={() => {
                     setBuy(true)
-
+                    setFormValid(false)
                     // props.onClick()
                   }}
+                  disabled={!formValid}
           >
             Заказать
           </button>

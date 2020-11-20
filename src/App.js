@@ -10,7 +10,7 @@ import Cards from "./containers/Cards";
 import PromoPage from "./containers/PromoPage";
 import CardPage from "./containers/CardPage";
 import Promotion from "./containers/Promotion";
-import {fetchCities, rewriteCart} from "./actions";
+import {fetchCartItems, fetchCities, rewriteCart} from "./actions";
 import {compose} from "./utils";
 import withStoreService from "./hoc/withStoreService/withStoreService";
 import {connect} from "react-redux";
@@ -28,12 +28,11 @@ function App(props) {
 
   useEffect(() => {
     props.fetchCities();
-    if (localStorage.getItem("arrItemId")) {
-      props.storeService.setCartFromLocalStorage(props.rewriteCart)
+    if (localStorage.getItem("cart")) {
+      props.rewriteCart(JSON.parse(localStorage.getItem("cart")))
+      props.fetchCartItems()
     }
   }, [])
-
-  useEffect(() => console.log('RENDER APP'))
 
   return (
     <div className="App">
@@ -74,7 +73,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   const {storeService} = ownProps;
   return {
     fetchCities: fetchCities(storeService, dispatch),
-    rewriteCart: (item) => dispatch(rewriteCart(item))
+    rewriteCart: (item) => dispatch(rewriteCart(item)),
+    fetchCartItems: () => dispatch(fetchCartItems()),
   }
 }
 

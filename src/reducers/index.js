@@ -2,14 +2,29 @@ const initialState = {
   cities: [],
   loading: true,
   error: null,
-  isCity: {
-    "guid": "c384a061-7641-4605-a340-afb825fdcb70",
-    "title": "Абакан"
-  },
+  isCity: {guid: "c073f480-6d97-4af3-976b-3c069f39db52", title: "Красноярск"},
   retailsCity: [],
   cart: [],
-  favorites: [5, 6],
-  productsFromSearch: []
+  favorites: [],
+  productsFromSearch: [],
+  productInfo: '',
+  cartItems: [],
+  retailsArr: [],
+  selectedRetail: null,
+  isRetailAllProduct: true
+}
+
+const upgradeRetailItems = (array) => {
+  const retailItems = array.map((item) => {
+    const sum = item.product.reduce((accumulator, currentValue) => {
+      return currentValue.priceRetail + accumulator
+    }, 0)
+    return {
+      ...item,
+      sum: +sum.toFixed(2)
+    }
+  })
+  return retailItems.sort((a, b) => a.sum > b.sum ? 1 : -1)
 }
 
 const updateCartItems = (cart, item, idx) => {
@@ -52,7 +67,6 @@ const updateOrder = (state, itemId, quantity) => {
   }
 };
 
-
 const reducer = (state = initialState, action) => {
 
   console.log(action.type, action.payload);
@@ -72,47 +86,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         retailsCity: action.payload
       };
+
     case 'SET_CITY':
       return {
         ...state,
         isCity: action.payload
       };
-    // case 'ITEM_ADDED_TO_CART':
-    //   const itemId = action.payload;
-    //   const itemIndex = state.cart.findIndex((item) => item.itemId === itemId);
-    //   const item = state.cart[itemIndex];
-    //   let newItem;
-    //   if (item) {
-    //     newItem = {
-    //       ...item,
-    //       count: item.count + 1
-    //     }
-    //   } else {
-    //     newItem = {
-    //       itemId,
-    //       count: 1
-    //     }
-    //   }
-    //
-    //   if (itemIndex < 0) {
-    //     return {
-    //       ...state,
-    //       cart: [
-    //         ...state.cart,
-    //         newItem
-    //       ]
-    //     };
-    //   } else {
-    //     return {
-    //       ...state,
-    //       cart: [
-    //         ...state.cart.slice(0, itemIndex),
-    //         newItem,
-    //         ...state.cart.slice(itemIndex + 1)
-    //       ]
-    //     };
-    //   }
-
 
     case 'ITEM_ADDED_TO_CART':
       return updateOrder(state, action.payload, 1);
@@ -130,12 +109,106 @@ const reducer = (state = initialState, action) => {
         cart: action.payload
       };
 
-    //запрос списка продукта из поисковой строки
     case 'LOADING' :
       return {
         ...state,
         loading: true,
       };
+
+    // подробная информация о товаре
+    case 'LOADING_PRODUCT_INFO':
+      return {
+        ...state,
+        productInfo: action.product,
+        loading: false
+      };
+
+    case 'SET_CART_ITEMS':
+      const retailsArr = [...state.retailsArr]
+      action.payload.forEach(item => {
+        item.retails.forEach(retail => {
+          // копируем товар
+          const productItem = {...item} // в итоге - это товар без списка аптек
+
+          // удаляем из него список аптек
+          delete productItem.retails
+
+          // добавляем цену товара текущей аптеке
+          productItem.priceRetail = retail.priceRetail
+
+          // копируем аптеку
+          const retailItem = {...retail}
+
+          // удаляем цену товара
+          delete retailItem.priceRetail
+          retailItem.weekDayTime = retailItem.weekDayTime.match(/\d\d:\d\d/g).join(' - ')
+
+          // добавляем в аптеку данные товара без списка аптек
+          retailItem.product = []
+          retailItem.product.push(productItem)
+
+          if (retailsArr.length > 0) {
+            // если это не первая итерация - проверяем, есть ли уже такая аптека в списке
+            const some = retailsArr.some(i => i.guid === retail.guid)
+            if (some) {
+              // если аптека уже есть, проверяем, есть ли в ней уже данный товар
+              let a = false
+              retailsArr.forEach(retailArrItem => {
+                if (retailArrItem.product.some(pdItem => pdItem.guid === item.guid)) {
+                  a = true
+                }
+              })
+              if (a) {
+                // если товар есть в этой аптеке, выходим
+                return
+              } else {
+                // если товара ещё нет в этой аптеке - добавляем
+                const index = retailsArr.findIndex((i => i.guid === retail.guid))
+                retailsArr[index].product.push(productItem)
+              }
+
+            } else {
+              retailsArr.push(retailItem)
+            }
+          } else {
+            retailsArr.push(retailItem)
+          }
+        })
+      })
+
+      const fullProductArr = retailsArr.filter(item => item.product.length === state.cart.length)
+      let selectedRetail = null
+      if (fullProductArr.length > 0) {
+        selectedRetail = fullProductArr[0].guid
+      }
+      let isRetailAllProduct = selectedRetail !== null;
+
+      const retailsByNumberOfProducts = retailsArr.sort((a, b) => a.product.length < b.product.length ? 1 : -1)
+      selectedRetail = retailsByNumberOfProducts[0].guid
+
+      return {
+        ...state,
+        cartItems: action.payload,
+        retailsArr: [...upgradeRetailItems(retailsArr)],
+        selectedRetail,
+        isRetailAllProduct,
+        loading: false
+      }
+
+    case 'ON_SELECT_RETAIL':
+      return {
+        ...state,
+        selectedRetail: action.payload
+      }
+
+    case 'DEL_CART_ITEM':
+      return {
+        ...state,
+        cartItems: [],
+        retailsArr: []
+      }
+
+    //запрос списка продуктов из поисковой строки
     case 'FETCH_PRODUCTS_FROM_SEARCH_SUCCESS':
       return {
         ...state,
@@ -171,3 +244,39 @@ const reducer = (state = initialState, action) => {
 }
 
 export default reducer;
+
+// case 'ITEM_ADDED_TO_CART':
+//   const itemId = action.payload;
+//   const itemIndex = state.cart.findIndex((item) => item.itemId === itemId);
+//   const item = state.cart[itemIndex];
+//   let newItem;
+//   if (item) {
+//     newItem = {
+//       ...item,
+//       count: item.count + 1
+//     }
+//   } else {
+//     newItem = {
+//       itemId,
+//       count: 1
+//     }
+//   }
+//
+//   if (itemIndex < 0) {
+//     return {
+//       ...state,
+//       cart: [
+//         ...state.cart,
+//         newItem
+//       ]
+//     };
+//   } else {
+//     return {
+//       ...state,
+//       cart: [
+//         ...state.cart.slice(0, itemIndex),
+//         newItem,
+//         ...state.cart.slice(itemIndex + 1)
+//       ]
+//     };
+//   }

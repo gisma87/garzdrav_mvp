@@ -10,7 +10,17 @@ import iconClock from "../../img/clock-regular.svg"
 
 const RetailCheckPanel = (props) => {
 
-  const {retail, sum, items} = props.item
+  const {
+    guid = '',
+    city = '',
+    street = '',
+    buildNumber = '',
+    weekDayTime = '',
+    phone = '',
+    sum = '',
+    product = ''
+  } = props.item
+
   const {list = 'main', isChecked, onCheck} = props;
 
   if (list === 'list') {
@@ -21,20 +31,20 @@ const RetailCheckPanel = (props) => {
           <div className='RetailCheckPanel__checkbox RetailCheckPanel__block'>
             <CheckboxOrange check={isChecked}
                             onCheck={() => onCheck()}
-                            id={retail.guid}
+                            id={guid}
                             name={'RetailCheckPanel'}
                             type={'radio'}
             />
           </div>
           <div className='RetailCheckPanel__content RetailCheckPanel__block RetailCheckPanelList__content'>
             <p className='RetailCheckPanel__name'><img src={iconLocation}
-                                                       alt="Адрес"/> Адрес: <span>г. {retail.city}, ул. {retail.street}, {retail.buildNumber}</span>
+                                                       alt="Адрес"/> Адрес: <span>г. {city}, ул. {street}, {buildNumber}</span>
             </p>
             <p className='RetailCheckPanel__openHours'><img src={iconClock} alt="Часы работы"/>Часы
-              работы: <span>{retail.clock}</span>
+              работы: <span>{weekDayTime}</span>
             </p>
             <p className='RetailCheckPanel__tel'><img src={iconPhone} alt="Телефон"/>Контактный
-              телефон: <span>{retail.tel}</span>
+              телефон: <span>{phone}</span>
             </p>
           </div>
           <div className='RetailCheckPanel__price'>
@@ -54,20 +64,20 @@ const RetailCheckPanel = (props) => {
           <div className='RetailCheckPanel__checkbox RetailCheckPanel__block'>
             <CheckboxOrange check={isChecked}
                             onCheck={() => onCheck()}
-                            id={retail.guid}
+                            id={guid}
                             name={'RetailCheckPanel'}
                             type={'radio'}
             />
           </div>
           <div className='RetailCheckPanel__content RetailCheckPanel__block RetailCheckPanelList__content'>
             <p className='RetailCheckPanel__name'><img src={iconLocation}
-                                                       alt="Адрес"/> Адрес: <span>г. {retail.city}, ул. {retail.street}, {retail.buildNumber}</span>
+                                                       alt="Адрес"/> Адрес: <span>г. {city}, ул. {street}, {buildNumber}</span>
             </p>
             <p className='RetailCheckPanel__openHours'><img src={iconClock} alt="Часы работы"/>Часы
-              работы: <span>{retail.clock}</span>
+              работы: <span>{weekDayTime}</span>
             </p>
             <p className='RetailCheckPanel__tel'><img src={iconPhone} alt="Телефон"/>Контактный
-              телефон: <span>{retail.tel}</span>
+              телефон: <span>{phone}</span>
             </p>
           </div>
           <div className='RetailCheckPanel__price'>
@@ -79,11 +89,11 @@ const RetailCheckPanel = (props) => {
         </div>
 
         {
-          items.map((item) => {
+          product.map((item) => {
             return (
-              <div className='RetailCheckPanelIncomplete' key={item.id}>
-                <p className='RetailCheckPanelIncomplete__title'>{item.title}</p>
-                <p className='RetailCheckPanelIncomplete__price'><span>за 1шт:</span> {item.price} ₽</p>
+              <div className='RetailCheckPanelIncomplete' key={item.guid}>
+                <p className='RetailCheckPanelIncomplete__title'>{item.product}</p>
+                <p className='RetailCheckPanelIncomplete__price'><span>за 1шт:</span> {item.priceRetail} ₽</p>
               </div>
             )
           })
@@ -98,20 +108,20 @@ const RetailCheckPanel = (props) => {
           <div className='RetailCheckPanel__checkbox RetailCheckPanel__block'>
             <CheckboxOrange check={isChecked}
                             onCheck={onCheck}
-                            id={retail.guid}
+                            id={guid}
                             name={'RetailCheckPanel'}
                             type={'radio'}
             />
           </div>
           <div className='RetailCheckPanel__content RetailCheckPanel__block'>
             <p className='RetailCheckPanel__name'><img src={iconLocation}
-                                                       alt="Адрес"/> Адрес: <span>г. {retail.city}, ул. {retail.street}, {retail.buildNumber}</span>
+                                                       alt="Адрес"/> Адрес: <span>г. {city}, ул. {street}, {buildNumber}</span>
             </p>
             <p className='RetailCheckPanel__openHours'><img src={iconClock} alt="Часы работы"/>Часы
-              работы: <span>{retail.clock}</span>
+              работы: <span>{weekDayTime}</span>
             </p>
             <p className='RetailCheckPanel__tel'><img src={iconPhone} alt="Телефон"/>Контактный
-              телефон: <span>{retail.tel}</span>
+              телефон: <span>{phone}</span>
             </p>
           </div>
           <div className='RetailCheckPanel__price'>

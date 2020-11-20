@@ -1,6 +1,7 @@
 import React from "react";
 import './CardItemMobile.scss'
 import SvgCheck from "../UI/icons/SvgCheck";
+import notPhoto from "../../img/notPhoto.svg";
 
 const CardItemMobile = ({
                           active,
@@ -18,9 +19,10 @@ const CardItemMobile = ({
   return (
     <div className={'CardItemMobile ' + classStyle}>
       <div className='CardItemMobile__imageContainer'>
-        {img ? <img className='CardItemMobile__image' src={img} alt=""
-                    onClick={(event) => onItemSelected(id, event)}
-        /> : <i className="fas fa-pills"/>}
+        {img
+          ? <img className='CardItemMobile__image' src={img} alt="photo"
+                 onClick={(event) => onItemSelected(id, event)}/>
+          : <img className='CardItem__image' src={notPhoto} alt="notPhoto"/>}
         <div className='CardItemMobile__price'>
           <p>от <span className='CardItemMobile__priceNumber'>{minPrice}</span> р.</p>
           <button className='CardItemMobile__cart buttonActive'

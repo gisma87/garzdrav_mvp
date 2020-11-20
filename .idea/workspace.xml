@@ -21,6 +21,25 @@
   <component name="ChangeListManager">
     <list default="true" id="78173063-124b-4432-8c91-25d7c3ae2a6a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< HEAD
+=======
+      <change beforePath="$PROJECT_DIR$/debug.log" beforeDir="false" afterPath="$PROJECT_DIR$/debug.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AppMobile/AppMobile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppMobile/AppMobile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/actions/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/HeaderFixed/HeaderFixed.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/HeaderFixed/HeaderFixed.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PromoBlock/PromoBlock.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PromoBlock/PromoBlock.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PromoBlockMobile/PromoBlockMobile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PromoBlockMobile/PromoBlockMobile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/RetailItem/RetailItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/RetailItem/RetailItem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SearchPanel/SearchPanel.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SearchPanel/SearchPanel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/CardPage/CardPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/CardPage/CardPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/Cards/Cards.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Cards/Cards.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/Cart/Cart.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Cart/Cart.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/Cart/oldCart.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Cart/oldCart.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/Cities/Cities.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Cities/Cities.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/reducers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/service/StoreService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/StoreService.js" afterDir="false" />
+>>>>>>> fetch2
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,8 +50,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
-        <option value="JavaScript File" />
         <option value="SCSS File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -60,19 +79,19 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\workProject\garzdrav_mvp\src\img" />
-      <recent name="D:\workProject\garzdrav_mvp\src\oldComponent" />
-      <recent name="D:\workProject\garzdrav_mvp\src\testData" />
-      <recent name="D:\workProject\garzdrav_mvp\src\components\UI" />
-      <recent name="D:\workProject\garzdrav_mvp\src\containers" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\workProject\garzdrav_mvp\src\components\PopupLogin" />
       <recent name="D:\workProject\garzdrav_mvp\src\components\PopupLogin1" />
       <recent name="D:\workProject\garzdrav_mvp\src\components\UI" />
       <recent name="D:\workProject\garzdrav_mvp\src\img\bottomNavbar" />
       <recent name="C:\Users\gisma\OneDrive\Рабочий стол\TEST" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\workProject\garzdrav_mvp\src\img" />
+      <recent name="D:\workProject\garzdrav_mvp\src\oldComponent" />
+      <recent name="D:\workProject\garzdrav_mvp\src\testData" />
+      <recent name="D:\workProject\garzdrav_mvp\src\components\UI" />
+      <recent name="D:\workProject\garzdrav_mvp\src\containers" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -134,7 +153,19 @@
       <workItem from="1605019489276" duration="23629000" />
       <workItem from="1605103303734" duration="121000" />
       <workItem from="1605146078065" duration="19887000" />
-      <workItem from="1605232639973" duration="17215000" />
+      <workItem from="1605232639973" duration="24104000" />
+      <workItem from="1605276068975" duration="148000" />
+      <workItem from="1605336495605" duration="107000" />
+      <workItem from="1605491717386" duration="24596000" />
+      <workItem from="1605521884656" duration="2791000" />
+      <workItem from="1605578946897" duration="1155000" />
+      <workItem from="1605582728975" duration="638000" />
+      <workItem from="1605622270320" duration="236000" />
+      <workItem from="1605622912590" duration="2770000" />
+      <workItem from="1605668729080" duration="17889000" />
+      <workItem from="1605751246197" duration="24867000" />
+      <workItem from="1605801301679" duration="159000" />
+      <workItem from="1605837537462" duration="2409000" />
     </task>
     <servers />
   </component>
@@ -161,10 +192,11 @@
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
     <state x="-1335" y="197" key="#Inspections/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1603170239704" />
-    <state x="-1369" y="177" key="#Intentions" timestamp="1603247233621">
+    <state x="-1369" y="177" width="818" height="731" key="#Intentions" timestamp="1605761685315">
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
     <state x="-1369" y="177" key="#Intentions/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1603247233621" />
+    <state x="-1369" y="177" width="818" height="731" key="#Intentions/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1605761685315" />
     <state x="-1563" y="324" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1604646211900">
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
@@ -183,20 +215,20 @@
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
     <state x="-1144" y="433" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1604026325168" />
-    <state x="-1153" y="120" width="1131" height="726" key="find.popup" timestamp="1605258762420">
+    <state x="-1387" y="164" width="1131" height="726" key="find.popup" timestamp="1605839931640">
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
     <state x="-1231" y="167" width="1131" height="726" key="find.popup/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1604976482267" />
-    <state x="-1153" y="120" width="1131" height="726" key="find.popup/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1605258762420" />
+    <state x="-1387" y="164" width="1131" height="726" key="find.popup/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1605839931640" />
     <state x="667" y="253" width="586" height="534" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1604126116198" />
     <state x="-1304" y="240" key="run.anything.popup" timestamp="1604899359278">
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
     <state x="-1304" y="240" key="run.anything.popup/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1604899359278" />
-    <state x="-1297" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1605174287321">
+    <state x="-1297" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1605513801652">
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
     <state x="-1297" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1604991339804" />
-    <state x="-1297" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1605174287321" />
+    <state x="-1297" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1605513801652" />
   </component>
 </project>

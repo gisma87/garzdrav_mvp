@@ -1,3 +1,5 @@
+import axios from "axios";
+
 const pillsLoaded = (cities) => {
   return {
     type: 'FETCH_CITIES_SUCCESS',
@@ -67,21 +69,12 @@ const addedToFavorits = (item) => {
   }
 }
 
-// const fetchRetailsCity = (storeService, dispatch, cityId) => () => {
-//   // console.log('я в ACTIONS')
-//   storeService.getRetailsCity(cityId)
-//     .then((data) => dispatch(retailsCityLoaded(data)))
-//     .catch((error) => console.log('ОШИБКА в fetchRetailsCity ', error));
-// }
-
 const fetchCities = (storeService, dispatch) => () => {
   dispatch(pillsRequested());
   storeService.getCities()
     .then((data) => dispatch(pillsLoaded(data)))
     .catch((error) => dispatch(pillsError(error)));
 }
-
-
 
 //запрос ProductsFromSearch
 const loadingTrue = () => {
@@ -97,6 +90,60 @@ const ProductsFromSearchLoaded = (products) => {
   }
 }
 
+const fetchProductInfo = (productId, cityId) => {
+  return async dispatch => {
+    dispatch(loadingTrue())
+    try {
+      const response = await axios.get(`http://172.16.17.7:5000/Products/byGuid?productGuid=${productId}&cityGuid=${cityId}`)
+
+      dispatch(loadingProductInfo(response.data))
+    } catch (e) {
+      console.log(e)
+    }
+  }
+}
+
+const delCartItems = () => {
+  return {
+    type: 'DEL_CART_ITEM'
+  }
+}
+
+const setCartItems = (cartItems) => {
+  return {
+    type: 'SET_CART_ITEMS',
+    payload: cartItems
+  }
+}
+
+const fetchCartItems = () => {
+  return (dispatch, getState) => {
+    const {cart, isCity} = getState()
+    dispatch(delCartItems())
+
+    if (cart.length > 0) {
+      dispatch(loadingTrue())
+      const arrFetch = cart.map(product => {
+        return axios.get(`http://172.16.17.7:5000/Products/byGuid?productGuid=${product.itemId}&cityGuid=${isCity.guid}`)
+      })
+
+      Promise.all([
+        ...arrFetch
+      ]).then(allResponses => {
+        const cartItems = allResponses.map(item => item.data)
+        dispatch(setCartItems(cartItems))
+      })
+    }
+  }
+}
+
+const loadingProductInfo = (product) => {
+  return {
+    type: 'LOADING_PRODUCT_INFO',
+    product
+  }
+}
+
 const fetchProductsFromSearch = (storeService, dispatch) => () => {
   dispatch(loadingTrue());
   storeService.getProductsFromSearch()
@@ -104,6 +151,12 @@ const fetchProductsFromSearch = (storeService, dispatch) => () => {
     .catch((error) => console.log(error));
 }
 
+const onSelectRetail = (id) => {
+  return {
+    type: 'ON_SELECT_RETAIL',
+    payload: id
+  }
+}
 
 export {
   fetchCities,
@@ -116,5 +169,8 @@ export {
   addedToFavorits,
   fetchProductsFromSearch,
   loadingTrue,
-  ProductsFromSearchLoaded
+  ProductsFromSearchLoaded,
+  fetchProductInfo,
+  fetchCartItems,
+  onSelectRetail
 }

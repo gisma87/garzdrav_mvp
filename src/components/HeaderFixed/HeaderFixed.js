@@ -23,10 +23,6 @@ const HeaderFixed = (props) => {
     return localStorage.getItem('isLogin') === 'true'
   }
 
-  // useEffect(() => {
-  //   props.storeService.setCartFromLocalStorage(rewriteCart)
-  // }, [])
-
   useEffect(() => {
     const handleScroll = () => {
       setLastScrollY(window.scrollY)
