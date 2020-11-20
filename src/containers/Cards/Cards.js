@@ -4,9 +4,7 @@ import {useMediaQuery} from 'react-responsive'
 import './Cards.scss'
 import CardItem from "../../components/CardItem";
 import {connect} from 'react-redux'
-import withStoreService from "../../hoc/withStoreService/withStoreService";
 import {addedToCart, itemRemovedFromCart, allItemRemovedFromCart} from "../../actions";
-import {compose} from "../../utils";
 import CardItemMobile from "../../components/CardItemMobile";
 import SearchPanel from "../../components/SearchPanel";
 import logo from "../../img/evalar.png";
@@ -16,23 +14,12 @@ const Cards = props => {
 
   const {history, cart, addedToCart, itemRemovedFromCart, productsFromSearch} = props;
   const [touchedSearch, setTouchedSearch] = useState(false)
-  // const [touchedSearchTimeout, setTouchedSearchTimeout] = useState(true)
 
   const onItemSelected = (itemId, event) => {
     if (!event.target.closest('button')) history.push(`${itemId}`);
   }
 
   const isMobile = useMediaQuery({query: '(max-width: 800px)'})
-
-  useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(cart));
-  })
-
-  // console.log('pills: ', pills)
-
-  // if (loading) return <div>LOADING...</div>
-  //
-  // if (error) return <div>...ERROR...</div>
 
   return (
     <section className={'Cards' + (!isMobile ? ' wrapper' : '')}>
@@ -114,11 +101,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default compose(
-  withStoreService(),
-  connect(mapStateToProps, mapDispatchToProps)
-)(withRouter(Cards))
-
-// withStoreService()(
-//   connect(mapStateToProps, mapDispatchToProps)(withRouter(Cards))
-// )
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Cards))

@@ -1,6 +1,5 @@
 import React from "react"
 import './Company.scss'
-import LayoutDesktop from "../../oldComponent/LayoutDesktop";
 
 const Company = () => {
   return (

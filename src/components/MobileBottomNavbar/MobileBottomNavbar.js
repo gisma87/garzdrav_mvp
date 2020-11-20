@@ -7,8 +7,6 @@ import SvgIconLocation from "../UI/icons/SvgIconLocation";
 import SvgIconSearch from "../UI/icons/SvgIconSearch";
 import SvgIconUser from "../UI/icons/SvgIconUser";
 import {rewriteCart} from "../../actions";
-import {compose} from "../../utils";
-import withStoreService from "../../hoc/withStoreService/withStoreService";
 import {connect} from "react-redux";
 import PopupLogin from "../PopupLogin";
 
@@ -70,7 +68,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default compose(
-  withStoreService(),
-  connect(mapStateToProps, mapDispatchToProps)
-)(withRouter(MobileBottomNavbar))
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(MobileBottomNavbar))

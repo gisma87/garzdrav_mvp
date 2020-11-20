@@ -9,8 +9,6 @@ import TitleSection from "../UI/TitleSection";
 import './PromoBlockMobile.scss'
 import dataCatds from "../../testData/dataCards";
 import {withRouter} from "react-router-dom";
-import {compose} from "../../utils";
-import withStoreService from "../../hoc/withStoreService/withStoreService";
 import {connect} from "react-redux";
 import {addedToCart, allItemRemovedFromCart, itemRemovedFromCart} from "../../actions";
 import CardItemMobile from "../CardItemMobile";
@@ -85,7 +83,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default compose(
-  withStoreService(),
-  connect(mapStateToProps, mapDispatchToProps)
-)(withRouter(PromoBlockMobile))
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(PromoBlockMobile))

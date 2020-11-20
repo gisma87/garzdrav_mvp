@@ -14,8 +14,6 @@ import Promotion from "../containers/Promotion";
 import Cards from "../containers/Cards";
 import CardPage from "../containers/CardPage";
 import {fetchCities, rewriteCart} from "../actions";
-import {compose} from "../utils";
-import withStoreService from "../hoc/withStoreService/withStoreService";
 import {connect} from "react-redux";
 import MobileBottomNavbar from "../components/MobileBottomNavbar";
 import indexMobile from "../containers/IndexMobile";
@@ -68,15 +66,11 @@ const mapStateToProps = ({cart, loading}) => {
   return {cart, loading}
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  const {storeService} = ownProps;
+const mapDispatchToProps = (dispatch) => {
   return {
-    fetchCities: fetchCities(storeService, dispatch),
+    fetchCities: () => dispatch(fetchCities()),
     rewriteCart: (item) => dispatch(rewriteCart(item))
   }
 }
 
-export default compose(
-  withStoreService(),
-  connect(mapStateToProps, mapDispatchToProps)
-)(AppMobile)
+export default connect(mapStateToProps, mapDispatchToProps)(AppMobile)

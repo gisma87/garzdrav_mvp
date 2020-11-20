@@ -11,8 +11,6 @@ import PromoPage from "./containers/PromoPage";
 import CardPage from "./containers/CardPage";
 import Promotion from "./containers/Promotion";
 import {fetchCartItems, fetchCities, rewriteCart} from "./actions";
-import {compose} from "./utils";
-import withStoreService from "./hoc/withStoreService/withStoreService";
 import {connect} from "react-redux";
 import Profile from "./containers/Profile";
 import HeaderDesktop from "./components/HeaderDesktop";
@@ -30,9 +28,15 @@ function App(props) {
     props.fetchCities();
     if (localStorage.getItem("cart")) {
       props.rewriteCart(JSON.parse(localStorage.getItem("cart")))
+
+      // серия запросов - формируется массив элементов корзины
       props.fetchCartItems()
     }
   }, [])
+
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(props.cart));
+  }, [props.cart])
 
   return (
     <div className="App">
@@ -69,16 +73,12 @@ const mapStateToProps = ({cart, loading}) => {
   return {cart, loading}
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  const {storeService} = ownProps;
+const mapDispatchToProps = (dispatch) => {
   return {
-    fetchCities: fetchCities(storeService, dispatch),
+    fetchCities: () => dispatch(fetchCities()),
     rewriteCart: (item) => dispatch(rewriteCart(item)),
     fetchCartItems: () => dispatch(fetchCartItems()),
   }
 }
 
-export default compose(
-  withStoreService(),
-  connect(mapStateToProps, mapDispatchToProps)
-)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(App)

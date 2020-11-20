@@ -14,8 +14,6 @@ import {
   fetchCartItems,
   onSelectRetail,
 } from "../../actions";
-import {compose} from "../../utils";
-import withStoreService from "../../hoc/withStoreService/withStoreService";
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
 import PopupMapCart from "../../components/PopupMapCart/PopupMapCart";
@@ -35,16 +33,14 @@ class Cart extends React.Component {
   indexActiveRetail = () => this.props.retailsArr.findIndex((item) => item.guid === this.state.checked);
 
   componentDidMount() {
-    if (localStorage.getItem("cart")) {
-      this.props.rewriteCart(JSON.parse(localStorage.getItem("cart")))
-    }
+    this.props.fetchCartItems()
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (prevProps.cart !== this.props.cart) {
-      localStorage.setItem('cart', JSON.stringify(this.props.cart));
       this.props.fetchCartItems()
     }
+
   }
 
   isChecked = (id) => this.props.selectedRetail === id;
@@ -356,7 +352,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default compose(
-  withStoreService(),
-  connect(mapStateToProps, mapDispatchToProps)
-)(withRouter(Cart))
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Cart))

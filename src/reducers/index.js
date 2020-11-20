@@ -85,7 +85,8 @@ const reducer = (state = initialState, action) => {
     case 'FETCH_RETAILS_CITY_SUCCESS':
       return {
         ...state,
-        retailsCity: action.payload
+        retailsCity: action.payload,
+        loading: false
       };
 
     case 'SET_CITY':
@@ -228,20 +229,14 @@ const reducer = (state = initialState, action) => {
         loading: false,
         error: null
       };
-    case 'FETCH_CITIES_REQUESTED' :
+
+    case 'FETCH_FAILURE' :
       return {
         ...state,
-        cities: [],
-        loading: true,
-        error: null
-      };
-    case 'FETCH_CITIES_FAILURE' :
-      return {
-        ...state,
-        cities: [],
         loading: false,
         error: action.payload
       };
+
     default:
       return state;
   }

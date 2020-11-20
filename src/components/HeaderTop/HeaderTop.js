@@ -3,8 +3,6 @@ import './HeaderTop.scss'
 import {Link, withRouter} from "react-router-dom";
 import PopupCities from "../PopupCities";
 import {setIsCity} from "../../actions";
-import {compose} from "../../utils";
-import withStoreService from "../../hoc/withStoreService/withStoreService";
 import {connect} from "react-redux";
 
 const HeaderTop = (props) => {
@@ -62,7 +60,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default compose(
-  withStoreService(),
-  connect(mapStateToProps, mapDispatchToProps)
-)(withRouter(HeaderTop))
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(HeaderTop))

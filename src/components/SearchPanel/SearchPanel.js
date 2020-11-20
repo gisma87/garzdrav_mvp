@@ -3,9 +3,8 @@ import './SearchPanel.scss'
 import {withRouter} from 'react-router-dom'
 import searchIcon from "../../img/search-solid.svg"
 import {ProductsFromSearchLoaded, loadingTrue} from "../../actions";
-import {compose} from "../../utils";
-import withStoreService from "../../hoc/withStoreService/withStoreService";
 import {connect} from "react-redux";
+import apiServise from "../../service/StoreService";
 
 const SearchPanel = (props) => {
 
@@ -31,7 +30,7 @@ const SearchPanel = (props) => {
     e.preventDefault();
     onTouched()
     loadingTrue()
-    props.storeService.getProductsFromSearch(value, isCity.guid)
+    apiServise.getProductsFromSearch(value, isCity.guid)
       .then((data) => ProductsFromSearchLoaded(data))
       .catch((error) => console.log(error));
 
@@ -62,16 +61,11 @@ const mapStateToProps = ({productsFromSearch, isCity}) => {
   return {productsFromSearch, isCity}
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  const {storeService} = ownProps;
+const mapDispatchToProps = (dispatch) => {
   return {
-    // fetchProductsFromSearch: fetchProductsFromSearch(storeService, dispatch),
     loadingTrue: () => dispatch(loadingTrue()),
     ProductsFromSearchLoaded: (data) => dispatch(ProductsFromSearchLoaded(data))
   }
 }
 
-export default compose(
-  withStoreService(),
-  connect(mapStateToProps, mapDispatchToProps)
-)(withRouter(SearchPanel))
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SearchPanel))

@@ -7,11 +7,8 @@ import iconBS from '../../img/iconmap/bs.png'
 import iconOP from '../../img/iconmap/op.png'
 import iconEV from '../../img/iconmap/evalar.png'
 import './Cities.scss'
-import {retailsCityLoaded} from "../../actions";
-import {compose} from "../../utils";
-import withStoreService from "../../hoc/withStoreService/withStoreService";
+import {fetchRetailsCity} from "../../actions";
 import {connect} from "react-redux";
-import StoreService from "../../service/StoreService";
 import BlockWrapper from "../../components/BlockWrapper";
 
 const Cities = props => {
@@ -19,8 +16,7 @@ const Cities = props => {
   const [point, setPoint] = useState([56.010563, 92.852572])
   const [zoom, setZoom] = useState(11)
   const [activeMarker, setActiveMarker] = useState(null)
-  const {cities, isCity, retailsCity} = props;
-  const storeService = new StoreService()
+  const {isCity, retailsCity} = props;
 
   const popup = ({title, address, clock, tel}) => `
   <div>
@@ -63,14 +59,15 @@ const Cities = props => {
   }
 
   useEffect(() => {
-    storeService.getRetailsCity(isCity.guid)
-      .then((data) => {
-        props.retailsCityLoaded(data)
-        setPoint(data[0].coordinates)
-        setZoom(11)
-      })
-      .catch((error) => console.log('ОШИБКА в fetchRetailsCity ', error));
+    props.fetchRetailsCity(isCity.guid)
   }, [isCity.guid])
+
+  useEffect(() => {
+    if (props.retailsCity.length) {
+      setZoom(11)
+      setPoint(props.retailsCity[0].coordinates)
+    }
+  }, [props.retailsCity])
 
   const mapState = {
     center: point,
@@ -89,75 +86,87 @@ const Cities = props => {
   return (
     <div className='Cities wrapper'>
       <h1>Аптеки в г. {isCity.title}</h1>
-      <div className='Cities__mainContainer'>
+      {retailsCity.length === 0
+        ? <p>ЧТО-ТО ПОШЛО НЕ ТАК. ПОПРОБУЙТЕ ПЕРЕЗАГРУЗИТЬ СТРАНИЦУ</p>
+        : <div className='Cities__mainContainer'>
 
-        <BlockWrapper classStyle='Cities__retails'>
-          <ul>
-            {
-              props.retailsCity.map((item) => {
-                const clock = item.weekDayTime.match(/\d\d:\d\d/g).join(' - ')
-                return <li className={'Cities__retailItem' + (item.guid === activeMarker ? ' Cities__acitveItem' : '')}
-                           key={item.guid}
-                           onClick={() => {
-                             setPoint(item.coordinates)
-                             setZoom(17)
-                             setActiveMarker(null)
-                           }}
-                >
-                  <span className='Cities__itemTitle'>{item.brand}</span>
-                  <span className='Cities__itemAddress'>{item.street} {item.buildNumber}</span>
-                  <span className='Cities__textClock'>Часы работы:&nbsp;{clock}</span>
-                  <span className='Cities__textClock'>Тел.:&nbsp;{item.phone}</span>
-                </li>
-              })
-            }
-          </ul>
-        </BlockWrapper>
-
-        <YMaps>
-          <Map className='Cities__mapContainer'
-               state={mapState}
-               modules={['control.ZoomControl', 'control.FullscreenControl', "templateLayoutFactory", "layout.ImageWithContent"]}
-          >
-            <Clusterer
-              options={{
-                preset: 'islands#invertedVioletClusterIcons',
-                groupByCoordinates: false,
-                minClusterSize: 2
-              }}
-            >
+          <BlockWrapper classStyle='Cities__retails'>
+            <ul>
               {
                 props.retailsCity.map((item) => {
-                  const {coordinates, guid, brand, city, street, buildNumber, weekDayTime, phone} = item
-                  const clock = weekDayTime.match(/\d\d:\d\d/g).join(' - ')
-                  const popup = {
-                    title: brand,
-                    address: `г. ${city},  ${street} ${buildNumber}`,
-                    clock,
-                    tel: phone
+                  const clockArr = item.weekDayTime.match(/\d\d:\d\d/g) || []
+                  let clock = ''
+                  if (clockArr.length > 1) {
+                    clock = clockArr.join(' - ')
                   }
 
-                  return <Placemark key={guid}
-                                    onClick={() => onItemClick(guid)}
-                                    {...placeMark(popup)}
-                                    geometry={coordinates}
-                                    options={{
-                                      // iconLayout: 'default#imageWithContent',
-                                      iconLayout: 'default#image',
-                                      iconImageHref: setIcon(brand),
-                                      iconImageSize: [45, 61],
-                                      iconImageOffset: [-22, -61],
-                                    }}
-                  />
+                  return <li
+                    className={'Cities__retailItem' + (item.guid === activeMarker ? ' Cities__acitveItem' : '')}
+                    key={item.guid}
+                    onClick={() => {
+                      setPoint(item.coordinates)
+                      setZoom(17)
+                      setActiveMarker(null)
+                    }}
+                  >
+                    <span className='Cities__itemTitle'>{item.brand}</span>
+                    <span className='Cities__itemAddress'>{item.street} {item.buildNumber}</span>
+                    <span className='Cities__textClock'>Часы работы:&nbsp;{clock}</span>
+                    <span className='Cities__textClock'>Тел.:&nbsp;{item.phone}</span>
+                  </li>
                 })
               }
-            </Clusterer>
-            <GeolocationControl options={{float: 'left'}}/>
-            <SearchControl options={{float: 'right'}}/>
-          </Map>
-        </YMaps>
+            </ul>
+          </BlockWrapper>
 
-      </div>
+          <YMaps>
+            <Map className='Cities__mapContainer'
+                 state={mapState}
+                 modules={['control.ZoomControl', 'control.FullscreenControl', "templateLayoutFactory", "layout.ImageWithContent"]}
+            >
+              <Clusterer
+                options={{
+                  preset: 'islands#invertedVioletClusterIcons',
+                  groupByCoordinates: false,
+                  minClusterSize: 2
+                }}
+              >
+                {
+                  props.retailsCity.map((item) => {
+                    const {coordinates, guid, brand, city, street, buildNumber, phone} = item
+                    const clockArr = item.weekDayTime.match(/\d\d:\d\d/g) || []
+                    let clock = ''
+                    if (clockArr.length > 1) {
+                      clock = clockArr.join(' - ')
+                    }
+                    const popup = {
+                      title: brand,
+                      address: `г. ${city},  ${street} ${buildNumber}`,
+                      clock,
+                      tel: phone
+                    }
+
+                    return <Placemark key={guid}
+                                      onClick={() => onItemClick(guid)}
+                                      {...placeMark(popup)}
+                                      geometry={coordinates}
+                                      options={{
+                                        // iconLayout: 'default#imageWithContent',
+                                        iconLayout: 'default#image',
+                                        iconImageHref: setIcon(brand),
+                                        iconImageSize: [45, 61],
+                                        iconImageOffset: [-22, -61],
+                                      }}
+                    />
+                  })
+                }
+              </Clusterer>
+              <GeolocationControl options={{float: 'left'}}/>
+              <SearchControl options={{float: 'right'}}/>
+            </Map>
+          </YMaps>
+
+        </div>}
     </div>
   )
 }
@@ -168,13 +177,8 @@ const mapStateToProps = ({cities, isCity, retailsCity}) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    retailsCityLoaded: (idCity) => {
-      dispatch(retailsCityLoaded(idCity))
-    }
+    fetchRetailsCity: (idCity) => dispatch(fetchRetailsCity(idCity))
   }
 }
 
-export default compose(
-  withStoreService(),
-  connect(mapStateToProps, mapDispatchToProps)
-)(Cities)
+export default connect(mapStateToProps, mapDispatchToProps)(Cities)

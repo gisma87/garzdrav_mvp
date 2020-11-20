@@ -12,8 +12,6 @@ import './PromoBlock.scss'
 import CardItem from "../CardItem";
 import dataCatds from "../../testData/dataCards";
 import {withRouter} from "react-router-dom";
-import {compose} from "../../utils";
-import withStoreService from "../../hoc/withStoreService/withStoreService";
 import {connect} from "react-redux";
 import {addedToCart, allItemRemovedFromCart, itemRemovedFromCart} from "../../actions";
 
@@ -90,9 +88,7 @@ class PromoBlock extends React.Component {
 }
 
 const mapStateToProps = ({cart}) => {
-  return {
-    cart
-  }
+  return {cart}
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -103,7 +99,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default compose(
-  withStoreService(),
-  connect(mapStateToProps, mapDispatchToProps)
-)(withRouter(PromoBlock))
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(PromoBlock))

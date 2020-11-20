@@ -1,22 +1,31 @@
 import axios from "axios";
 
-const pillsLoaded = (cities) => {
+const setError = (error) => {
   return {
-    type: 'FETCH_CITIES_SUCCESS',
-    payload: cities
-  }
-}
-
-const pillsRequested = () => {
-  return {
-    type: 'FETCH_CITIES_REQUESTED'
-  }
-}
-
-const pillsError = (error) => {
-  return {
-    type: 'FETCH_CITIES_FAILURE',
+    type: 'FETCH_FAILURE',
     payload: error
+  }
+}
+
+// запрос списка городов
+const fetchCities = () => async dispatch => {
+  try {
+    dispatch(loadingTrue())
+    const response = await axios.get('http://172.16.17.7:5000/Cities')
+    dispatch({type: 'FETCH_CITIES_SUCCESS', payload: response.data})
+  } catch (e) {
+    dispatch(setError(e))
+  }
+}
+
+// Список торговых точек в городе
+const fetchRetailsCity = (cityId) => async dispatch => {
+  try {
+    dispatch(loadingTrue())
+    const response = await axios.get(`http://172.16.17.7:5000/Retails/${cityId}`)
+    dispatch({type: 'FETCH_RETAILS_CITY_SUCCESS', payload: response.data})
+  } catch (e) {
+    dispatch(setError(e))
   }
 }
 
@@ -69,13 +78,6 @@ const addedToFavorits = (item) => {
   }
 }
 
-const fetchCities = (storeService, dispatch) => () => {
-  dispatch(pillsRequested());
-  storeService.getCities()
-    .then((data) => dispatch(pillsLoaded(data)))
-    .catch((error) => dispatch(pillsError(error)));
-}
-
 //запрос ProductsFromSearch
 const loadingTrue = () => {
   return {
@@ -116,6 +118,9 @@ const setCartItems = (cartItems) => {
   }
 }
 
+// серия запросов подробной информации о товаре из списка корзины - по IDproduct и IDcity.
+// Формируется массив cartItems - список товаров со списком аптек в нём, где этот товар есть.
+// Из массива cartItems формируется массив retailsArr - список аптек, со списком товаров из корзины имеющихся в этой аптеке.
 const fetchCartItems = () => {
   return (dispatch, getState) => {
     const {cart, isCity} = getState()
@@ -172,5 +177,6 @@ export {
   ProductsFromSearchLoaded,
   fetchProductInfo,
   fetchCartItems,
-  onSelectRetail
+  onSelectRetail,
+  fetchRetailsCity
 }

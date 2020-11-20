@@ -6,8 +6,6 @@ import {Link, withRouter} from "react-router-dom";
 import {useMediaQuery} from 'react-responsive'
 import SvgCheck from "../../components/UI/icons/SvgCheck";
 import {addedToCart, allItemRemovedFromCart, itemRemovedFromCart} from "../../actions";
-import {compose} from "../../utils";
-import withStoreService from "../../hoc/withStoreService/withStoreService";
 import {connect} from "react-redux";
 import CardItemMobile from "../../components/CardItemMobile";
 import dataCatds from "../../testData/dataCards";
@@ -180,7 +178,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default compose(
-  withStoreService(),
-  connect(mapStateToProps, mapDispatchToProps)
-)(withRouter(Profile))
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Profile))

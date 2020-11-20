@@ -4,14 +4,13 @@ import iconLoc from '../../img/test/map-pin.svg'
 import iconGZ from '../../img/iconmap/gz.png'
 import iconDA from '../../img/iconmap/da.png'
 import './CitiesMobile.scss'
-import points from "../../testData/points";
-import {retailsCityLoaded, setIsCity} from "../../actions";
-import {compose} from "../../utils";
-import withStoreService from "../../hoc/withStoreService/withStoreService";
+import {fetchRetailsCity, setIsCity} from "../../actions";
 import {connect} from "react-redux";
-import StoreService from "../../service/StoreService";
 import BlockWrapper from "../../components/BlockWrapper";
 import Select from "../../components/UI/Select/Select";
+import iconEV from "../../img/iconmap/evalar.png";
+import iconOP from "../../img/iconmap/op.png";
+import iconBS from "../../img/iconmap/bs.png";
 
 const CitiesMobile = props => {
 
@@ -19,46 +18,61 @@ const CitiesMobile = props => {
   const [point, setPoint] = useState([56.010563, 92.852572])
   const [zoom, setZoom] = useState(11)
   const [activeMarker, setActiveMarker] = useState(null)
-  const {cities, isCity, retailsCity} = props;
+  const {cities, isCity} = props;
   const [view, setView] = useState(false)
-  const storeService = new StoreService()
 
-  const popup = `
+  const popup = ({title, address, clock, tel}) => `
   <div>
-    <p><strong>Гармония здоровья</strong><br></p>
+    <p><strong>${title}</strong><br></p>
     <ul>
-      <li><strong>Адрес:&nbsp;</strong>г. Красноярск , ул. Академика Вавилова, 1 стр. 39</li>
-      <li><strong>Часы работы:&nbsp;</strong>9:00 - 22:00</li>
-      <li><strong>Телефон:&nbsp;</strong>(391) 274-29-79</li>
+      <li><strong>Адрес:&nbsp;</strong>${address}</li>
+      <li><strong>Часы работы:&nbsp;</strong>${clock}</li>
+      <li><strong>Телефон:&nbsp;</strong>${tel}</li>
     </ul>
   </div>`
-  const placeMark = {
-    properties: {
-      balloonContentBody: popup,
-      hintContent: 'Гармония здоровья',
-      // balloonContent: 'Гармония здоровья',
-      iconCaption: '157р.'
-    },
-    modules: ['geoObject.addon.balloon', 'geoObject.addon.hint']
+
+  const placeMark = (popupInfo) => {
+    return {
+      properties: {
+        balloonContentBody: popup(popupInfo),
+        hintContent: `${popupInfo.title}`,
+        // balloonContent: 'Гармония здоровья',
+        iconCaption: '157р.'
+      },
+      modules: ['geoObject.addon.balloon', 'geoObject.addon.hint']
+    }
   }
+
   let iconImage = iconLoc;
 
   function setIcon(type) {
     switch (type) {
-      case 'gz':
+      case 'Гармония Здоровья':
         return iconImage = iconGZ;
-      case 'da':
+      case 'Дешёвая Аптека':
         return iconImage = iconDA;
+      case 'Эвалар':
+        return iconImage = iconEV;
+      case 'Очень Оптика':
+        return iconImage = iconOP;
+      case 'ВСЕМ (В7)':
+        return iconImage = iconBS;
       default:
         return iconImage = iconLoc;
     }
   }
 
   useEffect(() => {
-    storeService.getRetailsCity(isCity.guid)
-      .then((data) => props.retailsCityLoaded(data))
-      .catch((error) => console.log('ОШИБКА в fetchRetailsCity ', error));
+    props.fetchRetailsCity(isCity.guid)
   }, [isCity.guid])
+
+  useEffect(() => {
+    if (props.retailsCity.length) {
+      setZoom(11)
+      setPoint(props.retailsCity[0].coordinates)
+    }
+  }, [props.retailsCity])
+
 
   const mapState = {
     center: point,
@@ -101,7 +115,12 @@ const CitiesMobile = props => {
         {!view && <BlockWrapper classStyle='CitiesMobile__retails'>
           <ul>
             {
-              points.map((item) => {
+              props.retailsCity.map((item) => {
+                const clockArr = item.weekDayTime.match(/\d\d:\d\d/g) || []
+                let clock = ''
+                if (clockArr.length > 1) {
+                  clock = clockArr.join(' - ')
+                }
                 return <li
                   className={'CitiesMobile__retailItem' + (item.guid === activeMarker ? ' Cities__acitveItem' : '')}
                   key={item.guid}
@@ -111,9 +130,10 @@ const CitiesMobile = props => {
                     setActiveMarker(null)
                   }}
                 >
-                  <span className='CitiesMobile__itemTitle'>{item.title}</span>
+                  <span className='CitiesMobile__itemTitle'>{item.brand}</span>
                   <span className='CitiesMobile__itemAddress'>{item.street} {item.buildNumber}</span>
-                  <span className='CitiesMobile__textClock'>Часы работы:&nbsp;9:00 - 22:00</span>
+                  <span className='CitiesMobile__textClock'>Часы работы:&nbsp;{clock}</span>
+                  <span className='CitiesMobile__textClock'>Тел.:&nbsp;{item.phone}</span>
                 </li>
               })
             }
@@ -132,20 +152,32 @@ const CitiesMobile = props => {
               }}
             >
               {
-                points.map(({coordinates, guid, type}) => (
-                  <Placemark key={guid}
-                    // onClick={() => setActiveMarker(guid)}
-                             {...placeMark}
-                             geometry={coordinates}
-                             options={{
-                               // iconLayout: 'default#imageWithContent',
-                               iconLayout: 'default#image',
-                               iconImageHref: setIcon(type),
-                               iconImageSize: [45, 61],
-                               iconImageOffset: [-22, -61],
-                             }}
+                props.retailsCity.map((item) => {
+                  const {coordinates, guid, brand, city, street, buildNumber, phone} = item
+                  const clockArr = item.weekDayTime.match(/\d\d:\d\d/g) || []
+                  let clock = ''
+                  if (clockArr.length > 1) {
+                    clock = clockArr.join(' - ')
+                  }
+                  const popup = {
+                    title: brand,
+                    address: `г. ${city},  ${street} ${buildNumber}`,
+                    clock,
+                    tel: phone
+                  }
+                  return <Placemark key={guid}
+                                    // onClick={() => onItemClick(guid)}
+                                    {...placeMark(popup)}
+                                    geometry={coordinates}
+                                    options={{
+                                      // iconLayout: 'default#imageWithContent',
+                                      iconLayout: 'default#image',
+                                      iconImageHref: setIcon(brand),
+                                      iconImageSize: [45, 61],
+                                      iconImageOffset: [-22, -61],
+                                    }}
                   />
-                ))
+                })
               }
             </Clusterer>
             <GeolocationControl options={{float: 'left'}}/>
@@ -165,13 +197,8 @@ const mapStateToProps = ({cities, isCity, retailsCity}) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     setIsCity: (item) => dispatch(setIsCity(item)),
-    retailsCityLoaded: (idCity) => {
-      dispatch(retailsCityLoaded(idCity))
-    }
+    fetchRetailsCity: (idCity) => dispatch(fetchRetailsCity(idCity))
   }
 }
 
-export default compose(
-  withStoreService(),
-  connect(mapStateToProps, mapDispatchToProps)
-)(CitiesMobile)
+export default connect(mapStateToProps, mapDispatchToProps)(CitiesMobile)
