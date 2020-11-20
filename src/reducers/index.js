@@ -147,21 +147,21 @@ const reducer = (state = initialState, action) => {
           retailItem.product = []
           retailItem.product.push(productItem)
 
-          if (retailsArr.length > 0) {
+          if (retailsArr.length) {
+
             // если это не первая итерация - проверяем, есть ли уже такая аптека в списке
-            const some = retailsArr.some(i => i.guid === retail.guid)
-            if (some) {
+            const someRetail = retailsArr.some(i => i.guid === retail.guid)
+            if (someRetail) {
+
               // если аптека уже есть, проверяем, есть ли в ней уже данный товар
-              let a = false
-              retailsArr.forEach(retailArrItem => {
-                if (retailArrItem.product.some(pdItem => pdItem.guid === item.guid)) {
-                  a = true
-                }
-              })
-              if (a) {
+              const itemRetail = retailsArr.find(itemRetail => itemRetail.guid === retail.guid)
+              const someProduct = itemRetail.product.some(pdItem => pdItem.guid === item.guid)
+              if (someProduct) {
+
                 // если товар есть в этой аптеке, выходим
                 return
               } else {
+
                 // если товара ещё нет в этой аптеке - добавляем
                 const index = retailsArr.findIndex((i => i.guid === retail.guid))
                 retailsArr[index].product.push(productItem)
