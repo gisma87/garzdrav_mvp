@@ -110,7 +110,7 @@ const PopupOrder = props => {
         </div>
         <p className='PopupOrder__confidentiality'>
           Нажимая кнопку "Заказать" Вы соглашаетесь с
-          <a href={'/confidentiality/'} target="_blank">политикой конфиденциальности Компании</a>
+          <a href={'/confidentiality/'} rel="noopener noreferrer" target="_blank">политикой конфиденциальности Компании</a>
         </p>
       </form>
 

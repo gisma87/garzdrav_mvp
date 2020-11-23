@@ -3,7 +3,7 @@ import './BlockWrapper.scss'
 
 const BlockWrapper = ({children, classStyle = '', onClick = () => {}}) => {
     return (
-        <div className={'BlockWrapper ' + `${classStyle}`} onClick={onClick}>
+        <div className={'BlockWrapper ' + classStyle} onClick={onClick}>
             {children}
         </div>
     )

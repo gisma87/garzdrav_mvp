@@ -1,11 +1,7 @@
 import React, {useState} from "react";
 import './PopupMapCart.scss'
-// import iconLoc from "../../img/test/map-pin.svg";
-// import iconGZ from "../../img/iconmap/gz.png";
-// import iconDA from "../../img/iconmap/da.png";
 import BlockWrapper from "../BlockWrapper";
 import {Clusterer, GeolocationControl, Map, Placemark, SearchControl, YMaps} from "react-yandex-maps";
-import SvgClose from "../UI/icons/SvgClose";
 import RetailItem from "../RetailItem";
 import PopupWrapper from "../UI/PopupWrapper/PopupWrapper";
 
@@ -32,23 +28,11 @@ const PopupMapCart = props => {
         balloonContentBody: popup(popupInfo),
         hintContent: `${popupInfo.title}`,
         // balloonContent: 'Гармония здоровья',
-        iconCaption: '157р.'
+        // iconCaption: '157р.'
       },
       modules: ['geoObject.addon.balloon', 'geoObject.addon.hint']
     }
   }
-  // let iconImage = iconLoc;
-
-  // function setIcon(type) {
-  //   switch (type) {
-  //     case 'gz':
-  //       return iconImage = iconGZ;
-  //     case 'da':
-  //       return iconImage = iconDA;
-  //     default:
-  //       return iconImage = iconLoc;
-  //   }
-  // }
 
   const mapState = {
     center: point,
@@ -87,31 +71,6 @@ const PopupMapCart = props => {
                       setActiveMarker(null)
                     }}
                   />
-
-                  // <li
-                  //   className={'PopupMapCart__retailItem' + (retail.guid === activeMarker ? ' PopupMapCart__activeItem' : '')}
-                  //   key={retail.guid}
-                  //   onClick={() => {
-                  //     setPoint(retail.coordinates)
-                  //     setZoom(17)
-                  //     setActiveMarker(null)
-                  //   }}
-                  // >
-                  //   <div className='PopupMapCart__retailItemContainer'>
-                  //     <div className='PopupMapCart__itemBlock'>
-                  //       <span className='PopupMapCart__itemTitle'>{retail.title}</span>
-                  //       <span className='PopupMapCart__itemAddress'>{retail.street} {retail.buildNumber}</span>
-                  //       <span className='PopupMapCart__textClock'>Часы работы:&nbsp;{retail.clock}</span>
-                  //     </div>
-                  //
-                  //     <button
-                  //       className={'PopupMapCart__button ' + (buttonActive(retail.guid) ? 'PopupMapCart__buttonActive' : '')}
-                  //       onClick={() => onSelectItem(retail.guid)}>
-                  //       {buttonActive(retail.guid) ? 'Выбран' : 'Выбрать'}
-                  //     </button>
-                  //   </div>
-                  //   {notFullItems() && <p className='colorRed'>не все позиции в наличии</p>}
-                  // </li>
                 )
               })
             }
@@ -130,7 +89,7 @@ const PopupMapCart = props => {
             >
               {
                 retails.map((item) => {
-                  if ((typeof item.coordinates !== 'object') || item.coordinates.length < 1) return;
+                  if ((typeof item.coordinates !== 'object') || item.coordinates.length < 1) return null;
                   const {coordinates, guid, sum, brand, city, street, buildNumber, phone, weekDayTime, product} = item;
                   const popup = {
                     title: brand,

@@ -118,6 +118,7 @@ class Cart extends React.Component {
     const {guid, product, sum} = this.checkRetailItem()
     const send = {guid, telephone: this.state.telephone, product, sum}
     console.log(send);
+
   }
 
   render() {

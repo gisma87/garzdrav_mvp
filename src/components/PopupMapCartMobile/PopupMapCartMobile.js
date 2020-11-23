@@ -6,22 +6,9 @@ import PopupWrapper from "../UI/PopupWrapper/PopupWrapper";
 
 const PopupMapCartMobile = props => {
 
-  const [point, setPoint] = useState(props.point)
-  const [zoom, setZoom] = useState(11)
   const [activeMarker, setActiveMarker] = useState(null)
   const {retails, onSelectItem} = props;
   const activeItem = retails.findIndex(item => activeMarker === item.guid)
-  console.log('КООРДИНАТЫ', point)
-
-  const popup = ({title, address, clock, tel}) => `
-  <div>
-    <p><strong>${title}</strong><br></p>
-    <ul>
-      <li><strong>Адрес:&nbsp;</strong>${address}</li>
-      <li><strong>Часы работы:&nbsp;</strong>${clock}</li>
-      <li><strong>Телефон:&nbsp;</strong>${tel}</li>
-    </ul>
-  </div>`
 
   const placeMark = (price, popupInfo, flag = false) => {
     return {
@@ -30,15 +17,15 @@ const PopupMapCartMobile = props => {
         // balloonContentBody: popup(popupInfo),
         hintContent: `${popupInfo.title}`,
         // balloonContent: 'Гармония здоровья',
-        iconCaption: '157р.'
+        // iconCaption: '157р.'
       },
       modules: ['geoObject.addon.balloon', 'geoObject.addon.hint']
     }
   }
 
   const mapState = {
-    center: point,
-    zoom: zoom,
+    center: props.point,
+    zoom: 11,
     controls: ['zoomControl', 'fullscreenControl']
   };
 
@@ -64,7 +51,7 @@ const PopupMapCartMobile = props => {
             >
               {
                 retails.map(item => {
-                  if ((typeof item.coordinates !== 'object') || item.coordinates.length < 1) return;
+                  if ((typeof item.coordinates !== 'object') || item.coordinates.length < 1) return null;
                   const {coordinates, guid, sum, brand, city, street, buildNumber, weekDayTime, phone} = item;
                   const popup = {
                     title: brand,

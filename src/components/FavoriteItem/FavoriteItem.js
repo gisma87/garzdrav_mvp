@@ -7,7 +7,7 @@ import dataCatds from "../../testData/dataCards";
 const FavoriteItem = (props) => {
   const {addedToCart, itemRemovedFromCart, cart, handlerToCards} = props.item;
   const {itemId} = props;
-  const {img, title, maker, minPrice, id} = dataCatds[itemId - 1];
+  const {img, title, maker, minPrice} = dataCatds[itemId - 1];
   const itemIndex = cart.findIndex((item) => item.itemId === itemId);
   const isActive = itemIndex >= 0;
   return (

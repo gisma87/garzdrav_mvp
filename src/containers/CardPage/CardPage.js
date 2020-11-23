@@ -38,7 +38,7 @@ const CardPage = (props) => {
 
   useEffect(() => {
     props.fetchProductInfo(itemId, isCity.guid)
-  }, [])
+  }, [itemId])// eslint-disable-line
 
   const priceRetail = () => {
     if (typeof productInfo === 'string') {
@@ -68,7 +68,7 @@ const CardPage = (props) => {
         <div className='CardPage__contentContainer'>
           <div className='CardPage__imageContainer'>
             {img
-              ? <img className='CardPage__image' src={img} alt="photo"/>
+              ? <img className='CardPage__image' src={img} alt="фото лекарство"/>
               : <img src={notPhoto} alt="pills icon" className='CardPage__image'/>}
             <p className='CardPage__caption'>Внешний вид товара может отличаться от изображения на
               сайте</p>
@@ -132,7 +132,7 @@ const CardPage = (props) => {
 
         <div className='CardPage__imageContainer'>
           {img
-            ? <img className='CardPage__image' src={img} alt="photo"/>
+            ? <img className='CardPage__image' src={img} alt="фото лекарства"/>
             : <img src={notPhoto} alt="pills icon" className='CardPage__image'/>}
           <p className='CardPage__caption'>Внешний вид товара может отличаться от изображения на
             сайте</p>

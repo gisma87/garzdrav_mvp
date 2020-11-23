@@ -20,7 +20,7 @@ const CardItemMobile = ({
     <div className={'CardItemMobile ' + classStyle}>
       <div className='CardItemMobile__imageContainer'>
         {img
-          ? <img className='CardItemMobile__image' src={img} alt="photo"
+          ? <img className='CardItemMobile__image' src={img} alt="фото лекарства"
                  onClick={(event) => onItemSelected(id, event)}/>
           : <img className='CardItem__image' src={notPhoto} alt="notPhoto"/>}
         <div className='CardItemMobile__price'>

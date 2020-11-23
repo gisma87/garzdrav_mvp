@@ -11,7 +11,7 @@ const CardItem = ({active, id, title, maker, img, minPrice, classStyle = '', onI
          onClick={(event) => onItemSelected(id, event)}>
       <div className='CardItem__imageContainer'>
         {img
-          ? <img className='CardItem__image' src={img} alt="photo"/>
+          ? <img className='CardItem__image' src={img} alt="icon"/>
           : <img className='CardItem__image' src={notPhoto} alt="notPhoto"/>}
       </div>
       <div className='CardItem__textContainer'>

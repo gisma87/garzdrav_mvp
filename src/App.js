@@ -32,7 +32,7 @@ function App(props) {
       // серия запросов - формируется массив элементов корзины
       props.fetchCartItems()
     }
-  }, [])
+  }, [])// eslint-disable-line
 
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(props.cart));

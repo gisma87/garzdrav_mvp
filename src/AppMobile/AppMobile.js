@@ -27,7 +27,7 @@ function AppMobile(props) {
     if (localStorage.getItem("cart")) {
       props.rewriteCart(JSON.parse(localStorage.getItem("cart")))
     }
-  }, [])
+  }, [])// eslint-disable-line
 
   useEffect(() => console.log('RENDER APP'))
 

@@ -43,28 +43,26 @@ const CitiesMobile = props => {
     }
   }
 
-  let iconImage = iconLoc;
-
   function setIcon(type) {
     switch (type) {
       case 'Гармония Здоровья':
-        return iconImage = iconGZ;
+        return iconGZ;
       case 'Дешёвая Аптека':
-        return iconImage = iconDA;
+        return iconDA;
       case 'Эвалар':
-        return iconImage = iconEV;
+        return iconEV;
       case 'Очень Оптика':
-        return iconImage = iconOP;
+        return iconOP;
       case 'ВСЕМ (В7)':
-        return iconImage = iconBS;
+        return iconBS;
       default:
-        return iconImage = iconLoc;
+        return iconLoc;
     }
   }
 
   useEffect(() => {
     props.fetchRetailsCity(isCity.guid)
-  }, [isCity.guid])
+  }, [isCity.guid])// eslint-disable-line
 
   useEffect(() => {
     if (props.retailsCity.length) {
@@ -166,7 +164,7 @@ const CitiesMobile = props => {
                     tel: phone
                   }
                   return <Placemark key={guid}
-                                    // onClick={() => onItemClick(guid)}
+                    // onClick={() => onItemClick(guid)}
                                     {...placeMark(popup)}
                                     geometry={coordinates}
                                     options={{

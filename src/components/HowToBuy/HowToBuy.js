@@ -15,7 +15,7 @@ class HowToBuy extends React.Component {
           <div className={classes.blockbuy}>
             <div className={classes.item}>
               <div className={classes.icon}>
-                <img src={imgPills}/>
+                <img src={imgPills} alt='выберите лекарство'/>
               </div>
               <div className={classes.text}>
                 выберите лекарство
@@ -26,7 +26,7 @@ class HowToBuy extends React.Component {
 
             <div className={classes.item}>
               <div className={classes.icon}>
-                <img src={imgStack}/>
+                <img src={imgStack} alt='добавьте в корзину'/>
               </div>
               <div className={classes.text}>
                 добавьте в корзину
@@ -37,7 +37,7 @@ class HowToBuy extends React.Component {
 
             <div className={classes.item}>
               <div className={classes.icon}>
-                <img src={imgRoad}/>
+                <img src={imgRoad} alt='выберите аптеку'/>
               </div>
               <div className={classes.text}>
                 выберите аптеку
@@ -48,7 +48,7 @@ class HowToBuy extends React.Component {
 
             <div className={classes.item}>
               <div className={classes.icon}>
-                <img src={imgMan}/>
+                <img src={imgMan} alt='получите лекарство'/>
               </div>
               <div className={classes.text}>
                 получите лекарство

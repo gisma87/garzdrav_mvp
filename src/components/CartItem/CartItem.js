@@ -5,14 +5,14 @@ import notPhoto from "../../img/notPhoto.svg";
 
 const CartItem = (props) => {
   const {allItemRemovedFromCart, itemRemovedFromCart, addedToCart, addedToFavorits, count, isFavorite, classStyle = ''} = props;
-  const {id, img, title, maker, price, sum, minPrice} = props.item;
+  const {img, title, maker, sum, minPrice} = props.item;
 
   return (
-    <BlockWrapper classStyle={'CartItem ' + `${classStyle}`}>
+    <BlockWrapper classStyle={'CartItem ' + classStyle}>
       <div className='CartItem__container'>
         <div className='CartItem__imageContainer'>
           {img
-            ? <img className='CartItem__image' src={img} alt=""/>
+            ? <img className='CartItem__image' src={img} alt='icon'/>
             : <img src={notPhoto} alt="pills icon" className='CartItem__image'/>
           }
         </div>
