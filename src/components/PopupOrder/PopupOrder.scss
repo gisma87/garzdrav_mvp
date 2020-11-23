@@ -7,6 +7,9 @@
   position: relative;
   box-sizing: border-box;
   padding: 30px 25px;
+  @media (max-width: 800px) {
+    overflow-y: auto;
+  }
   @media screen and (max-width: 400px) {
     width: 100%;
   }
@@ -66,6 +69,19 @@
     color: #E26C2D;
     font-weight: bold;
     font-size: 18px;
+  }
+
+  &__alert {
+    color: red;
+    margin: 5px 0 5px;
+
+    p {
+      margin: 3px 0 0;
+    }
+
+    p:first-child {
+      color: #000;
+    }
   }
 
   &__inputLabel {
@@ -179,5 +195,62 @@
 
   &__buyTrueContent {
     margin-bottom: 25px;
+  }
+
+
+  &__containerLists {
+    transition: all .2s;
+    height: 0;
+    opacity: 0;
+  }
+
+  &__listShow {
+    transition: opacity .5s;
+    height: 100%;
+    opacity: 1;
+  }
+
+
+  &__productsList {
+    display: flex;
+    justify-content: space-between;
+    padding: 1px 3px;
+    margin: 3px 0;
+    background-color: #FFFAFA;
+    border-bottom: 1px solid #8c8c8c;
+  }
+
+  &__titleProduct {
+    flex: 1 1 70%;
+
+    overflow: hidden;
+    white-space: normal;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+  }
+
+  &__priceContainerProduct {
+    flex: 1 1 20%;
+    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__countProduct {
+    font-size: 12px;
+    font-weight: bold;
+    color: #737373;
+    padding: 0 5px;
+    white-space: nowrap;
+
+    span {
+      font-size: 14px;
+    }
+  }
+
+  &__priceProduct {
+    min-width: 75px;
   }
 }

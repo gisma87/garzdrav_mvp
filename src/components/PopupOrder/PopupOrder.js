@@ -6,6 +6,7 @@ const PopupOrder = props => {
 
   const [formValid, setFormValid] = useState(false)
   const [buy, setBuy] = useState(false)
+  const [showDescription, setShowDescription] = useState(false)
 
   const checkedItem = () => {
     return props.retails.find((item) => item.guid === props.checked)
@@ -42,10 +43,32 @@ const PopupOrder = props => {
           </select>
         </div>
         <div className='PopupOrder__priceContainer'>
-          <p>Cумма заказа: </p>
+          <p>Сумма заказа: </p>
           <p className='PopupOrder__sum'>{checkedItem().sum} ₽</p>
         </div>
 
+        {!props.isFullActiveRetail &&
+        <div className='PopupOrder__alert'>
+          <p>В этой аптеке можно купить <span
+            onClick={() => setShowDescription(!showDescription)}>{props.quantity}</span></p>
+          <p>Недостающие позиции будут удалены из текущего заказа, но останутся в корзине</p>
+        </div>}
+
+        {
+        <div className={'PopupOrder__containerLists' + (showDescription ? ' PopupOrder__listShow' : '')}>
+          {props.product.map((item) => {
+            return (
+              <div className='PopupOrder__productsList' key={item.guid}>
+                <p className='PopupOrder__titleProduct'>{item.product}</p>
+                <div className='PopupOrder__priceContainerProduct'>
+                  <p className='PopupOrder__countProduct'><span>{item.count}</span> шт:</p>
+                  <p className='PopupOrder__priceProduct'>{(item.priceRetail * item.count).toFixed(2)} ₽</p>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+        }
 
         <div className='PopupOrder__inputLabel'>
           <label htmlFor="PopupOrder-contact">

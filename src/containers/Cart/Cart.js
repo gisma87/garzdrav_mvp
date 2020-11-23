@@ -99,6 +99,11 @@ class Cart extends React.Component {
     return <p style={styleErr}>{a} из {b} товаров</p>
   }
 
+  // проверяет имеет ли активная Аптека полный набор товаров
+  isFullActiveRetail = () => {
+    return this.checkRetailItem().product.length === this.props.cart.length
+  }
+
   // возвращает сумму всех товаров в выбранной аптеке
   getSum = () => {
     const sum = this.calculateAmountArray().reduce((accumulator, currentValue) => {
@@ -342,6 +347,9 @@ class Cart extends React.Component {
                              onClick={() => this.setState({popupOrder: false})}
                              onChange={(e) => this.props.onSelectRetail(e.target.value)}
                              retails={this.props.retailsArr}
+                             isFullActiveRetail={this.isFullActiveRetail()}
+                             quantity={this.calcQuantityProduct(this.checkRetailItem().product)}
+                             product={this.checkRetailItem().product}
               />
             }
           </>
