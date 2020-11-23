@@ -79,6 +79,10 @@
     justify-content: space-between;
     align-items: flex-end;
 
+    div {
+      text-align: right;
+    }
+
     p {
       font-weight: bold;
       font-size: 18px;
@@ -124,9 +128,9 @@
 .RetailCheckPanelIncomplete {
   display: flex;
   justify-content: space-between;
-  //padding: 3px 20px 3px 40px;
+  padding: 1px 3px;
   margin: 3px 20px 3px 40px;
-  background-color: #F5F5F5;
+  background-color: #FFFAFA;
   border-bottom: 1px solid #8c8c8c;
 
   &__title {
@@ -140,13 +144,25 @@
     -webkit-line-clamp: 1;
   }
 
-  &__price {
+  &__priceContainer {
     flex: 1 1 20%;
     text-align: right;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__price {
+    min-width: 75px;
+  }
+
+  &__count {
+    font-size: 12px;
+    font-weight: bold;
+    color: #737373;
+    padding: 0 5px;
+
     span {
-      font-size: 12px;
-      color: #737373;
-      margin-right: 3px;
+      font-size: 14px;
     }
   }
 }

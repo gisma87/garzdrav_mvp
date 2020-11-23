@@ -43,12 +43,15 @@ class Cart extends React.Component {
 
   }
 
+  // соответствует ли id элемента выбранное аптеке
   isChecked = (id) => this.props.selectedRetail === id;
 
+  // возвращает элемент выбранной аптеки
   checkRetailItem = () => {
     return this.props.retailsArr.find(item => item.guid === this.props.selectedRetail)
   }
 
+  // возвращает массив аптек с полным наличием товара или null
   getFullRetailItemState = () => {
     const itemArr = this.props.retailsArr.filter(item => item.product.length >= this.props.cart.length)
     if (itemArr.length > 0) {
@@ -57,6 +60,7 @@ class Cart extends React.Component {
     return null
   }
 
+  // возвращает массив id товара - сумма этого товара в выбранной аптеке
   calculateAmountArray = () => {
     const cartItems = []
     this.props.cartItems.forEach(item => {
@@ -70,6 +74,32 @@ class Cart extends React.Component {
     return cartItems
   }
 
+  // возвращает подпись в сколько товаров из списка есть в данной аптеке на вход принимает массив товаров в аптеке
+  calcQuantityProduct = (obj) => {
+    const styleErr = {
+      color: 'red',
+      fontSize: 14,
+      display: 'inline',
+      borderBottom: '1px dashed #000',
+      cursor: 'pointer'
+    }
+    const a = obj.length
+    const b = this.props.cart.length
+
+    if (a === b) {
+      return <p style={{
+        fontSize: 14,
+        color: 'green',
+        display: 'inline',
+        borderBottom: '1px dashed #000',
+        cursor: 'pointer'
+      }}>все товары</p>
+    }
+
+    return <p style={styleErr}>{a} из {b} товаров</p>
+  }
+
+  // возвращает сумму всех товаров в выбранной аптеке
   getSum = () => {
     const sum = this.calculateAmountArray().reduce((accumulator, currentValue) => {
       if (currentValue.sum === null) return accumulator;
@@ -141,6 +171,8 @@ class Cart extends React.Component {
                     {this.checkRetailItem()?.street},&nbsp;
                     {this.checkRetailItem()?.buildNumber}
               </span>
+                  {!(this.checkRetailItem().product.length === this.props.cart.length) &&
+                  <span style={{color: 'red', margin: 0}}>товар доступен частично</span>}
                 </div>
                 <button className='Cart__button Cart__buttonToCart'
                         onClick={() => this.setState({popupOrder: true})}
@@ -239,6 +271,7 @@ class Cart extends React.Component {
                 {
                   this.getFullRetailItemState()[0]
                   && <RetailCheckPanel item={this.getFullRetailItemState()[0]}
+                                       quantity={this.calcQuantityProduct(this.getFullRetailItemState()[0].product)}
                                        isChecked={this.isChecked(this.getFullRetailItemState()[0]?.guid)}
                                        onCheck={() => this.props.onSelectRetail(this.getFullRetailItemState()[0]?.guid)}
                   />
@@ -251,6 +284,7 @@ class Cart extends React.Component {
                       : this.getFullRetailItemState().map((item, index) => {
                         if (index === 0) return null;
                         return <RetailCheckPanel key={item.guid}
+                                                 quantity={this.calcQuantityProduct(item.product)}
                                                  item={item}
                                                  list='list'
                                                  isChecked={this.isChecked(item.guid)}
@@ -289,6 +323,7 @@ class Cart extends React.Component {
                     incompleteRetailItemState.map((item) => {
                       return <RetailCheckPanel key={item.guid}
                                                item={item}
+                                               quantity={this.calcQuantityProduct(item.product)}
                                                list='incomplete'
                                                isChecked={this.isChecked(item.guid)}
                                                onCheck={() => this.props.onSelectRetail(item.guid)}
