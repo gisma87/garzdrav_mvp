@@ -12,18 +12,25 @@ const PopupOrder = props => {
     return props.retails.find((item) => item.guid === props.checked)
   }
 
+  const onSummitHandler = (event) => {
+    event.preventDefault()
+    setBuy(true)
+    setFormValid(false)
+    props.onSubmit()
+  }
+
   return (
     <PopupWrapper onClick={props.onClick} active={props.active} classStyle='PopupOrder'>
       <h3 className="PopupOrder__title">{!buy ? 'Оформить заказ' : 'Заказ принят к исполнению'}</h3>
 
-      {!buy ? <form className="PopupOrder__form" name="PopupOrder__form"
-                    onSubmit={(event) => event.preventDefault()}
-                    onChange={(event) => {
-                      const input = event.target;
-                      if (input.id === 'PopupOrder-contact') {
-                        setFormValid(input.checkValidity())
-                      }
-                    }}
+      <form className={"PopupOrder__form" + (buy ? ' PopupOrder__buyActive' : '')} name="PopupOrder__form"
+            onSubmit={onSummitHandler}
+            onChange={(event) => {
+              const input = event.target;
+              if (input.id === 'PopupOrder-contact') {
+                setFormValid(input.checkValidity())
+              }
+            }}
       >
         <div className='PopupOrder__selectContainer'>
           <p className='PopupOrder__titleInput'>Забрать из аптеки</p>
@@ -55,19 +62,19 @@ const PopupOrder = props => {
         </div>}
 
         {
-        <div className={'PopupOrder__containerLists' + (showDescription ? ' PopupOrder__listShow' : '')}>
-          {props.product.map((item) => {
-            return (
-              <div className='PopupOrder__productsList' key={item.guid}>
-                <p className='PopupOrder__titleProduct'>{item.product}</p>
-                <div className='PopupOrder__priceContainerProduct'>
-                  <p className='PopupOrder__countProduct'><span>{item.count}</span> шт:</p>
-                  <p className='PopupOrder__priceProduct'>{(item.priceRetail * item.count).toFixed(2)} ₽</p>
+          <div className={'PopupOrder__containerLists' + (showDescription ? ' PopupOrder__listShow' : '')}>
+            {props.product.map((item) => {
+              return (
+                <div className='PopupOrder__productsList' key={item.guid}>
+                  <p className='PopupOrder__titleProduct'>{item.product}</p>
+                  <div className='PopupOrder__priceContainerProduct'>
+                    <p className='PopupOrder__countProduct'><span>{item.count}</span> шт:</p>
+                    <p className='PopupOrder__priceProduct'>{(item.priceRetail * item.count).toFixed(2)} ₽</p>
+                  </div>
                 </div>
-              </div>
-            )
-          })}
-        </div>
+              )
+            })}
+          </div>
         }
 
         <div className='PopupOrder__inputLabel'>
@@ -75,6 +82,7 @@ const PopupOrder = props => {
             <fieldset>
               <legend>Введите телефон</legend>
               <input
+                onChange={props.onChangeInput}
                 type="text"
                 name="PopupOrder-contact"
                 className="PopupOrder__input PopupOrder__input_type_name"
@@ -91,13 +99,8 @@ const PopupOrder = props => {
 
         <div className='PopupOrder__buttonContainer'>
           <button type='submit'
-                  className={"PopupOrder__button " + (formValid ? "PopupOrder__button_active" : '')}
-                  onClick={() => {
-                    setBuy(true)
-                    setFormValid(false)
-                    // props.onClick()
-                  }}
                   disabled={!formValid}
+                  className={"PopupOrder__button " + (formValid ? "PopupOrder__button_active" : '')}
           >
             Заказать
           </button>
@@ -109,13 +112,15 @@ const PopupOrder = props => {
           Нажимая кнопку "Заказать" Вы соглашаетесь с
           <a href={'/confidentiality/'} target="_blank">политикой конфиденциальности Компании</a>
         </p>
-      </form> : <div className='PopupOrder__buyTrue'>
+      </form>
+
+      <div className={'PopupOrder__buyTrue' + (!buy ? ' PopupOrder__buyActive' : '')}>
 
         <div className='PopupOrder__buyTrueContent'>
           <p>Ваш заказ N-XXX-XXX-XXX принят к исполнению.</p>
           <p>Об изменении статуса заказа будет сообщено по СМС</p>
         </div>
-        <button type='submit'
+        <button type='button'
                 className={"PopupOrder__button PopupOrder__button_active"}
                 onClick={() => {
                   props.onClick()
@@ -124,7 +129,7 @@ const PopupOrder = props => {
         >
           ОК
         </button>
-      </div>}
+      </div>
     </PopupWrapper>
   )
 }

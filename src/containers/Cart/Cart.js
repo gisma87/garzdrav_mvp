@@ -28,6 +28,7 @@ class Cart extends React.Component {
     popupMap: false,
     popupOrder: false,
     view: false,
+    telephone: ''
   }
 
   indexActiveRetail = () => this.props.retailsArr.findIndex((item) => item.guid === this.state.checked);
@@ -111,6 +112,12 @@ class Cart extends React.Component {
       return currentValue.sum + accumulator
     }, 0)
     return +sum.toFixed(2)
+  }
+
+  postBuyOrder = () => {
+    const {guid, product, sum} = this.checkRetailItem()
+    const send = {guid, telephone: this.state.telephone, product, sum}
+    console.log(send);
   }
 
   render() {
@@ -346,10 +353,12 @@ class Cart extends React.Component {
                              checked={this.props.selectedRetail}
                              onClick={() => this.setState({popupOrder: false})}
                              onChange={(e) => this.props.onSelectRetail(e.target.value)}
+                             onChangeInput={(e) => this.setState({telephone: e.target.value})}
                              retails={this.props.retailsArr}
                              isFullActiveRetail={this.isFullActiveRetail()}
                              quantity={this.calcQuantityProduct(this.checkRetailItem().product)}
                              product={this.checkRetailItem().product}
+                             onSubmit={this.postBuyOrder}
               />
             }
           </>
