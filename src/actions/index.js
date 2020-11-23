@@ -137,6 +137,8 @@ const fetchCartItems = () => {
       ]).then(allResponses => {
         const cartItems = allResponses.map(item => item.data)
         dispatch(setCartItems(cartItems))
+      }).catch(allError => {
+        dispatch(setError((allError)))
       })
     }
   }
@@ -149,13 +151,6 @@ const loadingProductInfo = (product) => {
   }
 }
 
-const fetchProductsFromSearch = (storeService, dispatch) => () => {
-  dispatch(loadingTrue());
-  storeService.getProductsFromSearch()
-    .then((data) => dispatch(ProductsFromSearchLoaded(data)))
-    .catch((error) => console.log(error));
-}
-
 const onSelectRetail = (id) => {
   return {
     type: 'ON_SELECT_RETAIL',
@@ -164,6 +159,7 @@ const onSelectRetail = (id) => {
 }
 
 export {
+  setError,
   fetchCities,
   setIsCity,
   retailsCityLoaded,
@@ -172,7 +168,6 @@ export {
   allItemRemovedFromCart,
   rewriteCart,
   addedToFavorits,
-  fetchProductsFromSearch,
   loadingTrue,
   ProductsFromSearchLoaded,
   fetchProductInfo,

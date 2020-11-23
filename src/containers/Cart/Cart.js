@@ -121,6 +121,8 @@ class Cart extends React.Component {
 
   }
 
+
+
   render() {
     const sum = this.getSum()
     let incompleteRetailItemState = []
@@ -129,7 +131,7 @@ class Cart extends React.Component {
     return (
       <div className='Cart wrapper'>
         <h1>Корзина</h1>
-        {(this.props.retailsArr.length < 1) && (this.props.cart.length > 0)
+        {(this.props.retailsArr.length < 1) && (this.props.cart.length > 0) && !this.props.error
           ? <p>Загрузка ...</p>
           : <>
             {!this.props.isRetailAllProduct && <p>К сожалению нет аптек с полным ассортиментом выбранного товара</p>}
@@ -370,6 +372,7 @@ class Cart extends React.Component {
 
 const mapStateToProps = (
   {
+    error,
     cart,
     favorites,
     isCity,
@@ -380,6 +383,7 @@ const mapStateToProps = (
     isRetailAllProduct
   }) => {
   return {
+    error,
     cart,
     favorites,
     isCity,

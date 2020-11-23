@@ -2,7 +2,7 @@ import React, {useState} from "react"
 import './SearchPanel.scss'
 import {withRouter} from 'react-router-dom'
 import searchIcon from "../../img/search-solid.svg"
-import {ProductsFromSearchLoaded, loadingTrue} from "../../actions";
+import {ProductsFromSearchLoaded, loadingTrue, setError} from "../../actions";
 import {connect} from "react-redux";
 import apiServise from "../../service/StoreService";
 
@@ -32,7 +32,9 @@ const SearchPanel = (props) => {
     loadingTrue()
     apiServise.getProductsFromSearch(value, isCity.guid)
       .then((data) => ProductsFromSearchLoaded(data))
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        setError(error)
+      });
 
     setValue('')
     props.history.push('/Cards/')
@@ -64,6 +66,7 @@ const mapStateToProps = ({productsFromSearch, isCity}) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     loadingTrue: () => dispatch(loadingTrue()),
+    setError: (e) => dispatch(setError(e)),
     ProductsFromSearchLoaded: (data) => dispatch(ProductsFromSearchLoaded(data))
   }
 }
