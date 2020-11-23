@@ -57,7 +57,8 @@ const PopupOrder = props => {
         {!props.isFullActiveRetail &&
         <div className='PopupOrder__alert'>
           <p>В этой аптеке можно купить <span
-            onClick={() => setShowDescription(!showDescription)}>{props.quantity}</span></p>
+            onClick={() => setShowDescription(!showDescription)}>{checkedItem().product.length} из {props.cart.length} товаров</span>
+          </p>
           <p>Недостающие позиции будут удалены из текущего заказа, но останутся в корзине</p>
         </div>}
 
@@ -110,7 +111,8 @@ const PopupOrder = props => {
         </div>
         <p className='PopupOrder__confidentiality'>
           Нажимая кнопку "Заказать" Вы соглашаетесь с
-          <a href={'/confidentiality/'} rel="noopener noreferrer" target="_blank">политикой конфиденциальности Компании</a>
+          <a href={'/confidentiality/'} rel="noopener noreferrer" target="_blank">политикой конфиденциальности
+            Компании</a>
         </p>
       </form>
 

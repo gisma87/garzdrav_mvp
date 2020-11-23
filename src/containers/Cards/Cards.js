@@ -51,37 +51,38 @@ const Cards = props => {
 
         <div className='Cards__cardList'>
           {(touchedSearch || !isMobile) &&
-          // dataCatds
-          productsFromSearch.map((item) => {
-            const {guid, product, manufacturer, img = null, minPrice} = item;
-            const itemIndex = cart.findIndex((item) => item.itemId === guid);
-            const isActive = itemIndex >= 0;
-            return (
-              isMobile
-                ? <CardItemMobile onItemSelected={onItemSelected}
-                                  updateToCart={() => {
-                                    !isActive ? addedToCart(guid) : itemRemovedFromCart(guid);
-                                  }}
-                                  active={isActive}
-                                  key={guid}
-                                  id={guid}
-                                  title={product}
-                                  maker={manufacturer}
-                                  img={img}
-                                  minPrice={minPrice}/>
-                : <CardItem onItemSelected={onItemSelected}
-                            updateToCart={() => {
-                              !isActive ? addedToCart(guid) : itemRemovedFromCart(guid);
-                            }}
-                            active={isActive}
-                            key={guid}
-                            id={guid}
-                            title={product}
-                            maker={manufacturer}
-                            img={img}
-                            minPrice={minPrice}/>
-            )
-          })
+          productsFromSearch.length
+            ? productsFromSearch.map((item) => {
+              const {guid, product, manufacturer, img = null, minPrice} = item;
+              const itemIndex = cart.findIndex((item) => item.itemId === guid);
+              const isActive = itemIndex >= 0;
+              return (
+                isMobile
+                  ? <CardItemMobile onItemSelected={onItemSelected}
+                                    updateToCart={() => {
+                                      !isActive ? addedToCart(guid) : itemRemovedFromCart(guid);
+                                    }}
+                                    active={isActive}
+                                    key={guid}
+                                    id={guid}
+                                    title={product}
+                                    maker={manufacturer}
+                                    img={img}
+                                    minPrice={minPrice}/>
+                  : <CardItem onItemSelected={onItemSelected}
+                              updateToCart={() => {
+                                !isActive ? addedToCart(guid) : itemRemovedFromCart(guid);
+                              }}
+                              active={isActive}
+                              key={guid}
+                              id={guid}
+                              title={product}
+                              maker={manufacturer}
+                              img={img}
+                              minPrice={minPrice}/>
+              )
+            })
+            : <p>По вашему запросу ничего не найдено. Попробуйте изменить запрос.</p>
           }
         </div>
       </div>

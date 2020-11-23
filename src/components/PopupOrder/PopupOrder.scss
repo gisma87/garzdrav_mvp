@@ -82,10 +82,17 @@
     p:first-child {
       color: #000;
     }
+
+    span {
+      color: red;
+      border-bottom: 1px dashed blue;
+      cursor: pointer;
+    }
   }
 
   &__inputLabel {
     margin-top: 25px;
+    z-index: 6;
 
     p {
       color: #777;
@@ -147,6 +154,7 @@
     cursor: pointer;
     background-color: transparent;
     transition: .1s ease-in-out;
+    z-index: 6;
 
     &:active {
       transform: scale(.98);
@@ -202,12 +210,14 @@
     transition: all .2s;
     height: 0;
     opacity: 0;
+    overflow: hidden;
   }
 
   &__listShow {
     transition: opacity .5s;
     height: 100%;
     opacity: 1;
+    overflow: auto;
   }
 
 

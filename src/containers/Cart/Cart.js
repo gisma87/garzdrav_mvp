@@ -125,7 +125,6 @@ class Cart extends React.Component {
     const sum = this.getSum()
     let incompleteRetailItemState = []
     incompleteRetailItemState = this.props.retailsArr.filter(item => item.product.length < this.props.cart.length)
-    console.log('ВЫБРАННАЯ АПТЕКА: ', this.checkRetailItem());
 
     return (
       <div className='Cart wrapper'>
@@ -357,7 +356,7 @@ class Cart extends React.Component {
                              onChangeInput={(e) => this.setState({telephone: e.target.value})}
                              retails={this.props.retailsArr}
                              isFullActiveRetail={this.isFullActiveRetail()}
-                             quantity={this.calcQuantityProduct(this.checkRetailItem().product)}
+                             cart={this.props.cart}
                              product={this.checkRetailItem().product}
                              onSubmit={this.postBuyOrder}
               />
