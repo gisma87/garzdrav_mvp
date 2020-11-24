@@ -1,9 +1,17 @@
 import axios from "axios";
+import apiServise from "../service/StoreService";
 
 const setError = (error) => {
   return {
     type: 'FETCH_FAILURE',
     payload: error
+  }
+}
+
+const setIsCity = (isCity) => {
+  return {
+    type: 'SET_CITY',
+    payload: isCity
   }
 }
 
@@ -13,6 +21,21 @@ const fetchCities = () => async dispatch => {
     dispatch(loadingTrue())
     const response = await axios.get('http://172.16.17.7:5000/Cities')
     dispatch({type: 'FETCH_CITIES_SUCCESS', payload: response.data})
+
+
+    apiServise.getUserCity()
+      .then(({city, ip}) => {
+        console.log(city, ip);
+
+        const cityItem = response.data.find(item => city === item.title)
+        dispatch(setIsCity(cityItem))
+
+      })
+      .catch(err => {
+        console.log(err);
+      });
+
+
   } catch (e) {
     dispatch(setError(e))
   }
@@ -26,13 +49,6 @@ const fetchRetailsCity = (cityId) => async dispatch => {
     dispatch({type: 'FETCH_RETAILS_CITY_SUCCESS', payload: response.data})
   } catch (e) {
     dispatch(setError(e))
-  }
-}
-
-const setIsCity = (isCity) => {
-  return {
-    type: 'SET_CITY',
-    payload: isCity
   }
 }
 

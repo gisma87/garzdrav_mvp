@@ -26,6 +26,7 @@ function App(props) {
 
   useEffect(() => {
     props.fetchCities();
+
     if (localStorage.getItem("cart")) {
       props.rewriteCart(JSON.parse(localStorage.getItem("cart")))
 

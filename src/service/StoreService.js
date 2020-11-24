@@ -15,6 +15,34 @@ class ApiService {
     }
     return await res.json();
   }
+
+  // определение города и IP пользователя
+  getUserCity() {
+    return new Promise((resolve, reject) => {
+      fetch('https://api.ipify.org?format=json')
+        .then(res => res.json())
+        .then(({ip}) => {
+          fetch(
+            `https://suggestions.dadata.ru/suggestions/api/4_1/rs/iplocate/address?ip=${ip}&token=3403f978625b46f2052d4e9dbbf08eb6fa06ee19`
+          )
+            .then(res => res.json())
+            .then(json => {
+              if (
+                {}.hasOwnProperty.call(json, 'family') &&
+                json.family.toLowerCase().indexOf('err')
+              ) {
+                return reject(json);
+              }
+              const {
+                location: {
+                  data: {city},
+                },
+              } = json;
+              resolve({city, ip});
+            });
+        });
+    });
+  }
 }
 
 const apiServise = new ApiService()

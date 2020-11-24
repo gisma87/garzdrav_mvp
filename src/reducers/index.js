@@ -2,7 +2,7 @@ const initialState = {
   cities: [],
   loading: true,
   error: null,
-  isCity: {guid: "c073f480-6d97-4af3-976b-3c069f39db52", title: "Красноярск"},
+  isCity: {guid: "c384a061-7641-4605-a340-afb825fdcb70", title: "Абакан"},
   retailsCity: [],
   cart: [],
   favorites: [],
