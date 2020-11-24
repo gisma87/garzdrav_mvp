@@ -29,7 +29,8 @@ class Cart extends React.Component {
     popupMap: false,
     popupOrder: false,
     view: false,
-    telephone: ''
+    telephone: '',
+    error: <Error/>
   }
 
   indexActiveRetail = () => this.props.retailsArr.findIndex((item) => item.guid === this.state.checked);
@@ -122,6 +123,16 @@ class Cart extends React.Component {
 
   }
 
+  clearCartError = () => {
+    setTimeout(this.props.clearCart, 8000)
+    setTimeout(() => {
+      this.setState({
+        error: <p style={{fontSize: 24}}>Запрос вернул ошибку, из-за смены регионов. Корзина будет очищена.</p>
+      })
+    }, 2000)
+    return this.state.error
+  }
+
 
   render() {
     const sum = this.getSum()
@@ -131,7 +142,7 @@ class Cart extends React.Component {
     return (
       <div className='Cart wrapper'>
         <h1>Корзина</h1>
-        {this.props.error ? <Error/>
+        {this.props.error ? this.clearCartError()
           : <>
             {(this.props.retailsArr.length < 1) && (this.props.cart.length > 0) && !this.props.error
               ? <p>Загрузка ...</p>
@@ -199,8 +210,9 @@ class Cart extends React.Component {
                       </button>
                     </BlockWrapper>
                     <button onClick={this.props.clearCart}
-                      className='Cart__button Cart__buttonMap Cart__clearBtn'
-                    >Очистить корзину</button>
+                            className='Cart__button Cart__buttonMap Cart__clearBtn'
+                    >Очистить корзину
+                    </button>
                   </div>
                   }
                 </section>

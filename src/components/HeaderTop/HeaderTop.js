@@ -12,7 +12,10 @@ const HeaderTop = (props) => {
   return (
     <div className='HeaderTop'>
       <div className='wrapper'>
-        <div className='HeaderTop__headItem' onClick={() => setPopup(true)}>
+        <div className='HeaderTop__headItem' onClick={() => {
+          document.body.style.overflow = 'hidden'
+          setPopup(true)
+        }}>
           <span>{isCity.title}</span>
         </div>
         <ul className='HeaderTop__headItems'>
@@ -41,8 +44,12 @@ const HeaderTop = (props) => {
       <PopupCities active={popup}
                    isCity={isCity}
                    regions={regions}
-                   onClick={() => setPopup(false)}
+                   onClick={() => {
+                     document.body.style.overflow = 'auto'
+                     setPopup(false)
+                   }}
                    onSelectCity={(idCity) => {
+                     document.body.style.overflow = 'auto'
                      const item = cities.find(cityItem => cityItem.guid === idCity)
                      setIsCity(item)
                      setPopup(false);
