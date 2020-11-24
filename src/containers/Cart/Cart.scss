@@ -21,6 +21,19 @@
     }
   }
 
+  &__alert {
+    font-size: 20px;
+    padding: 10px 5px;
+    background-color: #fff;
+    color: darkred;
+    max-width: 860px;
+  }
+
+  &__rightPanel {
+    display: flex;
+    flex-direction: column;
+  }
+
   &__mainContainer {
     display: flex;
     justify-content: space-between;
@@ -157,6 +170,14 @@
     color: #000;
     border: 1px solid #737373;
     max-width: 300px;
+  }
+
+  &__clearBtn {
+    margin: 30px auto 10px;
+
+    &:hover {
+      background-image: linear-gradient(to bottom, #E52B50, #FF2400);
+    }
   }
 
 }

@@ -138,6 +138,7 @@ const fetchCartItems = () => {
         const cartItems = allResponses.map(item => item.data)
         dispatch(setCartItems(cartItems))
       }).catch(allError => {
+        console.log(allError)
         dispatch(setError((allError)))
       })
     }
@@ -158,7 +159,15 @@ const onSelectRetail = (id) => {
   }
 }
 
+const clearCart = () => {
+  localStorage.removeItem("cart")
+  return {
+    type: 'CLEAR_CART'
+  }
+}
+
 export {
+  clearCart,
   setError,
   fetchCities,
   setIsCity,

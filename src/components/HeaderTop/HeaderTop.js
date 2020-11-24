@@ -2,7 +2,7 @@ import React, {useState} from "react"
 import './HeaderTop.scss'
 import {Link, withRouter} from "react-router-dom";
 import PopupCities from "../PopupCities";
-import {setIsCity} from "../../actions";
+import {fetchCartItems, setIsCity} from "../../actions";
 import {connect} from "react-redux";
 
 const HeaderTop = (props) => {
@@ -44,6 +44,7 @@ const HeaderTop = (props) => {
                    onSelectCity={(item) => {
                      setIsCity(item)
                      setPopup(false);
+                     props.fetchCartItems()
                    }}
       />
     </div>
@@ -56,7 +57,8 @@ const mapStateToProps = ({cities, loading, error, isCity}) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setIsCity: (item) => dispatch(setIsCity(item))
+    setIsCity: (item) => dispatch(setIsCity(item)),
+    fetchCartItems: () => dispatch(fetchCartItems())
   }
 }
 

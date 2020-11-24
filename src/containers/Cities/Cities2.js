@@ -129,7 +129,7 @@ const Cities = props => {
   // const getGeoCode = async (address) => {
   //   const res = await fetch(url + address)
   //   if (!res.ok) {
-  //     throw new Error(`Не могу выполнить fetch ${this.url}, статус ошибки: ${res.status}`)
+  //     throw new Error.svg(`Не могу выполнить fetch ${this.url}, статус ошибки: ${res.status}`)
   //   }
   //   return await res.json();
   // }

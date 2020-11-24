@@ -68,6 +68,13 @@ const updateOrder = (state, itemId, quantity) => {
   }
 };
 
+function isEmpty(obj) {
+  for (let key in obj) {
+    return false;
+  }
+  return true;
+}
+
 const reducer = (state = initialState, action) => {
 
   console.log(action.type, action.payload);
@@ -86,13 +93,16 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         retailsCity: action.payload,
-        loading: false
+        loading: false,
+        error: null
       };
 
     case 'SET_CITY':
       return {
         ...state,
-        isCity: action.payload
+        isCity: action.payload,
+        loading: false,
+        error: null
       };
 
     case 'ITEM_ADDED_TO_CART':
@@ -115,6 +125,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         loading: true,
+        error: null
       };
 
     // подробная информация о товаре
@@ -127,59 +138,74 @@ const reducer = (state = initialState, action) => {
 
     case 'SET_CART_ITEMS':
       const retailsArr = [...state.retailsArr]
-      action.payload.forEach(item => {
-        item.retails.forEach(retail => {
-          // копируем товар
-          const productItem = {...item} // в итоге - это товар без списка аптек
+      if (action.payload.length) {
+        action.payload.forEach((item, index) => {
+          if (!isEmpty(item)) {
+            item.retails.forEach(retail => {
+              // копируем товар
+              const productItem = {...item} // в итоге - это товар без списка аптек
 
-          // удаляем из него список аптек
-          delete productItem.retails
+              // удаляем из него список аптек
+              delete productItem.retails
 
-          // добавляем цену товара в текущей аптеке
-          productItem.priceRetail = retail.priceRetail
+              // добавляем цену товара в текущей аптеке
+              productItem.priceRetail = retail.priceRetail
 
-          // добавляем количество товара из корзины в продукт
-          productItem.count = state.cart.find(cartItem => cartItem.itemId === item.guid).count
+              // добавляем количество товара из корзины в продукт
+              productItem.count = state.cart.find(cartItem => cartItem.itemId === item.guid).count
 
-          // копируем аптеку
-          const retailItem = {...retail}
+              // копируем аптеку
+              const retailItem = {...retail}
 
-          // удаляем цену товара
-          delete retailItem.priceRetail
-          retailItem.weekDayTime = retailItem.weekDayTime.match(/\d\d:\d\d/g).join(' - ')
+              // удаляем цену товара
+              delete retailItem.priceRetail
+              retailItem.weekDayTime = retailItem.weekDayTime.match(/\d\d:\d\d/g).join(' - ')
 
-          // добавляем в аптеку данные товара без списка аптек
-          retailItem.product = []
-          retailItem.product.push(productItem)
+              // добавляем в аптеку данные товара без списка аптек
+              retailItem.product = []
+              retailItem.product.push(productItem)
 
-          if (retailsArr.length) {
+              if (retailsArr.length) {
 
-            // если это не первая итерация - проверяем, есть ли уже такая аптека в списке
-            const someRetail = retailsArr.some(i => i.guid === retail.guid)
-            if (someRetail) {
+                // если это не первая итерация - проверяем, есть ли уже такая аптека в списке
+                const someRetail = retailsArr.some(i => i.guid === retail.guid)
+                if (someRetail) {
 
-              // если аптека уже есть, проверяем, есть ли в ней уже данный товар
-              const itemRetail = retailsArr.find(itemRetail => itemRetail.guid === retail.guid)
-              const someProduct = itemRetail.product.some(pdItem => pdItem.guid === item.guid)
-              if (someProduct) {
+                  // если аптека уже есть, проверяем, есть ли в ней уже данный товар
+                  const itemRetail = retailsArr.find(itemRetail => itemRetail.guid === retail.guid)
+                  const someProduct = itemRetail.product.some(pdItem => pdItem.guid === item.guid)
+                  if (someProduct) {
 
-                // если товар есть в этой аптеке, выходим
-                return
+                    // если товар есть в этой аптеке, выходим
+                    return
+                  } else {
+
+                    // если товара ещё нет в этой аптеке - добавляем
+                    const index = retailsArr.findIndex((i => i.guid === retail.guid))
+                    retailsArr[index].product.push(productItem)
+                  }
+
+                } else {
+                  retailsArr.push(retailItem)
+                }
               } else {
-
-                // если товара ещё нет в этой аптеке - добавляем
-                const index = retailsArr.findIndex((i => i.guid === retail.guid))
-                retailsArr[index].product.push(productItem)
+                retailsArr.push(retailItem)
               }
-
-            } else {
-              retailsArr.push(retailItem)
-            }
-          } else {
-            retailsArr.push(retailItem)
-          }
+            })
+          } else action.payload.splice(index, 1)
         })
-      })
+      } else {
+        return {
+          ...state,
+          cartItems: [],
+          retailsArr: [],
+          selectedRetail: null,
+          isRetailAllProduct: true,
+          loading: false,
+          error: null
+        }
+      }
+
 
       const fullProductArr = retailsArr.filter(item => item.product.length === state.cart.length)
       let selectedRetail = null
@@ -197,20 +223,25 @@ const reducer = (state = initialState, action) => {
         retailsArr: [...upgradeRetailItems(retailsArr, state.cart)],
         selectedRetail,
         isRetailAllProduct,
-        loading: false
+        loading: false,
+        error: null
       }
 
     case 'ON_SELECT_RETAIL':
       return {
         ...state,
-        selectedRetail: action.payload
+        selectedRetail: action.payload,
+        loading: false,
+        error: null
       }
 
     case 'DEL_CART_ITEM':
       return {
         ...state,
         cartItems: [],
-        retailsArr: []
+        retailsArr: [],
+        loading: false,
+        error: null
       }
 
     //запрос списка продуктов из поисковой строки
@@ -219,6 +250,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         productsFromSearch: action.payload,
         loading: false,
+        error: null
       };
 
     //запрос списка городов
@@ -236,6 +268,12 @@ const reducer = (state = initialState, action) => {
         loading: false,
         error: action.payload
       };
+
+    case 'CLEAR_CART':
+      return {
+        ...state,
+        cart: []
+      }
 
     default:
       return state;
