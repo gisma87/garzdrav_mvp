@@ -1,5 +1,6 @@
 const initialState = {
   cities: [],
+  regions: [],
   loading: true,
   error: null,
   isCity: {guid: "c384a061-7641-4605-a340-afb825fdcb70", title: "Абакан"},
@@ -255,9 +256,41 @@ const reducer = (state = initialState, action) => {
 
     //запрос списка городов
     case 'FETCH_CITIES_SUCCESS':
+
+      const regions = [...state.regions]
+      action.payload.forEach(itemCity => {
+        const region = {}
+        region.regionGuid = itemCity.regionGuid
+        region.regionTitle = itemCity.regionTitle
+        region.cities = [{guid: itemCity.guid, title: itemCity.title}]
+
+        // если массив ещё пуст
+        if (!regions.length) {
+          regions.push(region)
+        } else {
+          // иначе проверяем, есть ли элемент в массиве
+          const indexRegions = regions.findIndex(itemRegion => itemRegion.regionGuid === itemCity.regionGuid)
+          // если элемента нет - добавляем
+          if (indexRegions < 0) {
+            regions.push(region)
+          } else {
+            // иначе проверяем есть ли в данном элементе текущий город
+            const indexCity = regions[indexRegions].cities.findIndex(cityEl => cityEl.guid === itemCity.guid)
+            // если города нет - добавляем
+            if (indexCity < 0) {
+              regions[indexRegions].cities.push({guid: itemCity.guid, title: itemCity.title})
+            } else {
+              // иначе выходим - и город в регионе и регион в regions есть.
+              return
+            }
+          }
+        }
+      })
+
       return {
         ...state,
         cities: action.payload,
+        regions,
         loading: false,
         error: null
       };

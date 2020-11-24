@@ -1,6 +1,7 @@
 import React from "react"
 import './PopupCities.scss'
 import PopupWrapper from "../UI/PopupWrapper/PopupWrapper";
+import Error from "../Error/Error";
 
 const PopupCities = props => {
   const {cities} = props
@@ -16,9 +17,13 @@ const PopupCities = props => {
   return (
     <PopupWrapper onClick={props.onClick} active={props.active} classStyle='PopupCities'>
       <h3 className="PopupCities__title">Список городов</h3>
-      <ul className="PopupCities__form">
-        {renderItems(cities)}
-      </ul>
+
+      {!cities.length
+        ? <Error/>
+        : <ul className="PopupCities__form">
+          {renderItems(cities)}
+        </ul>
+      }
     </PopupWrapper>
   )
 }
