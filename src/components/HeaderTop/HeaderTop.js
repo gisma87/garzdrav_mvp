@@ -6,7 +6,7 @@ import {fetchCartItems, setIsCity} from "../../actions";
 import {connect} from "react-redux";
 
 const HeaderTop = (props) => {
-  const {cities, isCity, setIsCity, history} = props;
+  const {regions, cities, isCity, setIsCity, history} = props;
   const [popup, setPopup] = useState(false)
 
   return (
@@ -39,9 +39,11 @@ const HeaderTop = (props) => {
         <Link to='/ask-question/' className='HeaderTop__headItem HeaderTop__link'>Задать вопрос</Link>
       </div>
       <PopupCities active={popup}
-                   cities={cities}
+                   isCity={isCity}
+                   regions={regions}
                    onClick={() => setPopup(false)}
-                   onSelectCity={(item) => {
+                   onSelectCity={(idCity) => {
+                     const item = cities.find(cityItem => cityItem.guid === idCity)
                      setIsCity(item)
                      setPopup(false);
                      props.fetchCartItems()
@@ -51,8 +53,8 @@ const HeaderTop = (props) => {
   )
 }
 
-const mapStateToProps = ({cities, loading, error, isCity}) => {
-  return {cities, loading, error, isCity}
+const mapStateToProps = ({regions, cities, loading, error, isCity}) => {
+  return {regions, cities, loading, error, isCity}
 }
 
 const mapDispatchToProps = (dispatch) => {

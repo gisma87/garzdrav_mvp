@@ -3,10 +3,11 @@
   color: #000;
   font-size: 16px;
   line-height: 26px;
-  min-width: 430px;
+  min-width: 700px;
   max-width: 90%;
-  min-height: 330px;
-  max-height: 90%;
+  //min-height: 330px;
+  //max-height: 90%;
+  height: 600px;
   background-color: #fff;
   border-radius: 10px;
   position: relative;
@@ -18,10 +19,20 @@
 
   }
 
+  &__container {
+    display: flex;
+    height: 90%;
+  }
+
+  &__column {
+    flex: 1 1 45%;
+  }
+
   &__title {
     margin: 0;
     font-size: 24px;
     line-height: 30px;
+    color: #777;
   }
 
   &__close {
@@ -40,18 +51,25 @@
     transition: all 0.3s ease-in-out;
   }
 
+
+
   &__form {
     margin-top: 20px;
-    display: grid;
-    grid-template-rows: repeat(10, 1fr);
-    grid-template-columns: repeat(auto-fill, 1fr);
-    grid-gap: 0 30px;
-    grid-auto-flow: column;
+    //display: grid;
+    //grid-template-rows: repeat(10, 1fr);
+    //grid-template-columns: repeat(auto-fill, 1fr);
+    //grid-gap: 0 30px;
+    //grid-auto-flow: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border-left: 1px solid #d8d8d8;
+    flex: 1 1 40%;
+    height: 100%;
 
 
     li {
       cursor: pointer;
-      padding: 5px;
+      padding: 10px 1em 10px 20px;
       font-size: 18px;
       list-style-type: none;
 
@@ -66,6 +84,18 @@
         color: white;
         font-weight: bold;
       }
+    }
+  }
+
+  &__itemActive {
+    background: #E26C2D;
+    color: white;
+    font-weight: bold;
+    &:hover {
+      color: #000;
+      background: #eaeaea;
+      transform: scale(1.02);
+      transition: all .2s;
     }
   }
 
