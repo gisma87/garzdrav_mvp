@@ -3,10 +3,10 @@ import './HeaderDesktop.scss'
 import HeaderTop from "../HeaderTop";
 import HeaderFixed from "../HeaderFixed";
 
-const HeaderDesktop = () => {
+const HeaderDesktop = (props) => {
   return (
     <header className='HeaderDesktop'>
-      <HeaderTop/>
+      <HeaderTop onScroll={props.onScroll}/>
       <HeaderFixed/>
     </header>
   )

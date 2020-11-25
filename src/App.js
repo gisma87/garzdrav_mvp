@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Redirect, Switch, Route} from 'react-router-dom';
 import './App.css';
 import 'normalize.css';
@@ -24,6 +24,8 @@ import Faq from "./containers/Faq/Faq";
 
 function App(props) {
 
+  const [howToBuyScroll, setHowToBuyScroll] = useState(false)
+
   useEffect(() => {
     props.fetchCities();
 
@@ -43,9 +45,10 @@ function App(props) {
     <div className="App">
       <ScrollToTop/>
       <Loader classStyle={props.loading ? 'Loader_is-opened' : ''}/>
-      <HeaderDesktop/>
+      <HeaderDesktop onScroll={() => setHowToBuyScroll(true)}/>
       <Switch>
-        <Route exact path="/" component={IndexDesktop}/>
+        <Route exact path="/"
+               render={() => <IndexDesktop tag={howToBuyScroll} offScroll={() => setHowToBuyScroll(false)}/>}/>
         <Route path="/address/" component={Cities}/>
         <Route path="/cities/" component={Cities}/>
         <Route path="/cart/" component={Cart}/>

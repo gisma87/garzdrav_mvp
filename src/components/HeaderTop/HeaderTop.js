@@ -27,11 +27,12 @@ const HeaderTop = (props) => {
                   onClick={(event) => {
                     event.preventDefault()
                     history.push('/')
-                    window.scrollTo({
-                      top: 780,
-                      left: 0,
-                      behavior: 'smooth'
-                    });
+                    props.onScroll()
+                    // window.scrollTo({
+                    //   top: 780,
+                    //   left: 0,
+                    //   behavior: 'smooth'
+                    // });
                   }}
             >Как сделать заказ</Link>
           </li>
