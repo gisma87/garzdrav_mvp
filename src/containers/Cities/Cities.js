@@ -78,8 +78,9 @@ const Cities = props => {
     setActiveMarker(idMarker)
     const activeItem = document.querySelector('.Cities__acitveItem');
     document.body.style.overflow = 'hidden'
-    activeItem.scrollIntoView({block: "center", behavior: "smooth"})
+    activeItem.scrollIntoView({block: "center"})
     document.body.style.overflow = 'auto'
+    window.scrollTo(0, 0)
   }
 
   return (

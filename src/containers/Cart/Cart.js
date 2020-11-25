@@ -158,7 +158,7 @@ class Cart extends React.Component {
                         const isFavorites = this.props.favorites.includes(item.guid);
                         const priceIndex = item.retails.findIndex(retail => retail.guid === this.props.selectedRetail)
                         const price = priceIndex >= 0 ? item.retails[priceIndex].priceRetail : null
-                        const sum = this.calculateAmountArray().find(itemArr => itemArr.guid === item.guid).sum
+                        const sum = this.calculateAmountArray().find(itemArr => itemArr.guid === item.guid)?.sum
                         return this.props.cart[index] !== undefined
                           && <CartItem item={{
                             id: item.guid,

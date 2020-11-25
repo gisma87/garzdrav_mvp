@@ -1,3 +1,36 @@
+@keyframes colorAlert {
+  0% {
+    background-color: #FFF9E5;
+    transform: scale(1);
+  }
+
+  50% {
+    background-color: #fc8507;
+    transform: scale(1.08);
+    border-radius: 16px;
+  }
+
+
+  100% {
+    background-color: #FFF9E5;
+    transform: scale(1);
+  }
+}
+@keyframes textColorWhite {
+  0% {
+    color: #000;
+  }
+
+  50% {
+    color: #fff;
+  }
+
+
+  100% {
+    color: #000;
+  }
+}
+
 .Cities {
   font-family: PTSans-Regular, Helvetica, Arial, sans-serif;
   display: flex;
@@ -46,6 +79,16 @@
     transform: scale(1.05);
     border: 1px solid #E26C2D;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+
+    animation-name: colorAlert;
+    animation-duration: 1s;
+    animation-fill-mode: both;
+
+    span {
+      animation-name: textColorWhite;
+      animation-duration: 1s;
+      animation-fill-mode: none;
+    }
   }
 
   &__mapContainer {
