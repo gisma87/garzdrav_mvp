@@ -1,10 +1,10 @@
 import React, {useState} from "react"
 import './SearchPanel.scss'
 import {withRouter} from 'react-router-dom'
-import searchIcon from "../../img/search-solid.svg"
 import {ProductsFromSearchLoaded, loadingTrue, setError} from "../../actions";
 import {connect} from "react-redux";
 import apiServise from "../../service/StoreService";
+import SearchForm from "../UI/SearchForm/SearchForm";
 
 const SearchPanel = (props) => {
 
@@ -42,19 +42,27 @@ const SearchPanel = (props) => {
   }
 
   return (
-    <form className={'SearchPanel' + (touched ? '' : ' SearchPanel-mobile')} onSubmit={handleSubmit}>
-      <input
-        id="searchPanel"
-        style={isMobile ? {'font-size': 14} : {}}
-        type="text"
-        placeholder={window.innerWidth > 1000 ? "Поиск по названию, действующему веществу, производителю" : "Поиск по названию"}
-        onChange={handleInputChange}
-        value={value}
-      />
-      <button>
-        <img src={searchIcon} alt=""/>
-      </button>
-    </form>
+    <SearchForm formClass={touched ? '' : ' SearchPanel-mobile'}
+                onSubmit={handleSubmit}
+                idInput="searchPanel"
+                isMobile={isMobile}
+                placeholder={window.innerWidth > 1000 ? "Поиск по названию, действующему веществу, производителю" : "Поиск по названию"}
+                onChange={handleInputChange}
+                value={value}
+    />
+    // <form className={'SearchPanel' + (touched ? '' : ' SearchPanel-mobile')} onSubmit={handleSubmit}>
+    //   <input
+    //     id="searchPanel"
+    //     style={isMobile ? {'font-size': 14} : {}}
+    //     type="text"
+    //     placeholder={props.text ? props.text : (window.innerWidth > 1000 ? "Поиск по названию, действующему веществу, производителю" : "Поиск по названию")}
+    //     onChange={handleInputChange}
+    //     value={value}
+    //   />
+    //   <button>
+    //     <img src={searchIcon} alt=""/>
+    //   </button>
+    // </form>
   )
 }
 

@@ -45,6 +45,7 @@ const HeaderTop = (props) => {
       <PopupCities active={popup}
                    isCity={isCity}
                    regions={regions}
+                   cities={cities}
                    onClick={() => {
                      document.body.style.overflow = 'auto'
                      setPopup(false)

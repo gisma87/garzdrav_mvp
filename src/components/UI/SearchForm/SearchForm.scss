@@ -1,0 +1,50 @@
+.SearchForm {
+  flex: 1 1;
+  position: relative;
+
+  & input {
+    border-radius: 8px;
+    background: #eaeaea;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    color: #333;
+    padding: 10px 20px;
+    line-height: normal;
+    outline: none;
+    transition: background .3s;
+
+    &:hover, &:focus {
+      background-color: #fff;
+      box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  & button {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #737373;
+    background: transparent;
+    border: none;
+    font-size: 26px;
+    outline: none;
+    display: flex;
+    align-items: center;
+
+    img {
+      border-style: none;
+      width: 26px;
+      height: 26px;
+      color: #737373;
+    }
+  }
+
+  &__iconSearch {
+    color: #8c8c8c;
+    font-size: 20px;
+  }
+}
