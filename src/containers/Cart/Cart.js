@@ -40,13 +40,15 @@ class Cart extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
+    // Если корзина изменилась, берём её данные с LocalStorage и на основании этих данных пересобираем массивы cartItems и retailsArr
     if (prevProps.cart !== this.props.cart) {
-      // this.props.fetchCartItems()
-
-      this.props.setCartItems(this.props.cartItems)
-
+      let oldCart = [...this.props.cart]
+      if (localStorage.getItem("cart")) {
+        oldCart = JSON.parse(localStorage.getItem("cart"))
+      }
+      const newCartItems = this.props.cartItems.filter(item => oldCart.some(i => i.itemId === item.guid))
+      this.props.setCartItems(newCartItems)
     }
-
   }
 
   // соответствует ли id элемента выбранное аптеке

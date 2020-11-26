@@ -3,7 +3,10 @@ const initialState = {
   regions: [],
   loading: true,
   error: null,
-  isCity: {guid: "c384a061-7641-4605-a340-afb825fdcb70", title: "Абакан"},
+  isCity: JSON.parse(localStorage.getItem("city")) ? JSON.parse(localStorage.getItem("city"))[0] : {
+    guid: "c384a061-7641-4605-a340-afb825fdcb70",
+    title: "Абакан"
+  },
   retailsCity: [],
   cart: [],
   favorites: [],
@@ -29,39 +32,26 @@ const upgradeRetailItems = (array, cart) => {
   return retailItems.sort((a, b) => a.sum > b.sum ? 1 : -1)
 }
 
-const updateCartItems = (cart, item, idx, cartItems) => {
+const updateCartItems = (cart, item, idx) => {
   if (item.count === 0) {
-    const indexCartItems = cartItems.findIndex(itemCart => itemCart.guid === item.itemId)
-    return {
-      cart: [
-        ...cart.slice(0, idx),
-        ...cart.slice(idx + 1)
-      ],
-      cartItems: [
-        ...cartItems.slice(0, indexCartItems),
-        ...cartItems.slice(indexCartItems + 1)
-      ]
-    };
+    return [
+      ...cart.slice(0, idx),
+      ...cart.slice(idx + 1)
+    ]
   }
 
   if (idx === -1) {
-    return {
-      cart: [
-        ...cart,
-        item
-      ],
-      cartItems: [...cartItems]
-    }
+    return [
+      ...cart,
+      item
+    ];
   }
 
-  return {
-    cart: [
-      ...cart.slice(0, idx),
-      item,
-      ...cart.slice(idx + 1)
-    ],
-    cartItems: [...cartItems]
-  }
+  return [
+    ...cart.slice(0, idx),
+    item,
+    ...cart.slice(idx + 1)
+  ];
 }
 
 const updateCartItem = (itemId, item = {}, quantity) => {
@@ -73,13 +63,21 @@ const updateCartItem = (itemId, item = {}, quantity) => {
 };
 
 const updateOrder = (state, itemId, quantity) => {
-  const itemIndex = state.cart.findIndex((item) => item.itemId === itemId);
-  const item = state.cart[itemIndex];
+  // берём значения из localStorage, вносим изменения, записываем в cart и записываем опять в localStorage
+  // таким образом у нас всегда при всех изменениях в localStorage актуальные значения, на которые можно опираться.
+  let oldCart = [...state.cart]
+  if (localStorage.getItem("cart")) {
+    oldCart = JSON.parse(localStorage.getItem("cart"))
+  }
+
+  const itemIndex = oldCart.findIndex((item) => item.itemId === itemId);
+  const item = oldCart[itemIndex];
   const newItem = updateCartItem(itemId, item, quantity);
+  const cartOrder = updateCartItems(oldCart, newItem, itemIndex)
+  localStorage.setItem('cart', JSON.stringify(cartOrder))
   return {
     ...state,
-    cart: updateCartItems(state.cart, newItem, itemIndex, state.cartItems).cart,
-    cartItems: updateCartItems(state.cart, newItem, itemIndex, state.cartItems).cartItems
+    cart: cartOrder
   }
 };
 
@@ -152,9 +150,11 @@ const reducer = (state = initialState, action) => {
       };
 
     case 'SET_CART_ITEMS':
+      // Если запрос failure возвращается пустой массив - убираем их из массива
+      const newCardItems = action.payload.filter(item => Boolean(item.length !== 0))
       const retailsArr = []
-      if (action.payload.length) {
-        action.payload.forEach((item, index) => {
+      if (newCardItems.length) {
+        newCardItems.forEach((item, index) => {
           if (!isEmpty(item)) {
             item.retails.forEach(retail => {
               // копируем товар
@@ -207,7 +207,7 @@ const reducer = (state = initialState, action) => {
                 retailsArr.push(retailItem)
               }
             })
-          } else action.payload.splice(index, 1)
+          } else newCardItems.splice(index, 1)
         })
       } else {
         return {
@@ -235,7 +235,7 @@ const reducer = (state = initialState, action) => {
 
       return {
         ...state,
-        cartItems: action.payload,
+        cartItems: newCardItems,
         retailsArr: [...upgradeRetailItems(retailsArr, state.cart)],
         selectedRetail,
         isRetailAllProduct,
