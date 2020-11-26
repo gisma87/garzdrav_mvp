@@ -125,7 +125,7 @@ class Cart extends React.Component {
     const {guid, product, sum} = this.checkRetailItem()
     const send = {guid, telephone: this.state.telephone, product, sum}
     console.log(send);
-
+    product.forEach(item => this.props.allItemRemovedFromCart(item.guid))
   }
 
   clearCartError = () => {
@@ -174,7 +174,7 @@ class Cart extends React.Component {
               </>
               : <>
                 {!this.props.isRetailAllProduct &&
-                <p>К сожалению нет аптек с полным ассортиментом выбранного товара</p>}
+                <p style={{marginBottom: 10}}>К сожалению нет аптек с полным ассортиментом выбранного товара</p>}
 
                 <section className='Cart__mainContainer'>
                   <div className='Cart__itemContainer'>
