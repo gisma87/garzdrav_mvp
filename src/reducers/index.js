@@ -29,26 +29,39 @@ const upgradeRetailItems = (array, cart) => {
   return retailItems.sort((a, b) => a.sum > b.sum ? 1 : -1)
 }
 
-const updateCartItems = (cart, item, idx) => {
+const updateCartItems = (cart, item, idx, cartItems) => {
   if (item.count === 0) {
-    return [
-      ...cart.slice(0, idx),
-      ...cart.slice(idx + 1)
-    ];
+    const indexCartItems = cartItems.findIndex(itemCart => itemCart.guid === item.itemId)
+    return {
+      cart: [
+        ...cart.slice(0, idx),
+        ...cart.slice(idx + 1)
+      ],
+      cartItems: [
+        ...cartItems.slice(0, indexCartItems),
+        ...cartItems.slice(indexCartItems + 1)
+      ]
+    };
   }
 
   if (idx === -1) {
-    return [
-      ...cart,
-      item
-    ];
+    return {
+      cart: [
+        ...cart,
+        item
+      ],
+      cartItems: [...cartItems]
+    }
   }
 
-  return [
-    ...cart.slice(0, idx),
-    item,
-    ...cart.slice(idx + 1)
-  ];
+  return {
+    cart: [
+      ...cart.slice(0, idx),
+      item,
+      ...cart.slice(idx + 1)
+    ],
+    cartItems: [...cartItems]
+  }
 }
 
 const updateCartItem = (itemId, item = {}, quantity) => {
@@ -65,7 +78,8 @@ const updateOrder = (state, itemId, quantity) => {
   const newItem = updateCartItem(itemId, item, quantity);
   return {
     ...state,
-    cart: updateCartItems(state.cart, newItem, itemIndex)
+    cart: updateCartItems(state.cart, newItem, itemIndex, state.cartItems).cart,
+    cartItems: updateCartItems(state.cart, newItem, itemIndex, state.cartItems).cartItems
   }
 };
 
@@ -138,7 +152,7 @@ const reducer = (state = initialState, action) => {
       };
 
     case 'SET_CART_ITEMS':
-      const retailsArr = [...state.retailsArr]
+      const retailsArr = []
       if (action.payload.length) {
         action.payload.forEach((item, index) => {
           if (!isEmpty(item)) {
@@ -206,17 +220,18 @@ const reducer = (state = initialState, action) => {
           error: null
         }
       }
-
-
       const fullProductArr = retailsArr.filter(item => item.product.length === state.cart.length)
       let selectedRetail = null
       if (fullProductArr.length > 0) {
         selectedRetail = fullProductArr[0].guid
       }
       let isRetailAllProduct = selectedRetail !== null;
-
-      const retailsByNumberOfProducts = retailsArr.sort((a, b) => a.product.length < b.product.length ? 1 : -1)
-      selectedRetail = retailsByNumberOfProducts[0].guid
+      if (retailsArr.length) {
+        if (retailsArr.length > 1) {
+          const retailsByNumberOfProducts = retailsArr.sort((a, b) => a.product.length < b.product.length ? 1 : -1)
+          selectedRetail = retailsByNumberOfProducts[0].guid
+        } else selectedRetail = retailsArr[0].guid
+      }
 
       return {
         ...state,
@@ -296,6 +311,7 @@ const reducer = (state = initialState, action) => {
       };
 
     case 'FETCH_FAILURE' :
+      console.log()
       return {
         ...state,
         loading: false,

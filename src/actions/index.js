@@ -9,6 +9,9 @@ const setError = (error) => {
 }
 
 const setIsCity = (isCity) => {
+  const item = [isCity]
+  console.log(item);
+  localStorage.setItem("city", JSON.stringify(item))
   return {
     type: 'SET_CITY',
     payload: isCity
@@ -22,19 +25,20 @@ const fetchCities = () => async dispatch => {
     const response = await axios.get('http://172.16.17.7:5000/Cities')
     dispatch({type: 'FETCH_CITIES_SUCCESS', payload: response.data})
 
-
-    apiServise.getUserCity()
-      .then(({city, ip}) => {
-        console.log(city, ip);
-
-        const cityItem = response.data.find(item => city === item.title)
-        dispatch(setIsCity(cityItem))
-
-      })
-      .catch(err => {
-        console.log(err);
-      });
-
+    if (localStorage.getItem("city")) {
+      const cityItem = JSON.parse(localStorage.getItem("city"))[0]
+      dispatch(setIsCity(cityItem))
+    } else {
+      apiServise.getUserCity()
+        .then(({city, ip}) => {
+          console.log(city, ip);
+          const cityItem = response.data.find(item => city === item.title)
+          dispatch(setIsCity(cityItem))
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
 
   } catch (e) {
     dispatch(setError(e))
@@ -154,7 +158,6 @@ const fetchCartItems = () => {
         const cartItems = allResponses.map(item => item.data)
         dispatch(setCartItems(cartItems))
       }).catch(allError => {
-        console.log(allError)
         dispatch(setError((allError)))
       })
     }
@@ -183,6 +186,7 @@ const clearCart = () => {
 }
 
 export {
+  setCartItems,
   clearCart,
   setError,
   fetchCities,

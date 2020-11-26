@@ -12,7 +12,7 @@ import {
   itemRemovedFromCart,
   rewriteCart,
   fetchCartItems,
-  onSelectRetail, clearCart,
+  onSelectRetail, clearCart, setCartItems,
 } from "../../actions";
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
@@ -41,7 +41,10 @@ class Cart extends React.Component {
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (prevProps.cart !== this.props.cart) {
-      this.props.fetchCartItems()
+      // this.props.fetchCartItems()
+
+      this.props.setCartItems(this.props.cartItems)
+
     }
 
   }
@@ -133,6 +136,10 @@ class Cart extends React.Component {
     return this.state.error
   }
 
+  newCartItems = () => {
+    return this.props.cartItems.filter(item => Boolean(item.length !== 0))
+  }
+
 
   render() {
     const sum = this.getSum()
@@ -144,8 +151,25 @@ class Cart extends React.Component {
         <h1>Корзина</h1>
         {this.props.error ? this.clearCartError()
           : <>
-            {(this.props.retailsArr.length < 1) && (this.props.cart.length > 0) && !this.props.error
-              ? <p>Загрузка ...</p>
+            {(this.props.retailsArr.length < 1) && (this.props.cart.length > 0)
+              ? <>
+                {
+                  this.props.loading
+                    ? <p>Загрузка ...</p>
+                    : <p>В данном городе таких товаров нет.
+                      <span onClick={this.props.clearCart}
+                            style={{
+                              color: 'blue',
+                              borderBottom: '1px dashed red',
+                              marginLeft: 10,
+                              fontSize: 18,
+                              fontWeight: 'bold',
+                              cursor: 'pointer'
+                            }}
+                      >Очистить корзину</span>
+                    </p>
+                }
+              </>
               : <>
                 {!this.props.isRetailAllProduct &&
                 <p>К сожалению нет аптек с полным ассортиментом выбранного товара</p>}
@@ -431,7 +455,8 @@ const mapDispatchToProps = (dispatch) => {
     fetchProductInfo: (productId, cityId) => dispatch(fetchProductInfo(productId, cityId)),
     fetchCartItems: () => dispatch(fetchCartItems()),
     onSelectRetail: (id) => dispatch(onSelectRetail(id)),
-    clearCart: () => dispatch(clearCart())
+    clearCart: () => dispatch(clearCart()),
+    setCartItems: (cartItems) => dispatch(setCartItems(cartItems))
   }
 }
 
