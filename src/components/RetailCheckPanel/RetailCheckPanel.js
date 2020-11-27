@@ -46,8 +46,8 @@ const RetailCheckPanel = (props) => {
             />
           </div>
           <div className='RetailCheckPanel__content RetailCheckPanel__block RetailCheckPanelList__content'>
-            <p className='RetailCheckPanel__name'><img src={iconLocation}
-                                                       alt="Адрес"/> Адрес: <span>г. {city}, ул. {street}, {buildNumber}</span>
+            <p className='RetailCheckPanel__name'>
+              <img src={iconLocation} alt="Адрес"/> Адрес: <span>г. {city}, ул. {street}, {buildNumber}</span>
             </p>
             <p className='RetailCheckPanel__openHours'><img src={iconClock} alt="Часы работы"/>Часы
               работы: <span>{weekDayTime}</span>

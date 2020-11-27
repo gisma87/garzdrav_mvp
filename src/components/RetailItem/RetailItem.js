@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useRef, useState} from "react";
 import './RetailItem.scss'
 import {useMediaQuery} from 'react-responsive'
 
@@ -11,6 +11,9 @@ const RetailItem = (props) => {
     onSelectItem,
     setMapSetting
   } = props;
+
+  const [showDescription, setShowDescription] = useState(false)
+  const refDescription = useRef(null)
 
   const isMobile = useMediaQuery({query: '(max-width: 800px)'})
 
@@ -31,6 +34,9 @@ const RetailItem = (props) => {
 
         <div className='RetailItem__priceContainer'>
           <p>{retailItem.sum} ₽</p>
+          <div ref={refDescription} onClick={() => setShowDescription(!showDescription)}
+               className='RetailCheckPanel__descriptionContainer'
+          >{props.quantity && props.quantity}</div>
           <button
             className={'RetailItem__button ' + (buttonActive ? 'RetailItem__buttonActive' : '')}
             onClick={onSelectItem}>
@@ -39,12 +45,13 @@ const RetailItem = (props) => {
         </div>
       </div>
       {notFullItems && <p className='colorRed'>не все позиции в наличии</p>}
-      {notFullItems && isMobile &&
+      {showDescription && isMobile &&
       retailItem.product.map((item) => {
         return (
           <div className='RetailItem__incomplete' key={item.guid}>
             <p className='RetailItem__incomplete-title'>{item.product}</p>
-            <p className='RetailItem__incomplete-price'><span>за 1шт:</span> {item.priceRetail} ₽</p>
+            <p className='RetailCheckPanelIncomplete__count'><span>{item.count}</span> шт:</p>
+            <p className='RetailItem__incomplete-price'>{(item.priceRetail * item.count).toFixed(2)} ₽</p>
           </div>
         )
       })

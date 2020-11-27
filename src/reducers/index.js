@@ -15,7 +15,8 @@ const initialState = {
   cartItems: [],
   retailsArr: [],
   selectedRetail: null,
-  isRetailAllProduct: true
+  isRetailAllProduct: true,
+  isPopupLocation: false
 }
 
 const upgradeRetailItems = (array, cart) => {
@@ -93,7 +94,7 @@ const reducer = (state = initialState, action) => {
   console.log(action.type, action.payload);
   switch (action.type) {
 
-    case 'ADDED_TO_FAVORITS':
+    case 'ADDED_TO_FAVORITES':
       return {
         ...state,
         favorites: [
@@ -117,6 +118,12 @@ const reducer = (state = initialState, action) => {
         loading: false,
         error: null
       };
+
+    case 'ON_POPUP_LOCATION':
+      return {
+        ...state,
+        isPopupLocation: action.payload
+      }
 
     case 'ITEM_ADDED_TO_CART':
       return updateOrder(state, action.payload, 1);
@@ -256,7 +263,6 @@ const reducer = (state = initialState, action) => {
         ...state,
         cartItems: [],
         retailsArr: [],
-        loading: false,
         error: null
       }
 
@@ -311,7 +317,6 @@ const reducer = (state = initialState, action) => {
       };
 
     case 'FETCH_FAILURE' :
-      console.log()
       return {
         ...state,
         loading: false,

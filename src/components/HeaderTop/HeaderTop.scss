@@ -45,10 +45,21 @@
     &:first-child {
       margin-right: 100px;
       width: 170px;
+      position: relative;
+
+      &:hover {
+        opacity: 1;
+      }
     }
 
     &:last-child {
       justify-self: flex-end;
+    }
+
+    span {
+      &:hover {
+        opacity: .7;
+      }
     }
 
     i {

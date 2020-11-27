@@ -8,6 +8,7 @@ import {addedToCart, itemRemovedFromCart, allItemRemovedFromCart} from "../../ac
 import CardItemMobile from "../../components/CardItemMobile";
 import SearchPanel from "../../components/SearchPanel";
 import logo from "../../img/evalar.png";
+import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
 
 
 const Cards = props => {
@@ -23,69 +24,71 @@ const Cards = props => {
 
   return (
     <section className={'Cards' + (!isMobile ? ' wrapper' : '')}>
-      {
-        isMobile &&
-        <>
-          <div
-            className={'indexMobile__logoPanel Cards__logoPanel' + (!touchedSearch ? ' Cards__center' : '')}>
-            <img src={logo} className='indexMobile__logo' alt='logo'/>
-            <p>Поиск по каталогу: </p>
+      <ErrorBoundary>
+        {
+          isMobile &&
+          <>
+            <div
+              className={'indexMobile__logoPanel Cards__logoPanel' + (!touchedSearch ? ' Cards__center' : '')}>
+              <img src={logo} className='indexMobile__logo' alt='logo'/>
+              <p>Поиск по каталогу: </p>
+            </div>
+            <div className={'Cards__searchPanel' + (touchedSearch ? '' : ' Cards__searchPanel_center')}>
+              <SearchPanel
+                touched={touchedSearch}
+                onTouched={() => {
+                  setTouchedSearch(true)
+                }}/>
+            </div>
+            {!touchedSearch && <p className='Cards__searchPanel_text'>
+              Поиск по названию, действующему веществу, производителю ...
+            </p>}
+
+          </>
+        }
+        {(touchedSearch || !isMobile) && <h1 className='Cards__title'>Результаты поиска</h1>}
+        <div className='Cards__mainContainer'>
+
+          {/*<SidebarCategories styleName='Cards__SidebarCategories'/>*/}
+
+          <div className='Cards__cardList'>
+            {(touchedSearch || !isMobile) &&
+            productsFromSearch.length
+              ? productsFromSearch.map((item) => {
+                const {guid, product, manufacturer, img = null, minPrice} = item;
+                const itemIndex = cart.findIndex((item) => item.itemId === guid);
+                const isActive = itemIndex >= 0;
+                return (
+                  isMobile
+                    ? <CardItemMobile onItemSelected={onItemSelected}
+                                      updateToCart={() => {
+                                        !isActive ? addedToCart(guid) : itemRemovedFromCart(guid);
+                                      }}
+                                      active={isActive}
+                                      key={guid}
+                                      id={guid}
+                                      title={product}
+                                      maker={manufacturer}
+                                      img={img}
+                                      minPrice={minPrice}/>
+                    : <CardItem onItemSelected={onItemSelected}
+                                updateToCart={() => {
+                                  !isActive ? addedToCart(guid) : itemRemovedFromCart(guid);
+                                }}
+                                active={isActive}
+                                key={guid}
+                                id={guid}
+                                title={product}
+                                maker={manufacturer}
+                                img={img}
+                                minPrice={minPrice}/>
+                )
+              })
+              : <>{touchedSearch && <p>По вашему запросу ничего не найдено. Попробуйте изменить запрос.</p>}</>
+            }
           </div>
-          <div className={'Cards__searchPanel' + (touchedSearch ? '' : ' Cards__searchPanel_center')}>
-            <SearchPanel
-              touched={touchedSearch}
-              onTouched={() => {
-                setTouchedSearch(true)
-              }}/>
-          </div>
-          {!touchedSearch && <p className='Cards__searchPanel_text'>
-            Поиск по названию, действующему веществу, производителю ...
-          </p>}
-
-        </>
-      }
-      {(touchedSearch || !isMobile) && <h1 className='Cards__title'>Результаты поиска</h1>}
-      <div className='Cards__mainContainer'>
-
-        {/*<SidebarCategories styleName='Cards__SidebarCategories'/>*/}
-
-        <div className='Cards__cardList'>
-          {(touchedSearch || !isMobile) &&
-          productsFromSearch.length
-            ? productsFromSearch.map((item) => {
-              const {guid, product, manufacturer, img = null, minPrice} = item;
-              const itemIndex = cart.findIndex((item) => item.itemId === guid);
-              const isActive = itemIndex >= 0;
-              return (
-                isMobile
-                  ? <CardItemMobile onItemSelected={onItemSelected}
-                                    updateToCart={() => {
-                                      !isActive ? addedToCart(guid) : itemRemovedFromCart(guid);
-                                    }}
-                                    active={isActive}
-                                    key={guid}
-                                    id={guid}
-                                    title={product}
-                                    maker={manufacturer}
-                                    img={img}
-                                    minPrice={minPrice}/>
-                  : <CardItem onItemSelected={onItemSelected}
-                              updateToCart={() => {
-                                !isActive ? addedToCart(guid) : itemRemovedFromCart(guid);
-                              }}
-                              active={isActive}
-                              key={guid}
-                              id={guid}
-                              title={product}
-                              maker={manufacturer}
-                              img={img}
-                              minPrice={minPrice}/>
-              )
-            })
-            : <p>По вашему запросу ничего не найдено. Попробуйте изменить запрос.</p>
-          }
         </div>
-      </div>
+      </ErrorBoundary>
     </section>
   )
 }

@@ -32,6 +32,7 @@
   &__rightPanel {
     display: flex;
     flex-direction: column;
+    margin: 0 auto;
   }
 
   &__mainContainer {
@@ -154,6 +155,7 @@
     padding: 0;
 
     @media (max-width: 800px) {
+      border: none;
       max-width: 450px;
       width: 100%;
     }
