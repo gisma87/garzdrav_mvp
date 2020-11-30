@@ -1,5 +1,5 @@
 <svg version="1.1" id="Ebene_1" xmlns="http://www.w3.org/2000/svg"
-     width="600px" height="200px" viewBox="0 0 600 200">
+     width="650px" height="200px" viewBox="0 0 600 200">
     <style type="text/css">
         .info {
         color: white;
@@ -109,7 +109,8 @@
     </defs>
 
     <g>
-        <text x="0" y="100">Ошибка запроса</text>
-        <text x="0" y="140">Попробуйте перезагрузить страницу</text>
+        <text x="0" y="100">О, Ужас, всё сломалось.</text>
+        <text x="0" y="140">Мы уже выслали дроидов для починки</text>
+        <text x="0" y="180">Попробуйте перезагрузить страницу</text>
     </g>
 </svg>

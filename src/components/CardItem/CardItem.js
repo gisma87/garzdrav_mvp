@@ -1,6 +1,6 @@
 import React from "react";
 import './CardItem.scss'
-import SvgShoppingCartSolid from "../../img/SVGcomponents/SvgShoppingCartSolid";
+import SvgIconCart from "../UI/icons/SvgIconCart";
 import SvgCheck from "../UI/icons/SvgCheck";
 import notPhoto from '../../img/notPhoto.svg'
 
@@ -26,7 +26,7 @@ const CardItem = ({active, id, title, maker, img, minPrice, classStyle = '', onI
                     // setActive(state => !state)
                     updateToCart()
                   }}>
-            {active ? <SvgCheck style={{color: 'green'}}/> : <SvgShoppingCartSolid/>}
+            {active ? <SvgCheck style={{color: 'green'}}/> : <SvgIconCart style={{fontSize: 24}}/>}
           </button>
         </div>
       </div>

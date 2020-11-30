@@ -70,13 +70,13 @@ const setIsCity = (isCity) => (dispatch) => {
   const item = [isCity]
   console.log(item);
   localStorage.setItem("city", JSON.stringify(item))
-  // запрашиваем инф. о товарах в корзине по новому городу
-  dispatch(fetchCartItems(isCity.guid))
   // устанавливаем город
   dispatch({
     type: 'SET_CITY',
     payload: isCity
   })
+  // запрашиваем инф. о товарах в корзине по новому городу
+  dispatch(fetchCartItems(isCity.guid))
 }
 
 // запрос списка городов
@@ -171,7 +171,7 @@ const ProductsFromSearchLoaded = (products) => {
   }
 }
 
-// дополнительная информация о продукте
+// дополнительная(подробная) информация о продукте
 const fetchProductInfo = (productId, cityId) => {
   return async dispatch => {
     dispatch(loadingTrue())
@@ -180,7 +180,7 @@ const fetchProductInfo = (productId, cityId) => {
 
       dispatch(loadingProductInfo(response.data))
     } catch (e) {
-      console.log(e)
+      dispatch(setError(e))
     }
   }
 }
