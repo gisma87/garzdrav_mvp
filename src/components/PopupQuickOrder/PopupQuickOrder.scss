@@ -1,0 +1,345 @@
+.PopupQuickOrder {
+  font-family: PTSans-Regular, Helvetica, Arial, sans-serif;
+  width: 375px;
+  min-height: 330px;
+  background-color: #fff;
+  border-radius: 10px;
+  position: relative;
+  box-sizing: border-box;
+  padding: 30px 25px;
+  @media (max-width: 800px) {
+    overflow-y: auto;
+  }
+  @media screen and (max-width: 400px) {
+    width: 100%;
+  }
+
+  &__titleInput {
+    color: #777;
+    margin-bottom: 7px;
+  }
+
+  &__select {
+    border-bottom: 1px solid #fc8507;
+    margin-bottom: 15px;
+    max-width: 100%;
+  }
+
+  &__priceContainer {
+    display: flex;
+    align-items: center;
+  }
+
+  &__title {
+    color: #000;
+    margin: 0;
+    font-size: 24px;
+    line-height: 30px;
+  }
+
+  &__close {
+    width: 40px;
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    cursor: pointer;
+    opacity: 1;
+    transition: opacity 0.3s;
+    padding: 5px;
+
+    @media screen and (max-width: 400px) {
+      top: -40px;
+      right: 0;
+    }
+  }
+
+  &__close:hover {
+    opacity: .5;
+    transition: all 0.3s ease-in-out;
+  }
+
+  &__form {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__sum {
+    margin-left: 15px;
+    color: #E26C2D;
+    font-weight: bold;
+    font-size: 18px;
+  }
+
+  &__alert {
+    color: red;
+    margin: 5px 0 5px;
+
+    p {
+      margin: 3px 0 0;
+    }
+
+    p:first-child {
+      color: #000;
+    }
+
+    span {
+      color: red;
+      border-bottom: 1px dashed blue;
+      cursor: pointer;
+    }
+  }
+
+  &__inputLabel {
+    margin-top: 25px;
+    z-index: 6;
+
+    p {
+      color: #777;
+    }
+  }
+
+  &__confidentiality {
+    margin-top: 15px;
+    color: #777;
+    font-size: 12px;
+  }
+
+  fieldset {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #fc8507;
+    background: #fff;
+    border-radius: 8px;
+    //box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+  }
+
+  &__input {
+    width: 100%;
+    height: 47px;
+    border: 0;
+    //border: 1px solid #e5e5e5;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    line-height: 17px;
+    box-sizing: border-box;
+    padding: 5px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    outline: none;
+
+    &:focus {
+      border-color: #66afe9;
+      outline: 0;
+      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+    }
+  }
+
+  &__selectContainer {
+
+  }
+
+  &__buttonContainer {
+    display: flex;
+  }
+
+  &__button {
+    width: 100%;
+    height: 50px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    margin-top: 24px;
+    color: rgba(0, 0, 0, 0.2);
+    font-size: 18px;
+    display: block;
+    cursor: pointer;
+    background-color: transparent;
+    transition: .1s ease-in-out;
+    z-index: 6;
+
+    &:active {
+      transform: scale(.98);
+      transition: .1s ease-in-out;
+    }
+
+    &:focus {
+      outline: 1px solid greenyellow;
+    }
+  }
+
+  &_is-opened {
+    visibility: visible;
+    opacity: 1;
+    transition: all 0.8s ease 0s;
+  }
+
+  &__button_active {
+    background: linear-gradient(to top, #fc8507, #ffa218);
+    border: 1px solid transparent;
+    border-top-color: #fc8507;
+    border-bottom-color: #ffa218;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 8px;
+
+    &:hover {
+      color: #fff;
+      background-image: linear-gradient(to bottom, #ffbc0b, #ff7400);
+      box-shadow: inset 0 -2px 0 0 rgba(0, 0, 0, 0.2);
+      border-top-color: #ffbc0b;
+      border-bottom-color: #ff7400;
+    }
+  }
+
+  &__buyTrue {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: 30px;
+
+    p {
+      margin: 10px 0;
+    }
+  }
+
+  &__buyTrueContent {
+    margin-bottom: 25px;
+  }
+
+
+  &__containerLists {
+    transition: all .2s;
+    height: 0;
+    opacity: 0;
+    overflow: hidden;
+  }
+
+  &__listShow {
+    transition: opacity .5s;
+    height: 100%;
+    opacity: 1;
+    overflow: auto;
+  }
+
+
+  &__productsList {
+    display: flex;
+    justify-content: space-between;
+    padding: 1px 3px;
+    margin: 3px 0;
+    background-color: #FFFAFA;
+    border-bottom: 1px solid #8c8c8c;
+  }
+
+  &__titleProduct {
+    flex: 1 1 70%;
+
+    overflow: hidden;
+    white-space: normal;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+  }
+
+  &__priceContainerProduct {
+    flex: 1 1 20%;
+    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__countProduct {
+    font-size: 12px;
+    font-weight: bold;
+    color: #737373;
+    padding: 0 5px;
+    white-space: nowrap;
+
+    span {
+      font-size: 14px;
+    }
+  }
+
+  &__priceProduct {
+    min-width: 75px;
+  }
+
+  &__buyActive {
+    display: none;
+  }
+
+  &__countButtons {
+    display: flex;
+    font-size: 16px;
+    line-height: 1.42857;
+    color: #333;
+    width: 100%;
+    max-width: 105px;
+    margin-left: auto;
+    @media(max-width: 800px) {
+      margin-left: 85px;
+    }
+  }
+
+  &__countButton {
+    box-shadow: none;
+    background: #fff;
+    color: #ababab;
+    font-size: 22px;
+    font-weight: bold;
+    overflow: hidden;
+    padding: 0;
+    border: 1px solid #ddd;
+    display: inline-block;
+    height: 38px;
+    text-align: center;
+    vertical-align: top;
+    width: calc(100% / 3);
+    line-height: 1.5;
+    outline: none;
+    cursor: pointer;
+    user-select: none;
+
+    &:disabled {
+      color: #ddd;
+    }
+
+    &:hover:not([disabled]) {
+      border-color: #aaa;
+      color: #333;
+    }
+
+    &:active:not([disabled]) {
+      color: #fff;
+      background: #e66800;
+    }
+  }
+
+  &__countButtonMinus {
+    border-radius: 8px 0 0 8px;
+    border-right: none;
+    color: #ddd;
+  }
+
+  &__countButtonPlus {
+    border-radius: 0 8px 8px 0;
+    border-left: none;
+    color: #ddd;
+  }
+
+  &__countInput {
+    border: 1px solid #ddd;
+    display: inline-block;
+    height: 38px;
+    text-align: center;
+    vertical-align: top;
+    width: calc(100% / 3);
+    border-left: none;
+    border-right: none;
+    font-size: 14px;
+    line-height: 33px;
+    color: #666;
+    -webkit-appearance: none;
+    border-radius: 0;
+  }
+}

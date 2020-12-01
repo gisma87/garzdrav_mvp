@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-// import '../PopupOrder/PopupOrder.scss'
+import './PopupQuickOrder.scss'
 import PopupWrapper from "../UI/PopupWrapper/PopupWrapper";
 
 const PopupQuickOrder = props => {
@@ -19,24 +19,25 @@ const PopupQuickOrder = props => {
   }
 
   return (
-    <PopupWrapper onClick={props.onClose} active={props.active} classStyle='PopupOrder'>
-      <h3 className="PopupOrder__title">{!buy ? 'Оформить заказ' : 'Заказ принят к исполнению'}</h3>
+    <PopupWrapper onClick={props.onClose} active={props.active} classStyle='PopupQuickOrder'>
+      <h3 className="PopupQuickOrder__title">{!buy ? 'Оформить заказ' : 'Заказ принят к исполнению'}</h3>
 
-      <form className={"PopupOrder__form" + (buy ? ' PopupOrder__buyActive' : '')} name="PopupOrder__form"
+      <form className={"PopupQuickOrder__form" + (buy ? ' PopupQuickOrder__buyActive' : '')}
+            name="PopupQuickOrder__form"
             noValidate
             onSubmit={onSummitHandler}
             onChange={(event) => {
               const input = event.target;
-              if (input.id === 'PopupOrder-contact') {
+              if (input.id === 'PopupQuickOrder-contact') {
                 setFormValid(input.checkValidity())
               }
             }}
       >
-        <div className='PopupOrder__selectContainer'>
-          <p className='PopupOrder__titleInput'>Забрать из аптеки</p>
-          <select name="PopupOrder-retails"
-                  id="PopupOrder-retails"
-                  className="PopupOrder__select"
+        <div className='PopupQuickOrder__selectContainer'>
+          <p className='PopupQuickOrder__titleInput'>Забрать из аптеки</p>
+          <select name="PopupQuickOrder-retails"
+                  id="PopupQuickOrder-retails"
+                  className="PopupQuickOrder__select"
                   value={props.activeRetailGuid || props.productInfo.retails[0]}
                   onChange={props.onChange}>
             {props.productInfo.retails.map((item) => {
@@ -49,12 +50,11 @@ const PopupQuickOrder = props => {
             )}
           </select>
         </div>
-        <div className='PopupOrder__priceContainer'>
+        <div className='PopupQuickOrder__priceContainer'>
           <p>Сумма заказа: </p>
-          <p className='PopupOrder__sum'>{checkedItem()?.priceRetail * props.count} ₽</p>
-          <div className="CartItem__countButtons" style={{marginLeft: 'auto'}}>
-            <div className="CartItem__countButtonMinus CartItem__countButton"
-                 style={{cursor: 'pointer', userSelect: 'none'}}
+          <p className='PopupQuickOrder__sum'>{+(checkedItem()?.priceRetail * props.count).toFixed(2)} ₽</p>
+          <div className="PopupQuickOrder__countButtons">
+            <div className="PopupQuickOrder__countButtonMinus PopupQuickOrder__countButton"
                  onClick={() => {
                    if (props.count === 1) {
                      return this
@@ -62,57 +62,56 @@ const PopupQuickOrder = props => {
 
                  }}>-
             </div>
-            <input className="CartItem__countInput" type="text" readOnly value={props.count}/>
-            <div className="CartItem__countButtonPlus CartItem__countButton"
-                 style={{cursor: 'pointer', userSelect: 'none'}}
+            <input className="PopupQuickOrder__countInput" type="text" readOnly value={props.count}/>
+            <div className="PopupQuickOrder__countButtonPlus PopupQuickOrder__countButton"
                  onClick={() => props.setCount(props.count + 1)}>+
             </div>
           </div>
         </div>
 
-        <div className='PopupOrder__inputLabel'>
-          <label htmlFor="PopupOrder-contact">
+        <div className='PopupQuickOrder__inputLabel'>
+          <label htmlFor="PopupQuickOrder-contact">
             <fieldset>
               <legend>Введите телефон</legend>
               <input
                 onChange={props.onChangeInput}
                 type="text"
-                name="PopupOrder-contact"
-                className="PopupOrder__input PopupOrder__input_type_name"
+                name="PopupQuickOrder-contact"
+                className="PopupQuickOrder__input PopupQuickOrder__input_type_name"
                 placeholder="8-XXX-XXX-XXXX"
                 required
                 minLength="6"
                 maxLength="30"
-                id="PopupOrder-contact"
+                id="PopupQuickOrder-contact"
               />
-              <span id="error-PopupOrder-contact" className="popup__error-message"/>
+              <span id="error-PopupQuickOrder-contact" className="popup__error-message"/>
             </fieldset>
           </label>
         </div>
 
-        <div className='PopupOrder__buttonContainer'>
+        <div className='PopupQuickOrder__buttonContainer'>
           <button type='submit'
                   disabled={!formValid}
-                  className={"PopupOrder__button " + (formValid ? "PopupOrder__button_active" : '')}
+                  className={"PopupQuickOrder__button " + (formValid ? "PopupQuickOrder__button_active" : '')}
           >
             Заказать
           </button>
         </div>
-        <p className='PopupOrder__confidentiality'>
+        <p className='PopupQuickOrder__confidentiality'>
           Нажимая кнопку "Заказать" Вы соглашаетесь с
-          <a href={'/confidentiality/'} rel="noopener noreferrer" target="_blank">политикой конфиденциальности
+          <a href={'/confidentiality/'} rel="noopener noreferrer" target="_blank"> политикой конфиденциальности
             Компании</a>
         </p>
       </form>
 
-      <div className={'PopupOrder__buyTrue' + (!buy ? ' PopupOrder__buyActive' : '')}>
+      <div className={'PopupQuickOrder__buyTrue' + (!buy ? ' PopupQuickOrder__buyActive' : '')}>
 
-        <div className='PopupOrder__buyTrueContent'>
+        <div className='PopupQuickOrder__buyTrueContent'>
           <p>Ваш заказ N-XXX-XXX-XXX принят к исполнению.</p>
           <p>Об изменении статуса заказа будет сообщено по СМС</p>
         </div>
         <button type='button'
-                className={"PopupOrder__button PopupOrder__button_active"}
+                className={"PopupQuickOrder__button PopupQuickOrder__button_active"}
                 onClick={() => {
                   props.onClose()
                   setTimeout(() => setBuy(false), 2000)
