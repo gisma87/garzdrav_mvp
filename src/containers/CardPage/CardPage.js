@@ -34,9 +34,9 @@ const CardPage = (props) => {
   } = props;
   const [like, setLike] = useState(false)
   const [quickOrder, setQuickOrder] = useState(false)
-  // const [activeRetailGuid, setActiveRetailGuid] = useState(null)
-  // const [telephone, setTelephone] = useState('')
-  // const [count, setCount] = useState(1)
+  const [activeRetailGuid, setActiveRetailGuid] = useState(null)
+  const [telephone, setTelephone] = useState('')
+  const [count, setCount] = useState(1)
 
   const img = null
 
@@ -52,17 +52,25 @@ const CardPage = (props) => {
   const priceRetail = () => {
     if (typeof productInfo === 'string' || (typeof productInfo === 'object' && productInfo?.length === 0)) {
       return null
-    } else return productInfo.retails[0].priceRetail
+    } else {
+      return productInfo.retails[0].priceRetail
+    }
   }
 
-  // const submitOrder = () => {
-  //   const product = [{guid: productInfo.guid}]
-  //   const activeRetail = productInfo.retails.find(item => item.guid === activeRetailGuid)
-  //   const sum = activeRetail.priceRetail * count
-  //   const send = {guid: activeRetail.guid, telephone: telephone, product, sum}
-  //   setCount(prevState => prevState + 1)
-  //   console.log(send);
-  // }
+  const submitOrder = () => {
+
+    const activeRetail = productInfo.retails.find(item => item.guid === activeRetailGuid)
+    const product = [{
+      guid: productInfo.guid,
+      count,
+      priceRetail: activeRetail.priceRetail,
+      product: productInfo.product,
+      manufacturer: productInfo.manufacturer
+    }]
+    const sum = activeRetail.priceRetail * count
+    const send = {guid: activeRetail.guid, telephone: telephone, product, sum}
+    console.log(send);
+  }
 
   return (
     <section className='CardPage wrapper'>
@@ -123,7 +131,13 @@ const CardPage = (props) => {
                       }}>
                         {isActive ? <SvgCheck style={{color: 'white'}}/> : 'Добавить в корзину'}
                       </button>
-                      <button className='CardPage__button CardPage__buttonBuy'>Быстрый заказ</button>
+                      <button className='CardPage__button CardPage__buttonBuy'
+                              onClick={() => {
+                                setActiveRetailGuid(productInfo.retails[0].guid)
+                                setQuickOrder(true)
+                              }}
+                      >Быстрый заказ
+                      </button>
                     </div>
                     <p className='CardPage__priceText CardPage__priceCaption'>Цена зависит от выбранной
                       аптеки</p>
@@ -375,13 +389,16 @@ const CardPage = (props) => {
                 </div>
               </BlockWrapper>
               <PopupQuickOrder active={quickOrder}
-                               onClose={setQuickOrder(true)}
-                // onSubmit={submitOrder}
-                // activeRetailGuid={activeRetailGuid}
-                // onChange={(e) => setActiveRetailGuid(e.target.value)}
-                // productInfo={productInfo}
-                // onChangeInput={(e) => setTelephone(e.target.value)}
+                               onClose={() => setQuickOrder(false)}
+                               onSubmit={submitOrder}
+                               activeRetailGuid={activeRetailGuid ? activeRetailGuid : productInfo.retails[0].guid}
+                               onChange={(e) => setActiveRetailGuid(e.target.value)}
+                               productInfo={productInfo}
+                               onChangeInput={(e) => setTelephone(e.target.value)}
+                               count={count}
+                               setCount={(value) => setCount(value)}
               />
+
             </>
           }
         </ErrorBoundary>}
