@@ -9,6 +9,13 @@ const setError = (error) => {
   }
 }
 
+//  очищаем ошибку
+const clearError = () => {
+  return {
+    type: 'CLEAR_ERROR'
+  }
+}
+
 // ставим загрузку
 const loadingTrue = () => {
   return {
@@ -208,6 +215,7 @@ const clearCart = () => {
 }
 
 export {
+  clearError,
   onPopupLocation,
   setCartItems,
   clearCart,

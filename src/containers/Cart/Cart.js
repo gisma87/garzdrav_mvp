@@ -479,7 +479,7 @@ const mapDispatchToProps = (dispatch) => {
     fetchCartItems: () => dispatch(fetchCartItems()),
     onSelectRetail: (id) => dispatch(onSelectRetail(id)),
     clearCart: () => dispatch(clearCart()),
-    setCartItems: (cartItems) => dispatch(setCartItems(cartItems))
+    setCartItems: (cartItems) => dispatch(setCartItems(cartItems)),
   }
 }
 

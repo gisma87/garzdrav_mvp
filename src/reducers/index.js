@@ -323,6 +323,12 @@ const reducer = (state = initialState, action) => {
         error: action.payload
       };
 
+    case 'CLEAR_ERROR' :
+      return {
+        ...state,
+        error: null
+      }
+
     case 'CLEAR_CART':
       return {
         ...state,

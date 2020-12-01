@@ -18,6 +18,7 @@ import {connect} from "react-redux";
 import {NavLink, withRouter} from "react-router-dom";
 import {useMediaQuery} from 'react-responsive'
 import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
+import PopupQuickOrder from "../../components/PopupQuickOrder/PopupQuickOrder";
 
 const CardPage = (props) => {
   const {
@@ -32,6 +33,11 @@ const CardPage = (props) => {
     error
   } = props;
   const [like, setLike] = useState(false)
+  const [quickOrder, setQuickOrder] = useState(false)
+  // const [activeRetailGuid, setActiveRetailGuid] = useState(null)
+  // const [telephone, setTelephone] = useState('')
+  // const [count, setCount] = useState(1)
+
   const img = null
 
   const itemIndex = cart.findIndex((item) => item.itemId === itemId);
@@ -44,10 +50,19 @@ const CardPage = (props) => {
   }, [itemId])// eslint-disable-line
 
   const priceRetail = () => {
-    if (typeof productInfo === 'string' || typeof productInfo === 'object' && productInfo?.length === 0) {
+    if (typeof productInfo === 'string' || (typeof productInfo === 'object' && productInfo?.length === 0)) {
       return null
     } else return productInfo.retails[0].priceRetail
   }
+
+  // const submitOrder = () => {
+  //   const product = [{guid: productInfo.guid}]
+  //   const activeRetail = productInfo.retails.find(item => item.guid === activeRetailGuid)
+  //   const sum = activeRetail.priceRetail * count
+  //   const send = {guid: activeRetail.guid, telephone: telephone, product, sum}
+  //   setCount(prevState => prevState + 1)
+  //   console.log(send);
+  // }
 
   return (
     <section className='CardPage wrapper'>
@@ -359,6 +374,14 @@ const CardPage = (props) => {
                   </div>
                 </div>
               </BlockWrapper>
+              <PopupQuickOrder active={quickOrder}
+                               onClose={setQuickOrder(true)}
+                // onSubmit={submitOrder}
+                // activeRetailGuid={activeRetailGuid}
+                // onChange={(e) => setActiveRetailGuid(e.target.value)}
+                // productInfo={productInfo}
+                // onChangeInput={(e) => setTelephone(e.target.value)}
+              />
             </>
           }
         </ErrorBoundary>}
