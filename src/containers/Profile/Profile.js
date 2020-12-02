@@ -1,16 +1,19 @@
-import React, {useState} from "react"
+import React, {useEffect, useState} from "react"
 import './Profile.scss'
 import BlockWrapper from "../../components/BlockWrapper";
 import FavoriteItem from "../../components/FavoriteItem";
-import {Link, withRouter} from "react-router-dom";
+import {Link, withRouter, Redirect} from "react-router-dom";
 import {useMediaQuery} from 'react-responsive'
 import SvgCheck from "../../components/UI/icons/SvgCheck";
-import {addedToCart, allItemRemovedFromCart, itemRemovedFromCart} from "../../actions";
+import {addedToCart, allItemRemovedFromCart, fetchUserData, itemRemovedFromCart, logout} from "../../actions";
 import {connect} from "react-redux";
 import CardItemMobile from "../../components/CardItemMobile";
 import dataCatds from "../../testData/dataCards";
+import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
+import Loader from "../../components/UI/Loader";
 
-const ProfileSetting = () => {
+const ProfileSetting = (props) => {
+
   return (
     <BlockWrapper classStyle='ProfileSetting'>
       <h4>Настройки профиля</h4>
@@ -18,27 +21,29 @@ const ProfileSetting = () => {
         <BlockWrapper classStyle='ProfileSetting__item'>
           <p className='ProfileSetting__itemTitle'>Телефон</p>
           <div className='ProfileSetting__itemContent'>
-            <p className='ProfileSetting__info'>+7 965 324 XX XX</p>
+            <p className='ProfileSetting__info'>+7{props.userData.phone}</p>
             <div className='ProfileSetting__check'><SvgCheck style={{color: 'green'}}/></div>
           </div>
         </BlockWrapper>
         <BlockWrapper classStyle='ProfileSetting__item'>
           <p className='ProfileSetting__itemTitle'>E-mail</p>
           <div className='ProfileSetting__itemContent'>
-            <p className='ProfileSetting__info'>natan78@mail.ru</p>
+            <p className='ProfileSetting__info'>{props.userData.email}</p>
             <div className='ProfileSetting__check'><SvgCheck style={{color: 'green'}}/></div>
           </div>
         </BlockWrapper>
         <BlockWrapper classStyle='ProfileSetting__item'>
           <p className='ProfileSetting__itemTitle'>Имя</p>
           <div className='ProfileSetting__itemContent'>
-            <p className='ProfileSetting__info'>Ярополк</p>
+            <p className='ProfileSetting__info'>
+              {`${props.userData.lastName} ${props.userData.firstName} ${props.userData.middleName}`}
+            </p>
           </div>
         </BlockWrapper>
         <BlockWrapper classStyle='ProfileSetting__item'>
           <p className='ProfileSetting__itemTitle'>Дата рождения</p>
           <div className='ProfileSetting__itemContent'>
-            <p className='ProfileSetting__info'>30.12.1978</p>
+            <p className='ProfileSetting__info'>{props.userData.birthDate.match(/\d{4}-\d\d-\d\d/g)}</p>
           </div>
         </BlockWrapper>
         <BlockWrapper classStyle='ProfileSetting__item'>
@@ -47,14 +52,22 @@ const ProfileSetting = () => {
           <div className='ProfileSetting__itemContainer'>
             <div>
 
-              <input type="radio" id="genderChoice1"
-                     name="gender" value="male"/>
+              <input type="radio"
+                     readOnly
+                     id="genderChoice1"
+                     name="gender"
+                     value="male"
+                     checked={props.userData.gender}
+              />
               <label htmlFor="genderChoice1">Мужской</label>
             </div>
 
             <div>
               <input type="radio" id="genderChoice2"
-                     name="gender" value="female"/>
+                     name="gender" value="female"
+                     readOnly
+                     checked={!props.userData.gender}
+              />
               <label htmlFor="genderChoice2">Женский</label>
             </div>
           </div>
@@ -82,7 +95,7 @@ const Favorites = ({item}) => {
         {!isMobile &&
         favorites.map((item) => {
 
-          return <FavoriteItem key={item+Math.random()}
+          return <FavoriteItem key={item + Math.random()}
                                itemId={item}
                                item={{addedToCart, itemRemovedFromCart, cart, handlerToCards}}/>
         })
@@ -120,58 +133,79 @@ const Profile = (props) => {
 
   const [block, setBlock] = useState('favorites');
 
-  return (
-    <section className='Profile wrapper'>
-      <h1>Личный кабинет</h1>
-      <div className='Profile__mainContainer'>
+  useEffect(() => {
+    if (props.TOKEN) {
+      if (!props.userData) {
+        props.fetchUserData()
+      }
+    }
+  }, [])// eslint-disable-line
 
-        {block === 'main' && <BlockWrapper classStyle='Profile__menu'>
-          <p>БОНУСЫ</p>
-        </BlockWrapper>}
+  if (props.TOKEN) {
+    return (
+      <ErrorBoundary>
+        {!props.userData ? <Loader/> :
+          <section className='Profile wrapper'>
+            <h1>Личный кабинет</h1>
+            <div className='Profile__mainContainer'>
 
-        {block === 'order' && <BlockWrapper classStyle='Profile__menu'>
-          <p>ЗАКАЗЫ</p>
-        </BlockWrapper>}
+              {block === 'main' && <BlockWrapper classStyle='Profile__menu'>
+                <p>БОНУСЫ</p>
+              </BlockWrapper>}
 
-        {block === 'historyOrder' && <BlockWrapper classStyle='Profile__menu'>
-          <p>ИСТОРИИ ЗАКАЗОВ</p>
-        </BlockWrapper>}
+              {block === 'order' && <BlockWrapper classStyle='Profile__menu'>
+                <p>ЗАКАЗЫ</p>
+              </BlockWrapper>}
 
-        {block === 'favorites' && <Favorites item={{addedToCart, itemRemovedFromCart, cart, history, favorites}}/>}
+              {block === 'historyOrder' && <BlockWrapper classStyle='Profile__menu'>
+                <p>ИСТОРИИ ЗАКАЗОВ</p>
+              </BlockWrapper>}
 
-        {block === 'favoriteRetail' && <BlockWrapper classStyle='Profile__menu'>
-          <p>ЛЮБИМАЯ АПТЕКА</p>
-        </BlockWrapper>}
+              {block === 'favorites' &&
+              <Favorites item={{addedToCart, itemRemovedFromCart, cart, history, favorites}}/>}
 
-        {block === 'profileSettings' && <ProfileSetting/>}
+              {block === 'favoriteRetail' && <BlockWrapper classStyle='Profile__menu'>
+                <p>ЛЮБИМАЯ АПТЕКА</p>
+              </BlockWrapper>}
+
+              {block === 'profileSettings' && <ProfileSetting userData={props.userData}/>}
 
 
-        <BlockWrapper classStyle='Profile__menu'>
-          <ul className='Profile__items'>
-            <li className='Profile__item' onClick={() => setBlock('main')}>Бонусы</li>
-            <li className='Profile__item' onClick={() => setBlock('order')}>Заказы</li>
-            <li className='Profile__item' onClick={() => setBlock('historyOrder')}>Истории заказов</li>
-            <li className='Profile__item' onClick={() => setBlock('favorites')}>Избранное</li>
-            <li className='Profile__item' onClick={() => setBlock('favoriteRetail')}>Любимая аптека</li>
-            <li className='Profile__item' onClick={() => setBlock('profileSettings')}>Настройка профиля</li>
-          </ul>
+              <BlockWrapper classStyle='Profile__menu'>
+                <ul className='Profile__items'>
+                  <li className='Profile__item' onClick={() => setBlock('main')}>Бонусы</li>
+                  <li className='Profile__item' onClick={() => setBlock('order')}>Заказы</li>
+                  <li className='Profile__item' onClick={() => setBlock('historyOrder')}>Истории заказов</li>
+                  <li className='Profile__item' onClick={() => setBlock('favorites')}>Избранное</li>
+                  <li className='Profile__item' onClick={() => setBlock('favoriteRetail')}>Любимая аптека</li>
+                  <li className='Profile__item' onClick={() => setBlock('profileSettings')}>Настройка профиля</li>
+                </ul>
 
-          <Link to='/' className='Profile__btnOut'
-                onClick={() => localStorage.setItem('isLogin', 'false')}
-          >Выход из аккаунта</Link>
-        </BlockWrapper>
-      </div>
-    </section>
-  )
+                <Link to='/' className='Profile__btnOut'
+                      onClick={props.logout}
+                >Выход из аккаунта</Link>
+              </BlockWrapper>
+            </div>
+          </section>}
+      </ErrorBoundary>
+    )
+  }
+  return <Redirect to="/"/>
 }
 
 
-const mapStateToProps = ({cart, favorites}) => {
-  return {cart, favorites}
+const mapStateToProps = (
+  {
+    TOKEN, cart, favorites, userData
+  }
+) => {
+  return {TOKEN, cart, favorites, userData}
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    logout: () => dispatch(logout()),
+    fetchUserData: () => dispatch(fetchUserData()),
     addedToCart: (item) => dispatch(addedToCart(item)),
     itemRemovedFromCart: (item) => dispatch(itemRemovedFromCart(item)),
     allItemRemovedFromCart: (item) => dispatch(allItemRemovedFromCart(item))

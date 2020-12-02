@@ -1,5 +1,8 @@
 import axios from "axios";
-import apiServise from "../service/StoreService";
+import apiServiсe from "../service/ApiService";
+
+
+const URL = apiServiсe.URL
 
 // ставим ошибку
 const setError = (error) => {
@@ -49,7 +52,7 @@ const fetchCartItems = (city = null) => (dispatch, getState) => {
   if (cart.length > 0) {
     dispatch(loadingTrue())
     const arrFetch = cart.map(product => {
-      return axios.get(`http://172.16.17.7:5000/Products/byGuid?productGuid=${product.itemId}&cityGuid=${city || isCity.guid}`)
+      return axios.get(`${URL}/Products/byGuid?productGuid=${product.itemId}&cityGuid=${city || isCity.guid}`)
     })
     Promise.all([
       ...arrFetch
@@ -90,7 +93,7 @@ const setIsCity = (isCity) => (dispatch) => {
 const fetchCities = () => async dispatch => {
   try {
     dispatch(loadingTrue())
-    const response = await axios.get('http://172.16.17.7:5000/Cities')
+    const response = await axios.get(`${URL}/Cities`)
     dispatch({type: 'FETCH_CITIES_SUCCESS', payload: response.data})
     dispatch(loadingTrue())
     // если в localStorage есть город - устанавливаем его
@@ -99,7 +102,7 @@ const fetchCities = () => async dispatch => {
       dispatch(setIsCity(cityItem))
     } else {
       // иначе определяем город по IP, устанавливаем его и открываем popup подтверждения выбранного города
-      apiServise.getUserCity()
+      apiServiсe.getUserCity()
         .then(({city, ip}) => {
           console.log(city, ip);
           const cityItem = response.data.find(item => city === item.title)
@@ -119,7 +122,7 @@ const fetchCities = () => async dispatch => {
 const fetchRetailsCity = (cityId) => async dispatch => {
   try {
     dispatch(loadingTrue())
-    const response = await axios.get(`http://172.16.17.7:5000/Retails/${cityId}`)
+    const response = await axios.get(`${URL}/Retails/${cityId}`)
     dispatch({type: 'FETCH_RETAILS_CITY_SUCCESS', payload: response.data})
   } catch (e) {
     dispatch(setError(e))
@@ -183,7 +186,7 @@ const fetchProductInfo = (productId, cityId) => {
   return async dispatch => {
     dispatch(loadingTrue())
     try {
-      const response = await axios.get(`http://172.16.17.7:5000/Products/byGuid?productGuid=${productId}&cityGuid=${cityId}`)
+      const response = await axios.get(`${URL}/Products/byGuid?productGuid=${productId}&cityGuid=${cityId}`)
 
       dispatch(loadingProductInfo(response.data))
     } catch (e) {
@@ -214,7 +217,94 @@ const clearCart = () => {
   }
 }
 
+// запрос информации о пользователе по TOKEN из LocalStorage
+const fetchUserData = (accessToken = JSON.parse(localStorage.getItem('TOKEN')).accessToken) => async (dispatch) => {
+  dispatch(loadingTrue())
+  try {
+    const response = await axios.get(`${URL}/Users`, {
+      headers: {
+        accept: 'application/json',
+        Authorization: `Bearer ${accessToken}`
+      }
+    })
+    dispatch({type: 'USER_DATA', payload: response.data})
+  } catch (e) {
+
+  }
+}
+
+// POST запрос refreshTOKEN
+const refreshAuthentication = () => async (dispatch) => {
+  dispatch(loadingTrue())
+  try {
+    const response = await axios.post(`${URL}/Authentication/refresh`,
+      {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        accessToken: JSON.parse(localStorage.getItem("TOKEN")).accessToken,
+        refreshToken: JSON.parse(localStorage.getItem("TOKEN")).refreshToken
+      })
+    dispatch({type: 'TOKEN', payload: response.data})
+    localStorage.setItem('TOKEN', JSON.stringify(response.data))
+    console.log('refresh_TOKEN')
+  } catch (e) {
+    dispatch(setError(e))
+    dispatch(logout())
+  }
+}
+
+// POST запрос TOKEN
+const authentication = () => async (dispatch) => {
+  dispatch(loadingTrue())
+  try {
+    const response = await axios.post(`${URL}/Authentication`,
+      {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        phone: "9131996226",
+        password: "password"
+      })
+    dispatch({type: 'TOKEN', payload: response.data})
+    localStorage.setItem('TOKEN', JSON.stringify(response.data))
+    console.log('access_TOKEN')
+    dispatch(fetchUserData(response.data.accessToken))
+
+    // const response = async () => await fetch(`${URL}/Authentication`, {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify({
+    //     "phone": "9131996226",
+    //     "password": "password"
+    //   })
+    // })
+    //
+    // response()
+    //   .then(response => response.json())
+    //   .then(result => {
+    //     console.log("AUTHENTICATION ", result)
+    //     dispatch({type: 'TOKEN', payload: result})
+    //   })
+  } catch (e) {
+    dispatch(setError(e))
+  }
+}
+
+function logout() {
+  localStorage.removeItem("TOKEN")
+  return {
+    type: 'LOGOUT'
+  }
+}
+
 export {
+  logout,
+  fetchUserData,
+  refreshAuthentication,
+  authentication,
   clearError,
   onPopupLocation,
   setCartItems,

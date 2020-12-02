@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Redirect, Switch, Route} from 'react-router-dom';
 import './App.css';
 import 'normalize.css';
@@ -26,20 +26,20 @@ function App(props) {
 
   const [howToBuyScroll, setHowToBuyScroll] = useState(false)
 
-  useEffect(() => {
-    props.fetchCities();
-
-    if (localStorage.getItem("cart")) {
-      props.rewriteCart(JSON.parse(localStorage.getItem("cart")))
-
-      // серия запросов - формируется массив элементов корзины
-      props.fetchCartItems()
-    }
-  }, [])// eslint-disable-line
-
-  useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(props.cart));
-  }, [props.cart])
+  // useEffect(() => {
+  //   props.fetchCities();
+  //
+  //   if (localStorage.getItem("cart")) {
+  //     props.rewriteCart(JSON.parse(localStorage.getItem("cart")))
+  //
+  //     // серия запросов - формируется массив элементов корзины
+  //     props.fetchCartItems()
+  //   }
+  // }, [])// eslint-disable-line
+  //
+  // useEffect(() => {
+  //   localStorage.setItem('cart', JSON.stringify(props.cart));
+  // }, [props.cart])
 
   return (
     <div className="App">

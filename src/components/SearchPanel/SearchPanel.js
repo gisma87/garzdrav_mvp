@@ -3,7 +3,7 @@ import './SearchPanel.scss'
 import {withRouter} from 'react-router-dom'
 import {ProductsFromSearchLoaded, loadingTrue, setError} from "../../actions";
 import {connect} from "react-redux";
-import apiServise from "../../service/StoreService";
+import apiServiсe from "../../service/ApiService";
 import SearchForm from "../UI/SearchForm/SearchForm";
 
 const SearchPanel = (props) => {
@@ -30,7 +30,7 @@ const SearchPanel = (props) => {
     e.preventDefault();
     onTouched()
     loadingTrue()
-    apiServise.getProductsFromSearch(value, isCity.guid)
+    apiServiсe.getProductsFromSearch(value, isCity.guid)
       .then((data) => ProductsFromSearchLoaded(data))
       .catch((error) => {
         setError(error)

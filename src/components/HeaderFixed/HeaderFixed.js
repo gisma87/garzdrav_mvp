@@ -15,9 +15,10 @@ const HeaderFixed = (props) => {
 
   const [lastScrollY, setLastScrollY] = useState(0)
   const [popup, setPopup] = useState(false)
-  const isLogin = () => {
-    return localStorage.getItem('isLogin') === 'true'
-  }
+  // const isLogin = () => {
+  //   console.log('JSON.parse(localStorage.getItem("TOKEN")', JSON.parse(localStorage.getItem("TOKEN")))
+  //   return localStorage.getItem('isLogin') === 'true'
+  // }
 
   useEffect(() => {
     const handleScroll = () => {
@@ -41,11 +42,11 @@ const HeaderFixed = (props) => {
               <span className='HeaderFixed__cartText'>Корзина</span>}
           </NavLink>
           <button className='HeaderFixed__logIn' onClick={() => {
-            if (isLogin()) {
+            if (props.TOKEN) {
               props.history.push('/profile/')
               window.scroll(0, 0)
             } else setPopup(true)
-          }}>{isLogin() ? 'Личный кабинет' : 'Войти'}
+          }}>{props.TOKEN ? 'Личный кабинет' : 'Войти'}
           </button>
         </div>
       </div>
@@ -57,8 +58,8 @@ const HeaderFixed = (props) => {
   )
 }
 
-const mapStateToProps = ({cart}) => {
-  return {cart}
+const mapStateToProps = ({cart, TOKEN}) => {
+  return {cart, TOKEN}
 }
 
 const mapDispatchToProps = (dispatch) => {

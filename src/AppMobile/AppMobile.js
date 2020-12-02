@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import './AppMobile.scss'
 import ScrollToTop from "../utils/ScrollToTop";
 import Loader from "../components/UI/Loader";
@@ -22,14 +22,12 @@ import Faq from "../containers/Faq/Faq";
 
 function AppMobile(props) {
 
-  useEffect(() => {
-    props.fetchCities();
-    if (localStorage.getItem("cart")) {
-      props.rewriteCart(JSON.parse(localStorage.getItem("cart")))
-    }
-  }, [])// eslint-disable-line
-
-  useEffect(() => console.log('RENDER APP'))
+  // useEffect(() => {
+  //   props.fetchCities();
+  //   if (localStorage.getItem("cart")) {
+  //     props.rewriteCart(JSON.parse(localStorage.getItem("cart")))
+  //   }
+  // }, [])// eslint-disable-line
 
   return (
     <div className="App">

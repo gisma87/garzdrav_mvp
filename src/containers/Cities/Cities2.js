@@ -9,7 +9,7 @@ import {retailsCityLoaded} from "../../actions";
 import {compose} from "../../utils";
 import withStoreService from "../../hoc/withStoreService/withStoreService";
 import {connect} from "react-redux";
-import StoreService from "../../service/StoreService";
+import StoreService from "../../service/ApiService";
 import BlockWrapper from "../../components/BlockWrapper";
 
 

@@ -1,8 +1,12 @@
 class ApiService {
 
+  constructor() {
+    this.URL = 'http://172.16.17.7:5000'
+  }
+
   // список позиций из поискового запроса
   async getProductsFromSearch(productName, cityId) {
-    const res = await fetch(`http://172.16.17.7:5000/Products/byName?str=${productName}&cityGuid=${cityId}`,
+    const res = await fetch(`${this.URL}/Products/byName?str=${productName}&cityGuid=${cityId}`,
       {
         method: 'GET',
         headers: {
@@ -45,6 +49,6 @@ class ApiService {
   }
 }
 
-const apiServise = new ApiService()
+const apiServiсe = new ApiService()
 
-export default apiServise
+export default apiServiсe

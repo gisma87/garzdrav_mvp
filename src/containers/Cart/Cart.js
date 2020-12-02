@@ -167,7 +167,7 @@ class Cart extends React.Component {
 
   render() {
     const sum = this.getSum()
-    let incompleteRetailItemState = []
+    let incompleteRetailItemState
     incompleteRetailItemState = this.props.retailsArr.filter(item => item.product.length < this.props.cart.length)
 
     return (

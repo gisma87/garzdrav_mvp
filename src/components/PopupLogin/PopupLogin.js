@@ -2,6 +2,8 @@ import React, {useState} from "react"
 import './PopupLogin.scss'
 import PopupWrapper from "../UI/PopupWrapper/PopupWrapper";
 import InputMask from 'react-input-mask'
+import {connect} from "react-redux";
+import {authentication, fetchUserData, refreshAuthentication} from "../../actions";
 
 const PopupLogin = props => {
 
@@ -75,13 +77,14 @@ const PopupLogin = props => {
                   disabled={!formValid}
                   className={"PopupLogin__button " + (formValid ? "PopupLogin__button_active" : '')}
                   onClick={() => {
-                    localStorage.setItem('isLogin', 'true')
+                    props.authentication()
                     props.onClick()
                   }}
           >
             Войти
           </button>
           <button disabled={!formValid}
+                  onClick={props.refreshAuthentication}
                   className={"PopupLogin__button " + (formValid ? "PopupLogin__button_active" : '')}>
             Получить код
           </button>
@@ -91,4 +94,12 @@ const PopupLogin = props => {
   )
 }
 
-export default PopupLogin
+const mapDispatchToProps = (dispatch) => {
+  return {
+    authentication: () => dispatch(authentication()),
+    refreshAuthentication: () => dispatch(refreshAuthentication()),
+    fetchUserData: () => dispatch(fetchUserData())
+  }
+}
+
+export default connect(null, mapDispatchToProps)(PopupLogin)

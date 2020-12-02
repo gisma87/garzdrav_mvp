@@ -16,7 +16,9 @@ const initialState = {
   retailsArr: [],
   selectedRetail: null,
   isRetailAllProduct: true,
-  isPopupLocation: false
+  isPopupLocation: false,
+  TOKEN: null,
+  userData: null
 }
 
 const upgradeRetailItems = (array, cart) => {
@@ -333,6 +335,29 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         cart: []
+      }
+
+    case 'TOKEN':
+      return {
+        ...state,
+        TOKEN: action.payload,
+        loading: false,
+        error: null
+      }
+
+    case 'USER_DATA':
+      return {
+        ...state,
+        userData: action.payload,
+        loading: false,
+        error: null
+      }
+
+    case 'LOGOUT':
+      return {
+        ...state,
+        TOKEN: null,
+        userData: null
       }
 
     default:
