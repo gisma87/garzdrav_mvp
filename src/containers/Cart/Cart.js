@@ -135,7 +135,7 @@ class Cart extends React.Component {
     setTimeout(this.props.clearCart, 8000)
     setTimeout(() => {
       this.setState({
-        error: <p style={{fontSize: 24}}>Запрос вернул ошибку, из-за смены регионов. Корзина будет очищена.</p>
+        error: <p style={{fontSize: 24}}>Мы ничего не нашли :( Корзина будет очищена. Простите, иначе нельзя... :(</p>
       })
     }, 2000)
     return this.state.error
