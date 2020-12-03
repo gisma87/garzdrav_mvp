@@ -1,7 +1,14 @@
+import axios from "axios";
+
 class ApiService {
 
   constructor() {
     this.URL = 'http://172.16.17.7:5000'
+  }
+
+  //подробная информация по товару - нужен id товара и id города
+  async getProductInfo(productId, cityId) {
+    return await axios.get(`${this.URL}/Products/byGuid?productGuid=${productId}&cityGuid=${cityId}`)
   }
 
   // список позиций из поискового запроса
@@ -47,8 +54,44 @@ class ApiService {
         });
     });
   }
+
+  // запрос категорий
+  async getCategories() {
+    const result = await axios.get(`${this.URL}/Categories`)
+    return result.data
+  }
+
+  // строим каталог из списка категорий
+  async buildCatalog() {
+    const Categories = await this.getCategories()
+
+    class NodeCategories {
+      constructor(guid, title, parent = null) {
+        this.guid = guid
+        this.title = title
+        this.parent = parent
+        this.child = []
+        this.getChildrens()
+      }
+
+      getChildrens() {
+        Categories.forEach(cat => {
+          if (cat.parent === this.guid) {
+            this.child.push(new NodeCategories(cat.guid, cat.title, cat.parent))
+          }
+        })
+      }
+    }
+
+    const firstEl = Categories.find(item => item.parent == null)
+    const grandNode = new NodeCategories(firstEl.guid, firstEl.title)
+    console.log('grandNode', grandNode)
+    return grandNode
+  }
+
+
 }
 
-const apiServiсe = new ApiService()
+const apiService = new ApiService()
 
-export default apiServiсe
+export default apiService

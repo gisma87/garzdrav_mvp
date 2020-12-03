@@ -51,6 +51,20 @@ const PopupLogin = props => {
                    id="PopupLogin-contact"
         />
 
+        {/*<input*/}
+        {/*  type="text"*/}
+        {/*  name="PopupLogin-contact1"*/}
+        {/*  className="PopupLogin__input PopupLogin__input_type_name"*/}
+        {/*  placeholder="Телефон или e-mail"*/}
+        {/*  onChange={test}*/}
+        {/*  value={testValue}*/}
+        {/*  required*/}
+        {/*  minLength="6"*/}
+        {/*  maxLength="30"*/}
+        {/*  id="PopupLogin-contact1"*/}
+        {/*/>*/}
+        {/*<span id="error-newPlace" className="popup__error-message"/>*/}
+
 
         {/*<input*/}
         {/*  type="text"*/}

@@ -1,8 +1,8 @@
 import axios from "axios";
-import apiServiсe from "../service/ApiService";
+import apiService from "../service/ApiService";
 
 
-const URL = apiServiсe.URL
+const URL = apiService.URL
 
 // ставим ошибку
 const setError = (error) => {
@@ -45,14 +45,15 @@ const setCartItems = (cartItems) => {
 // серия запросов подробной информации о товаре из списка корзины - по IDproduct и IDcity.
 // Формируется массив cartItems - список товаров со списком аптек в нём, где этот товар есть.
 // Из массива cartItems формируется массив retailsArr - список аптек, со списком товаров из корзины имеющихся в этой аптеке.
-const fetchCartItems = (city = null) => (dispatch, getState) => {
+const fetchCartItems = (city = null) => (dispatch, getState, apiService) => {
   const {cart, isCity} = getState()
+  const cityId = city || isCity.guid
   dispatch(delCartItems())
 
   if (cart.length > 0) {
     dispatch(loadingTrue())
     const arrFetch = cart.map(product => {
-      return axios.get(`${URL}/Products/byGuid?productGuid=${product.itemId}&cityGuid=${city || isCity.guid}`)
+      return apiService.getProductInfo(product.itemId, cityId)
     })
     Promise.all([
       ...arrFetch
@@ -102,7 +103,7 @@ const fetchCities = () => async dispatch => {
       dispatch(setIsCity(cityItem))
     } else {
       // иначе определяем город по IP, устанавливаем его и открываем popup подтверждения выбранного города
-      apiServiсe.getUserCity()
+      apiService.getUserCity()
         .then(({city, ip}) => {
           console.log(city, ip);
           const cityItem = response.data.find(item => city === item.title)
@@ -183,12 +184,12 @@ const ProductsFromSearchLoaded = (products) => {
 
 // дополнительная(подробная) информация о продукте
 const fetchProductInfo = (productId, cityId) => {
-  return async dispatch => {
+  return async (dispatch, getState, apiService) => {
     dispatch(loadingTrue())
     try {
-      const response = await axios.get(`${URL}/Products/byGuid?productGuid=${productId}&cityGuid=${cityId}`)
-
+      const response = await apiService.getProductInfo(productId, cityId)
       dispatch(loadingProductInfo(response.data))
+      // apiService.buildCatalog()
     } catch (e) {
       dispatch(setError(e))
     }
@@ -293,6 +294,7 @@ const authentication = () => async (dispatch) => {
   }
 }
 
+
 function logout() {
   localStorage.removeItem("TOKEN")
   return {
@@ -300,7 +302,22 @@ function logout() {
   }
 }
 
+const setCatalog = () => async (dispatch, getState, apiService) => {
+  dispatch(loadingTrue())
+  try {
+    const response = await apiService.buildCatalog()
+    dispatch({
+      type: 'SET_CATALOG',
+      payload: response
+  })
+  } catch (e) {
+    dispatch(setError(e))
+  }
+}
+
+
 export {
+  setCatalog,
   logout,
   fetchUserData,
   refreshAuthentication,

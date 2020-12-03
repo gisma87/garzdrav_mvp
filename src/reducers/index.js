@@ -18,7 +18,8 @@ const initialState = {
   isRetailAllProduct: true,
   isPopupLocation: false,
   TOKEN: null,
-  userData: null
+  userData: null,
+  catalog: null
 }
 
 const upgradeRetailItems = (array, cart) => {
@@ -95,6 +96,14 @@ const reducer = (state = initialState, action) => {
 
   console.log(action.type, action.payload);
   switch (action.type) {
+
+    case 'SET_CATALOG':
+      return {
+        ...state,
+        catalog: action.payload,
+        loading: false,
+        error: null
+      }
 
     case 'ADDED_TO_FAVORITES':
       return {
