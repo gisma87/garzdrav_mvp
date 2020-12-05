@@ -7,6 +7,7 @@ import ButtonTopScroll from "../UI/ButtonTopScroll";
 import {clearError, rewriteCart} from "../../actions";
 import {connect} from "react-redux";
 import PopupLogin from "../PopupLogin";
+import Burger from "../UI/Burger/Burger";
 
 const HeaderFixed = (props) => {
   const count = props.cart.reduce((sum, item) => {
@@ -15,6 +16,7 @@ const HeaderFixed = (props) => {
 
   const [lastScrollY, setLastScrollY] = useState(0)
   const [popup, setPopup] = useState(false)
+  const [burgerActive, setBurgerActive] = useState(false)
   // const isLogin = () => {
   //   console.log('JSON.parse(localStorage.getItem("TOKEN")', JSON.parse(localStorage.getItem("TOKEN")))
   //   return localStorage.getItem('isLogin') === 'true'
@@ -31,6 +33,10 @@ const HeaderFixed = (props) => {
   return (
     <div className={'HeaderFixed ' + (lastScrollY > 40 ? 'HeaderFixed--active' : '')}>
       <div className='wrapper HeaderFixed__wrapper'>
+        <div>
+          <Burger isActive={burgerActive} onClick={() => setBurgerActive(!burgerActive)}/>
+        </div>
+
         <NavLink to="/" className='HeaderFixed__logo'/>
 
         <SearchPanel/>

@@ -19,8 +19,8 @@ class DropDownMenu extends React.Component {
         </div>
         <ul
           className={'DropDownMenu__itemContainer ' + (this.state.active ? 'DropDownMenu__itemContainer_active' : '')}>
-          {categoriesList.map((item, id) => {
-            return <li className='DropDownMenu__item' key={id}><a href="#">{item}</a></li>
+          {this.props.data.map((item, id) => {
+            return <li key={Math.random() + id} className='DropDownMenu__item'><a href="#">{item.title}</a></li>
           })}
         </ul>
       </div>
