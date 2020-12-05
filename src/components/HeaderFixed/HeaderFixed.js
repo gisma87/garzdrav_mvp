@@ -8,6 +8,7 @@ import {clearError, rewriteCart} from "../../actions";
 import {connect} from "react-redux";
 import PopupLogin from "../PopupLogin";
 import Burger from "../UI/Burger/Burger";
+import Catalog from "../Catalog/Catalog";
 
 const HeaderFixed = (props) => {
   const count = props.cart.reduce((sum, item) => {
@@ -33,8 +34,18 @@ const HeaderFixed = (props) => {
   return (
     <div className={'HeaderFixed ' + (lastScrollY > 40 ? 'HeaderFixed--active' : '')}>
       <div className='wrapper HeaderFixed__wrapper'>
-        <div>
+        <div className='HeaderFixed__catalog'>
           <Burger isActive={burgerActive} onClick={() => setBurgerActive(!burgerActive)}/>
+          {props.catalog && <Catalog isActive={burgerActive}
+                                     onClick={() => setBurgerActive(!burgerActive)}
+                                     data={props.catalog.child}
+          />}
+          {/*{props.catalog*/}
+          {/*&& <DropDownMenu data={props.catalog.child}*/}
+          {/*                 child='child'*/}
+          {/*                 isActive={burgerActive}*/}
+          {/*                 onClick={() => setBurgerActive(!burgerActive)}*/}
+          {/*/>}*/}
         </div>
 
         <NavLink to="/" className='HeaderFixed__logo'/>
@@ -64,8 +75,8 @@ const HeaderFixed = (props) => {
   )
 }
 
-const mapStateToProps = ({cart, TOKEN}) => {
-  return {cart, TOKEN}
+const mapStateToProps = ({cart, TOKEN, catalog}) => {
+  return {cart, TOKEN, catalog}
 }
 
 const mapDispatchToProps = (dispatch) => {

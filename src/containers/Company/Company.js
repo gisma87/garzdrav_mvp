@@ -1,8 +1,7 @@
-import React, {useEffect} from "react"
+import React from "react"
 import {connect} from 'react-redux'
 import './Company.scss'
 import {setCatalog} from "../../actions";
-import DropDownMenu from "../../components/DropDownMenu/DropDownMenu";
 
 const Categories = props => {
   let i = 0
@@ -31,16 +30,9 @@ const Categories = props => {
 
 const Company = (props) => {
 
-  useEffect(() => {
-    props.setCatalog()
-    // eslint-disable-next-line
-  }, [])
-
-
   return (
     <div className='HowOrder wrapper Catalog'>
       <h1>О компании</h1>
-      {props.catalog && <DropDownMenu title='Каталог' data={props.catalog.child[1].child}/>}
       {props.catalog &&
       <ul className='Catalog__list'>
         {

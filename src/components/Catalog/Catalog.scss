@@ -1,0 +1,186 @@
+.Catalog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  height: 100vh;
+  transform: translateX(-2000px);
+  transition: transform .35s ease-in;
+  z-index: 5;
+  background: #fff;
+  width: 95%;
+  color: #333;
+  box-sizing: border-box;
+  padding-bottom: 40px;
+
+  &__activeItem {
+    border-right: 3px solid blue;
+    transition: all .5s;
+  }
+
+  &__active {
+    transform: translateX(0);
+  }
+
+  &__header {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: PTSans-Regular, Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    box-shadow: 0 10px 10px 0 rgba(0, 0, 0, .2);
+    color: #000;
+
+    p {
+      padding: 0 20px;
+    }
+  }
+
+  &__container {
+    display: flex;
+    height: 100%;
+  }
+
+  &__leftPanel {
+    border: 1px dotted black;
+
+    padding: 20px 0;
+    font-size: 20px;
+    font-weight: 600;
+
+    ul {
+      list-style-type: none;
+    }
+  }
+
+  &__leftPanelItem {
+    padding: 15px 20px;
+    cursor: pointer;
+    transition: all .2s;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, .05);
+      color: #fc5808;
+      transition: all .2s
+    }
+  }
+
+  &__rightPanel {
+    flex: 1 1;
+    display: flex;
+    overflow-y: auto;
+    overflow-x: auto;
+    padding: 20px;
+    height: calc(100% - 10px);
+
+    ul {
+      list-style-type: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      max-height: 120%;
+
+      //display: grid;
+      //grid-auto-flow: row dense;
+      //grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      //grid-gap: 1px;
+    }
+  }
+
+  &__rightPanelItem {
+    //border: 1px dotted black;
+    padding: 5px 15px;
+    max-width: 300px;
+    width: 100%;
+
+    p {
+      font-size: 1.2em;
+      font-weight: bold;
+      padding: 10px 0 10px 5px;
+      cursor: pointer;
+      transition: all .2s;
+      color: #000;
+
+      &:hover {
+        background-color: rgba(0, 0, 0, .05);
+        color: #fc5808;
+        transition: all .2s;
+        transform: scale(1.03);
+      }
+    }
+
+    ul {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  &__subItem {
+    font-size: 1.1em;
+    padding: 5px 0 5px 5px;
+    cursor: pointer;
+    transition: all .2s;
+    width: 100%;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, .05);
+      color: #fc5808;
+      transition: all .2s;
+      transform: scale(1.03);
+    }
+  }
+
+
+  /* полоса прокрутки (скроллбар) */
+  ::-webkit-scrollbar {
+    width: 10px; /* ширина для вертикального скролла */
+    height: 8px; /* высота для горизонтального скролла */
+    background-color: #F5F5F5;
+  }
+
+  /* ползунок скроллбара */
+  ::-webkit-scrollbar-thumb {
+    background-color: #4665d7;
+    border-radius: 9em;
+    box-shadow: inset 1px 1px 10px #f3faf7;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #fc8507;
+  }
+
+  /* Стрелки */
+
+  ::-webkit-scrollbar-button:vertical:start:decrement {
+    background: linear-gradient(120deg, #999 40%, rgba(0, 0, 0, 0) 41%),
+    linear-gradient(240deg, #999 40%, rgba(0, 0, 0, 0) 41%),
+    linear-gradient(0deg, #999 30%, rgba(0, 0, 0, 0) 31%);
+    background-color: #fff;
+  }
+
+  ::-webkit-scrollbar-button:vertical:end:increment {
+    background: linear-gradient(300deg, #999 40%, rgba(0, 0, 0, 0) 41%),
+    linear-gradient(60deg, #999 40%, rgba(0, 0, 0, 0) 41%),
+    linear-gradient(180deg, #999 30%, rgba(0, 0, 0, 0) 31%);
+    background-color: #fff;
+  }
+
+  ::-webkit-scrollbar-button:horizontal:start:decrement {
+    background: linear-gradient(30deg, #999 40%, rgba(0, 0, 0, 0) 41%),
+    linear-gradient(150deg, #999 40%, rgba(0, 0, 0, 0) 41%),
+    linear-gradient(270deg, #999 30%, rgba(0, 0, 0, 0) 31%);
+    background-color: #fff;
+  }
+
+  ::-webkit-scrollbar-button:horizontal:end:increment {
+    background: linear-gradient(210deg, #999 40%, rgba(0, 0, 0, 0) 41%),
+    linear-gradient(330deg, #999 40%, rgba(0, 0, 0, 0) 41%),
+    linear-gradient(90deg, #999 30%, rgba(0, 0, 0, 0) 31%);
+    background-color: #fff;
+  }
+
+
+}

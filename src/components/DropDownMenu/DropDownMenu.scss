@@ -4,6 +4,20 @@
   width: 18%;
   max-height: 100%;
 
+  &__dropList {
+    position: absolute;
+    top: 0;
+    left: 280px;
+    visibility: hidden;
+    min-width: 280px;
+    max-width: 840px;
+
+    display: grid;
+    grid-auto-flow: row dense;
+    grid-template-columns: repeat(auto-fill, minmax(276px, 1fr));
+    grid-gap: 1px;
+  }
+
   &__menu a:link {
     color: #fff;
     text-decoration: none;
@@ -22,18 +36,18 @@
     text-decoration: none;
   }
 
-  &__itemContainer {
-    text-align: left;
-    //display: inline;
-    margin: 0;
-    /*padding: 15px 4px 17px 0;*/
-    list-style: none;
-
-    display: grid;
-    grid-auto-flow: row dense;
-    grid-template-columns: repeat(auto-fill, minmax(276px, 1fr));
-    grid-gap: 1px;
-  }
+  //&__itemContainer {
+  //  text-align: left;
+  //  //display: inline;
+  //  margin: 0;
+  //  /*padding: 15px 4px 17px 0;*/
+  //  list-style: none;
+  //
+  //  display: grid;
+  //  grid-auto-flow: row dense;
+  //  grid-template-columns: repeat(auto-fill, minmax(276px, 1fr));
+  //  grid-gap: 1px;
+  //}
 
   &__item {
     font: bold 12px/18px sans-serif;
@@ -43,14 +57,18 @@
     padding: 10px 20px;
     background: #747474;
     cursor: pointer;
-    transition: all 0.2s;
+    //transition: all 0.2s;
+
+    &:hover .DropDownMenu__dropList {
+      visibility: visible;
+    }
   }
 
   &__itemContainer {
     padding: 0;
     position: absolute;
     //top: 48px;
-    top: 60px;
+    top: 25px;
     left: -15px;
     min-width: 280px;
     max-width: 840px;
@@ -60,10 +78,14 @@
     visibility: hidden;
     transition: opacity 0.4s, visibility 0.5s;
 
-    display: grid;
-    grid-auto-flow: row dense;
-    grid-template-columns: repeat(auto-fill, minmax(276px, 1fr));
-    grid-gap: 1px;
+    // если в несколько столбцов
+    //display: grid;
+    //grid-auto-flow: row dense;
+    //grid-template-columns: repeat(auto-fill, minmax(276px, 1fr));
+    //grid-gap: 1px;
+
+    display: flex;
+    flex-direction: column;
   }
 
   &__item {

@@ -10,6 +10,10 @@
   font-size: 15px;
   box-shadow: 0 10px 10px 0 rgba(0, 0, 0, .2);
 
+  &__catalog {
+    position: relative;
+  }
+
   &__logo {
     height: 50px;
     width: 120px;
@@ -90,6 +94,7 @@
   width: 100%;
   z-index: 3;
 }
+
 .HeaderFixed__wrapper {
   box-shadow: none;
 }

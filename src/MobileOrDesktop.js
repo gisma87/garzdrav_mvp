@@ -2,13 +2,14 @@ import React, {useEffect} from "react";
 import {useMediaQuery} from 'react-responsive'
 import App from "./App";
 import AppMobile from "./AppMobile/AppMobile";
-import {fetchCartItems, fetchCities, refreshAuthentication, rewriteCart} from "./actions";
+import {fetchCartItems, fetchCities, refreshAuthentication, rewriteCart, setCatalog} from "./actions";
 import {connect} from "react-redux";
 
 const MobileOrDesktop = (props) => {
 
   useEffect(() => {
     props.fetchCities();
+    props.setCatalog()
 
     if (localStorage.getItem("TOKEN")) {
       props.refreshAuthentication()
@@ -43,7 +44,8 @@ const mapDispatchToProps = (dispatch) => {
     fetchCities: () => dispatch(fetchCities()),
     rewriteCart: (item) => dispatch(rewriteCart(item)),
     fetchCartItems: () => dispatch(fetchCartItems()),
-    refreshAuthentication: () => dispatch(refreshAuthentication())
+    refreshAuthentication: () => dispatch(refreshAuthentication()),
+    setCatalog: () => dispatch(setCatalog())
   }
 }
 
