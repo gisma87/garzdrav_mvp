@@ -1,0 +1,50 @@
+.CatalogPage {
+  max-width: 1240px;
+  margin: 0 auto;
+  width: 100%;
+  flex: 1 1;
+  padding-bottom: 30px;
+
+  &__list {
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  &__item {
+    padding: 15px;
+    font-size: 1.1em;
+    font-weight: 600;
+    background-color: #fff;
+    margin: 10px;
+    transition: all .3s;
+    cursor: pointer;
+    border-radius: 8px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.16);
+    min-height: 100px;
+    width: 280px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    display: flex;
+
+
+    &:hover {
+      //transform: scale(1.05);
+      box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.05), 0 29px 26px 0 rgba(0, 0, 0, 0.08);
+    }
+  }
+
+  &__cardList {
+    padding-top: 30px;
+    width: 100%;
+    display: grid;
+    grid-auto-flow: row dense;
+    grid-template-columns: repeat(auto-fill, minmax(276px, 1fr));
+    grid-gap: 1px;
+    margin: 0 auto;
+  }
+}

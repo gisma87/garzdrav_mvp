@@ -19,7 +19,9 @@ const initialState = {
   isPopupLocation: false,
   TOKEN: null,
   userData: null,
-  catalog: null
+  catalog: null,
+  activeCategory: null,
+  productsToCategory: [],
 }
 
 const upgradeRetailItems = (array, cart) => {
@@ -122,6 +124,14 @@ const reducer = (state = initialState, action) => {
         error: null
       };
 
+    case 'SET_PRODUCTS_TO_CATEGORY':
+      return {
+        ...state,
+        productsToCategory: action.payload,
+        loading: false,
+        error: null
+      }
+
     case 'SET_CITY':
       return {
         ...state,
@@ -134,6 +144,12 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         isPopupLocation: action.payload
+      }
+
+    case 'SET_ACTIVE_CATEGORY':
+      return {
+        ...state,
+        activeCategory: action.payload
       }
 
     case 'ITEM_ADDED_TO_CART':

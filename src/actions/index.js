@@ -309,7 +309,27 @@ const setCatalog = () => async (dispatch, getState, apiService) => {
     dispatch({
       type: 'SET_CATALOG',
       payload: response
-  })
+    })
+  } catch (e) {
+    dispatch(setError(e))
+  }
+}
+
+function setActiveCategory(categoryItem) {
+  return {
+    type: 'SET_ACTIVE_CATEGORY',
+    payload: categoryItem
+  }
+}
+
+const setProductsToCategory = (categoryId) => async (dispatch, getState, apiService) => {
+  dispatch(loadingTrue())
+  try {
+    const response = await apiService.getProductToCategory(getState().isCity.guid, categoryId)
+    dispatch({
+      type: 'SET_PRODUCTS_TO_CATEGORY',
+      payload: response
+    })
   } catch (e) {
     dispatch(setError(e))
   }
@@ -317,6 +337,8 @@ const setCatalog = () => async (dispatch, getState, apiService) => {
 
 
 export {
+  setProductsToCategory,
+  setActiveCategory,
   setCatalog,
   logout,
   fetchUserData,

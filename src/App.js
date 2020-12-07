@@ -21,6 +21,7 @@ import AskQuestion from "./containers/AskQuestion";
 import ScrollToTop from "./utils/ScrollToTop";
 import Loader from "./components/UI/Loader";
 import Faq from "./containers/Faq/Faq";
+import CatalogPage from "./containers/CatalogPage/CatalogPage";
 
 function App(props) {
 
@@ -66,6 +67,7 @@ function App(props) {
         <Route path="/Cards/:id"
                render={({match}) => <CardPage itemId={match.params.id}/>}/>
         {/*<Route component={IndexDesktop}/>*/}
+        <Route path="/catalog/" component={CatalogPage}/>/>
         <Redirect to={'/'}/>
       </Switch>
       <FooterDesktop/>

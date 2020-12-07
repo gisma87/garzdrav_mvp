@@ -66,18 +66,21 @@ class ApiService {
     const Categories = await this.getCategories()
 
     class NodeCategories {
-      constructor(guid, title, parent = null) {
+      constructor(guid, title, parent = null, pathname = [], historyGuid = []) {
         this.guid = guid
         this.title = title
         this.parent = parent
         this.child = []
+        this.pathname = [...pathname, {guid, title, parent, pathname, child: this.child, historyGuid}]
+        this.historyGuid = [...historyGuid, guid]
         this.getChildrens()
       }
 
       getChildrens() {
         Categories.forEach(cat => {
+          // const path = this.pathname.push(this.guid)
           if (cat.parent === this.guid) {
-            this.child.push(new NodeCategories(cat.guid, cat.title, cat.parent))
+            this.child.push(new NodeCategories(cat.guid, cat.title, cat.parent, this.pathname, this.historyGuid))
           }
         })
       }
@@ -87,6 +90,12 @@ class ApiService {
     const grandNode = new NodeCategories(firstEl.guid, firstEl.title)
     console.log('grandNode', grandNode)
     return grandNode
+  }
+
+  // запрос товаров по категории
+  async getProductToCategory(cityId, categoryId) {
+    const result = await axios.get(`${this.URL}/Products/byName?cityGuid=${cityId}&categoryGuid=${categoryId}`)
+    return result.data
   }
 
 

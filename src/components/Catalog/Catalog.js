@@ -3,6 +3,9 @@ import './Catalog.scss'
 import Backdrop from "../UI/Backdrop/Backdrop";
 import Burger from "../UI/Burger/Burger";
 import {useMediaQuery} from 'react-responsive'
+import {Link, NavLink} from "react-router-dom";
+import {connect} from "react-redux";
+import {setActiveCategory} from "../../actions";
 
 const Catalog = props => {
 
@@ -14,7 +17,7 @@ const Catalog = props => {
     <>
       <div className={'Catalog' + (props.isActive ? ' Catalog__active' : '')}>
         <div className="Catalog__header">
-          <p> </p>
+          <p></p>
           <Burger isActive={props.isActive} onClick={props.onClick}/>
         </div>
 
@@ -37,12 +40,25 @@ const Catalog = props => {
               {props.data[activeItem].child.map((item, id) => {
                 return <li key={Math.random() + id}
                            className="Catalog__rightPanelItem">
-                  <p>{item.title}</p>
+                  <Link to='/catalog/'
+                        onClick={() => {
+                    props.setActiveCategory(item)
+                    props.onClick()
+                  }}>{item.title}</Link>
                   {item.child.length > 0 &&
                   <ul>
                     {item.child.map((itemChild, idChild) => {
                       return <li key={Math.random() + idChild}
-                                 className="Catalog__subItem">{itemChild.title}</li>
+                                 className="Catalog__subItem"
+                                 onClick={() => {
+                                   props.setActiveCategory(itemChild)
+                                   props.onClick()
+                                 }}
+                      >
+                        <NavLink to='/catalog/' className='Catalog__link'>
+                          {itemChild.title}
+                        </NavLink>
+                      </li>
                     })}
                   </ul>
                   }
@@ -59,4 +75,10 @@ const Catalog = props => {
   )
 }
 
-export default Catalog
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setActiveCategory: (categoryItem) => dispatch(setActiveCategory(categoryItem))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Catalog)
