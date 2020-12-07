@@ -8,7 +8,7 @@
   transition: transform .35s ease-in;
   z-index: 5;
   background: #fff;
-  width: 95%;
+  width: 80%;
   color: #333;
   box-sizing: border-box;
   padding-bottom: 40px;
@@ -71,7 +71,7 @@
     display: flex;
     overflow-y: auto;
     overflow-x: auto;
-    padding: 20px;
+    padding: 15px;
     height: calc(100% - 10px);
 
     ul {
@@ -92,7 +92,7 @@
 
   &__rightPanelItem {
     //border: 1px dotted black;
-    padding: 5px 15px;
+    padding: 5px 10px;
     max-width: 300px;
     width: 100%;
 
@@ -101,13 +101,13 @@
       display: inline-block;
       font-size: 1.2em;
       font-weight: bold;
-      padding: 10px 0 10px 5px;
+      padding: 7px 0 3px;
       cursor: pointer;
       transition: all .2s;
-      color: #000;
+      color: #333;
 
       &:hover {
-        background-color: rgba(0, 0, 0, .05);
+        //background-color: rgba(0, 0, 0, .05);
         color: #fc5808;
         transition: all .2s;
         transform: scale(1.03);
@@ -121,7 +121,6 @@
   }
 
   &__subItem {
-    padding-left: 7px;
     font-size: 1.1em;
     cursor: pointer;
     transition: all .2s;
@@ -129,7 +128,7 @@
     display: flex;
 
     &:hover {
-      background-color: rgba(0, 0, 0, .05);
+      //background-color: rgba(0, 0, 0, .05);
       color: #fc5808;
       transition: all .2s;
       transform: scale(1.03);
@@ -138,8 +137,12 @@
 
   &__link {
     width: 100%;
-    padding: 5px 0 5px 5px;
-    color: #1c257b;
+    padding: 3px 0 3px 5px;
+    color: #888;
+
+    &:hover {
+      color: #fc5808;
+    }
   }
 
 

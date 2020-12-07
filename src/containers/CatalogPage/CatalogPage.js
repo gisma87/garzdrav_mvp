@@ -22,13 +22,14 @@ const CatalogPage = props => {
     if (!event.target.closest('button')) props.history.push(`/Cards/${itemId}`)
   }
 
-  const getActiveItem = (historyGuid) => {
-    console.log('historyGuid', historyGuid);
-    let activeItem = props.catalog
-    for (let i = 0; i < historyGuid.length; i++) {
-      activeItem = activeItem.child.find(item => item.guid === historyGuid[i])
+  const getActiveItem = (index) => {
+    let activeItem = [props.catalog]
+    const title = [props.catalog.title]
+    for (let i = 1; i < props.activeCategory.historyGuid.length; i++) {
+      activeItem.push(activeItem[i - 1].child.find(item => item.guid === props.activeCategory.historyGuid[i]))
+      title.push(activeItem[i].title)
     }
-    console.log(activeItem)
+    return {title: title[index], activeItem: activeItem[index]}
   }
 
   return (
@@ -36,29 +37,32 @@ const CatalogPage = props => {
       {props.activeCategory &&
       <>
         <div>
-          {props.activeCategory.pathname.map((item, i) => <span key={item.guid}
-                                                                style={{color: 'blue', cursor: 'pointer'}}
-                                                                onClick={() => {
-                                                                  console.log('item', item)
-                                                                  console.log('item.historyGuid', item.historyGuid)
-                                                                  getActiveItem(item.historyGuid)
-                                                                  props.setActiveCategory(item)
-                                                                }}
-          > {item.title} /</span>)}
+          {props.activeCategory.historyGuid.map((item, i) => {
+            return (
+              <>
+              <span key={item}
+                    className='CatalogPage__pathname'
+                    onClick={() => props.setActiveCategory(getActiveItem(i).activeItem)}
+              >
+                {getActiveItem(i).title}
+              </span>
+                <span className='CatalogPage__pathArrow'> > </span>
+              </>
 
-          {/*<span style={{color: 'blue', cursor: 'pointer'}}> {props.activeCategory.title} /</span>*/}
+            )
+          })}
         </div>
+
         <ul className='CatalogPage__list'>
           {props.activeCategory.child.length > 0
-            ? props.activeCategory.child.map((item, i) => {
-              return (<li key={i + item}
-                          onClick={() => {
-                            // props.setProductsToCategory(item.guid)
-                            props.setActiveCategory(item)
-                          }}
-                          className='CatalogPage__item'>{item.title}</li>)
-            })
-            : <li className='CatalogPage__item'>{props.activeCategory?.title}</li>
+          && props.activeCategory.child.map((item, i) => {
+            return (<li key={i + item}
+                        onClick={() => {
+                          // props.setProductsToCategory(item.guid)
+                          props.setActiveCategory(item)
+                        }}
+                        className='CatalogPage__item'>{item.title}</li>)
+          })
           }
         </ul>
       </>}

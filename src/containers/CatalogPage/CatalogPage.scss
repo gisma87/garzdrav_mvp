@@ -38,6 +38,25 @@
     }
   }
 
+  &__pathname {
+    color: gray;
+    cursor: pointer;
+
+    &:hover {
+      color: blue;
+    }
+  }
+
+  &__pathArrow {
+    color: gray;
+    cursor: default;
+    margin: 0 5px;
+
+    &:last-child {
+      display: none;
+    }
+  }
+
   &__cardList {
     padding-top: 30px;
     width: 100%;
