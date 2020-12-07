@@ -335,8 +335,22 @@ const setProductsToCategory = (categoryId) => async (dispatch, getState, apiServ
   }
 }
 
+const setSales = () => async (dispatch, getState, apiService) => {
+  dispatch(loadingTrue())
+  try {
+    const response = await apiService.getSales(getState().TOKEN.accessToken)
+    dispatch({
+      type: 'SET_SALES',
+      payload: response
+    })
+  } catch (e) {
+    dispatch(setError(e))
+  }
+}
+
 
 export {
+  setSales,
   setProductsToCategory,
   setActiveCategory,
   setCatalog,

@@ -5,7 +5,7 @@ import FavoriteItem from "../../components/FavoriteItem";
 import {Link, withRouter, Redirect} from "react-router-dom";
 import {useMediaQuery} from 'react-responsive'
 import SvgCheck from "../../components/UI/icons/SvgCheck";
-import {addedToCart, allItemRemovedFromCart, fetchUserData, itemRemovedFromCart, logout} from "../../actions";
+import {addedToCart, allItemRemovedFromCart, fetchUserData, itemRemovedFromCart, logout, setSales} from "../../actions";
 import {connect} from "react-redux";
 import CardItemMobile from "../../components/CardItemMobile";
 import dataCatds from "../../testData/dataCards";
@@ -138,6 +138,7 @@ const Profile = (props) => {
       if (!props.userData) {
         props.fetchUserData()
       }
+      props.setSales()
     }
   }, [])// eslint-disable-line
 
@@ -208,7 +209,8 @@ const mapDispatchToProps = (dispatch) => {
     fetchUserData: () => dispatch(fetchUserData()),
     addedToCart: (item) => dispatch(addedToCart(item)),
     itemRemovedFromCart: (item) => dispatch(itemRemovedFromCart(item)),
-    allItemRemovedFromCart: (item) => dispatch(allItemRemovedFromCart(item))
+    allItemRemovedFromCart: (item) => dispatch(allItemRemovedFromCart(item)),
+    setSales: () => dispatch(setSales())
   }
 }
 

@@ -66,21 +66,19 @@ class ApiService {
     const Categories = await this.getCategories()
 
     class NodeCategories {
-      constructor(guid, title, parent = null, pathname = [], historyGuid = []) {
+      constructor(guid, title, parent = null, historyGuid = []) {
         this.guid = guid
         this.title = title
         this.parent = parent
         this.child = []
-        this.pathname = [...pathname, {guid, title, parent, pathname, child: this.child, historyGuid}]
         this.historyGuid = [...historyGuid, guid]
         this.getChildrens()
       }
 
       getChildrens() {
         Categories.forEach(cat => {
-          // const path = this.pathname.push(this.guid)
           if (cat.parent === this.guid) {
-            this.child.push(new NodeCategories(cat.guid, cat.title, cat.parent, this.pathname, this.historyGuid))
+            this.child.push(new NodeCategories(cat.guid, cat.title, cat.parent, this.historyGuid))
           }
         })
       }
@@ -96,6 +94,18 @@ class ApiService {
   async getProductToCategory(cityId, categoryId) {
     const result = await axios.get(`${this.URL}/Products/byName?cityGuid=${cityId}&categoryGuid=${categoryId}`)
     return result.data
+  }
+
+  // запрос списка покупок
+  async getSales(TOKEN) {
+    const response = await axios.get(`${this.URL}/Sales`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${TOKEN}`
+        }
+      })
+    return response.data
   }
 
 

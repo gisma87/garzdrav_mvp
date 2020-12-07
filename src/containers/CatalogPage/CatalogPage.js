@@ -12,7 +12,7 @@ const CatalogPage = props => {
   useEffect(() => {
     if (props.activeCategory) {
       props.setProductsToCategory(props.activeCategory.guid)
-    }
+    }// eslint-disable-next-line
   }, [props.activeCategory])
 
 
@@ -57,10 +57,7 @@ const CatalogPage = props => {
           {props.activeCategory.child.length > 0
           && props.activeCategory.child.map((item, i) => {
             return (<li key={i + item}
-                        onClick={() => {
-                          // props.setProductsToCategory(item.guid)
-                          props.setActiveCategory(item)
-                        }}
+                        onClick={() => props.setActiveCategory(item)}
                         className='CatalogPage__item'>{item.title}</li>)
           })
           }

@@ -22,6 +22,7 @@ const initialState = {
   catalog: null,
   activeCategory: null,
   productsToCategory: [],
+  sales: []
 }
 
 const upgradeRetailItems = (array, cart) => {
@@ -128,6 +129,14 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         productsToCategory: action.payload,
+        loading: false,
+        error: null
+      }
+
+    case 'SET_SALES':
+      return {
+        ...state,
+        sales: action.payload,
         loading: false,
         error: null
       }
