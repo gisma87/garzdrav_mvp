@@ -227,20 +227,19 @@ const OrderContent = props => {
     <div className='OrderHistory__wrapper' style={{animationDelay: `${delay}s`}}>
       <div className='OrderHistory__headerItem'>
         <p className='OrderHistory__title'>Заказ А-14344615 от {item.dateDocument}</p>
-        <div  className='OrderHistory__rightHeader'>
-
-
+        <div className='OrderHistory__rightHeader'>
           {contentDisabled &&
-          <p style={{
-            fontWeight: 'bold',
-            fontSize: '20px',
-            animation: 'bounceInLeft 1s both'
-          }}>{item.sumDocument} ₽
+          <p className='OrderHistory__priceHeader'>
+            {item.sumDocument} ₽
           </p>}
           <div className={'OrderHistory__iconContainer' + (contentDisabled ? ' rotate' : '')}
                onClick={() => {
-                 !contentDisabled ? animationHeightContent(100) : collapse()
-                 !contentDisabled ? setContentDisabled(!contentDisabled) : setTimeout(() => setContentDisabled(!contentDisabled), 150)
+                 !contentDisabled
+                   ? animationHeightContent(100)
+                   : collapse();
+                 !contentDisabled
+                   ? setContentDisabled(!contentDisabled)
+                   : setTimeout(() => setContentDisabled(!contentDisabled), 150)
                }}
           >
             <SvgAngleUpSolid className='OrderHistory__arrowIcon'/>

@@ -296,15 +296,23 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    @media(max-width: 550px) {
+      flex-direction: column;
+      align-items: flex-end;
+    }
   }
 
   &__rightHeader {
     display: flex;
     align-items: center;
+  }
 
-    p {
-      margin-right: 15px;
-    }
+  &__priceHeader {
+    margin-right: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    white-space: nowrap;
+    animation: bounceInLeft 1s both;
   }
 
   &__iconContainer {
@@ -332,6 +340,10 @@
   &__title {
     color: #333;
     font-size: 16px;
+    @media(max-width: 550px) {
+      align-self: flex-start;
+    }
+
   }
 
   &__content {
