@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react"
 import './Profile.scss'
 import BlockWrapper from "../../components/BlockWrapper";
 import FavoriteItem from "../../components/FavoriteItem";
-import {Link, withRouter, Redirect} from "react-router-dom";
+import {Link, Redirect, withRouter} from "react-router-dom";
 import {useMediaQuery} from 'react-responsive'
 import SvgCheck from "../../components/UI/icons/SvgCheck";
 import {addedToCart, allItemRemovedFromCart, fetchUserData, itemRemovedFromCart, logout, setSales} from "../../actions";
@@ -12,6 +12,8 @@ import dataCatds from "../../testData/dataCards";
 import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
 import Loader from "../../components/UI/Loader";
 
+
+// раздел Настройка профиля
 const ProfileSetting = (props) => {
 
   return (
@@ -81,6 +83,7 @@ const ProfileSetting = (props) => {
   )
 }
 
+// раздел Избранное
 const Favorites = ({item}) => {
   const isMobile = useMediaQuery({query: '(max-width: 800px)'})
   const {addedToCart, itemRemovedFromCart, cart, history, favorites} = item;
@@ -126,7 +129,106 @@ const Favorites = ({item}) => {
   )
 }
 
+// раздел Бонусы
+const Bonus = props => {
+  return (
+    <BlockWrapper classStyle='ProfileSetting'>
+      <h4>Бонусы: </h4>
+      <BlockWrapper classStyle='ProfileSetting__item'>
+        <p className='ProfileSetting__itemTitle'>Бонусная карта</p>
+        <p className='ProfileSetting__info'>№ {props.userData.barcode}</p>
 
+      </BlockWrapper>
+      <BlockWrapper classStyle='ProfileSetting__item'>
+        <p className='ProfileSetting__itemTitle'>Накоплено бонусов за всё время</p>
+        <div className='ProfileSetting__itemContent'>
+          <p className='ProfileSetting__info'>{props.userData.accumulationBalance}</p>
+        </div>
+      </BlockWrapper>
+      <BlockWrapper classStyle='ProfileSetting__item'>
+        <p className='ProfileSetting__itemTitle'>Текущий баланс</p>
+        <div className='ProfileSetting__itemContent'>
+          <p className='ProfileSetting__info'>
+            {props.userData.currentBalance}
+          </p>
+        </div>
+      </BlockWrapper>
+      <BlockWrapper classStyle='ProfileSetting__item'>
+        <p className='ProfileSetting__itemTitle'>Вместе с картой вы совершили покупок на общую сумму:</p>
+        <p className='ProfileSetting__info'> {props.userData.saleBalance} ₽</p>
+      </BlockWrapper>
+
+
+      <p className='Bonus__signature'>Подробную историю зачисления / списания бонусов можно посмотреть в
+        истории ваших заказов</p>
+
+    </BlockWrapper>
+  )
+}
+
+// раздел Заказы (текущие)
+const Orders = props => {
+  return (
+    <BlockWrapper classStyle='ProfileSetting'>
+      <h4>Заказы: </h4>
+      <BlockWrapper classStyle='ProfileSetting__item'>
+        <p className='ProfileSetting__itemTitle'>Текущие заказы</p>
+        <p className='ProfileSetting__info'>в разработке</p>
+      </BlockWrapper>
+    </BlockWrapper>
+  )
+}
+
+// раздел История заказов
+const OrderHistory = props => {
+  const orders = props.sales.filter(item => item.type === 'Реализация')
+  console.log('ORDERS', orders);
+
+  function calcAmount(product) {
+    const sum = (product.priceRetail - product.spendBonus - product.discount) * product.quantity
+    return Math.round(sum * 100) / 100
+  }
+
+
+  return (
+    <BlockWrapper classStyle='OrderHistory'>
+      <h2>История заказов</h2>
+      {
+        orders.map(item => <div className='OrderHistory__wrapper' key={item.dateDocument}>
+          <div className='OrderHistory__headerItem'>
+            <p className='OrderHistory__title'>Заказ А-14344615 от {item.dateDocument}</p>
+          </div>
+          <div className='OrderHistory__content'>
+            {item.items.map(product => <BlockWrapper classStyle='OrderHistory__product'>
+                <p className='OrderHistory__productTitle'>{product.title}</p>
+                <p className='OrderHistory__info'>Куплено: {product.quantity} шт по {product.priceRetail} ₽</p>
+                {/*<p className='OrderHistory__info'>Количество: {product.quantity} шт.</p>*/}
+                <p className='OrderHistory__info'>Начислено бонусов: <span
+                  className='positive'>{product.accumulationBonus}</span></p>
+                <p className='OrderHistory__info'>Списано бонусов: <span
+                  className={product.spendBonus > 0 ? 'negative' : ''}>{product.spendBonus}</span></p>
+                {product.discount > 0 && <p className='OrderHistory__info'>Скидка: {product.discount}</p>}
+                <p
+                  className='OrderHistory__sumProduct'>{calcAmount(product)} ₽</p>
+              </BlockWrapper>
+            )}
+            <div className='OrderHistory__infoContainer'>
+              <p className='OrderHistory__infoItem'>Начислено всего бонусов: <span
+                className='positive'>{item.accumulationBonus}</span></p>
+              <p className='OrderHistory__infoItem'>Потрачено всего бонусов: <span
+                className={item.spendBonus > 0 ? 'negative' : ''}>{item.spendBonus}</span></p>
+              <p className='OrderHistory__amount'>Итого: {item.sumDocument} ₽</p>
+            </div>
+          </div>
+        </div>)
+      }
+
+    </BlockWrapper>
+  )
+}
+
+
+// страница Личный кабинет
 const Profile = (props) => {
 
   const {addedToCart, itemRemovedFromCart, cart, history, favorites} = props;
@@ -150,18 +252,16 @@ const Profile = (props) => {
             <h1>Личный кабинет</h1>
             <div className='Profile__mainContainer'>
 
-              {block === 'main' && <BlockWrapper classStyle='Profile__menu'>
-                <p>БОНУСЫ</p>
-              </BlockWrapper>}
+              {/*раздел Бонусы*/}
+              {block === 'main' && <Bonus userData={props.userData}/>}
 
-              {block === 'order' && <BlockWrapper classStyle='Profile__menu'>
-                <p>ЗАКАЗЫ</p>
-              </BlockWrapper>}
+              {/*раздел Заказы*/}
+              {block === 'order' && <Orders/>}
 
-              {block === 'historyOrder' && <BlockWrapper classStyle='Profile__menu'>
-                <p>ИСТОРИИ ЗАКАЗОВ</p>
-              </BlockWrapper>}
+              {/*раздел История заказов*/}
+              {block === 'historyOrder' && <OrderHistory sales={props.sales}/>}
 
+              {/*раздел Избранное*/}
               {block === 'favorites' &&
               <Favorites item={{addedToCart, itemRemovedFromCart, cart, history, favorites}}/>}
 
@@ -169,6 +269,7 @@ const Profile = (props) => {
                 <p>ЛЮБИМАЯ АПТЕКА</p>
               </BlockWrapper>}
 
+              {/*раздел Настройка профиля*/}
               {block === 'profileSettings' && <ProfileSetting userData={props.userData}/>}
 
 
@@ -197,10 +298,10 @@ const Profile = (props) => {
 
 const mapStateToProps = (
   {
-    TOKEN, cart, favorites, userData
+    TOKEN, cart, favorites, userData, sales
   }
 ) => {
-  return {TOKEN, cart, favorites, userData}
+  return {TOKEN, cart, favorites, userData, sales}
 }
 
 const mapDispatchToProps = (dispatch) => {
