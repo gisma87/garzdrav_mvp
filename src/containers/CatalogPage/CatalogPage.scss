@@ -39,7 +39,15 @@
   }
 
   &__pathname {
+    display: inline-block;
     color: gray;
+
+    &:last-child .CatalogPage__pathArrow {
+      display: none;
+    }
+  }
+
+  &__pathItem {
     cursor: pointer;
 
     &:hover {
@@ -51,10 +59,6 @@
     color: gray;
     cursor: default;
     margin: 0 5px;
-
-    &:last-child {
-      display: none;
-    }
   }
 
   &__cardList {
