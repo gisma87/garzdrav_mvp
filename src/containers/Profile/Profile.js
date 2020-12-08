@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react"
+import React, {useEffect, useRef, useState} from "react"
 import './Profile.scss'
 import BlockWrapper from "../../components/BlockWrapper";
 import FavoriteItem from "../../components/FavoriteItem";
@@ -11,6 +11,7 @@ import CardItemMobile from "../../components/CardItemMobile";
 import dataCatds from "../../testData/dataCards";
 import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
 import Loader from "../../components/UI/Loader";
+import SvgAngleUpSolid from "../../img/SVGcomponents/SvgAngleUpSolid";
 
 
 // раздел Настройка профиля
@@ -179,48 +180,115 @@ const Orders = props => {
   )
 }
 
-// раздел История заказов
-const OrderHistory = props => {
-  const orders = props.sales.filter(item => item.type === 'Реализация')
-  console.log('ORDERS', orders);
+
+const OrderContent = props => {
+
+  const [contentDisabled, setContentDisabled] = useState(false)
+  const [height, setHeight] = useState(0)
+  const [styleContent, setStyleContent] = useState({})
+  const content = useRef(null)
+
+  useEffect(() => {
+    setHeight(content.current.clientHeight)
+  }, [])
+
+  const {item, delay} = props
 
   function calcAmount(product) {
     const sum = (product.priceRetail - product.spendBonus - product.discount) * product.quantity
     return Math.round(sum * 100) / 100
   }
 
+  function animationHeightContent(t) {
+    setStyleContent({height: height})
+    setTimeout(() => setStyleContent({}), t)
+  }
 
+  function collapse() {
+    let a = 0
+    let timer = setInterval(() => {
+      if (a < height) {
+        if (a < 100) {
+          setStyleContent({height: a, visibility: 'hidden'})
+        } else {
+          setStyleContent({height: a})
+        }
+        a += 15
+      }
+    }, 1)
+
+    setTimeout(() => {
+      clearInterval(timer)
+      setStyleContent({})
+    }, 200);
+  }
+
+  return (
+    <div className='OrderHistory__wrapper' style={{animationDelay: `${delay}s`}}>
+      <div className='OrderHistory__headerItem'>
+        <p className='OrderHistory__title'>Заказ А-14344615 от {item.dateDocument}</p>
+        <div  className='OrderHistory__rightHeader'>
+
+
+          {contentDisabled &&
+          <p style={{
+            fontWeight: 'bold',
+            fontSize: '20px',
+            animation: 'bounceInLeft 1s both'
+          }}>{item.sumDocument} ₽
+          </p>}
+          <div className={'OrderHistory__iconContainer' + (contentDisabled ? ' rotate' : '')}
+               onClick={() => {
+                 !contentDisabled ? animationHeightContent(100) : collapse()
+                 !contentDisabled ? setContentDisabled(!contentDisabled) : setTimeout(() => setContentDisabled(!contentDisabled), 150)
+               }}
+          >
+            <SvgAngleUpSolid className='OrderHistory__arrowIcon'/>
+          </div>
+        </div>
+      </div>
+      <div
+        className={'OrderHistory__content' + (contentDisabled ? ' OrderHistory__contentDisabled' : '')}
+        ref={content}
+        style={styleContent}
+      >
+        {item.items.map(product => <BlockWrapper classStyle='OrderHistory__product'>
+            <p className='OrderHistory__productTitle'>{product.title}</p>
+            <p className='OrderHistory__info'>Куплено: {product.quantity} шт по {product.priceRetail} ₽</p>
+            <p className='OrderHistory__info'>Начислено бонусов: <span
+              className='positive'>{product.accumulationBonus}</span></p>
+            <p className='OrderHistory__info'>Списано бонусов: <span
+              className={product.spendBonus > 0 ? 'negative' : ''}>{product.spendBonus}</span></p>
+            {product.discount > 0 && <p className='OrderHistory__info'>Скидка: {product.discount}</p>}
+            <p
+              className='OrderHistory__sumProduct'>{calcAmount(product)} ₽</p>
+          </BlockWrapper>
+        )}
+        <div className='OrderHistory__infoContainer'>
+          <p className='OrderHistory__infoItem'>Начислено всего бонусов: <span
+            className='positive'>{item.accumulationBonus}</span></p>
+          <p className='OrderHistory__infoItem'>Потрачено всего бонусов: <span
+            className={item.spendBonus > 0 ? 'negative' : ''}>{item.spendBonus}</span></p>
+          <p className='OrderHistory__amount'>Итого: {item.sumDocument} ₽</p>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// раздел История заказов
+const OrderHistory = props => {
+  const orders = props.sales.filter(item => item.type === 'Реализация')
+  console.log('ORDERS', orders);
+  let delay = 0;
   return (
     <BlockWrapper classStyle='OrderHistory'>
       <h2>История заказов</h2>
       {
-        orders.map(item => <div className='OrderHistory__wrapper' key={item.dateDocument}>
-          <div className='OrderHistory__headerItem'>
-            <p className='OrderHistory__title'>Заказ А-14344615 от {item.dateDocument}</p>
-          </div>
-          <div className='OrderHistory__content'>
-            {item.items.map(product => <BlockWrapper classStyle='OrderHistory__product'>
-                <p className='OrderHistory__productTitle'>{product.title}</p>
-                <p className='OrderHistory__info'>Куплено: {product.quantity} шт по {product.priceRetail} ₽</p>
-                {/*<p className='OrderHistory__info'>Количество: {product.quantity} шт.</p>*/}
-                <p className='OrderHistory__info'>Начислено бонусов: <span
-                  className='positive'>{product.accumulationBonus}</span></p>
-                <p className='OrderHistory__info'>Списано бонусов: <span
-                  className={product.spendBonus > 0 ? 'negative' : ''}>{product.spendBonus}</span></p>
-                {product.discount > 0 && <p className='OrderHistory__info'>Скидка: {product.discount}</p>}
-                <p
-                  className='OrderHistory__sumProduct'>{calcAmount(product)} ₽</p>
-              </BlockWrapper>
-            )}
-            <div className='OrderHistory__infoContainer'>
-              <p className='OrderHistory__infoItem'>Начислено всего бонусов: <span
-                className='positive'>{item.accumulationBonus}</span></p>
-              <p className='OrderHistory__infoItem'>Потрачено всего бонусов: <span
-                className={item.spendBonus > 0 ? 'negative' : ''}>{item.spendBonus}</span></p>
-              <p className='OrderHistory__amount'>Итого: {item.sumDocument} ₽</p>
-            </div>
-          </div>
-        </div>)
+        orders.map(item => {
+          delay += .07
+          return <OrderContent key={item.dateDocument} item={item} delay={delay}/>
+        })
       }
 
     </BlockWrapper>
@@ -233,7 +301,7 @@ const Profile = (props) => {
 
   const {addedToCart, itemRemovedFromCart, cart, history, favorites} = props;
 
-  const [block, setBlock] = useState('favorites');
+  const [block, setBlock] = useState('main');
 
   useEffect(() => {
     if (props.TOKEN) {

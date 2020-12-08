@@ -217,16 +217,55 @@
 }
 
 .OrderHistory {
+  @keyframes bounceInLeft {
+    0% {
+      opacity: 0;
+
+      transform: translateX(-400px);
+    }
+    60% {
+
+      transform: translateX(30px);
+    }
+    80% {
+      transform: translateX(-10px);
+    }
+    100% {
+      opacity: 1;
+
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes scaleOn {
+    0% {
+      opacity: 1;
+
+      transform: scale(1);
+    }
+    100% {
+      opacity: 0;
+
+      transform: scale(0);
+    }
+  }
+
+  @keyframes scaleOff {
+    0% {
+      opacity: 0;
+      transform: scale(0);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
   padding-left: 0;
   padding-right: 0;
   flex: 1 1;
   margin-right: 10px;
   cursor: default;
-
-  &:hover .OrderHistory__infoContainer {
-    background-color: #FFF9E5;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
-  }
 
   h2 {
     padding: 0 10px 15px 20px;
@@ -236,6 +275,16 @@
     border: 1px solid #ddd;
     border-radius: 4px 4px 0 0;
     margin-bottom: 20px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.16);
+    animation-name: bounceInLeft;
+    animation-duration: 1s;
+    animation-fill-mode: both;
+
+
+    &:hover, &:hover .OrderHistory__content {
+      background-color: #FFF9E5;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+    }
   }
 
   &__headerItem {
@@ -244,6 +293,40 @@
     padding: 10px 20px;
     background-color: #f4f2f2;
     width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__rightHeader {
+    display: flex;
+    align-items: center;
+
+    p {
+      margin-right: 15px;
+    }
+  }
+
+  &__iconContainer {
+    padding: 2px 5px;
+
+    &:hover .OrderHistory__arrowIcon {
+      color: #fc8507;
+    }
+  }
+
+  .rotate {
+    transform: rotate(180deg);
+    color: green;
+
+    & > .OrderHistory__arrowIcon {
+      color: green;
+    }
+  }
+
+  &__arrowIcon {
+    font-size: 26px;
+    color: #8c8c8c;
   }
 
   &__title {
@@ -255,6 +338,16 @@
     border-top: 1px solid #d8d8d8;
     padding: 5px;
     background-color: #fff;
+    animation: scaleOff .5s;
+  }
+
+  &__contentDisabled {
+    visibility: hidden;
+    height: 0;
+    padding: 0 5px;
+
+    transition: height .3s, visibility .25s;
+    animation: scaleOn .5s;
   }
 
   &__product {
