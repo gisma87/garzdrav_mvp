@@ -223,6 +223,12 @@ const OrderContent = props => {
     }, 200);
   }
 
+  function expand() {
+    let a = height < 500 ? height : 500;
+    const TIME_ANIMATION = 300
+    const step =  a / TIME_ANIMATION // step px нужно увеличивать каждую 1ms
+  }
+
   return (
     <div className='OrderHistory__wrapper' style={{animationDelay: `${delay}s`}}>
       <div className='OrderHistory__headerItem'>
