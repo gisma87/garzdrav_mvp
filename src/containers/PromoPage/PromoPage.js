@@ -2,6 +2,7 @@ import React from "react"
 import {withRouter} from 'react-router-dom'
 import './PromoPage.scss'
 import PromoItem from "../../components/PromoItem";
+import Pagination from "../../components/Pagination/Pagination";
 
 import data from "../../testData/articlesANDpromo";
 
