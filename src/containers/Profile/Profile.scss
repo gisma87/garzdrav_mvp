@@ -1,3 +1,6 @@
+@import "src/scss/variables";
+@import "src/scss/mixins";
+
 .Profile {
   font-family: PTSans-Regular, Helvetica, Arial, sans-serif;
   padding: 0 15px;
@@ -203,6 +206,259 @@
       flex-direction: row;
       flex-wrap: wrap;
     }
+  }
+
+}
+
+.Bonus {
+  &__signature {
+    margin-top: 20px;
+  }
+}
+
+.OrderHistory {
+  @keyframes bounceInLeft {
+    0% {
+      opacity: 0;
+
+      transform: translateX(-400px);
+    }
+    60% {
+
+      transform: translateX(30px);
+    }
+    80% {
+      transform: translateX(-10px);
+    }
+    100% {
+      opacity: 1;
+
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes scaleOn {
+    0% {
+      opacity: 0;
+      transform: scale(0);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  padding-left: 0;
+  padding-right: 0;
+  flex: 1 1;
+  margin-right: 10px;
+  cursor: default;
+
+  h2 {
+    padding: 0 10px 15px 20px;
+  }
+
+  &__wrapper {
+    border: 1px solid #ddd;
+    border-radius: 4px 4px 0 0;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.16);
+    animation-name: bounceInLeft;
+    animation-duration: 1s;
+    animation-fill-mode: both;
+
+
+    &:hover, &:hover .OrderHistory__content {
+      background-color: #FFF9E5;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+    }
+  }
+
+  &__headerItem {
+    cursor: pointer;
+    border-radius: 4px 4px 0 0;
+    border-bottom: 1px solid #D7D7D7;
+    padding: 10px 20px;
+    background-color: #f4f2f2;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    @media(max-width: 550px) {
+      flex-direction: column;
+      align-items: flex-end;
+    }
+  }
+
+  &__rightHeader {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex: 1 1;
+    text-align: right;
+  }
+
+  &__infoHeader {
+    display: grid;
+    grid-template-columns: 100px 100px 100px;
+
+
+    width: 100%;
+    max-width: 300px;
+    margin-right: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    white-space: nowrap;
+    animation: bounceInLeft .8s both;
+
+    @media(max-width: 450px) {
+      display: flex;
+      flex-wrap: wrap;
+      font-size: 16px;
+    }
+  }
+
+  &__priceHeader {
+
+  }
+
+  &__bonusHeader {
+    color: green;
+    transform: scale(0);
+    animation: scaleOn .3s linear .6s both;
+    @media(max-width: 450px) {
+      margin-right: 25px;
+    }
+  }
+
+  &__spendBonusHeader {
+    color: red;
+    transform: scale(0);
+    animation: scaleOn .3s linear .8s both;
+    @media(max-width: 450px) {
+      margin-right: 25px;
+    }
+  }
+
+  &__iconContainer {
+    padding: 2px 5px;
+    transition: transform .5s;
+
+    &:hover .OrderHistory__arrowIcon {
+      color: #fc8507;
+    }
+  }
+
+  .rotate {
+    transform: rotate(180deg);
+    color: green;
+    transition: transform .5s;
+
+    & > .OrderHistory__arrowIcon {
+      color: green;
+    }
+  }
+
+  &__arrowIcon {
+    font-size: 26px;
+    color: #8c8c8c;
+  }
+
+  &__title {
+    color: #333;
+    font-size: 16px;
+    @media(max-width: 550px) {
+      align-self: flex-start;
+      font-size: 14px;
+    }
+  }
+
+  &__content {
+    border-top: 1px solid #d8d8d8;
+    padding: 0;
+    background-color: #fff;
+
+    transition: height .3s, transform .3s;
+    height: 0;
+    overflow: hidden;
+  }
+
+  &__contentDisabled {
+
+    height: 0;
+    padding: 0 5px;
+    transform: scale(0);
+    transform-origin: top;
+    opacity: 0;
+    transition: all .4s;
+  }
+
+  &__product {
+    position: relative;
+    border: 1px solid #E5E5E5;
+    padding: 13px;
+    min-width: 300px;
+    margin-bottom: 10px;
+
+    &:first-child {
+      border-top: none;
+    }
+
+    @media(max-width: 450px) {
+      margin-bottom: 0;
+
+    }
+  }
+
+  &__productTitle {
+    color: #555;
+    margin-bottom: 10px;
+  }
+
+  &__info {
+    color: #000;
+    font-size: 16px;
+    margin: 4px 0;
+  }
+
+  &__sumProduct {
+    font-size: 20px;
+    font-weight: bold;
+    position: absolute;
+    bottom: 10px;
+    right: 15px;
+  }
+
+  &__infoContainer {
+    font-size: 18px;
+    padding: 10px 0 10px 10px;
+    @media(max-width: 450px) {
+      font-size: 16px;
+    }
+  }
+
+  &__infoItem {
+    margin: 3px;
+  }
+
+  &__amount {
+    font-weight: bold;
+    font-size: 22px;
+    margin-top: 15px;
+    margin-left: 3px;
+    @media(max-width: 450px) {
+      font-size: 18px;
+      margin-top: 10px;
+    }
+  }
+
+  .positive {
+    color: green;
+    font-weight: 600;
+  }
+
+  .negative {
+    color: red;
   }
 
 }

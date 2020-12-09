@@ -14,10 +14,6 @@ const MobileBottomNavbar = (props) => {
 
   const [popup, setPopup] = useState(false)
 
-  const isLogin = () => {
-    return localStorage.getItem('isLogin') === 'true'
-  }
-
   const count = props.cart.reduce((sum, item) => {
     return item.count + sum
   }, 0)
@@ -41,9 +37,9 @@ const MobileBottomNavbar = (props) => {
         <SvgIconCart className='MobileBottomNavbar__icon'/>
       </NavLink>
 
-      <button className={'MobileBottomNavbar__btn' + (isLogin() ? ' MobileBottomNavbar__btn-active' : '')}
+      <button className={'MobileBottomNavbar__btn' + (props.TOKEN ? ' MobileBottomNavbar__btn-active' : '')}
               onClick={() => {
-                if (isLogin()) {
+                if (props.TOKEN) {
                   props.history.push('/profile/')
                   window.scroll(0, 0)
                 } else setPopup(true)
@@ -51,15 +47,14 @@ const MobileBottomNavbar = (props) => {
 
       <PopupLogin active={popup}
                   onClick={() => setPopup(false)}
-        // isLogin={() => setIsLogin(true)}
       />
 
     </div>
   )
 }
 
-const mapStateToProps = ({cart}) => {
-  return {cart}
+const mapStateToProps = ({cart, TOKEN}) => {
+  return {cart, TOKEN}
 }
 
 const mapDispatchToProps = (dispatch) => {

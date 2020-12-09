@@ -39,15 +39,14 @@ const CatalogPage = props => {
         <div>
           {props.activeCategory.historyGuid.map((item, i) => {
             return (
-              <>
-              <span key={item}
-                    className='CatalogPage__pathname'
+              <p key={item} className='CatalogPage__pathname'>
+              <span className='CatalogPage__pathItem'
                     onClick={() => props.setActiveCategory(getActiveItem(i).activeItem)}
               >
                 {getActiveItem(i).title}
               </span>
                 <span className='CatalogPage__pathArrow'> > </span>
-              </>
+              </p>
 
             )
           })}

@@ -60,8 +60,8 @@ function AppMobile(props) {
   );
 }
 
-const mapStateToProps = ({cart, loading}) => {
-  return {cart, loading}
+const mapStateToProps = ({cart, loading, TOKEN}) => {
+  return {cart, loading, TOKEN}
 }
 
 const mapDispatchToProps = (dispatch) => {
