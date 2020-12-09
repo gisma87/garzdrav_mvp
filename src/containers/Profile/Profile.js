@@ -327,10 +327,10 @@ const Profile = (props) => {
               <BlockWrapper classStyle='Profile__menu'>
                 <ul className='Profile__items'>
                   <li className='Profile__item' onClick={() => setBlock('main')}>Бонусы</li>
-                  <li className='Profile__item' onClick={() => setBlock('order')}>Заказы</li>
+                  <li className='Profile__item' onClick={() => setBlock('order')}>Заказы <span style={{color: 'red', fontSize: 12}}>в разработке</span></li>
                   <li className='Profile__item' onClick={() => setBlock('historyOrder')}>Истории заказов</li>
-                  <li className='Profile__item' onClick={() => setBlock('favorites')}>Избранное</li>
-                  <li className='Profile__item' onClick={() => setBlock('favoriteRetail')}>Любимая аптека</li>
+                  <li className='Profile__item' onClick={() => setBlock('favorites')}>Избранное <span style={{color: 'red', fontSize: 12}}>в разработке</span></li>
+                  <li className='Profile__item' onClick={() => setBlock('favoriteRetail')}>Любимая аптека <span style={{color: 'red', fontSize: 12}}>в разработке</span></li>
                   <li className='Profile__item' onClick={() => setBlock('profileSettings')}>Настройка профиля</li>
                 </ul>
 
