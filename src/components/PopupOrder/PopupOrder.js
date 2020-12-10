@@ -19,6 +19,11 @@ const PopupOrder = props => {
     props.onSubmit()
   }
 
+  const getTitleCity = () => {
+    const retail = props.retails.find(item => item.guid === props.checked)
+    return retail.city
+  }
+
   return (
     <PopupWrapper onClick={props.onClick} active={props.active} classStyle='PopupOrder'>
       <h3 className="PopupOrder__title">{!buy ? 'Оформить заказ' : 'Заказ принят к исполнению'}</h3>
@@ -33,7 +38,10 @@ const PopupOrder = props => {
             }}
       >
         <div className='PopupOrder__selectContainer'>
-          <p className='PopupOrder__titleInput'>Забрать из аптеки</p>
+          <p className='PopupOrder__titleInput'>
+            <span>Забрать из аптеки</span>
+            <span className='PopupOrder__titleInputCity'>г. {getTitleCity()}</span>
+          </p>
           <select name="PopupOrder-retails"
                   id="PopupOrder-retails"
                   className="PopupOrder__select"
@@ -42,7 +50,7 @@ const PopupOrder = props => {
             {props.retails.map((item) => {
                 return (
                   <option key={item.guid} value={item.guid}>
-                    г. {item.city}, {item.street}, {item.buildNumber}
+                    ул. {item.street}, {item.buildNumber}
                   </option>
                 )
               }

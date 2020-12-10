@@ -331,7 +331,7 @@ class Cart extends React.Component {
                       <BlockWrapper classStyle='Cart__blockMoreItems'>
                         {
                           this.getFullRetailItemState() === null
-                            ? <p style={{padding: 20}}>Товара нет в наличии</p>
+                            ? <p style={{padding: 20}}>не найдено аптек с полным ассортиментом выбранного товара</p>
                             : this.getFullRetailItemState().map((item, index) => {
                               if (index === 0) return null;
                               return <RetailItem

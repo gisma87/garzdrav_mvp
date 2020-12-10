@@ -65,6 +65,7 @@
   }
 
   &__sum {
+    white-space: nowrap;
     margin-left: 15px;
     color: #E26C2D;
     font-weight: bold;
@@ -276,9 +277,6 @@
     width: 100%;
     max-width: 105px;
     margin-left: auto;
-    @media(max-width: 800px) {
-      margin-left: 85px;
-    }
   }
 
   &__countButton {

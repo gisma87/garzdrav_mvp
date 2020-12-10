@@ -1,6 +1,7 @@
 .Profile {
   font-family: PTSans-Regular, Helvetica, Arial, sans-serif;
   padding: 0 15px;
+  flex: 1 1;
 
   @media(max-width: 800px) {
     padding-bottom: 60px;

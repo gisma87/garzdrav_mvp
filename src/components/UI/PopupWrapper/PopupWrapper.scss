@@ -32,6 +32,12 @@
     }
   }
 
+  &__container {
+    max-height: 90vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
   &__close {
     display: flex;
     width: 30px;

@@ -7,11 +7,13 @@ const PopupWrapper = props => {
   return (
     <div className={'PopupWrapper' + (props.active ? ' PopupWrapper_is-opened' : '')}>
       <Backdrop onClick={props.onClick}/>
-      <div className={"PopupWrapper__content " + props.classStyle}>
+      <div className="PopupWrapper__content">
         <div className="PopupWrapper__close" onClick={props.onClick}>
           <SvgClose className='closeIcon'/>
         </div>
-        {props.children}
+        <div className={"PopupWrapper__container " + props.classStyle}>
+          {props.children}
+        </div>
       </div>
     </div>
   )

@@ -12,6 +12,7 @@ import dataCatds from "../../testData/dataCards";
 import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
 import Loader from "../../components/UI/Loader";
 import SvgAngleUpSolid from "../../img/SVGcomponents/SvgAngleUpSolid";
+import devMessage from "../../img/devtMessage.svg";
 
 
 // раздел Настройка профиля
@@ -126,6 +127,7 @@ const Favorites = ({item}) => {
         })}
 
       </div>
+      <img src={devMessage} alt="В разработке"/>
     </BlockWrapper>
   )
 }
@@ -174,7 +176,9 @@ const Orders = props => {
       <h4>Заказы: </h4>
       <BlockWrapper classStyle='ProfileSetting__item'>
         <p className='ProfileSetting__itemTitle'>Текущие заказы</p>
-        <p className='ProfileSetting__info'>в разработке</p>
+        <p className='ProfileSetting__info'>
+          <img src={devMessage} alt="В разработке"/>
+        </p>
       </BlockWrapper>
     </BlockWrapper>
   )
@@ -298,9 +302,10 @@ const Profile = (props) => {
   if (props.TOKEN) {
     return (
       <ErrorBoundary>
-        {!props.userData ? <Loader/> :
-          <section className='Profile wrapper'>
-            <h1>Личный кабинет</h1>
+        <section className='Profile wrapper'>
+          <h1>Личный кабинет</h1>
+          {!props.userData ? <Loader/> :
+
             <div className='Profile__mainContainer'>
 
               {/*раздел Бонусы*/}
@@ -316,9 +321,7 @@ const Profile = (props) => {
               {block === 'favorites' &&
               <Favorites item={{addedToCart, itemRemovedFromCart, cart, history, favorites}}/>}
 
-              {block === 'favoriteRetail' && <BlockWrapper classStyle='Profile__menu'>
-                <p>ЛЮБИМАЯ АПТЕКА</p>
-              </BlockWrapper>}
+              {block === 'favoriteRetail' && <img src={devMessage} alt="В разработке"/>}
 
               {/*раздел Настройка профиля*/}
               {block === 'profileSettings' && <ProfileSetting userData={props.userData}/>}
@@ -327,10 +330,13 @@ const Profile = (props) => {
               <BlockWrapper classStyle='Profile__menu'>
                 <ul className='Profile__items'>
                   <li className='Profile__item' onClick={() => setBlock('main')}>Бонусы</li>
-                  <li className='Profile__item' onClick={() => setBlock('order')}>Заказы <span style={{color: 'red', fontSize: 12}}>в разработке</span></li>
+                  <li className='Profile__item' onClick={() => setBlock('order')}>Заказы <span
+                    style={{color: 'red', fontSize: 12}}>в разработке</span></li>
                   <li className='Profile__item' onClick={() => setBlock('historyOrder')}>Истории заказов</li>
-                  <li className='Profile__item' onClick={() => setBlock('favorites')}>Избранное <span style={{color: 'red', fontSize: 12}}>в разработке</span></li>
-                  <li className='Profile__item' onClick={() => setBlock('favoriteRetail')}>Любимая аптека <span style={{color: 'red', fontSize: 12}}>в разработке</span></li>
+                  <li className='Profile__item' onClick={() => setBlock('favorites')}>Избранное <span
+                    style={{color: 'red', fontSize: 12}}>в разработке</span></li>
+                  <li className='Profile__item' onClick={() => setBlock('favoriteRetail')}>Любимая аптека <span
+                    style={{color: 'red', fontSize: 12}}>в разработке</span></li>
                   <li className='Profile__item' onClick={() => setBlock('profileSettings')}>Настройка профиля</li>
                 </ul>
 
@@ -339,7 +345,8 @@ const Profile = (props) => {
                 >Выход из аккаунта</Link>
               </BlockWrapper>
             </div>
-          </section>}
+          }
+        </section>
       </ErrorBoundary>
     )
   }

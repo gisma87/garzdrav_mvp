@@ -217,7 +217,13 @@ const CardPage = (props) => {
                       }}>
                         {isActive ? <SvgCheck style={{color: 'white'}}/> : 'Добавить в корзину'}
                       </button>
-                      <button className='CardPage__button CardPage__buttonBuy'>Быстрый заказ</button>
+                      <button className='CardPage__button CardPage__buttonBuy'
+                              onClick={() => {
+                                setActiveRetailGuid(productInfo.retails[0].guid)
+                                setQuickOrder(true)
+                              }}
+                      >Быстрый заказ
+                      </button>
                     </div>
                     <p className='CardPage__priceText CardPage__priceCaption'>Цена зависит от выбранной
                       аптеки</p>

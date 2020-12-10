@@ -57,7 +57,7 @@ const Pagination = props => {
     setCurrentPage(currentPage)
     onPageChanged(paginationData)
   }
-
+                        // eslint-disable-next-line
   useEffect(() => goToPage(1), [])
 
   const pages = calcPageNumbers()
