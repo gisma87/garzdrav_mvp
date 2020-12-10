@@ -4,7 +4,7 @@ import {NavLink, withRouter} from "react-router-dom";
 import SearchPanel from "../SearchPanel";
 import iconCart from '../../img/cartmin.png'
 import ButtonTopScroll from "../UI/ButtonTopScroll";
-import {clearError, rewriteCart} from "../../actions";
+import {rewriteCart} from "../../actions";
 import {connect} from "react-redux";
 import PopupLogin from "../PopupLogin";
 import Burger from "../UI/Burger/Burger";
@@ -53,7 +53,7 @@ const HeaderFixed = (props) => {
         <SearchPanel/>
 
         <div className='HeaderFixed__rightblock'>
-          <NavLink to="/cart/" className='HeaderFixed__cart' onClick={props.clearError}>
+          <NavLink to="/cart/" className='HeaderFixed__cart'>
             <img src={iconCart} alt="корзина"/>
             {count !== 0 ? <span className='HeaderFixed__cartCount'>{count}</span> :
               <span className='HeaderFixed__cartText'>Корзина</span>}
@@ -82,7 +82,6 @@ const mapStateToProps = ({cart, TOKEN, catalog}) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     rewriteCart: (item) => dispatch(rewriteCart(item)),
-    clearError: () => dispatch(clearError())
   }
 }
 

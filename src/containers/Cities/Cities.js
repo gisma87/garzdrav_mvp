@@ -58,7 +58,7 @@ const Cities = props => {
   }
 
   useEffect(() => {
-    props.fetchRetailsCity(isCity.guid)
+    props.fetchRetailsCity()
   }, [isCity.guid])// eslint-disable-line
 
   useEffect(() => {
@@ -177,7 +177,7 @@ const mapStateToProps = ({cities, isCity, retailsCity}) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchRetailsCity: (idCity) => dispatch(fetchRetailsCity(idCity))
+    fetchRetailsCity: () => dispatch(fetchRetailsCity())
   }
 }
 

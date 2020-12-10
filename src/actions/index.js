@@ -1,9 +1,3 @@
-import axios from "axios";
-import apiService from "../service/ApiService";
-
-
-const URL = apiService.URL
-
 // ставим ошибку
 const setError = (error) => {
   return {
@@ -48,6 +42,7 @@ const setCartItems = (cartItems) => {
 const fetchCartItems = (city = null) => (dispatch, getState, apiService) => {
   const {cart, isCity} = getState()
   const cityId = city || isCity.guid
+  dispatch(clearError())
   dispatch(delCartItems())
 
   if (cart.length > 0) {
@@ -55,14 +50,9 @@ const fetchCartItems = (city = null) => (dispatch, getState, apiService) => {
     const arrFetch = cart.map(product => {
       return apiService.getProductInfo(product.itemId, cityId)
     })
-    Promise.all([
-      ...arrFetch
-    ]).then(allResponses => {
-      const cartItems = allResponses.map(item => item.data)
-      dispatch(setCartItems(cartItems))
-    }).catch(allError => {
-      dispatch(setError((allError)))
-    })
+    Promise.all([...arrFetch])
+      .then(allResponses => dispatch(setCartItems(allResponses)))
+      .catch(allError => dispatch(setError(allError)))
   }
 }
 
@@ -79,7 +69,7 @@ const onPopupLocation = (boolean) => {
 const setIsCity = (isCity) => (dispatch) => {
   dispatch(loadingTrue())
   const item = [isCity]
-  console.log(item);
+  console.log('Город: ', item);
   localStorage.setItem("city", JSON.stringify(item))
   // устанавливаем город
   dispatch({
@@ -91,28 +81,25 @@ const setIsCity = (isCity) => (dispatch) => {
 }
 
 // запрос списка городов
-const fetchCities = () => async dispatch => {
+const fetchCities = () => async (dispatch, getState, apiService) => {
   try {
     dispatch(loadingTrue())
-    const response = await axios.get(`${URL}/Cities`)
-    dispatch({type: 'FETCH_CITIES_SUCCESS', payload: response.data})
+    const response = await apiService.getCities()
+    dispatch({type: 'FETCH_CITIES_SUCCESS', payload: response})
     dispatch(loadingTrue())
+
     // если в localStorage есть город - устанавливаем его
     if (localStorage.getItem("city")) {
       const cityItem = JSON.parse(localStorage.getItem("city"))[0]
       dispatch(setIsCity(cityItem))
     } else {
+
       // иначе определяем город по IP, устанавливаем его и открываем popup подтверждения выбранного города
-      apiService.getUserCity()
-        .then(({city, ip}) => {
-          console.log(city, ip);
-          const cityItem = response.data.find(item => city === item.title)
-          dispatch(setIsCity(cityItem))
-          dispatch(onPopupLocation(true))
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      const {city, ip} = await apiService.getUserCity()
+      console.log(city, ip);
+      const cityItem = response.find(item => city === item.title)
+      dispatch(setIsCity(cityItem))
+      dispatch(onPopupLocation(true))
     }
   } catch (e) {
     dispatch(setError(e))
@@ -120,11 +107,12 @@ const fetchCities = () => async dispatch => {
 }
 
 // Список торговых точек в городе
-const fetchRetailsCity = (cityId) => async dispatch => {
+const fetchRetailsCity = () => async (dispatch, getState, apiService) => {
   try {
+    const cityId = getState().isCity.guid
     dispatch(loadingTrue())
-    const response = await axios.get(`${URL}/Retails/${cityId}`)
-    dispatch({type: 'FETCH_RETAILS_CITY_SUCCESS', payload: response.data})
+    const response = await apiService.getRetailsCity(cityId)
+    dispatch({type: 'FETCH_RETAILS_CITY_SUCCESS', payload: response})
   } catch (e) {
     dispatch(setError(e))
   }
@@ -188,7 +176,7 @@ const fetchProductInfo = (productId, cityId) => {
     dispatch(loadingTrue())
     try {
       const response = await apiService.getProductInfo(productId, cityId)
-      dispatch(loadingProductInfo(response.data))
+      dispatch(loadingProductInfo(response))
       // apiService.buildCatalog()
     } catch (e) {
       dispatch(setError(e))
@@ -219,35 +207,25 @@ const clearCart = () => {
 }
 
 // запрос информации о пользователе по TOKEN из LocalStorage
-const fetchUserData = (accessToken = JSON.parse(localStorage.getItem('TOKEN')).accessToken) => async (dispatch) => {
+const fetchUserData = () => async (dispatch, getState, apiService) => {
+  const accessToken = getState().TOKEN.accessToken || JSON.parse(localStorage.getItem('TOKEN')).accessToken
   dispatch(loadingTrue())
   try {
-    const response = await axios.get(`${URL}/Users`, {
-      headers: {
-        accept: 'application/json',
-        Authorization: `Bearer ${accessToken}`
-      }
-    })
-    dispatch({type: 'USER_DATA', payload: response.data})
+    const response = await apiService.getUserData(accessToken)
+    dispatch({type: 'USER_DATA', payload: response})
   } catch (e) {
-
+    dispatch(setError(e))
   }
 }
 
 // POST запрос refreshTOKEN
-const refreshAuthentication = () => async (dispatch) => {
+const refreshAuthentication = () => async (dispatch, getState, apiService) => {
+  const TOKEN = getState().TOKEN || JSON.parse(localStorage.getItem('TOKEN'))
   dispatch(loadingTrue())
   try {
-    const response = await axios.post(`${URL}/Authentication/refresh`,
-      {
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        accessToken: JSON.parse(localStorage.getItem("TOKEN")).accessToken,
-        refreshToken: JSON.parse(localStorage.getItem("TOKEN")).refreshToken
-      })
-    dispatch({type: 'TOKEN', payload: response.data})
-    localStorage.setItem('TOKEN', JSON.stringify(response.data))
+    const response = await apiService.refreshToken(TOKEN)
+    dispatch({type: 'TOKEN', payload: response})
+    localStorage.setItem('TOKEN', JSON.stringify(response))
     console.log('refresh_TOKEN')
   } catch (e) {
     dispatch(setError(e))
@@ -256,39 +234,14 @@ const refreshAuthentication = () => async (dispatch) => {
 }
 
 // POST запрос TOKEN
-const authentication = () => async (dispatch) => {
+const authentication = () => async (dispatch, getState, apiService) => {
   dispatch(loadingTrue())
   try {
-    const response = await axios.post(`${URL}/Authentication`,
-      {
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        phone: "9131996226",
-        password: "password"
-      })
-    dispatch({type: 'TOKEN', payload: response.data})
-    localStorage.setItem('TOKEN', JSON.stringify(response.data))
+    const response = await apiService.authentication()
+    dispatch({type: 'TOKEN', payload: response})
+    localStorage.setItem('TOKEN', JSON.stringify(response))
     console.log('access_TOKEN')
-    dispatch(fetchUserData(response.data.accessToken))
-
-    // const response = async () => await fetch(`${URL}/Authentication`, {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify({
-    //     "phone": "9131996226",
-    //     "password": "password"
-    //   })
-    // })
-    //
-    // response()
-    //   .then(response => response.json())
-    //   .then(result => {
-    //     console.log("AUTHENTICATION ", result)
-    //     dispatch({type: 'TOKEN', payload: result})
-    //   })
+    dispatch(fetchUserData(response.accessToken))
   } catch (e) {
     dispatch(setError(e))
   }
@@ -358,7 +311,6 @@ export {
   fetchUserData,
   refreshAuthentication,
   authentication,
-  clearError,
   onPopupLocation,
   setCartItems,
   clearCart,
