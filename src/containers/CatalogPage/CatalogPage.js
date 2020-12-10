@@ -37,9 +37,12 @@ const CatalogPage = props => {
 
   const onPageChanged = data => {
     const allCards = props.productsToCategory // массив всех карточек
-    const {currentPage, pageLimitItems} = data;
+    const {
+      currentPage, // текущая страница
+      pageLimitItems // количество карточке на странице
+    } = data;
     const offset = (currentPage - 1) * pageLimitItems;
-    const currentCardsData = allCards.slice(offset, offset + pageLimitItems);
+    const currentCardsData = allCards.slice(offset, offset + pageLimitItems); // массив для текущей странице
 
     setCurrentCards(currentCardsData)
   }
