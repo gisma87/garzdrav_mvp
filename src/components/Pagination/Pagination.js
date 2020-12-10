@@ -37,9 +37,6 @@ const Pagination = props => {
       ? Math.min(totalPages, (pageNeighbours * 2 + 1))
       : Math.min(totalPages, currentPageState + pageNeighbours);
 
-    console.log('startPage: ', startPage)
-    console.log('endPage: ', endPage)
-
     if (endPage === totalPages) {
       let start = Math.max(1, (totalPages - (pageNeighbours * 2)));
 
@@ -64,7 +61,6 @@ const Pagination = props => {
   useEffect(() => goToPage(1), [])
 
   const pages = calcPageNumbers()
-  console.log('pages: ', pages);
 
   if (!totalRecords || totalPages === 1) return null;
 

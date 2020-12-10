@@ -10,12 +10,23 @@ import SearchPanel from "../../components/SearchPanel";
 import logo from "../../img/evalar.png";
 import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
 import Error from "../../components/Error/Error";
+import Pagination from "../../components/Pagination/Pagination";
 
 
 const Cards = props => {
 
   const {history, cart, addedToCart, itemRemovedFromCart, productsFromSearch, error} = props;
   const [touchedSearch, setTouchedSearch] = useState(false)
+  const [currentCards, setCurrentCards] = useState([]) // массив карточке отображаемый на текущей странице
+
+  const onPageChanged = data => {
+    const allCards = productsFromSearch // массив всех карточек
+    const {currentPage, pageLimitItems} = data;
+    const offset = (currentPage - 1) * pageLimitItems;
+    const currentCardsData = allCards.slice(offset, offset + pageLimitItems);
+
+    setCurrentCards(currentCardsData)
+  }
 
   const onItemSelected = (itemId, event) => {
     if (!event.target.closest('button')) history.push(`${itemId}`);
@@ -55,8 +66,8 @@ const Cards = props => {
 
             <div className='Cards__cardList'>
               {(touchedSearch || !isMobile) &&
-              productsFromSearch.length
-                ? productsFromSearch.map((item) => {
+              productsFromSearch.length && currentCards.length
+                ? currentCards.map((item) => {
                   const {guid, product, manufacturer, img = null, minPrice} = item;
                   const itemIndex = cart.findIndex((item) => item.itemId === guid);
                   const isActive = itemIndex >= 0;
@@ -89,7 +100,17 @@ const Cards = props => {
                 : <>{touchedSearch && <p>По вашему запросу ничего не найдено. Попробуйте изменить запрос.</p>}</>
               }
             </div>
+
           </div>
+
+          {
+            productsFromSearch.length > 0 &&
+            <div style={{paddingTop: 15}}>
+              <Pagination totalRecords={productsFromSearch.length}
+                          pageLimitItems={32}
+                          onPageChanged={onPageChanged}/>
+            </div>
+          }
         </ErrorBoundary>
       }
     </section>

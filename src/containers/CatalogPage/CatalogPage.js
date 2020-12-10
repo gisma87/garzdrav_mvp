@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import './CatalogPage.scss'
 import {connect} from "react-redux";
 import {addedToCart, itemRemovedFromCart, setActiveCategory, setProductsToCategory} from "../../actions";
@@ -6,8 +6,11 @@ import CardItemMobile from "../../components/CardItemMobile";
 import CardItem from "../../components/CardItem";
 import {useMediaQuery} from "react-responsive";
 import {withRouter} from 'react-router-dom'
+import Pagination from "../../components/Pagination/Pagination";
 
 const CatalogPage = props => {
+
+  const [currentCards, setCurrentCards] = useState([]) // массив карточке отображаемый на текущей странице
 
   useEffect(() => {
     if (props.activeCategory) {
@@ -30,6 +33,15 @@ const CatalogPage = props => {
       title.push(activeItem[i].title)
     }
     return {title: title[index], activeItem: activeItem[index]}
+  }
+
+  const onPageChanged = data => {
+    const allCards = props.productsToCategory // массив всех карточек
+    const {currentPage, pageLimitItems} = data;
+    const offset = (currentPage - 1) * pageLimitItems;
+    const currentCardsData = allCards.slice(offset, offset + pageLimitItems);
+
+    setCurrentCards(currentCardsData)
   }
 
   return (
@@ -65,8 +77,8 @@ const CatalogPage = props => {
 
       <div className="CatalogPage__cardList">
         {
-          props.productsToCategory.length > 0
-          && props.productsToCategory.map((item) => {
+          props.productsToCategory.length > 0 && currentCards.length > 0
+          && currentCards.map((item) => {
             const {guid, product, manufacturer, img = null, minPrice} = item;
             const itemIndex = props.cart.findIndex((item) => item.itemId === guid);
             const isActive = itemIndex >= 0;
@@ -98,6 +110,15 @@ const CatalogPage = props => {
           })
         }
       </div>
+
+      {
+        props.productsToCategory.length > 0 &&
+        <div style={{paddingTop: 15}}>
+          <Pagination totalRecords={props.productsToCategory.length}
+                      pageLimitItems={32}
+                      onPageChanged={onPageChanged}/>
+        </div>
+      }
 
 
     </div>
