@@ -42,9 +42,9 @@ const Catalog = props => {
                            className="Catalog__rightPanelItem">
                   <Link to='/catalog/'
                         onClick={() => {
-                    props.setActiveCategory(item)
-                    props.onClick()
-                  }}>{item.title}</Link>
+                          props.setActiveCategory(item)
+                          props.onClick()
+                        }}>{item.title}</Link>
                   {item.child.length > 0 &&
                   <ul>
                     {item.child.map((itemChild, idChild) => {
@@ -55,8 +55,8 @@ const Catalog = props => {
                                    props.onClick()
                                  }}
                       >
-                        <NavLink to='/catalog/' className='Catalog__link'>
-                          {itemChild.title}
+                        <NavLink to='/catalog/' className='Catalog__link Catalog__hoverLink'>
+                          <span>{itemChild.title}</span>
                         </NavLink>
                       </li>
                     })}

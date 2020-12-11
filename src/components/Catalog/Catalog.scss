@@ -145,6 +145,34 @@
     }
   }
 
+  &__hoverLink {
+    span {
+      position: relative;
+      transition: all 0.4s;
+    }
+
+    &:hover > span {
+      color: #ff5100;
+    }
+
+    & > span:before {
+      content: "";
+      width: 0;
+      height: 0.1em;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      background: #00aeff;
+      transition: all 0.3s;
+    }
+
+    &:hover > span:before {
+      width: 100%;
+      left: 0;
+      background: #ff5100;
+    }
+  }
+
 
   /* полоса прокрутки (скроллбар) */
   ::-webkit-scrollbar {

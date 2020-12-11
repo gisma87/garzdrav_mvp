@@ -11,6 +11,7 @@ const initialState = {
   cart: [],
   favorites: [],
   productsFromSearch: [],
+  countProductsSearch: null,
   productInfo: '',
   cartItems: [],
   retailsArr: [],
@@ -22,6 +23,7 @@ const initialState = {
   catalog: null,
   activeCategory: null,
   productsToCategory: [],
+  countProductsCategory: null,
   sales: []
 }
 
@@ -128,7 +130,8 @@ const reducer = (state = initialState, action) => {
     case 'SET_PRODUCTS_TO_CATEGORY':
       return {
         ...state,
-        productsToCategory: action.payload,
+        productsToCategory: action.payload.products,
+        countProductsCategory: action.payload.count,
         loading: false,
         error: null
       }
@@ -306,7 +309,8 @@ const reducer = (state = initialState, action) => {
     case 'FETCH_PRODUCTS_FROM_SEARCH_SUCCESS':
       return {
         ...state,
-        productsFromSearch: action.payload,
+        productsFromSearch: action.payload.products,
+        countProductsSearch: action.payload.count,
         loading: false,
         error: null
       };

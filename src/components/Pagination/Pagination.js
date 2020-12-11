@@ -46,7 +46,7 @@ const Pagination = props => {
     return range(startPage, endPage)
   }
 
-  const goToPage = page => {
+  const goToPage = (page = 1) => {
     const currentPage = Math.max(0, Math.min(page, totalPages));
     const paginationData = {
       currentPage,// текущая страница
@@ -57,8 +57,12 @@ const Pagination = props => {
     setCurrentPage(currentPage)
     onPageChanged(paginationData)
   }
-                        // eslint-disable-next-line
-  useEffect(() => goToPage(1), [])
+
+  useEffect(() => {
+    const page = props.page || 1
+    goToPage(page)
+    // eslint-disable-next-line
+  }, [])
 
   const pages = calcPageNumbers()
 

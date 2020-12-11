@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, {useEffect, useState} from "react"
 import {withRouter} from 'react-router-dom'
 import {useMediaQuery} from 'react-responsive'
 import './Cards.scss'
@@ -11,13 +11,46 @@ import logo from "../../img/evalar.png";
 import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
 import Error from "../../components/Error/Error";
 import Pagination from "../../components/Pagination/Pagination";
+import SortCards from "../../components/SortCards/SortCards";
 
 
 const Cards = props => {
 
   const {history, cart, addedToCart, itemRemovedFromCart, productsFromSearch, error} = props;
+  const [arraySort, setArraySort] = useState([])
+  const [currentPage, setCurrentPage] = useState(1)
   const [touchedSearch, setTouchedSearch] = useState(false)
   const [currentCards, setCurrentCards] = useState([]) // массив карточке отображаемый на текущей странице
+
+  useEffect(() => {
+    console.log('USE_EFFECT', productsFromSearch.length)
+    if (productsFromSearch.length > 0) {
+      setArraySort(productsFromSearch)
+    }
+  }, [])
+
+  const sortCards = (method) => {
+    const arr = [...arraySort]
+
+    const minToMax = () => arr.sort((a, b) => a.minPrice > b.minPrice ? 1 : -1)
+    const maxToMin = () => arr.sort((a, b) => a.minPrice < b.minPrice ? 1 : -1)
+
+    switch (method) {
+      case 2:
+        minToMax()
+        setArraySort(arr)
+        return arr
+
+      case 3:
+        maxToMin()
+        setArraySort(arr)
+        return arr
+
+      default:
+        setArraySort(arr)
+        return arr
+    }
+  }
 
   const onPageChanged = data => {
     const allCards = productsFromSearch // массив всех карточек
@@ -60,10 +93,17 @@ const Cards = props => {
             </>
           }
           {(touchedSearch || !isMobile) && <h1 className='Cards__title'>Результаты поиска</h1>}
+          <SortCards items={[
+            {id: 1, text: 'По популярности'},
+            {id: 2, text: 'Сначала дешевые'},
+            {id: 3, text: 'Сначала дорогие'}
+          ]}
+                     selectItem={(val) => sortCards(val)}
+
+          />
           <div className='Cards__mainContainer'>
 
             {/*<SidebarCategories styleName='Cards__SidebarCategories'/>*/}
-
             <div className='Cards__cardList'>
               {(touchedSearch || !isMobile) &&
               productsFromSearch.length && currentCards.length
@@ -107,6 +147,7 @@ const Cards = props => {
             productsFromSearch.length > 0 &&
             <div style={{paddingTop: 15}}>
               <Pagination totalRecords={productsFromSearch.length}
+                          page={currentPage}
                           pageLimitItems={32}
                           onPageChanged={onPageChanged}/>
             </div>
@@ -117,7 +158,11 @@ const Cards = props => {
   )
 }
 
-const mapStateToProps = ({cart, productsFromSearch, error}) => {
+const mapStateToProps = (
+  {
+    cart, productsFromSearch, error
+  }
+) => {
   return {cart, productsFromSearch, error}
 }
 
