@@ -12,6 +12,7 @@
     justify-content: flex-start;
     align-items: flex-start;
     flex-wrap: wrap;
+    padding-top: 20px;
   }
 
   &__item {
@@ -62,7 +63,7 @@
   }
 
   &__cardList {
-    padding-top: 30px;
+    padding-top: 0;
     width: 100%;
     display: grid;
     grid-auto-flow: row dense;
