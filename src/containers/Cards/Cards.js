@@ -23,7 +23,7 @@ const Cards = props => {
   const [currentCards, setCurrentCards] = useState([]) // массив карточке отображаемый на текущей странице
 
   useEffect(() => {
-    sortCards()
+    sortCards() // eslint-disable-next-line
   }, [productsFromSearch])
 
   const sortCards = (method) => {

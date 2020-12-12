@@ -65,8 +65,8 @@ const Pagination = props => {
       onPageChanged(paginationData)
     }
   }
-
-  useEffect(() => goToPage(1), [])// eslint-disable-next-line
+  // eslint-disable-next-line
+  useEffect(() => goToPage(1), [])
 
   useEffect(() => setCurrentPage(props.page), [props.page])
 
