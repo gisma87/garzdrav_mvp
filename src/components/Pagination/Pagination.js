@@ -27,6 +27,8 @@ const Pagination = props => {
     onPageChanged // принимает на вход currentPage(текущая страница), totalPages(общее кол.стр.)
   } = props
 
+  const DECOR = typeof props.setPage === 'function'
+
   const [currentPageState, setCurrentPage] = useState(1) // текущая страница
 
   const totalPages = Math.ceil(totalRecords / pageLimitItems); // общее количество страниц
@@ -47,22 +49,27 @@ const Pagination = props => {
   }
 
   const goToPage = (page = 1) => {
-    const currentPage = Math.max(0, Math.min(page, totalPages));
-    const paginationData = {
-      currentPage,// текущая страница
-      totalPages, // общее количество страниц
-      pageLimitItems, // количество карточек на странице
-      totalRecords
+    if (DECOR) {
+      props.setPage(page)
+      const currentPage = Math.max(0, Math.min(page, totalPages));
+      setCurrentPage(currentPage)
+    } else {
+      const currentPage = Math.max(0, Math.min(page, totalPages));
+      const paginationData = {
+        currentPage,// текущая страница
+        totalPages, // общее количество страниц
+        pageLimitItems, // количество карточек на странице
+        totalRecords
+      }
+      setCurrentPage(currentPage)
+      onPageChanged(paginationData)
     }
-    setCurrentPage(currentPage)
-    onPageChanged(paginationData)
   }
 
-  useEffect(() => {
-    const page = props.page || 1
-    goToPage(page)
-    // eslint-disable-next-line
-  }, [])
+  useEffect(() => goToPage(1), [])// eslint-disable-next-line
+
+  useEffect(() => setCurrentPage(props.page), [props.page])
+
 
   const pages = calcPageNumbers()
 
@@ -81,7 +88,7 @@ const Pagination = props => {
         {
           pages.map(page => <li key={page}
                                 onClick={() => goToPage(page)}
-                                className={`Pagination__item${currentPageState === page ? ' active' : ''}`}
+                                className={`Pagination__item${DECOR ? (props.page === page ? ' active' : '') : (currentPageState === page ? ' active' : '')}`}
           >
             {page}
           </li>)

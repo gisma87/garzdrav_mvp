@@ -17,20 +17,20 @@ import SortCards from "../../components/SortCards/SortCards";
 const Cards = props => {
 
   const {history, cart, addedToCart, itemRemovedFromCart, productsFromSearch, error} = props;
-  const [arraySort, setArraySort] = useState([])
+  const [arraySort, setArraySort] = useState(null)
   const [currentPage, setCurrentPage] = useState(1)
   const [touchedSearch, setTouchedSearch] = useState(false)
   const [currentCards, setCurrentCards] = useState([]) // массив карточке отображаемый на текущей странице
 
-  useEffect(() => {
-    console.log('USE_EFFECT', productsFromSearch.length)
-    if (productsFromSearch.length > 0) {
-      setArraySort(productsFromSearch)
-    }
-  }, [])
+  // useEffect(() => {
+  //   console.log('USE_EFFECT', productsFromSearch.length)
+  //   if (productsFromSearch.length > 0) {
+  //     setArraySort(productsFromSearch)
+  //   }
+  // }, [])
 
   const sortCards = (method) => {
-    const arr = [...arraySort]
+    const arr = [...productsFromSearch]
 
     const minToMax = () => arr.sort((a, b) => a.minPrice > b.minPrice ? 1 : -1)
     const maxToMin = () => arr.sort((a, b) => a.minPrice < b.minPrice ? 1 : -1)
@@ -39,26 +39,46 @@ const Cards = props => {
       case 2:
         minToMax()
         setArraySort(arr)
+        goToPage(1, arr)
         return arr
 
       case 3:
         maxToMin()
         setArraySort(arr)
+        goToPage(1, arr)
         return arr
 
       default:
         setArraySort(arr)
+        goToPage(1, arr)
         return arr
     }
   }
 
-  const onPageChanged = data => {
-    const allCards = productsFromSearch // массив всех карточек
+  const onPageChanged = (data, arrSortPrevState) => {
+    const allCards = arrSortPrevState ? arrSortPrevState : (arraySort ? arraySort : productsFromSearch) // массив всех карточек
     const {currentPage, pageLimitItems} = data;
     const offset = (currentPage - 1) * pageLimitItems;
     const currentCardsData = allCards.slice(offset, offset + pageLimitItems);
 
     setCurrentCards(currentCardsData)
+  }
+
+  function goToPage(page = 1, arrSortPrevState) {
+    const pageLimitItems = 32 // количество карточек на странице
+    const totalRecords = productsFromSearch?.length
+    const totalPages = Math.ceil(totalRecords / pageLimitItems); // общее количество страниц
+    const curPage = Math.max(0, Math.min(page, totalPages)); // текущая страница
+
+    const paginationData = {
+      currentPage: curPage, // текущая страница
+      totalPages, // общее количество страниц
+      pageLimitItems, // количество карточек на странице
+      totalRecords
+    }
+
+    setCurrentPage(curPage)
+    onPageChanged(paginationData, arrSortPrevState)
   }
 
   const onItemSelected = (itemId, event) => {
@@ -148,8 +168,10 @@ const Cards = props => {
             <div style={{paddingTop: 15}}>
               <Pagination totalRecords={productsFromSearch.length}
                           page={currentPage}
+                          setPage={(page) => goToPage(page)}
                           pageLimitItems={32}
-                          onPageChanged={onPageChanged}/>
+                          onPageChanged={onPageChanged}
+              />
             </div>
           }
         </ErrorBoundary>
