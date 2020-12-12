@@ -22,12 +22,9 @@ const Cards = props => {
   const [touchedSearch, setTouchedSearch] = useState(false)
   const [currentCards, setCurrentCards] = useState([]) // массив карточке отображаемый на текущей странице
 
-  // useEffect(() => {
-  //   console.log('USE_EFFECT', productsFromSearch.length)
-  //   if (productsFromSearch.length > 0) {
-  //     setArraySort(productsFromSearch)
-  //   }
-  // }, [])
+  useEffect(() => {
+    sortCards()
+  }, [productsFromSearch])
 
   const sortCards = (method) => {
     const arr = [...productsFromSearch]
@@ -44,6 +41,12 @@ const Cards = props => {
 
       case 3:
         maxToMin()
+        setArraySort(arr)
+        goToPage(1, arr)
+        return arr
+
+      case 4:
+        arr.sort()
         setArraySort(arr)
         goToPage(1, arr)
         return arr
@@ -115,6 +118,7 @@ const Cards = props => {
           {(touchedSearch || !isMobile) && <h1 className='Cards__title'>Результаты поиска</h1>}
           <SortCards items={[
             {id: 1, text: 'По популярности'},
+            {id: 4, text: 'По наименованию'},
             {id: 2, text: 'Сначала дешевые'},
             {id: 3, text: 'Сначала дорогие'}
           ]}

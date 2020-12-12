@@ -22,7 +22,6 @@
     transition: transform .25s;
   }
 
-
   &__dropdown {
     background: #fff;
     transform: scaleY(0);
@@ -48,11 +47,12 @@
     .SortCards__dropdown {
       display: flex;
       justify-content: center;
-      min-width: 150px;
+      min-width: 180px;
       visibility: visible;
       transform: scaleY(1);
       transform-origin: top;
       transition: transform .25s, visibility .25s;
+      z-index: 3;
     }
   }
 
@@ -62,7 +62,7 @@
     outline: none;
     color: #333f48;
     white-space: nowrap;
-    padding: 3px 5px 3px 10px;
+    padding: 5px 5px 5px 12px;
 
     &:hover {
       background: #8CCB5E;
@@ -74,13 +74,13 @@
     }
 
     &:first-child {
-      padding-top: 4px;
+      padding-top: 10px;
       border-top-right-radius: 8px;
       border-top-left-radius: 8px;
     }
 
     &:last-child {
-      padding-bottom: 4px;
+      padding-bottom: 10px;
       border-bottom-right-radius: 8px;
       border-bottom-left-radius: 8px;
     }
