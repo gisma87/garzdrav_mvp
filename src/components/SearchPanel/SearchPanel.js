@@ -1,7 +1,7 @@
 import React, {useState} from "react"
 import './SearchPanel.scss'
 import {withRouter} from 'react-router-dom'
-import {ProductsFromSearchLoaded, loadingTrue, setError} from "../../actions";
+import {ProductsFromSearchLoaded, loadingTrue, setError, getProductsFromSearchLimit} from "../../actions";
 import {connect} from "react-redux";
 import apiService from "../../service/ApiService";
 import SearchForm from "../UI/SearchForm/SearchForm";
@@ -30,11 +30,13 @@ const SearchPanel = (props) => {
     e.preventDefault();
     onTouched()
     loadingTrue()
-    apiService.getProductsFromSearch(value, isCity.guid)
-      .then((data) => ProductsFromSearchLoaded(data))
-      .catch((error) => {
-        setError(error)
-      });
+    // apiService.getProductsFromSearch(value, isCity.guid)
+    //   .then((data) => ProductsFromSearchLoaded(data))
+    //   .catch((error) => {
+    //     setError(error)
+    //   });
+
+    props.getProductsFromSearchLimit(value, 32, 1)
 
     setValue('')
     props.history.push('/Cards/')
@@ -75,7 +77,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     loadingTrue: () => dispatch(loadingTrue()),
     setError: (e) => dispatch(setError(e)),
-    ProductsFromSearchLoaded: (data) => dispatch(ProductsFromSearchLoaded(data))
+    ProductsFromSearchLoaded: (data) => dispatch(ProductsFromSearchLoaded(data)),
+    getProductsFromSearchLimit: (productName, quantity, page) => dispatch(getProductsFromSearchLimit(productName, quantity, page))
   }
 }
 

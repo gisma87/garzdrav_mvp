@@ -1,6 +1,6 @@
 const initialState = {
-  cities: [],
-  regions: [],
+  cities: [], // список всех городов
+  regions: [], // список всех регионов
   loading: true,
   error: null,
   isCity: JSON.parse(localStorage.getItem("city")) ? JSON.parse(localStorage.getItem("city"))[0] : {
@@ -24,7 +24,8 @@ const initialState = {
   activeCategory: null,
   productsToCategory: [],
   countProductsCategory: null,
-  sales: []
+  sales: [],
+  productSearch: '', // значение последнего поискового запроса
 }
 
 const upgradeRetailItems = (array, cart) => {
@@ -311,6 +312,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         productsFromSearch: action.payload.products,
         countProductsSearch: action.payload.count,
+        productSearch: action.payload.productSearch,
         loading: false,
         error: null
       };

@@ -12,7 +12,7 @@ class ApiService {
     return result.data
   }
 
-  // список позиций из поискового запроса
+  // поисковый запрос всех товаров по названию
   async getProductsFromSearch(productName, cityId) {
     const res = await fetch(`${this.URL}/Products/byName?str=${productName}&cityGuid=${cityId}`,
       {
@@ -26,6 +26,12 @@ class ApiService {
       throw new Error(`Не могу выполнить fetch, статус ошибки: ${res.status}`)
     }
     return await res.json();
+  }
+
+  // поисковый запрос порционно с указанием количества элементов и страницы
+  async getProductsFromSearchLimit(productName, cityId, quantity = 32, page = 1) {
+    const res = await axios.get(`${this.URL}/Products/byName?str=${productName}&cityGuid=${cityId}&limit=${quantity}&page=${page}`)
+    return await res.data;
   }
 
   // запрос списка городов

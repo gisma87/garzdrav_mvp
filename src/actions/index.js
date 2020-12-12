@@ -163,12 +163,28 @@ const addedToFavorits = (item) => {
 }
 
 // список позиций из поискового запроса
-const ProductsFromSearchLoaded = (products) => {
+const ProductsFromSearchLoaded = (products, productSearch) => {
+  products.productSearch = productSearch
   return {
     type: 'FETCH_PRODUCTS_FROM_SEARCH_SUCCESS',
     payload: products
   }
 }
+
+// поисковый запрос порционно с указанием количества элементов и страницы
+function getProductsFromSearchLimit(productSearch, quantity, page) {
+  return async (dispatch, getState, apiService) => {
+    const cityId = getState().isCity.guid
+    dispatch(loadingTrue())
+    try {
+      const response = await apiService.getProductsFromSearchLimit(productSearch, cityId, quantity, page)
+      dispatch(ProductsFromSearchLoaded(response, productSearch))
+    } catch (e) {
+      dispatch(setError(e))
+    }
+  }
+}
+
 
 // дополнительная(подробная) информация о продукте
 const fetchProductInfo = (productId, cityId) => {
@@ -177,7 +193,6 @@ const fetchProductInfo = (productId, cityId) => {
     try {
       const response = await apiService.getProductInfo(productId, cityId)
       dispatch(loadingProductInfo(response))
-      // apiService.buildCatalog()
     } catch (e) {
       dispatch(setError(e))
     }
@@ -328,5 +343,6 @@ export {
   fetchProductInfo,
   fetchCartItems,
   onSelectRetail,
-  fetchRetailsCity
+  fetchRetailsCity,
+  getProductsFromSearchLimit
 }
