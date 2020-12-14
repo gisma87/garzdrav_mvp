@@ -51,11 +51,6 @@ const CardPage = (props) => {
 
   useEffect(() => {
     if (props.catalog && props.productInfo !== '') {
-      console.log('==========================================================')
-      console.log('    PRODUCT: ', props.productInfo.categoryGuid)
-      console.log('    props.catalog: ', props.catalog.title)
-      console.log('    ', getActiveItemCategory())
-      console.log('==========================================================')
       props.setActiveCategory(getActiveItemCategory())
     }
   }, [props.catalog, props.productInfo])

@@ -172,12 +172,13 @@ const ProductsFromSearchLoaded = (products, productSearch) => {
 }
 
 // поисковый запрос порционно с указанием количества элементов и страницы
-function getProductsFromSearchLimit(productSearch, quantity, page) {
+function getProductsFromSearchLimit(productSearch, quantity, page, methodSort) {
+  console.log('methodSort', methodSort)
   return async (dispatch, getState, apiService) => {
     const cityId = getState().isCity.guid
     dispatch(loadingTrue())
     try {
-      const response = await apiService.getProductsFromSearchLimit(productSearch, cityId, quantity, page)
+      const response = await apiService.getProductsFromSearchLimit(productSearch, cityId, quantity, page, methodSort)
       dispatch(ProductsFromSearchLoaded(response, productSearch))
     } catch (e) {
       dispatch(setError(e))

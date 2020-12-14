@@ -29,8 +29,8 @@ class ApiService {
   }
 
   // поисковый запрос порционно с указанием количества элементов и страницы
-  async getProductsFromSearchLimit(productName, cityId, quantity = 32, page = 1) {
-    const res = await axios.get(`${this.URL}/Products/byName?str=${productName}&cityGuid=${cityId}&limit=${quantity}&page=${page}`)
+  async getProductsFromSearchLimit(productName, cityId, quantity = 32, page = 1, order = 'TitleAscending') {
+    const res = await axios.get(`${this.URL}/Products/byName?str=${productName}&cityGuid=${cityId}&limit=${quantity}&page=${page}&order=${order}`)
     return await res.data;
   }
 
