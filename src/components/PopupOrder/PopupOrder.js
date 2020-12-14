@@ -127,7 +127,7 @@ const PopupOrder = props => {
       <div className={'PopupOrder__buyTrue' + (!buy ? ' PopupOrder__buyActive' : '')}>
 
         <div className='PopupOrder__buyTrueContent'>
-          <p>Ваш заказ N-XXX-XXX-XXX принят к исполнению.</p>
+          <p>Ваш заказ N-{props.OrderNumber} принят к исполнению.</p>
           <p>Об изменении статуса заказа будет сообщено по СМС</p>
         </div>
         <button type='button'

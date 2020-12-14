@@ -24,6 +24,9 @@ import Error from "../../components/Error/Error";
 import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
 import Loader from "../../components/UI/Loader";
 
+import apiService from "../../service/ApiService";
+import axios from "axios";
+
 class Cart extends React.Component {
 
   state = {
@@ -33,7 +36,8 @@ class Cart extends React.Component {
     view: false,
     telephone: '',
     error: <Error/>,
-    loadingText: <Loader classStyle='Loader_is-opened'/>
+    loadingText: <Loader classStyle='Loader_is-opened'/>,
+    OrderNumber: ''
   }
 
   indexActiveRetail = () => this.props.retailsArr.findIndex((item) => item.guid === this.state.checked);
@@ -126,9 +130,26 @@ class Cart extends React.Component {
 
   postBuyOrder = () => {
     const {guid, product, sum} = this.checkRetailItem()
-    const send = {guid, telephone: this.state.telephone, product, sum}
-    console.log(send);
-    product.forEach(item => this.props.allItemRemovedFromCart(item.guid))
+
+    const products = product.map(item => {
+      return {
+        productGuid: item.guid,
+        quantity: item.count,
+        manufacturer: item.manufacturer,
+        product: item.product,
+        priceRetail: item.priceRetail
+      }
+    })
+
+    const send = {retailGuid: guid, telephone: this.state.telephone, products: products, sum}
+
+    apiService.sendOrder(send, this.props.TOKEN.accessToken).then((r => {
+      this.setState({OrderNumber: r})
+      console.log('Заказ отправлен: ', send);
+      console.log('Номер заказа: ', r)
+    }))
+
+    product.forEach(item => this.props.allItemRemovedFromCart(item.guid)) // удалить заказанные позиции из корзины
   }
 
   clearCartError = () => {
@@ -433,6 +454,7 @@ class Cart extends React.Component {
                                    cart={this.props.cart}
                                    product={this.checkRetailItem().product}
                                    onSubmit={this.postBuyOrder}
+                                   OrderNumber={this.state.OrderNumber}
                     />
                   }
                 </>
@@ -453,7 +475,8 @@ const mapStateToProps = (
     retailsArr,
     loading,
     selectedRetail,
-    isRetailAllProduct
+    isRetailAllProduct,
+    TOKEN
   }) => {
   return {
     error,
@@ -464,7 +487,8 @@ const mapStateToProps = (
     retailsArr,
     loading,
     selectedRetail,
-    isRetailAllProduct
+    isRetailAllProduct,
+    TOKEN
   }
 }
 
