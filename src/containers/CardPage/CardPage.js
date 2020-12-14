@@ -12,7 +12,7 @@ import {
   allItemRemovedFromCart,
   itemRemovedFromCart,
   addedToFavorits,
-  fetchProductInfo
+  fetchProductInfo, setActiveCategory
 } from "../../actions";
 import {connect} from "react-redux";
 import {NavLink, withRouter} from "react-router-dom";
@@ -30,7 +30,7 @@ const CardPage = (props) => {
     cart,
     favorites,
     productInfo,
-    error
+    error,
   } = props;
   const [like, setLike] = useState(false)
   const [quickOrder, setQuickOrder] = useState(false)
@@ -49,12 +49,65 @@ const CardPage = (props) => {
     props.fetchProductInfo(itemId, isCity.guid)
   }, [itemId])// eslint-disable-line
 
+  useEffect(() => {
+    if (props.catalog && props.productInfo !== '') {
+      console.log('==========================================================')
+      console.log('    PRODUCT: ', props.productInfo.categoryGuid)
+      console.log('    props.catalog: ', props.catalog.title)
+      console.log('    ', getActiveItemCategory())
+      console.log('==========================================================')
+      props.setActiveCategory(getActiveItemCategory())
+    }
+  }, [props.catalog, props.productInfo])
+
   const priceRetail = () => {
     if (typeof productInfo === 'string' || (typeof productInfo === 'object' && productInfo?.length === 0)) {
       return null
     } else {
       return productInfo.retails[0].priceRetail
     }
+  }
+
+  const getActiveItemCategory = () => {
+    const idCategoryProduct = props.productInfo.categoryGuid
+    let iterable = 0
+    let result = null
+
+    function searchElement(element) {
+      if (result) return result
+
+      for (let i = 0; i < element.child.length; i++) {
+        iterable++
+        const item = element.child[i]
+        if (item.child.length) {
+          searchElement(item) // спускаемся на самое дно
+        } else {
+          const isElement = item.guid === idCategoryProduct
+          if (isElement) {
+            result = item
+          }
+        }
+      }
+
+      if (result) {
+        return result
+      } else return 'категория не найдена'
+    }
+
+    searchElement(props.catalog)
+    return result
+  }
+
+  const thisCategoryPath = (index) => {
+
+    let activeItem = [props.catalog]
+    const title = [props.catalog.title]
+
+    for (let i = 1; i < props.activeCategory.historyGuid.length; i++) {
+      activeItem.push(activeItem[i - 1].child.find(item => item.guid === props.activeCategory.historyGuid[i]))
+      title.push(activeItem[i].title)
+    }
+    return {title: title[index], activeItem: activeItem[index]}
   }
 
   const submitOrder = () => {
@@ -85,87 +138,108 @@ const CardPage = (props) => {
             </div>
             : <>
               {/* ДЛЯ DESKTOP ВЕРСИИ */}
-              {!isMobile && <BlockWrapper>
-                <div className='CardPage__titleContainer'>
-                  <h1 className='CardPage__title'>{productInfo.product}
-                    <p className='CardPage__like' onClick={() => {
-                      setLike(!like)
-                      addedToFavorits(productInfo.guid)
-                    }}
-                       style={{color: "red", marginLeft: 15, fontSize: 26}}>
-                      {isFavorite ? <SvgHeartSolid/> : <SvgHeartIcon/>}
-                      <span>В избранное</span>
-                    </p>
-                  </h1>
-                  <p>Спрей, 10 мл, 22,5 мкг/доза</p>
-                </div>
+              {!isMobile && <>
 
-                <div className='CardPage__contentContainer'>
-                  <div className='CardPage__imageContainer'>
-                    {img
-                      ? <img className='CardPage__image' src={img} alt="фото лекарство"/>
-                      : <img src={notPhoto} alt="pills icon" className='CardPage__image'/>}
-                    <p className='CardPage__caption'>Внешний вид товара может отличаться от изображения на
-                      сайте</p>
+                {/*===    ПУТЬ К ТОВАРУ ПО КАТАЛОГУ   ===============================*/}
+                {props.activeCategory && <div style={{paddingBottom: 15}}>
+                  {props.activeCategory.historyGuid.map((item, i) => {
+                    return (
+                      <p key={item} className='CardPage__pathname'>
+                        <NavLink to='/catalog/' className='CardPage__pathItem'
+                                 onClick={() => props.setActiveCategory(thisCategoryPath(i).activeItem)}
+                        >
+                          {thisCategoryPath(i).title}
+                        </NavLink>
+                        <span className='CardPage__pathArrow'> > </span>
+                      </p>
+
+                    )
+                  })}
+                </div>}
+                {/*===================================================================*/}
+
+                <BlockWrapper>
+                  <div className='CardPage__titleContainer'>
+                    <h1 className='CardPage__title'>{productInfo.product}
+                      <p className='CardPage__like' onClick={() => {
+                        setLike(!like)
+                        addedToFavorits(productInfo.guid)
+                      }}
+                         style={{color: "red", marginLeft: 15, fontSize: 26}}>
+                        {isFavorite ? <SvgHeartSolid/> : <SvgHeartIcon/>}
+                        <span>В избранное</span>
+                      </p>
+                    </h1>
+                    <p>Спрей, 10 мл, 22,5 мкг/доза</p>
                   </div>
 
-                  <div className='CardPage__priceContainer'>
-                    <div className='CardPage__priceContent'>
-                      <p className='CardPage__priceText'>Цена в наших аптеках: </p>
-                      <p className='CardPage__price'>от {priceRetail()} ₽</p>
+                  <div className='CardPage__contentContainer'>
+                    <div className='CardPage__imageContainer'>
+                      {img
+                        ? <img className='CardPage__image' src={img} alt="фото лекарство"/>
+                        : <img src={notPhoto} alt="pills icon" className='CardPage__image'/>}
+                      <p className='CardPage__caption'>Внешний вид товара может отличаться от изображения на
+                        сайте</p>
                     </div>
-                    <div className='CardPage__amount'>
-                      <div className='CardPage__amountBlock CardPage__activePrice'>
-                        <span className='CardPage__amountText'>10 мл</span>
-                        <span className='CardPage__amountText'>22,5 мкг/доза</span>
-                        <span className='CardPage__amountPrice'>от {priceRetail()} ₽</span>
+
+                    <div className='CardPage__priceContainer'>
+                      <div className='CardPage__priceContent'>
+                        <p className='CardPage__priceText'>Цена в наших аптеках: </p>
+                        <p className='CardPage__price'>от {priceRetail()} ₽</p>
                       </div>
-                      <div className='CardPage__amountBlock'>
-                        <span className='CardPage__amountText'>10 мл</span>
-                        <span className='CardPage__amountPrice'>от {priceRetail()} ₽</span>
+                      <div className='CardPage__amount'>
+                        <div className='CardPage__amountBlock CardPage__activePrice'>
+                          <span className='CardPage__amountText'>10 мл</span>
+                          <span className='CardPage__amountText'>22,5 мкг/доза</span>
+                          <span className='CardPage__amountPrice'>от {priceRetail()} ₽</span>
+                        </div>
+                        <div className='CardPage__amountBlock'>
+                          <span className='CardPage__amountText'>10 мл</span>
+                          <span className='CardPage__amountPrice'>от {priceRetail()} ₽</span>
+                        </div>
                       </div>
+                      <div className='CardPage__buttons'>
+                        <button className='CardPage__button CardPage__buttonToCart' onClick={() => {
+                          !isActive ? addedToCart(itemId) : itemRemovedFromCart(itemId)
+                        }}>
+                          {isActive ? <SvgCheck style={{color: 'white'}}/> : 'Добавить в корзину'}
+                        </button>
+                        <button className='CardPage__button CardPage__buttonBuy'
+                                onClick={() => {
+                                  setActiveRetailGuid(productInfo.retails[0].guid)
+                                  setQuickOrder(true)
+                                }}
+                        >Быстрый заказ
+                        </button>
+                      </div>
+                      <p className='CardPage__priceText CardPage__priceCaption'>Цена зависит от выбранной
+                        аптеки</p>
                     </div>
-                    <div className='CardPage__buttons'>
-                      <button className='CardPage__button CardPage__buttonToCart' onClick={() => {
-                        !isActive ? addedToCart(itemId) : itemRemovedFromCart(itemId)
-                      }}>
-                        {isActive ? <SvgCheck style={{color: 'white'}}/> : 'Добавить в корзину'}
-                      </button>
-                      <button className='CardPage__button CardPage__buttonBuy'
-                              onClick={() => {
-                                setActiveRetailGuid(productInfo.retails[0].guid)
-                                setQuickOrder(true)
-                              }}
-                      >Быстрый заказ
-                      </button>
+
+                    <div className='CardPage__descriptionContainer'>
+                      <p className='CardPage__maker CardPage__description'>
+                        <span>Производитель</span>
+                        <NavLink to={props.history.location}>{productInfo.manufacturer}</NavLink>
+                      </p>
+                      <p className='CardPage__substance CardPage__description'>
+                        <span>Действующее вещество:</span>
+                        <NavLink to={props.history.location}>Оксиметазолин</NavLink>
+                      </p>
+                      <p className='CardPage__characteristic CardPage__description'>
+                        <span>Общее описание:</span>
+                        <span className='CardPage__textCharacteristic'>Сосудосуживающий препарат для местного применения. При нанесении на воспаленную слизистую оболочку полости носа уменьшает ее отечность и выделения из носа. Восстанавливает носовое дыхание. Устранение отека слизистой оболочки полости носа способствует восстановлению аэрации придаточных пазух полости носа, полости среднего уха, что уменьшает вероятность возникновения бактериальных осложнений (гайморита, синусита, среднего отита). При местном интраназальном применении в терапевтических концентрациях не раздражает и не вызывает гиперемию слизистой оболочки полости носа. При местном интраназальном применении оксиметазолин не обладает системным действием. Оксиметазолин начинает действовать быстро, в течение нескольких минут. Продолжительность действия препарата Називин Сенситив - до 12 ч.</span>
+                        <Link to="anchor"
+                              smooth={true}
+                              offset={-150}
+                              duration={500}>
+                          Инструкция
+                        </Link>
+                      </p>
+
                     </div>
-                    <p className='CardPage__priceText CardPage__priceCaption'>Цена зависит от выбранной
-                      аптеки</p>
                   </div>
-
-                  <div className='CardPage__descriptionContainer'>
-                    <p className='CardPage__maker CardPage__description'>
-                      <span>Производитель</span>
-                      <NavLink to={props.history.location}>{productInfo.manufacturer}</NavLink>
-                    </p>
-                    <p className='CardPage__substance CardPage__description'>
-                      <span>Действующее вещество:</span>
-                      <NavLink to={props.history.location}>Оксиметазолин</NavLink>
-                    </p>
-                    <p className='CardPage__characteristic CardPage__description'>
-                      <span>Общее описание:</span>
-                      <span className='CardPage__textCharacteristic'>Сосудосуживающий препарат для местного применения. При нанесении на воспаленную слизистую оболочку полости носа уменьшает ее отечность и выделения из носа. Восстанавливает носовое дыхание. Устранение отека слизистой оболочки полости носа способствует восстановлению аэрации придаточных пазух полости носа, полости среднего уха, что уменьшает вероятность возникновения бактериальных осложнений (гайморита, синусита, среднего отита). При местном интраназальном применении в терапевтических концентрациях не раздражает и не вызывает гиперемию слизистой оболочки полости носа. При местном интраназальном применении оксиметазолин не обладает системным действием. Оксиметазолин начинает действовать быстро, в течение нескольких минут. Продолжительность действия препарата Називин Сенситив - до 12 ч.</span>
-                      <Link to="anchor"
-                            smooth={true}
-                            offset={-150}
-                            duration={500}>
-                        Инструкция
-                      </Link>
-                    </p>
-
-                  </div>
-                </div>
-              </BlockWrapper>}
+                </BlockWrapper>
+              </>}
 
 
               {/* ДЛЯ MOBILE ВЕРСИИ */}
@@ -413,8 +487,12 @@ const CardPage = (props) => {
 }
 
 
-const mapStateToProps = ({cart, favorites, productInfo, isCity, error}) => {
-  return {cart, favorites, productInfo, isCity, error}
+const mapStateToProps = (
+  {
+    cart, favorites, productInfo, isCity, error, catalog, activeCategory
+  }
+) => {
+  return {cart, favorites, productInfo, isCity, error, catalog, activeCategory}
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -424,6 +502,7 @@ const mapDispatchToProps = (dispatch) => {
     allItemRemovedFromCart: (item) => dispatch(allItemRemovedFromCart(item)),
     addedToFavorits: (itemId) => dispatch(addedToFavorits(itemId)),
     fetchProductInfo: (productId, cityId) => dispatch(fetchProductInfo(productId, cityId)),
+    setActiveCategory: (categoryItem) => dispatch(setActiveCategory(categoryItem)),
   }
 }
 

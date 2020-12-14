@@ -25,7 +25,7 @@ const initialState = {
   productsToCategory: [],
   countProductsCategory: null,
   sales: [],
-  productSearch: '', // значение последнего поискового запроса
+  productSearch: '', // string - значение последнего поискового запроса
 }
 
 const upgradeRetailItems = (array, cart) => {
