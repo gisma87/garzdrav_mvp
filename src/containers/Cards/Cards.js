@@ -129,7 +129,7 @@ const Cards = props => {
           }
           {(touchedSearch || !isMobile) && <h1 className='Cards__title'>Результаты поиска</h1>}
           {productsFromSearch.length > 0 && <SortCards items={[
-            {id: 1, text: 'По популярности'},
+            {id: 0, text: 'По популярности'},
             {id: 'TitleAscending', text: '🠗 По наименованию А - Я'},
             {id: 'TitleDescending', text: '🠕 По наименованию Я - А'},
             {id: 'PriceAscending', text: '🠗 Сначала дешевые'},

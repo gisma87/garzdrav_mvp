@@ -21,11 +21,11 @@ const HeaderTop = (props) => {
           >
             {isCity.title}</span>
 
-          <PopupLocation active={isPopupLocation}
-                         city={isCity.title}
-                         openPopupCities={() => setPopup(true)}
-                         closeThisPopup={props.onPopupLocation}
-          />
+          {isPopupLocation && <PopupLocation active={isPopupLocation}
+                          city={isCity.title}
+                          openPopupCities={() => setPopup(true)}
+                          closeThisPopup={props.onPopupLocation}
+          />}
 
         </div>
         <ul className='HeaderTop__headItems'>
