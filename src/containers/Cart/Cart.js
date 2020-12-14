@@ -26,6 +26,7 @@ import Loader from "../../components/UI/Loader";
 
 import apiService from "../../service/ApiService";
 import axios from "axios";
+import PopupAfterBuy from "../../components/PopupAfterBuy/PopupAfterBuy";
 
 class Cart extends React.Component {
 
@@ -37,7 +38,8 @@ class Cart extends React.Component {
     telephone: '',
     error: <Error/>,
     loadingText: <Loader classStyle='Loader_is-opened'/>,
-    OrderNumber: ''
+    OrderNumber: '',
+    popupBuy: false
   }
 
   indexActiveRetail = () => this.props.retailsArr.findIndex((item) => item.guid === this.state.checked);
@@ -453,10 +455,18 @@ class Cart extends React.Component {
                                    isFullActiveRetail={this.isFullActiveRetail()}
                                    cart={this.props.cart}
                                    product={this.checkRetailItem().product}
-                                   onSubmit={this.postBuyOrder}
+                                   onSubmit={() => {
+                                     this.postBuyOrder()
+                                     this.setState({popupBuy: true})
+                                   }}
                                    OrderNumber={this.state.OrderNumber}
                     />
                   }
+                  <PopupAfterBuy
+                    show={this.state.popupBuy}
+                    OrderNumber={this.state.OrderNumber}
+                    onClose={() => this.setState({popupBuy: false})}
+                  />
                 </>
               }</>}
         </ErrorBoundary>
