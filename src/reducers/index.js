@@ -26,7 +26,8 @@ const initialState = {
   countProductsCategory: null,
   sales: [],
   productSearch: '', // string - значение последнего поискового запроса
-  requestFromSearchPanelThisTime: false
+  requestFromSearchPanelThisTime: false,
+  internetSales: []
 }
 
 const upgradeRetailItems = (array, cart) => {
@@ -103,6 +104,14 @@ const reducer = (state = initialState, action) => {
 
   console.log(action.type, action.payload);
   switch (action.type) {
+
+    case 'REQUEST_INTERNET_SALES':
+      return {
+        ...state,
+        internetSales: action.payload,
+        loading: false,
+        error: null
+      }
 
     case 'ON_REQUEST_FROM_SEARCH_PANEL':
       return {

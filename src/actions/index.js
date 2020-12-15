@@ -1,4 +1,6 @@
 // ставим ошибку
+import apiService from "../service/ApiService";
+
 const setError = (error) => {
   return {
     type: 'FETCH_FAILURE',
@@ -357,8 +359,23 @@ const offRequestFromSearchPanel = () => {
   return {type: 'OFF_REQUEST_FROM_SEARCH_PANEL'}
 }
 
+// запрос истории интернет заказов
+const getInternetSales = () => async (dispatch, getState, apiService) => {
+  dispatch(loadingTrue())
+  try {
+    const response = await apiService.getOrder(getState().TOKEN.accessToken)
+    dispatch({
+      type: 'REQUEST_INTERNET_SALES',
+      payload: response
+    })
+  } catch (e) {
+    dispatch(setError(e))
+  }
+}
+
 
 export {
+  getInternetSales,
   onRequestFromSearchPanel,
   offRequestFromSearchPanel,
   setSales,
