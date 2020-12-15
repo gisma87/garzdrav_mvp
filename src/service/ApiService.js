@@ -170,22 +170,35 @@ class ApiService {
     return result.data
   }
 
+  // sendOrder = async (order, TOKEN) => {
+  //   const res = await fetch(`${this.URL}/Orders`, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       Authorization: `Bearer ${TOKEN}`
+  //     },
+  //     body: JSON.stringify(order)
+  //   })
+  //
+  //   if (!res.ok) {
+  //     throw new Error(`Could not fetch ${this.URL}/Orders` +
+  //       `, received ${res.status}`)
+  //   }
+  //   return await res.json();
+  // };
+
   sendOrder = async (order, TOKEN) => {
-    const res = await fetch(`${this.URL}/Orders`, {
-      method: 'POST',
+    const response = await axios({
+      method: 'post',
+      url: `${this.URL}/Orders`,
+      data: order,
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${TOKEN}`
-      },
-      body: JSON.stringify(order)
+      }
     })
-
-    if (!res.ok) {
-      throw new Error(`Could not fetch ${this.URL}/Orders` +
-        `, received ${res.status}`)
-    }
-    return await res.json();
-  };
+    return response.data
+  }
 
 }
 

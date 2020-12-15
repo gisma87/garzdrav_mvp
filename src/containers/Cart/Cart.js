@@ -25,7 +25,7 @@ import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
 import Loader from "../../components/UI/Loader";
 
 import apiService from "../../service/ApiService";
-import axios from "axios";
+
 import PopupAfterBuy from "../../components/PopupAfterBuy/PopupAfterBuy";
 
 class Cart extends React.Component {
@@ -145,11 +145,20 @@ class Cart extends React.Component {
 
     const send = {retailGuid: guid, telephone: this.state.telephone, products: products, sum}
 
-    apiService.sendOrder(send, this.props.TOKEN.accessToken).then((r => {
-      this.setState({OrderNumber: r})
+    // apiService.sendOrder(send, this.props.TOKEN.accessToken).then((r => {
+    //   this.setState({OrderNumber: r})
+    //   console.log('Заказ отправлен: ', send);
+    //   console.log('Номер заказа: ', r)
+    // }))
+
+    const sendOrder = async () => {
+      const response = await apiService.sendOrder(send, this.props.TOKEN.accessToken)
+      this.setState({OrderNumber: response})
       console.log('Заказ отправлен: ', send);
-      console.log('Номер заказа: ', r)
-    }))
+      console.log('Номер заказа: ', response)
+    }
+
+    sendOrder()
 
     product.forEach(item => this.props.allItemRemovedFromCart(item.guid)) // удалить заказанные позиции из корзины
   }
