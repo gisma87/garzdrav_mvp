@@ -26,6 +26,7 @@ const initialState = {
   countProductsCategory: null,
   sales: [],
   productSearch: '', // string - значение последнего поискового запроса
+  requestFromSearchPanelThisTime: false
 }
 
 const upgradeRetailItems = (array, cart) => {
@@ -102,6 +103,18 @@ const reducer = (state = initialState, action) => {
 
   console.log(action.type, action.payload);
   switch (action.type) {
+
+    case 'ON_REQUEST_FROM_SEARCH_PANEL':
+      return {
+        ...state,
+        requestFromSearchPanelThisTime: true
+      }
+
+    case 'OFF_REQUEST_FROM_SEARCH_PANEL':
+      return {
+        ...state,
+        requestFromSearchPanelThisTime: false
+      }
 
     case 'SET_CATALOG':
       return {

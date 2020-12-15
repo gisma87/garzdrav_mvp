@@ -27,21 +27,6 @@ function App(props) {
 
   const [howToBuyScroll, setHowToBuyScroll] = useState(false)
 
-  // useEffect(() => {
-  //   props.fetchCities();
-  //
-  //   if (localStorage.getItem("cart")) {
-  //     props.rewriteCart(JSON.parse(localStorage.getItem("cart")))
-  //
-  //     // серия запросов - формируется массив элементов корзины
-  //     props.fetchCartItems()
-  //   }
-  // }, [])// eslint-disable-line
-  //
-  // useEffect(() => {
-  //   localStorage.setItem('cart', JSON.stringify(props.cart));
-  // }, [props.cart])
-
   return (
     <div className="App">
       <ScrollToTop/>

@@ -1,10 +1,16 @@
-import React, {useState} from "react"
+import React, {useEffect, useState} from "react"
 import {withRouter} from 'react-router-dom'
 import {useMediaQuery} from 'react-responsive'
 import './Cards.scss'
 import CardItem from "../../components/CardItem";
 import {connect} from 'react-redux'
-import {addedToCart, itemRemovedFromCart, allItemRemovedFromCart, getProductsFromSearchLimit} from "../../actions";
+import {
+  addedToCart,
+  itemRemovedFromCart,
+  allItemRemovedFromCart,
+  getProductsFromSearchLimit,
+  offRequestFromSearchPanel
+} from "../../actions";
 import CardItemMobile from "../../components/CardItemMobile";
 import SearchPanel from "../../components/SearchPanel";
 import logo from "../../img/evalar.png";
@@ -21,15 +27,33 @@ const Cards = props => {
   const [currentPage, setCurrentPage] = useState(1)
   const [touchedSearch, setTouchedSearch] = useState(false)
 
+  useEffect(() => {
+    if (props.requestFromSearchPanelThisTime) {
+      setCurrentPage(1)
+      props.offRequestFromSearchPanel()
+    }
+  }, [props.requestFromSearchPanelThisTime])
+
   const onPageChanged = ({currentPage}) => {
     setCurrentPage(currentPage)
-    props.getProductsFromSearchLimit(props.productSearch, 32, currentPage, methodSort)
+    const parameters = {
+      productName: props.productSearch,
+      page: currentPage,
+      order: methodSort,
+    }
+
+    props.getProductsFromSearchLimit(parameters)
   }
 
   const sortCards = (methodSort) => {
     setMethodSort(methodSort)
     setCurrentPage(1)
-    props.getProductsFromSearchLimit(props.productSearch, 32, 1, methodSort)
+    const parameters = {
+      productName: props.productSearch,
+      page: 1,
+      order: methodSort,
+    }
+    props.getProductsFromSearchLimit(parameters)
   }
 
   const onItemSelected = (itemId, event) => {
@@ -137,10 +161,10 @@ const Cards = props => {
 
 const mapStateToProps = (
   {
-    cart, productsFromSearch, countProductsSearch, error, productSearch
+    cart, productsFromSearch, countProductsSearch, error, productSearch, requestFromSearchPanelThisTime
   }
 ) => {
-  return {cart, productsFromSearch, countProductsSearch, error, productSearch}
+  return {cart, productsFromSearch, countProductsSearch, error, productSearch, requestFromSearchPanelThisTime}
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -148,7 +172,8 @@ const mapDispatchToProps = (dispatch) => {
     addedToCart: (item) => dispatch(addedToCart(item)),
     itemRemovedFromCart: (item) => dispatch(itemRemovedFromCart(item)),
     allItemRemovedFromCart: (item) => dispatch(allItemRemovedFromCart(item)),
-    getProductsFromSearchLimit: (productName, quantity, page, methodSort) => dispatch(getProductsFromSearchLimit(productName, quantity, page, methodSort))
+    getProductsFromSearchLimit: (options) => dispatch(getProductsFromSearchLimit(options)),
+    offRequestFromSearchPanel: () => dispatch(offRequestFromSearchPanel())
   }
 }
 

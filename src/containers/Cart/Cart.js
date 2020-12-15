@@ -14,6 +14,7 @@ import {
   fetchCartItems,
   onSelectRetail, clearCart, setCartItems,
 } from "../../actions";
+import {calculateAmountArray} from "./cartUtils";
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
 import PopupMapCart from "../../components/PopupMapCart/PopupMapCart";
@@ -29,6 +30,11 @@ import apiService from "../../service/ApiService";
 import PopupAfterBuy from "../../components/PopupAfterBuy/PopupAfterBuy";
 
 class Cart extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.calculateAmountArray = calculateAmountArray.bind(this)
+  }
 
   state = {
     active: false,
@@ -77,19 +83,19 @@ class Cart extends React.Component {
     return null
   }
 
-  // возвращает массив id товара - сумма этого товара в выбранной аптеке
-  calculateAmountArray = () => {
-    const cartItems = []
-    this.props.cartItems.forEach(item => {
-      const index = this.props.cart.findIndex(cartItem => cartItem.itemId === item.guid)
-      if (index < 0) return;
-      const count = this.props.cart[index].count
-      const retailIndex = item.retails.findIndex(retail => retail.guid === this.props.selectedRetail)
-      const sum = retailIndex >= 0 ? item.retails[retailIndex].priceRetail * count : null
-      cartItems.push({guid: item.guid, sum})
-    })
-    return cartItems
-  }
+  // // возвращает массив id товара - сумма этого товара в выбранной аптеке
+  // calculateAmountArray = () => {
+  //   const cartItems = []
+  //   this.props.cartItems.forEach(item => {
+  //     const index = this.props.cart.findIndex(cartItem => cartItem.itemId === item.guid)
+  //     if (index < 0) return;
+  //     const count = this.props.cart[index].count
+  //     const retailIndex = item.retails.findIndex(retail => retail.guid === this.props.selectedRetail)
+  //     const sum = retailIndex >= 0 ? item.retails[retailIndex].priceRetail * count : null
+  //     cartItems.push({guid: item.guid, sum})
+  //   })
+  //   return cartItems
+  // }
 
   // возвращает подпись в сколько товаров из списка есть в данной аптеке на вход принимает массив товаров в аптеке
   calcQuantityProduct = (obj) => {
@@ -130,9 +136,10 @@ class Cart extends React.Component {
     return +sum.toFixed(2)
   }
 
+
+  // отправка на сервер собранного интернет заказа
   postBuyOrder = () => {
     const {guid, product, sum} = this.checkRetailItem()
-
     const products = product.map(item => {
       return {
         productGuid: item.guid,
@@ -142,15 +149,7 @@ class Cart extends React.Component {
         priceRetail: item.priceRetail
       }
     })
-
     const send = {retailGuid: guid, telephone: this.state.telephone, products: products, sum}
-
-    // apiService.sendOrder(send, this.props.TOKEN.accessToken).then((r => {
-    //   this.setState({OrderNumber: r})
-    //   console.log('Заказ отправлен: ', send);
-    //   console.log('Номер заказа: ', r)
-    // }))
-
     const sendOrder = async () => {
       const response = await apiService.sendOrder(send, this.props.TOKEN.accessToken)
       this.setState({OrderNumber: response})
@@ -484,30 +483,18 @@ class Cart extends React.Component {
   }
 }
 
-const mapStateToProps = (
-  {
-    error,
-    cart,
-    favorites,
-    isCity,
-    cartItems,
-    retailsArr,
-    loading,
-    selectedRetail,
-    isRetailAllProduct,
-    TOKEN
-  }) => {
+const mapStateToProps = (state) => {
   return {
-    error,
-    cart,
-    favorites,
-    isCity,
-    cartItems,
-    retailsArr,
-    loading,
-    selectedRetail,
-    isRetailAllProduct,
-    TOKEN
+    error: state.error,
+    cart: state.cart,
+    favorites: state.favorites,
+    isCity: state.isCity,
+    cartItems: state.cartItems,
+    retailsArr: state.retailsArr,
+    loading: state.loading,
+    selectedRetail: state.selectedRetail,
+    isRetailAllProduct: state.isRetailAllProduct,
+    TOKEN: state.TOKEN
   }
 }
 

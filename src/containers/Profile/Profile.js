@@ -163,13 +163,13 @@ const Bonus = props => {
 
 
       <p className='Bonus__signature'>Подробную историю зачисления / списания бонусов можно посмотреть в
-        истории ваших заказов</p>
+        истории ваших покупок</p>
 
     </BlockWrapper>
   )
 }
 
-// раздел Заказы (текущие)
+// раздел Интернет заказы
 const Orders = props => {
   return (
     <BlockWrapper classStyle='ProfileSetting'>
@@ -185,7 +185,7 @@ const Orders = props => {
 }
 
 
-// компонент заказа из списка История заказов
+// компонент заказа из списка История покупок
 const OrderContent = props => {
 
   const [contentDisabled, setContentDisabled] = useState(false)
@@ -263,7 +263,7 @@ const OrderContent = props => {
   )
 }
 
-// раздел История заказов
+// раздел История покупок
 const OrderHistory = props => {
   const orders = props.sales.filter(item => item.type === 'Реализация')
   console.log('ORDERS', orders);
@@ -330,9 +330,9 @@ const Profile = (props) => {
               <BlockWrapper classStyle='Profile__menu'>
                 <ul className='Profile__items'>
                   <li className='Profile__item' onClick={() => setBlock('main')}>Бонусы</li>
-                  <li className='Profile__item' onClick={() => setBlock('order')}>Заказы <span
+                  <li className='Profile__item' onClick={() => setBlock('order')}>Интернет заказы <span
                     style={{color: 'red', fontSize: 12}}>в разработке</span></li>
-                  <li className='Profile__item' onClick={() => setBlock('historyOrder')}>Истории заказов</li>
+                  <li className='Profile__item' onClick={() => setBlock('historyOrder')}>История покупок</li>
                   <li className='Profile__item' onClick={() => setBlock('favorites')}>Избранное <span
                     style={{color: 'red', fontSize: 12}}>в разработке</span></li>
                   <li className='Profile__item' onClick={() => setBlock('favoriteRetail')}>Любимая аптека <span

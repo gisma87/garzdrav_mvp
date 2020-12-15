@@ -12,27 +12,27 @@ class ApiService {
     return result.data
   }
 
-  // поисковый запрос всех товаров по названию
-  async getProductsFromSearch(productName, cityId) {
-    const res = await fetch(`${this.URL}/Products/byName?str=${productName}&cityGuid=${cityId}`,
-      {
-        method: 'GET',
-        headers: {
-          accept: 'application/json'
-        }
-      }
-    )
-    if (!res.ok) {
-      throw new Error(`Не могу выполнить fetch, статус ошибки: ${res.status}`)
-    }
-    return await res.json();
-  }
+  // // поисковый запрос всех товаров по названию
+  // async getProductsFromSearch(productName, cityId) {
+  //   const res = await fetch(`${this.URL}/Products/byName?str=${productName}&cityGuid=${cityId}`,
+  //     {
+  //       method: 'GET',
+  //       headers: {
+  //         accept: 'application/json'
+  //       }
+  //     }
+  //   )
+  //   if (!res.ok) {
+  //     throw new Error(`Не могу выполнить fetch, статус ошибки: ${res.status}`)
+  //   }
+  //   return await res.json();
+  // }
 
-  // поисковый запрос порционно с указанием количества элементов и страницы
-  async getProductsFromSearchLimit(productName, cityId, quantity = 32, page = 1, order = 'TitleAscending') {
-    const res = await axios.get(`${this.URL}/Products/byName?str=${productName}&cityGuid=${cityId}&limit=${quantity}&page=${page}&order=${order}`)
-    return await res.data;
-  }
+  // // поисковый запрос порционно с указанием количества элементов и страницы
+  // async getProductsFromSearchLimit(productName, cityId, quantity = 32, page = 1, order = 'TitleAscending') {
+  //   const res = await axios.get(`${this.URL}/Products/byName?str=${productName}&cityGuid=${cityId}&limit=${quantity}&page=${page}&order=${order}`)
+  //   return await res.data;
+  // }
 
   // запрос списка городов
   async getCities() {
@@ -138,11 +138,11 @@ class ApiService {
     return grandNode
   }
 
-  // запрос товаров по категории
-  async getProductToCategory(cityId, categoryId) {
-    const result = await axios.get(`${this.URL}/Products/byName?cityGuid=${cityId}&categoryGuid=${categoryId}`)
-    return result.data
-  }
+  // // запрос товаров по категории
+  // async getProductToCategory(cityId, categoryId) {
+  //   const result = await axios.get(`${this.URL}/Products/byName?cityGuid=${cityId}&categoryGuid=${categoryId}`)
+  //   return result.data
+  // }
 
   // запрос списка покупок
   async getSales(TOKEN) {
@@ -170,7 +170,19 @@ class ApiService {
     return response.data
   }
 
-// запрос товаров по параметрам
+  // TODO - запрос списка интернет заказов
+  getOrder = async (TOKEN) => {
+    const response = await axios.get(`${this.URL}/Orders`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${TOKEN}`
+        }
+      })
+    return response.data
+  }
+
+  // запрос товаров по параметрам
   async getProducts(options) {
     let {
       productName = null,
@@ -237,19 +249,14 @@ export default apiService
 //   });
 // }
 
-// sendOrder = async (order, TOKEN) => {
-//   const res = await fetch(`${this.URL}/Orders`, {
-//     method: 'POST',
+//======= РАБОТАЕТ ===================================================================
+// sendOrderTEST = async (order, TOKEN) => {
+//   const response = await axios.post(`${this.URL}/Orders`, order, {
 //     headers: {
 //       'Content-Type': 'application/json',
 //       Authorization: `Bearer ${TOKEN}`
-//     },
-//     body: JSON.stringify(order)
+//     }
 //   })
-//
-//   if (!res.ok) {
-//     throw new Error(`Could not fetch ${this.URL}/Orders` +
-//       `, received ${res.status}`)
-//   }
-//   return await res.json();
-// };
+//   return response.data
+// }
+//=====================================================================================

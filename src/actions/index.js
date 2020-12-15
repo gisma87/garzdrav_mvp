@@ -172,19 +172,41 @@ const ProductsFromSearchLoaded = (products, productSearch) => {
 }
 
 // поисковый запрос порционно с указанием количества элементов и страницы
-function getProductsFromSearchLimit(productSearch, quantity, page, methodSort) {
-  console.log('methodSort', methodSort)
+function getProductsFromSearchLimit(options) {
   return async (dispatch, getState, apiService) => {
-    const cityId = getState().isCity.guid
+    const productName = options.productName === 'undefined' ? null : options.productName
+    const parameters = {
+      // productSearch, quantity, page, methodSort
+      productName: productName,
+      cityId: getState().isCity.guid,
+      quantity: options.quantity || 32,
+      page: options.page || 1,
+      order: options.order || null,
+      categoryId: options.categoryId || null
+    }
     dispatch(loadingTrue())
     try {
-      const response = await apiService.getProductsFromSearchLimit(productSearch, cityId, quantity, page, methodSort)
-      dispatch(ProductsFromSearchLoaded(response, productSearch))
+      const response = await apiService.getProducts(parameters)
+      dispatch(ProductsFromSearchLoaded(response, productName || ''))
     } catch (e) {
       dispatch(setError(e))
     }
   }
 }
+
+// function getProductsFromSearchLimit(productSearch, quantity, page, methodSort) {
+//   console.log('methodSort', methodSort)
+//   return async (dispatch, getState, apiService) => {
+//     const cityId = getState().isCity.guid
+//     dispatch(loadingTrue())
+//     try {
+//       const response = await apiService.getProductsFromSearchLimit(productSearch, cityId, quantity, page, methodSort)
+//       dispatch(ProductsFromSearchLoaded(response, productSearch))
+//     } catch (e) {
+//       dispatch(setError(e))
+//     }
+//   }
+// }
 
 
 // дополнительная(подробная) информация о продукте
@@ -327,8 +349,18 @@ const setSales = () => async (dispatch, getState, apiService) => {
   }
 }
 
+// true, когда происходит запрос от панели поиска - для сброса страниц на первую
+const onRequestFromSearchPanel = () => {
+  return {type: 'ON_REQUEST_FROM_SEARCH_PANEL'}
+}
+const offRequestFromSearchPanel = () => {
+  return {type: 'OFF_REQUEST_FROM_SEARCH_PANEL'}
+}
+
 
 export {
+  onRequestFromSearchPanel,
+  offRequestFromSearchPanel,
   setSales,
   setProductsToCategory,
   setActiveCategory,
