@@ -291,10 +291,20 @@ function setActiveCategory(categoryItem) {
   }
 }
 
-const setProductsToCategory = (categoryId) => async (dispatch, getState, apiService) => {
+// запрос товаров по категории для каталога
+const setProductsToCategory = (options) => async (dispatch, getState, apiService) => {
   dispatch(loadingTrue())
   try {
-    const response = await apiService.getProductToCategory(getState().isCity.guid, categoryId)
+    const parameters = {
+      productName: options.productName || null,
+      cityId: getState().isCity.guid,
+      quantity: options.quantity || 32,
+      page: options.page || 1,
+      order: options.order || null,
+      categoryId: options.categoryId || null
+    }
+
+    const response = await apiService.getProducts(parameters)
     dispatch({
       type: 'SET_PRODUCTS_TO_CATEGORY',
       payload: response

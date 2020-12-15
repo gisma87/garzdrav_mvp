@@ -11,20 +11,19 @@ import SortCards from "../../components/SortCards/SortCards";
 
 const CatalogPage = props => {
 
-  const [arraySort, setArraySort] = useState(null)
   const [currentPage, setCurrentPage] = useState(1)
-  const [currentCards, setCurrentCards] = useState([]) // массив карточке отображаемый на текущей странице
+  const [methodSort, setMethodSort] = useState(0)
 
   useEffect(() => {
     if (props.activeCategory) {
-      props.setProductsToCategory(props.activeCategory.guid)
+      setCurrentPage(1)
+      const parameters = {
+        order: methodSort,
+        categoryId: props.activeCategory.guid
+      }
+      props.setProductsToCategory(parameters)
     }// eslint-disable-next-line
   }, [props.activeCategory])
-
-  useEffect(() => {
-    sortCards() // eslint-disable-next-line
-  }, [props.productsToCategory])
-
 
   const isMobile = useMediaQuery({query: '(max-width: 800px)'})
 
@@ -42,62 +41,25 @@ const CatalogPage = props => {
     return {title: title[index], activeItem: activeItem[index]}
   }
 
-  const onPageChanged = (data, arrSortPrevState) => {
-    const allCards = arrSortPrevState ? arrSortPrevState : (arraySort ? arraySort : props.productsToCategory) // массив всех карточек
-    const {currentPage, pageLimitItems} = data;
-    const offset = (currentPage - 1) * pageLimitItems;
-    const currentCardsData = allCards.slice(offset, offset + pageLimitItems);
-
-    setCurrentCards(currentCardsData)
+  const onPageChanged = ({currentPage}) => {
+    setCurrentPage(currentPage)
+    const parameters = {
+      page: currentPage,
+      order: methodSort,
+      categoryId: props.activeCategory.guid
+    }
+    props.setProductsToCategory(parameters)
   }
 
-  const sortCards = (method) => {
-    const arr = [...props.productsToCategory]
-
-    const minToMax = () => arr.sort((a, b) => a.minPrice > b.minPrice ? 1 : -1)
-    const maxToMin = () => arr.sort((a, b) => a.minPrice < b.minPrice ? 1 : -1)
-
-    switch (method) {
-      case 2:
-        minToMax()
-        setArraySort(arr)
-        goToPage(1, arr)
-        return arr
-
-      case 3:
-        maxToMin()
-        setArraySort(arr)
-        goToPage(1, arr)
-        return arr
-
-      case 4:
-        arr.sort()
-        setArraySort(arr)
-        goToPage(1, arr)
-        return arr
-
-      default:
-        setArraySort(arr)
-        goToPage(1, arr)
-        return arr
+  const sortCards = (methodSort) => {
+    const parameters = {
+      page: 1,
+      order: methodSort,
+      categoryId: props.activeCategory.guid
     }
-  }
-
-  function goToPage(page = 1, arrSortPrevState) {
-    const pageLimitItems = 32 // количество карточек на странице
-    const totalRecords = props.productsToCategory?.length
-    const totalPages = Math.ceil(totalRecords / pageLimitItems); // общее количество страниц
-    const curPage = Math.max(0, Math.min(page, totalPages)); // текущая страница
-
-    const paginationData = {
-      currentPage: curPage, // текущая страница
-      totalPages, // общее количество страниц
-      pageLimitItems, // количество карточек на странице
-      totalRecords
-    }
-
-    setCurrentPage(curPage)
-    onPageChanged(paginationData, arrSortPrevState)
+    setMethodSort(methodSort)
+    setCurrentPage(1)
+    props.setProductsToCategory(parameters)
   }
 
   return (
@@ -131,20 +93,21 @@ const CatalogPage = props => {
         </ul>
       </>}
 
-      <SortCards items={[
-        {id: 1, text: 'По популярности'},
-        {id: 4, text: 'По наименованию'},
-        {id: 2, text: 'Сначала дешевые'},
-        {id: 3, text: 'Сначала дорогие'}
+      {props.productsToCategory.length > 0 && <SortCards items={[
+        {id: 0, text: 'По популярности'},
+        {id: 'TitleAscending', text: '🠗 По наименованию А - Я'},
+        {id: 'TitleDescending', text: '🠕 По наименованию Я - А'},
+        {id: 'PriceAscending', text: '🠗 Сначала дешевые'},
+        {id: 'PriceDescending', text: '🠕 Сначала дорогие'}
       ]}
-                 selectItem={(val) => sortCards(val)}
+                                                         selectItem={(idMethod) => sortCards(idMethod)}
 
-      />
+      />}
 
       <div className="CatalogPage__cardList">
         {
-          props.productsToCategory.length > 0 && currentCards.length > 0
-          && currentCards.map((item) => {
+          props.productsToCategory.length > 0
+          && props.productsToCategory.map((item) => {
             const {guid, product, manufacturer, img = null, minPrice} = item;
             const itemIndex = props.cart.findIndex((item) => item.itemId === guid);
             const isActive = itemIndex >= 0;
@@ -180,9 +143,9 @@ const CatalogPage = props => {
       {
         props.productsToCategory.length > 0 &&
         <div style={{paddingTop: 15}}>
-          <Pagination totalRecords={props.productsToCategory.length}
+          <Pagination totalRecords={props.countProductsCategory}
                       page={currentPage}
-                      setPage={(page) => goToPage(page)}
+            // setPage={(page) => goToPage(page)}
                       pageLimitItems={32}
                       onPageChanged={onPageChanged}/>
         </div>
@@ -197,7 +160,8 @@ const mapStateToProps = (
   {
     catalog, activeCategory,
     productsFromSearch, cart,
-    productsToCategory
+    productsToCategory,
+    countProductsCategory
   }
 ) => {
   return {
@@ -205,7 +169,8 @@ const mapStateToProps = (
     activeCategory,
     productsFromSearch,
     cart,
-    productsToCategory
+    productsToCategory,
+    countProductsCategory
   }
 }
 
@@ -219,3 +184,61 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(CatalogPage))
+
+// const onPageChanged = (data, arrSortPrevState) => {
+//   const allCards = arrSortPrevState ? arrSortPrevState : (arraySort ? arraySort : props.productsToCategory) // массив всех карточек
+//   const {currentPage, pageLimitItems} = data;
+//   const offset = (currentPage - 1) * pageLimitItems;
+//   const currentCardsData = allCards.slice(offset, offset + pageLimitItems);
+//
+//   setCurrentCards(currentCardsData)
+// }
+
+// const sortCards = (method) => {
+//   const arr = [...props.productsToCategory]
+//
+//   const minToMax = () => arr.sort((a, b) => a.minPrice > b.minPrice ? 1 : -1)
+//   const maxToMin = () => arr.sort((a, b) => a.minPrice < b.minPrice ? 1 : -1)
+//
+//   switch (method) {
+//     case 2:
+//       minToMax()
+//       setArraySort(arr)
+//       goToPage(1, arr)
+//       return arr
+//
+//     case 3:
+//       maxToMin()
+//       setArraySort(arr)
+//       goToPage(1, arr)
+//       return arr
+//
+//     case 4:
+//       arr.sort()
+//       setArraySort(arr)
+//       goToPage(1, arr)
+//       return arr
+//
+//     default:
+//       setArraySort(arr)
+//       goToPage(1, arr)
+//       return arr
+//   }
+// }
+
+// function goToPage(page = 1, arrSortPrevState) {
+//   const pageLimitItems = 32 // количество карточек на странице
+//   const totalRecords = props.productsToCategory?.length
+//   const totalPages = Math.ceil(totalRecords / pageLimitItems); // общее количество страниц
+//   const curPage = Math.max(0, Math.min(page, totalPages)); // текущая страница
+//
+//   const paginationData = {
+//     currentPage: curPage, // текущая страница
+//     totalPages, // общее количество страниц
+//     pageLimitItems, // количество карточек на странице
+//     totalRecords
+//   }
+//
+//   setCurrentPage(curPage)
+//   onPageChanged(paginationData, arrSortPrevState)
+// }

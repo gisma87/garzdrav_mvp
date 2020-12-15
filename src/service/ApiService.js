@@ -157,36 +157,6 @@ class ApiService {
   }
 
   // POST запрос сформированный заказ
-  async sendOrderBAD(order, TOKEN) {
-    const result = await axios.post(`${this.URL}/Orders`,
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${TOKEN}`
-        },
-        data: order
-      })
-
-    return result.data
-  }
-
-  // sendOrder = async (order, TOKEN) => {
-  //   const res = await fetch(`${this.URL}/Orders`, {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       Authorization: `Bearer ${TOKEN}`
-  //     },
-  //     body: JSON.stringify(order)
-  //   })
-  //
-  //   if (!res.ok) {
-  //     throw new Error(`Could not fetch ${this.URL}/Orders` +
-  //       `, received ${res.status}`)
-  //   }
-  //   return await res.json();
-  // };
-
   sendOrder = async (order, TOKEN) => {
     const response = await axios({
       method: 'post',
@@ -198,6 +168,39 @@ class ApiService {
       }
     })
     return response.data
+  }
+
+// запрос товаров по параметрам
+  async getProducts(options) {
+    let {
+      productName = null,
+      cityId,
+      quantity = 32,
+      page = 1,
+      order = null,
+      categoryId = null
+    } = options
+
+    if (productName) productName = `str=${productName}`;
+    if (categoryId) categoryId = `categoryGuid=${categoryId}`;
+    if (order) order = `order=${order}`;
+    cityId = `cityGuid=${cityId}`;
+    quantity = `limit=${quantity}`;
+    page = `page=${page}`;
+
+    const optional = () => {
+      let optionalParameters = []
+      if (productName) optionalParameters.push(productName)
+      if (order) optionalParameters.push(order)
+      if (categoryId) optionalParameters.push(categoryId)
+      if (optionalParameters.length) return `&${optionalParameters.join('&')}`
+      return null
+    }
+
+    const url = this.URL + '/Products/byName?' + cityId + '&' + quantity + '&' + page + (optional() ? optional() : '')
+
+    const res = await axios.get(url)
+    return await res.data;
   }
 
 }
@@ -233,3 +236,20 @@ export default apiService
 //       });
 //   });
 // }
+
+// sendOrder = async (order, TOKEN) => {
+//   const res = await fetch(`${this.URL}/Orders`, {
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json',
+//       Authorization: `Bearer ${TOKEN}`
+//     },
+//     body: JSON.stringify(order)
+//   })
+//
+//   if (!res.ok) {
+//     throw new Error(`Could not fetch ${this.URL}/Orders` +
+//       `, received ${res.status}`)
+//   }
+//   return await res.json();
+// };
