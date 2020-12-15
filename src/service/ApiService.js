@@ -157,7 +157,7 @@ class ApiService {
   }
 
   // POST запрос сформированный заказ
-  sendOrder = async (order, TOKEN) => {
+  async sendOrder(order, TOKEN) {
     const response = await axios({
       method: 'post',
       url: `${this.URL}/Orders`,
@@ -170,8 +170,8 @@ class ApiService {
     return response.data
   }
 
-  // TODO - запрос списка интернет заказов
-  getOrder = async (TOKEN) => {
+  // запрос списка интернет заказов
+  async getOrder(TOKEN) {
     const response = await axios.get(`${this.URL}/Orders`,
       {
         headers: {
@@ -213,6 +213,19 @@ class ApiService {
 
     const res = await axios.get(url)
     return await res.data;
+  }
+
+  // TODO отмена заказа ==================================================================
+  async cancelOrder(orderGuid, TOKEN) {
+    const response = await axios.delete(`${this.URL}/Orders?orderGuid=${orderGuid}`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${TOKEN}`
+        }
+      })
+
+    return response.data
   }
 
 }
