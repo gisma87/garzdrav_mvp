@@ -1,0 +1,42 @@
+.Bonus {
+  flex: 1 1;
+  margin-right: 30px;
+
+  @media(max-width: 800px) {
+    margin: 0;
+    width: 100%;
+    max-width: 600px;
+  }
+
+  h4 {
+    margin-bottom: 15px;
+  }
+
+  &__item {
+    border: 1px solid #E5E5E5;
+    padding: 13px;
+    min-width: 300px;
+    margin-bottom: 10px;
+  }
+
+  &__itemContent {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__itemTitle {
+    font-size: 15px;
+    font-weight: normal;
+    color: #999;
+    margin-bottom: 10px;
+  }
+
+  &__info {
+    font-weight: 500;
+  }
+
+  &__signature {
+    margin-top: 20px;
+  }
+
+}

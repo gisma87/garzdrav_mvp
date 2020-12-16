@@ -1,0 +1,111 @@
+.ProfileSetting {
+  flex: 1 1;
+  margin-right: 30px;
+
+  @media(max-width: 800px) {
+    margin: 0;
+    width: 100%;
+    max-width: 600px;
+  }
+
+  h4 {
+    margin-bottom: 15px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__item {
+    border: 1px solid #E5E5E5;
+    padding: 13px;
+    min-width: 300px;
+    margin-bottom: 10px;
+  }
+
+  &__itemContent {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__itemTitle {
+    font-size: 15px;
+    font-weight: normal;
+    color: #999;
+    margin-bottom: 10px;
+  }
+
+  &__info {
+    font-weight: 500;
+  }
+
+  &__changePass {
+    margin: 15px 10px;
+    font-size: 18px;
+    color: blue;
+    cursor: pointer;
+  }
+
+  &__itemContainer {
+    display: flex;
+    flex-direction: column;
+
+    div {
+      padding: 10px;
+      display: flex;
+      align-items: center;
+    }
+
+    label {
+      padding: 10px;
+      cursor: pointer;
+    }
+  }
+
+  &__submit {
+    align-self: flex-end;
+    max-width: 200px;
+
+    outline: none;
+    font-size: 18px;
+    padding: 15px 10px;
+    min-width: 182px;
+    text-align: center;
+    width: 100%;
+    flex-basis: 45%;
+    flex-grow: 1;
+    margin: 5px 5px 5px 0;
+    color: #fff;
+    border-radius: 8px;
+    background: linear-gradient(to top, #fc8507, #ffa218);
+    border: 1px solid transparent;
+    border-top-color: #fc8507;
+    border-bottom-color: #ffa218;
+
+    &:hover {
+      background-image: linear-gradient(to bottom, #ffbc0b, #ff7400);
+      box-shadow: inset 0 -2px 0 0 rgba(0, 0, 0, 0.2);
+      border-top-color: #ffbc0b;
+      border-bottom-color: #ff7400;
+    }
+  }
+
+  input {
+    appearance: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+
+    border: 2px solid #E26C2D;
+    transition: 0.2s all linear;
+    outline: none;
+  }
+
+  input:checked {
+    background-color: #E26C2D;
+    background-image: url('../../../img/vector.png');
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+}
