@@ -68,6 +68,11 @@ class Cart extends React.Component {
     return this.props.retailsArr.find(item => item.guid === this.props.selectedRetail)
   }
 
+  // остаток товара в выбранной аптеке
+  getCountLast = (idProduct) => {
+    //TODO=========================================================================================
+  }
+
   // возвращает массив аптек с полным наличием товара или null
   getFullRetailItemState = () => {
     const itemArr = this.props.retailsArr.filter(item => item.product.length >= this.props.cart.length)
@@ -166,7 +171,7 @@ class Cart extends React.Component {
     setTimeout(this.props.clearCart, 8000)
     setTimeout(() => {
       this.setState({
-        error: <p style={{fontSize: 24}}>Мы ничего не нашли :( Корзина будет очищена. Простите, иначе нельзя... :(</p>
+        error: <p style={{fontSize: 24}}>Мы ничего не нашли :( Корзина будет очищена... :(</p>
       })
     }, 2000)
     return this.state.error

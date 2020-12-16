@@ -242,6 +242,7 @@ const reducer = (state = initialState, action) => {
 
               // добавляем цену товара в текущей аптеке
               productItem.priceRetail = retail.priceRetail
+              productItem.countLast = retail.countLast
 
               // добавляем количество товара из корзины в продукт
               productItem.count = state.cart.find(cartItem => cartItem.itemId === item.guid).count
@@ -249,8 +250,9 @@ const reducer = (state = initialState, action) => {
               // копируем аптеку
               const retailItem = {...retail}
 
-              // удаляем цену товара
+              // удаляем цену и остаток товара
               delete retailItem.priceRetail
+              delete retailItem.countLast
               retailItem.weekDayTime = retailItem.weekDayTime.match(/\d\d:\d\d/g).join(' - ')
 
               // добавляем в аптеку данные товара без списка аптек
