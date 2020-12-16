@@ -13,7 +13,7 @@ const OrdersInternet = props => {
   let delay = 0;
 
   async function onCancel() {
-    props.loadingTrue()
+    props.loadingTrue('onCancelOrder')
     try {
       const response = await apiService.cancelOrder(cancelOrderGuid, props.TOKEN.accessToken)
       if (response.status === 200) {
@@ -57,7 +57,7 @@ const mapStateToProps = ({TOKEN, internetSales}) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getInternetSales: () => dispatch(getInternetSales()),
-    loadingTrue: () => dispatch(loadingTrue()),
+    loadingTrue: (info) => dispatch(loadingTrue(info)),
     loadingFalse: () => dispatch(loadingFalse()),
     setError: (e) => dispatch(setError(e))
   }

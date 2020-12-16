@@ -100,7 +100,6 @@ const Cards = props => {
           />}
           <div className='Cards__mainContainer'>
 
-            {/*<SidebarCategories styleName='Cards__SidebarCategories'/>*/}
             <div className='Cards__cardList'>
               {(touchedSearch || !isMobile) &&
               productsFromSearch.length
@@ -134,7 +133,7 @@ const Cards = props => {
                                   minPrice={minPrice}/>
                   )
                 })
-                : <>{touchedSearch && <p>По вашему запросу ничего не найдено. Попробуйте изменить запрос.</p>}</>
+                : <>{(touchedSearch || !isMobile) && <p>По вашему запросу ничего не найдено. Попробуйте изменить запрос.</p>}</>
               }
             </div>
 

@@ -1,7 +1,7 @@
 const initialState = {
   cities: [], // список всех городов
   regions: [], // список всех регионов
-  loading: true,
+  loading: 0,
   error: null,
   isCity: JSON.parse(localStorage.getItem("city")) ? JSON.parse(localStorage.getItem("city"))[0] : {
     guid: "c384a061-7641-4605-a340-afb825fdcb70",
@@ -27,7 +27,7 @@ const initialState = {
   sales: [],
   productSearch: '', // string - значение последнего поискового запроса
   requestFromSearchPanelThisTime: false,
-  internetSales: []
+  internetSales: [],
 }
 
 const upgradeRetailItems = (array, cart) => {
@@ -109,7 +109,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         internetSales: action.payload,
-        loading: false,
+        loading: (state.loading > 0) ? (state.loading - 1) : 0,
         error: null
       }
 
@@ -129,7 +129,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         catalog: action.payload,
-        loading: false,
+        loading: (state.loading > 0) ? (state.loading - 1) : 0,
         error: null
       }
 
@@ -146,7 +146,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         retailsCity: action.payload,
-        loading: false,
+        loading: (state.loading > 0) ? (state.loading - 1) : 0,
         error: null
       };
 
@@ -155,7 +155,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         productsToCategory: action.payload.products,
         countProductsCategory: action.payload.count,
-        loading: false,
+        loading: (state.loading > 0) ? (state.loading - 1) : 0,
         error: null
       }
 
@@ -163,7 +163,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         sales: action.payload,
-        loading: false,
+        loading: (state.loading > 0) ? (state.loading - 1) : 0,
         error: null
       }
 
@@ -171,7 +171,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         isCity: action.payload,
-        loading: false,
+        loading: (state.loading > 0) ? (state.loading - 1) : 0,
         error: null
       };
 
@@ -206,14 +206,14 @@ const reducer = (state = initialState, action) => {
     case 'LOADING' :
       return {
         ...state,
-        loading: true,
+        loading: state.loading + 1,
         error: null
       };
 
     case 'LOADING_OFF':
       return {
         ...state,
-        loading: false,
+        loading: (state.loading > 0) ? (state.loading - 1) : 0,
         error: null
       }
 
@@ -222,7 +222,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         productInfo: action.product,
-        loading: false
+        loading: (state.loading > 0) ? (state.loading - 1) : 0
       };
 
     case 'SET_CART_ITEMS':
@@ -292,7 +292,7 @@ const reducer = (state = initialState, action) => {
           retailsArr: [],
           selectedRetail: null,
           isRetailAllProduct: true,
-          loading: false,
+          loading: (state.loading > 0) ? (state.loading - 1) : 0,
           error: null
         }
       }
@@ -315,7 +315,7 @@ const reducer = (state = initialState, action) => {
         retailsArr: [...upgradeRetailItems(retailsArr, state.cart)],
         selectedRetail,
         isRetailAllProduct,
-        loading: false,
+        loading: (state.loading > 0) ? (state.loading - 1) : 0,
         error: null
       }
 
@@ -323,7 +323,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         selectedRetail: action.payload,
-        loading: false,
+        loading: (state.loading > 0) ? (state.loading - 1) : 0,
         error: null
       }
 
@@ -342,7 +342,7 @@ const reducer = (state = initialState, action) => {
         productsFromSearch: action.payload.products,
         countProductsSearch: action.payload.count,
         productSearch: action.payload.productSearch,
-        loading: false,
+        loading: (state.loading > 0) ? (state.loading - 1) : 0,
         error: null
       };
 
@@ -383,14 +383,14 @@ const reducer = (state = initialState, action) => {
         ...state,
         cities: action.payload,
         regions,
-        loading: false,
+        loading: (state.loading > 0) ? (state.loading - 1) : 0,
         error: null
       };
 
     case 'FETCH_FAILURE' :
       return {
         ...state,
-        loading: false,
+        loading: (state.loading > 0) ? (state.loading - 1) : 0,
         error: action.payload
       };
 
@@ -410,7 +410,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         TOKEN: action.payload,
-        loading: false,
+        loading: (state.loading > 0) ? (state.loading - 1) : 0,
         error: null
       }
 
@@ -418,7 +418,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         userData: action.payload,
-        loading: false,
+        loading: (state.loading > 0) ? (state.loading - 1) : 0,
         error: null
       }
 

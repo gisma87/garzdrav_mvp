@@ -1,6 +1,3 @@
-// ставим ошибку
-import apiService from "../service/ApiService";
-
 const setError = (error) => {
   return {
     type: 'FETCH_FAILURE',
@@ -16,15 +13,19 @@ const clearError = () => {
 }
 
 // ставим загрузку
-const loadingTrue = () => {
+const loadingTrue = (info) => {
+  const INFO = typeof info === 'string' ? info : 'loading'
   return {
-    type: 'LOADING'
+    type: 'LOADING',
+    payload: INFO
   }
 }
 
-const loadingFalse = () => {
+const loadingFalse = (info) => {
+  const INFO = typeof info === 'string' ? info : 'loading'
   return {
-    type: 'LOADING_OFF'
+    type: 'LOADING_OFF',
+    payload: INFO
   }
 }
 
@@ -54,7 +55,7 @@ const fetchCartItems = (city = null) => (dispatch, getState, apiService) => {
   dispatch(delCartItems())
 
   if (cart.length > 0) {
-    dispatch(loadingTrue())
+    dispatch(loadingTrue('fetchCartItems'))
     const arrFetch = cart.map(product => {
       return apiService.getProductInfo(product.itemId, cityId)
     })
@@ -75,7 +76,7 @@ const onPopupLocation = (boolean) => {
 
 // устанавливает объект текущего города и записывает его в LocalStorage
 const setIsCity = (isCity) => (dispatch) => {
-  dispatch(loadingTrue())
+  dispatch(loadingTrue('setIsCity'))
   const item = [isCity]
   console.log('Город: ', item);
   localStorage.setItem("city", JSON.stringify(item))
@@ -91,10 +92,9 @@ const setIsCity = (isCity) => (dispatch) => {
 // запрос списка городов
 const fetchCities = () => async (dispatch, getState, apiService) => {
   try {
-    dispatch(loadingTrue())
+    dispatch(loadingTrue('fetchCities'))
     const response = await apiService.getCities()
     dispatch({type: 'FETCH_CITIES_SUCCESS', payload: response})
-    dispatch(loadingTrue())
 
     // если в localStorage есть город - устанавливаем его
     if (localStorage.getItem("city")) {
@@ -103,6 +103,7 @@ const fetchCities = () => async (dispatch, getState, apiService) => {
     } else {
 
       // иначе определяем город по IP, устанавливаем его и открываем popup подтверждения выбранного города
+      dispatch(loadingTrue('apiService.getUserCity'))
       const {city, ip} = await apiService.getUserCity()
       console.log(city, ip);
       const cityItem = response.find(item => city === item.title)
@@ -118,7 +119,7 @@ const fetchCities = () => async (dispatch, getState, apiService) => {
 const fetchRetailsCity = () => async (dispatch, getState, apiService) => {
   try {
     const cityId = getState().isCity.guid
-    dispatch(loadingTrue())
+    dispatch(loadingTrue('fetchRetailsCity'))
     const response = await apiService.getRetailsCity(cityId)
     dispatch({type: 'FETCH_RETAILS_CITY_SUCCESS', payload: response})
   } catch (e) {
@@ -184,7 +185,6 @@ function getProductsFromSearchLimit(options) {
   return async (dispatch, getState, apiService) => {
     const productName = options.productName === 'undefined' ? null : options.productName
     const parameters = {
-      // productSearch, quantity, page, methodSort
       productName: productName,
       cityId: getState().isCity.guid,
       quantity: options.quantity || 32,
@@ -192,7 +192,7 @@ function getProductsFromSearchLimit(options) {
       order: options.order || null,
       categoryId: options.categoryId || null
     }
-    dispatch(loadingTrue())
+    dispatch(loadingTrue('getProductsFromSearchLimit'))
     try {
       const response = await apiService.getProducts(parameters)
       dispatch(ProductsFromSearchLoaded(response, productName || ''))
@@ -202,25 +202,10 @@ function getProductsFromSearchLimit(options) {
   }
 }
 
-// function getProductsFromSearchLimit(productSearch, quantity, page, methodSort) {
-//   console.log('methodSort', methodSort)
-//   return async (dispatch, getState, apiService) => {
-//     const cityId = getState().isCity.guid
-//     dispatch(loadingTrue())
-//     try {
-//       const response = await apiService.getProductsFromSearchLimit(productSearch, cityId, quantity, page, methodSort)
-//       dispatch(ProductsFromSearchLoaded(response, productSearch))
-//     } catch (e) {
-//       dispatch(setError(e))
-//     }
-//   }
-// }
-
-
 // дополнительная(подробная) информация о продукте
 const fetchProductInfo = (productId, cityId) => {
   return async (dispatch, getState, apiService) => {
-    dispatch(loadingTrue())
+    dispatch(loadingTrue('fetchProductInfo'))
     try {
       const response = await apiService.getProductInfo(productId, cityId)
       dispatch(loadingProductInfo(response))
@@ -255,7 +240,7 @@ const clearCart = () => {
 // запрос информации о пользователе по TOKEN из LocalStorage
 const fetchUserData = () => async (dispatch, getState, apiService) => {
   const accessToken = getState().TOKEN.accessToken || JSON.parse(localStorage.getItem('TOKEN')).accessToken
-  dispatch(loadingTrue())
+  dispatch(loadingTrue('fetchUserData'))
   try {
     const response = await apiService.getUserData(accessToken)
     dispatch({type: 'USER_DATA', payload: response})
@@ -267,7 +252,7 @@ const fetchUserData = () => async (dispatch, getState, apiService) => {
 // POST запрос refreshTOKEN
 const refreshAuthentication = () => async (dispatch, getState, apiService) => {
   const TOKEN = getState().TOKEN || JSON.parse(localStorage.getItem('TOKEN'))
-  dispatch(loadingTrue())
+  dispatch(loadingTrue('refreshAuthentication'))
   try {
     const response = await apiService.refreshToken(TOKEN)
     dispatch({type: 'TOKEN', payload: response})
@@ -281,7 +266,7 @@ const refreshAuthentication = () => async (dispatch, getState, apiService) => {
 
 // POST запрос TOKEN
 const authentication = () => async (dispatch, getState, apiService) => {
-  dispatch(loadingTrue())
+  dispatch(loadingTrue('authentication'))
   try {
     const response = await apiService.authentication()
     dispatch({type: 'TOKEN', payload: response})
@@ -302,7 +287,7 @@ function logout() {
 }
 
 const setCatalog = () => async (dispatch, getState, apiService) => {
-  dispatch(loadingTrue())
+  dispatch(loadingTrue('setCatalog'))
   try {
     const response = await apiService.buildCatalog()
     dispatch({
@@ -323,7 +308,7 @@ function setActiveCategory(categoryItem) {
 
 // запрос товаров по категории для каталога
 const setProductsToCategory = (options) => async (dispatch, getState, apiService) => {
-  dispatch(loadingTrue())
+  dispatch(loadingTrue('setProductsToCategory'))
   try {
     const parameters = {
       productName: options.productName || null,
@@ -345,7 +330,7 @@ const setProductsToCategory = (options) => async (dispatch, getState, apiService
 }
 
 const setSales = () => async (dispatch, getState, apiService) => {
-  dispatch(loadingTrue())
+  dispatch(loadingTrue('setSales'))
   try {
     const response = await apiService.getSales(getState().TOKEN.accessToken)
     dispatch({
@@ -357,7 +342,7 @@ const setSales = () => async (dispatch, getState, apiService) => {
   }
 }
 
-// true, когда происходит запрос от панели поиска - для сброса страниц на первую
+// true, когда происходит запрос от панели поиска - для сброса страниц на первую в Cards
 const onRequestFromSearchPanel = () => {
   return {type: 'ON_REQUEST_FROM_SEARCH_PANEL'}
 }
@@ -367,7 +352,7 @@ const offRequestFromSearchPanel = () => {
 
 // запрос истории интернет заказов
 const getInternetSales = () => async (dispatch, getState, apiService) => {
-  dispatch(loadingTrue())
+  dispatch(loadingTrue('getInternetSales'))
   try {
     const response = await apiService.getOrder(getState().TOKEN.accessToken)
     dispatch({
@@ -381,7 +366,7 @@ const getInternetSales = () => async (dispatch, getState, apiService) => {
 
 // отмена заказа
 const cancelOrder = (orderGuid) => async (dispatch, getState, apiService) => {
-  dispatch(loadingTrue())
+  dispatch(loadingTrue('cancelOrder'))
   try {
     const response = await apiService.cancelOrder(orderGuid, getState().TOKEN.accessToken)
     dispatch({

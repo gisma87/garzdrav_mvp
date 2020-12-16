@@ -2,9 +2,6 @@ import React, {useState} from "react"
 import './SearchPanel.scss'
 import {withRouter} from 'react-router-dom'
 import {
-  ProductsFromSearchLoaded,
-  loadingTrue,
-  setError,
   getProductsFromSearchLimit,
   onRequestFromSearchPanel
 } from "../../actions";
@@ -14,7 +11,6 @@ import SearchForm from "../UI/SearchForm/SearchForm";
 const SearchPanel = (props) => {
 
   const {
-    loadingTrue,
     isMobile = false,
     touched = true,
     onTouched = () => {
@@ -32,9 +28,10 @@ const SearchPanel = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     onTouched()
-    loadingTrue()
 
-    props.getProductsFromSearchLimit({productName: value})
+    props.getProductsFromSearchLimit({productName: value}) // запрос
+
+    // requestFromSearchPanelThisTime = true, чтобы другие компоненты знали, что запрос пошёл именно с панели поиска
     props.onRequestFromSearchPanel()
 
     setValue('')
@@ -61,9 +58,6 @@ const mapStateToProps = ({productsFromSearch, isCity}) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    loadingTrue: () => dispatch(loadingTrue()),
-    setError: (e) => dispatch(setError(e)),
-    ProductsFromSearchLoaded: (data) => dispatch(ProductsFromSearchLoaded(data)),
     getProductsFromSearchLimit: (options) => dispatch(getProductsFromSearchLimit(options)),
     onRequestFromSearchPanel: () => dispatch(onRequestFromSearchPanel())
   }
