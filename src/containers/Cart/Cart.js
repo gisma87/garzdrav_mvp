@@ -12,9 +12,8 @@ import {
   itemRemovedFromCart,
   rewriteCart,
   fetchCartItems,
-  onSelectRetail, clearCart, setCartItems,
+  onSelectRetail, clearCart, setCartItems, loadingTrue, loadingFalse, setError,
 } from "../../actions";
-import {calculateAmountArray} from "./cartUtils";
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
 import PopupMapCart from "../../components/PopupMapCart/PopupMapCart";
@@ -30,11 +29,6 @@ import apiService from "../../service/ApiService";
 import PopupAfterBuy from "../../components/PopupAfterBuy/PopupAfterBuy";
 
 class Cart extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.calculateAmountArray = calculateAmountArray.bind(this)
-  }
 
   state = {
     active: false,
@@ -83,19 +77,19 @@ class Cart extends React.Component {
     return null
   }
 
-  // // возвращает массив id товара - сумма этого товара в выбранной аптеке
-  // calculateAmountArray = () => {
-  //   const cartItems = []
-  //   this.props.cartItems.forEach(item => {
-  //     const index = this.props.cart.findIndex(cartItem => cartItem.itemId === item.guid)
-  //     if (index < 0) return;
-  //     const count = this.props.cart[index].count
-  //     const retailIndex = item.retails.findIndex(retail => retail.guid === this.props.selectedRetail)
-  //     const sum = retailIndex >= 0 ? item.retails[retailIndex].priceRetail * count : null
-  //     cartItems.push({guid: item.guid, sum})
-  //   })
-  //   return cartItems
-  // }
+  // возвращает массив id товара - сумма этого товара в выбранной аптеке
+  calculateAmountArray = () => {
+    const cartItems = []
+    this.props.cartItems.forEach(item => {
+      const index = this.props.cart.findIndex(cartItem => cartItem.itemId === item.guid)
+      if (index < 0) return;
+      const count = this.props.cart[index].count
+      const retailIndex = item.retails.findIndex(retail => retail.guid === this.props.selectedRetail)
+      const sum = retailIndex >= 0 ? item.retails[retailIndex].priceRetail * count : null
+      cartItems.push({guid: item.guid, sum})
+    })
+    return cartItems
+  }
 
   // возвращает подпись в сколько товаров из списка есть в данной аптеке на вход принимает массив товаров в аптеке
   calcQuantityProduct = (obj) => {
@@ -156,8 +150,14 @@ class Cart extends React.Component {
       console.log('Заказ отправлен: ', send);
       console.log('Номер заказа: ', response)
     }
+    this.props.loadingTrue('postBuyOrder')
+    try {
+      sendOrder()
+      this.props.loadingFalse('postBuyOrder')
+    } catch (e) {
+      this.props.setError(e)
+    }
 
-    sendOrder()
 
     product.forEach(item => this.props.allItemRemovedFromCart(item.guid)) // удалить заказанные позиции из корзины
   }
@@ -510,6 +510,10 @@ const mapDispatchToProps = (dispatch) => {
     onSelectRetail: (id) => dispatch(onSelectRetail(id)),
     clearCart: () => dispatch(clearCart()),
     setCartItems: (cartItems) => dispatch(setCartItems(cartItems)),
+    loadingTrue: (info) => dispatch(loadingTrue(info)),
+    loadingFalse: (info) => dispatch(loadingFalse(info)),
+    setError: (e) => dispatch(setError(e))
+
   }
 }
 

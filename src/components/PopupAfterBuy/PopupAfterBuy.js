@@ -3,7 +3,7 @@ import PopupWrapper from "../UI/PopupWrapper/PopupWrapper";
 
 const PopupAfterBuy = props => {
   return (
-    <PopupWrapper onClick={()=>{}} active={props.show} classStyle='PopupOrder'>
+    <PopupWrapper onClick={props.onClose} active={props.show} classStyle='PopupOrder'>
       <h3 className="PopupOrder__title">Заказ принят к исполнению</h3>
       <div className='PopupOrder__buyTrue'>
 

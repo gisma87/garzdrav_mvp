@@ -227,7 +227,8 @@ const reducer = (state = initialState, action) => {
 
     case 'SET_CART_ITEMS':
       // Если запрос failure возвращается пустой массив - убираем их из массива
-      const newCardItems = action.payload.filter(item => Boolean(item.length !== 0))
+      // const cardItemsFilter = action.payload.filter(item => Boolean(item.length !== 0))
+      const newCardItems = action.payload
       const retailsArr = []
       if (newCardItems.length) {
         newCardItems.forEach((item, index) => {

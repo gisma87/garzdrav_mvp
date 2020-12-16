@@ -60,7 +60,54 @@ const fetchCartItems = (city = null) => (dispatch, getState, apiService) => {
       return apiService.getProductInfo(product.itemId, cityId)
     })
     Promise.all([...arrFetch])
-      .then(allResponses => dispatch(setCartItems(allResponses)))
+      .then(allResponses => {
+
+          const resultArr = allResponses.map(item => {
+            const retails = item.retails.map(retailItem => {
+              return {
+                countLast: retailItem.countLast,
+                priceRetail: retailItem.priceRetail,
+                brand: retailItem.retail.brand,
+                buildNumber: retailItem.retail.buildNumber,
+                city: retailItem.retail.city,
+                coordinates: retailItem.retail.coordinates,
+                guid: retailItem.retail.guid,
+                phone: retailItem.retail.phone,
+                street: retailItem.retail.street,
+                title: retailItem.retail.title,
+                weekDayTime: retailItem.retail.weekDayTime
+              }
+            })
+            return {
+              ...item,
+              retails
+            }
+          }).filter(item => Boolean(item.length !== 0))
+
+          // нужный ФОРМАТ ДАННЫХ
+          // [{
+          //    guid: string,
+          //    product: string,
+          //    manufacturer: string,
+          //    categoryGuid: string,
+          //    categoryTitle: string,
+          //    retails: [{
+          //      countLast: number,
+          //      priceRetail: number,
+          //      brand: string,
+          //      buildNumber: string,
+          //      city: string,
+          //      coordinates: [56.034496, 92.884345],
+          //      guid: string,
+          //      phone: string,
+          //      street: string,
+          //      title: string,
+          //      weekDayTime: "09:00:00 - 18:00:00",
+          //    }]
+          // }]
+          dispatch(setCartItems(resultArr))
+        }
+      )
       .catch(allError => dispatch(setError(allError)))
   }
 }
