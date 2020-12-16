@@ -21,7 +21,7 @@ import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
 import Loader from "../../components/UI/Loader";
 import SvgAngleUpSolid from "../../img/SVGcomponents/SvgAngleUpSolid";
 import devMessage from "../../img/devtMessage.svg";
-import PopupCancelOrder from "../../components/PopupCancelOrder/PopupCancelOrder";
+import OrdersInternet from "./OrdersInternet/OrdersInternet";
 
 
 // раздел Настройка профиля
@@ -178,107 +178,6 @@ const Bonus = props => {
   )
 }
 
-
-//=============== Интернет ЗАКАЗЫ ============================================================
-// компонент заказа из списка История покупок
-const OrderInternetContent = props => {
-
-  const [contentDisabled, setContentDisabled] = useState(false)
-  const [styleContent, setStyleContent] = useState({})
-  const content = useRef(null)
-  const contentWrapper = useRef(null)
-
-  useEffect(() => {
-    animate()
-  }, [])
-
-  const {item, delay} = props
-
-  function calcAmount(product) {
-    const sum = (product.priceRetail - product.spendBonus - product.discount) * product.quantity
-    return Math.round(sum * 100) / 100
-  }
-
-  function animate() {
-    content.current.clientHeight
-      ? setStyleContent({height: 0})
-      : setStyleContent({height: `${contentWrapper.current.clientHeight}px`})
-  }
-
-  return (
-    <div className='OrderInternetContent__wrapper' style={{animationDelay: `${delay}s`}}>
-      <div className='OrderInternetContent__headerItem' onClick={(e) => {
-        if (!e.target.matches('.OrderInternetContent__cancel')) {
-          animate()
-          setContentDisabled(!contentDisabled)
-        }
-
-      }}>
-        <p className='OrderInternetContent__title'>Заказ {item.number} от {item.dateCreated}</p>
-        <div className='OrderInternetContent__rightHeader'>
-          <button className='OrderInternetContent__cancel' onClick={props.cancelOrder}>
-            Отменить Заказ
-          </button>
-          <div className={'OrderInternetContent__iconContainer' + (contentDisabled ? ' rotate' : '')}>
-            <SvgAngleUpSolid className='OrderInternetContent__arrowIcon'/>
-          </div>
-        </div>
-      </div>
-
-      <div
-        className={'OrderInternetContent__content' + (contentDisabled ? ' OrderInternetContent__contentDisabled' : '')}
-        ref={content}
-        style={styleContent}
-      >
-        <div className='OrderInternetContent__contentWrapperForAnimation' ref={contentWrapper}>
-          {item.items.map((product, index) => <BlockWrapper classStyle='OrderInternetContent__product'
-                                                            key={product.productGuid}>
-              <p className='OrderInternetContent__productTitle'>{product.productTitle}</p>
-              <p className='OrderInternetContent__info'>{product.quantity} шт.</p>
-            </BlockWrapper>
-          )}
-          <div className='OrderInternetContent__infoContainer'>
-            <p className='OrderInternetContent__infoItem'>Аптека: <span>{item.retailTitle}</span></p>
-            <p className='OrderInternetContent__infoItem'>Статус: <span
-              className='OrderInternetContent__positive'>{item.status}</span></p>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-// раздел Интернет заказы
-const OrdersInternet = props => {
-  const [showPopupCancel, setShowPopupCancel] = useState(true)
-  const [cancelOrderGuid, setCancelOrderGuid] = useState(null)
-  let delay = 0;
-
-  return (
-    <>
-      <BlockWrapper classStyle='OrderHistory'>
-        <h2 onClick={props.getInternetSales} style={{cursor: 'pointer'}}>Заказы: </h2>
-        {
-          props.internetSales.map(item => {
-            delay += .09
-            return <OrderInternetContent key={item.orderGuid} item={item} delay={delay}
-                                         cancelOrder={() => {
-                                           setCancelOrderGuid(item.orderGuid)
-                                           setShowPopupCancel(true)
-                                         }}/>
-          })
-        }
-
-      </BlockWrapper>
-      <PopupCancelOrder show={showPopupCancel}
-                        onCancel={() => props.cancelOrder(cancelOrderGuid)}
-                        onClose={() => setShowPopupCancel(false)}/>
-    </>
-  )
-}
-//================= Конец Интернет Заказы =====================================================
-
-
 // компонент заказа из списка История покупок
 const OrderContent = props => {
 
@@ -390,6 +289,7 @@ const Profile = (props) => {
         props.fetchUserData(props.TOKEN.accessToken)
       }
       props.setSales()
+      props.getInternetSales()
     }
   }, [])// eslint-disable-line
 
@@ -409,6 +309,7 @@ const Profile = (props) => {
               {block === 'order' &&
               <OrdersInternet getInternetSales={props.getInternetSales}
                               internetSales={props.internetSales}
+                              cancelOrder={props.cancelOrder}
               />}
 
               {/*раздел История заказов*/}
@@ -451,19 +352,19 @@ const Profile = (props) => {
 }
 
 
-const mapStateToProps = ({TOKEN, cart, favorites, userData, sales, internetSales}) => {
-  return {TOKEN, cart, favorites, userData, sales, internetSales}
+const mapStateToProps = ({TOKEN, cart, favorites, userData, sales}) => {
+  return {TOKEN, cart, favorites, userData, sales}
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     logout: () => dispatch(logout()),
     fetchUserData: () => dispatch(fetchUserData()),
+    getInternetSales: () => dispatch(getInternetSales()),
     addedToCart: (item) => dispatch(addedToCart(item)),
     itemRemovedFromCart: (item) => dispatch(itemRemovedFromCart(item)),
     allItemRemovedFromCart: (item) => dispatch(allItemRemovedFromCart(item)),
     setSales: () => dispatch(setSales()),
-    getInternetSales: () => dispatch(getInternetSales())
   }
 }
 

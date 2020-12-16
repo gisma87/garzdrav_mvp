@@ -22,6 +22,12 @@ const loadingTrue = () => {
   }
 }
 
+const loadingFalse = () => {
+  return {
+    type: 'LOADING_OFF'
+  }
+}
+
 // очищаем массив CartItems
 const delCartItems = () => {
   return {
@@ -373,8 +379,23 @@ const getInternetSales = () => async (dispatch, getState, apiService) => {
   }
 }
 
+// отмена заказа
+const cancelOrder = (orderGuid) => async (dispatch, getState, apiService) => {
+  dispatch(loadingTrue())
+  try {
+    const response = await apiService.cancelOrder(orderGuid, getState().TOKEN.accessToken)
+    dispatch({
+      type: 'CANCEL_ORDER',
+      payload: response
+    })
+  } catch (e) {
+    dispatch(setError(e))
+  }
+}
+
 
 export {
+  cancelOrder,
   getInternetSales,
   onRequestFromSearchPanel,
   offRequestFromSearchPanel,
@@ -399,6 +420,7 @@ export {
   rewriteCart,
   addedToFavorits,
   loadingTrue,
+  loadingFalse,
   ProductsFromSearchLoaded,
   fetchProductInfo,
   fetchCartItems,

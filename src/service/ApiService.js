@@ -225,9 +225,8 @@ class ApiService {
         }
       })
 
-    return response.data
+    return response
   }
-
 }
 
 const apiService = new ApiService()

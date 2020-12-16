@@ -210,6 +210,13 @@ const reducer = (state = initialState, action) => {
         error: null
       };
 
+    case 'LOADING_OFF':
+      return {
+        ...state,
+        loading: false,
+        error: null
+      }
+
     // подробная информация о товаре
     case 'LOADING_PRODUCT_INFO':
       return {
