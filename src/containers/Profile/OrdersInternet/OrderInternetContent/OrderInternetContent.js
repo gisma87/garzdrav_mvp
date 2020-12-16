@@ -12,20 +12,21 @@ const OrderInternetContent = props => {
 
   useEffect(() => {
     animate()
-    if (props.item.status === 'Отменён') {
-      setTimeout(() => {
+    const wrap = setTimeout(() => {
+      if (props.item.status === 'Отменён') {
         animate()
         setContentDisabled(true)
-      }, 2000)
-    }
+      }
+    }, 1100)
+    return () => clearTimeout(wrap)
   }, [])
 
   const {item, delay} = props
 
   function animate() {
-    content.current.clientHeight
+    content.current?.clientHeight
       ? setStyleContent({height: 0})
-      : setStyleContent({height: `${contentWrapper.current.clientHeight}px`})
+      : setStyleContent({height: `${contentWrapper.current?.clientHeight}px`})
   }
 
   return (

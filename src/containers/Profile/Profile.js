@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react"
+import React, {useEffect, useState} from "react"
 import './Profile.scss'
 import BlockWrapper from "../../components/BlockWrapper";
 import FavoriteItem from "../../components/FavoriteItem";
@@ -19,9 +19,9 @@ import CardItemMobile from "../../components/CardItemMobile";
 import dataCatds from "../../testData/dataCards";
 import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
 import Loader from "../../components/UI/Loader";
-import SvgAngleUpSolid from "../../img/SVGcomponents/SvgAngleUpSolid";
 import devMessage from "../../img/devtMessage.svg";
 import OrdersInternet from "./OrdersInternet/OrdersInternet";
+import OrderHistory from "./OrderHistory/OrderHistory";
 
 
 // раздел Настройка профиля
@@ -179,101 +179,101 @@ const Bonus = props => {
 }
 
 // компонент заказа из списка История покупок
-const OrderContent = props => {
-
-  const [contentDisabled, setContentDisabled] = useState(false)
-  const [styleContent, setStyleContent] = useState({})
-  const content = useRef(null)
-  const contentWrapper = useRef(null)
-
-  useEffect(() => {
-    animate()
-  }, [])
-
-  const {item, delay} = props
-
-  function calcAmount(product) {
-    const sum = (product.priceRetail - product.spendBonus - product.discount) * product.quantity
-    return Math.round(sum * 100) / 100
-  }
-
-  function animate() {
-    content.current.clientHeight
-      ? setStyleContent({height: 0})
-      : setStyleContent({height: `${contentWrapper.current.clientHeight}px`})
-  }
-
-  return (
-    <div className='OrderHistory__wrapper' style={{animationDelay: `${delay}s`}}>
-      <div className='OrderHistory__headerItem' onClick={() => {
-        animate()
-        setContentDisabled(!contentDisabled)
-      }}>
-        <p className='OrderHistory__title'>Заказ А-14344615 от {item.dateDocument}</p>
-        <div className='OrderHistory__rightHeader'>
-          {contentDisabled &&
-          <p className='OrderHistory__infoHeader'>
-            {item.spendBonus > 0 ? <span className='OrderHistory__spendBonusHeader'>- {item.spendBonus}</span> :
-              <span> </span>}
-            {item.accumulationBonus > 0 ?
-              <span className='OrderHistory__bonusHeader'>+ {item.accumulationBonus}</span> : <span> </span>}
-            <span className='OrderHistory__priceHeader'>{item.sumDocument} ₽</span>
-          </p>}
-          <div className={'OrderHistory__iconContainer' + (contentDisabled ? ' rotate' : '')}>
-            <SvgAngleUpSolid className='OrderHistory__arrowIcon'/>
-          </div>
-        </div>
-      </div>
-      <div
-        className={'OrderHistory__content' + (contentDisabled ? ' OrderHistory__contentDisabled' : '')}
-        ref={content}
-        style={styleContent}
-      >
-        <div className='OrderHistory__contentWrapperForAnimation' ref={contentWrapper}>
-          {item.items.map((product, index) => <BlockWrapper classStyle='OrderHistory__product'
-                                                            key={product.title + index}>
-              <p className='OrderHistory__productTitle'>{product.title}</p>
-              <p className='OrderHistory__info'>Куплено: {product.quantity} шт по {product.priceRetail} ₽</p>
-              <p className='OrderHistory__info'>Начислено бонусов: <span
-                className='positive'>{product.accumulationBonus}</span></p>
-              <p className='OrderHistory__info'>Списано бонусов: <span
-                className={product.spendBonus > 0 ? 'negative' : ''}>{product.spendBonus}</span></p>
-              {product.discount > 0 && <p className='OrderHistory__info'>Скидка: {product.discount}</p>}
-              <p
-                className='OrderHistory__sumProduct'>{calcAmount(product)} ₽</p>
-            </BlockWrapper>
-          )}
-          <div className='OrderHistory__infoContainer'>
-            <p className='OrderHistory__infoItem'>Начислено всего бонусов: <span
-              className='positive'>{item.accumulationBonus}</span></p>
-            <p className='OrderHistory__infoItem'>Потрачено всего бонусов: <span
-              className={item.spendBonus > 0 ? 'negative' : ''}>{item.spendBonus}</span></p>
-            <p className='OrderHistory__amount'>Итого: {item.sumDocument} ₽</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-}
+// const OrderContent = props => {
+//
+//   const [contentDisabled, setContentDisabled] = useState(false)
+//   const [styleContent, setStyleContent] = useState({})
+//   const content = useRef(null)
+//   const contentWrapper = useRef(null)
+//
+//   useEffect(() => {
+//     animate()
+//   }, [])
+//
+//   const {item, delay} = props
+//
+//   function calcAmount(product) {
+//     const sum = (product.priceRetail - product.spendBonus - product.discount) * product.quantity
+//     return Math.round(sum * 100) / 100
+//   }
+//
+//   function animate() {
+//     content.current.clientHeight
+//       ? setStyleContent({height: 0})
+//       : setStyleContent({height: `${contentWrapper.current.clientHeight}px`})
+//   }
+//
+//   return (
+//     <div className='OrderHistory__wrapper' style={{animationDelay: `${delay}s`}}>
+//       <div className='OrderHistory__headerItem' onClick={() => {
+//         animate()
+//         setContentDisabled(!contentDisabled)
+//       }}>
+//         <p className='OrderHistory__title'>Заказ А-14344615 от {item.dateDocument}</p>
+//         <div className='OrderHistory__rightHeader'>
+//           {contentDisabled &&
+//           <p className='OrderHistory__infoHeader'>
+//             {item.spendBonus > 0 ? <span className='OrderHistory__spendBonusHeader'>- {item.spendBonus}</span> :
+//               <span> </span>}
+//             {item.accumulationBonus > 0 ?
+//               <span className='OrderHistory__bonusHeader'>+ {item.accumulationBonus}</span> : <span> </span>}
+//             <span className='OrderHistory__priceHeader'>{item.sumDocument} ₽</span>
+//           </p>}
+//           <div className={'OrderHistory__iconContainer' + (contentDisabled ? ' rotate' : '')}>
+//             <SvgAngleUpSolid className='OrderHistory__arrowIcon'/>
+//           </div>
+//         </div>
+//       </div>
+//       <div
+//         className={'OrderHistory__content' + (contentDisabled ? ' OrderHistory__contentDisabled' : '')}
+//         ref={content}
+//         style={styleContent}
+//       >
+//         <div className='OrderHistory__contentWrapperForAnimation' ref={contentWrapper}>
+//           {item.items.map((product, index) => <BlockWrapper classStyle='OrderHistory__product'
+//                                                             key={product.title + index}>
+//               <p className='OrderHistory__productTitle'>{product.title}</p>
+//               <p className='OrderHistory__info'>Куплено: {product.quantity} шт по {product.priceRetail} ₽</p>
+//               <p className='OrderHistory__info'>Начислено бонусов: <span
+//                 className='positive'>{product.accumulationBonus}</span></p>
+//               <p className='OrderHistory__info'>Списано бонусов: <span
+//                 className={product.spendBonus > 0 ? 'negative' : ''}>{product.spendBonus}</span></p>
+//               {product.discount > 0 && <p className='OrderHistory__info'>Скидка: {product.discount}</p>}
+//               <p
+//                 className='OrderHistory__sumProduct'>{calcAmount(product)} ₽</p>
+//             </BlockWrapper>
+//           )}
+//           <div className='OrderHistory__infoContainer'>
+//             <p className='OrderHistory__infoItem'>Начислено всего бонусов: <span
+//               className='positive'>{item.accumulationBonus}</span></p>
+//             <p className='OrderHistory__infoItem'>Потрачено всего бонусов: <span
+//               className={item.spendBonus > 0 ? 'negative' : ''}>{item.spendBonus}</span></p>
+//             <p className='OrderHistory__amount'>Итого: {item.sumDocument} ₽</p>
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   )
+// }
 
 // раздел История покупок
-const OrderHistory = props => {
-  const orders = props.sales.filter(item => item.type === 'Реализация')
-  console.log('ORDERS', orders);
-  let delay = 0;
-  return (
-    <BlockWrapper classStyle='OrderHistory'>
-      <h2>История заказов</h2>
-      {
-        orders.map(item => {
-          delay += .09
-          return <OrderContent key={item.dateDocument} item={item} delay={delay}/>
-        })
-      }
-
-    </BlockWrapper>
-  )
-}
+// const OrderHistory = props => {
+//   const orders = props.sales.filter(item => item.type === 'Реализация')
+//   console.log('ORDERS', orders);
+//   let delay = 0;
+//   return (
+//     <BlockWrapper classStyle='OrderHistory'>
+//       <h2>История заказов</h2>
+//       {
+//         orders.map(item => {
+//           delay += .09
+//           return <OrderContent key={item.dateDocument} item={item} delay={delay}/>
+//         })
+//       }
+//
+//     </BlockWrapper>
+//   )
+// }
 
 
 // страница Личный кабинет
@@ -328,8 +328,7 @@ const Profile = (props) => {
               <BlockWrapper classStyle='Profile__menu'>
                 <ul className='Profile__items'>
                   <li className='Profile__item' onClick={() => setBlock('main')}>Бонусы</li>
-                  <li className='Profile__item' onClick={() => setBlock('order')}>Интернет заказы <span
-                    style={{color: 'red', fontSize: 12}}>в разработке</span></li>
+                  <li className='Profile__item' onClick={() => setBlock('order')}>Интернет заказы</li>
                   <li className='Profile__item' onClick={() => setBlock('historyOrder')}>История покупок</li>
                   <li className='Profile__item' onClick={() => setBlock('favorites')}>Избранное <span
                     style={{color: 'red', fontSize: 12}}>в разработке</span></li>
@@ -359,12 +358,12 @@ const mapStateToProps = ({TOKEN, cart, favorites, userData, sales}) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     logout: () => dispatch(logout()),
-    fetchUserData: () => dispatch(fetchUserData()),
-    getInternetSales: () => dispatch(getInternetSales()),
-    addedToCart: (item) => dispatch(addedToCart(item)),
-    itemRemovedFromCart: (item) => dispatch(itemRemovedFromCart(item)),
-    allItemRemovedFromCart: (item) => dispatch(allItemRemovedFromCart(item)),
-    setSales: () => dispatch(setSales()),
+    fetchUserData: () => dispatch(fetchUserData()), // данные пользователя
+    getInternetSales: () => dispatch(getInternetSales()), // интернет заказы
+    setSales: () => dispatch(setSales()), // история покупок
+    addedToCart: (item) => dispatch(addedToCart(item)), // добавить idProduct в корзину
+    itemRemovedFromCart: (item) => dispatch(itemRemovedFromCart(item)), // удалить idProduct из корзины (count = count - 1)
+    allItemRemovedFromCart: (item) => dispatch(allItemRemovedFromCart(item)), // удаляет idProduct из корзины (все экземпляры)
   }
 }
 
