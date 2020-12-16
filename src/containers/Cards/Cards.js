@@ -4,7 +4,13 @@ import {useMediaQuery} from 'react-responsive'
 import './Cards.scss'
 import CardItem from "../../components/CardItem";
 import {connect} from 'react-redux'
-import {addedToCart, itemRemovedFromCart, allItemRemovedFromCart} from "../../actions";
+import {
+  addedToCart,
+  itemRemovedFromCart,
+  allItemRemovedFromCart,
+  getProductsFromSearchLimit,
+  offRequestFromSearchPanel
+} from "../../actions";
 import CardItemMobile from "../../components/CardItemMobile";
 import SearchPanel from "../../components/SearchPanel";
 import logo from "../../img/evalar.png";
@@ -16,72 +22,38 @@ import SortCards from "../../components/SortCards/SortCards";
 
 const Cards = props => {
 
-  const {history, cart, addedToCart, itemRemovedFromCart, productsFromSearch, error} = props;
-  const [arraySort, setArraySort] = useState(null)
+  const {history, cart, addedToCart, itemRemovedFromCart, productsFromSearch, countProductsSearch, error} = props;
+  const [methodSort, setMethodSort] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
   const [touchedSearch, setTouchedSearch] = useState(false)
-  const [currentCards, setCurrentCards] = useState([]) // массив карточке отображаемый на текущей странице
 
   useEffect(() => {
-    sortCards() // eslint-disable-next-line
-  }, [productsFromSearch])
-
-  const sortCards = (method) => {
-    const arr = [...productsFromSearch]
-
-    const minToMax = () => arr.sort((a, b) => a.minPrice > b.minPrice ? 1 : -1)
-    const maxToMin = () => arr.sort((a, b) => a.minPrice < b.minPrice ? 1 : -1)
-
-    switch (method) {
-      case 2:
-        minToMax()
-        setArraySort(arr)
-        goToPage(1, arr)
-        return arr
-
-      case 3:
-        maxToMin()
-        setArraySort(arr)
-        goToPage(1, arr)
-        return arr
-
-      case 4:
-        arr.sort()
-        setArraySort(arr)
-        goToPage(1, arr)
-        return arr
-
-      default:
-        setArraySort(arr)
-        goToPage(1, arr)
-        return arr
+    if (props.requestFromSearchPanelThisTime) {
+      setCurrentPage(1)
+      props.offRequestFromSearchPanel()
     }
-  }
+  }, [props.requestFromSearchPanelThisTime])
 
-  const onPageChanged = (data, arrSortPrevState) => {
-    const allCards = arrSortPrevState ? arrSortPrevState : (arraySort ? arraySort : productsFromSearch) // массив всех карточек
-    const {currentPage, pageLimitItems} = data;
-    const offset = (currentPage - 1) * pageLimitItems;
-    const currentCardsData = allCards.slice(offset, offset + pageLimitItems);
-
-    setCurrentCards(currentCardsData)
-  }
-
-  function goToPage(page = 1, arrSortPrevState) {
-    const pageLimitItems = 32 // количество карточек на странице
-    const totalRecords = productsFromSearch?.length
-    const totalPages = Math.ceil(totalRecords / pageLimitItems); // общее количество страниц
-    const curPage = Math.max(0, Math.min(page, totalPages)); // текущая страница
-
-    const paginationData = {
-      currentPage: curPage, // текущая страница
-      totalPages, // общее количество страниц
-      pageLimitItems, // количество карточек на странице
-      totalRecords
+  const onPageChanged = ({currentPage}) => {
+    setCurrentPage(currentPage)
+    const parameters = {
+      productName: props.productSearch,
+      page: currentPage,
+      order: methodSort,
     }
 
-    setCurrentPage(curPage)
-    onPageChanged(paginationData, arrSortPrevState)
+    props.getProductsFromSearchLimit(parameters)
+  }
+
+  const sortCards = (methodSort) => {
+    setMethodSort(methodSort)
+    setCurrentPage(1)
+    const parameters = {
+      productName: props.productSearch,
+      page: 1,
+      order: methodSort,
+    }
+    props.getProductsFromSearchLimit(parameters)
   }
 
   const onItemSelected = (itemId, event) => {
@@ -116,22 +88,23 @@ const Cards = props => {
             </>
           }
           {(touchedSearch || !isMobile) && <h1 className='Cards__title'>Результаты поиска</h1>}
-          <SortCards items={[
-            {id: 1, text: 'По популярности'},
-            {id: 4, text: 'По наименованию'},
-            {id: 2, text: 'Сначала дешевые'},
-            {id: 3, text: 'Сначала дорогие'}
+          {productsFromSearch.length > 0 && <SortCards items={[
+            {id: 0, text: 'По популярности'},
+            {id: 'TitleAscending', text: '🠗 По наименованию А - Я'},
+            {id: 'TitleDescending', text: '🠕 По наименованию Я - А'},
+            {id: 'PriceAscending', text: '🠗 Сначала дешевые'},
+            {id: 'PriceDescending', text: '🠕 Сначала дорогие'}
           ]}
-                     selectItem={(val) => sortCards(val)}
+                                                       selectItem={(idMethod) => sortCards(idMethod)}
 
-          />
+          />}
           <div className='Cards__mainContainer'>
 
             {/*<SidebarCategories styleName='Cards__SidebarCategories'/>*/}
             <div className='Cards__cardList'>
               {(touchedSearch || !isMobile) &&
-              productsFromSearch.length && currentCards.length
-                ? currentCards.map((item) => {
+              productsFromSearch.length
+                ? productsFromSearch.map((item) => {
                   const {guid, product, manufacturer, img = null, minPrice} = item;
                   const itemIndex = cart.findIndex((item) => item.itemId === guid);
                   const isActive = itemIndex >= 0;
@@ -170,9 +143,11 @@ const Cards = props => {
           {
             productsFromSearch.length > 0 &&
             <div style={{paddingTop: 15}}>
-              <Pagination totalRecords={productsFromSearch.length}
+              <Pagination totalRecords={countProductsSearch}
                           page={currentPage}
-                          setPage={(page) => goToPage(page)}
+                // setPage={(page) => {
+                //   props.getProductsFromSearchLimit(props.productSearch, 32, page)
+                // }}
                           pageLimitItems={32}
                           onPageChanged={onPageChanged}
               />
@@ -186,18 +161,84 @@ const Cards = props => {
 
 const mapStateToProps = (
   {
-    cart, productsFromSearch, error
+    cart, productsFromSearch, countProductsSearch, error, productSearch, requestFromSearchPanelThisTime
   }
 ) => {
-  return {cart, productsFromSearch, error}
+  return {cart, productsFromSearch, countProductsSearch, error, productSearch, requestFromSearchPanelThisTime}
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     addedToCart: (item) => dispatch(addedToCart(item)),
     itemRemovedFromCart: (item) => dispatch(itemRemovedFromCart(item)),
-    allItemRemovedFromCart: (item) => dispatch(allItemRemovedFromCart(item))
+    allItemRemovedFromCart: (item) => dispatch(allItemRemovedFromCart(item)),
+    getProductsFromSearchLimit: (options) => dispatch(getProductsFromSearchLimit(options)),
+    offRequestFromSearchPanel: () => dispatch(offRequestFromSearchPanel())
   }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Cards))
+
+
+// useEffect(() => {
+//   sortCards() // eslint-disable-next-line
+// }, [productsFromSearch])
+
+// const sortCards = (method) => {
+//   const arr = [...productsFromSearch]
+//
+//   const minToMax = () => arr.sort((a, b) => a.minPrice > b.minPrice ? 1 : -1)
+//   const maxToMin = () => arr.sort((a, b) => a.minPrice < b.minPrice ? 1 : -1)
+//
+//   switch (method) {
+//     case 2:
+//       minToMax()
+//       setArraySort(arr)
+//       goToPage(1, arr)
+//       return arr
+//
+//     case 3:
+//       maxToMin()
+//       setArraySort(arr)
+//       goToPage(1, arr)
+//       return arr
+//
+//     case 4:
+//       arr.sort()
+//       setArraySort(arr)
+//       goToPage(1, arr)
+//       return arr
+//
+//     default:
+//       setArraySort(arr)
+//       goToPage(1, arr)
+//       return arr
+//   }
+// }
+
+// const onPageChanged = (data, arrSortPrevState) => {
+//   const allCards = arrSortPrevState ? arrSortPrevState : (arraySort ? arraySort : productsFromSearch) // массив всех карточек
+//   const {currentPage, pageLimitItems} = data;
+//   const offset = (currentPage - 1) * pageLimitItems;
+//   const currentCardsData = allCards.slice(offset, offset + pageLimitItems);
+//
+//   setCurrentCards(currentCardsData)
+// }
+
+// function goToPage(page = 1, arrSortPrevState) {
+//
+//   const pageLimitItems = 32 // количество карточек на странице
+//   const totalRecords = countProductsSearch
+//   const totalPages = Math.ceil(totalRecords / pageLimitItems); // общее количество страниц
+//   const curPage = Math.max(0, Math.min(page, totalPages)); // текущая страница
+//
+//   const paginationData = {
+//     currentPage: curPage, // текущая страница
+//     totalPages, // общее количество страниц
+//     pageLimitItems, // количество карточек на странице
+//     totalRecords
+//   }
+//
+//   setCurrentPage(curPage)
+//   onPageChanged(paginationData, arrSortPrevState)
+// }

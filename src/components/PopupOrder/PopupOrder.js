@@ -124,22 +124,22 @@ const PopupOrder = props => {
         </p>
       </form>
 
-      <div className={'PopupOrder__buyTrue' + (!buy ? ' PopupOrder__buyActive' : '')}>
+      {/*<div className={'PopupOrder__buyTrue' + (!buy ? ' PopupOrder__buyActive' : '')}>*/}
 
-        <div className='PopupOrder__buyTrueContent'>
-          <p>Ваш заказ N-XXX-XXX-XXX принят к исполнению.</p>
-          <p>Об изменении статуса заказа будет сообщено по СМС</p>
-        </div>
-        <button type='button'
-                className={"PopupOrder__button PopupOrder__button_active"}
-                onClick={() => {
-                  props.onClick()
-                  setTimeout(() => setBuy(false), 2000)
-                }}
-        >
-          ОК
-        </button>
-      </div>
+      {/*  <div className='PopupOrder__buyTrueContent'>*/}
+      {/*    <p>Ваш заказ N-{props.OrderNumber} принят к исполнению.</p>*/}
+      {/*    <p>Об изменении статуса заказа будет сообщено по СМС</p>*/}
+      {/*  </div>*/}
+      {/*  <button type='button'*/}
+      {/*          className={"PopupOrder__button PopupOrder__button_active"}*/}
+      {/*          onClick={() => {*/}
+      {/*            props.onClick()*/}
+      {/*            setTimeout(() => setBuy(false), 2000)*/}
+      {/*          }}*/}
+      {/*  >*/}
+      {/*    ОК*/}
+      {/*  </button>*/}
+      {/*</div>*/}
     </PopupWrapper>
   )
 }

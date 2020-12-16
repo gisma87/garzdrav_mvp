@@ -12,21 +12,27 @@ class ApiService {
     return result.data
   }
 
-  // список позиций из поискового запроса
-  async getProductsFromSearch(productName, cityId) {
-    const res = await fetch(`${this.URL}/Products/byName?str=${productName}&cityGuid=${cityId}`,
-      {
-        method: 'GET',
-        headers: {
-          accept: 'application/json'
-        }
-      }
-    )
-    if (!res.ok) {
-      throw new Error(`Не могу выполнить fetch, статус ошибки: ${res.status}`)
-    }
-    return await res.json();
-  }
+  // // поисковый запрос всех товаров по названию
+  // async getProductsFromSearch(productName, cityId) {
+  //   const res = await fetch(`${this.URL}/Products/byName?str=${productName}&cityGuid=${cityId}`,
+  //     {
+  //       method: 'GET',
+  //       headers: {
+  //         accept: 'application/json'
+  //       }
+  //     }
+  //   )
+  //   if (!res.ok) {
+  //     throw new Error(`Не могу выполнить fetch, статус ошибки: ${res.status}`)
+  //   }
+  //   return await res.json();
+  // }
+
+  // // поисковый запрос порционно с указанием количества элементов и страницы
+  // async getProductsFromSearchLimit(productName, cityId, quantity = 32, page = 1, order = 'TitleAscending') {
+  //   const res = await axios.get(`${this.URL}/Products/byName?str=${productName}&cityGuid=${cityId}&limit=${quantity}&page=${page}&order=${order}`)
+  //   return await res.data;
+  // }
 
   // запрос списка городов
   async getCities() {
@@ -132,11 +138,11 @@ class ApiService {
     return grandNode
   }
 
-  // запрос товаров по категории
-  async getProductToCategory(cityId, categoryId) {
-    const result = await axios.get(`${this.URL}/Products/byName?cityGuid=${cityId}&categoryGuid=${categoryId}`)
-    return result.data
-  }
+  // // запрос товаров по категории
+  // async getProductToCategory(cityId, categoryId) {
+  //   const result = await axios.get(`${this.URL}/Products/byName?cityGuid=${cityId}&categoryGuid=${categoryId}`)
+  //   return result.data
+  // }
 
   // запрос списка покупок
   async getSales(TOKEN) {
@@ -150,7 +156,77 @@ class ApiService {
     return response.data
   }
 
+  // POST запрос сформированный заказ
+  async sendOrder(order, TOKEN) {
+    const response = await axios({
+      method: 'post',
+      url: `${this.URL}/Orders`,
+      data: order,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${TOKEN}`
+      }
+    })
+    return response.data
+  }
 
+  // запрос списка интернет заказов
+  async getOrder(TOKEN) {
+    const response = await axios.get(`${this.URL}/Orders`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${TOKEN}`
+        }
+      })
+    return response.data
+  }
+
+  // запрос товаров по параметрам
+  async getProducts(options) {
+    let {
+      productName = null,
+      cityId,
+      quantity = 32,
+      page = 1,
+      order = null,
+      categoryId = null
+    } = options
+
+    if (productName) productName = `str=${productName}`;
+    if (categoryId) categoryId = `categoryGuid=${categoryId}`;
+    if (order) order = `order=${order}`;
+    cityId = `cityGuid=${cityId}`;
+    quantity = `limit=${quantity}`;
+    page = `page=${page}`;
+
+    const optional = () => {
+      let optionalParameters = []
+      if (productName) optionalParameters.push(productName)
+      if (order) optionalParameters.push(order)
+      if (categoryId) optionalParameters.push(categoryId)
+      if (optionalParameters.length) return `&${optionalParameters.join('&')}`
+      return null
+    }
+
+    const url = this.URL + '/Products/byName?' + cityId + '&' + quantity + '&' + page + (optional() ? optional() : '')
+
+    const res = await axios.get(url)
+    return await res.data;
+  }
+
+  // TODO отмена заказа ==================================================================
+  async cancelOrder(orderGuid, TOKEN) {
+    const response = await axios.delete(`${this.URL}/Orders?orderGuid=${orderGuid}`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${TOKEN}`
+        }
+      })
+
+    return response
+  }
 }
 
 const apiService = new ApiService()
@@ -184,3 +260,15 @@ export default apiService
 //       });
 //   });
 // }
+
+//======= РАБОТАЕТ ===================================================================
+// sendOrderTEST = async (order, TOKEN) => {
+//   const response = await axios.post(`${this.URL}/Orders`, order, {
+//     headers: {
+//       'Content-Type': 'application/json',
+//       Authorization: `Bearer ${TOKEN}`
+//     }
+//   })
+//   return response.data
+// }
+//=====================================================================================

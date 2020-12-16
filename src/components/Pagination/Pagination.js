@@ -49,18 +49,18 @@ const Pagination = props => {
   }
 
   const goToPage = (page = 1) => {
+    const currentPage = Math.max(0, Math.min(page, totalPages));
+    const paginationData = {
+      currentPage,// текущая страница
+      totalPages, // общее количество страниц
+      pageLimitItems, // количество карточек на странице
+      totalRecords
+    }
     if (DECOR) {
       props.setPage(page)
-      const currentPage = Math.max(0, Math.min(page, totalPages));
+      onPageChanged(paginationData)
       setCurrentPage(currentPage)
     } else {
-      const currentPage = Math.max(0, Math.min(page, totalPages));
-      const paginationData = {
-        currentPage,// текущая страница
-        totalPages, // общее количество страниц
-        pageLimitItems, // количество карточек на странице
-        totalRecords
-      }
       setCurrentPage(currentPage)
       onPageChanged(paginationData)
     }
@@ -68,7 +68,11 @@ const Pagination = props => {
   // eslint-disable-next-line
   useEffect(() => goToPage(1), [])
 
-  useEffect(() => setCurrentPage(props.page), [props.page])
+  useEffect(() => {
+    if (props.page) {
+      setCurrentPage(props.page)
+    }
+  }, [props.page])
 
 
   const pages = calcPageNumbers()

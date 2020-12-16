@@ -1,4 +1,6 @@
 // ставим ошибку
+import apiService from "../service/ApiService";
+
 const setError = (error) => {
   return {
     type: 'FETCH_FAILURE',
@@ -17,6 +19,12 @@ const clearError = () => {
 const loadingTrue = () => {
   return {
     type: 'LOADING'
+  }
+}
+
+const loadingFalse = () => {
+  return {
+    type: 'LOADING_OFF'
   }
 }
 
@@ -163,12 +171,51 @@ const addedToFavorits = (item) => {
 }
 
 // список позиций из поискового запроса
-const ProductsFromSearchLoaded = (products) => {
+const ProductsFromSearchLoaded = (products, productSearch) => {
+  products.productSearch = productSearch
   return {
     type: 'FETCH_PRODUCTS_FROM_SEARCH_SUCCESS',
     payload: products
   }
 }
+
+// поисковый запрос порционно с указанием количества элементов и страницы
+function getProductsFromSearchLimit(options) {
+  return async (dispatch, getState, apiService) => {
+    const productName = options.productName === 'undefined' ? null : options.productName
+    const parameters = {
+      // productSearch, quantity, page, methodSort
+      productName: productName,
+      cityId: getState().isCity.guid,
+      quantity: options.quantity || 32,
+      page: options.page || 1,
+      order: options.order || null,
+      categoryId: options.categoryId || null
+    }
+    dispatch(loadingTrue())
+    try {
+      const response = await apiService.getProducts(parameters)
+      dispatch(ProductsFromSearchLoaded(response, productName || ''))
+    } catch (e) {
+      dispatch(setError(e))
+    }
+  }
+}
+
+// function getProductsFromSearchLimit(productSearch, quantity, page, methodSort) {
+//   console.log('methodSort', methodSort)
+//   return async (dispatch, getState, apiService) => {
+//     const cityId = getState().isCity.guid
+//     dispatch(loadingTrue())
+//     try {
+//       const response = await apiService.getProductsFromSearchLimit(productSearch, cityId, quantity, page, methodSort)
+//       dispatch(ProductsFromSearchLoaded(response, productSearch))
+//     } catch (e) {
+//       dispatch(setError(e))
+//     }
+//   }
+// }
+
 
 // дополнительная(подробная) информация о продукте
 const fetchProductInfo = (productId, cityId) => {
@@ -177,7 +224,6 @@ const fetchProductInfo = (productId, cityId) => {
     try {
       const response = await apiService.getProductInfo(productId, cityId)
       dispatch(loadingProductInfo(response))
-      // apiService.buildCatalog()
     } catch (e) {
       dispatch(setError(e))
     }
@@ -275,10 +321,20 @@ function setActiveCategory(categoryItem) {
   }
 }
 
-const setProductsToCategory = (categoryId) => async (dispatch, getState, apiService) => {
+// запрос товаров по категории для каталога
+const setProductsToCategory = (options) => async (dispatch, getState, apiService) => {
   dispatch(loadingTrue())
   try {
-    const response = await apiService.getProductToCategory(getState().isCity.guid, categoryId)
+    const parameters = {
+      productName: options.productName || null,
+      cityId: getState().isCity.guid,
+      quantity: options.quantity || 32,
+      page: options.page || 1,
+      order: options.order || null,
+      categoryId: options.categoryId || null
+    }
+
+    const response = await apiService.getProducts(parameters)
     dispatch({
       type: 'SET_PRODUCTS_TO_CATEGORY',
       payload: response
@@ -301,8 +357,48 @@ const setSales = () => async (dispatch, getState, apiService) => {
   }
 }
 
+// true, когда происходит запрос от панели поиска - для сброса страниц на первую
+const onRequestFromSearchPanel = () => {
+  return {type: 'ON_REQUEST_FROM_SEARCH_PANEL'}
+}
+const offRequestFromSearchPanel = () => {
+  return {type: 'OFF_REQUEST_FROM_SEARCH_PANEL'}
+}
+
+// запрос истории интернет заказов
+const getInternetSales = () => async (dispatch, getState, apiService) => {
+  dispatch(loadingTrue())
+  try {
+    const response = await apiService.getOrder(getState().TOKEN.accessToken)
+    dispatch({
+      type: 'REQUEST_INTERNET_SALES',
+      payload: response
+    })
+  } catch (e) {
+    dispatch(setError(e))
+  }
+}
+
+// отмена заказа
+const cancelOrder = (orderGuid) => async (dispatch, getState, apiService) => {
+  dispatch(loadingTrue())
+  try {
+    const response = await apiService.cancelOrder(orderGuid, getState().TOKEN.accessToken)
+    dispatch({
+      type: 'CANCEL_ORDER',
+      payload: response
+    })
+  } catch (e) {
+    dispatch(setError(e))
+  }
+}
+
 
 export {
+  cancelOrder,
+  getInternetSales,
+  onRequestFromSearchPanel,
+  offRequestFromSearchPanel,
   setSales,
   setProductsToCategory,
   setActiveCategory,
@@ -324,9 +420,11 @@ export {
   rewriteCart,
   addedToFavorits,
   loadingTrue,
+  loadingFalse,
   ProductsFromSearchLoaded,
   fetchProductInfo,
   fetchCartItems,
   onSelectRetail,
-  fetchRetailsCity
+  fetchRetailsCity,
+  getProductsFromSearchLimit
 }

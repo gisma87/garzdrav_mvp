@@ -5,7 +5,15 @@ import FavoriteItem from "../../components/FavoriteItem";
 import {Link, Redirect, withRouter} from "react-router-dom";
 import {useMediaQuery} from 'react-responsive'
 import SvgCheck from "../../components/UI/icons/SvgCheck";
-import {addedToCart, allItemRemovedFromCart, fetchUserData, itemRemovedFromCart, logout, setSales} from "../../actions";
+import {
+  addedToCart,
+  allItemRemovedFromCart,
+  fetchUserData,
+  getInternetSales,
+  itemRemovedFromCart,
+  logout,
+  setSales
+} from "../../actions";
 import {connect} from "react-redux";
 import CardItemMobile from "../../components/CardItemMobile";
 import dataCatds from "../../testData/dataCards";
@@ -13,6 +21,7 @@ import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
 import Loader from "../../components/UI/Loader";
 import SvgAngleUpSolid from "../../img/SVGcomponents/SvgAngleUpSolid";
 import devMessage from "../../img/devtMessage.svg";
+import OrdersInternet from "./OrdersInternet/OrdersInternet";
 
 
 // раздел Настройка профиля
@@ -163,29 +172,13 @@ const Bonus = props => {
 
 
       <p className='Bonus__signature'>Подробную историю зачисления / списания бонусов можно посмотреть в
-        истории ваших заказов</p>
+        истории ваших покупок</p>
 
     </BlockWrapper>
   )
 }
 
-// раздел Заказы (текущие)
-const Orders = props => {
-  return (
-    <BlockWrapper classStyle='ProfileSetting'>
-      <h4>Заказы: </h4>
-      <BlockWrapper classStyle='ProfileSetting__item'>
-        <p className='ProfileSetting__itemTitle'>Текущие заказы</p>
-        <p className='ProfileSetting__info'>
-          <img src={devMessage} alt="В разработке"/>
-        </p>
-      </BlockWrapper>
-    </BlockWrapper>
-  )
-}
-
-
-// компонент заказа из списка История заказов
+// компонент заказа из списка История покупок
 const OrderContent = props => {
 
   const [contentDisabled, setContentDisabled] = useState(false)
@@ -263,7 +256,7 @@ const OrderContent = props => {
   )
 }
 
-// раздел История заказов
+// раздел История покупок
 const OrderHistory = props => {
   const orders = props.sales.filter(item => item.type === 'Реализация')
   console.log('ORDERS', orders);
@@ -296,6 +289,7 @@ const Profile = (props) => {
         props.fetchUserData(props.TOKEN.accessToken)
       }
       props.setSales()
+      props.getInternetSales()
     }
   }, [])// eslint-disable-line
 
@@ -311,8 +305,12 @@ const Profile = (props) => {
               {/*раздел Бонусы*/}
               {block === 'main' && <Bonus userData={props.userData}/>}
 
-              {/*раздел Заказы*/}
-              {block === 'order' && <Orders/>}
+              {/*раздел Интернет Заказы*/}
+              {block === 'order' &&
+              <OrdersInternet getInternetSales={props.getInternetSales}
+                              internetSales={props.internetSales}
+                              cancelOrder={props.cancelOrder}
+              />}
 
               {/*раздел История заказов*/}
               {block === 'historyOrder' && <OrderHistory sales={props.sales}/>}
@@ -330,9 +328,9 @@ const Profile = (props) => {
               <BlockWrapper classStyle='Profile__menu'>
                 <ul className='Profile__items'>
                   <li className='Profile__item' onClick={() => setBlock('main')}>Бонусы</li>
-                  <li className='Profile__item' onClick={() => setBlock('order')}>Заказы <span
+                  <li className='Profile__item' onClick={() => setBlock('order')}>Интернет заказы <span
                     style={{color: 'red', fontSize: 12}}>в разработке</span></li>
-                  <li className='Profile__item' onClick={() => setBlock('historyOrder')}>Истории заказов</li>
+                  <li className='Profile__item' onClick={() => setBlock('historyOrder')}>История покупок</li>
                   <li className='Profile__item' onClick={() => setBlock('favorites')}>Избранное <span
                     style={{color: 'red', fontSize: 12}}>в разработке</span></li>
                   <li className='Profile__item' onClick={() => setBlock('favoriteRetail')}>Любимая аптека <span
@@ -354,11 +352,7 @@ const Profile = (props) => {
 }
 
 
-const mapStateToProps = (
-  {
-    TOKEN, cart, favorites, userData, sales
-  }
-) => {
+const mapStateToProps = ({TOKEN, cart, favorites, userData, sales}) => {
   return {TOKEN, cart, favorites, userData, sales}
 }
 
@@ -366,10 +360,11 @@ const mapDispatchToProps = (dispatch) => {
   return {
     logout: () => dispatch(logout()),
     fetchUserData: () => dispatch(fetchUserData()),
+    getInternetSales: () => dispatch(getInternetSales()),
     addedToCart: (item) => dispatch(addedToCart(item)),
     itemRemovedFromCart: (item) => dispatch(itemRemovedFromCart(item)),
     allItemRemovedFromCart: (item) => dispatch(allItemRemovedFromCart(item)),
-    setSales: () => dispatch(setSales())
+    setSales: () => dispatch(setSales()),
   }
 }
 

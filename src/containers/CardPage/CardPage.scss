@@ -333,4 +333,28 @@
     margin: 20px 0;
   }
 
+  &__pathname {
+    display: inline-block;
+    color: gray;
+
+    &:last-child .CardPage__pathArrow {
+      display: none;
+    }
+  }
+
+  a.CardPage__pathItem {
+    color: #808080;
+    cursor: pointer;
+
+    &:hover {
+      color: blue;
+    }
+  }
+
+  &__pathArrow {
+    color: gray;
+    cursor: default;
+    margin: 0 5px;
+  }
+
 }

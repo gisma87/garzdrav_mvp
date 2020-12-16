@@ -1,6 +1,6 @@
 const initialState = {
-  cities: [],
-  regions: [],
+  cities: [], // список всех городов
+  regions: [], // список всех регионов
   loading: true,
   error: null,
   isCity: JSON.parse(localStorage.getItem("city")) ? JSON.parse(localStorage.getItem("city"))[0] : {
@@ -24,7 +24,10 @@ const initialState = {
   activeCategory: null,
   productsToCategory: [],
   countProductsCategory: null,
-  sales: []
+  sales: [],
+  productSearch: '', // string - значение последнего поискового запроса
+  requestFromSearchPanelThisTime: false,
+  internetSales: []
 }
 
 const upgradeRetailItems = (array, cart) => {
@@ -101,6 +104,26 @@ const reducer = (state = initialState, action) => {
 
   console.log(action.type, action.payload);
   switch (action.type) {
+
+    case 'REQUEST_INTERNET_SALES':
+      return {
+        ...state,
+        internetSales: action.payload,
+        loading: false,
+        error: null
+      }
+
+    case 'ON_REQUEST_FROM_SEARCH_PANEL':
+      return {
+        ...state,
+        requestFromSearchPanelThisTime: true
+      }
+
+    case 'OFF_REQUEST_FROM_SEARCH_PANEL':
+      return {
+        ...state,
+        requestFromSearchPanelThisTime: false
+      }
 
     case 'SET_CATALOG':
       return {
@@ -186,6 +209,13 @@ const reducer = (state = initialState, action) => {
         loading: true,
         error: null
       };
+
+    case 'LOADING_OFF':
+      return {
+        ...state,
+        loading: false,
+        error: null
+      }
 
     // подробная информация о товаре
     case 'LOADING_PRODUCT_INFO':
@@ -311,6 +341,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         productsFromSearch: action.payload.products,
         countProductsSearch: action.payload.count,
+        productSearch: action.payload.productSearch,
         loading: false,
         error: null
       };

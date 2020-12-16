@@ -34,7 +34,7 @@
   background-color: #fff;
   padding: 10px 15px 15px;
   cursor: auto;
-  visibility: hidden;
+  //visibility: hidden;
 
   &:before {
     position: absolute;
@@ -47,7 +47,7 @@
   }
 
   &__active {
-    visibility: visible;
+    //visibility: visible;
     transition: all .3s;
     animation-name: locationAnimation;
     animation-duration: 1.5s;

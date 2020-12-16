@@ -12,6 +12,7 @@
     justify-content: flex-start;
     align-items: flex-start;
     flex-wrap: wrap;
+    padding-top: 20px;
   }
 
   &__item {
@@ -33,7 +34,6 @@
 
 
     &:hover {
-      //transform: scale(1.05);
       box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.05), 0 29px 26px 0 rgba(0, 0, 0, 0.08);
     }
   }
@@ -62,7 +62,7 @@
   }
 
   &__cardList {
-    padding-top: 30px;
+    padding-top: 0;
     width: 100%;
     display: grid;
     grid-auto-flow: row dense;

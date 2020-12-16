@@ -14,6 +14,7 @@ import {
   fetchCartItems,
   onSelectRetail, clearCart, setCartItems,
 } from "../../actions";
+import {calculateAmountArray} from "./cartUtils";
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
 import PopupMapCart from "../../components/PopupMapCart/PopupMapCart";
@@ -24,7 +25,16 @@ import Error from "../../components/Error/Error";
 import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
 import Loader from "../../components/UI/Loader";
 
+import apiService from "../../service/ApiService";
+
+import PopupAfterBuy from "../../components/PopupAfterBuy/PopupAfterBuy";
+
 class Cart extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.calculateAmountArray = calculateAmountArray.bind(this)
+  }
 
   state = {
     active: false,
@@ -33,7 +43,9 @@ class Cart extends React.Component {
     view: false,
     telephone: '',
     error: <Error/>,
-    loadingText: <Loader classStyle='Loader_is-opened'/>
+    loadingText: <Loader classStyle='Loader_is-opened'/>,
+    OrderNumber: '',
+    popupBuy: false
   }
 
   indexActiveRetail = () => this.props.retailsArr.findIndex((item) => item.guid === this.state.checked);
@@ -71,19 +83,19 @@ class Cart extends React.Component {
     return null
   }
 
-  // возвращает массив id товара - сумма этого товара в выбранной аптеке
-  calculateAmountArray = () => {
-    const cartItems = []
-    this.props.cartItems.forEach(item => {
-      const index = this.props.cart.findIndex(cartItem => cartItem.itemId === item.guid)
-      if (index < 0) return;
-      const count = this.props.cart[index].count
-      const retailIndex = item.retails.findIndex(retail => retail.guid === this.props.selectedRetail)
-      const sum = retailIndex >= 0 ? item.retails[retailIndex].priceRetail * count : null
-      cartItems.push({guid: item.guid, sum})
-    })
-    return cartItems
-  }
+  // // возвращает массив id товара - сумма этого товара в выбранной аптеке
+  // calculateAmountArray = () => {
+  //   const cartItems = []
+  //   this.props.cartItems.forEach(item => {
+  //     const index = this.props.cart.findIndex(cartItem => cartItem.itemId === item.guid)
+  //     if (index < 0) return;
+  //     const count = this.props.cart[index].count
+  //     const retailIndex = item.retails.findIndex(retail => retail.guid === this.props.selectedRetail)
+  //     const sum = retailIndex >= 0 ? item.retails[retailIndex].priceRetail * count : null
+  //     cartItems.push({guid: item.guid, sum})
+  //   })
+  //   return cartItems
+  // }
 
   // возвращает подпись в сколько товаров из списка есть в данной аптеке на вход принимает массив товаров в аптеке
   calcQuantityProduct = (obj) => {
@@ -124,11 +136,30 @@ class Cart extends React.Component {
     return +sum.toFixed(2)
   }
 
+
+  // отправка на сервер собранного интернет заказа
   postBuyOrder = () => {
     const {guid, product, sum} = this.checkRetailItem()
-    const send = {guid, telephone: this.state.telephone, product, sum}
-    console.log(send);
-    product.forEach(item => this.props.allItemRemovedFromCart(item.guid))
+    const products = product.map(item => {
+      return {
+        productGuid: item.guid,
+        quantity: item.count,
+        manufacturer: item.manufacturer,
+        product: item.product,
+        priceRetail: item.priceRetail
+      }
+    })
+    const send = {retailGuid: guid, telephone: this.state.telephone, products: products, sum}
+    const sendOrder = async () => {
+      const response = await apiService.sendOrder(send, this.props.TOKEN.accessToken)
+      this.setState({OrderNumber: response})
+      console.log('Заказ отправлен: ', send);
+      console.log('Номер заказа: ', response)
+    }
+
+    sendOrder()
+
+    product.forEach(item => this.props.allItemRemovedFromCart(item.guid)) // удалить заказанные позиции из корзины
   }
 
   clearCartError = () => {
@@ -432,9 +463,18 @@ class Cart extends React.Component {
                                    isFullActiveRetail={this.isFullActiveRetail()}
                                    cart={this.props.cart}
                                    product={this.checkRetailItem().product}
-                                   onSubmit={this.postBuyOrder}
+                                   onSubmit={() => {
+                                     this.postBuyOrder()
+                                     this.setState({popupBuy: true})
+                                   }}
+                                   OrderNumber={this.state.OrderNumber}
                     />
                   }
+                  <PopupAfterBuy
+                    show={this.state.popupBuy}
+                    OrderNumber={this.state.OrderNumber}
+                    onClose={() => this.setState({popupBuy: false})}
+                  />
                 </>
               }</>}
         </ErrorBoundary>
@@ -443,28 +483,18 @@ class Cart extends React.Component {
   }
 }
 
-const mapStateToProps = (
-  {
-    error,
-    cart,
-    favorites,
-    isCity,
-    cartItems,
-    retailsArr,
-    loading,
-    selectedRetail,
-    isRetailAllProduct
-  }) => {
+const mapStateToProps = (state) => {
   return {
-    error,
-    cart,
-    favorites,
-    isCity,
-    cartItems,
-    retailsArr,
-    loading,
-    selectedRetail,
-    isRetailAllProduct
+    error: state.error,
+    cart: state.cart,
+    favorites: state.favorites,
+    isCity: state.isCity,
+    cartItems: state.cartItems,
+    retailsArr: state.retailsArr,
+    loading: state.loading,
+    selectedRetail: state.selectedRetail,
+    isRetailAllProduct: state.isRetailAllProduct,
+    TOKEN: state.TOKEN
   }
 }
 
