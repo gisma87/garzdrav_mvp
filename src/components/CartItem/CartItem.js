@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useRef, useState} from "react";
 import './CartItem.scss'
 import BlockWrapper from "../BlockWrapper";
 import notPhoto from "../../img/notPhoto.svg";
@@ -21,10 +21,6 @@ const CartItem = (props) => {
   } = props;
   const {img, title, maker, sum, minPrice, countLast} = props.item;
   const isLastCount = !(countLast > count)
-
-  useEffect(() => {
-    // animate()
-  }, [])
 
   function animate() {
     content.current?.clientHeight
@@ -113,7 +109,6 @@ const CartItem = (props) => {
                 </div>
               )
             })}
-
         </div>
       </div>
     </BlockWrapper>
