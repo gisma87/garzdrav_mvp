@@ -197,6 +197,9 @@ const reducer = (state = initialState, action) => {
       const item = state.cart.find(({itemId}) => itemId === action.payload);
       return updateOrder(state, action.payload, -item.count);
 
+    case 'SET_COUNT_ITEM_CART':
+      return updateOrder(state, action.payload.idProduct, -action.payload.delta);
+
     case 'REWRITE_CART':
       return {
         ...state,
@@ -316,7 +319,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         cartItems: newCardItems,
         retailsArr: [...upgradeRetailItems(retailsArr, state.cart)],
-        selectedRetail,
+        selectedRetail: state.selectedRetail ? state.selectedRetail : selectedRetail,
         isRetailAllProduct,
         loading: (state.loading > 0) ? (state.loading - 1) : 0,
         error: null

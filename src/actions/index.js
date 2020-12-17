@@ -195,6 +195,13 @@ const allItemRemovedFromCart = (ItemId) => {
   }
 }
 
+const setCountItemCart = (idProduct, delta) => {
+  return {
+    type: 'SET_COUNT_ITEM_CART',
+    payload: {idProduct, delta}
+  }
+}
+
 // все аптеки города
 const retailsCityLoaded = (retailsCity) => {
   return {
@@ -249,24 +256,65 @@ function getProductsFromSearchLimit(options) {
   }
 }
 
+// устанавливаем доп.инфу о товаре - который смотрим на страницу CardPage
+const loadingProductInfo = (product) => {
+  return {
+    type: 'LOADING_PRODUCT_INFO',
+    product
+  }
+}
+
 // дополнительная(подробная) информация о продукте
 const fetchProductInfo = (productId, cityId) => {
   return async (dispatch, getState, apiService) => {
     dispatch(loadingTrue('fetchProductInfo'))
     try {
       const response = await apiService.getProductInfo(productId, cityId)
-      dispatch(loadingProductInfo(response))
+      // нужный ФОРМАТ ДАННЫХ - response должен быть:
+      // {
+      //    guid: string,
+      //    product: string,
+      //    manufacturer: string,
+      //    categoryGuid: string,
+      //    categoryTitle: string,
+      //    retails: [{
+      //      countLast: number,
+      //      priceRetail: number,
+      //      brand: string,
+      //      buildNumber: string,
+      //      city: string,
+      //      coordinates: [56.034496, 92.884345],
+      //      guid: string,
+      //      phone: string,
+      //      street: string,
+      //      title: string,
+      //      weekDayTime: "09:00:00 - 18:00:00",
+      //    }]
+      // }
+
+      const retails = response.retails.map(retailItem => {
+        return {
+          countLast: retailItem.countLast,
+          priceRetail: retailItem.priceRetail,
+          brand: retailItem.retail.brand,
+          buildNumber: retailItem.retail.buildNumber,
+          city: retailItem.retail.city,
+          coordinates: retailItem.retail.coordinates,
+          guid: retailItem.retail.guid,
+          phone: retailItem.retail.phone,
+          street: retailItem.retail.street,
+          title: retailItem.retail.title,
+          weekDayTime: retailItem.retail.weekDayTime
+        }
+      })
+      const resultProduct = {
+        ...response,
+        retails
+      }
+      dispatch(loadingProductInfo(resultProduct))
     } catch (e) {
       dispatch(setError(e))
     }
-  }
-}
-
-// устанавливаем доп.инфу о товаре - который смотрим на страницу CardPage
-const loadingProductInfo = (product) => {
-  return {
-    type: 'LOADING_PRODUCT_INFO',
-    product
   }
 }
 
@@ -427,6 +475,7 @@ const cancelOrder = (orderGuid) => async (dispatch, getState, apiService) => {
 
 
 export {
+  setCountItemCart,
   cancelOrder,
   getInternetSales,
   onRequestFromSearchPanel,

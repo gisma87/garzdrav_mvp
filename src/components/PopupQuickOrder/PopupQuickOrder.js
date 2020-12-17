@@ -40,9 +40,9 @@ const PopupQuickOrder = props => {
                   className="PopupQuickOrder__select"
                   value={props.activeRetailGuid || props.productInfo.retails[0]}
                   onChange={props.onChange}>
-            {props.productInfo.retails.map((item) => {
+            {props.productInfo.retails.map((item, index) => {
                 return (
-                  <option key={item.guid} value={item.guid}>
+                  <option key={index + item.guid} value={item.guid}>
                     г. {item.city}, {item.street}, {item.buildNumber}
                   </option>
                 )

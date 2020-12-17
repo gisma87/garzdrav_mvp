@@ -12,7 +12,7 @@ import {
   itemRemovedFromCart,
   rewriteCart,
   fetchCartItems,
-  onSelectRetail, clearCart, setCartItems, loadingTrue, loadingFalse, setError,
+  onSelectRetail, clearCart, setCartItems, loadingTrue, loadingFalse, setError, setCountItemCart,
 } from "../../actions";
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
@@ -70,7 +70,11 @@ class Cart extends React.Component {
 
   // остаток товара в выбранной аптеке
   getCountLast = (idProduct) => {
-    //TODO=========================================================================================
+    const product = this.props.cartItems.find(item => item.guid === idProduct)
+    const retail = product.retails.find(item => item.guid === this.props.selectedRetail)
+    if (retail) {
+      return Math.floor(retail.countLast)
+    } else return null
   }
 
   // возвращает массив аптек с полным наличием товара или null
@@ -204,7 +208,9 @@ class Cart extends React.Component {
   render() {
     const sum = this.getSum()
     let incompleteRetailItemState
-    incompleteRetailItemState = this.props.retailsArr.filter(item => item.product.length < this.props.cart.length)
+    incompleteRetailItemState = this.props.retailsArr
+      .filter(item => item.product.length < this.props.cart.length)
+      .sort((a, b) => a.product.length < b.product.length ? 1 : -1)
 
     return (
       <div className='Cart wrapper'>
@@ -228,7 +234,13 @@ class Cart extends React.Component {
                     <div className='Cart__itemContainer'>
                       {this.props.cart.length === 0 ? "Корзина пуста" :
                         this.props.cartItems.map((item) => {
+                          const countLast = this.getCountLast(item.guid)
                           const index = this.props.cart.findIndex((cartItem) => cartItem.itemId === item.guid);
+                          const count = index > -1 ? this.props.cart[index].count : null
+                          if (countLast && count && count > countLast) {
+                            const delta = count - countLast
+                            this.props.setCountItemCart(item.guid, delta)
+                          }
                           const isFavorites = this.props.favorites.includes(item.guid);
                           const priceIndex = item.retails.findIndex(retail => retail.guid === this.props.selectedRetail)
                           const price = priceIndex >= 0 ? item.retails[priceIndex].priceRetail : null
@@ -241,11 +253,12 @@ class Cart extends React.Component {
                               maker: item.manufacturer,
                               minPrice: item.retails.sort((a, b) => a.priceRetail > b.priceRetail ? 1 : -1)[0].priceRetail,
                               price,
-                              sum
+                              sum,
+                              countLast
                             }}
                                          classStyle={'Cart__item'}
                                          isFavorite={isFavorites}
-                                         count={this.props.cart[index].count}
+                                         count={count}
                                          addedToFavorits={() => this.props.addedToFavorits(item.guid)}
                                          addedToCart={() => {
                                            this.props.addedToCart(item.guid)
@@ -517,7 +530,8 @@ const mapDispatchToProps = (dispatch) => {
     setCartItems: (cartItems) => dispatch(setCartItems(cartItems)),
     loadingTrue: (info) => dispatch(loadingTrue(info)),
     loadingFalse: (info) => dispatch(loadingFalse(info)),
-    setError: (e) => dispatch(setError(e))
+    setError: (e) => dispatch(setError(e)),
+    setCountItemCart: (idProduct, delta) => dispatch(setCountItemCart(idProduct, delta))
 
   }
 }

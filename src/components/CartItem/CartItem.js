@@ -4,8 +4,17 @@ import BlockWrapper from "../BlockWrapper";
 import notPhoto from "../../img/notPhoto.svg";
 
 const CartItem = (props) => {
-  const {allItemRemovedFromCart, itemRemovedFromCart, addedToCart, addedToFavorits, count, isFavorite, classStyle = ''} = props;
-  const {img, title, maker, sum, minPrice} = props.item;
+  const {
+    allItemRemovedFromCart,
+    itemRemovedFromCart,
+    addedToCart,
+    addedToFavorits,
+    count,
+    isFavorite,
+    classStyle = ''
+  } = props;
+  const {img, title, maker, sum, minPrice, countLast} = props.item;
+  const isLastCount = !(countLast > count)
 
   return (
     <BlockWrapper classStyle={'CartItem ' + classStyle}>
@@ -39,9 +48,16 @@ const CartItem = (props) => {
                     onClick={itemRemovedFromCart}
             >-
             </button>
-            <input className='CartItem__countInput' type="text" value={count} readOnly/>
+            <input className='CartItem__countInput' type="text" value={count} readOnly
+                   style={sum && isLastCount ? {fontWeight: 'bold'} : {}}/>
             <button className='CartItem__countButtonPlus CartItem__countButton'
-                    onClick={addedToCart}
+                    style={sum && isLastCount ? {background: 'rgba(144, 0, 32, .3'} : {}}
+                    onClick={() => {
+                      console.log('count: ', count, ' countLast: ', props.item.countLast, ' isLastCount: ', isLastCount)
+                      if (!isLastCount) {
+                        addedToCart()
+                      }
+                    }}
             >+
             </button>
           </div>
