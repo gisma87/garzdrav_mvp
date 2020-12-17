@@ -1,9 +1,15 @@
-import React from "react";
+import React, {useEffect, useRef, useState} from "react";
 import './CartItem.scss'
 import BlockWrapper from "../BlockWrapper";
 import notPhoto from "../../img/notPhoto.svg";
+import SvgAngleUpSolid from "../../img/SVGcomponents/SvgAngleUpSolid";
 
 const CartItem = (props) => {
+  const [showDescription, setShowDescription] = useState(false)
+  const [styleContent, setStyleContent] = useState({})
+  const content = useRef(null)
+  const contentWrapper = useRef(null)
+
   const {
     allItemRemovedFromCart,
     itemRemovedFromCart,
@@ -15,6 +21,16 @@ const CartItem = (props) => {
   } = props;
   const {img, title, maker, sum, minPrice, countLast} = props.item;
   const isLastCount = !(countLast > count)
+
+  useEffect(() => {
+    // animate()
+  }, [])
+
+  function animate() {
+    content.current?.clientHeight
+      ? setStyleContent({height: 0})
+      : setStyleContent({height: `${contentWrapper.current?.clientHeight}px`})
+  }
 
   return (
     <BlockWrapper classStyle={'CartItem ' + classStyle}>
@@ -63,10 +79,43 @@ const CartItem = (props) => {
           </div>
         </div>
       </div>
-      {sum
-        ? <p className='CartItem__caption'>Внешний вид товара может отличаться от изображения на сайте</p>
-        : <p className='CartItem__caption' style={{color: 'red'}}>В выбранной аптеке нет данного препарата</p>
-      }
+
+      <div className='CartItem__description'>
+        {sum
+          ? <p className='CartItem__caption'>Внешний вид товара может отличаться от изображения на сайте</p>
+          : <p className='CartItem__caption' style={{color: 'red'}}>В выбранной аптеке нет данного препарата</p>
+        }
+        <p className='CartItem__dropdownBtn' onClick={() => {
+          animate()
+          setShowDescription(!showDescription)
+        }}>
+          <span>есть в аптеках</span>
+          <div className={'CartItem__iconContainer' + (showDescription ? ' CartItem__rotate' : '')}>
+            <SvgAngleUpSolid className='CartItem__arrowIcon'/>
+          </div>
+        </p>
+      </div>
+
+
+      <div ref={content}
+           style={styleContent}
+           className={'CartItem__dropdown' + (!showDescription ? ' CartItem__contentDisabled' : '')}>
+        <div ref={contentWrapper} className='CartItem__contentDropdown'>
+          {
+            props.retails.map((item) => {
+              return (
+                <div className='CartItem__dropdownItem'>
+                  <p className='CartItem__titleDropdownItem'>ул. {item.street} {item.buildNumber}</p>
+                  <div className='CartItem__dropdownPriceContainer'>
+                    <p className='CartItem__dropdownCount'><span>{count}</span> шт:</p>
+                    <p className='CartItem__dropdownPrice'>{(item.priceRetail * count).toFixed(2)} ₽</p>
+                  </div>
+                </div>
+              )
+            })}
+
+        </div>
+      </div>
     </BlockWrapper>
   )
 }

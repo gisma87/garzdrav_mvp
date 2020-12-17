@@ -43,7 +43,7 @@ const OrderContent = props => {
               <span className='OrderContent__bonusHeader'>+ {item.accumulationBonus}</span> : <span> </span>}
             <span className='OrderContent__priceHeader'>{item.sumDocument} ₽</span>
           </p>}
-          <div className={'OrderContent__iconContainer' + (contentDisabled ? ' rotate' : '')}>
+          <div className={'OrderContent__iconContainer' + (contentDisabled ? ' OrderContent__rotate' : '')}>
             <SvgAngleUpSolid className='OrderContent__arrowIcon'/>
           </div>
         </div>

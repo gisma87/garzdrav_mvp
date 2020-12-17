@@ -269,6 +269,7 @@ class Cart extends React.Component {
                               sum,
                               countLast
                             }}
+                                         retails={item.retails}
                                          classStyle={'Cart__item'}
                                          isFavorite={isFavorites}
                                          count={count}

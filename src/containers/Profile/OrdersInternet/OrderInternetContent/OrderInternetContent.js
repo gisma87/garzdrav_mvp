@@ -54,7 +54,7 @@ const OrderInternetContent = props => {
               Отменить Заказ
             </button>
           }
-          <div className={'OrderInternetContent__iconContainer' + (contentDisabled ? ' rotate' : '')}>
+          <div className={'OrderInternetContent__iconContainer' + (contentDisabled ? ' OrderInternetContent__rotate' : '')}>
             <SvgAngleUpSolid className='OrderInternetContent__arrowIcon'/>
           </div>
         </div>

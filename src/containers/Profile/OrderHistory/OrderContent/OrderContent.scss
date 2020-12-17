@@ -1,33 +1,4 @@
 .OrderContent {
-  @keyframes bounceInLeft {
-    0% {
-      opacity: 0;
-
-      transform: translateX(-400px);
-    }
-    60% {
-
-      transform: translateX(30px);
-    }
-    80% {
-      transform: translateX(-10px);
-    }
-    100% {
-      opacity: 1;
-
-      transform: translateX(0);
-    }
-  }
-  @keyframes scaleOn {
-    0% {
-      opacity: 0;
-      transform: scale(0);
-    }
-    100% {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
 
   &__wrapper {
     border: 1px solid #ddd;
@@ -116,12 +87,12 @@
     }
   }
 
-  .rotate {
+  &__rotate {
     transform: rotate(180deg);
     color: green;
     transition: transform .5s;
 
-    & > .OrderContent__arrowIcon {
+    .OrderContent__arrowIcon {
       color: green;
     }
   }
