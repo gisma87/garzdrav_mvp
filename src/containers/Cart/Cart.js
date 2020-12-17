@@ -8,11 +8,17 @@ import {
   addedToCart,
   addedToFavorits,
   allItemRemovedFromCart,
+  clearCart,
+  fetchCartItems,
   fetchProductInfo,
   itemRemovedFromCart,
+  loadingFalse,
+  loadingTrue,
+  onSelectRetail,
   rewriteCart,
-  fetchCartItems,
-  onSelectRetail, clearCart, setCartItems, loadingTrue, loadingFalse, setError, setCountItemCart,
+  setCartItems,
+  setCountItemCart,
+  setError,
 } from "../../actions";
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
@@ -205,6 +211,13 @@ class Cart extends React.Component {
     return this.state.loadingText
   }
 
+  // сортировка товаров по наличию в текущей аптеке
+  sortProductThisRetail = () => {
+    const arr1 = this.props.cartItems.filter(item => item.retails.some(el => el.guid === this.props.selectedRetail))
+    const arr2 = this.props.cartItems.filter(item => !item.retails.some(el => el.guid === this.props.selectedRetail))
+    return arr1.concat(arr2)
+  }
+
   render() {
     const sum = this.getSum()
     let incompleteRetailItemState
@@ -233,7 +246,7 @@ class Cart extends React.Component {
                   <section className='Cart__mainContainer'>
                     <div className='Cart__itemContainer'>
                       {this.props.cart.length === 0 ? "Корзина пуста" :
-                        this.props.cartItems.map((item) => {
+                        this.sortProductThisRetail().map((item) => {
                           const countLast = this.getCountLast(item.guid)
                           const index = this.props.cart.findIndex((cartItem) => cartItem.itemId === item.guid);
                           const count = index > -1 ? this.props.cart[index].count : null

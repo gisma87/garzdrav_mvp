@@ -56,3 +56,5 @@
 [1215/091310.303:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\gisma\AppData\Local\Google\Chrome\User Data\Crashpad\attachments\2a76ce36-5dc1-4b96-b233-dd5811a33c12: The system cannot find the path specified. (0x3)
 [1216/091713.325:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
 [1216/175505.492:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
+[1217/092315.750:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
+[1217/134112.419:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
