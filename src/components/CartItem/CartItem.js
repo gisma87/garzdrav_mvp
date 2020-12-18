@@ -81,7 +81,7 @@ const CartItem = (props) => {
           ? <p className='CartItem__caption'>Внешний вид товара может отличаться от изображения на сайте</p>
           : <p className='CartItem__caption' style={{color: 'red'}}>В выбранной аптеке нет данного препарата</p>
         }
-        <p className='CartItem__dropdownBtn' onClick={() => {
+        <div className='CartItem__dropdownBtn' onClick={() => {
           animate()
           setShowDescription(!showDescription)
         }}>
@@ -89,7 +89,7 @@ const CartItem = (props) => {
           <div className={'CartItem__iconContainer' + (showDescription ? ' CartItem__rotate' : '')}>
             <SvgAngleUpSolid className='CartItem__arrowIcon'/>
           </div>
-        </p>
+        </div>
       </div>
 
 
