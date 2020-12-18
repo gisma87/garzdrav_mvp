@@ -61,8 +61,9 @@ const fetchCartItems = (city = null) => (dispatch, getState, apiService) => {
     })
     Promise.all([...arrFetch])
       .then(allResponses => {
-
-          const resultArr = allResponses.map(item => {
+        const responseArray = allResponses.filter(item => Boolean(item.length !== 0))
+        if (responseArray.length) {
+          const resultArr = responseArray.map(item => {
             const retails = item.retails.map(retailItem => {
               return {
                 countLast: retailItem.countLast,
@@ -82,7 +83,7 @@ const fetchCartItems = (city = null) => (dispatch, getState, apiService) => {
               ...item,
               retails
             }
-          }).filter(item => Boolean(item.length !== 0))
+          })
 
           // нужный ФОРМАТ ДАННЫХ
           // [{
@@ -107,8 +108,83 @@ const fetchCartItems = (city = null) => (dispatch, getState, apiService) => {
           // }]
           dispatch(setCartItems(resultArr))
         }
-      )
+      })
       .catch(allError => dispatch(setError(allError)))
+  }
+}
+
+// повторить заказ - серия запросов подробной инф. о товаре, если res.ok тогда добавляем в корзину
+const repeatOrder = (arrayProducts) => (dispatch, getState, apiService) => {
+  const {isCity} = getState()
+  dispatch(clearError())
+  dispatch(delCartItems())
+
+  if (arrayProducts.length > 0) {
+    dispatch(loadingTrue('repeatOrder'))
+    const arrFetch = arrayProducts.map(product => {
+      return apiService.getProductInfo(product.idProduct, isCity.guid)
+    })
+    Promise.all([...arrFetch])
+      .then(allResponses => {
+        const responseArray = allResponses.filter(item => Boolean(item.length !== 0))
+        if (responseArray.length) {
+          const resultArr = responseArray.map(item => {
+            const retails = item.retails.map(retailItem => {
+              return {
+                countLast: retailItem.countLast,
+                priceRetail: retailItem.priceRetail,
+                brand: retailItem.retail.brand,
+                buildNumber: retailItem.retail.buildNumber,
+                city: retailItem.retail.city,
+                coordinates: retailItem.retail.coordinates,
+                guid: retailItem.retail.guid,
+                phone: retailItem.retail.phone,
+                street: retailItem.retail.street,
+                title: retailItem.retail.title,
+                weekDayTime: retailItem.retail.weekDayTime
+              }
+            })
+            return {
+              ...item,
+              retails
+            }
+          })
+
+          // нужный ФОРМАТ ДАННЫХ
+          // [{
+          //    guid: string,
+          //    product: string,
+          //    manufacturer: string,
+          //    categoryGuid: string,
+          //    categoryTitle: string,
+          //    retails: [{
+          //      countLast: number,
+          //      priceRetail: number,
+          //      brand: string,
+          //      buildNumber: string,
+          //      city: string,
+          //      coordinates: [56.034496, 92.884345],
+          //      guid: string,
+          //      phone: string,
+          //      street: string,
+          //      title: string,
+          //      weekDayTime: "09:00:00 - 18:00:00",
+          //    }]
+          // }]
+
+          resultArr.forEach(item => {
+            const index = arrayProducts.findIndex(el => el.idProduct === item.guid)
+            if (index >= 0) {
+              const count = arrayProducts[index].count
+              for (let i = 0; i < count; i++) {
+                dispatch(addedToCart(item.guid))
+              }
+            }
+          })
+        }
+      })
+      .catch(allError => dispatch(setError(allError)))
+    dispatch(loadingFalse('repeatOrder'))
   }
 }
 
@@ -506,5 +582,6 @@ export {
   fetchCartItems,
   onSelectRetail,
   fetchRetailsCity,
-  getProductsFromSearchLimit
+  getProductsFromSearchLimit,
+  repeatOrder
 }

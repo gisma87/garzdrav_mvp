@@ -3,6 +3,8 @@ import './OrderContent.scss'
 import SvgAngleUpSolid from "../../../../img/SVGcomponents/SvgAngleUpSolid";
 import BlockWrapper from "../../../../components/BlockWrapper";
 import SvgRedo from "../../../../img/SVGcomponents/SvgRedo"
+import {connect} from "react-redux";
+import {repeatOrder} from "../../../../actions";
 
 const OrderContent = props => {
 
@@ -29,13 +31,24 @@ const OrderContent = props => {
       : setStyleContent({height: `${contentWrapper.current.clientHeight}px`})
   }
 
+  function thisOrderRepeat() {
+    const arrayProducts = []
+    item.items.forEach(el => {
+      arrayProducts.push({
+        idProduct: el.product,
+        count: el.quantity
+      })
+    })
+    props.repeatOrder(arrayProducts)
+  }
+
   return (
     <div className='OrderContent__wrapper' style={{animationDelay: `${delay}s`}}>
       <div className='OrderContent__headerItem' onClick={() => {
         animate()
         setContentDisabled(!contentDisabled)
       }}>
-        <p className='OrderContent__title'>Заказ А-14344615 от {item.dateDocument}</p>
+        <p className='OrderContent__title'>Заказ от {item.dateDocument}</p>
         <div className='OrderContent__rightHeader'>
           {contentDisabled &&
           <p className='OrderContent__infoHeader'>
@@ -84,6 +97,7 @@ const OrderContent = props => {
               <p className='OrderContent__amount'>Итого: {item.sumDocument} ₽</p>
               <button className='OrderContent__repeatBtn'
                       onClick={() => {
+                        thisOrderRepeat()
                         setAnimation(true)
                         setTimeout(() => setAnimation(false), 1000)
                       }}
@@ -100,4 +114,10 @@ const OrderContent = props => {
   )
 }
 
-export default OrderContent
+const mapDispatchToProps = (dispatch) => {
+  return {
+    repeatOrder: (arrayProducts) => dispatch(repeatOrder(arrayProducts))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(OrderContent)
