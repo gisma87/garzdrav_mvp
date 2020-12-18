@@ -1,2 +1,9 @@
 import RetailCheckPanel from "./RetailCheckPanel";
-export default RetailCheckPanel
+import RetailCheckPanelListItem from "./RetailCheckPanelListItem";
+import RetailCheckPanelIncomplete from "./RetailCheckPanelIncomplete";
+
+export {
+  RetailCheckPanel,
+  RetailCheckPanelListItem,
+  RetailCheckPanelIncomplete
+}

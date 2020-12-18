@@ -1,13 +1,12 @@
 import React, {useRef, useState} from "react";
 import './RetailCheckPanel.scss'
-import SvgCheck from "../UI/icons/SvgCheck";
-import BlockWrapper from "../BlockWrapper";
 import CheckboxOrange from "../UI/CheckboxOrange";
-import iconLocation from "../../img/location.svg"
-import iconPhone from "../../img/phone-solid.svg"
-import iconClock from "../../img/clock-regular.svg"
+import iconLocation from "../../img/location.svg";
+import iconClock from "../../img/clock-regular.svg";
+import iconPhone from "../../img/phone-solid.svg";
+import SvgCheck from "../UI/icons/SvgCheck";
 
-const RetailCheckPanel = (props) => {
+const RetailCheckPanelListItem = props => {
 
   const [showDescription, setShowDescription] = useState(false)
   const refDescription = useRef(null)
@@ -32,7 +31,7 @@ const RetailCheckPanel = (props) => {
     product = ''
   } = props.item
 
-  const {list = 'main', isChecked, onCheck} = props;
+  const {isChecked, onCheck} = props;
 
   const onCheckPanel = (e) => {
     if (!e.target.closest(`.${refDescription.current.className}`)) {
@@ -41,19 +40,20 @@ const RetailCheckPanel = (props) => {
   }
 
   return (
-    <BlockWrapper classStyle='RetailCheckPanel'>
-      <div className='RetailCheckPanel__wrapperOnClick' onClick={onCheckPanel}>
+    <div className='RetailCheckPanel RetailCheckPanelList'>
+      <div className='RetailCheckPanel__wrapperOnClick RetailCheckPanelList__wrapperOnClick'
+           onClick={onCheckPanel}>
         <div className='RetailCheckPanel__checkbox RetailCheckPanel__block'>
           <CheckboxOrange check={isChecked}
-                          onCheck={onCheck}
+                          onCheck={() => onCheck()}
                           id={guid}
                           name={'RetailCheckPanel'}
                           type={'radio'}
           />
         </div>
-        <div className='RetailCheckPanel__content RetailCheckPanel__block'>
-          <p className='RetailCheckPanel__name'><img src={iconLocation}
-                                                     alt="Адрес"/> Адрес: <span>г. {city}, ул. {street}, {buildNumber}</span>
+        <div className='RetailCheckPanel__content RetailCheckPanel__block RetailCheckPanelList__content'>
+          <p className='RetailCheckPanel__name'>
+            <img src={iconLocation} alt="Адрес"/> Адрес: <span>г. {city}, ул. {street}, {buildNumber}</span>
           </p>
           <p className='RetailCheckPanel__openHours'><img src={iconClock} alt="Часы работы"/>Часы
             работы: <span>{weekDayTime}</span>
@@ -77,7 +77,6 @@ const RetailCheckPanel = (props) => {
           </div>
         </div>
       </div>
-
       <div ref={content}
            style={styleContent}
            className={'RetailCheckPanelIncomplete__dropdown' + (!showDescription ? ' RetailCheckPanelIncomplete__contentDisabled' : '')}>
@@ -97,8 +96,8 @@ const RetailCheckPanel = (props) => {
             })}
         </div>
       </div>
-    </BlockWrapper>
+    </div>
   )
 }
 
-export default RetailCheckPanel
+export default RetailCheckPanelListItem

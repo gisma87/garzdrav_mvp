@@ -1,9 +1,23 @@
 import React from "react"
 import './Cart.scss'
+import {connect} from "react-redux";
+import {withRouter} from "react-router-dom";
 import MediaQuery from 'react-responsive'
 import CartItem from "../../components/CartItem";
-import RetailCheckPanel from "../../components/RetailCheckPanel";
 import BlockWrapper from "../../components/BlockWrapper";
+import PopupMapCart from "../../components/PopupMapCart/PopupMapCart";
+import PopupOrder from "../../components/PopupOrder";
+import RetailItem from "../../components/RetailItem";
+import PopupMapCartMobile from "../../components/PopupMapCartMobile/PopupMapCartMobile";
+import Error from "../../components/Error/Error";
+import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
+import Loader from "../../components/UI/Loader";
+import PopupAfterBuy from "../../components/PopupAfterBuy/PopupAfterBuy";
+import {
+  RetailCheckPanel,
+  RetailCheckPanelListItem,
+  RetailCheckPanelIncomplete
+} from '../../components/RetailCheckPanel'
 import {
   addedToCart,
   addedToFavorits,
@@ -20,15 +34,6 @@ import {
   setCountItemCart,
   setError,
 } from "../../actions";
-import {connect} from "react-redux";
-import {withRouter} from "react-router-dom";
-import PopupMapCart from "../../components/PopupMapCart/PopupMapCart";
-import PopupOrder from "../../components/PopupOrder";
-import RetailItem from "../../components/RetailItem";
-import PopupMapCartMobile from "../../components/PopupMapCartMobile/PopupMapCartMobile";
-import Error from "../../components/Error/Error";
-import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
-import Loader from "../../components/UI/Loader";
 import {
   calcQuantityProduct,
   calculateAmountArray, checkRetailItem, clearCartError,
@@ -36,8 +41,6 @@ import {
   getFullRetailItemState, getSum, indexActiveRetail, isChecked, isFullActiveRetail, newCartItems, onLoading,
   postBuyOrder, sortProductThisRetail
 } from './cartUtils'
-
-import PopupAfterBuy from "../../components/PopupAfterBuy/PopupAfterBuy";
 
 class Cart extends React.Component {
   constructor(props) {
@@ -303,12 +306,11 @@ class Cart extends React.Component {
                               {
                                 this.getFullRetailItemState().map((item, index) => {
                                   if (index === 0) return null;
-                                  return <RetailCheckPanel key={item.guid}
-                                                           quantity={this.calcQuantityProduct(item.product)}
-                                                           item={item}
-                                                           list='list'
-                                                           isChecked={this.isChecked(item.guid)}
-                                                           onCheck={() => this.props.onSelectRetail(item.guid)}
+                                  return <RetailCheckPanelListItem key={item.guid}
+                                                                   quantity={this.calcQuantityProduct(item.product)}
+                                                                   item={item}
+                                                                   isChecked={this.isChecked(item.guid)}
+                                                                   onCheck={() => this.props.onSelectRetail(item.guid)}
                                   />
                                 })
                               }
@@ -345,12 +347,11 @@ class Cart extends React.Component {
                           <BlockWrapper classStyle='Cart__blockMoreItems'>
                             {
                               incompleteRetailItemState.map((item) => {
-                                return <RetailCheckPanel key={item.guid}
-                                                         item={item}
-                                                         quantity={this.calcQuantityProduct(item.product)}
-                                                         list='incomplete'
-                                                         isChecked={this.isChecked(item.guid)}
-                                                         onCheck={() => this.props.onSelectRetail(item.guid)}
+                                return <RetailCheckPanelIncomplete key={item.guid}
+                                                                   item={item}
+                                                                   quantity={this.calcQuantityProduct(item.product)}
+                                                                   isChecked={this.isChecked(item.guid)}
+                                                                   onCheck={() => this.props.onSelectRetail(item.guid)}
                                 />
                               })
                             }
