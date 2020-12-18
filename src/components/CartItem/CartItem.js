@@ -100,7 +100,7 @@ const CartItem = (props) => {
           {
             props.retails.map((item) => {
               return (
-                <div className='CartItem__dropdownItem'>
+                <div className='CartItem__dropdownItem' key={item.guid}>
                   <p className='CartItem__titleDropdownItem'>ул. {item.street} {item.buildNumber}</p>
                   <div className='CartItem__dropdownPriceContainer'>
                     <p className='CartItem__dropdownCount'><span>{count}</span> шт:</p>

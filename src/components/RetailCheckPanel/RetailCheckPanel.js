@@ -20,7 +20,7 @@ const RetailCheckPanel = (props) => {
   function animate() {
     content.current?.clientHeight
       ? setStyleContent({height: 0})
-      : setStyleContent({height: `${contentWrapper.current?.clientHeight}px`})
+      : setStyleContent({height: `${contentWrapper.current?.clientHeight + 15}px`})
   }
 
   const {
@@ -69,7 +69,10 @@ const RetailCheckPanel = (props) => {
           <div className='RetailCheckPanel__price'>
             <div>
               <p>Сумма: {sum} ₽</p>
-              <div ref={refDescription} onClick={() => setShowDescription(!showDescription)}
+              <div ref={refDescription} onClick={() => {
+                animate()
+                setShowDescription(!showDescription)
+              }}
                    className='RetailCheckPanel__descriptionContainer'
               >{props.quantity && props.quantity}</div>
             </div>
@@ -78,18 +81,25 @@ const RetailCheckPanel = (props) => {
             </div>
           </div>
         </div>
-        {showDescription &&
-        product.map((item) => {
-          return (
-            <div className='RetailCheckPanelIncomplete' key={item.guid}>
-              <p className='RetailCheckPanelIncomplete__title'>{item.product}</p>
-              <div className='RetailCheckPanelIncomplete__priceContainer'>
-                <p className='RetailCheckPanelIncomplete__count'><span>{item.count}</span> шт:</p>
-                <p className='RetailCheckPanelIncomplete__price'>{(item.priceRetail * item.count).toFixed(2)} ₽</p>
-              </div>
-            </div>
-          )
-        })}
+        <div ref={content}
+             style={styleContent}
+             className={'RetailCheckPanelIncomplete__dropdown' + (!showDescription ? ' RetailCheckPanelIncomplete__contentDisabled' : '')}>
+          <div ref={contentWrapper} className='RetailCheckPanelIncomplete__contentDropdown'>
+            {
+              product.map((item) => {
+                return (
+                  <div className='RetailCheckPanelIncomplete' key={item.guid}>
+                    <p className='RetailCheckPanelIncomplete__title'>{item.product}</p>
+                    <div className='RetailCheckPanelIncomplete__priceContainer'>
+                      <p className='RetailCheckPanelIncomplete__count'><span>{item.count}</span> шт:</p>
+                      <p
+                        className='RetailCheckPanelIncomplete__price'>{(item.priceRetail * item.count).toFixed(2)} ₽</p>
+                    </div>
+                  </div>
+                )
+              })}
+          </div>
+        </div>
       </div>
     )
   } else if (list === 'incomplete') {
@@ -119,7 +129,10 @@ const RetailCheckPanel = (props) => {
           <div className='RetailCheckPanel__price'>
             <div>
               <p>Сумма: {sum} ₽</p>
-              <div ref={refDescription} onClick={() => setShowDescription(!showDescription)}
+              <div ref={refDescription} onClick={() => {
+                animate()
+                setShowDescription(!showDescription)
+              }}
                    className='RetailCheckPanel__descriptionContainer'
               >{props.quantity && props.quantity}</div>
             </div>
@@ -129,18 +142,25 @@ const RetailCheckPanel = (props) => {
           </div>
         </div>
 
-        {showDescription &&
-        product.map((item) => {
-          return (
-            <div className='RetailCheckPanelIncomplete' key={item.guid}>
-              <p className='RetailCheckPanelIncomplete__title'>{item.product}</p>
-              <div className='RetailCheckPanelIncomplete__priceContainer'>
-                <p className='RetailCheckPanelIncomplete__count'><span>{item.count}</span> шт:</p>
-                <p className='RetailCheckPanelIncomplete__price'>{(item.priceRetail * item.count).toFixed(2)} ₽</p>
-              </div>
-            </div>
-          )
-        })}
+        <div ref={content}
+             style={styleContent}
+             className={'RetailCheckPanelIncomplete__dropdown' + (!showDescription ? ' RetailCheckPanelIncomplete__contentDisabled' : '')}>
+          <div ref={contentWrapper} className='RetailCheckPanelIncomplete__contentDropdown'>
+            {
+              product.map((item) => {
+                return (
+                  <div className='RetailCheckPanelIncomplete' key={item.guid}>
+                    <p className='RetailCheckPanelIncomplete__title'>{item.product}</p>
+                    <div className='RetailCheckPanelIncomplete__priceContainer'>
+                      <p className='RetailCheckPanelIncomplete__count'><span>{item.count}</span> шт:</p>
+                      <p
+                        className='RetailCheckPanelIncomplete__price'>{(item.priceRetail * item.count).toFixed(2)} ₽</p>
+                    </div>
+                  </div>
+                )
+              })}
+          </div>
+        </div>
 
       </div>
     )
