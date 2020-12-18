@@ -89,8 +89,9 @@ class Cart extends React.Component {
 
   render() {
     const sum = this.getSum()
-    let incompleteRetailItemState
-    incompleteRetailItemState = this.props.retailsArr
+
+    // список аптек с неполным наличием товара
+    let incompleteRetailItemState = this.props.retailsArr
       .filter(item => item.product.length < this.props.cart.length)
       .sort((a, b) => a.product.length < b.product.length ? 1 : -1)
 
@@ -236,6 +237,7 @@ class Cart extends React.Component {
                                     onSelectItem={(item) => this.props.onSelectRetail(item)}
                       />
                     </MediaQuery>
+
                     {this.props.cartItems.length < this.props.cart.length
                     && <p className='Cart__alert'>
                       Некоторых товаров нет в вашем городе. Чтобы искать более результативно
@@ -282,75 +284,80 @@ class Cart extends React.Component {
                       </BlockWrapper>
                     </MediaQuery>
 
-                    {this.getFullRetailItemState() !== null
-                    && <MediaQuery minWidth={801}>
-                      {
-                        this.getFullRetailItemState()[0]
-                        && <RetailCheckPanel item={this.getFullRetailItemState()[0]}
-                                             quantity={this.calcQuantityProduct(this.getFullRetailItemState()[0].product)}
-                                             isChecked={this.isChecked(this.getFullRetailItemState()[0]?.guid)}
-                                             onCheck={() => this.props.onSelectRetail(this.getFullRetailItemState()[0]?.guid)}
-                        />
-                      }
-                      {this.getFullRetailItemState().length > 1 && <>
-                        <h2 className='Cart__titleChoice'>В других аптеках: </h2>
-                        <BlockWrapper classStyle='Cart__blockMoreItems'>
-                          {
-                            this.getFullRetailItemState().length === 1
-                              ? <p style={{padding: 20}}>Товара нет в наличии</p>
-                              : this.getFullRetailItemState().map((item, index) => {
-                                if (index === 0) return null;
+                    {
+                      this.getFullRetailItemState() !== null
+                      && <MediaQuery minWidth={801}>
+                        {
+                          this.getFullRetailItemState()[0]
+                          && <RetailCheckPanel item={this.getFullRetailItemState()[0]}
+                                               quantity={this.calcQuantityProduct(this.getFullRetailItemState()[0].product)}
+                                               isChecked={this.isChecked(this.getFullRetailItemState()[0]?.guid)}
+                                               onCheck={() => this.props.onSelectRetail(this.getFullRetailItemState()[0]?.guid)}
+                          />
+                        }
+                        {
+                          this.getFullRetailItemState().length > 1
+                          && <>
+                            <h2 className='Cart__titleChoice'>В других аптеках: </h2>
+                            <BlockWrapper classStyle='Cart__blockMoreItems'>
+                              {
+                                this.getFullRetailItemState().map((item, index) => {
+                                  if (index === 0) return null;
+                                  return <RetailCheckPanel key={item.guid}
+                                                           quantity={this.calcQuantityProduct(item.product)}
+                                                           item={item}
+                                                           list='list'
+                                                           isChecked={this.isChecked(item.guid)}
+                                                           onCheck={() => this.props.onSelectRetail(item.guid)}
+                                  />
+                                })
+                              }
+                            </BlockWrapper>
+                          </>
+                        }
+                      </MediaQuery>
+                    }
+
+                    {
+                      incompleteRetailItemState.length > 0
+                      && <>
+                        <h2 className='Cart__titleChoice'>В этих аптеках не полное наличие: </h2>
+
+                        <MediaQuery maxWidth={800}>
+                          <BlockWrapper classStyle='Cart__blockMoreItems'>
+                            {incompleteRetailItemState.map((item) => {
+                              return <RetailItem
+                                key={item.guid}
+                                retailItem={item}
+                                quantity={this.calcQuantityProduct(item.product)}
+                                notFullItems={true}
+                                active={this.isChecked(item.guid)}
+                                buttonActive={this.isChecked(item.guid)}
+                                onSelectItem={() => this.props.onSelectRetail(item.guid)}
+                                setMapSetting={() => {
+                                }}
+                              />
+                            })}
+                          </BlockWrapper>
+                        </MediaQuery>
+
+                        <MediaQuery minWidth={801}>
+                          <BlockWrapper classStyle='Cart__blockMoreItems'>
+                            {
+                              incompleteRetailItemState.map((item) => {
                                 return <RetailCheckPanel key={item.guid}
-                                                         quantity={this.calcQuantityProduct(item.product)}
                                                          item={item}
-                                                         list='list'
+                                                         quantity={this.calcQuantityProduct(item.product)}
+                                                         list='incomplete'
                                                          isChecked={this.isChecked(item.guid)}
                                                          onCheck={() => this.props.onSelectRetail(item.guid)}
                                 />
                               })
-                          }
-                        </BlockWrapper>
+                            }
+                          </BlockWrapper>
+                        </MediaQuery>
                       </>
-                      }
-                    </MediaQuery>}
-
-                    {incompleteRetailItemState.length > 0 && <>
-                      <h2 className='Cart__titleChoice'>В этих аптеках не полное наличие: </h2>
-
-                      <MediaQuery maxWidth={800}>
-                        <BlockWrapper classStyle='Cart__blockMoreItems'>
-                          {incompleteRetailItemState.map((item) => {
-                            return <RetailItem
-                              key={item.guid}
-                              retailItem={item}
-                              quantity={this.calcQuantityProduct(item.product)}
-                              notFullItems={true}
-                              active={this.isChecked(item.guid)}
-                              buttonActive={this.isChecked(item.guid)}
-                              onSelectItem={() => this.props.onSelectRetail(item.guid)}
-                              setMapSetting={() => {
-                              }}
-                            />
-                          })}
-                        </BlockWrapper>
-                      </MediaQuery>
-
-                      <MediaQuery minWidth={801}>
-                        <BlockWrapper classStyle='Cart__blockMoreItems'>
-                          {
-                            incompleteRetailItemState.map((item) => {
-                              return <RetailCheckPanel key={item.guid}
-                                                       item={item}
-                                                       quantity={this.calcQuantityProduct(item.product)}
-                                                       list='incomplete'
-                                                       isChecked={this.isChecked(item.guid)}
-                                                       onCheck={() => this.props.onSelectRetail(item.guid)}
-                              />
-                            })
-                          }
-                        </BlockWrapper>
-                      </MediaQuery>
-                    </>}
+                    }
                   </section>}
 
                   {
@@ -377,7 +384,9 @@ class Cart extends React.Component {
                     onClose={() => this.setState({popupBuy: false})}
                   />
                 </>
-              }</>}
+              }
+            </>
+          }
         </ErrorBoundary>
       </div>
     )
