@@ -4,7 +4,7 @@ import SvgAngleUpSolid from "../../../../img/SVGcomponents/SvgAngleUpSolid";
 import BlockWrapper from "../../../../components/BlockWrapper";
 import SvgRedo from "../../../../img/SVGcomponents/SvgRedo"
 import {connect} from "react-redux";
-import {repeatOrder} from "../../../../actions";
+import {repeatOrder, setStatusRequestOrder} from "../../../../actions";
 
 const OrderContent = props => {
 
@@ -17,6 +17,17 @@ const OrderContent = props => {
   useEffect(() => {
     animate()
   }, [])
+
+  useEffect(() => {
+    if (props.statusRequestRepeatOrder === 'executed') {
+      props.setRepeatInfo('executed')
+      props.setStatusRequestOrder('')
+    }
+    if (props.statusRequestRepeatOrder === 'failure') {
+      props.setRepeatInfo('failure')
+      props.setStatusRequestOrder('')
+    }
+  }, [props.statusRequestRepeatOrder])
 
   const {item, delay} = props
 
@@ -114,10 +125,15 @@ const OrderContent = props => {
   )
 }
 
+const mapStateToProps = ({statusRequestRepeatOrder}) => {
+  return {statusRequestRepeatOrder}
+}
+
 const mapDispatchToProps = (dispatch) => {
   return {
-    repeatOrder: (arrayProducts) => dispatch(repeatOrder(arrayProducts))
+    repeatOrder: (arrayProducts) => dispatch(repeatOrder(arrayProducts)),
+    setStatusRequestOrder: (status) => dispatch(setStatusRequestOrder(status))
   }
 }
 
-export default connect(null, mapDispatchToProps)(OrderContent)
+export default connect(mapStateToProps, mapDispatchToProps)(OrderContent)

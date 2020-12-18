@@ -7,27 +7,28 @@ const initialState = {
     guid: "c384a061-7641-4605-a340-afb825fdcb70",
     title: "Абакан"
   },
-  retailsCity: [],
-  cart: [],
+  retailsCity: [], // торговые точки города
+  cart: [], // корзина
   favorites: [],
-  productsFromSearch: [],
-  countProductsSearch: null,
+  productsFromSearch: [], // товары из текущего запроса
+  countProductsSearch: null, // число товаров по текущему запросу
   productInfo: '',
-  cartItems: [],
-  retailsArr: [],
-  selectedRetail: null,
-  isRetailAllProduct: true,
-  isPopupLocation: false,
+  cartItems: [], // товары в корзине
+  retailsArr: [], // массив аптек - формируется из cartItems
+  selectedRetail: null, // текущая выбранная аптека
+  isRetailAllProduct: true, // есть ли аптеки с полным ассортиментом товара из корзины
+  isPopupLocation: false, // статус popup о подтверждении автовыбора города
   TOKEN: null,
   userData: null,
   catalog: null,
-  activeCategory: null,
-  productsToCategory: [],
-  countProductsCategory: null,
-  sales: [],
+  activeCategory: null, // текущая категория в каталоге
+  productsToCategory: [], // товары из текущей категории каталога
+  countProductsCategory: null, // число товаров в категории
+  sales: [], // история покупок
   productSearch: '', // string - значение последнего поискового запроса
-  requestFromSearchPanelThisTime: false,
-  internetSales: [],
+  requestFromSearchPanelThisTime: false, // true, если запрос сделан из searchPanel
+  internetSales: [], // интернет заказы
+  statusRequestRepeatOrder: ''
 }
 
 const upgradeRetailItems = (array, cart) => {
@@ -104,6 +105,12 @@ const reducer = (state = initialState, action) => {
 
   console.log(action.type, action.payload);
   switch (action.type) {
+
+    case 'SET_STATUS_REQUEST_REPEAT_ORDER':
+      return {
+        ...state,
+        statusRequestRepeatOrder: action.payload
+      }
 
     case 'REQUEST_INTERNET_SALES':
       return {

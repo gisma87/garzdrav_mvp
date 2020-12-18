@@ -45,6 +45,15 @@ const setCartItems = (cartItems) => {
   }
 }
 
+// статус запроса о повторе заказа для Alert
+const setStatusRequestOrder = (status) => {
+  const result = typeof status === "string" ? status : ''
+  return {
+    type: 'SET_STATUS_REQUEST_REPEAT_ORDER',
+    payload: result
+  }
+}
+
 // серия запросов подробной информации о товаре из списка корзины - по IDproduct и IDcity.
 // Формируется массив cartItems - список товаров со списком аптек в нём, где этот товар есть.
 // Из массива cartItems формируется массив retailsArr - список аптек, со списком товаров из корзины имеющихся в этой аптеке.
@@ -181,7 +190,9 @@ const repeatOrder = (arrayProducts) => (dispatch, getState, apiService) => {
               }
             }
           })
-        }
+
+          dispatch(setStatusRequestOrder('executed'))
+        } else dispatch(setStatusRequestOrder('failure'))
       })
       .catch(allError => dispatch(setError(allError)))
     dispatch(loadingFalse('repeatOrder'))
@@ -548,8 +559,8 @@ const cancelOrder = (orderGuid) => async (dispatch, getState, apiService) => {
   }
 }
 
-
 export {
+  setStatusRequestOrder,
   setCountItemCart,
   cancelOrder,
   getInternetSales,
