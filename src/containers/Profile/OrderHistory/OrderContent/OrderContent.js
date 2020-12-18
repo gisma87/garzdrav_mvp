@@ -68,6 +68,10 @@ const OrderContent = props => {
             </BlockWrapper>
           )}
           <div className='OrderContent__infoContainer'>
+            <p className='OrderContent__infoItem'>
+              <span>{item.retail.brand}: </span>
+              <span style={{marginLeft: 10}}>{item.retail.city}. {item.retail.street} {item.retail.buildNumber}</span>
+            </p>
             <p className='OrderContent__infoItem'>Начислено всего бонусов: <span
               className='OrderContent__positive'>{item.accumulationBonus}</span></p>
             <p className='OrderContent__infoItem'>Потрачено всего бонусов: <span

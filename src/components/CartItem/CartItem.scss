@@ -250,6 +250,7 @@
     color: green;
     border-bottom: 1px dashed #000;
     cursor: pointer;
+    white-space: nowrap;
   }
 
   &__dropdownItem {
@@ -287,6 +288,7 @@
     font-weight: bold;
     color: #737373;
     padding: 0 5px;
+    white-space: nowrap;
 
     span {
       font-size: 14px;
