@@ -2,11 +2,13 @@ import React, {useEffect, useRef, useState} from "react";
 import './OrderContent.scss'
 import SvgAngleUpSolid from "../../../../img/SVGcomponents/SvgAngleUpSolid";
 import BlockWrapper from "../../../../components/BlockWrapper";
+import SvgRedo from "../../../../img/SVGcomponents/SvgRedo"
 
 const OrderContent = props => {
 
   const [contentDisabled, setContentDisabled] = useState(false)
   const [styleContent, setStyleContent] = useState({})
+  const [animationRotate, setAnimation] = useState(false)
   const content = useRef(null)
   const contentWrapper = useRef(null)
 
@@ -54,19 +56,21 @@ const OrderContent = props => {
         style={styleContent}
       >
         <div className='OrderContent__contentWrapperForAnimation' ref={contentWrapper}>
-          {item.items.map((product, index) => <BlockWrapper classStyle='OrderContent__product'
-                                                            key={product.title + index}>
-              <p className='OrderContent__productTitle'>{product.title}</p>
-              <p className='OrderContent__info'>Куплено: {product.quantity} шт по {product.priceRetail} ₽</p>
-              <p className='OrderContent__info'>Начислено бонусов: <span
-                className='OrderContent__positive'>{product.accumulationBonus}</span></p>
-              <p className='OrderContent__info'>Списано бонусов: <span
-                className={product.spendBonus > 0 ? 'OrderContent__negative' : ''}>{product.spendBonus}</span></p>
-              {product.discount > 0 && <p className='OrderContent__info'>Скидка: {product.discount}</p>}
-              <p
-                className='OrderContent__sumProduct'>{calcAmount(product)} ₽</p>
-            </BlockWrapper>
-          )}
+          {
+            item.items.map((product, index) => <BlockWrapper classStyle='OrderContent__product'
+                                                             key={product.title + index}>
+                <p className='OrderContent__productTitle'>{product.title}</p>
+                <p className='OrderContent__info'>Куплено: {product.quantity} шт по {product.priceRetail} ₽</p>
+                <p className='OrderContent__info'>Начислено бонусов: <span
+                  className='OrderContent__positive'>{product.accumulationBonus}</span></p>
+                <p className='OrderContent__info'>Списано бонусов: <span
+                  className={product.spendBonus > 0 ? 'OrderContent__negative' : ''}>{product.spendBonus}</span></p>
+                {product.discount > 0 && <p className='OrderContent__info'>Скидка: {product.discount}</p>}
+                <p
+                  className='OrderContent__sumProduct'>{calcAmount(product)} ₽</p>
+              </BlockWrapper>
+            )
+          }
           <div className='OrderContent__infoContainer'>
             <p className='OrderContent__infoItem'>
               <span>{item.retail.brand}: </span>
@@ -76,7 +80,19 @@ const OrderContent = props => {
               className='OrderContent__positive'>{item.accumulationBonus}</span></p>
             <p className='OrderContent__infoItem'>Потрачено всего бонусов: <span
               className={item.spendBonus > 0 ? 'OrderContent__negative' : ''}>{item.spendBonus}</span></p>
-            <p className='OrderContent__amount'>Итого: {item.sumDocument} ₽</p>
+            <div className='OrderContent__footer'>
+              <p className='OrderContent__amount'>Итого: {item.sumDocument} ₽</p>
+              <button className='OrderContent__repeatBtn'
+                      onClick={() => {
+                        setAnimation(true)
+                        setTimeout(() => setAnimation(false), 1000)
+                      }}
+              >Повторить
+                <div
+                  className={'OrderContent__imgRepeatContainer' + (animationRotate ? ' OrderContent__animationRotate' : '')}>
+                  <SvgRedo className='OrderContent__imgRepeat'/></div>
+              </button>
+            </div>
           </div>
         </div>
       </div>
