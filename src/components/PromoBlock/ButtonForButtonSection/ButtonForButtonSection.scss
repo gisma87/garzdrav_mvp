@@ -1,10 +1,10 @@
 .ButtonForButtonSection {
   font-family: PTSans-Bold, Helvetica, Arial, sans-serif;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 700;
   align-self: flex-start;
   padding: 0 20px;
-  height: 55px;
+  height: 45px;
   color: #1f5377;
   transition: all .3s;
   outline: none;
@@ -12,7 +12,7 @@
   display: flex;
   align-items: center;
   border: 1px solid #1f5377;
-  border-radius: 10px;
+  border-radius: 12px;
   cursor: pointer;
   margin-right: 20px;
 
@@ -23,7 +23,7 @@
 
   &:hover {
     text-decoration: none;
-    color: #fc5808;
+    transform: translateY(-3px);
     transition: all .3s;
   }
 
