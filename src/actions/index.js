@@ -351,11 +351,11 @@ const loadingProductInfo = (product) => {
 }
 
 // дополнительная(подробная) информация о продукте
-const fetchProductInfo = (productId, cityId) => {
+const fetchProductInfo = (productId) => {
   return async (dispatch, getState, apiService) => {
     dispatch(loadingTrue('fetchProductInfo'))
     try {
-      const response = await apiService.getProductInfo(productId, cityId)
+      const response = await apiService.getProductInfo(productId, getState().isCity.guid)
       // нужный ФОРМАТ ДАННЫХ - response должен быть:
       // {
       //    guid: string,

@@ -1,7 +1,9 @@
 import React, {useEffect, useRef, useState} from "react";
+import {withRouter} from 'react-router-dom'
 import './OrderInternetContent.scss'
 import SvgAngleUpSolid from "../../../../img/SVGcomponents/SvgAngleUpSolid";
 import BlockWrapper from "../../../../components/BlockWrapper";
+import apiService from "../../../../service/ApiService";
 
 const OrderInternetContent = props => {
 
@@ -54,7 +56,8 @@ const OrderInternetContent = props => {
               Отменить Заказ
             </button>
           }
-          <div className={'OrderInternetContent__iconContainer' + (contentDisabled ? ' OrderInternetContent__rotate' : '')}>
+          <div
+            className={'OrderInternetContent__iconContainer' + (contentDisabled ? ' OrderInternetContent__rotate' : '')}>
             <SvgAngleUpSolid className='OrderInternetContent__arrowIcon'/>
           </div>
         </div>
@@ -68,7 +71,14 @@ const OrderInternetContent = props => {
         <div className='OrderInternetContent__contentWrapperForAnimation' ref={contentWrapper}>
           {item.items.map((product, index) => <BlockWrapper classStyle='OrderInternetContent__product'
                                                             key={product.productGuid}>
-              <p className='OrderInternetContent__productTitle'>{product.productTitle}</p>
+              <p className='OrderInternetContent__productTitle'
+                 onClick={() => {
+                   apiService.getProductInfo(product.productGuid, props.isCity.guid)
+                     .then(res => props.history.push(`/Cards/${product.productGuid}`))
+                     .catch(e => props.setRepeatInfo('failure'))
+
+                 }}
+              >{product.productTitle}</p>
               <p className='OrderInternetContent__info'>{product.quantity} шт.</p>
             </BlockWrapper>
           )}
@@ -86,4 +96,4 @@ const OrderInternetContent = props => {
   )
 }
 
-export default OrderInternetContent
+export default withRouter(OrderInternetContent)

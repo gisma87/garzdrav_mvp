@@ -161,6 +161,11 @@
   &__productTitle {
     color: #555;
     margin-bottom: 10px;
+
+    &:hover {
+      cursor: pointer;
+      color: blue;
+    }
   }
 
   &__info {

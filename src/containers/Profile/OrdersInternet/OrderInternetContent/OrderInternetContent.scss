@@ -114,6 +114,11 @@
 
   &__productTitle {
     color: #555;
+
+    &:hover {
+      cursor: pointer;
+      color: blue;
+    }
   }
 
   &__info {

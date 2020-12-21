@@ -1,10 +1,12 @@
 import React, {useEffect, useRef, useState} from "react";
+import {withRouter} from 'react-router-dom'
 import './OrderContent.scss'
 import SvgAngleUpSolid from "../../../../img/SVGcomponents/SvgAngleUpSolid";
 import BlockWrapper from "../../../../components/BlockWrapper";
 import SvgRedo from "../../../../img/SVGcomponents/SvgRedo"
 import {connect} from "react-redux";
 import {repeatOrder, setStatusRequestOrder} from "../../../../actions";
+import apiService from "../../../../service/ApiService";
 
 const OrderContent = props => {
 
@@ -83,7 +85,12 @@ const OrderContent = props => {
           {
             item.items.map((product, index) => <BlockWrapper classStyle='OrderContent__product'
                                                              key={product.title + index}>
-                <p className='OrderContent__productTitle'>{product.title}</p>
+                <p className='OrderContent__productTitle' onClick={() => {
+                  apiService.getProductInfo(product.product, props.isCity.guid)
+                    .then(res => props.history.push(`/Cards/${product.product}`))
+                    .catch(e => props.setRepeatInfo('failure'))
+
+                }}>{product.title}</p>
                 <p className='OrderContent__info'>Куплено: {product.quantity} шт по {product.priceRetail} ₽</p>
                 <p className='OrderContent__info'>Начислено бонусов: <span
                   className='OrderContent__positive'>{product.accumulationBonus}</span></p>
@@ -125,8 +132,8 @@ const OrderContent = props => {
   )
 }
 
-const mapStateToProps = ({statusRequestRepeatOrder}) => {
-  return {statusRequestRepeatOrder}
+const mapStateToProps = ({statusRequestRepeatOrder, isCity}) => {
+  return {statusRequestRepeatOrder, isCity}
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -136,4 +143,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(OrderContent)
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(OrderContent))

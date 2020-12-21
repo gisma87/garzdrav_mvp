@@ -46,7 +46,7 @@ const CardPage = (props) => {
   const isMobile = useMediaQuery({query: '(max-width: 800px)'})
 
   useEffect(() => {
-    props.fetchProductInfo(itemId, isCity.guid)
+    props.fetchProductInfo(itemId)
   }, [itemId])// eslint-disable-line
 
   useEffect(() => {
@@ -496,7 +496,7 @@ const mapDispatchToProps = (dispatch) => {
     itemRemovedFromCart: (item) => dispatch(itemRemovedFromCart(item)),
     allItemRemovedFromCart: (item) => dispatch(allItemRemovedFromCart(item)),
     addedToFavorits: (itemId) => dispatch(addedToFavorits(itemId)),
-    fetchProductInfo: (productId, cityId) => dispatch(fetchProductInfo(productId, cityId)),
+    fetchProductInfo: (productId) => dispatch(fetchProductInfo(productId)),
     setActiveCategory: (categoryItem) => dispatch(setActiveCategory(categoryItem)),
   }
 }

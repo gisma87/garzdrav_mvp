@@ -6,10 +6,14 @@ import PopupCancelOrder from "../../../components/PopupCancelOrder/PopupCancelOr
 import OrderInternetContent from "./OrderInternetContent/OrderInternetContent";
 import {connect} from "react-redux";
 import {getInternetSales, loadingFalse, loadingTrue, setError} from "../../../actions";
+import Alert from "../../../components/UI/Alert/Alert";
 
 const OrdersInternet = props => {
   const [showPopupCancel, setShowPopupCancel] = useState(false)
   const [cancelOrderGuid, setCancelOrderGuid] = useState(null)
+  const [alertShow, setAlertShow] = useState(false)
+  const [statusAlert, setStatusAlert] = useState('')
+
   let delay = 0;
 
   async function onCancel() {
@@ -38,7 +42,13 @@ const OrdersInternet = props => {
                                        cancelOrder={() => {
                                          setCancelOrderGuid(item.orderGuid)
                                          setShowPopupCancel(true)
-                                       }}/>
+                                       }}
+                                       setRepeatInfo={(status) => {
+                                         setStatusAlert(status)
+                                         setAlertShow(true)
+                                       }}
+                                       isCity={props.isCity}
+          />
         })
         }
 
@@ -46,12 +56,23 @@ const OrdersInternet = props => {
       <PopupCancelOrder show={showPopupCancel}
                         onCancel={onCancel}
                         onClose={() => setShowPopupCancel(false)}/>
+
+      <Alert show={alertShow} onClose={() => setAlertShow(false)} title='Информируем: '>
+        {
+          statusAlert === 'executed' &&
+          <p>Товары из вашего заказа имеющиеся в наличии в текущем городе добавлены в корзину</p>
+        }
+        {
+          statusAlert === 'failure' &&
+          <p>К сожалению выбранных товаров сейчас нет в наличии</p>
+        }
+      </Alert>
     </>
   )
 }
 
-const mapStateToProps = ({TOKEN, internetSales}) => {
-  return {TOKEN, internetSales}
+const mapStateToProps = ({TOKEN, internetSales,isCity}) => {
+  return {TOKEN, internetSales, isCity}
 }
 
 const mapDispatchToProps = (dispatch) => {

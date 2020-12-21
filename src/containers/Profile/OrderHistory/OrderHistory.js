@@ -13,7 +13,7 @@ const OrderHistory = props => {
   return (
     <>
       <BlockWrapper classStyle='OrderHistory'>
-        <h2>История заказов</h2>
+        <h2>История покупок</h2>
         {
           props.sales.map(item => {
             delay += .09
@@ -21,8 +21,7 @@ const OrderHistory = props => {
                                  setRepeatInfo={(status) => {
                                    setStatusAlert(status)
                                    setAlertShow(true)
-                                 }
-                                 }/>
+                                 }}/>
           })
         }
 
@@ -36,7 +35,6 @@ const OrderHistory = props => {
           statusAlert === 'failure' &&
           <p>К сожалению выбранных товаров сейчас нет в наличии</p>
         }
-
       </Alert>
     </>
   )

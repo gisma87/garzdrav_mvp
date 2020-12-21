@@ -1,10 +1,7 @@
 import React, {useEffect, useState} from "react"
 import './Profile.scss'
 import BlockWrapper from "../../components/BlockWrapper";
-import FavoriteItem from "../../components/FavoriteItem";
 import {Link, Redirect, withRouter} from "react-router-dom";
-import {useMediaQuery} from 'react-responsive'
-import SvgCheck from "../../components/UI/icons/SvgCheck";
 import {
   addedToCart,
   allItemRemovedFromCart,
@@ -15,8 +12,6 @@ import {
   setSales
 } from "../../actions";
 import {connect} from "react-redux";
-import CardItemMobile from "../../components/CardItemMobile";
-import dataCatds from "../../testData/dataCards";
 import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
 import Loader from "../../components/UI/Loader";
 import devMessage from "../../img/devtMessage.svg";
