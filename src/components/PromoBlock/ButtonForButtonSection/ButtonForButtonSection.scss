@@ -1,0 +1,56 @@
+.ButtonForButtonSection {
+  font-family: PTSans-Bold, Helvetica, Arial, sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  align-self: flex-start;
+  padding: 0 20px;
+  height: 55px;
+  color: #1f5377;
+  transition: all .3s;
+  outline: none;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  border: 1px solid #1f5377;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-right: 20px;
+
+  @media (max-width: 800px) {
+    padding: 15px 20px 0 20px;
+    font-size: 18px;
+  }
+
+  &:hover {
+    text-decoration: none;
+    color: #fc5808;
+    transition: all .3s;
+  }
+
+  &__active {
+    background: #1f5377;
+    color: #fff;
+  }
+
+  &__more {
+    margin-left: 8px;
+    width: 22px;
+    height: 22px;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    padding: 1px 0 0 1px;
+    outline: none;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    transform: translateY(-1px);
+
+    @media (max-width: 800px) {
+      width: 18px;
+      height: 18px;
+    }
+  }
+}

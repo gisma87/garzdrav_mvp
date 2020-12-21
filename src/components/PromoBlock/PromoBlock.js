@@ -7,13 +7,13 @@ import 'swiper/components/pagination/pagination.scss'
 import 'swiper/components/autoplay'
 import SvgAngleRightSolid from '../../img/SVGcomponents/SvgAngleRightSolid'
 import SvgAngleLeftSolid from "../../img/SVGcomponents/SvgAngleLeftSolid";
-import TitleSection from "../UI/TitleSection";
 import './PromoBlock.scss'
 import CardItem from "../CardItem";
 import dataCatds from "../../testData/dataCards";
 import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
 import {addedToCart, allItemRemovedFromCart, itemRemovedFromCart} from "../../actions";
+import ButtonSectionForSlider from "./ButtonSectionForSlider/ButtonSectionForSlider";
 
 class PromoBlock extends React.Component {
 
@@ -40,7 +40,10 @@ class PromoBlock extends React.Component {
         </div>
 
         <div className='wrapper'>
-          <TitleSection title='Акции' link='/promotions/'/>
+          <ButtonSectionForSlider
+            items={[{title: 'Акции'}, {title: 'Сезонное предложение'}, {title: 'Популярные товары'}]}
+
+          />
           <Swiper
             style={{padding: '10px 0'}}
             spaceBetween={5}
