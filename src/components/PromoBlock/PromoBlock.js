@@ -46,7 +46,7 @@ class PromoBlock extends React.Component {
           />
           <Swiper
             style={{padding: '10px 0'}}
-            spaceBetween={5}
+            spaceBetween={0}
             slidesPerView={'auto'}
             tag="section" wrapperTag="ul"
             loop={'false'}
