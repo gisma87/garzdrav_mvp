@@ -8,20 +8,20 @@
   max-height: 33px;
 
   padding: 5px 15px;
-  background-color: #fc8507;
+  background-color: #fff;
 
-  font-family: PTSans-Regular, Helvetica, Arial, sans-serif;
-  font-size: 14px;
+  font-family: bold, Helvetica, Arial, sans-serif;
+  font-size: 1rem;
   line-height: 32px;
-  color: #fff;
+  color: #1f5377;
 
   &__link {
-    color: #fff;
+    color: #1f5377;
     text-decoration: none;
     padding-left: 20px;
 
     &:hover {
-      opacity: .7;
+      color: #7F8F18;
     }
   }
 
@@ -39,7 +39,7 @@
     cursor: pointer;
 
     &:hover {
-      opacity: .7;
+      color: #7F8F18;
     }
 
     &:first-child {

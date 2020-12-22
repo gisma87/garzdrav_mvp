@@ -1,0 +1,48 @@
+.Logo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-family: bold, sans-serif;
+  max-height: 45px;
+  cursor: pointer;
+
+  &:hover {
+    .Logo__textContent {
+      border-bottom: 3px solid #95c11f;
+    }
+  }
+
+  &__img {
+    max-height: 55px;
+    max-width: 50px;
+    object-fit: contain;
+    margin-right: 5px;
+  }
+
+  &__textContent {
+    color: #fff;
+    border-bottom: 2px solid #95c11f;
+    display: flex;
+    align-items: center;
+    padding-bottom: 5px;
+  }
+
+  &__legko {
+    font-size: 3.5rem;
+    line-height: 50px;
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+    justify-content: space-between;
+    font-size: 1.5rem;
+    line-height: 18px;
+  }
+
+  &__internet {
+    font-size: 1.125rem;
+    line-height: 20px;
+  }
+}

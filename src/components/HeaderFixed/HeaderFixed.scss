@@ -1,62 +1,82 @@
 .HeaderFixed {
-  background: #fff;
+  background: #1f5377;
   min-height: 64px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
   padding: 0 15px;
-  font-family: PTSans-Regular, Helvetica, Arial, sans-serif;
+  font-family: bold, Helvetica, Arial, sans-serif;
   color: #fff;
   font-size: 15px;
   box-shadow: 0 10px 10px 0 rgba(0, 0, 0, .2);
+
+  &__leftBlock {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 350px;
+    width: 100%;
+  }
 
   &__catalog {
     position: relative;
   }
 
-  &__logo {
-    height: 50px;
-    width: 120px;
-    display: flex;
-    align-items: center;
-    background-size: contain;
-    justify-content: flex-start;
-    cursor: pointer;
-    //background-color: #747474;
-    background-image: url("../../img/evalar.png");
-    background-repeat: no-repeat;
-  }
+  //&__logo {
+  //  height: 50px;
+  //  width: 120px;
+  //  display: flex;
+  //  align-items: center;
+  //  background-size: contain;
+  //  justify-content: flex-start;
+  //  cursor: pointer;
+  //  //background-color: #747474;
+  //  background-image: url("../../img/logo/iconALsmall.png");
+  //  background-repeat: no-repeat;
+  //}
 
   &__rightblock {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     min-height: 50px;
     min-width: 300px;
     padding: 0 0 0 20px;
   }
 
-  &__cart img {
-    width: 28px;
-    height: 23px;
+  &__cartImgBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #95c11f;
+  }
+
+  &__cartImg {
+    transform: translateY(-2px);
+    max-width: 37px;
+    max-height: 25px;
+    object-fit: contain;
     display: block;
   }
 
   &__cart {
+    margin-left: 15px;
     background: #fff;
-    padding: 2px 50px 2px 15px;
+    border-radius: 25px;
+    padding: 3px 17px 3px 3px;
     display: flex;
     align-items: center;
   }
 
   &__cartCount {
-    background: #737373;
-    color: #fff;
-    padding: 4px 20px;
-    margin-left: 10px;
-    font-size: 16px;
-    border-radius: 20px;
-    line-height: normal;
+    font-family: bold, Helvetica, Arial, sans-serif;
+    color: #1f5377;
+    margin-left: 8px;
+    font-size: 1.7rem;
+    letter-spacing: -3px;
   }
 
   &__cartText {
@@ -97,4 +117,5 @@
 
 .HeaderFixed__wrapper {
   box-shadow: none;
+  justify-content: space-between;
 }

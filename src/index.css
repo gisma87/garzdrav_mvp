@@ -34,12 +34,6 @@ body {
 }
 
 @font-face {
-    font-family: 'Oswald-Regular';
-    src: url('./fonts/Oswald-Regular.ttf') format('truetype');
-
-}
-
-@font-face {
     font-family: 'PTSans-Regular';
     src: url('./fonts/PTSans-Regular.ttf') format('truetype');
     font-weight: 400;
@@ -54,13 +48,8 @@ body {
 }
 
 @font-face {
-    font-family: 'NotoSansJP-Regular';
-    src: url('./fonts/NotoSansJP-Regular.otf') format('opentype');
-}
-
-@font-face {
-    font-family: 'obliq';
-    src: url('./fonts/Evolventa Oblique.ttf') format('truetype');
+    font-family: 'regular';
+    src: url('./fonts/Evolventa.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
@@ -73,15 +62,15 @@ body {
 }
 
 @font-face {
-    font-family: 'obliqblack';
-    src: url('./fonts/Evolventa Oblique Bold.ttf') format('truetype');
+    font-family: 'obliq';
+    src: url('./fonts/Evolventa Oblique.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'regular';
-    src: url('./fonts/Evolventa.ttf') format('truetype');
+    font-family: 'obliqblack';
+    src: url('./fonts/Evolventa Oblique Bold.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }

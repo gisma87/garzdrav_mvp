@@ -2,13 +2,15 @@ import React, {useEffect, useState} from "react"
 import './HeaderFixed.scss'
 import {NavLink, withRouter} from "react-router-dom";
 import SearchPanel from "../SearchPanel";
-import iconCart from '../../img/cartmin.png'
+import iconCart from '../../img/icon/cartIconSmall.png'
 import ButtonTopScroll from "../UI/ButtonTopScroll";
 import {rewriteCart} from "../../actions";
 import {connect} from "react-redux";
 import PopupLogin from "../PopupLogin";
 import Burger from "../UI/Burger/Burger";
 import Catalog from "../Catalog/Catalog";
+import Logo from "../UI/Logo/Logo";
+import ButtonLogIn from "../UI/ButtonLogIn/ButtonLogIn";
 
 const HeaderFixed = (props) => {
   const count = props.cart.reduce((sum, item) => {
@@ -34,37 +36,37 @@ const HeaderFixed = (props) => {
   return (
     <div className={'HeaderFixed ' + (lastScrollY > 40 ? 'HeaderFixed--active' : '')}>
       <div className='wrapper HeaderFixed__wrapper'>
-        <div className='HeaderFixed__catalog'>
-          <Burger isActive={burgerActive} onClick={() => setBurgerActive(!burgerActive)}/>
-          {props.catalog && <Catalog isActive={burgerActive}
-                                     onClick={() => setBurgerActive(!burgerActive)}
-                                     data={props.catalog.child}
-          />}
-          {/*{props.catalog*/}
-          {/*&& <DropDownMenu data={props.catalog.child}*/}
-          {/*                 child='child'*/}
-          {/*                 isActive={burgerActive}*/}
-          {/*                 onClick={() => setBurgerActive(!burgerActive)}*/}
-          {/*/>}*/}
+        <div className='HeaderFixed__leftBlock'>
+          <div className='HeaderFixed__catalog'>
+            <Burger isActive={burgerActive} onClick={() => setBurgerActive(!burgerActive)}/>
+            {props.catalog && <Catalog isActive={burgerActive}
+                                       onClick={() => setBurgerActive(!burgerActive)}
+                                       data={props.catalog.child}
+            />}
+          </div>
+          <Logo/>
         </div>
 
-        <NavLink to="/" className='HeaderFixed__logo'/>
-
-        <SearchPanel/>
+        {/*<SearchPanel/>*/}
 
         <div className='HeaderFixed__rightblock'>
+
+          <ButtonLogIn
+            onClick={() => {
+              if (props.TOKEN) {
+                props.history.push('/profile/')
+                window.scroll(0, 0)
+              } else setPopup(true)
+            }}
+          >{props.TOKEN ? 'личный кабинет' : 'войти'}
+          </ButtonLogIn>
+
           <NavLink to="/cart/" className='HeaderFixed__cart'>
-            <img src={iconCart} alt="корзина"/>
-            {count !== 0 ? <span className='HeaderFixed__cartCount'>{count}</span> :
-              <span className='HeaderFixed__cartText'>Корзина</span>}
+            <div className='HeaderFixed__cartImgBox'>
+              <img src={iconCart} alt="корзина" className='HeaderFixed__cartImg'/>
+            </div>
+            <span className='HeaderFixed__cartCount'>{count}</span>
           </NavLink>
-          <button className='HeaderFixed__logIn' onClick={() => {
-            if (props.TOKEN) {
-              props.history.push('/profile/')
-              window.scroll(0, 0)
-            } else setPopup(true)
-          }}>{props.TOKEN ? 'Личный кабинет' : 'Войти'}
-          </button>
         </div>
       </div>
       {lastScrollY > 400 && <ButtonTopScroll/>}

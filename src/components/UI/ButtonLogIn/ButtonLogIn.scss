@@ -1,0 +1,33 @@
+.ButtonLogIn {
+  outline: none;
+  background: transparent;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  max-height: 50px;
+  cursor: pointer;
+
+  border-radius: 12px;
+  padding: 20px;
+
+  &:hover {
+    border: 1px solid #95c11f;
+  }
+
+  &:active {
+    transform: scale(.95);
+    transition: transform .1s;
+    border: 1px solid #95c11f;
+  }
+
+  &__img {
+    margin-right: 7px;
+    object-fit: contain;
+    max-height: 30px;
+  }
+
+  &__text {
+    font-size: 1.2rem;
+    border-bottom: 2px dotted #fff;
+  }
+}
