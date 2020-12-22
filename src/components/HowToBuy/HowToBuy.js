@@ -1,57 +1,36 @@
 import React from "react"
-import classes from "./HowToBuy.module.css"
-import imgPills from "../../img/pills.png"
-import imgStack from "../../img/Stack.png"
-import imgRoad from "../../img/road.png"
-import imgMan from "../../img/man.png"
-import arrowRightIcon from "../../img/arrow-right-solid.svg"
+import './HowToBuy.scss'
+import {Link} from "react-router-dom";
+import SvgArrowLightRight from "../../img/SVGcomponents/SvgArrowLightRight";
 
 const HowToBuy = () => {
   return (
-    <div className={classes.howtobuy} id='HowOrder'>
-      <div className='wrapper'>
-        <h2>как купить нужные лекарства на сайте</h2>
-        <div className={classes.blockbuy}>
-          <div className={classes.item}>
-            <div className={classes.icon}>
-              <img src={imgPills} alt='выберите лекарство'/>
-            </div>
-            <div className={classes.text}>
-              выберите лекарство
-            </div>
+    <div className='HowToBuy'>
+      <div className='HowToBuy__wrapper'>
+        <div className='HowToBuy__item'>
+          <p className='HowToBuy__number'>1</p>
+          <div className='HowToBuy__text'>
+            <p>Выберите</p>
+            <p>товар в поиске</p>
+            <p>или <Link className='HowToBuy__link' to='/'>каталоге</Link></p>
           </div>
-
-          <img className={classes.arrowRight} src={arrowRightIcon} alt=""/>
-
-          <div className={classes.item}>
-            <div className={classes.icon}>
-              <img src={imgStack} alt='добавьте в корзину'/>
-            </div>
-            <div className={classes.text}>
-              добавьте в корзину
-            </div>
+        </div>
+        <SvgArrowLightRight  className='HowToBuy__arrow'/>
+        <div className='HowToBuy__item'>
+          <p className='HowToBuy__number'>2</p>
+          <div className='HowToBuy__text'>
+            <p>Оформите</p>
+            <p>заказ в</p>
+            <p><Link className='HowToBuy__link' to='/'>удобную аптеку</Link></p>
           </div>
-
-          <img className={classes.arrowRight} src={arrowRightIcon} alt=""/>
-
-          <div className={classes.item}>
-            <div className={classes.icon}>
-              <img src={imgRoad} alt='выберите аптеку'/>
-            </div>
-            <div className={classes.text}>
-              выберите аптеку
-            </div>
-          </div>
-
-          <img className={classes.arrowRight} src={arrowRightIcon} alt=""/>
-
-          <div className={classes.item}>
-            <div className={classes.icon}>
-              <img src={imgMan} alt='получите лекарство'/>
-            </div>
-            <div className={classes.text}>
-              получите лекарство
-            </div>
+        </div>
+        <SvgArrowLightRight  className='HowToBuy__arrow'/>
+        <div className='HowToBuy__item'>
+          <p className='HowToBuy__number'>3</p>
+          <div className='HowToBuy__text'>
+            <p>Заберите</p>
+            <p>ваш заказ</p>
+            <p>через 30 минут</p>
           </div>
         </div>
       </div>

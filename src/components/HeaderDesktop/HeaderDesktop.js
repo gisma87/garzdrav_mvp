@@ -5,7 +5,7 @@ import HeaderFixed from "../HeaderFixed";
 import HeaderSearch from "../HeaderSearch/HeaderSearch";
 
 const HeaderDesktop = () => {
-  const headerDesktop = useRef({current: {clientHeight: 0}})
+  const headerDesktop = useRef({current: {clientHeight: 100}})
 
   return (
     <>

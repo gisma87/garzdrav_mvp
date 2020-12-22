@@ -8,6 +8,7 @@ import test1 from '../../img/slider/test1.jpg'
 import test2 from '../../img/slider/test2.jpg'
 import test3 from '../../img/slider/test3.jpg'
 import test4 from '../../img/slider/test4.jpg'
+import testPromo from '../../img/test/testPromojpg.jpg'
 
 const imgData = [
   {src: test1, color: '#f1adba'},
@@ -42,7 +43,9 @@ const Advertising = () => {
         </Swiper>
       </div>
 
-      <div className='Advertising__promo'> </div>
+      <div className='Advertising__promo'>
+        <img src={testPromo} alt="testPromo"/>
+      </div>
     </div>
 
   )
