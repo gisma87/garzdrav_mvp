@@ -1,6 +1,6 @@
 import React from "react";
 import './SearchForm.scss'
-import searchIcon from "../../../img/search-solid.svg";
+import SvgSearchIcon from "../../../img/SVGcomponents/SvgSearchIcon";
 
 const SearchForm = (props) => {
   return (
@@ -13,8 +13,8 @@ const SearchForm = (props) => {
         onChange={props.onChange}
         value={props.value}
       />
-      <button>
-        <img src={searchIcon} alt=""/>
+      <button className='SearchForm__button'>
+        <SvgSearchIcon className='SearchForm__icon' />
       </button>
     </form>
   )

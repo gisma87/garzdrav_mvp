@@ -3,7 +3,7 @@
   position: relative;
 
   & input {
-    border-radius: 8px;
+    border-radius: 25px;
     background: #eaeaea;
     width: 100%;
     display: flex;
@@ -11,7 +11,8 @@
     align-items: center;
     font-size: 16px;
     color: #333;
-    padding: 10px 20px;
+    min-height: 48px;
+    padding: 10px 10px 10px 70px;
     line-height: normal;
     outline: none;
     transition: background .3s;
@@ -22,13 +23,17 @@
     }
   }
 
-  & button {
+  &__button {
+    padding-left: 8px;
+    background: #1f5377;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
     position: absolute;
-    right: 15px;
+    left: 5px;
     top: 50%;
     transform: translateY(-50%);
     color: #737373;
-    background: transparent;
     border: none;
     font-size: 26px;
     outline: none;
@@ -43,8 +48,8 @@
     }
   }
 
-  &__iconSearch {
-    color: #8c8c8c;
-    font-size: 20px;
+  &__icon{
+    color: #fff;
+    font-size: 22px;
   }
 }
