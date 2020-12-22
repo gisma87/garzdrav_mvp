@@ -3,20 +3,24 @@
   flex-direction: row;
   justify-content: space-between;
   font-family: bold, sans-serif;
-  max-height: 45px;
+  max-height: 40px;
   cursor: pointer;
 
   &:hover {
     .Logo__textContent {
-      border-bottom: 3px solid #95c11f;
+      border-bottom: 4px solid #95c11f;
+      transform: translateY(1px);
     }
+
+    transform: translateY(1px);
+    transition: transform .1s;
   }
 
   &__img {
     max-height: 55px;
     max-width: 50px;
     object-fit: contain;
-    margin-right: 5px;
+    margin-right: 3px;
   }
 
   &__textContent {
@@ -28,7 +32,7 @@
   }
 
   &__legko {
-    font-size: 3.5rem;
+    font-size: 3.2rem;
     line-height: 50px;
   }
 
@@ -37,12 +41,12 @@
     flex-direction: column;
     margin-left: 10px;
     justify-content: space-between;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     line-height: 18px;
   }
 
   &__internet {
-    font-size: 1.125rem;
+    font-size: 1.05rem;
     line-height: 20px;
   }
 }

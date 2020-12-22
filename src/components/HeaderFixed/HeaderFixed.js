@@ -34,46 +34,49 @@ const HeaderFixed = (props) => {
   })
 
   return (
-    <div className={'HeaderFixed ' + (lastScrollY > 40 ? 'HeaderFixed--active' : '')}>
-      <div className='wrapper HeaderFixed__wrapper'>
-        <div className='HeaderFixed__leftBlock'>
-          <div className='HeaderFixed__catalog'>
-            <Burger isActive={burgerActive} onClick={() => setBurgerActive(!burgerActive)}/>
-            {props.catalog && <Catalog isActive={burgerActive}
-                                       onClick={() => setBurgerActive(!burgerActive)}
-                                       data={props.catalog.child}
-            />}
-          </div>
-          <Logo/>
-        </div>
-
-        {/*<SearchPanel/>*/}
-
-        <div className='HeaderFixed__rightblock'>
-
-          <ButtonLogIn
-            onClick={() => {
-              if (props.TOKEN) {
-                props.history.push('/profile/')
-                window.scroll(0, 0)
-              } else setPopup(true)
-            }}
-          >{props.TOKEN ? 'личный кабинет' : 'войти'}
-          </ButtonLogIn>
-
-          <NavLink to="/cart/" className='HeaderFixed__cart'>
-            <div className='HeaderFixed__cartImgBox'>
-              <img src={iconCart} alt="корзина" className='HeaderFixed__cartImg'/>
+    <>
+      <div className={'HeaderFixed ' + (lastScrollY > 33 ? 'HeaderFixed--active' : '')}>
+        <div className='wrapper HeaderFixed__wrapper'>
+          <div className='HeaderFixed__leftBlock'>
+            <div className='HeaderFixed__catalog'>
+              <Burger isActive={burgerActive} onClick={() => setBurgerActive(!burgerActive)}/>
+              {props.catalog && <Catalog isActive={burgerActive}
+                                         onClick={() => setBurgerActive(!burgerActive)}
+                                         data={props.catalog.child}
+              />}
             </div>
-            <span className='HeaderFixed__cartCount'>{count}</span>
-          </NavLink>
+            <Logo/>
+          </div>
+
+          {/*<SearchPanel/>*/}
+
+          <div className='HeaderFixed__rightblock'>
+
+            <ButtonLogIn
+              onClick={() => {
+                if (props.TOKEN) {
+                  props.history.push('/profile/')
+                  window.scroll(0, 0)
+                } else setPopup(true)
+              }}
+            >{props.TOKEN ? 'личный кабинет' : 'войти'}
+            </ButtonLogIn>
+
+            <NavLink to="/cart/" className='HeaderFixed__cart'>
+              <div className='HeaderFixed__cartImgBox'>
+                <img src={iconCart} alt="корзина" className='HeaderFixed__cartImg'/>
+              </div>
+              <span className='HeaderFixed__cartCount'>{count}</span>
+            </NavLink>
+          </div>
         </div>
+        {lastScrollY > 400 && <ButtonTopScroll/>}
+        <PopupLogin active={popup}
+                    onClick={() => setPopup(false)}
+        />
       </div>
-      {lastScrollY > 400 && <ButtonTopScroll/>}
-      <PopupLogin active={popup}
-                  onClick={() => setPopup(false)}
-      />
-    </div>
+      <div style={{width: '100%', height: 64, display: lastScrollY > 33 ? 'flex' : 'none'}}> </div>
+    </>
   )
 }
 

@@ -12,11 +12,11 @@
 
   &:hover {
     border: 1px solid #95c11f;
+    transform: translateX(1px);
   }
 
   &:active {
     transform: scale(.95);
-    transition: transform .1s;
     border: 1px solid #95c11f;
   }
 
@@ -27,7 +27,7 @@
   }
 
   &__text {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     border-bottom: 2px dotted #fff;
   }
 }
