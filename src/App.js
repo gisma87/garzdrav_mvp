@@ -31,7 +31,7 @@ function App(props) {
     <div className="App">
       <ScrollToTop/>
       <Loader classStyle={props.loading ? 'Loader_is-opened' : ''}/>
-      <HeaderDesktop onScroll={() => setHowToBuyScroll(true)}/>
+      <HeaderDesktop/>
       <Switch>
         <Route exact path="/"
                render={() => <IndexDesktop tag={howToBuyScroll} offScroll={() => setHowToBuyScroll(false)}/>}/>

@@ -22,9 +22,9 @@ const HeaderTop = (props) => {
             {isCity.title}</span>
 
           {isPopupLocation && <PopupLocation active={isPopupLocation}
-                          city={isCity.title}
-                          openPopupCities={() => setPopup(true)}
-                          closeThisPopup={props.onPopupLocation}
+                                             city={isCity.title}
+                                             openPopupCities={() => setPopup(true)}
+                                             closeThisPopup={props.onPopupLocation}
           />}
 
         </div>
@@ -33,25 +33,20 @@ const HeaderTop = (props) => {
             <Link className='HeaderTop__link' to="/address/">Аптеки</Link>
           </li>
           <li>
-            <Link className='HeaderTop__link' to='/'
-                  onClick={(event) => {
-                    event.preventDefault()
-                    history.push('/')
-                    props.onScroll()
-                    // window.scrollTo({
-                    //   top: 780,
-                    //   left: 0,
-                    //   behavior: 'smooth'
-                    // });
-                  }}
-            >Как сделать заказ</Link>
+            <Link className='HeaderTop__link' to='/'>Оформление заказа</Link>
           </li>
           <li>
-            <Link className='HeaderTop__link' to="/promotions/">Акции</Link>
+            <Link className='HeaderTop__link' to="/promotions/">Статус заказа</Link>
+          </li>
+          <li>
+            <Link className='HeaderTop__link' to="/promotions/">Бонусная карта</Link>
+          </li>
+          <li>
+            <Link className='HeaderTop__link' to="/ask-question/">Помощь</Link>
           </li>
         </ul>
-        <Link to='/ask-question/' className='HeaderTop__headItem HeaderTop__link'>Задать вопрос</Link>
       </div>
+
       <PopupCities active={popup}
                    isCity={isCity}
                    regions={regions}

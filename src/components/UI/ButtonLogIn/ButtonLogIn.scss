@@ -4,11 +4,11 @@
   color: #fff;
   display: flex;
   align-items: center;
-  max-height: 50px;
+  max-height: 41px;
   cursor: pointer;
 
   border-radius: 12px;
-  padding: 20px;
+  padding: 10px 15px;
 
   &:hover {
     border: 1px solid #95c11f;
@@ -23,11 +23,11 @@
   &__img {
     margin-right: 7px;
     object-fit: contain;
-    max-height: 30px;
+    max-height: 25px;
   }
 
   &__text {
-    font-size: 1.1rem;
+    font-size: 1rem;
     border-bottom: 2px dotted #fff;
   }
 }

@@ -12,28 +12,6 @@ class ApiService {
     return result.data
   }
 
-  // // поисковый запрос всех товаров по названию
-  // async getProductsFromSearch(productName, cityId) {
-  //   const res = await fetch(`${this.URL}/Products/byName?str=${productName}&cityGuid=${cityId}`,
-  //     {
-  //       method: 'GET',
-  //       headers: {
-  //         accept: 'application/json'
-  //       }
-  //     }
-  //   )
-  //   if (!res.ok) {
-  //     throw new Error(`Не могу выполнить fetch, статус ошибки: ${res.status}`)
-  //   }
-  //   return await res.json();
-  // }
-
-  // // поисковый запрос порционно с указанием количества элементов и страницы
-  // async getProductsFromSearchLimit(productName, cityId, quantity = 32, page = 1, order = 'TitleAscending') {
-  //   const res = await axios.get(`${this.URL}/Products/byName?str=${productName}&cityGuid=${cityId}&limit=${quantity}&page=${page}&order=${order}`)
-  //   return await res.data;
-  // }
-
   // запрос списка городов
   async getCities() {
     const result = await axios.get(`${this.URL}/Cities`)
@@ -75,9 +53,9 @@ class ApiService {
     return response.data
   }
 
-  // POST запрос TOKEN
+  // POST запрос TOKEN по паролю
   async authentication() {
-    const result = await axios.post(`${this.URL}/Authentication`,
+    const result = await axios.post(`${this.URL}/Authentication/password`,
       {
         headers: {
           'Content-Type': 'application/json'
@@ -137,12 +115,6 @@ class ApiService {
     console.log('grandNode', grandNode)
     return grandNode
   }
-
-  // // запрос товаров по категории
-  // async getProductToCategory(cityId, categoryId) {
-  //   const result = await axios.get(`${this.URL}/Products/byName?cityGuid=${cityId}&categoryGuid=${categoryId}`)
-  //   return result.data
-  // }
 
   // запрос списка покупок
   async getSales(TOKEN) {
@@ -272,3 +244,31 @@ export default apiService
 //   return response.data
 // }
 //=====================================================================================
+
+// // поисковый запрос всех товаров по названию
+// async getProductsFromSearch(productName, cityId) {
+//   const res = await fetch(`${this.URL}/Products/byName?str=${productName}&cityGuid=${cityId}`,
+//     {
+//       method: 'GET',
+//       headers: {
+//         accept: 'application/json'
+//       }
+//     }
+//   )
+//   if (!res.ok) {
+//     throw new Error(`Не могу выполнить fetch, статус ошибки: ${res.status}`)
+//   }
+//   return await res.json();
+// }
+
+// // поисковый запрос порционно с указанием количества элементов и страницы
+// async getProductsFromSearchLimit(productName, cityId, quantity = 32, page = 1, order = 'TitleAscending') {
+//   const res = await axios.get(`${this.URL}/Products/byName?str=${productName}&cityGuid=${cityId}&limit=${quantity}&page=${page}&order=${order}`)
+//   return await res.data;
+// }
+
+// // запрос товаров по категории
+// async getProductToCategory(cityId, categoryId) {
+//   const result = await axios.get(`${this.URL}/Products/byName?cityGuid=${cityId}&categoryGuid=${categoryId}`)
+//   return result.data
+// }

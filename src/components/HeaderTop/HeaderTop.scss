@@ -1,7 +1,7 @@
 .HeaderTop {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
 
   height: 33px;
   min-height: 33px;
@@ -29,7 +29,9 @@
     flex: 1 1;
     list-style-type: none;
     display: flex;
+    justify-content: space-between;
     color: #fff;
+    max-width: 710px;
   }
 
   &__headItem {
@@ -43,7 +45,6 @@
     }
 
     &:first-child {
-      margin-right: 100px;
       width: 170px;
       position: relative;
 

@@ -1,16 +1,29 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import './HeaderDesktop.scss'
 import HeaderTop from "../HeaderTop";
 import HeaderFixed from "../HeaderFixed";
 import HeaderSearch from "../HeaderSearch/HeaderSearch";
 
-const HeaderDesktop = (props) => {
+const HeaderDesktop = () => {
+  const headerDesktop = useRef({current: {clientHeight: 0}})
+
   return (
-    <header className='HeaderDesktop'>
-      <HeaderTop onScroll={props.onScroll}/>
-      <HeaderFixed/>
-      <HeaderSearch/>
-    </header>
+    <>
+      <header ref={headerDesktop} className='HeaderDesktop'>
+        <HeaderTop/>
+        <HeaderFixed/>
+        <HeaderSearch/>
+      </header>
+
+      <div
+        style={{
+          width: '100%',
+          display: 'flex',
+          height: headerDesktop.current?.clientHeight,
+          marginBottom: 15
+        }}>
+      </div>
+    </>
   )
 }
 
