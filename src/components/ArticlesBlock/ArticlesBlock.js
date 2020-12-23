@@ -1,7 +1,13 @@
 import React from "react";
 import './ArticlesBlock.scss'
-import TitleSection from "../UI/TitleSection/TitleSection";
+import SwiperCore, {Navigation, Pagination} from "swiper";
+import {Swiper, SwiperSlide} from 'swiper/react';
+import 'swiper/swiper.scss'
+import 'swiper/components/navigation/navigation.scss'
+import 'swiper/components/pagination/pagination.scss'
 import ArticleCard from "../ArticleCard";
+import SvgArrowLightRight from "../../img/SVGcomponents/SvgArrowLightRight";
+
 
 const articleCardData = [
   {
@@ -26,15 +32,66 @@ const articleCardData = [
   }
 ]
 
-const ArticlesBlock = (props) => {
+const ArticlesBlock = props => {
+
+  SwiperCore.use([Navigation, Pagination])
 
   return (
-    <div className='ArticlesBlock wrapper'>
-      <TitleSection size={props.sizeTitle} title='Статьи' link="/articles/"/>
-      <div className='ArticlesBlock__container'>
-        {articleCardData.map((card, index) => <ArticleCard key={index} item={card}/>)}
+    <div className="ArticlesBlock">
+      <div className='wrapper'>
+        <div className="prev slideButton">
+          <SvgArrowLightRight/>
+        </div>
+
+        <div className="next slideButton">
+          <SvgArrowLightRight/>
+        </div>
+
+        <h3 className='ArticlesBlock__title'>Быть здоровым легко</h3>
+        <div style={{maxWidth: 1150, margin: '0 auto'}}>
+          <Swiper
+            style={{padding: '10px 0'}}
+            spaceBetween={5}
+            slidesPerView={'auto'}
+            tag="section" wrapperTag="ul"
+            loop={'false'}
+            navigation={
+              {
+                nextEl: '.next',
+                prevEl: '.prev'
+              }
+            }
+          >
+            {
+              articleCardData.map((card, index) => {
+                return <ArticleCard key={index} item={card}/>
+              }).map((item, index) => {
+                return (
+                  <SwiperSlide tag="li" key={index} style={{listStyleType: 'none'}}>
+                    {item}
+                  </SwiperSlide>
+                )
+              })
+            }
+
+          </Swiper>
+        </div>
+
+
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          width: '100%',
+          padding: '0 0 15px'
+        }}>
+          <button className='ArticlesBlock__button'>
+            все полезные советы
+          </button>
+        </div>
       </div>
     </div>
+
   )
 }
 

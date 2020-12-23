@@ -110,14 +110,15 @@ const CatalogPage = props => {
           && props.productsToCategory.map((item) => {
             const {guid, product, manufacturer, img = null, minPrice} = item;
             const itemIndex = props.cart.findIndex((item) => item.itemId === guid);
-            const isActive = itemIndex >= 0;
+            const isBuy = itemIndex >= 0;
+            const count = isBuy ? props.cart[itemIndex].count : 0
             return (
               isMobile
                 ? <CardItemMobile onItemSelected={onItemSelected}
                                   updateToCart={() => {
-                                    !isActive ? props.addedToCart(guid) : props.itemRemovedFromCart(guid);
+                                    !isBuy ? props.addedToCart(guid) : props.itemRemovedFromCart(guid);
                                   }}
-                                  active={isActive}
+                                  active={isBuy}
                                   key={guid}
                                   id={guid}
                                   title={product}
@@ -125,10 +126,10 @@ const CatalogPage = props => {
                                   img={img}
                                   minPrice={minPrice}/>
                 : <CardItem onItemSelected={onItemSelected}
-                            updateToCart={() => {
-                              !isActive ? props.addedToCart(guid) : props.itemRemovedFromCart(guid);
-                            }}
-                            active={isActive}
+                            onIncrement={() => props.addedToCart(guid)}
+                            onDecrement={() => props.itemRemovedFromCart(guid)}
+                            isBuy={isBuy}
+                            count={count}
                             key={guid}
                             id={guid}
                             title={product}

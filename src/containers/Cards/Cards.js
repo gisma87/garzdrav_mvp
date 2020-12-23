@@ -106,14 +106,15 @@ const Cards = props => {
                 ? productsFromSearch.map((item) => {
                   const {guid, product, manufacturer, img = null, minPrice} = item;
                   const itemIndex = cart.findIndex((item) => item.itemId === guid);
-                  const isActive = itemIndex >= 0;
+                  const isBuy = itemIndex >= 0;
+                  const count = isBuy ? props.cart[itemIndex].count : 0
                   return (
                     isMobile
                       ? <CardItemMobile onItemSelected={onItemSelected}
                                         updateToCart={() => {
-                                          !isActive ? addedToCart(guid) : itemRemovedFromCart(guid);
+                                          !isBuy ? addedToCart(guid) : itemRemovedFromCart(guid);
                                         }}
-                                        active={isActive}
+                                        active={isBuy}
                                         key={guid}
                                         id={guid}
                                         title={product}
@@ -121,10 +122,10 @@ const Cards = props => {
                                         img={img}
                                         minPrice={minPrice}/>
                       : <CardItem onItemSelected={onItemSelected}
-                                  updateToCart={() => {
-                                    !isActive ? addedToCart(guid) : itemRemovedFromCart(guid);
-                                  }}
-                                  active={isActive}
+                                  onIncrement={() => addedToCart(guid)}
+                                  onDecrement={() => itemRemovedFromCart(guid)}
+                                  isBuy={isBuy}
+                                  count={count}
                                   key={guid}
                                   id={guid}
                                   title={product}
@@ -133,7 +134,8 @@ const Cards = props => {
                                   minPrice={minPrice}/>
                   )
                 })
-                : <>{(touchedSearch || !isMobile) && <p>По вашему запросу ничего не найдено. Попробуйте изменить запрос.</p>}</>
+                : <>{(touchedSearch || !isMobile) &&
+                <p>По вашему запросу ничего не найдено. Попробуйте изменить запрос.</p>}</>
               }
             </div>
 

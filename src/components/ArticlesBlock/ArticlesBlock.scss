@@ -1,22 +1,83 @@
 .ArticlesBlock {
-  padding: 0 0 30px;
-  @media (max-width: 800px) {
-    padding: 0 0 30px;
+  font-family: bold, Helvetica, Arial, sans-serif;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  width: 100%;
+  padding: 20px 0;
+
+  &__title {
+    color: #1f5377;
+    font-size: 2rem;
+    margin-bottom: 15px;
+    cursor: default;
   }
 
+  &__button {
+    font-size: 20px;
+    font-weight: 700;
+    margin-top: 15px;
+    padding: 0 20px;
+    height: 45px;
+    color: #1f5377;
+    outline: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    border: 1px solid #1f5377;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: color .2s, box-shadow .2s;
 
-  &__container {
-    justify-content: center;
-    width: 100%;
-    display: grid;
-    grid-auto-flow: row dense;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    grid-gap: 15px;
-    margin: 0 auto;
-
-    @media (max-width: 800px) {
-      padding-top: 10px;
-      //grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    &:hover {
+      transition: all .1s;
+      color: #95c11f;
+      box-shadow: 2px 5px 7px 0 rgba(0, 0, 0, 0.16);
     }
+
+    &:active {
+      transform: scale(.97);
+      box-shadow: 1px 2px 2px 0 rgba(0, 0, 0, 0.16);
+    }
+  }
+
+  & .slideButton {
+    font-size: 40px;
+    color: #1f5377;
+    position: absolute;
+    top: calc(50% - 40px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    transition: color .3s;
+    cursor: pointer;
+
+    &:hover {
+      color: #95c11f;
+      transition: color .3s;
+    }
+  }
+
+  & .next {
+    right: 0;
+    transform: rotate(180deg);
+  }
+
+  & .prev {
+    left: 0;
+  }
+
+  & .swiper-container {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  & .swiper-slide {
+    width: 283.75px;
+    height: 100%;
   }
 }
