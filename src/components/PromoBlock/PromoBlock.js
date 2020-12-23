@@ -22,7 +22,7 @@ class PromoBlock extends React.Component {
   }
 
   onItemSelected = (itemId, event) => {
-    if (!event.target.closest('button')) this.props.history.push(`Cards/${itemId}`);
+    if (!event.target.closest('.CardItem__button')) this.props.history.push(`Cards/${itemId}`);
   }
 
 
@@ -61,12 +61,13 @@ class PromoBlock extends React.Component {
               dataCatds.map((item) => {
                 const {id, title, maker, img, minPrice} = item;
                 const itemIndex = this.props.cart.findIndex((item) => item.itemId === id);
-                const isActive = itemIndex >= 0;
+                const isBuy = itemIndex >= 0;
+                const count = isBuy ? this.props.cart[itemIndex].count : 0
                 return <CardItem onItemSelected={this.onItemSelected}
-                                 updateToCart={() => {
-                                   !isActive ? this.props.addedToCart(id) : this.props.itemRemovedFromCart(id)
-                                 }}
-                                 active={isActive}
+                                 onIncrement={() => this.props.addedToCart(id)}
+                                 onDecrement={() => this.props.itemRemovedFromCart(id)}
+                                 isBuy={isBuy}
+                                 count={count}
                                  key={id}
                                  id={id}
                                  title={title}
@@ -84,7 +85,13 @@ class PromoBlock extends React.Component {
 
           </Swiper>
 
-          <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', padding: '0 0 15px'}}>
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: '100%',
+            padding: '0 0 15px'
+          }}>
             <button className='PromoBlock__button'>
               все акционные товары
             </button>

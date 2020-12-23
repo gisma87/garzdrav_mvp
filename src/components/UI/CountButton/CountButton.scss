@@ -1,0 +1,36 @@
+.CountButton {
+  font-family: Helvetica, Arial, sans-serif;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  &__decrement, &__increment {
+    outline: none;
+    font-size: 26px;
+    font-weight: 700;
+    color: #fff;
+    background: #1f5377;
+    width: 32px;
+    height: 32px;
+    border-radius: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    span {
+      transform: translate(0px,-2px);
+    }
+
+    &:active {
+      transform: scale(.95);
+    }
+  }
+
+  &__count {
+    color: #1f5377;
+    padding: 0 6px;
+    font-weight: bold;
+    font-size: 1.1rem;
+  }
+}

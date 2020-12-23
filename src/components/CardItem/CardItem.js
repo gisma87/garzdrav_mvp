@@ -1,10 +1,22 @@
 import React from "react";
 import './CardItem.scss'
-import SvgIconCart from "../UI/icons/SvgIconCart";
-import SvgCheck from "../UI/icons/SvgCheck";
 import notPhoto from '../../img/notPhoto.svg'
+import SvgCartIcon from "../../img/SVGcomponents/SvgCartIcon";
+import CountButton from "../UI/CountButton/CountButton";
 
-const CardItem = ({active, id, title, maker, img, minPrice, classStyle = '', onItemSelected, updateToCart}) => {
+const CardItem = props => {
+
+  const {
+    isBuy,
+    id,
+    title,
+    maker,
+    count = 0,
+    img,
+    minPrice,
+    classStyle = '',
+    onItemSelected,
+  } = props
 
   return (
     <div className={'CardItem ' + classStyle}
@@ -20,14 +32,23 @@ const CardItem = ({active, id, title, maker, img, minPrice, classStyle = '', onI
           <h4 className='CardItem__maker'>{maker}</h4>
         </div>
         <div className='CardItem__price'>
-          <p>от <span className='CardItem__priceNumber'>{minPrice}</span> р.</p>
-          <button className={'CardItem__cart buttonActive ' + (active ? 'CardItem__cart_visible' : '')}
-                  onClick={() => {
-                    // setActive(state => !state)
-                    updateToCart()
-                  }}>
-            {active ? <SvgCheck style={{color: 'green'}}/> : <SvgIconCart style={{fontSize: 24}}/>}
-          </button>
+          <p>от <span className='CardItem__priceNumber'>{minPrice} ₽</span></p>
+
+
+          <div className='CardItem__button'>
+            {
+              isBuy
+                ? <CountButton
+                  count={count}
+                  onIncrement={props.onIncrement}
+                  onDecrement={props.onDecrement}
+                />
+                : <button className='CardItem__cart' onClick={props.onIncrement}>
+                  <SvgCartIcon style={{fontSize: 28, color: '#fff'}}/>
+                </button>
+            }
+          </div>
+
         </div>
       </div>
     </div>
