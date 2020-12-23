@@ -1,12 +1,42 @@
 .FooterDesktop {
-  background: #737373;
-  padding: 30px 0;
+  background: #1f5377;
+  padding: 20px 0;
   display: flex;
   flex-direction: column;
-  font-family: PTSans-Regular, Helvetica, Arial, sans-serif;
+  font-family: regular, Helvetica, Arial, sans-serif;
 
   @media (max-width: 800px) {
     padding: 10px 0;
+  }
+
+  &__iconContainer {
+    display: flex;
+    align-items: center;
+
+    &:first-child {
+      margin-bottom: 15px;
+    }
+  }
+
+  &__icon {
+    width: 40px;
+    height: 40px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+
+  &__iconVK {
+    color: #1f5377;
+    font-size: 26px;
+  }
+
+  &__listItem {
+    margin-bottom: 3px;
+    font-size: 1.1rem;
   }
 
 
@@ -35,33 +65,41 @@
     }
   }
 
-  &__infoGrid {
+  &__infoContainer {
     width: 100%;
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
     margin: 0 auto;
 
     p {
-      font-size: 14px;
-      color: #F5F5F5;
-      margin: 10px;
+      font-size: 1rem;
+      line-height: 1.2rem;
+      color: #6c8ea6;
     }
   }
 
   &__infoItem {
-    flex: 0 1 33%;
     min-width: 300px;
-  }
 
-  &__copyright {
-    text-align: right;
-    flex: 1 0 20%
+    a {
+      color: #6c8ea6;
+      line-height: 1.5rem;
+      border-bottom: 1px solid #6c8ea6;
+
+      &:hover {
+        color: #cdffcc;
+        transform: scale(1.015);
+        transition: all .2s;
+        text-shadow: 1px 1px #000;
+      }
+    }
   }
 
   &__row {
     display: flex;
     justify-content: space-between;
-    padding: 20px 0;
+    padding: 0 0 20px;
     //border-top: 1px solid #fc8507;
     @media (max-width: 970px) {
       flex-wrap: wrap;
@@ -111,10 +149,12 @@
   }
 
   h6 {
-    font-family: PTSans-Bold, Helvetica, Arial, sans-serif;
+    font-family: bold, Helvetica, Arial, sans-serif;
+    font-weight: bold;
     color: #fff;
-    font-size: 20px;
-    margin-bottom: 5px;
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+    cursor: default;
   }
 
   ul {

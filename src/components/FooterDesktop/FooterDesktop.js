@@ -1,7 +1,8 @@
 import React from "react"
 import './FooterDesktop.scss'
-import logof from "../../img/logof.png";
 import {NavLink} from "react-router-dom";
+import SvgVkIcon from "../../img/SVGcomponents/SvgVkIcon";
+import SvgInstaIcon from "../../img/SVGcomponents/SvgInstaIcon";
 
 class FooterDesktop extends React.Component {
 
@@ -10,38 +11,47 @@ class FooterDesktop extends React.Component {
       <footer className='FooterDesktop'>
         <div className='FooterDesktop__row'>
           <div className='wrapper FooterDesktop__wrapperTop'>
-            <NavLink to="/" className='FooterDesktop__logo'><img src={logof} alt="logo"/></NavLink>
             <div>
-              <h6>о компании</h6>
+              <h6>О нас</h6>
               <ul>
-                <li><NavLink to="/company/">о нас</NavLink></li>
-                <li><NavLink to="/cities/">адреса аптек</NavLink></li>
+                <li className='FooterDesktop__listItem'><NavLink to="/company/">о компании</NavLink></li>
+                <li className='FooterDesktop__listItem'><NavLink to="/">Контакты</NavLink></li>
+                <li className='FooterDesktop__listItem'><NavLink to="/ask-question/">Обратная связь</NavLink></li>
+                <li className='FooterDesktop__listItem'><NavLink to="/">Размещение рекламы</NavLink></li>
               </ul>
             </div>
             <div>
-              <h6>помощь</h6>
+              <h6>Помощь</h6>
               <ul>
-                <li><NavLink to="/faq/">вопрос-ответ</NavLink></li>
-                <li><NavLink to="/ask-question/">задать вопрос</NavLink></li>
+                <li className='FooterDesktop__listItem'><NavLink to="/">Оформление заказа</NavLink></li>
+                <li className='FooterDesktop__listItem'><NavLink to="/">Статус заказа</NavLink></li>
+                <li className='FooterDesktop__listItem'><NavLink to="/cities/">Адреса аптек</NavLink></li>
+                <li className='FooterDesktop__listItem'><NavLink to="/faq/">Популярные вопросы</NavLink></li>
               </ul>
             </div>
             <div>
-              <h6>сервис</h6>
               <ul>
-                <li><NavLink to="/promotions/">акции</NavLink></li>
-                <li><NavLink to="/articles/">статьи</NavLink></li>
-                <li><NavLink to="/confidentiality/">политика конфиденциальности</NavLink></li>
+                <li className='FooterDesktop__iconContainer'>
+                  <div className='FooterDesktop__icon'><SvgVkIcon className='FooterDesktop__iconVK'/></div>
+                  <NavLink to="/">Мы Вконтакте</NavLink>
+                </li>
+                <li className='FooterDesktop__iconContainer'>
+                  <div className='FooterDesktop__icon'><SvgInstaIcon className='FooterDesktop__iconVK'/></div>
+                  <NavLink to="/">Мы Инстаграм</NavLink>
+                </li>
               </ul>
             </div>
           </div>
         </div>
         <div className='FooterDesktop__bottomContainer FooterDesktop__bottomContainer_lineStyle'>
-          <div className='wrapper FooterDesktop__wrapperBottom FooterDesktop__infoGrid'>
+          <div className='wrapper FooterDesktop__wrapperBottom FooterDesktop__infoContainer'>
+            <p className='FooterDesktop__copyright'>© «Аптекалегко.ру»</p>
             <p className='FooterDesktop__infoItem'>
-              Любая информация, размещенная на сайте, не является публичной офертой
+              <NavLink to="/confidentiality/">Политика конфиденциальности и обработки персональных данных</NavLink>
             </p>
-            {/*<p className='FooterDesktop__infoItem'></p>*/}
-            <p className='FooterDesktop__copyright'>© 2020 Гарздрав.ру</p>
+            <p className='FooterDesktop__infoItem'>
+              <NavLink to="/confidentiality/">Пользовательское соглашение</NavLink>
+            </p>
           </div>
         </div>
       </footer>

@@ -1,8 +1,8 @@
 import React from "react";
 import './CardItem.scss'
-import notPhoto from '../../img/notPhoto.svg'
 import SvgCartIcon from "../../img/SVGcomponents/SvgCartIcon";
 import CountButton from "../UI/CountButton/CountButton";
+import SvgPillsIcon from "../../img/SVGcomponents/SvgPillsIcon";
 
 const CardItem = props => {
 
@@ -22,9 +22,11 @@ const CardItem = props => {
     <div className={'CardItem ' + classStyle}
          onClick={(event) => onItemSelected(id, event)}>
       <div className='CardItem__imageContainer'>
-        {img
-          ? <img className='CardItem__image' src={img} alt="icon"/>
-          : <img className='CardItem__image' src={notPhoto} alt="notPhoto"/>}
+        {
+          img
+            ? <img className='CardItem__image' src={img} alt="icon"/>
+            : <SvgPillsIcon style={{fontSize: 150, color: '#bbcbd6'}}/>
+        }
       </div>
       <div className='CardItem__textContainer'>
         <div className='CardItem__containerInfo'>

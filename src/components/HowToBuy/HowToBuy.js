@@ -12,19 +12,19 @@ const HowToBuy = () => {
           <div className='HowToBuy__text'>
             <p>Выберите</p>
             <p>товар в поиске</p>
-            <p>или <Link className='HowToBuy__link' to='/'>каталоге</Link></p>
+            <p>или <Link className='HowToBuy__link' to='/catalog/'>каталоге</Link></p>
           </div>
         </div>
-        <SvgArrowLightRight  className='HowToBuy__arrow'/>
+        <SvgArrowLightRight className='HowToBuy__arrow'/>
         <div className='HowToBuy__item'>
           <p className='HowToBuy__number'>2</p>
           <div className='HowToBuy__text'>
             <p>Оформите</p>
             <p>заказ в</p>
-            <p><Link className='HowToBuy__link' to='/'>удобную аптеку</Link></p>
+            <p><Link className='HowToBuy__link' to="/cities/">удобную аптеку</Link></p>
           </div>
         </div>
-        <SvgArrowLightRight  className='HowToBuy__arrow'/>
+        <SvgArrowLightRight className='HowToBuy__arrow'/>
         <div className='HowToBuy__item'>
           <p className='HowToBuy__number'>3</p>
           <div className='HowToBuy__text'>

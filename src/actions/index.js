@@ -467,6 +467,13 @@ function logout() {
   }
 }
 
+function setActiveCategory(categoryItem) {
+  return {
+    type: 'SET_ACTIVE_CATEGORY',
+    payload: categoryItem
+  }
+}
+
 const setCatalog = () => async (dispatch, getState, apiService) => {
   dispatch(loadingTrue('setCatalog'))
   try {
@@ -475,15 +482,9 @@ const setCatalog = () => async (dispatch, getState, apiService) => {
       type: 'SET_CATALOG',
       payload: response
     })
+    dispatch(setActiveCategory(response))
   } catch (e) {
     dispatch(setError(e))
-  }
-}
-
-function setActiveCategory(categoryItem) {
-  return {
-    type: 'SET_ACTIVE_CATEGORY',
-    payload: categoryItem
   }
 }
 
