@@ -42,7 +42,6 @@ class PromoBlock extends React.Component {
         <div className='wrapper'>
           <ButtonSectionForSlider
             items={[{title: 'Акции'}, {title: 'Сезонное предложение'}, {title: 'Популярные товары'}]}
-
           />
           <Swiper
             style={{padding: '10px 0'}}
@@ -84,6 +83,12 @@ class PromoBlock extends React.Component {
             }
 
           </Swiper>
+
+          <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', padding: '0 0 15px'}}>
+            <button className='PromoBlock__button'>
+              все акционные товары
+            </button>
+          </div>
         </div>
       </div>
     )

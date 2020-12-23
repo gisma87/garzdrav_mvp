@@ -23,8 +23,10 @@
 }
 
 .PopupLocation {
+  font-family: PTSans-Regular, Helvetica, Arial, sans-serif;
   position: absolute;
-  top: 100%;
+  top: 43px;
+  left: 0;
   z-index: 4;
   width: 240px;
   border: 1px solid #d9d9d9;
@@ -46,6 +48,10 @@
     border-color: transparent transparent #fff;
   }
 
+  p {
+    margin-bottom: 5px;
+  }
+
   &__active {
     //visibility: visible;
     transition: all .3s;
@@ -55,7 +61,7 @@
   }
 
   &__locationIcon {
-    margin: 0 5px;
+    margin: 0 5px 0 7px;
     width: 10px;
   }
 
