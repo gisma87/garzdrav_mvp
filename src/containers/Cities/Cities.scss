@@ -16,6 +16,7 @@
     transform: scale(1);
   }
 }
+
 @keyframes textColorWhite {
   0% {
     color: #000;
@@ -37,14 +38,14 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  padding: 0;
+  padding: 0 15px;
 
   h1 {
     margin-top: 0;
     font-weight: bold;
     line-height: 1.5em;
     font-size: 24px;
-    color: #4e4e4e;
+    color: #1f5377;
     @media (max-width: 1250px) {
       padding-left: 20px;
     }
@@ -52,9 +53,55 @@
 
   &__mainContainer {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     width: 100%;
     height: 100%;
+  }
+
+  &__menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    color: #fff;
+  }
+
+  &__buttonContainer {
+
+  }
+
+  &__startContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__menuButton {
+    cursor: pointer;
+    outline: none;
+    font-weight: bold;
+    background: #fff;
+    color: #1f5377;
+    padding: 8px 15px;
+    border: 1px solid #1f5377;
+    border-radius: 15px;
+    justify-content: center;
+    margin-right: 20px;
+
+    &_notMargin {
+      margin: 0;
+    }
+  }
+
+  &__menuButtonActive {
+    background: #1f5377;
+    color: #fff;
+  }
+
+  &__dropdownCities {
+    color: #1f5377;
+    font-size: 1.1rem;
   }
 
   &__textClock {
@@ -74,66 +121,112 @@
     color: #000;
   }
 
-  &__acitveItem {
-    background-color: #FFF9E5;
-    transform: scale(1.05);
-    border: 1px solid #E26C2D;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
-
-    animation-name: colorAlert;
-    animation-duration: 1s;
-    animation-fill-mode: both;
-
-    span {
-      animation-name: textColorWhite;
-      animation-duration: 1s;
-      animation-fill-mode: none;
-    }
-  }
-
   &__mapContainer {
     flex: 1 1;
-    min-height: 550px;
+    min-height: 650px;
     display: block;
     border: 3px solid #bce072;
     overflow: hidden;
-    border-radius: 0 20px 20px 0;
-    //margin: 0 0 20px 0;
+    border-radius: 15px;
   }
 
   &__retails {
-    min-width: 300px;
-    flex: 0 1;
-    max-height: calc(100vh - 174px);
-    overflow-y: auto;
+    flex: 1 0;
+    padding: 40px 0;
+
+    ul {
+      display: flex;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+
+      li {
+        flex: 0 1 33%
+      }
+
+    }
   }
 
   &__retailItem {
+    border-radius: 15px;
     display: flex;
     flex-direction: column;
     list-style-type: none;
-    border-bottom: 2px solid #b8b8b8;
-    padding: 10px 5px 7px 10px;
+    padding: 10px;
     cursor: pointer;
-
-    &:hover {
-      background: #eaeaea;
-      transform: scale(1.02);
-      transition: all .2s;
-    }
 
     span {
       margin: 3px 0;
     }
 
-    &:nth-child(2n) {
-      border-bottom: 1px solid #E26C2D;
+    &:hover:not(.Cities__acitveItem) {
+      background: rgba(31, 83, 119, .1);
     }
+  }
 
-    @media (max-width: 950px) {
+  &__acitveItem {
+    background-color: #FFF9E5;
+    transform: scale(1.04);
+    transition: transform .2s;
+    border: 1px solid #E26C2D;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
 
+    &.Cities__retailItemList {
+      transform: scale(1.02);
     }
+  }
 
+  &__itemAddress, &__textClock {
+    font-size: .95rem;
+  }
+
+  &__itemTitle {
+    color: #1f5377;
+    font-weight: bold;
+    font-size: 1.1rem;
+  }
+
+  &__lineDecor {
+    height: 2px;
+    width: 120px;
+    background: #95c11f;
+  }
+
+  &__retailItemList {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    border-top: 2px solid #95c11f;
+    padding: 0 10px;
+
+    &:hover {
+      background-color: #FFF9E5;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+    }
+  }
+
+  &__blockAddress {
+    display: flex;
+    flex-direction: column;
+
+    span {
+      margin: 2px 0;
+    }
+  }
+
+  &__blockItem {
+    padding: 10px 0;
+    flex: 0 1 33%;
+    display: flex;
+    align-items: center;
+  }
+
+  .Cities__blockAddress.Cities__blockItem {
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  &__listButtonContainer {
+    justify-content: flex-end;
   }
 }
 

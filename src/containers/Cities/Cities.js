@@ -1,15 +1,9 @@
 import React, {useEffect, useState} from "react"
 import {YMaps, Map, Placemark, Clusterer, GeolocationControl, SearchControl} from "react-yandex-maps";
-import iconLoc from '../../img/test/map-pin.svg'
-import iconGZ from '../../img/iconmap/gz.png'
-import iconDA from '../../img/iconmap/da.png'
-import iconBS from '../../img/iconmap/bs.png'
-import iconOP from '../../img/iconmap/op.png'
-import iconEV from '../../img/iconmap/evalar.png'
+import iconLegko from '../../img/icon/legkoIconSmall.png'
 import './Cities.scss'
 import {fetchRetailsCity} from "../../actions";
 import {connect} from "react-redux";
-import BlockWrapper from "../../components/BlockWrapper";
 
 const Cities = props => {
 
@@ -17,6 +11,7 @@ const Cities = props => {
   const [zoom, setZoom] = useState(11)
   const [activeMarker, setActiveMarker] = useState(null)
   const {isCity, retailsCity} = props;
+  const [activeButton, setActiveButton] = useState(0)
 
   const popup = ({title, address, clock, tel}) => `
   <div>
@@ -33,27 +28,8 @@ const Cities = props => {
       properties: {
         balloonContentBody: popup(popupInfo),
         hintContent: `${popupInfo.title}`,
-        // balloonContent: 'Гармония здоровья',
-        iconCaption: '157р.'
       },
       modules: ['geoObject.addon.balloon', 'geoObject.addon.hint']
-    }
-  }
-
-  function setIcon(type) {
-    switch (type) {
-      case 'Гармония Здоровья':
-        return iconGZ;
-      case 'Дешёвая Аптека':
-        return iconDA;
-      case 'Эвалар':
-        return iconEV;
-      case 'Очень Оптика':
-        return iconOP;
-      case 'ВСЕМ (В7)':
-        return iconBS;
-      default:
-        return iconLoc;
     }
   }
 
@@ -86,92 +62,154 @@ const Cities = props => {
   return (
     <div className='Cities wrapper'>
       <h1>Аптеки в городе {isCity.title}</h1>
-      {retailsCity.length === 0
-        ? <p>ЧТО-ТО ПОШЛО НЕ ТАК. ПОПРОБУЙТЕ ПЕРЕЗАГРУЗИТЬ СТРАНИЦУ</p>
-        : <div className='Cities__mainContainer'>
-
-          <BlockWrapper classStyle='Cities__retails'>
-            <ul>
-              {
-                props.retailsCity.map((item) => {
-                  const clockArr = item.weekDayTime.match(/\d\d:\d\d/g) || []
-                  let clock = ''
-                  if (clockArr.length > 1) {
-                    clock = clockArr.join(' - ')
-                  }
-
-                  return <li
-                    className={'Cities__retailItem' + (item.guid === activeMarker ? ' Cities__acitveItem' : '')}
-                    key={item.guid}
-                    onClick={() => {
-                      setPoint(item.coordinates)
-                      setZoom(17)
-                      setActiveMarker(null)
+      {
+        retailsCity.length === 0
+          ? <p>ЧТО-ТО ПОШЛО НЕ ТАК. ПОПРОБУЙТЕ ПЕРЕЗАГРУЗИТЬ СТРАНИЦУ</p>
+          : <div className='Cities__mainContainer'>
+            <div className='Cities__menu'>
+              <div className='Cities__buttonContainer'>
+                <button className={'Cities__menuButton ' + (activeButton === 0 ? 'Cities__menuButtonActive' : '')}
+                        onClick={() => setActiveButton(0)}
+                >Показать на карте
+                </button>
+                <button className={'Cities__menuButton ' + (activeButton === 1 ? 'Cities__menuButtonActive' : '')}
+                        onClick={() => setActiveButton(1)}
+                >Показать списком
+                </button>
+              </div>
+              <div className='Cities__dropdownCities'>Город: {isCity.title}</div>
+            </div>
+            <div className='Cities__startContainer' style={activeButton === 0 ? {display: 'flex'} : {display: 'none'}}>
+              <YMaps>
+                <Map className='Cities__mapContainer'
+                     state={mapState}
+                     modules={['control.ZoomControl', 'control.FullscreenControl', "templateLayoutFactory", "layout.ImageWithContent"]}
+                >
+                  <Clusterer
+                    options={{
+                      preset: 'islands#nightClusterIcons',
+                      groupByCoordinates: false,
+                      minClusterSize: 2
                     }}
                   >
-                    <span className='Cities__itemTitle'>{item.brand}</span>
-                    <span className='Cities__itemAddress'>{item.street} {item.buildNumber}</span>
-                    <span className='Cities__textClock'>Часы работы:&nbsp;{clock}</span>
-                    <span className='Cities__textClock'>Тел.:&nbsp;{item.phone}</span>
-                  </li>
-                })
-              }
-            </ul>
-          </BlockWrapper>
+                    {
+                      props.retailsCity.map((item) => {
+                        const {coordinates, guid, brand, city, street, buildNumber, phone} = item
+                        const clockArr = item.weekDayTime.match(/\d\d:\d\d/g) || []
+                        let clock = ''
+                        if (clockArr.length > 1) {
+                          clock = clockArr.join(' - ')
+                        }
+                        const popup = {
+                          title: brand,
+                          address: `г. ${city},  ${street} ${buildNumber}`,
+                          clock,
+                          tel: phone
+                        }
 
-          <YMaps>
-            <Map className='Cities__mapContainer'
-                 state={mapState}
-                 modules={['control.ZoomControl', 'control.FullscreenControl', "templateLayoutFactory", "layout.ImageWithContent"]}
-            >
-              <Clusterer
-                options={{
-                  preset: 'islands#invertedVioletClusterIcons',
-                  groupByCoordinates: false,
-                  minClusterSize: 2
-                }}
-              >
+                        return <Placemark key={guid}
+                                          onClick={() => onItemClick(guid)}
+                                          {...placeMark(popup)}
+                                          geometry={coordinates}
+                                          options={{
+                                            // iconLayout: 'default#imageWithContent',
+                                            iconLayout: 'default#image',
+                                            iconImageHref: iconLegko,
+                                            iconImageSize: [45, 61],
+                                            iconImageOffset: [-22, -61],
+                                          }}
+                        />
+                      })
+                    }
+                  </Clusterer>
+                  <GeolocationControl options={{float: 'left'}}/>
+                  <SearchControl options={{float: 'right'}}/>
+                </Map>
+              </YMaps>
+
+              <div className='Cities__retails'>
+                <ul>
+                  {
+                    props.retailsCity.map((item) => {
+                      const clockArr = item.weekDayTime.match(/\d\d:\d\d/g) || []
+                      let clock = ''
+                      if (clockArr.length > 1) {
+                        clock = clockArr.join(' - ')
+                      }
+                      return <li
+                        className={'Cities__retailItem' + (item.guid === activeMarker ? ' Cities__acitveItem' : '')}
+                        key={item.guid}
+                        onClick={() => {
+                          setPoint(item.coordinates)
+                          setZoom(18)
+                          setActiveMarker(item.guid)
+                        }}
+                      >
+                        <span className='Cities__itemTitle'>{item.brand}</span>
+                        <span className='Cities__lineDecor'> </span>
+                        <span className='Cities__itemAddress'><b>Адрес:</b> {item.street} {item.buildNumber}</span>
+                        <span className='Cities__textClock'><b>Часы работы:</b>&nbsp;{clock}</span>
+                        <span className='Cities__textClock'><b>Контактный телефон:</b>&nbsp;{item.phone}</span>
+                      </li>
+                    })
+                  }
+                </ul>
+              </div>
+            </div>
+            <div className='Cities__startContainer' style={activeButton === 1 ? {display: 'flex'} : {display: 'none'}}>
+              <ul>
                 {
                   props.retailsCity.map((item) => {
-                    const {coordinates, guid, brand, city, street, buildNumber, phone} = item
                     const clockArr = item.weekDayTime.match(/\d\d:\d\d/g) || []
                     let clock = ''
                     if (clockArr.length > 1) {
                       clock = clockArr.join(' - ')
                     }
-                    const popup = {
-                      title: brand,
-                      address: `г. ${city},  ${street} ${buildNumber}`,
-                      clock,
-                      tel: phone
-                    }
-
-                    return <Placemark key={guid}
-                                      onClick={() => onItemClick(guid)}
-                                      {...placeMark(popup)}
-                                      geometry={coordinates}
-                                      options={{
-                                        // iconLayout: 'default#imageWithContent',
-                                        iconLayout: 'default#image',
-                                        iconImageHref: setIcon(brand),
-                                        iconImageSize: [45, 61],
-                                        iconImageOffset: [-22, -61],
-                                      }}
-                    />
+                    return <li
+                      className={'Cities__retailItemList' + (item.guid === activeMarker ? ' Cities__acitveItem' : '')}
+                      key={item.guid}
+                      onClick={() => {
+                        setPoint(item.coordinates)
+                        setZoom(18)
+                        setActiveMarker(item.guid)
+                      }}
+                    >
+                      <div className='Cities__blockItem'>
+                        <span className='Cities__itemTitle'>{item.brand}</span>
+                      </div>
+                      <div className='Cities__blockAddress Cities__blockItem'>
+                        <span className='Cities__itemAddress'><b>Адрес:</b> {item.street} {item.buildNumber}</span>
+                        <span className='Cities__textClock'><b>Часы работы:</b>&nbsp;{clock}</span>
+                        <span className='Cities__textClock'><b>Контактный телефон:</b>&nbsp;{item.phone}</span>
+                      </div>
+                      <div className='Cities__blockItem Cities__listButtonContainer'>
+                        <button className='Cities__menuButton Cities__menuButton_notMargin' onClick={() => {
+                          setActiveButton(0)
+                          window.scrollTo({
+                            top: 0,
+                            left: 0,
+                            behavior: 'smooth'
+                          });
+                        }}>
+                          показать на карте
+                        </button>
+                      </div>
+                    </li>
                   })
                 }
-              </Clusterer>
-              <GeolocationControl options={{float: 'left'}}/>
-              <SearchControl options={{float: 'right'}}/>
-            </Map>
-          </YMaps>
-
-        </div>}
+              </ul>
+            </div>
+          </div>
+      }
     </div>
   )
 }
 
-const mapStateToProps = ({cities, isCity, retailsCity}) => {
+const mapStateToProps = (
+  {
+    cities, isCity, retailsCity
+  }
+) => {
   return {cities, isCity, retailsCity}
 }
 
