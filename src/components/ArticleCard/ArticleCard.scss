@@ -1,11 +1,14 @@
 .ArticleCard {
+  font-family: regular, Helvetica, Arial, sans-serif;
+  color: #1f5377;
   display: flex;
   flex-direction: column;
   width: 100%;
   max-width: 290px;
   align-items: center;
-  padding: 1px 20px 12px;
-  border-radius: 6px;
+  padding: 10px;
+  border: 1px solid #1f5377;
+  border-radius: 15px;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.16);
   background-color: #fff;
   margin: 0 auto;
@@ -29,9 +32,10 @@
   }
 
   &__image {
+    border-radius: 15px;
     height: 166px;
     max-width: 100%;
-    width: auto;
+    width: 100%;
     object-fit: cover;
     @media (max-width: 800px) {
       flex: 0 1 30%;
@@ -42,7 +46,7 @@
   }
 
   &__content {
-    padding: 12px 0;
+    padding: 10px;
     min-height: 145px;
     text-align: left;
     @media (max-width: 800px) {
@@ -54,9 +58,9 @@
 
   &__title {
     font-family: PTSans-Bold, Helvetica, Arial, sans-serif;
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 700;
-    color: #4a4a4a;
+    color: #000;
 
     overflow: hidden;
     white-space: normal;
@@ -71,15 +75,15 @@
 
   &__description {
     font-family: PTSans-Regular, Helvetica, Arial, sans-serif;
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: normal;
-    color: #777;
+    color: #000;
     overflow: hidden;
     white-space: normal;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 5;
+    -webkit-line-clamp: 4;
     @media (max-width: 800px) {
       -webkit-line-clamp: 3;
     }
@@ -87,8 +91,9 @@
 
   &__date {
     margin-top: auto;
-    color: #777;
+    color: #1f5377;
     align-self: flex-start;
+    padding: 0 10px;
     @media (max-width: 800px) {
       padding: 0 0 5px 5px;
       flex-basis: 100%;
