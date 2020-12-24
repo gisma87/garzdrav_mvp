@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import './SortCards.scss'
 import SvgAngleUpSolid from "../../img/SVGcomponents/SvgAngleUpSolid";
 
@@ -6,6 +6,19 @@ const SortCards = props => {
 
   const [dropdownShow, setDropdownShow] = useState(false)
   const [method, setMethod] = useState(props.items[0].text)
+
+  useEffect(() => {
+    function close(e) {
+      if (!e.target.closest('.SortCards')) {
+        setDropdownShow(false)
+      }
+      document.removeEventListener('click', close)
+    }
+
+    if (dropdownShow) {
+      document.addEventListener('click', close)
+    }
+  })
 
   return (
     <div className={"SortCards " + (dropdownShow ? 'SortCards_active' : '')}>

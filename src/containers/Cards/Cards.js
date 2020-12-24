@@ -87,17 +87,30 @@ const Cards = props => {
 
             </>
           }
-          {(touchedSearch || !isMobile) && <h1 className='Cards__title'>Результаты поиска</h1>}
-          {productsFromSearch.length > 0 && <SortCards items={[
-            {id: 0, text: 'По популярности'},
-            {id: 'TitleAscending', text: '🠗 По наименованию А - Я'},
-            {id: 'TitleDescending', text: '🠕 По наименованию Я - А'},
-            {id: 'PriceAscending', text: '🠗 Сначала дешевые'},
-            {id: 'PriceDescending', text: '🠕 Сначала дорогие'}
-          ]}
-                                                       selectItem={(idMethod) => sortCards(idMethod)}
+          {(touchedSearch || !isMobile) && props.productSearch &&
+          <h1 className='Cards__title'>Результаты поиска «{props.productSearch.toLowerCase()}»</h1>}
 
-          />}
+          {
+            productsFromSearch.length > 0
+            &&
+            <div className='Cards__topPanel'>
+              <p>Найдено {countProductsSearch} препаратов</p>
+              <div className='Cards__topPanel-right'>
+                <p>Сортировать: </p>
+                <SortCards selectItem={(idMethod) => sortCards(idMethod)}
+                           items={[
+                             {id: 0, text: 'По популярности'},
+                             {id: 'TitleAscending', text: '🠗 По наименованию А - Я'},
+                             {id: 'TitleDescending', text: '🠕 По наименованию Я - А'},
+                             {id: 'PriceAscending', text: '🠗 Сначала дешевые'},
+                             {id: 'PriceDescending', text: '🠕 Сначала дорогие'}
+                           ]}
+                />
+              </div>
+
+            </div>
+          }
+
           <div className='Cards__mainContainer'>
 
             <div className='Cards__cardList'>
@@ -135,7 +148,11 @@ const Cards = props => {
                   )
                 })
                 : <>{(touchedSearch || !isMobile) &&
-                <p>По вашему запросу ничего не найдено. Попробуйте изменить запрос.</p>}</>
+                <div style={{fontSize: '1.3rem'}}>
+                  <p>По вашему запросу ничего не найдено.</p>
+                  <p>Попробуйте изменить запрос.</p>
+                </div>
+                }</>
               }
             </div>
 
@@ -179,67 +196,3 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Cards))
-
-
-// useEffect(() => {
-//   sortCards() // eslint-disable-next-line
-// }, [productsFromSearch])
-
-// const sortCards = (method) => {
-//   const arr = [...productsFromSearch]
-//
-//   const minToMax = () => arr.sort((a, b) => a.minPrice > b.minPrice ? 1 : -1)
-//   const maxToMin = () => arr.sort((a, b) => a.minPrice < b.minPrice ? 1 : -1)
-//
-//   switch (method) {
-//     case 2:
-//       minToMax()
-//       setArraySort(arr)
-//       goToPage(1, arr)
-//       return arr
-//
-//     case 3:
-//       maxToMin()
-//       setArraySort(arr)
-//       goToPage(1, arr)
-//       return arr
-//
-//     case 4:
-//       arr.sort()
-//       setArraySort(arr)
-//       goToPage(1, arr)
-//       return arr
-//
-//     default:
-//       setArraySort(arr)
-//       goToPage(1, arr)
-//       return arr
-//   }
-// }
-
-// const onPageChanged = (data, arrSortPrevState) => {
-//   const allCards = arrSortPrevState ? arrSortPrevState : (arraySort ? arraySort : productsFromSearch) // массив всех карточек
-//   const {currentPage, pageLimitItems} = data;
-//   const offset = (currentPage - 1) * pageLimitItems;
-//   const currentCardsData = allCards.slice(offset, offset + pageLimitItems);
-//
-//   setCurrentCards(currentCardsData)
-// }
-
-// function goToPage(page = 1, arrSortPrevState) {
-//
-//   const pageLimitItems = 32 // количество карточек на странице
-//   const totalRecords = countProductsSearch
-//   const totalPages = Math.ceil(totalRecords / pageLimitItems); // общее количество страниц
-//   const curPage = Math.max(0, Math.min(page, totalPages)); // текущая страница
-//
-//   const paginationData = {
-//     currentPage: curPage, // текущая страница
-//     totalPages, // общее количество страниц
-//     pageLimitItems, // количество карточек на странице
-//     totalRecords
-//   }
-//
-//   setCurrentPage(curPage)
-//   onPageChanged(paginationData, arrSortPrevState)
-// }

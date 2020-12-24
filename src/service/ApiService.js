@@ -128,7 +128,7 @@ class ApiService {
     return response.data
   }
 
-  // POST запрос сформированный заказ
+  // POST запрос сформированный заказ (отправка заказа)
   async sendOrder(order, TOKEN) {
     const response = await axios({
       method: 'post',

@@ -1,7 +1,9 @@
 .Cards {
+  font-family: Evolventa, PTSans-Regular, Arial, sans-serif;
   display: flex;
   flex-direction: column;
-  padding: 0 20px 30px;
+  padding: 15px 20px 30px;
+  color: #1f5377;
 
   @media (max-width: 800px) {
     padding: 0 0 65px;
@@ -63,13 +65,29 @@
 
   &__title {
     font-weight: 700;
-    font-size: 24px;
-    margin: 0 0 30px 0;
-    text-transform: uppercase;
+    font-size: 1.6rem;
+    margin: 0 0 7px 0;
 
     @media (max-width: 800px) {
       padding: 5px 20px 0;
       margin: 0 0 15px 0;
+    }
+  }
+
+  &__topPanel {
+    font-size: 1.1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+  }
+
+  &__topPanel-right {
+    display: flex;
+    align-items: center;
+
+    p {
+      margin-right: 7px;
     }
   }
 
