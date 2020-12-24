@@ -3,11 +3,33 @@ import './FooterDesktop.scss'
 import {NavLink} from "react-router-dom";
 import SvgVkIcon from "../../img/SVGcomponents/SvgVkIcon";
 import SvgInstaIcon from "../../img/SVGcomponents/SvgInstaIcon";
+import SvgEmail from "../../img/SVGcomponents/SvgEmail";
 
-class FooterDesktop extends React.Component {
+const FooterDesktop = () => {
 
-  render() {
-    return (
+  return (
+    <>
+      <div className='SubscriptionPanel'>
+        <div className='SubscriptionPanel__content'>
+          <div className='SubscriptionPanel__text'>
+            <p>Подпишитесь и получайте</p>
+            <p>лучшие предложения!</p>
+          </div>
+
+          <div className='SubscriptionPanel__formContainer'>
+            <form className='SubscriptionPanel__form' onSubmit={(e) => {
+              e.preventDefault()
+              console.log(e.target.elements.email.value)
+            }}>
+              <input name='email' type="email" placeholder='e-mail'/>
+              <button className='SubscriptionPanel__button'>
+                <SvgEmail className='SubscriptionPanel__icon'/>
+              </button>
+            </form>
+          </div>
+
+        </div>
+      </div>
       <footer className='FooterDesktop'>
         <div className='FooterDesktop__row'>
           <div className='wrapper FooterDesktop__wrapperTop'>
@@ -55,8 +77,8 @@ class FooterDesktop extends React.Component {
           </div>
         </div>
       </footer>
-    )
-  }
+    </>
+  )
 }
 
 export default FooterDesktop

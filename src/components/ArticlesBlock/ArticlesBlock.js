@@ -38,7 +38,7 @@ const ArticlesBlock = props => {
 
   return (
     <div className="ArticlesBlock">
-      <div className='wrapper'>
+      <div className='wrapper' style={{padding: '0 45px'}}>
         <div className="prev slideButton">
           <SvgArrowLightRight/>
         </div>
@@ -48,7 +48,6 @@ const ArticlesBlock = props => {
         </div>
 
         <h3 className='ArticlesBlock__title'>Быть здоровым легко</h3>
-        <div style={{maxWidth: 1150, margin: '0 auto'}}>
           <Swiper
             style={{padding: '10px 0'}}
             spaceBetween={5}
@@ -75,9 +74,6 @@ const ArticlesBlock = props => {
             }
 
           </Swiper>
-        </div>
-
-
         <div style={{
           display: 'flex',
           justifyContent: 'center',

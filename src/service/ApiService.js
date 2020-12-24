@@ -187,17 +187,15 @@ class ApiService {
     return await res.data;
   }
 
-  // TODO отмена заказа ==================================================================
+  // отмена заказа
   async cancelOrder(orderGuid, TOKEN) {
-    const response = await axios.delete(`${this.URL}/Orders?orderGuid=${orderGuid}`,
+    return await axios.delete(`${this.URL}/Orders?orderGuid=${orderGuid}`,
       {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${TOKEN}`
         }
       })
-
-    return response
   }
 }
 
