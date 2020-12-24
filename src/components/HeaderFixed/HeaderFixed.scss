@@ -4,7 +4,8 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  font-family: bold, Helvetica, Arial, sans-serif;
+  font-family: Evolventa, Helvetica, Arial, sans-serif;
+  font-weight: bold;
   color: #fff;
   font-size: 15px;
   box-shadow: 0 10px 10px 0 rgba(0, 0, 0, .2);
@@ -72,7 +73,8 @@
 
   &__cartCount {
     transform: translateY(1px);
-    font-family: bold, Helvetica, Arial, sans-serif;
+    font-family: Evolventa, Helvetica, Arial, sans-serif;
+    font-weight: bold;
     color: #1f5377;
     margin-left: 8px;
     font-size: 1.6rem;

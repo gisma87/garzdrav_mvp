@@ -85,7 +85,7 @@ const Cities = props => {
 
   return (
     <div className='Cities wrapper'>
-      <h1>Аптеки в г. {isCity.title}</h1>
+      <h1>Аптеки в городе {isCity.title}</h1>
       {retailsCity.length === 0
         ? <p>ЧТО-ТО ПОШЛО НЕ ТАК. ПОПРОБУЙТЕ ПЕРЕЗАГРУЗИТЬ СТРАНИЦУ</p>
         : <div className='Cities__mainContainer'>

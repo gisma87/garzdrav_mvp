@@ -32,7 +32,7 @@
 }
 
 .Cities {
-  font-family: PTSans-Regular, Helvetica, Arial, sans-serif;
+  font-family: Evolventa, Helvetica, Arial, sans-serif;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -41,9 +41,9 @@
 
   h1 {
     margin-top: 0;
+    font-weight: bold;
     line-height: 1.5em;
     font-size: 24px;
-    font-weight: 700;
     color: #4e4e4e;
     @media (max-width: 1250px) {
       padding-left: 20px;

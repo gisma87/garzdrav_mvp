@@ -17,6 +17,7 @@
         transform: translateX(0);
     }
 }
+
 @keyframes scaleOn {
     0% {
         opacity: 0;
@@ -58,6 +59,20 @@ body {
     font-family: 'bold';
     src: url('./fonts/Evolventa Bold.ttf') format('truetype');
     font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Evolventa';
+    src: url('./fonts/Evolventa.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Evolventa';
+    src: url('./fonts/Evolventa Bold.ttf') format('truetype');
+    font-weight: bold;
     font-style: normal;
 }
 
