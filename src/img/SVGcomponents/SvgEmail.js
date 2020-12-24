@@ -3,12 +3,8 @@ import * as React from "react";
 function SvgEmail(props) {
   return (
     <svg
-      aria-hidden="true"
-      data-prefix="far"
-      data-icon="at"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 512 512"
-      className="email_svg__svg-inline--fa email_svg__fa-at email_svg__fa-w-16 email_svg__fa-9x"
       width="1em"
       height="1em"
       {...props}

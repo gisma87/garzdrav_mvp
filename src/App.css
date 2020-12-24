@@ -33,8 +33,8 @@ a:hover, a:active {
 
 
 body {
-    font-family: PTSans-Regular, Helvetica, Arial, sans-serif;
-    background-color: #f6f6f6;
+    font-family: Evolventa, Helvetica, Arial, sans-serif;
+    /*background-color: #f6f6f6;*/
 }
 
 .swiper-button-prev, .swiper-button-next {

@@ -4,6 +4,9 @@ import Advertising from "../../components/Advertising/Advertising";
 import HowToBuy from "../../components/HowToBuy/HowToBuy";
 import PromoBlock from "../../components/PromoBlock";
 import ArticlesBlock from "../../components/ArticlesBlock";
+import PromoBlock2 from "../../components/PromoBlock2/PromoBlock2";
+import BrandsBlock from "../../components/BrandsBlock/BrandsBlock";
+import LegkoBlock from "../../components/LegkoBlock/LegkoBlock";
 
 const IndexDesktop = props => {
   const howToBuyElement = useRef(null)
@@ -22,6 +25,9 @@ const IndexDesktop = props => {
       <Advertising/>
       <PromoBlock/>
       <div ref={howToBuyElement} style={{width: '100%'}}><HowToBuy/></div>
+      <PromoBlock2 style={{marginTop: 20}}/>
+      <BrandsBlock/>
+      <LegkoBlock/>
       <ArticlesBlock/>
     </div>
   )
