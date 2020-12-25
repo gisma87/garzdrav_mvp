@@ -1,10 +1,10 @@
 import React from "react"
-import './Burger.css'
+import './Burger.scss'
 
 const Burger = props => {
 
   return (
-    <div className='burger' onClick={props.onClick}>
+    <div className={'burger ' + (props.style === 'dark' ? 'burger__dark' : '')} onClick={props.onClick}>
       <div className={'burger__span' + (props.isActive ? ' active' : '')}>
         <span/>
       </div>

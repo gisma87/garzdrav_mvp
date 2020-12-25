@@ -18,7 +18,7 @@ const Catalog = props => {
       <div className={'Catalog' + (props.isActive ? ' Catalog__active' : '')}>
         <div className="Catalog__header">
           <p> </p>
-          <Burger isActive={props.isActive} onClick={props.onClick}/>
+          <Burger isActive={props.isActive} onClick={props.onClick} style='dark'/>
         </div>
 
         <div className="Catalog__container">

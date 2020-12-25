@@ -1,0 +1,70 @@
+@import "../../../variables";
+
+.burger {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 15px 0 0;
+  cursor: pointer;
+
+  &__span {
+    display: block;
+    position: relative;
+    width: 25px;
+    height: 18px;
+    z-index: 3;
+
+    &:before, &:after {
+      content: '';
+      background-color: #fff;
+      position: absolute;
+      width: 100%;
+      height: 3px;
+      left: 0;
+      transition: all 0.3s ease 0s;
+      transform: scale(1.01);
+    }
+
+    &:before {
+      top: 0;
+    }
+
+    &:after {
+      bottom: 0;
+    }
+
+    span {
+      position: absolute;
+      background-color: #fff;;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      top: 8px;
+      transition: all 0.3s ease 0s;
+    }
+  }
+
+  &__span.active span {
+    transform: scale(0);
+  }
+
+  &__span.active:before {
+    transform: rotate(45deg) translate(-1px, -1px);
+    top: 8px;
+  }
+
+  &__span.active:after {
+    transform: rotate(-45deg);
+    bottom: 8px;
+  }
+
+  &__dark {
+    .burger__span {
+      &:before, &:after, span {
+        background-color: $primary-color;
+      }
+    }
+  }
+
+}

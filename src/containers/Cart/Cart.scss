@@ -12,6 +12,12 @@
     align-items: center;
   }
 
+  &__topPanel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
   h1 {
     margin-top: 0;
     @media (max-width: 800px) {
@@ -229,12 +235,12 @@
   }
 
   &__clearBtn {
-    margin: 30px auto 10px;
-    border-radius: 15px;
+    font-size: 1rem;
+    cursor: pointer;
 
     &:hover {
-      background-image: linear-gradient(to bottom, #E52B50, #FF2400);
-      font-weight: bold;
+      border-bottom: 1px dotted $primary-color;
+      color: blue;
     }
   }
 

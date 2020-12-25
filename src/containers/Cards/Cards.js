@@ -107,7 +107,6 @@ const Cards = props => {
                            ]}
                 />
               </div>
-
             </div>
           }
 

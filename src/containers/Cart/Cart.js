@@ -99,7 +99,13 @@ class Cart extends React.Component {
 
     return (
       <div className='Cart wrapper'>
-        <h1>Корзина</h1>
+        <div className='Cart__topPanel'>
+          <h1>Корзина</h1>
+          {
+            this.props.cart.length > 0 &&
+            <p className='Cart__clearBtn' onClick={this.props.clearCart}>Очистить корзину</p>
+          }
+        </div>
         <ErrorBoundary>
           {this.props.error ? this.clearCartError()
             : <>
@@ -180,10 +186,6 @@ class Cart extends React.Component {
                           Купить
                         </button>
                       </div>
-                      <button onClick={this.props.clearCart}
-                              className='Cart__button Cart__buttonMap Cart__clearBtn'
-                      >Очистить корзину
-                      </button>
                     </div>
                     }
                   </section>

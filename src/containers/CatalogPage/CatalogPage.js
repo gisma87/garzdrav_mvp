@@ -93,16 +93,24 @@ const CatalogPage = props => {
         </ul>
       </>}
 
-      {props.productsToCategory.length > 0 && <SortCards items={[
-        {id: 0, text: 'По популярности'},
-        {id: 'TitleAscending', text: '🠗 По наименованию А - Я'},
-        {id: 'TitleDescending', text: '🠕 По наименованию Я - А'},
-        {id: 'PriceAscending', text: '🠗 Сначала дешевые'},
-        {id: 'PriceDescending', text: '🠕 Сначала дорогие'}
-      ]}
-                                                         selectItem={(idMethod) => sortCards(idMethod)}
+      {props.productsToCategory.length > 0 &&
+      <div className='CatalogPage__topPanel'>
+        <p>В категории {props.countProductsCategory} препаратов</p>
+        <div className='CatalogPage__topPanel-right'>
+          <p>Сортировать: </p>
+          <SortCards selectItem={(idMethod) => sortCards(idMethod)}
+                     items={[
+                       {id: 0, text: 'По популярности'},
+                       {id: 'TitleAscending', text: '🠗 По наименованию А - Я'},
+                       {id: 'TitleDescending', text: '🠕 По наименованию Я - А'},
+                       {id: 'PriceAscending', text: '🠗 Сначала дешевые'},
+                       {id: 'PriceDescending', text: '🠕 Сначала дорогие'}
+                     ]}
+          />
+        </div>
+      </div>
 
-      />}
+      }
 
       <div className="CatalogPage__cardList">
         {
