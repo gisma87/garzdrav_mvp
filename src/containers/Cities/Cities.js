@@ -60,6 +60,22 @@ const Cities = props => {
     window.scrollTo(0, 0)
   }
 
+  const worksNow = () => {
+    if (props.retailsCity?.length > 0 && activeMarker) {
+      const activeRetail = props.retailsCity.find(el => el.guid === activeMarker)
+      const clockArr = activeRetail.weekDayTime.match(/\d\d:\d\d/g) || []
+      const hours = new Date().getHours()
+      const minutes = new Date().getMinutes()
+      const timeNow = `${hours}:${minutes}`
+      // const timeNow = '18:01'
+
+      if (clockArr.length) {
+        return ((clockArr[0] < timeNow) && (timeNow < clockArr[1]))
+      }
+    }
+    return null
+  }
+
   const arrayCitiesForDropdown = () => props.cities.map(el => ({id: el.guid, value: el.title}))
 
   return (
@@ -80,6 +96,11 @@ const Cities = props => {
                 >Показать списком
                 </button>
               </div>
+              {
+                worksNow()
+                  ? <p className='Cities__worksNow'>Работает сейчас</p>
+                  : <>{activeMarker && <p className='Cities__worksNow' style={{color: 'red'}}>Закрыто</p>}</>
+              }
               <div className='Cities__dropdownCities'>
                 <p>Город:</p>
                 {
@@ -222,14 +243,16 @@ const Cities = props => {
 }
 
 const mapStateToProps = (
-  {
-    cities, isCity, retailsCity
-  }
-) => {
+{
+  cities, isCity, retailsCity
+}
+) =>
+{
   return {cities, isCity, retailsCity}
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) =>
+{
   return {
     fetchRetailsCity: () => dispatch(fetchRetailsCity()),
     setIsCity: (item) => dispatch(setIsCity(item)),

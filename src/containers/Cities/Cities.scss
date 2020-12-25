@@ -112,6 +112,11 @@
     }
   }
 
+  &__worksNow {
+    color: $primary-color;
+    font-size: 1.1rem;
+  }
+
   &__textClock {
     white-space: nowrap;
     font-size: 14px;
