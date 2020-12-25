@@ -4,7 +4,7 @@ import PopupWrapper from "../UI/PopupWrapper/PopupWrapper";
 
 const PopupOrder = props => {
 
-  const [formValid, setFormValid] = useState(false)
+  const [formValid, setFormValid] = useState(props.isLogin)
   const [buy, setBuy] = useState(false)
   const [showDescription, setShowDescription] = useState(false)
 
@@ -21,7 +21,7 @@ const PopupOrder = props => {
 
   const getTitleCity = () => {
     const retail = props.retails.find(item => item.guid === props.checked)
-    return retail.city
+    return retail?.city
   }
 
   return (
@@ -86,25 +86,28 @@ const PopupOrder = props => {
           </div>
         }
 
-        <div className='PopupOrder__inputLabel'>
-          <label htmlFor="PopupOrder-contact">
-            <fieldset>
-              <legend>Введите телефон</legend>
-              <input
-                onChange={props.onChangeInput}
-                type="text"
-                name="PopupOrder-contact"
-                className="PopupOrder__input PopupOrder__input_type_name"
-                placeholder="8-XXX-XXX-XXXX"
-                required
-                minLength="6"
-                maxLength="30"
-                id="PopupOrder-contact"
-              />
-              <span id="error-PopupOrder-contact" className="popup__error-message"/>
-            </fieldset>
-          </label>
-        </div>
+        {
+          !props.isLogin &&
+          <div className='PopupOrder__inputLabel'>
+            <label htmlFor="PopupOrder-contact">
+              <fieldset>
+                <legend>Введите телефон</legend>
+                <input
+                  onChange={props.onChangeInput}
+                  type="text"
+                  name="PopupOrder-contact"
+                  className="PopupOrder__input PopupOrder__input_type_name"
+                  placeholder="8-XXX-XXX-XXXX"
+                  required
+                  minLength="6"
+                  maxLength="30"
+                  id="PopupOrder-contact"
+                />
+                <span id="error-PopupOrder-contact" className="popup__error-message"/>
+              </fieldset>
+            </label>
+          </div>
+        }
 
         <div className='PopupOrder__buttonContainer'>
           <button type='submit'

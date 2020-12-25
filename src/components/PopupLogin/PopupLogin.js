@@ -4,11 +4,13 @@ import PopupWrapper from "../UI/PopupWrapper/PopupWrapper";
 import InputMask from 'react-input-mask'
 import {connect} from "react-redux";
 import {authentication, fetchUserData, refreshAuthentication} from "../../actions";
+import apiService from "../../service/ApiService";
 
 const PopupLogin = props => {
 
   const [formValid, setFormValid] = useState(false)
   const [phone, setPhone] = useState('')
+  const [smsCode, setSmsCode] = useState('')
 
   function validate(event) {
     const value = event.target.value.trim()
@@ -98,7 +100,7 @@ const PopupLogin = props => {
             Войти
           </button>
           <button disabled={!formValid}
-                  onClick={props.refreshAuthentication}
+                  onClick={() => apiService.getSmsCode(phone)}
                   className={"PopupLogin__button " + (formValid ? "PopupLogin__button_active" : '')}>
             Получить код
           </button>

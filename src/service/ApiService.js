@@ -42,6 +42,25 @@ class ApiService {
     return result.data
   }
 
+  // запрос одноразового СМС кода для авторизации
+  async getSmsCode(phone) {
+    const response = await axios.get(`${this.URL}/TOTP?phone=${phone}`)
+    return response.data
+  }
+
+  // ввод СМС кода для авторизации
+  async postSmsCode(phone, smsCode) {
+    const response = await axios.post(`${this.URL}/Authentication/sms`,
+      {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        phone: phone,
+        code: smsCode
+      })
+    return response.data
+  }
+
   // запрос информации о пользователе по TOKEN из LocalStorage
   async getUserData(accessToken) {
     const response = await axios.get(`${this.URL}/Users`, {

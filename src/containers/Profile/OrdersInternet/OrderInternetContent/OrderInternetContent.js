@@ -51,7 +51,7 @@ const OrderInternetContent = props => {
           }
 
           {
-            item.status === 'Создан' &&
+            item.status === 'Принят' &&
             <button className='OrderInternetContent__cancel' onClick={props.cancelOrder}>
               Отменить Заказ
             </button>

@@ -363,6 +363,7 @@ class Cart extends React.Component {
                   {
                     this.props.retailsArr.length > 0
                     && <PopupOrder active={this.state.popupOrder}
+                                   isLogin={!!this.props.TOKEN}
                                    checked={this.props.selectedRetail}
                                    onClick={() => this.setState({popupOrder: false})}
                                    onChange={(e) => this.props.onSelectRetail(e.target.value)}
