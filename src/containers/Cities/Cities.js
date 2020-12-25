@@ -2,8 +2,9 @@ import React, {useEffect, useState} from "react"
 import {YMaps, Map, Placemark, Clusterer, GeolocationControl, SearchControl} from "react-yandex-maps";
 import iconLegko from '../../img/icon/legkoIconSmall.png'
 import './Cities.scss'
-import {fetchRetailsCity} from "../../actions";
+import {fetchRetailsCity, setIsCity} from "../../actions";
 import {connect} from "react-redux";
+import SelectDropdown from "../../components/UI/SelectDropdown/SelectDropdown";
 
 const Cities = props => {
 
@@ -59,6 +60,8 @@ const Cities = props => {
     window.scrollTo(0, 0)
   }
 
+  const arrayCitiesForDropdown = () => props.cities.map(el => ({id: el.guid, value: el.title}))
+
   return (
     <div className='Cities wrapper'>
       <h1>Аптеки в городе {isCity.title}</h1>
@@ -77,7 +80,20 @@ const Cities = props => {
                 >Показать списком
                 </button>
               </div>
-              <div className='Cities__dropdownCities'>Город: {isCity.title}</div>
+              <div className='Cities__dropdownCities'>
+                <p>Город:</p>
+                {
+                  arrayCitiesForDropdown()?.length > 0
+                  && <SelectDropdown items={arrayCitiesForDropdown()}
+                                     activeElement={arrayCitiesForDropdown().find(el => el.id === isCity.guid)}
+                                     selectItem={(guid) => {
+                                       const itemCity = props.cities.find(el => el.guid === guid)
+                                       props.setIsCity(itemCity)
+                                     }}
+                  />
+                }
+              </div>
+
             </div>
             <div className='Cities__startContainer' style={activeButton === 0 ? {display: 'flex'} : {display: 'none'}}>
               <YMaps>
@@ -215,7 +231,8 @@ const mapStateToProps = (
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchRetailsCity: () => dispatch(fetchRetailsCity())
+    fetchRetailsCity: () => dispatch(fetchRetailsCity()),
+    setIsCity: (item) => dispatch(setIsCity(item)),
   }
 }
 

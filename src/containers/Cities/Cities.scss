@@ -104,6 +104,12 @@
   &__dropdownCities {
     color: $primary-color;
     font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+
+    & > p {
+      margin-right: 10px;
+    }
   }
 
   &__textClock {
