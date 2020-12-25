@@ -52,6 +52,11 @@
     }
   }
 
+  &__notImage {
+    font-size: 150px;
+    color: $bg-color;
+  }
+
   &__textContainer {
     display: flex;
     flex-direction: column;

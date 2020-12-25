@@ -117,7 +117,7 @@ class Cart extends React.Component {
 
                   <section className='Cart__mainContainer'>
                     <div className='Cart__itemContainer'>
-                      {this.props.cart.length === 0 ? "Корзина пуста" :
+                      {this.props.cart.length === 0 ? <p style={{padding: 20, fontSize: '2rem'}}>Корзина пуста</p> :
                         this.sortProductThisRetail().map((item) => {
                           const countLast = this.getCountLast(item.guid)
                           const index = this.props.cart.findIndex((cartItem) => cartItem.itemId === item.guid);
@@ -162,26 +162,24 @@ class Cart extends React.Component {
                     </div>
 
                     {this.props.cart.length > 0 && <div className='Cart__rightPanel'>
-                      <BlockWrapper classStyle='Cart__pricePanel'>
+                      <div className='Cart__pricePanel'>
                         <div className='Cart__resultPrice'>
                           <span>Общая сумма:</span> <span>{sum} ₽</span>
                         </div>
                         <div className='Cart__retail'>
                           <p>Забрать из аптеки:</p>
-                          <span>г.&nbsp;
-                            {this.checkRetailItem()?.city},&nbsp;
-                            {this.checkRetailItem()?.street},&nbsp;
-                            {this.checkRetailItem()?.buildNumber}
-                      </span>
-                          {!(this.checkRetailItem().product.length === this.props.cart.length) &&
-                          <span style={{color: 'red', margin: 0}}>товар доступен частично</span>}
+                          <p className='Cart__address'>
+                            г. {this.checkRetailItem()?.city}, {this.checkRetailItem()?.street}, {this.checkRetailItem()?.buildNumber}
+                          </p>
+                          {!(this.checkRetailItem()?.product?.length === this.props.cart.length) &&
+                          <span className='Cart__warningMessage'>ТОВАР ДОСТУПЕН ЧАСТИЧНО</span>}
                         </div>
-                        <button className='Cart__button Cart__buttonToCart'
+                        <button className='Cart__buttonToCart'
                                 onClick={() => this.setState({popupOrder: true})}
                         >
                           Купить
                         </button>
-                      </BlockWrapper>
+                      </div>
                       <button onClick={this.props.clearCart}
                               className='Cart__button Cart__buttonMap Cart__clearBtn'
                       >Очистить корзину
@@ -370,7 +368,7 @@ class Cart extends React.Component {
                                    retails={this.props.retailsArr}
                                    isFullActiveRetail={this.isFullActiveRetail()}
                                    cart={this.props.cart}
-                                   product={this.checkRetailItem().product}
+                                   product={this.checkRetailItem()?.product}
                                    onSubmit={() => {
                                      this.postBuyOrder()
                                      this.setState({popupBuy: true})

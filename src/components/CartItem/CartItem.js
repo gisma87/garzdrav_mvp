@@ -1,7 +1,7 @@
 import React, {useRef, useState} from "react";
 import './CartItem.scss'
-import BlockWrapper from "../BlockWrapper";
 import notPhoto from "../../img/notPhoto.svg";
+import SvgPillsIcon from "../../img/SVGcomponents/SvgPillsIcon";
 import SvgAngleUpSolid from "../../img/SVGcomponents/SvgAngleUpSolid";
 
 const CartItem = (props) => {
@@ -29,12 +29,12 @@ const CartItem = (props) => {
   }
 
   return (
-    <BlockWrapper classStyle={'CartItem ' + classStyle}>
+    <div className='CartItem'>
       <div className='CartItem__container'>
         <div className='CartItem__imageContainer'>
           {img
-            ? <img className='CartItem__image' src={img} alt='icon'/>
-            : <img src={notPhoto} alt="pills icon" className='CartItem__image'/>
+            ? <img className='CartItem__image' src={img} alt='фото препарата'/>
+            : <SvgPillsIcon className='CartItem__image'/>
           }
         </div>
 
@@ -111,7 +111,7 @@ const CartItem = (props) => {
             })}
         </div>
       </div>
-    </BlockWrapper>
+    </div>
   )
 }
 

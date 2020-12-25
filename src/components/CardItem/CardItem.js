@@ -25,7 +25,7 @@ const CardItem = props => {
         {
           img
             ? <img className='CardItem__image' src={img} alt="icon"/>
-            : <SvgPillsIcon style={{fontSize: 150, color: '$bg-color'}}/>
+            : <SvgPillsIcon className='CardItem__notImage'/>
         }
       </div>
       <div className='CardItem__textContainer'>

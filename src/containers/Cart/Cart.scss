@@ -1,9 +1,10 @@
 @import "../../variables";
 
 .Cart {
+  font-family: $primary-font;
+  color: $primary-color;
   display: flex;
   flex-direction: column;
-  font-family: $primary-font;
   padding: 0 15px;
   @media (max-width: 800px) {
     padding: 0 0 60px;
@@ -58,9 +59,30 @@
     flex-direction: column;
     flex: 1 1;
     margin-right: 10px;
+    margin-bottom: 20px;
+
+    border: 1px solid $primary-color;
+    border-radius: 15px;
 
     @media (max-width: 800px) {
       margin-right: 10px;
+    }
+
+    & > div {
+      border-bottom: 1px solid $primary-color;
+      border-radius: 0;
+    }
+
+    & > div:first-child {
+      border-top-right-radius: 15px;
+      border-top-left-radius: 15px;
+    }
+
+    & > div:last-child {
+      border-bottom-right-radius: 15px;
+      border-bottom-left-radius: 15px;
+      margin-bottom: 0;
+      border-bottom: none;
     }
   }
 
@@ -69,9 +91,14 @@
   }
 
   &__pricePanel {
+    padding: 20px;
+    border-radius: 15px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    color: #000;
+    background-color: $bg-color-light;
+    box-shadow: $box-shadow;
     @media (max-width: 800px) {
       width: 100%;
       max-width: 450px;
@@ -82,15 +109,19 @@
   &__retail {
     display: flex;
     flex-direction: column;
+    color: #777;
+  }
 
-    p {
-      color: #777;
-    }
+  &__address {
+    color: $primary-color;
+    font-size: 1.1rem;
+    margin: 10px 0 20px;
+  }
 
-    span {
-      color: #333;
-      margin: 10px 0 20px;
-    }
+  &__warningMessage {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin: 10px 0 20px;
   }
 
   &__button {
@@ -110,18 +141,29 @@
 
     &:hover {
       color: #fff;
-      background-image: linear-gradient(to bottom, #ffbc0b, #ff7400);
-      box-shadow: inset 0 -2px 0 0 rgba(0, 0, 0, 0.2);
-      border-top-color: #ffbc0b;
-      border-bottom-color: #ff7400;
+      background-image: linear-gradient(to bottom, #1f5377, #1F3277);
     }
   }
 
   &__buttonToCart {
-    background: linear-gradient(to top, #fc8507, #ffa218);
-    border: 1px solid transparent;
-    border-top-color: #fc8507;
-    border-bottom-color: #ffa218;
+    min-width: 182px;
+    text-align: center;
+    width: 100%;
+    font-size: 1.2rem;
+    background: $primary-color;
+    color: #fff;
+
+    cursor: pointer;
+    outline: none;
+    font-weight: bold;
+    padding: 15px;
+    border: 1px solid $primary-color;
+    border-radius: 15px;
+    justify-content: center;
+
+    &:hover {
+      background-image: linear-gradient(to bottom, #1f5377, #1F3277);
+    }
   }
 
   &__resultPrice {
@@ -188,9 +230,11 @@
 
   &__clearBtn {
     margin: 30px auto 10px;
+    border-radius: 15px;
 
     &:hover {
       background-image: linear-gradient(to bottom, #E52B50, #FF2400);
+      font-weight: bold;
     }
   }
 

@@ -1,7 +1,8 @@
 @import "../../variables";
 
 .CartItem {
-  font-family: $primary-font;;
+  font-family: $primary-font;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -32,10 +33,11 @@
   }
 
   &__image {
-    color: #999;
     min-width: 100px;
     max-width: 120px;
     object-fit: contain;
+    font-size: 150px;
+    color: $bg-color;
 
     @media(max-width: 800px) {
       min-width: 75px;
@@ -192,7 +194,7 @@
 
     &:active:not([disabled]) {
       color: #fff;
-      background: #e66800;
+      background: $primary-color
     }
   }
 

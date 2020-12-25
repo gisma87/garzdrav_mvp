@@ -100,7 +100,7 @@ function clearCartError() {
 
 // проверяет имеет ли активная Аптека полный набор товаров
 function isFullActiveRetail() {
-  return this.checkRetailItem().product.length === this.props.cart.length
+  return this.checkRetailItem()?.product?.length === this.props.cart.length
 }
 
 // возвращает элемент выбранной аптеки
