@@ -1,5 +1,7 @@
+@import "../../variables";
+
 .PromoBlock2 {
-  background: #1f5377;
+  background: $primary-color;
   border-radius: 15px;
   min-height: 250px;
   width: 100%;
@@ -7,7 +9,7 @@
   margin: 0 auto;
 
 
-  font-family: Evolventa, sans-serif;
+  font-family: $primary-font;
   color: #fff;
   display: flex;
   justify-content: center;

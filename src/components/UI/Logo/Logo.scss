@@ -1,15 +1,17 @@
+@import "../../../variables";
+
 .Logo {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  font-family: Evolventa, Helvetica, Arial, sans-serif;
+  font-family: $primary-font;
   font-weight: bold;
   max-height: 40px;
   cursor: pointer;
 
   &:hover {
     .Logo__textContent {
-      border-bottom: 4px solid #95c11f;
+      border-bottom: 4px solid $secondary-color;
       transform: translateY(1px);
     }
 
@@ -26,7 +28,7 @@
 
   &__textContent {
     color: #fff;
-    border-bottom: 2px solid #95c11f;
+    border-bottom: 2px solid $secondary-color;
     display: flex;
     align-items: center;
     padding-bottom: 5px;

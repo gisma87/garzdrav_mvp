@@ -1,13 +1,15 @@
+@import "../../variables";
+
 .ArticleCard {
-  font-family: Evolventa, Helvetica, Arial, sans-serif;
-  color: #1f5377;
+  font-family: $primary-font;
+  color: $primary-color;
   display: flex;
   flex-direction: column;
   width: 100%;
   max-width: 290px;
   align-items: center;
   padding: 10px;
-  border: 1px solid #1f5377;
+  border: 1px solid $primary-color;
   border-radius: 15px;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.16);
   background-color: #fff;
@@ -91,7 +93,7 @@
 
   &__date {
     margin-top: auto;
-    color: #1f5377;
+    color: $primary-color;
     align-self: flex-start;
     padding: 0 10px;
     @media (max-width: 800px) {

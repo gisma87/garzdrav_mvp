@@ -1,3 +1,5 @@
+@import "../../variables";
+
 .PromoBlock {
   display: flex;
   position: relative;
@@ -6,24 +8,24 @@
   width: 100%;
 
   &__button {
-    font-family: PTSans-Bold, Helvetica, Arial, sans-serif;
+    font-family: $primary-font;
     font-size: 20px;
-    font-weight: 700;
+    font-weight: bold;
     padding: 0 20px;
     height: 45px;
-    color: #1f5377;
+    color: $primary-color;
     outline: none;
     background: transparent;
     display: flex;
     align-items: center;
-    border: 1px solid #1f5377;
+    border: 1px solid $primary-color;
     border-radius: 12px;
     cursor: pointer;
     transition: color .2s, box-shadow .2s;
 
     &:hover {
       transition: all .1s;
-      color: #95c11f;
+      color: $secondary-color;
       box-shadow: 2px 5px 7px 0 rgba(0, 0, 0, 0.16);
     }
     &:active {
@@ -51,7 +53,7 @@
     cursor: pointer;
 
     &:hover {
-      background: #1f5377;
+      background: $primary-color;
       color: #fff;
       transition: color .3s, background .3s;
     }

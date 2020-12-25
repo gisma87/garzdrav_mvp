@@ -1,7 +1,9 @@
+@import "../../variables";
+
 .LegkoBlock {
   width: 100%;
   min-height: 340px;
-  background: #1f5377;
+  background: $primary-color;
 
   &__wrapper {
     display: flex;
@@ -40,8 +42,8 @@
   }
 
   &__linkLegko {
-    color: #95c11f;
-    border-bottom: 5px solid #95c11f;
+    color: $secondary-color;
+    border-bottom: 5px solid $secondary-color;
 
     &:hover {
       border-style: dashed;

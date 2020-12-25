@@ -33,7 +33,7 @@ a:hover, a:active {
 
 
 body {
-    font-family: Evolventa, Helvetica, Arial, sans-serif;
+    font-family: $primary-font;
     /*background-color: #f6f6f6;*/
 }
 

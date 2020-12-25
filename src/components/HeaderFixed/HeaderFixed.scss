@@ -1,10 +1,12 @@
+@import "../../variables";
+
 .HeaderFixed {
-  background: #1f5377;
+  background: $primary-color;
   min-height: 64px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  font-family: Evolventa, Helvetica, Arial, sans-serif;
+  font-family: $primary-font;
   font-weight: bold;
   color: #fff;
   font-size: 15px;
@@ -51,7 +53,7 @@
     width: 35px;
     height: 35px;
     border-radius: 50%;
-    background: #95c11f;
+    background: $secondary-color;
   }
 
   &__cartImg {
@@ -73,9 +75,9 @@
 
   &__cartCount {
     transform: translateY(1px);
-    font-family: Evolventa, Helvetica, Arial, sans-serif;
+    font-family: $primary-font;
     font-weight: bold;
-    color: #1f5377;
+    color: $primary-color;
     margin-left: 8px;
     font-size: 1.6rem;
     letter-spacing: -3px;

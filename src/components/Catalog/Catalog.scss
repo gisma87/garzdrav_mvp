@@ -1,5 +1,7 @@
+@import "../../variables";
+
 .Catalog {
-  font-family: Evolventa, Helvetica, Arial, sans-serif;
+  font-family: $primary-font;
   position: fixed;
   top: 0;
   left: 0;
@@ -109,7 +111,7 @@
 
       &:hover {
         //background-color: rgba(0, 0, 0, .05);
-        color: #1f5377;
+        color: $primary-color;
         transition: all .2s;
         transform: scale(1.03);
       }
@@ -130,7 +132,7 @@
 
     &:hover {
       //background-color: rgba(0, 0, 0, .05);
-      color: #1f5377;
+      color: $primary-color;
       transition: all .2s;
       transform: scale(1.03);
     }
@@ -142,7 +144,7 @@
     color: #888;
 
     &:hover {
-      color: #1f5377;
+      color: $primary-color;
     }
   }
 
@@ -153,7 +155,7 @@
     }
 
     &:hover > span {
-      color: #1f5377;
+      color: $primary-color;
     }
 
     & > span:before {
@@ -163,14 +165,14 @@
       position: absolute;
       bottom: 0;
       left: 0;
-      background: #1f5377;
+      background: $primary-color;
       transition: all 0.3s;
     }
 
     &:hover > span:before {
       width: 100%;
       left: 0;
-      background: #1f5377;
+      background: $primary-color;
     }
   }
 

@@ -1,3 +1,5 @@
+@import "../../variables";
+
 .Pagination {
   display: flex;
   flex-direction: column;
@@ -26,7 +28,7 @@
   }
 
   &__item {
-    font-family: Evolventa, Helvetica, Arial, sans-serif;
+    font-family: $primary-font;
     font-weight: bold;
     padding: 5px 7px;
     margin-right: 10px;
@@ -41,20 +43,20 @@
     justify-content: center;
     align-items: center;
     text-decoration: none;
-    color: #1f5377;
+    color: $primary-color;
 
     width: 58px;
     height: 58px;
     line-height: 58px;
 
     &:hover {
-      //background-color: #bbcbd6;
-      border: solid 3px #95c11f;
-      color: #1f5377;
+      //background-color: $bg-color;
+      border: solid 3px $secondary-color;
+      color: $primary-color;
     }
     &:active {
-      color: #95c11f;
-      border: solid 3px #95c11f;
+      color: $secondary-color;
+      border: solid 3px $secondary-color;
     }
 
     @media (max-width: 400px) {
@@ -77,7 +79,7 @@
 
   .active {
     border-radius: 50%;
-    background-color: #1f5377;
+    background-color: $primary-color;
     color: #fff;
     font-weight: bold;
     font-size: 1.2rem;

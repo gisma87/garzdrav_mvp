@@ -1,3 +1,5 @@
+@import "../../variables";
+
 .HeaderTop {
   display: flex;
   align-items: center;
@@ -10,19 +12,19 @@
   //padding: 5px 15px;
   background-color: #fff;
 
-  font-family: Evolventa, Helvetica, Arial, sans-serif;
+  font-family: $primary-font;
   font-weight: bold;
   font-size: 1rem;
   line-height: 32px;
-  color: #1f5377;
+  color: $primary-color;
 
   &__link {
-    color: #1f5377;
+    color: $primary-color;
     text-decoration: none;
     padding-left: 20px;
 
     &:hover {
-      color: #95c11f;
+      color: $secondary-color;
     }
   }
 
@@ -41,7 +43,7 @@
     cursor: pointer;
 
     &:hover {
-      color: #95c11f;
+      color: $secondary-color;
     }
 
     &:first-child {

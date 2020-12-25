@@ -1,17 +1,19 @@
+@import "../../../variables";
+
 .ButtonForButtonSection {
-  font-family: PTSans-Bold, Helvetica, Arial, sans-serif;
+  font-family: $primary-font;
   font-size: 20px;
-  font-weight: 700;
+  font-weight: bold;
   align-self: flex-start;
   padding: 0 20px;
   height: 45px;
-  color: #1f5377;
+  color: $primary-color;
   transition: all .3s;
   outline: none;
   background: transparent;
   display: flex;
   align-items: center;
-  border: 1px solid #1f5377;
+  border: 1px solid $primary-color;
   border-radius: 12px;
   cursor: pointer;
   margin-right: 20px;
@@ -28,7 +30,7 @@
   }
 
   &__active {
-    background: #1f5377;
+    background: $primary-color;
     color: #fff;
   }
 

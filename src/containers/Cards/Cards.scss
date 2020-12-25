@@ -1,9 +1,11 @@
+@import "../../variables";
+
 .Cards {
-  font-family: Evolventa, PTSans-Regular, Arial, sans-serif;
+  font-family: $primary-font;
   display: flex;
   flex-direction: column;
   padding: 15px 20px 30px;
-  color: #1f5377;
+  color: $primary-color;
 
   @media (max-width: 800px) {
     padding: 0 0 65px;

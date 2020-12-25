@@ -1,5 +1,7 @@
+@import "../../variables";
+
 .PrivacyPolicy {
-  font-family: PTSans-Regular, Helvetica, Arial, sans-serif;
+  font-family: $primary-font;
   flex: 1 1;
   min-height: 100%;
   padding: 0 15px 60px;

@@ -1,3 +1,5 @@
+@import "../../variables";
+
 @keyframes locationAnimation {
   0% {
     transform: translateY(-200px);
@@ -23,7 +25,7 @@
 }
 
 .PopupLocation {
-  font-family: PTSans-Regular, Helvetica, Arial, sans-serif;
+  font-family: $primary-font;
   position: absolute;
   top: 43px;
   left: 0;

@@ -1,5 +1,7 @@
+@import "../../variables";
+
 .PopupLogin {
-  font-family: PTSans-Regular, Helvetica, Arial, sans-serif;
+  font-family: $primary-font;
   width: 430px;
   min-height: 330px;
   background-color: #fff;

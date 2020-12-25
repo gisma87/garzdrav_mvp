@@ -1,5 +1,7 @@
+@import "../../variables";
+
 .Promotion {
-  font-family: PTSans-Regular, Helvetica, Arial, sans-serif;
+  font-family: $primary-font;
   padding: 0;
   display: flex;
   flex-direction: column;

@@ -1,9 +1,11 @@
+@import "../../variables";
+
 .HeaderSearch {
   display: flex;
   flex-direction: row;
   align-items: center;
   padding: 3px 0;
-  background: #bbcbd6;
+  background: $bg-color;
 
   &__wrapper {
     padding: 2px 15px;

@@ -1,3 +1,5 @@
+@import "../../../variables";
+
 .ButtonLogIn {
   outline: none;
   background: transparent;
@@ -11,13 +13,13 @@
   padding: 10px 15px;
 
   &:hover {
-    border: 1px solid #95c11f;
+    border: 1px solid $secondary-color;
     transform: translateX(1px);
   }
 
   &:active {
     transform: scale(.95);
-    border: 1px solid #95c11f;
+    border: 1px solid $secondary-color;
   }
 
   &__img {

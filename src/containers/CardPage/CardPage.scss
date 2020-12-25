@@ -1,5 +1,7 @@
+@import "../../variables";
+
 .CardPage {
-  font-family: PTSans-Regular, Helvetica, Arial, sans-serif;
+  font-family: $primary-font;
 
   @media(max-width: 800px) {
     padding-bottom: 60px;
@@ -67,7 +69,7 @@
 
     span {
       color: #333;
-      font-family: PTSans-Bold, Helvetica, Arial, sans-serif;
+      font-weight: bold;
       font-size: 16px;
       margin: 0 0 0 10px;
       @media(max-width: 800px) {
@@ -156,7 +158,7 @@
   }
 
   &__price {
-    font-family: PTSans-Bold, Helvetica, Arial, sans-serif;
+    font-weight: bold;
     font-size: 32px;
     @media (max-width: 800px) {
       font-size: 26px;
@@ -173,7 +175,7 @@
   }
 
   &__amountBlock {
-    font-family: Oswald-Regular, PTSans-Bold, Helvetica, Arial, sans-serif;
+    font-weight: bold;
     font-size: 14px;
     line-height: 20px;
     display: flex;
@@ -310,7 +312,7 @@
 
   &__moreInfo {
     margin-top: 30px;
-    font-family: PTSans-Regular, Helvetica, Arial, sans-serif;
+    font-weight: normal;
 
     h3 {
       font-size: 24px;

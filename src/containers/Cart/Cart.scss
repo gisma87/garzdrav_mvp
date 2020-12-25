@@ -1,7 +1,9 @@
+@import "../../variables";
+
 .Cart {
   display: flex;
   flex-direction: column;
-  font-family: PTSans-Regular, Helvetica, Arial, sans-serif;
+  font-family: $primary-font;
   padding: 0 15px;
   @media (max-width: 800px) {
     padding: 0 0 60px;

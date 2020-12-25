@@ -1,5 +1,7 @@
+@import "../../variables";
+
 .ArticlesBlock {
-  font-family: Evolventa, Helvetica, Arial, sans-serif;
+  font-family: $primary-font;
   font-weight: bold;
   display: flex;
   position: relative;
@@ -8,7 +10,7 @@
   padding: 20px 0;
 
   &__title {
-    color: #1f5377;
+    color: $primary-color;
     font-size: 2rem;
     margin-bottom: 15px;
     cursor: default;
@@ -20,19 +22,19 @@
     margin-top: 15px;
     padding: 0 20px;
     height: 45px;
-    color: #1f5377;
+    color: $primary-color;
     outline: none;
     background: transparent;
     display: flex;
     align-items: center;
-    border: 1px solid #1f5377;
+    border: 1px solid $primary-color;
     border-radius: 12px;
     cursor: pointer;
     transition: color .2s, box-shadow .2s;
 
     &:hover {
       transition: all .1s;
-      color: #95c11f;
+      color: $secondary-color;
       box-shadow: 2px 5px 7px 0 rgba(0, 0, 0, 0.16);
     }
 
@@ -44,7 +46,7 @@
 
   & .slideButton {
     font-size: 40px;
-    color: #1f5377;
+    color: $primary-color;
     position: absolute;
     top: calc(50% - 40px);
     display: flex;
@@ -55,7 +57,7 @@
     cursor: pointer;
 
     &:hover {
-      color: #95c11f;
+      color: $secondary-color;
       transition: color .3s;
     }
   }

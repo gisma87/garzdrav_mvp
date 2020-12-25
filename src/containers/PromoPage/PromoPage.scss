@@ -1,5 +1,7 @@
+@import "../../variables";
+
 .PromoPage {
-  font-family: PTSans-Regular, Helvetica, Arial, sans-serif;
+  font-family: $primary-font;
   padding: 0 20px 20px;
   @media(max-width: 800px) {
     padding: 15px 0 60px;
