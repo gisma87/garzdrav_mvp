@@ -230,7 +230,7 @@ class Cart extends React.Component {
                       </div>
 
                       <PopupMapCart active={this.state.popupMap}
-                                    retails={this.props.retailsArr.reverse()}
+                                    retails={this.props.retailsArr.sort((a, b) => a.product.length < b.product.length ? 1 : -1)}
                                     activeRetail={this.props.selectedRetail}
                                     cartLength={this.props.cart.length}
                                     onClick={() => {
