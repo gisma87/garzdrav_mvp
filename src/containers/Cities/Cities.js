@@ -15,8 +15,9 @@ const Cities = props => {
   const [activeButton, setActiveButton] = useState(0)
 
   const popup = ({title, address, clock, tel}) => `
-  <div>
-    <p><strong>${title}</strong><br></p>
+  <div class="mapBalloon">
+    <p class="mapBalloon__title"><strong>${title}</strong><br></p>
+    <span class="mapBalloon__lineDecor"></span>
     <ul>
       <li><strong>Адрес:&nbsp;</strong>${address}</li>
       <li><strong>Часы работы:&nbsp;</strong>${clock}</li>

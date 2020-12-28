@@ -184,3 +184,32 @@
   font-weight: bold;
   line-height: 18px;
 }
+
+.ymaps-2-1-78-balloon, .ymaps-2-1-78-balloon__layout {
+  border-radius: 15px;
+}
+
+.ymaps-2-1-78-balloon {
+  border: none;
+}
+
+.ymaps-2-1-78-balloon__layout {
+  border: 1px solid $primary-color;
+}
+
+.mapBalloon {
+  display: flex;
+  flex-direction: column;
+
+  &__title {
+    color: $primary-color;
+  }
+
+  &__lineDecor {
+    margin: 2px 0;
+    height: 2px;
+    background-color: $secondary-color;
+    max-width: 80px;
+    width: 100%;
+  }
+}
