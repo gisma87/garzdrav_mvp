@@ -68,8 +68,9 @@
     border-bottom: 3px solid $primary-color;
 
     &:hover {
-      color: #7F8F18;
-      border-color: #7F8F18;
+      color: $secondary-color;
+      border-color: $secondary-color;
+      text-shadow: 0 0 12px black;
     }
   }
 
