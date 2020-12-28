@@ -151,9 +151,11 @@ const Cities = props => {
                                           options={{
                                             // iconLayout: 'default#imageWithContent',
                                             iconLayout: 'default#image',
-                                            iconImageHref: iconLegko,
-                                            iconImageSize: [45, 61],
-                                            iconImageOffset: [-22, -61],
+                                            iconImageHref: iconLegko, // своя иконка
+                                            iconImageSize: [45, 61], // размеры нашей иконки
+                                            iconImageOffset: [-22, -61], // сдвиг иконки
+                                            hideIconOnBalloonOpen: false, //запрет на скрытие метки по клику на балун
+                                            balloonOffset: [3, -30] // сдвиг балуна
                                           }}
                         />
                       })
