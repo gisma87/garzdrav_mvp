@@ -83,7 +83,7 @@ const PopupMapCart = props => {
           >
             <Clusterer
               options={{
-                preset: 'islands#invertedVioletClusterIcons',
+                preset: 'islands#nightClusterIcons',
                 groupByCoordinates: false,
               }}
             >
@@ -109,7 +109,7 @@ const PopupMapCart = props => {
                                  // iconImageHref: setIcon(type),
                                  // iconImageSize: [45, 61],
                                  // iconImageOffset: [-22, -61],
-                                 preset: 'islands#redStretchyIcon',
+                                 preset: 'islands#nightStretchyIcon',
                                  draggable: false, // передвигать маркеры
                                  // iconColor: 'red'
                                }}

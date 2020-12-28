@@ -1,5 +1,6 @@
-.RetailItem {
+@import "../../variables";
 
+.RetailItem {
   width: 100%;
   max-width: 450px;
   display: flex;
@@ -9,6 +10,7 @@
   border-bottom: 2px solid #b8b8b8;
   padding: 10px 5px 7px 10px;
   cursor: pointer;
+  color: $primary-color;
 
   background-color: #fff;
   border-radius: 10px;
@@ -61,31 +63,28 @@
     align-items: center;
     cursor: pointer;
     display: flex;
-    font-size: 16px;
+    font-size: .9rem;
     height: 40px;
     justify-content: center;
     padding: 0 8px;
     text-align: center;
 
     &:hover {
-      background-image: linear-gradient(to bottom, #ffbc0b, #ff7400);
-      box-shadow: inset 0 -2px 0 0 rgba(0, 0, 0, 0.2);
       color: #fff;
+      background-image: linear-gradient(to bottom, #1f5377, #1F3277);
       border: none;
       font-weight: bold;
     }
   }
 
   &__buttonActive {
-    background-image: linear-gradient(to top, #fc8507, #ffa218);
-    background-color: #E26C2D;
+    background-image: linear-gradient(to bottom, #1f5377, #1F3277);
     color: #fff;
     border: none;
     font-weight: bold;
 
     &:hover {
-      background-image: linear-gradient(to bottom, #ffbc0b, #ff7400);
-      box-shadow: inset 0 -2px 0 0 rgba(0, 0, 0, 0.2);
+      background-image: linear-gradient(to bottom, #1F3277, #1f5377);
     }
   }
 
@@ -97,24 +96,26 @@
 
   &__textClock {
     white-space: nowrap;
-    font-size: 14px;
-    color: #4e4e4e;
+    font-size: .8rem;
+    color: $primary-color;
   }
 
   &__itemAddress {
     white-space: nowrap;
-    font-size: 14px;
-    color: #4e4e4e;
+    font-size: .8rem;
+    color: $primary-color;
   }
 
   &__itemTitle {
-    font-weight: 500;
-    color: #000;
+    font-weight: bold;
+    color: $primary-color;
+    font-size: .9rem;
   }
 
   .colorRed {
     margin-top: 3px;
     color: red;
+    font-size: .8rem;
   }
 
   &__incomplete {
