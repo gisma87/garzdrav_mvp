@@ -24,6 +24,7 @@ import Favorites from "./Favorites/Favorites";
 const Profile = (props) => {
 
   const {addedToCart, itemRemovedFromCart, cart, history, favorites} = props;
+  const [changeData, setChangeData] = useState(false)
 
   const [block, setBlock] = useState('main');
 
@@ -66,7 +67,15 @@ const Profile = (props) => {
               {block === 'favoriteRetail' && <img src={devMessage} alt="В разработке"/>}
 
               {/*раздел Настройка профиля*/}
-              {block === 'profileSettings' && <ProfileSetting userData={props.userData}/>}
+              {
+                block === 'profileSettings' && <ProfileSetting
+                  userData={props.userData}
+                  TOKEN={props.TOKEN}
+                  fetchUserData={props.fetchUserData}
+                  changeData={changeData}
+                  setChangeData={setChangeData}
+                />
+              }
 
 
               <BlockWrapper classStyle='Profile__menu'>
@@ -78,7 +87,10 @@ const Profile = (props) => {
                     style={{color: 'red', fontSize: 12}}>в разработке</span></li>
                   <li className='Profile__item' onClick={() => setBlock('favoriteRetail')}>Любимая аптека <span
                     style={{color: 'red', fontSize: 12}}>в разработке</span></li>
-                  <li className='Profile__item' onClick={() => setBlock('profileSettings')}>Настройка профиля</li>
+                  <li className='Profile__item' onClick={() => {
+                    setChangeData(false)
+                    setBlock('profileSettings')
+                  }}>Настройка профиля</li>
                 </ul>
 
                 <Link to='/' className='Profile__btnOut'

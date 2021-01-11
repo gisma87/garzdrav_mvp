@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import './ChangeData.scss'
 import BlockWrapper from "../../../components/BlockWrapper";
+import apiService from "../../../service/ApiService";
 
 const ChangeData = (props) => {
 
@@ -29,22 +30,37 @@ const ChangeData = (props) => {
 
   function getDataProfile(event) {
     event.preventDefault()
-    const data = {}
+    const data = {
+      gender: props.userData.gender,
+      birthDate: props.userData.birthDate,
+      email: props.userData.email,
+      lastName: props.userData.lastName,
+      firstName: props.userData.firstName,
+      middleName: props.userData.middleName
+    }
 
-    if (valueForm.gender !== (props.userData.gender || '')) data.gender = valueForm.gender === 'male';
-    if (valueForm.birthDate !== (props.userData.birthDate || '')) data.birthDate = valueForm.birthDate;
-    if (valueForm.email !== (props.userData.email || '')) data.email = valueForm.email;
-    if (valueForm.lastName !== (props.userData.lastName || '')) data.lastName = valueForm.lastName;
-    if (valueForm.firstName !== (props.userData.firstName || '')) data.firstName = valueForm.firstName;
-    if (valueForm.middleName !== (props.userData.middleName || '')) data.middleName = valueForm.middleName;
+    if (valueForm.gender !== '') data.gender = valueForm.gender === 'male';
+    if (valueForm.birthDate !== '') data.birthDate = valueForm.birthDate;
+    if (valueForm.email !== '') data.email = valueForm.email;
+    if (valueForm.lastName !== '') data.lastName = valueForm.lastName;
+    if (valueForm.firstName !== '') data.firstName = valueForm.firstName;
+    if (valueForm.middleName !== '') data.middleName = valueForm.middleName;
 
-    if (!isEmpty(data)) console.log(data);
+    return data
   }
 
   return (
     <BlockWrapper classStyle='ProfileSetting ChangeData'>
       <h4>Изменить данные</h4>
-      <form>
+      <form onSubmit={(event) => {
+        event.preventDefault()
+        console.log('getDataProfile(event): ', getDataProfile(event))
+        apiService.changeDataProfile(getDataProfile(event), props.TOKEN.accessToken)
+          .then(res => console.log('ответ от changeDataProfile: ', res))
+          .catch(err => console.log(err))
+        props.fetchUserData(props.TOKEN.accessToken)
+        props.returnPage()
+      }}>
         <BlockWrapper classStyle='ProfileSetting__item'>
           <label htmlFor="phone">
             <p className='ProfileSetting__itemTitle'>Телефон</p>
@@ -159,7 +175,8 @@ const ChangeData = (props) => {
 
         </BlockWrapper>
         <nav className='ProfileSetting__changeBtnContainer'>
-          <button type='submit' className='ProfileSetting__submit' onClick={getDataProfile}>Сохранить изменения</button>
+          <button type='submit' className='ProfileSetting__submit'>Сохранить изменения
+          </button>
         </nav>
 
       </form>

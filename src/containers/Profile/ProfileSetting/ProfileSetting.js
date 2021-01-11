@@ -6,11 +6,11 @@ import ChangeData from "../ChangeData/ChangeData";
 
 
 const ProfileSetting = (props) => {
-  const [changeData, setChangeData] = useState(false)
+
 
   return (
-    changeData
-      ? <ChangeData {...props}/>
+    props.changeData
+      ? <ChangeData {...props} returnPage={() => props.setChangeData(false)}/>
       : <BlockWrapper classStyle='ProfileSetting'>
         <h4>Настройки профиля</h4>
         <form>
@@ -35,8 +35,8 @@ const ProfileSetting = (props) => {
             <p className='ProfileSetting__itemTitle'>Имя</p>
             <div className='ProfileSetting__itemContent'>
               <p className='ProfileSetting__info'>
-                {props.userData.lastName && props.userData.lastName}
-                {props.userData.firstName && props.userData.firstName}
+                {props.userData.lastName && props.userData.lastName + ' '}
+                {props.userData.firstName && props.userData.firstName + ' '}
                 {props.userData.middleName && props.userData.middleName}
               </p>
             </div>
@@ -82,7 +82,7 @@ const ProfileSetting = (props) => {
 
           </BlockWrapper>
           <nav className='ProfileSetting__changeBtnContainer'>
-            <p className='ProfileSetting__btnChangeData' onClick={() => setChangeData(true)}>Изменить данные</p>
+            <p className='ProfileSetting__btnChangeData' onClick={() => props.setChangeData(true)}>Изменить данные</p>
             <p className='ProfileSetting__btnChangeData'>Изменить пароль</p>
           </nav>
         </form>

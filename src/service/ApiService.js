@@ -217,6 +217,20 @@ class ApiService {
         }
       })
   }
+
+  // изменить данные Profile
+  async changeDataProfile(data, TOKEN) {
+    const response = await axios({
+      method: 'put',
+      url: `${this.URL}/Users/data`,
+      data: data,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${TOKEN}`
+      }
+    })
+    return response.data
+  }
 }
 
 const apiService = new ApiService()
