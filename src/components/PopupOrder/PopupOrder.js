@@ -59,13 +59,13 @@ const PopupOrder = props => {
         </div>
         <div className='PopupOrder__priceContainer'>
           <p>Сумма заказа: </p>
-          <p className='PopupOrder__sum'>{checkedItem().sum} ₽</p>
+          <p className='PopupOrder__sum'>{checkedItem()?.sum} ₽</p>
         </div>
 
         {!props.isFullActiveRetail &&
         <div className='PopupOrder__alert'>
           <p>В этой аптеке можно купить <span
-            onClick={() => setShowDescription(!showDescription)}>{checkedItem().product.length} из {props.cart.length} товаров</span>
+            onClick={() => setShowDescription(!showDescription)}>{checkedItem()?.product.length} из {props.cart.length} товаров</span>
           </p>
           <p>Недостающие позиции будут удалены из текущего заказа, но останутся в корзине</p>
         </div>}
@@ -111,8 +111,8 @@ const PopupOrder = props => {
 
         <div className='PopupOrder__buttonContainer'>
           <button type='submit'
-                  disabled={!formValid}
-                  className={"PopupOrder__button " + (formValid ? "PopupOrder__button_active" : '')}
+                  disabled={!props.isLogin || !formValid}
+                  className={"PopupOrder__button " + ((props.isLogin || formValid) ? "PopupOrder__button_active" : '')}
           >
             Заказать
           </button>

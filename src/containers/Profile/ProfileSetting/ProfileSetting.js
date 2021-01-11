@@ -21,47 +21,56 @@ const ProfileSetting = (props) => {
           <p className='ProfileSetting__itemTitle'>E-mail</p>
           <div className='ProfileSetting__itemContent'>
             <p className='ProfileSetting__info'>{props.userData.email}</p>
-            <div className='ProfileSetting__check'><SvgCheck style={{color: 'green'}}/></div>
+            {
+              props.userData.isConfirmed &&
+              <div className='ProfileSetting__check'><SvgCheck style={{color: 'green'}}/></div>
+            }
           </div>
         </BlockWrapper>
         <BlockWrapper classStyle='ProfileSetting__item'>
           <p className='ProfileSetting__itemTitle'>Имя</p>
           <div className='ProfileSetting__itemContent'>
             <p className='ProfileSetting__info'>
-              {`${props.userData.lastName} ${props.userData.firstName} ${props.userData.middleName}`}
+              {props.userData.lastName && props.userData.lastName}
+              {props.userData.firstName && props.userData.firstName}
+              {props.userData.middleName && props.userData.middleName}
             </p>
           </div>
         </BlockWrapper>
         <BlockWrapper classStyle='ProfileSetting__item'>
           <p className='ProfileSetting__itemTitle'>Дата рождения</p>
           <div className='ProfileSetting__itemContent'>
-            <p className='ProfileSetting__info'>{props.userData.birthDate.match(/\d{4}-\d\d-\d\d/g)}</p>
+            <p className='ProfileSetting__info'>{props.userData.birthDate?.match(/\d{4}-\d\d-\d\d/g)}</p>
           </div>
         </BlockWrapper>
         <BlockWrapper classStyle='ProfileSetting__item'>
           <p className='ProfileSetting__itemTitle'>Пол</p>
 
           <div className='ProfileSetting__itemContainer'>
-            <div>
+            {
+              props.userData.gender !== null
+              && <>
+                <div>
+                  <input type="radio"
+                         readOnly
+                         id="genderChoice1"
+                         name="gender"
+                         value="male"
+                         checked={props.userData.gender}
+                  />
+                  <label htmlFor="genderChoice1">Мужской</label>
+                </div>
 
-              <input type="radio"
-                     readOnly
-                     id="genderChoice1"
-                     name="gender"
-                     value="male"
-                     checked={props.userData.gender}
-              />
-              <label htmlFor="genderChoice1">Мужской</label>
-            </div>
-
-            <div>
-              <input type="radio" id="genderChoice2"
-                     name="gender" value="female"
-                     readOnly
-                     checked={!props.userData.gender}
-              />
-              <label htmlFor="genderChoice2">Женский</label>
-            </div>
+                <div>
+                  <input type="radio" id="genderChoice2"
+                         name="gender" value="female"
+                         readOnly
+                         checked={!props.userData.gender}
+                  />
+                  <label htmlFor="genderChoice2">Женский</label>
+                </div>
+              </>
+            }
           </div>
 
 

@@ -446,10 +446,10 @@ const refreshAuthentication = () => async (dispatch, getState, apiService) => {
 }
 
 // POST запрос TOKEN
-const authentication = () => async (dispatch, getState, apiService) => {
+const authentication = (phone, password) => async (dispatch, getState, apiService) => {
   dispatch(loadingTrue('authentication'))
   try {
-    const response = await apiService.authentication()
+    const response = await apiService.authentication(phone, password)
     dispatch({type: 'TOKEN', payload: response})
     localStorage.setItem('TOKEN', JSON.stringify(response))
     console.log('access_TOKEN')
@@ -457,6 +457,62 @@ const authentication = () => async (dispatch, getState, apiService) => {
   } catch (e) {
     dispatch(setError(e))
   }
+}
+
+// авторизация по паролю или СМС
+const authorizedByPassOrSMS = (phone, passOrSms) => async (dispatch, getState, apiService) => {
+  dispatch(loadingTrue('authorizedByPassOrSMS'))
+  apiService.authentication(phone, passOrSms)
+    .then(response => {
+      dispatch({type: 'TOKEN', payload: response})
+      localStorage.setItem('TOKEN', JSON.stringify(response))
+      console.log('access_TOKEN')
+      dispatch(fetchUserData(response.accessToken))
+    })
+    .catch(err => {
+      if (err.response) {
+        // client received an error response (5xx, 4xx)
+        console.log('err.response: ', err.response)
+        apiService.postSmsCode(phone, passOrSms)
+          .then(response => {
+            dispatch({type: 'TOKEN', payload: response})
+            localStorage.setItem('TOKEN', JSON.stringify(response))
+            console.log('access_TOKEN')
+            dispatch(fetchUserData(response.accessToken))
+          })
+          .catch(err => {
+            if (err.response) {
+              // client received an error response (5xx, 4xx)
+              console.log('err.response: ', err.response)
+            } else if (err.request) {
+              // client never received a response, or request never left
+              console.log('err.request ', err.request)
+            } else {
+              // anything else
+              console.log('ошибка запроса')
+            }
+          })
+      } else if (err.request) {
+        // client never received a response, or request never left
+        console.log('err.request ', err.request)
+      } else {
+        // anything else
+        console.log('ошибка запроса')
+      }
+    })
+
+  dispatch(loadingFalse('authorizedByPassOrSMS - вручную'))
+  // async () => console.log(await response)
+  // try {
+  //   const response = await apiService.authentication(phone, passOrSms)
+  //   dispatch({type: 'TOKEN', payload: response})
+  //   localStorage.setItem('TOKEN', JSON.stringify(response))
+  //   console.log('access_TOKEN')
+  //   dispatch(fetchUserData(response.accessToken))
+  // } catch (e) {
+  //   dispatch(setError(e))
+  //   dispatch(loadingTrue('authorizedByPassOrSMS'))
+  // }
 }
 
 
@@ -561,6 +617,7 @@ const cancelOrder = (orderGuid) => async (dispatch, getState, apiService) => {
 }
 
 export {
+  authorizedByPassOrSMS,
   setStatusRequestOrder,
   setCountItemCart,
   cancelOrder,

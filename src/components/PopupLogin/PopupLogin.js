@@ -3,14 +3,14 @@ import './PopupLogin.scss'
 import PopupWrapper from "../UI/PopupWrapper/PopupWrapper";
 import InputMask from 'react-input-mask'
 import {connect} from "react-redux";
-import {authentication, fetchUserData, refreshAuthentication} from "../../actions";
+import {authentication, authorizedByPassOrSMS, fetchUserData, refreshAuthentication} from "../../actions";
 import apiService from "../../service/ApiService";
 
 const PopupLogin = props => {
 
   const [formValid, setFormValid] = useState(false)
   const [phone, setPhone] = useState('')
-  const [smsCode, setSmsCode] = useState('')
+  const [smsCodeOrPassword, setSmsCodeOrPassword] = useState('')
 
   function validate(event) {
     const value = event.target.value.trim()
@@ -85,6 +85,10 @@ const PopupLogin = props => {
           className="PopupLogin__input PopupLogin__input_type_link-url"
           placeholder="Код или пароль"
           id="PopupLogin-pwd"
+          onChange={(event) => {
+            const input = event.target;
+            setSmsCodeOrPassword(input.value)
+          }}
         />
         <span id="error-linkPlace" className="popup__error-message"/>
 
@@ -93,7 +97,8 @@ const PopupLogin = props => {
                   disabled={!formValid}
                   className={"PopupLogin__button " + (formValid ? "PopupLogin__button_active" : '')}
                   onClick={() => {
-                    props.authentication()
+                    props.authorizedByPassOrSMS(phone, smsCodeOrPassword)
+                    // props.authentication(phone, smsCodeOrPassword)
                     props.onClick()
                   }}
           >
@@ -112,7 +117,8 @@ const PopupLogin = props => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    authentication: () => dispatch(authentication()),
+    authentication: (phone, smsCodeOrPassword) => dispatch(authentication(phone, smsCodeOrPassword)),
+    authorizedByPassOrSMS: (phone, smsOrPass) => dispatch(authorizedByPassOrSMS(phone, smsOrPass)),
     refreshAuthentication: () => dispatch(refreshAuthentication()),
     fetchUserData: () => dispatch(fetchUserData())
   }

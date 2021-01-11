@@ -73,14 +73,15 @@ class ApiService {
   }
 
   // POST запрос TOKEN по паролю
-  async authentication() {
+  async authentication(phone, password) {
     const result = await axios.post(`${this.URL}/Authentication/password`,
       {
         headers: {
           'Content-Type': 'application/json'
         },
-        phone: "9131996226",
-        password: "password"
+        // phone: "9131996226",
+        phone: phone,
+        password: password
       })
 
     return result.data
@@ -184,7 +185,7 @@ class ApiService {
       categoryId = null
     } = options
 
-    if (productName) productName = `str=${productName}`;
+    if (productName) productName = `Find=${productName}`;
     if (categoryId) categoryId = `categoryGuid=${categoryId}`;
     if (order) order = `order=${order}`;
     cityId = `cityGuid=${cityId}`;
