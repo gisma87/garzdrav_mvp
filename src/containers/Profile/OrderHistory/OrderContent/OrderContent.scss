@@ -231,6 +231,11 @@
     animation: rotate 1s;
   }
 
+  &__imgRepeatContainer {
+    display: flex;
+    margin-left: 15px;
+  }
+
   &__imgRepeat {
     color: #fc5808;
   }

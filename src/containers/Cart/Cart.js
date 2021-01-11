@@ -40,6 +40,7 @@ import {
   getFullRetailItemState, getSum, indexActiveRetail, isChecked, isFullActiveRetail, newCartItems, onLoading,
   postBuyOrder, sortProductThisRetail
 } from './cartUtils'
+import PopupLogin from "../../components/PopupLogin/PopupLogin";
 
 class Cart extends React.Component {
   constructor(props) {
@@ -65,6 +66,8 @@ class Cart extends React.Component {
     active: false,
     popupMap: false,
     popupOrder: false,
+    popupLogin: false,
+    isHasBuy: false,
     view: false,
     telephone: '',
     error: <Error/>,
@@ -181,7 +184,13 @@ class Cart extends React.Component {
                           <span className='Cart__warningMessage'>ТОВАР ДОСТУПЕН ЧАСТИЧНО</span>}
                         </div>
                         <button className='Cart__buttonToCart'
-                                onClick={() => this.setState({popupOrder: true})}
+                                onClick={() => {
+                                  if (!!this.props.TOKEN) {
+                                    this.setState({popupOrder: true})
+                                  } else {
+                                    this.setState({popupLogin: true, isHasBuy: true})
+                                  }
+                                }}
                         >
                           Купить
                         </button>
@@ -361,11 +370,20 @@ class Cart extends React.Component {
                   </section>}
 
                   {
+                    this.state.popupLogin
+                    && <PopupLogin active={this.state.popupLogin}
+                                   onClick={() => {
+                                     this.setState({popupLogin: false})
+                                   }}
+                    />
+                  }
+
+                  {
                     this.props.retailsArr.length > 0
-                    && <PopupOrder active={this.state.popupOrder}
+                    && <PopupOrder active={this.state.popupOrder || (this.state.isHasBuy && !!this.props.TOKEN)}
                                    isLogin={!!this.props.TOKEN}
                                    checked={this.props.selectedRetail}
-                                   onClick={() => this.setState({popupOrder: false})}
+                                   onClick={() => this.setState({popupOrder: false, isHasBuy: false})}
                                    onChange={(e) => this.props.onSelectRetail(e.target.value)}
                                    onChangeInput={(e) => this.setState({telephone: e.target.value})}
                                    retails={this.props.retailsArr}

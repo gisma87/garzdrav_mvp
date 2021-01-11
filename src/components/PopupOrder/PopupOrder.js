@@ -111,8 +111,8 @@ const PopupOrder = props => {
 
         <div className='PopupOrder__buttonContainer'>
           <button type='submit'
-                  disabled={!props.isLogin || !formValid}
-                  className={"PopupOrder__button " + ((props.isLogin || formValid) ? "PopupOrder__button_active" : '')}
+                  disabled={!props.isLogin}
+                  className={"PopupOrder__button " + ((props.isLogin) ? "PopupOrder__button_active" : '')}
           >
             Заказать
           </button>
