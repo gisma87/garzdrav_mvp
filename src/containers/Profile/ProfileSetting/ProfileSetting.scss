@@ -1,3 +1,5 @@
+@import "../../../variables";
+
 .ProfileSetting {
   flex: 1 1;
   margin-right: 30px;
@@ -40,11 +42,22 @@
     font-weight: 500;
   }
 
-  &__changePass {
-    margin: 15px 10px;
+  &__changeBtnContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  &__btnChangeData {
+    margin: 5px 0;
+    padding: 10px 10px;
     font-size: 18px;
     color: blue;
     cursor: pointer;
+
+    &:hover {
+      color: $secondary-color;
+    }
   }
 
   &__itemContainer {
@@ -91,7 +104,7 @@
     }
   }
 
-  input {
+  &__inputRadio {
     appearance: none;
     border-radius: 50%;
     width: 24px;
@@ -102,7 +115,7 @@
     outline: none;
   }
 
-  input:checked {
+  &__inputRadio:checked {
     background-color: #E26C2D;
     background-image: url('../../../img/vector.png');
     background-position: center;

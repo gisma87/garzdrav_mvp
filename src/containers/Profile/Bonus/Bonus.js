@@ -8,7 +8,10 @@ const Bonus = props => {
       <h4>Бонусы: </h4>
       <BlockWrapper classStyle='Bonus__item'>
         <p className='Bonus__itemTitle'>Бонусная карта</p>
-        <p className='Bonus__info'>№ {props.userData.barcode}</p>
+        {
+          props.userData.barcode &&
+          <p className='Bonus__info'>№ {props.userData.barcode}</p>
+        }
 
       </BlockWrapper>
       <BlockWrapper classStyle='Bonus__item'>
@@ -27,7 +30,10 @@ const Bonus = props => {
       </BlockWrapper>
       <BlockWrapper classStyle='Bonus__item'>
         <p className='Bonus__itemTitle'>Вместе с картой вы совершили покупок на общую сумму:</p>
-        <p className='Bonus__info'> {props.userData.saleBalance} ₽</p>
+        {
+          props.userData.saleBalance &&
+          <p className='Bonus__info'> {props.userData.saleBalance} ₽</p>
+        }
       </BlockWrapper>
 
 

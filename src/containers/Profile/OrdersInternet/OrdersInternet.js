@@ -35,21 +35,22 @@ const OrdersInternet = props => {
     <>
       <BlockWrapper classStyle='OrderHistory'>
         <h2>Заказы: </h2>
-        {props.internetSales.length > 0 &&
-        props.internetSales.map(item => {
-          delay += .09
-          return <OrderInternetContent key={item.orderGuid} item={item} delay={delay}
-                                       cancelOrder={() => {
-                                         setCancelOrderGuid(item.orderGuid)
-                                         setShowPopupCancel(true)
-                                       }}
-                                       setRepeatInfo={(status) => {
-                                         setStatusAlert(status)
-                                         setAlertShow(true)
-                                       }}
-                                       isCity={props.isCity}
-          />
-        })
+        {props.internetSales.length
+          ? props.internetSales.map(item => {
+            delay += .09
+            return <OrderInternetContent key={item.orderGuid} item={item} delay={delay}
+                                         cancelOrder={() => {
+                                           setCancelOrderGuid(item.orderGuid)
+                                           setShowPopupCancel(true)
+                                         }}
+                                         setRepeatInfo={(status) => {
+                                           setStatusAlert(status)
+                                           setAlertShow(true)
+                                         }}
+                                         isCity={props.isCity}
+            />
+          })
+          : <span style={{marginLeft: 20}}>Пока ничего не заказано</span>
         }
 
       </BlockWrapper>
@@ -71,7 +72,7 @@ const OrdersInternet = props => {
   )
 }
 
-const mapStateToProps = ({TOKEN, internetSales,isCity}) => {
+const mapStateToProps = ({TOKEN, internetSales, isCity}) => {
   return {TOKEN, internetSales, isCity}
 }
 

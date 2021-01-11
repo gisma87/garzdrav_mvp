@@ -14,8 +14,8 @@ const OrderHistory = props => {
     <>
       <BlockWrapper classStyle='OrderHistory'>
         <h2>История покупок</h2>
-        {
-          props.sales.map(item => {
+        {props.sales.length
+          ? props.sales.map(item => {
             delay += .09
             return <OrderContent key={item.dateDocument} item={item} delay={delay}
                                  setRepeatInfo={(status) => {
@@ -23,6 +23,7 @@ const OrderHistory = props => {
                                    setAlertShow(true)
                                  }}/>
           })
+          : <span style={{marginLeft: 20}}>Пока ничего не куплено</span>
         }
 
       </BlockWrapper>
