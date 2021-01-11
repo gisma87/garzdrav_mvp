@@ -1,12 +1,24 @@
+@import "../../../variables";
+
 .ChangeData {
   border-color: red;
 
   &__input {
     min-width: 300px;
     outline: none;
-    border-bottom: 1px solid #3369F3;
+    border-bottom: 1px solid $primary-color;
     padding: 5px 0;
     font-size: .9rem;
     line-height: 1.1rem;
+
+    &:focus {
+      border-bottom: 3px solid $secondary-color;
+      padding-bottom: 3px;
+    }
+  }
+
+  &__label:not(:first-child) {
+    display: block;
+    margin-top: 15px;
   }
 }

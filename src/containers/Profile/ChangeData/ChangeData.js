@@ -1,18 +1,44 @@
 import React, {useState} from "react";
 import './ChangeData.scss'
 import BlockWrapper from "../../../components/BlockWrapper";
-import SvgCheck from "../../../components/UI/icons/SvgCheck";
-
 
 const ChangeData = (props) => {
 
-  const [valueForm, setValueForm] = useState({})
+  const [valueForm, setValueForm] = useState({
+    phone: '',
+    email: '',
+    birthDate: '',
+    lastName: '',
+    firstName: '',
+    middleName: '',
+    gender: ''
+  })
+
+  function isEmpty(obj) {
+    for (let key in obj) {
+      return false;
+    }
+    return true;
+  }
 
   function onChangeHandler(e) {
     const name = e.target.name;
-    console.log('name: ', name)
     const value = e.target.value;
     setValueForm({...valueForm, [name]: value})
+  }
+
+  function getDataProfile(event) {
+    event.preventDefault()
+    const data = {}
+
+    if (valueForm.gender !== (props.userData.gender || '')) data.gender = valueForm.gender === 'male';
+    if (valueForm.birthDate !== (props.userData.birthDate || '')) data.birthDate = valueForm.birthDate;
+    if (valueForm.email !== (props.userData.email || '')) data.email = valueForm.email;
+    if (valueForm.lastName !== (props.userData.lastName || '')) data.lastName = valueForm.lastName;
+    if (valueForm.firstName !== (props.userData.firstName || '')) data.firstName = valueForm.firstName;
+    if (valueForm.middleName !== (props.userData.middleName || '')) data.middleName = valueForm.middleName;
+
+    if (!isEmpty(data)) console.log(data);
   }
 
   return (
@@ -50,19 +76,41 @@ const ChangeData = (props) => {
           </label>
         </BlockWrapper>
         <BlockWrapper classStyle='ProfileSetting__item'>
-          <label htmlFor="name">
-            <p className='ProfileSetting__itemTitle'>Имя</p>
+          <label htmlFor="lastName" className='ChangeData__label'>
+            <p className='ProfileSetting__itemTitle ProfileSetting__itemTitle_listItem'>Фамилия</p>
             <div className='ProfileSetting__itemContent'>
               <input type="text"
-                     id="name"
-                     name="name"
-                     placeholder={`
-                       ${props.userData.lastName ? props.userData.lastName : ''} 
-                       ${props.userData.lastName ? props.userData.lastName : ''} 
-                       ${props.userData.lastName ? props.userData.lastName : ''} 
-                       `}
+                     id="lastName"
+                     name="lastName"
+                     placeholder={props.userData.lastName ? props.userData.lastName : ''}
                      className='ProfileSetting__info ChangeData__input'
-                     value={valueForm.name}
+                     value={valueForm.lastName}
+                     onChange={onChangeHandler}
+              />
+            </div>
+          </label>
+          <label htmlFor="firstName" className='ChangeData__label'>
+            <p className='ProfileSetting__itemTitle ProfileSetting__itemTitle_listItem'>Имя</p>
+            <div className='ProfileSetting__itemContent'>
+              <input type="text"
+                     id="firstName"
+                     name="firstName"
+                     placeholder={props.userData.firstName ? props.userData.firstName : ''}
+                     className='ProfileSetting__info ChangeData__input'
+                     value={valueForm.firstName}
+                     onChange={onChangeHandler}
+              />
+            </div>
+          </label>
+          <label htmlFor="middleName" className='ChangeData__label'>
+            <p className='ProfileSetting__itemTitle ProfileSetting__itemTitle_listItem'>Отчество</p>
+            <div className='ProfileSetting__itemContent'>
+              <input type="text"
+                     id="middleName"
+                     name="middleName"
+                     placeholder={props.userData.middleName ? props.userData.middleName : ''}
+                     className='ProfileSetting__info ChangeData__input'
+                     value={valueForm.middleName}
                      onChange={onChangeHandler}
               />
             </div>
@@ -111,7 +159,7 @@ const ChangeData = (props) => {
 
         </BlockWrapper>
         <nav className='ProfileSetting__changeBtnContainer'>
-          <button type='submit' className='ProfileSetting__submit'>Сохранить изменения</button>
+          <button type='submit' className='ProfileSetting__submit' onClick={getDataProfile}>Сохранить изменения</button>
         </nav>
 
       </form>
