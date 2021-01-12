@@ -5,11 +5,10 @@ import BlockWrapper from "../../../components/BlockWrapper";
 import FavoriteItem from "../../../components/FavoriteItem";
 import dataCatds from "../../../testData/dataCards";
 import CardItemMobile from "../../../components/CardItemMobile";
-import devMessage from "../../../img/devtMessage.svg";
 
-const Favorites = ({item}) => {
+const Favorites = ({data}) => {
   const isMobile = useMediaQuery({query: '(max-width: 800px)'})
-  const {addedToCart, itemRemovedFromCart, cart, history, favorites} = item;
+  const {addedToCart, itemRemovedFromCart, cart, history, favorites, delToFavorites} = data;
   const handlerToCards = (itemId) => {
     history.push(`/Cards/${itemId}`)
     window.scroll(0, 0)
@@ -21,9 +20,9 @@ const Favorites = ({item}) => {
         {!isMobile &&
         favorites.map((item) => {
 
-          return <FavoriteItem key={item + Math.random()}
-                               itemId={item}
-                               item={{addedToCart, itemRemovedFromCart, cart, handlerToCards}}/>
+          return <FavoriteItem key={item.guid + Math.random()}
+                               item={item}
+                               functions={{addedToCart, itemRemovedFromCart, cart, handlerToCards, delToFavorites}}/>
         })
         }
 
@@ -46,9 +45,7 @@ const Favorites = ({item}) => {
 
           />
         })}
-
       </div>
-      <img src={devMessage} alt="В разработке"/>
     </BlockWrapper>
   )
 }

@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from "react";
 import './CardPage.scss'
 import SvgCheck from "../../components/UI/icons/SvgCheck";
-import SvgHeartIcon from "../../components/UI/icons/SvgHeartIcon";
-import SvgHeartSolid from "../../components/UI/icons/SvgHeartActive";
 import notPhoto from "../../img/notPhoto.svg"
 import {Link} from 'react-scroll'
 import BlockWrapper from "../../components/BlockWrapper";
@@ -19,7 +17,7 @@ import {useMediaQuery} from 'react-responsive'
 import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
 import PopupQuickOrder from "../../components/PopupQuickOrder/PopupQuickOrder";
 import ButtonHeart from "../../components/UI/ButtonHeart/ButtonHeart";
-import AddToFavorites from "../../hoc/AddToFavorites/AddToFavorites";
+import SetToFavorites from "../../hoc/SetToFavorites/SetToFavorites";
 
 const CardPage = (props) => {
   const {
@@ -156,9 +154,9 @@ const CardPage = (props) => {
                   <div className='CardPage__titleContainer'>
                     <h1 className='CardPage__title'>{productInfo.product}
                       <div className='CardPage__like' style={{color: "red", marginLeft: 15, fontSize: 26}}>
-                        <AddToFavorites productGuid={productInfo.guid}>
+                        <SetToFavorites productGuid={productInfo.guid}>
                           <ButtonHeart/>
-                        </AddToFavorites>
+                        </SetToFavorites>
                         <span>В избранное</span>
                       </div>
                     </h1>
@@ -245,9 +243,9 @@ const CardPage = (props) => {
                     сайте</p>
                   <p className='CardPage__like'
                      style={{color: "red", marginLeft: 15, fontSize: 20}}>
-                    <AddToFavorites productGuid={productInfo.guid}>
+                    <SetToFavorites productGuid={productInfo.guid}>
                       <ButtonHeart/>
-                    </AddToFavorites>
+                    </SetToFavorites>
                     <span>В избранное</span>
                   </p>
                 </div>

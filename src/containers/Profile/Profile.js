@@ -4,7 +4,7 @@ import BlockWrapper from "../../components/BlockWrapper";
 import {Link, Redirect, withRouter} from "react-router-dom";
 import {
   addedToCart,
-  allItemRemovedFromCart,
+  allItemRemovedFromCart, delToFavorites,
   fetchUserData,
   getInternetSales,
   itemRemovedFromCart,
@@ -23,7 +23,7 @@ import Favorites from "./Favorites/Favorites";
 
 const Profile = (props) => {
 
-  const {addedToCart, itemRemovedFromCart, cart, history, favorites} = props;
+  const {addedToCart, itemRemovedFromCart, cart, history, favorites, delToFavorites} = props;
   const [changeData, setChangeData] = useState(false)
 
   const [block, setBlock] = useState('main');
@@ -62,7 +62,7 @@ const Profile = (props) => {
 
               {/*раздел Избранное*/}
               {block === 'favorites' &&
-              <Favorites item={{addedToCart, itemRemovedFromCart, cart, history, favorites}}/>}
+              <Favorites data={{addedToCart, itemRemovedFromCart, cart, history, favorites, delToFavorites}}/>}
 
               {block === 'favoriteRetail' && <img src={devMessage} alt="В разработке"/>}
 
@@ -114,6 +114,7 @@ const mapStateToProps = ({TOKEN, cart, favorites, userData, sales}) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     logout: () => dispatch(logout()),
+    delToFavorites: (productGuid) => dispatch(delToFavorites(productGuid)), // удаляет из избранного
     fetchUserData: () => dispatch(fetchUserData()), // данные пользователя
     getInternetSales: () => dispatch(getInternetSales()), // интернет заказы
     setSales: () => dispatch(setSales()), // история покупок

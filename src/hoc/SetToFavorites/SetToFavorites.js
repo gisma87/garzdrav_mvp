@@ -3,7 +3,7 @@ import {addToFavorites, delToFavorites} from "../../actions";
 import {connect} from "react-redux";
 import PopupLogin from "../../components/PopupLogin/PopupLogin";
 
-const AddToFavorites = props => {
+const SetToFavorites = props => {
 
   const [isLike, setIsLike] = useState(false)
   const [showPopupLogin, setShowPopupLogin] = useState(false)
@@ -61,4 +61,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddToFavorites)
+export default connect(mapStateToProps, mapDispatchToProps)(SetToFavorites)
