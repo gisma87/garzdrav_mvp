@@ -3,16 +3,15 @@ import {withRouter} from 'react-router-dom'
 import './OrderContent.scss'
 import SvgAngleUpSolid from "../../../../img/SVGcomponents/SvgAngleUpSolid";
 import BlockWrapper from "../../../../components/BlockWrapper";
-import SvgRedo from "../../../../img/SVGcomponents/SvgRedo"
 import {connect} from "react-redux";
 import {repeatOrder, setStatusRequestOrder} from "../../../../actions";
 import apiService from "../../../../service/ApiService";
+import ButtonRepeatOrder from "../../../../components/ButtonRepeatOrder/ButtonRepeatOrder";
 
 const OrderContent = props => {
 
   const [contentDisabled, setContentDisabled] = useState(false)
   const [styleContent, setStyleContent] = useState({})
-  const [animationRotate, setAnimation] = useState(false)
   const content = useRef(null)
   const contentWrapper = useRef(null)
 
@@ -42,17 +41,6 @@ const OrderContent = props => {
     content.current.clientHeight
       ? setStyleContent({height: 0})
       : setStyleContent({height: `${contentWrapper.current.clientHeight}px`})
-  }
-
-  function thisOrderRepeat() {
-    const arrayProducts = []
-    item.items.forEach(el => {
-      arrayProducts.push({
-        idProduct: el.product,
-        count: el.quantity
-      })
-    })
-    props.repeatOrder(arrayProducts)
   }
 
   return (
@@ -113,17 +101,7 @@ const OrderContent = props => {
               className={item.spendBonus > 0 ? 'OrderContent__negative' : ''}>{item.spendBonus}</span></p>
             <div className='OrderContent__footer'>
               <p className='OrderContent__amount'>Итого: {item.sumDocument} ₽</p>
-              <button className='OrderContent__repeatBtn'
-                      onClick={() => {
-                        thisOrderRepeat()
-                        setAnimation(true)
-                        setTimeout(() => setAnimation(false), 1000)
-                      }}
-              >Повторить
-                <div
-                  className={'OrderContent__imgRepeatContainer' + (animationRotate ? ' OrderContent__animationRotate' : '')}>
-                  <SvgRedo className='OrderContent__imgRepeat'/></div>
-              </button>
+              <ButtonRepeatOrder item={item}/>
             </div>
           </div>
         </div>
@@ -138,7 +116,6 @@ const mapStateToProps = ({statusRequestRepeatOrder, isCity}) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    repeatOrder: (arrayProducts) => dispatch(repeatOrder(arrayProducts)),
     setStatusRequestOrder: (status) => dispatch(setStatusRequestOrder(status))
   }
 }

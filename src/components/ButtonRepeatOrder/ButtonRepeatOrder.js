@@ -1,6 +1,8 @@
 import React, {useState} from "react"
+import './ButtonRepeatOrder.scss'
 import SvgRedo from "../../img/SVGcomponents/SvgRedo";
 import {repeatOrder} from "../../actions";
+import {connect} from "react-redux";
 
 
 const ButtonRepeatOrder = props => {
@@ -11,7 +13,8 @@ const ButtonRepeatOrder = props => {
     const arrayProducts = []
     props.item.items.forEach(el => {
       arrayProducts.push({
-        idProduct: el.product,
+        // idProduct: el.product,
+        idProduct: el.productGuid,
         count: el.quantity
       })
     })
@@ -39,7 +42,7 @@ const mapStateToProps = () => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    repeatOrder: (arrayProducts) => dispatch(repeatOrder(arrayProducts)),
+    repeatOrder: (arrayProducts) => dispatch(repeatOrder(arrayProducts))
   }
 }
 

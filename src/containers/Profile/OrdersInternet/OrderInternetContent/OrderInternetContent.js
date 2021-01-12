@@ -4,6 +4,9 @@ import './OrderInternetContent.scss'
 import SvgAngleUpSolid from "../../../../img/SVGcomponents/SvgAngleUpSolid";
 import BlockWrapper from "../../../../components/BlockWrapper";
 import apiService from "../../../../service/ApiService";
+import ButtonRepeatOrder from "../../../../components/ButtonRepeatOrder/ButtonRepeatOrder";
+import {setStatusRequestOrder} from "../../../../actions";
+import {connect} from "react-redux";
 
 const OrderInternetContent = props => {
 
@@ -22,6 +25,17 @@ const OrderInternetContent = props => {
     }, 1100)
     return () => clearTimeout(wrap)
   }, [])
+
+  useEffect(() => {
+    if (props.statusRequestRepeatOrder === 'executed') {
+      props.setRepeatInfo('executed')
+      props.setStatusRequestOrder('')
+    }
+    if (props.statusRequestRepeatOrder === 'failure') {
+      props.setRepeatInfo('failure')
+      props.setStatusRequestOrder('')
+    }
+  }, [props.statusRequestRepeatOrder])
 
   const {item, delay} = props
 
@@ -83,12 +97,16 @@ const OrderInternetContent = props => {
             </BlockWrapper>
           )}
           <div className='OrderInternetContent__infoContainer'>
-            <p className='OrderInternetContent__infoItem'>
-              <span>{item.retail.brand}:</span>
-              <span style={{marginLeft: 10}}> {item.retail.city}. {item.retail.street} {item.retail.buildNumber}</span>
-            </p>
-            <p className='OrderInternetContent__infoItem'>Статус: <span
-              className='OrderInternetContent__positive'>{item.status}</span></p>
+            <div className="OrderInternetContent__infoContent">
+              <p className='OrderInternetContent__infoItem'>
+                <span>{item.retail.brand}:</span>
+                <span
+                  style={{marginLeft: 10}}> {item.retail.city}. {item.retail.street} {item.retail.buildNumber}</span>
+              </p>
+              <p className='OrderInternetContent__infoItem'>Статус: <span
+                className='OrderInternetContent__positive'>{item.status}</span></p>
+            </div>
+            <ButtonRepeatOrder item={item}/>
           </div>
         </div>
       </div>
@@ -96,4 +114,14 @@ const OrderInternetContent = props => {
   )
 }
 
-export default withRouter(OrderInternetContent)
+const mapStateToProps = ({statusRequestRepeatOrder}) => {
+  return {statusRequestRepeatOrder}
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setStatusRequestOrder: (status) => dispatch(setStatusRequestOrder(status))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(OrderInternetContent))
