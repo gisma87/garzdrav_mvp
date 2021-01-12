@@ -140,13 +140,10 @@ const reducer = (state = initialState, action) => {
         error: null
       }
 
-    case 'ADDED_TO_FAVORITES':
+    case 'SET_FAVORITES_TO_STORE':
       return {
         ...state,
-        favorites: [
-          ...state.favorites,
-          action.payload
-        ]
+        favorites: action.payload
       };
 
     case 'FETCH_RETAILS_CITY_SUCCESS':

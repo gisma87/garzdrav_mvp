@@ -11,7 +11,6 @@ import {
   addedToCart,
   allItemRemovedFromCart,
   itemRemovedFromCart,
-  addedToFavorits,
   fetchProductInfo, setActiveCategory
 } from "../../actions";
 import {connect} from "react-redux";
@@ -19,11 +18,12 @@ import {NavLink, withRouter} from "react-router-dom";
 import {useMediaQuery} from 'react-responsive'
 import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
 import PopupQuickOrder from "../../components/PopupQuickOrder/PopupQuickOrder";
+import ButtonHeart from "../../components/UI/ButtonHeart/ButtonHeart";
+import AddToFavorites from "../../hoc/AddToFavorites/AddToFavorites";
 
 const CardPage = (props) => {
   const {
     itemId,
-    isCity,
     addedToCart,
     itemRemovedFromCart,
     addedToFavorits,
@@ -156,14 +156,12 @@ const CardPage = (props) => {
                 <BlockWrapper>
                   <div className='CardPage__titleContainer'>
                     <h1 className='CardPage__title'>{productInfo.product}
-                      <p className='CardPage__like' onClick={() => {
-                        setLike(!like)
-                        addedToFavorits(productInfo.guid)
-                      }}
-                         style={{color: "red", marginLeft: 15, fontSize: 26}}>
-                        {isFavorite ? <SvgHeartSolid/> : <SvgHeartIcon/>}
+                      <div className='CardPage__like' style={{color: "red", marginLeft: 15, fontSize: 26}}>
+                        <AddToFavorites productGuid={productInfo.guid}>
+                          <ButtonHeart/>
+                        </AddToFavorites>
                         <span>В избранное</span>
-                      </p>
+                      </div>
                     </h1>
                     <p>Спрей, 10 мл, 22,5 мкг/доза</p>
                   </div>
@@ -484,10 +482,10 @@ const CardPage = (props) => {
 
 const mapStateToProps = (
   {
-    cart, favorites, productInfo, isCity, error, catalog, activeCategory
+    cart, favorites, productInfo, error, catalog, activeCategory, TOKEN
   }
 ) => {
-  return {cart, favorites, productInfo, isCity, error, catalog, activeCategory}
+  return {cart, favorites, productInfo, error, catalog, activeCategory, TOKEN}
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -495,7 +493,6 @@ const mapDispatchToProps = (dispatch) => {
     addedToCart: (item) => dispatch(addedToCart(item)),
     itemRemovedFromCart: (item) => dispatch(itemRemovedFromCart(item)),
     allItemRemovedFromCart: (item) => dispatch(allItemRemovedFromCart(item)),
-    addedToFavorits: (itemId) => dispatch(addedToFavorits(itemId)),
     fetchProductInfo: (productId) => dispatch(fetchProductInfo(productId)),
     setActiveCategory: (categoryItem) => dispatch(setActiveCategory(categoryItem)),
   }

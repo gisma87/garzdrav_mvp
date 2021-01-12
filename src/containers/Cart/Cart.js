@@ -20,7 +20,6 @@ import {
 } from '../../components/RetailCheckPanel'
 import {
   addedToCart,
-  addedToFavorits,
   allItemRemovedFromCart,
   clearCart,
   fetchCartItems,
@@ -135,7 +134,6 @@ class Cart extends React.Component {
                             const delta = count - countLast
                             this.props.setCountItemCart(item.guid, delta)
                           }
-                          const isFavorites = this.props.favorites.includes(item.guid);
                           const priceIndex = item.retails.findIndex(retail => retail.guid === this.props.selectedRetail)
                           const price = priceIndex >= 0 ? item.retails[priceIndex].priceRetail : null
                           const sum = this.calculateAmountArray().find(itemArr => itemArr.guid === item.guid)?.sum
@@ -152,9 +150,7 @@ class Cart extends React.Component {
                             }}
                                          retails={item.retails}
                                          classStyle={'Cart__item'}
-                                         isFavorite={isFavorites}
                                          count={count}
-                                         addedToFavorits={() => this.props.addedToFavorits(item.guid)}
                                          addedToCart={() => {
                                            this.props.addedToCart(item.guid)
                                          }}
@@ -433,7 +429,6 @@ const mapDispatchToProps = (dispatch) => {
     itemRemovedFromCart: (item) => dispatch(itemRemovedFromCart(item)),
     allItemRemovedFromCart: (item) => dispatch(allItemRemovedFromCart(item)),
     rewriteCart: (item) => dispatch(rewriteCart(item)),
-    addedToFavorits: (itemId) => dispatch(addedToFavorits(itemId)),
     fetchCartItems: () => dispatch(fetchCartItems()),
     onSelectRetail: (id) => dispatch(onSelectRetail(id)),
     clearCart: () => dispatch(clearCart()),

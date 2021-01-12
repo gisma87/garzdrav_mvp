@@ -3,7 +3,7 @@ import './PopupLogin.scss'
 import PopupWrapper from "../UI/PopupWrapper/PopupWrapper";
 import InputMask from 'react-input-mask'
 import {connect} from "react-redux";
-import {authentication, authorizedByPassOrSMS, fetchUserData, refreshAuthentication} from "../../actions";
+import {authentication, authorizedByPassOrSMS, refreshAuthentication} from "../../actions";
 import apiService from "../../service/ApiService";
 
 const PopupLogin = props => {
@@ -34,12 +34,6 @@ const PopupLogin = props => {
       <h3 className="PopupLogin__title">Войти или зарегистрироваться</h3>
       <form className="PopupLogin__form" name="new"
             onSubmit={(event) => event.preventDefault()}
-        // onChange={(event) => {
-        //   const input = event.target;
-        //   if (input.id === 'PopupLogin-contact') {
-        //     setFormValid(validate(phone))
-        //   }
-        // }}
       >
         <InputMask mask="+7\ (999)\ 999\ 99\ 99"
                    maskChar=" "
@@ -53,32 +47,6 @@ const PopupLogin = props => {
                    id="PopupLogin-contact"
         />
 
-        {/*<input*/}
-        {/*  type="text"*/}
-        {/*  name="PopupLogin-contact1"*/}
-        {/*  className="PopupLogin__input PopupLogin__input_type_name"*/}
-        {/*  placeholder="Телефон или e-mail"*/}
-        {/*  onChange={test}*/}
-        {/*  value={testValue}*/}
-        {/*  required*/}
-        {/*  minLength="6"*/}
-        {/*  maxLength="30"*/}
-        {/*  id="PopupLogin-contact1"*/}
-        {/*/>*/}
-        {/*<span id="error-newPlace" className="popup__error-message"/>*/}
-
-
-        {/*<input*/}
-        {/*  type="text"*/}
-        {/*  name="PopupLogin-contact"*/}
-        {/*  className="PopupLogin__input PopupLogin__input_type_name"*/}
-        {/*  placeholder="Телефон или e-mail"*/}
-        {/*  required*/}
-        {/*  minLength="6"*/}
-        {/*  maxLength="30"*/}
-        {/*  id="PopupLogin-contact"*/}
-        {/*/>*/}
-        {/*<span id="error-newPlace" className="popup__error-message"/>*/}
         <input
           type="text"
           name="PopupLogin-pwd"
@@ -98,7 +66,6 @@ const PopupLogin = props => {
                   className={"PopupLogin__button " + (formValid ? "PopupLogin__button_active" : '')}
                   onClick={() => {
                     props.authorizedByPassOrSMS(phone, smsCodeOrPassword)
-                    // props.authentication(phone, smsCodeOrPassword)
                     props.onClick()
                   }}
           >
@@ -120,7 +87,6 @@ const mapDispatchToProps = (dispatch) => {
     authentication: (phone, smsCodeOrPassword) => dispatch(authentication(phone, smsCodeOrPassword)),
     authorizedByPassOrSMS: (phone, smsOrPass) => dispatch(authorizedByPassOrSMS(phone, smsOrPass)),
     refreshAuthentication: () => dispatch(refreshAuthentication()),
-    fetchUserData: () => dispatch(fetchUserData())
   }
 }
 

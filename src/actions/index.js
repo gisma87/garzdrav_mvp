@@ -304,10 +304,11 @@ const rewriteCart = (cart) => {
   }
 }
 
-const addedToFavorits = (item) => {
+// записываем избранное в store
+const setFavoritesToStore = (favoritesObject) => {
   return {
-    type: 'ADDED_TO_FAVORITES',
-    payload: item
+    type: 'SET_FAVORITES_TO_STORE',
+    payload: favoritesObject
   }
 }
 
@@ -468,6 +469,7 @@ const authorizedByPassOrSMS = (phone, passOrSms) => async (dispatch, getState, a
       localStorage.setItem('TOKEN', JSON.stringify(response))
       console.log('access_TOKEN')
       dispatch(fetchUserData(response.accessToken))
+      dispatch(getToFavorites())
     })
     .catch(err => {
       if (err.response) {
@@ -500,21 +502,19 @@ const authorizedByPassOrSMS = (phone, passOrSms) => async (dispatch, getState, a
         console.log('ошибка запроса')
       }
     })
-
   dispatch(loadingFalse('authorizedByPassOrSMS - вручную'))
-  // async () => console.log(await response)
-  // try {
-  //   const response = await apiService.authentication(phone, passOrSms)
-  //   dispatch({type: 'TOKEN', payload: response})
-  //   localStorage.setItem('TOKEN', JSON.stringify(response))
-  //   console.log('access_TOKEN')
-  //   dispatch(fetchUserData(response.accessToken))
-  // } catch (e) {
-  //   dispatch(setError(e))
-  //   dispatch(loadingTrue('authorizedByPassOrSMS'))
-  // }
 }
 
+function getToFavorites() {
+  return async (dispatch, getState, apiService) => {
+    try {
+      const response = await apiService.getToFavorites(getState().TOKEN.accessToken)
+      dispatch(setFavoritesToStore(response))
+    } catch (e) {
+      dispatch(setError(e))
+    }
+  }
+}
 
 function logout() {
   localStorage.removeItem("TOKEN")
@@ -617,6 +617,8 @@ const cancelOrder = (orderGuid) => async (dispatch, getState, apiService) => {
 }
 
 export {
+  getToFavorites,
+  setFavoritesToStore,
   authorizedByPassOrSMS,
   setStatusRequestOrder,
   setCountItemCart,
@@ -643,7 +645,6 @@ export {
   itemRemovedFromCart,
   allItemRemovedFromCart,
   rewriteCart,
-  addedToFavorits,
   loadingTrue,
   loadingFalse,
   ProductsFromSearchLoaded,

@@ -51,12 +51,11 @@ class ApiService {
   // ввод СМС кода для авторизации
   async postSmsCode(phone, smsCode) {
     const response = await axios.post(`${this.URL}/Authentication/sms`,
+      {phone: phone, code: smsCode},
       {
         headers: {
           'Content-Type': 'application/json'
-        },
-        phone: phone,
-        code: smsCode
+        }
       })
     return response.data
   }
@@ -72,31 +71,23 @@ class ApiService {
     return response.data
   }
 
-  // POST запрос TOKEN по паролю
+  // POST запрос TOKEN по паролю  TEST: phone: "9131996226", password: password
   async authentication(phone, password) {
-    const result = await axios.post(`${this.URL}/Authentication/password`,
-      {
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        // phone: "9131996226",
-        phone: phone,
-        password: password
-      })
-
+    const result = await axios.post(
+      `${this.URL}/Authentication/password`,
+      {phone: phone, password: password},
+      {headers: {'Content-Type': 'application/json'}}
+    )
     return result.data
   }
 
   // POST запрос refreshTOKEN
   async refreshToken(TOKEN) {
-    const response = await axios.post(`${this.URL}/Authentication/refresh`,
-      {
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        accessToken: TOKEN.accessToken,
-        refreshToken: TOKEN.refreshToken
-      })
+    const response = await axios.post(
+      `${this.URL}/Authentication/refresh`,
+      {accessToken: TOKEN.accessToken, refreshToken: TOKEN.refreshToken},
+      {headers: {'Content-Type': 'application/json'}}
+    )
 
     return response.data
   }
@@ -231,76 +222,31 @@ class ApiService {
     })
     return response.data
   }
+
+  // POST запрос - добавить товар в Избранное
+  async addToFavorites(TOKEN, productGuid) {
+    const response = await axios.post(
+      `${this.URL}/Favorites?productGuid=${productGuid}`,
+      null,
+      {headers: {'Content-Type': 'application/json', Authorization: `Bearer ${TOKEN}`}}
+    )
+    return response.data
+  }
+
+  // запрос избранных товаров
+  async getToFavorites(TOKEN) {
+    const response = await axios.get(`${this.URL}/Favorites`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${TOKEN}`
+        }
+      })
+    return response.data
+  }
+
 }
 
 const apiService = new ApiService()
 
 export default apiService
-
-
-// getUserCity1() {
-//   return new Promise((resolve, reject) => {
-//     fetch('https://api.ipify.org?format=json')
-//       .then(res => res.json())
-//       .then(({ip}) => {
-//         fetch(
-//           `https://suggestions.dadata.ru/suggestions/api/4_1/rs/iplocate/address?ip=${ip}&token=3403f978625b46f2052d4e9dbbf08eb6fa06ee19`
-//         )
-//           .then(res => res.json())
-//           .then(json => {
-//             if (
-//               {}.hasOwnProperty.call(json, 'family') &&
-//               json.family.toLowerCase().indexOf('err')
-//             ) {
-//               return reject(json);
-//             }
-//             const {
-//               location: {
-//                 data: {city},
-//               },
-//             } = json;
-//             resolve({city, ip});
-//           });
-//       });
-//   });
-// }
-
-//======= РАБОТАЕТ ===================================================================
-// sendOrderTEST = async (order, TOKEN) => {
-//   const response = await axios.post(`${this.URL}/Orders`, order, {
-//     headers: {
-//       'Content-Type': 'application/json',
-//       Authorization: `Bearer ${TOKEN}`
-//     }
-//   })
-//   return response.data
-// }
-//=====================================================================================
-
-// // поисковый запрос всех товаров по названию
-// async getProductsFromSearch(productName, cityId) {
-//   const res = await fetch(`${this.URL}/Products/byName?str=${productName}&cityGuid=${cityId}`,
-//     {
-//       method: 'GET',
-//       headers: {
-//         accept: 'application/json'
-//       }
-//     }
-//   )
-//   if (!res.ok) {
-//     throw new Error(`Не могу выполнить fetch, статус ошибки: ${res.status}`)
-//   }
-//   return await res.json();
-// }
-
-// // поисковый запрос порционно с указанием количества элементов и страницы
-// async getProductsFromSearchLimit(productName, cityId, quantity = 32, page = 1, order = 'TitleAscending') {
-//   const res = await axios.get(`${this.URL}/Products/byName?str=${productName}&cityGuid=${cityId}&limit=${quantity}&page=${page}&order=${order}`)
-//   return await res.data;
-// }
-
-// // запрос товаров по категории
-// async getProductToCategory(cityId, categoryId) {
-//   const result = await axios.get(`${this.URL}/Products/byName?cityGuid=${cityId}&categoryGuid=${categoryId}`)
-//   return result.data
-// }
