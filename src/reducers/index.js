@@ -146,6 +146,23 @@ const reducer = (state = initialState, action) => {
         favorites: action.payload
       };
 
+    case 'ADD_FAVORITES_TO_STORE':
+      const copyFavorites = [...state.favorites]
+      copyFavorites.push(action.payload)
+      return {
+        ...state,
+        favorites: copyFavorites
+      };
+
+    case 'DELETE_FAVORITES_TO_STORE':
+      const copyFavoritesFromDelete = [...state.favorites]
+      const delIndex = copyFavoritesFromDelete.findIndex(item => item.guid === action.payload)
+      copyFavoritesFromDelete.splice(delIndex, 1)
+      return {
+        ...state,
+        favorites: copyFavoritesFromDelete
+      };
+
     case 'FETCH_RETAILS_CITY_SUCCESS':
       return {
         ...state,

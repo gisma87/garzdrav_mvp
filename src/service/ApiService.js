@@ -245,6 +245,17 @@ class ApiService {
     return response.data
   }
 
+  async delToFavorites(TOKEN, productGuid) {
+    const response = await axios.delete(`${this.URL}/Favorites?productGuid=${productGuid}`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${TOKEN}`
+        }
+      })
+    return response.status
+  }
+
 }
 
 const apiService = new ApiService()

@@ -13,7 +13,6 @@ const ButtonRepeatOrder = props => {
     const arrayProducts = []
     props.item.items.forEach(el => {
       arrayProducts.push({
-        // idProduct: el.product,
         idProduct: el.productGuid,
         count: el.quantity
       })
@@ -37,9 +36,6 @@ const ButtonRepeatOrder = props => {
   )
 }
 
-const mapStateToProps = () => {
-}
-
 const mapDispatchToProps = (dispatch) => {
   return {
     repeatOrder: (arrayProducts) => dispatch(repeatOrder(arrayProducts))
@@ -47,4 +43,4 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(ButtonRepeatOrder)
+export default connect(null, mapDispatchToProps)(ButtonRepeatOrder)

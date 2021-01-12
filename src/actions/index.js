@@ -304,14 +304,6 @@ const rewriteCart = (cart) => {
   }
 }
 
-// записываем избранное в store
-const setFavoritesToStore = (favoritesObject) => {
-  return {
-    type: 'SET_FAVORITES_TO_STORE',
-    payload: favoritesObject
-  }
-}
-
 // список позиций из поискового запроса
 const ProductsFromSearchLoaded = (products, productSearch) => {
   products.productSearch = productSearch
@@ -426,6 +418,7 @@ const fetchUserData = () => async (dispatch, getState, apiService) => {
   try {
     const response = await apiService.getUserData(accessToken)
     dispatch({type: 'USER_DATA', payload: response})
+    dispatch(getToFavorites())
   } catch (e) {
     dispatch(setError(e))
   }
@@ -440,6 +433,7 @@ const refreshAuthentication = () => async (dispatch, getState, apiService) => {
     dispatch({type: 'TOKEN', payload: response})
     localStorage.setItem('TOKEN', JSON.stringify(response))
     console.log('refresh_TOKEN')
+    dispatch(getToFavorites())
   } catch (e) {
     dispatch(setError(e))
     dispatch(logout())
@@ -469,7 +463,6 @@ const authorizedByPassOrSMS = (phone, passOrSms) => async (dispatch, getState, a
       localStorage.setItem('TOKEN', JSON.stringify(response))
       console.log('access_TOKEN')
       dispatch(fetchUserData(response.accessToken))
-      dispatch(getToFavorites())
     })
     .catch(err => {
       if (err.response) {
@@ -505,11 +498,59 @@ const authorizedByPassOrSMS = (phone, passOrSms) => async (dispatch, getState, a
   dispatch(loadingFalse('authorizedByPassOrSMS - вручную'))
 }
 
+// записываем избранное в store
+const setFavoritesToStore = (favoritesObject) => {
+  return {
+    type: 'SET_FAVORITES_TO_STORE',
+    payload: favoritesObject
+  }
+}
+
+// добавляем элемент favorites в store
+function addFavoritesToStore(favoritesElement) {
+  return {
+    type: 'ADD_FAVORITES_TO_STORE',
+    payload: favoritesElement
+  }
+}
+
+// удаляем элемент favorites из store
+function delFavoritesToStore(favoritesElement) {
+  return {
+    type: 'DELETE_FAVORITES_TO_STORE',
+    payload: favoritesElement
+  }
+}
+
 function getToFavorites() {
   return async (dispatch, getState, apiService) => {
     try {
       const response = await apiService.getToFavorites(getState().TOKEN.accessToken)
       dispatch(setFavoritesToStore(response))
+    } catch (e) {
+      dispatch(setError(e))
+    }
+  }
+}
+
+function addToFavorites(productGuid) {
+  return async (dispatch, getState, apiService) => {
+    try {
+      const response = await apiService.addToFavorites(getState().TOKEN.accessToken, productGuid)
+      dispatch(addFavoritesToStore(response))
+    } catch (e) {
+      dispatch(setError(e))
+    }
+  }
+}
+
+function delToFavorites(productGuid) {
+  return async (dispatch, getState, apiService) => {
+    try {
+      const response = await apiService.delToFavorites(getState().TOKEN.accessToken, productGuid)
+      if (response === 200) {
+        dispatch(delFavoritesToStore(productGuid))
+      }
     } catch (e) {
       dispatch(setError(e))
     }
@@ -617,8 +658,8 @@ const cancelOrder = (orderGuid) => async (dispatch, getState, apiService) => {
 }
 
 export {
-  getToFavorites,
-  setFavoritesToStore,
+  delToFavorites,
+  addToFavorites,
   authorizedByPassOrSMS,
   setStatusRequestOrder,
   setCountItemCart,

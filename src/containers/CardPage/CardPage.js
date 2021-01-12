@@ -41,7 +41,6 @@ const CardPage = (props) => {
   const img = null
 
   const itemIndex = cart.findIndex((item) => item.itemId === itemId);
-  const isFavorite = favorites.includes(itemId);
   const isActive = itemIndex >= 0;
   const isMobile = useMediaQuery({query: '(max-width: 800px)'})
 
@@ -244,12 +243,11 @@ const CardPage = (props) => {
                     : <img src={notPhoto} alt="pills icon" className='CardPage__image'/>}
                   <p className='CardPage__caption'>Внешний вид товара может отличаться от изображения на
                     сайте</p>
-                  <p className='CardPage__like' onClick={() => {
-                    setLike(!like)
-                    addedToFavorits(productInfo.guid)
-                  }}
+                  <p className='CardPage__like'
                      style={{color: "red", marginLeft: 15, fontSize: 20}}>
-                    {isFavorite ? <SvgHeartSolid/> : <SvgHeartIcon/>}
+                    <AddToFavorites productGuid={productInfo.guid}>
+                      <ButtonHeart/>
+                    </AddToFavorites>
                     <span>В избранное</span>
                   </p>
                 </div>

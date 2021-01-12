@@ -1,7 +1,6 @@
-import React, {useState} from "react";
-import {setFavoritesToStore} from "../../actions";
+import React, {useEffect, useState} from "react";
+import {addToFavorites, delToFavorites} from "../../actions";
 import {connect} from "react-redux";
-import apiService from "../../service/ApiService";
 import PopupLogin from "../../components/PopupLogin/PopupLogin";
 
 const AddToFavorites = props => {
@@ -9,13 +8,26 @@ const AddToFavorites = props => {
   const [isLike, setIsLike] = useState(false)
   const [showPopupLogin, setShowPopupLogin] = useState(false)
 
-  // const isFavorites = this.props.favorites.includes(item.guid);
+  const isFavorites = () => {
+    if(props.favorites.length) {
+      return props.favorites.some(item => item.guid === props.productGuid)
+    }
+    return false;
+  };
 
-  function addToFavorites() {
+  useEffect(() => {
+    setIsLike(isFavorites)
+  })
+
+  function setFavorites() {
     if (props.TOKEN) {
-      setIsLike(!isLike)
-      apiService.addToFavorites(props.TOKEN.accessToken, props.productGuid)
-        .then(response => console.log(response))
+      if (isFavorites()) {
+        setIsLike(false)
+        props.delToFavorites(props.productGuid)
+      } else {
+        setIsLike(true)
+        props.addToFavorites(props.productGuid)
+      }
     } else {
       setShowPopupLogin(true)
     }
@@ -23,13 +35,12 @@ const AddToFavorites = props => {
 
   return (
     <>
-      <div onClick={addToFavorites}>
+      <div onClick={setFavorites}>
         {React.cloneElement(
           props.children,
-          [{
+          {
             active: isLike
-          }],
-          null
+          }
         )}
       </div>
       <PopupLogin active={showPopupLogin}
@@ -45,7 +56,8 @@ const mapStateToProps = ({favorites, TOKEN}) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setFavoritesToStore: (favoritesObject) => dispatch(setFavoritesToStore(favoritesObject))
+    addToFavorites: (productGuid) => dispatch(addToFavorites(productGuid)),
+    delToFavorites: (productGuid) => dispatch(delToFavorites(productGuid))
   }
 }
 
