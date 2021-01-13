@@ -40,6 +40,7 @@ import {
   postBuyOrder, sortProductThisRetail
 } from './cartUtils'
 import PopupLogin from "../../components/PopupLogin/PopupLogin";
+import SvgArrowLongRight from "../../components/UI/icons/SvgArrowLongRight";
 
 class Cart extends React.Component {
   constructor(props) {
@@ -102,11 +103,28 @@ class Cart extends React.Component {
     return (
       <div className='Cart wrapper'>
         <div className='Cart__topPanel'>
-          <h1>Корзина</h1>
-          {
-            this.props.cart.length > 0 &&
-            <p className='Cart__clearBtn' onClick={this.props.clearCart}>Очистить корзину</p>
-          }
+
+          <div className="Cart__pageTitle">
+            <p className="Cart__pageNumber Cart__pageNumber_active">1</p>
+            <p className="Cart__pageName">Корзина</p>
+          </div>
+          <SvgArrowLongRight className="Cart__pageArrow"/>
+          <div className="Cart__pageTitle">
+            <p className="Cart__pageNumber">2</p>
+            <p className="Cart__pageName">Выбор аптеки</p>
+          </div>
+          <SvgArrowLongRight className="Cart__pageArrow"/>
+          <div className="Cart__pageTitle">
+            <p className="Cart__pageNumber">3</p>
+            <p className="Cart__pageName">Подтверждение заказа</p>
+          </div>
+
+
+          {/*<h1>Корзина</h1>*/}
+          {/*{*/}
+          {/*  this.props.cart.length > 0 &&*/}
+          {/*  <p className='Cart__clearBtn' onClick={this.props.clearCart}>Очистить корзину</p>*/}
+          {/*}*/}
         </div>
         <ErrorBoundary>
           {this.props.error ? this.clearCartError()
@@ -120,8 +138,8 @@ class Cart extends React.Component {
                   }
                 </>
                 : <>
-                  {!this.props.isRetailAllProduct &&
-                  <p style={{marginBottom: 10}}>К сожалению нет аптек с полным ассортиментом выбранного товара</p>}
+                  {/*{!this.props.isRetailAllProduct &&*/}
+                  {/*<p style={{marginBottom: 10}}>К сожалению нет аптек с полным ассортиментом выбранного товара</p>}*/}
 
                   <section className='Cart__mainContainer'>
                     <div className='Cart__itemContainer'>

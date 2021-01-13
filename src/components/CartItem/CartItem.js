@@ -1,6 +1,5 @@
 import React, {useRef, useState} from "react";
 import './CartItem.scss'
-import notPhoto from "../../img/notPhoto.svg";
 import SvgPillsIcon from "../../img/SVGcomponents/SvgPillsIcon";
 import SvgAngleUpSolid from "../../img/SVGcomponents/SvgAngleUpSolid";
 

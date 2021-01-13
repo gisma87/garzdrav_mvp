@@ -16,6 +16,44 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    max-width: 800px;
+    width: 100%;
+    align-self: center;
+    margin: 0 auto;
+    padding: 0 10px 15px;
+  }
+
+  &__pageTitle {
+    display: flex;
+    align-items: center;
+  }
+
+  &__pageNumber {
+    font-family: PTSans-Bold, Helvetica, Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border: 2px solid $primary-color;
+    border-radius: 50%;
+    color: $primary-color;
+    font-size: 1.2rem;
+    font-weight: bold;
+
+    &_active {
+      background-color: $primary-color;
+      color: #fff;
+    }
+  }
+
+  &__pageName {
+    font-size: 1.2rem;
+    margin-left: 15px;
+  }
+
+  &__pageArrow {
+    font-size: 36px;
   }
 
   h1 {
