@@ -42,6 +42,8 @@ import {
 } from './cartUtils'
 import PopupLogin from "../../components/PopupLogin/PopupLogin";
 import SvgArrowLongRight from "../../components/UI/icons/SvgArrowLongRight";
+import CardItem from "../../components/CardItem";
+import imgPiracetam from '../../img/test/img_piracetam.jpeg'
 
 class Cart extends React.Component {
   constructor(props) {
@@ -74,7 +76,14 @@ class Cart extends React.Component {
     error: <Error/>,
     loadingText: <Loader classStyle='Loader_is-opened'/>,
     OrderNumber: '',
-    popupBuy: false
+    popupBuy: false,
+    promoItem: {
+      guid: 'ebbc25d4-3fad-4923-a445-6617d7b8981f',
+      product: 'ПИРАЦЕТАМ 200МГ. №60 ТАБ. П/П/О /ОЗОН/',
+      manufacturer: 'ОЗОН ООО',
+      img: imgPiracetam,
+      minPrice: 129
+    }
   }
 
   componentDidMount() {
@@ -93,8 +102,31 @@ class Cart extends React.Component {
     }
   }
 
+  getDataForPromoItem() {
+    if (this.state.promoItem) {
+      const result = {}
+      const itemIndex = this.props.cart.findIndex((item) => item.itemId === this.state.promoItem.guid);
+      result.isBuy = itemIndex >= 0;
+      result.count = result.isBuy ? this.props.cart[itemIndex].count : 0
+      result.key = this.state.promoItem.guid
+      result.id = this.state.promoItem.guid
+      result.title = this.state.promoItem.product
+      result.maker = this.state.promoItem.manufacturer
+      result.img = this.state.promoItem.img
+      result.minPrice = this.state.promoItem.minPrice
+      result.onIncrement = () => this.props.addedToCart(this.state.promoItem.guid)
+      result.onDecrement = () => this.props.itemRemovedFromCart(this.state.promoItem.guid)
+
+      return result
+    }
+    return null
+  }
+
   render() {
     const sum = this.getSum()
+    const dataForPromoItem = this.getDataForPromoItem();
+    console.log('result: ', dataForPromoItem)
+    console.log('dataForPromoItem.guid: ', dataForPromoItem.guid)
 
     // список аптек с неполным наличием товара
     let incompleteRetailItemState = this.props.retailsArr
@@ -221,6 +253,28 @@ class Cart extends React.Component {
                           </button>
                         </div>
                       </div>
+                      <div className='Cart__promoContainer'>
+                        <p className="Cart__titlePanel">Вам пригодится</p>
+                        {this.state.promoItem
+                        && <CardItem onItemSelected={() => {
+                        }}
+                                     onIncrement={dataForPromoItem.onIncrement}
+                                     onDecrement={dataForPromoItem.onDecrement}
+                                     isBuy={dataForPromoItem.isBuy}
+                                     count={dataForPromoItem.count}
+                                     key={dataForPromoItem.key}
+                                     id={dataForPromoItem.id}
+                                     title={dataForPromoItem.title}
+                                     maker={dataForPromoItem.maker}
+                                     img={dataForPromoItem.img}
+                                     minPrice={dataForPromoItem.minPrice}
+                        />
+                        }
+
+                        <div className="Cart__promoBlock">
+
+                        </div>
+                      </div>
                     </div>
                     }
 
@@ -249,8 +303,8 @@ class Cart extends React.Component {
                           Купить
                         </button>
                       </div>
-                    </div>
-                    }
+                    </div>}
+
                   </section>
 
                   {this.props.cart.length !== 0 && <section className='Cart__choiceRetail'>

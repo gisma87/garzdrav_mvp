@@ -105,6 +105,17 @@
     color: #000;
   }
 
+  &__promoContainer {
+    margin-top: 15px;
+  }
+
+  &__promoBlock {
+    border: 1px solid $primary-color;
+    border-radius: 20px;
+    height: 100px;
+    padding: 20px;
+  }
+
   &__itemContainer {
     display: flex;
     flex-direction: column;

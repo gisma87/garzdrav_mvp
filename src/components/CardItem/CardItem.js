@@ -17,7 +17,7 @@ const CardItem = props => {
     classStyle = '',
     onItemSelected,
   } = props
-
+  console.log('props: ', props)
   return (
     <div className={'CardItem ' + classStyle}
          onClick={(event) => onItemSelected(id, event)}>
