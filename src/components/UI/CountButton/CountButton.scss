@@ -1,28 +1,29 @@
 @import "../../../variables";
 
 .CountButton {
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: $primary-font;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 
   &__decrement, &__increment {
+    font-family: Helvetica, Arial, sans-serif;
     outline: none;
     font-size: 26px;
-    font-weight: 700;
+    //font-weight: 700;
     color: #fff;
     background: $primary-color;
     width: 32px;
     height: 32px;
-    border-radius: 13px;
+    border-radius: 50%;
     display: flex;
-    align-items: center;
+    //align-items: center;
     justify-content: center;
 
-    span {
-      transform: translate(0px,-2px);
-    }
+    //span {
+    //  transform: translate(0px,-2px);
+    //}
 
     &:active {
       transform: scale(.95);

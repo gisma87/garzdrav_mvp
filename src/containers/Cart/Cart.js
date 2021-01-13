@@ -13,6 +13,7 @@ import Error from "../../components/Error/Error";
 import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
 import Loader from "../../components/UI/Loader";
 import PopupAfterBuy from "../../components/PopupAfterBuy/PopupAfterBuy";
+import num_word from "../../utils/numWord";
 import {
   RetailCheckPanel,
   RetailCheckPanelListItem,
@@ -100,6 +101,11 @@ class Cart extends React.Component {
       .filter(item => item.product.length < this.props.cart.length)
       .sort((a, b) => a.product.length < b.product.length ? 1 : -1)
 
+    // общее количество товаров в корзине
+    const countProducts = this.props.cart.reduce((sum, item) => {
+      return item.count + sum
+    }, 0)
+
     return (
       <div className='Cart wrapper'>
         <div className='Cart__topPanel'>
@@ -141,50 +147,84 @@ class Cart extends React.Component {
                   {/*{!this.props.isRetailAllProduct &&*/}
                   {/*<p style={{marginBottom: 10}}>К сожалению нет аптек с полным ассортиментом выбранного товара</p>}*/}
 
+                  {/*<div className="Cart__titleContainer">*/}
+                  {/*  <p className="Cart__countProducts">*/}
+                  {/*    В корзине {countProducts} {num_word(countProducts, ['товар', 'товара', 'товаров'])}*/}
+                  {/*  </p>*/}
+                  {/*</div>*/}
                   <section className='Cart__mainContainer'>
-                    <div className='Cart__itemContainer'>
-                      {this.props.cart.length === 0 ? <p style={{padding: 20, fontSize: '2rem'}}>Корзина пуста</p> :
-                        this.sortProductThisRetail().map((item) => {
-                          const countLast = this.getCountLast(item.guid)
-                          const index = this.props.cart.findIndex((cartItem) => cartItem.itemId === item.guid);
-                          const count = index > -1 ? this.props.cart[index].count : null
-                          if (countLast && count && count > countLast) {
-                            const delta = count - countLast
-                            this.props.setCountItemCart(item.guid, delta)
-                          }
-                          const priceIndex = item.retails.findIndex(retail => retail.guid === this.props.selectedRetail)
-                          const price = priceIndex >= 0 ? item.retails[priceIndex].priceRetail : null
-                          const sum = this.calculateAmountArray().find(itemArr => itemArr.guid === item.guid)?.sum
-                          return this.props.cart[index] !== undefined
-                            && <CartItem item={{
-                              id: item.guid,
-                              img: null,
-                              title: item.product,
-                              maker: item.manufacturer,
-                              minPrice: item.retails.sort((a, b) => a.priceRetail > b.priceRetail ? 1 : -1)[0].priceRetail,
-                              price,
-                              sum,
-                              countLast
-                            }}
-                                         retails={item.retails}
-                                         classStyle={'Cart__item'}
-                                         count={count}
-                                         addedToCart={() => {
-                                           this.props.addedToCart(item.guid)
-                                         }}
-                                         itemRemovedFromCart={() => {
-                                           this.props.itemRemovedFromCart(item.guid)
-                                         }}
-                                         allItemRemovedFromCart={() => {
-                                           this.props.allItemRemovedFromCart(item.guid)
-                                         }}
-                                         key={item.guid}
-                            />
-                        })
-                      }
+                    <div className="Cart__productsContainer" style={!this.props.cart.length ? {width: '100%'} : {}}>
+                      <p className="Cart__titlePanel">
+                        В корзине {countProducts} {num_word(countProducts, ['товар', 'товара', 'товаров'])}
+                      </p>
+                      <div className='Cart__itemContainer'>
+                        {this.props.cart.length === 0 ? <p style={{padding: 20, fontSize: '2rem'}}>Корзина пуста</p> :
+                          this.sortProductThisRetail().map((item) => {
+                            const countLast = this.getCountLast(item.guid)
+                            const index = this.props.cart.findIndex((cartItem) => cartItem.itemId === item.guid);
+                            const count = index > -1 ? this.props.cart[index].count : null
+                            if (countLast && count && count > countLast) {
+                              const delta = count - countLast
+                              this.props.setCountItemCart(item.guid, delta)
+                            }
+                            const priceIndex = item.retails.findIndex(retail => retail.guid === this.props.selectedRetail)
+                            const price = priceIndex >= 0 ? item.retails[priceIndex].priceRetail : null
+                            const sum = this.calculateAmountArray().find(itemArr => itemArr.guid === item.guid)?.sum
+                            return this.props.cart[index] !== undefined
+                              && <CartItem item={{
+                                id: item.guid,
+                                img: null,
+                                title: item.product,
+                                maker: item.manufacturer,
+                                minPrice: item.retails.sort((a, b) => a.priceRetail > b.priceRetail ? 1 : -1)[0].priceRetail,
+                                price,
+                                sum,
+                                countLast
+                              }}
+                                           retails={item.retails}
+                                           classStyle={'Cart__item'}
+                                           count={count}
+                                           addedToCart={() => {
+                                             this.props.addedToCart(item.guid)
+                                           }}
+                                           itemRemovedFromCart={() => {
+                                             this.props.itemRemovedFromCart(item.guid)
+                                           }}
+                                           allItemRemovedFromCart={() => {
+                                             this.props.allItemRemovedFromCart(item.guid)
+                                           }}
+                                           key={item.guid}
+                              />
+                          })
+                        }
+                      </div>
                     </div>
 
+
                     {this.props.cart.length > 0 && <div className='Cart__rightPanel'>
+                      <p className="Cart__titlePanel">Ваш заказ</p>
+                      <div className='Cart__pricePanel'>
+                        <div className="Cart__pricePanelContent">
+                          <div className='Cart__resultPrice'>
+                            <span>{countProducts} {num_word(countProducts, ['товар', 'товара', 'товаров'])} на сумму от {sum} ₽</span>
+                          </div>
+                          <button className='Cart__buttonToCart'
+                                  onClick={() => {
+                                    if (!!this.props.TOKEN) {
+                                      this.setState({popupOrder: true})
+                                    } else {
+                                      this.setState({popupLogin: true, isHasBuy: true})
+                                    }
+                                  }}
+                          >
+                            выбрать аптеку
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    }
+
+                    {false && <div className='Cart__rightPanel'>
                       <div className='Cart__pricePanel'>
                         <div className='Cart__resultPrice'>
                           <span>Общая сумма:</span> <span>{sum} ₽</span>

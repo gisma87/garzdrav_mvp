@@ -29,7 +29,7 @@
   }
 
   &__pageNumber {
-    font-family: PTSans-Bold, Helvetica, Arial, sans-serif;
+    font-family: $font-number;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -82,7 +82,7 @@
     margin: 0 auto;
     width: 100%;
     max-width: 350px;
-    @media (max-width: 950px) {
+    @media (max-width: 1200px) {
       max-width: 100%;
     }
   }
@@ -92,23 +92,29 @@
     justify-content: space-between;
     align-items: flex-start;
 
-    @media (max-width: 950px) {
+    @media (max-width: 1200px) {
       flex-direction: column;
     }
 
+  }
+
+  &__titlePanel {
+    padding: 10px 0 15px;
+    font-weight: bold;
+    font-size: 1.4rem;
+    color: #000;
   }
 
   &__itemContainer {
     display: flex;
     flex-direction: column;
     flex: 1 1;
-    margin-right: 10px;
     margin-bottom: 20px;
-
+    width: 100%;
     border: 1px solid $primary-color;
     border-radius: 15px;
 
-    @media (max-width: 800px) {
+    @media (min-width: 1200px) {
       margin-right: 10px;
     }
 
@@ -135,14 +141,20 @@
   }
 
   &__pricePanel {
-    padding: 20px;
-    border-radius: 15px;
+    padding: 25px 30px;
+    border-radius: 17px;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
     color: #000;
     background-color: $bg-color-light;
     box-shadow: $box-shadow;
+
+    @media (min-width: 801px) and (max-width: 1200px) {
+      align-items: flex-end;
+      background-color: transparent;
+      box-shadow: none;
+    }
+
     @media (max-width: 800px) {
       width: 100%;
       max-width: 450px;
@@ -202,7 +214,7 @@
     font-weight: bold;
     padding: 15px;
     border: 1px solid $primary-color;
-    border-radius: 15px;
+    border-radius: 25px;
     justify-content: center;
 
     &:hover {
@@ -211,13 +223,18 @@
   }
 
   &__resultPrice {
+    text-align: center;
     white-space: nowrap;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 1.15rem;
     padding: 0 0 20px 0;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     width: 100%;
+
+    @media (max-width: 1200px) {
+      font-size: 1.3rem;
+    }
   }
 
   &__menu {

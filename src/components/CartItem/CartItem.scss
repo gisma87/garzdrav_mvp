@@ -1,21 +1,39 @@
 @import "../../variables";
 
 .CartItem {
+  position: relative;
   font-family: $primary-font;
   padding: 20px;
   display: flex;
   flex-direction: column;
   width: 100%;
   max-width: 860px;
+  @media(max-width: 1200px) {
+    max-width: 100%
+  }
 
   @media(max-width: 800px) {
     padding: 10px 5px;
     max-width: 450px;
   }
 
+  &__closeIcon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: $bg-color;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    padding: 5px;
+
+    &:hover {
+      color: red;
+    }
+  }
+
   &__container {
     display: flex;
-    margin-bottom: 20px;
     justify-content: space-between;
     @media(max-width: 800px) {
       flex-wrap: wrap;
@@ -46,12 +64,13 @@
   }
 
   &__descriptionContainer {
-    margin-right: 30px;
     display: flex;
     flex-direction: column;
     flex: 1 1;
-    @media(max-width: 800px) {
-      margin-right: 0;
+    max-width: 300px;
+
+    @media(max-width: 1200px) {
+      max-width: 100%;
     }
 
     h3 {
@@ -60,6 +79,13 @@
       line-height: 1.2em;
       overflow: hidden;
       margin-bottom: 8px;
+
+      white-space: normal;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+
       @media(max-width: 800px) {
         font-size: 16px;
 
@@ -74,7 +100,7 @@
   }
 
   &__maker {
-    margin: 0;
+    margin: 15px 0 0;
     color: #777;
     @media(max-width: 800px) {
       font-size: 14px;
@@ -129,20 +155,10 @@
     }
   }
 
-  &__itemPrice {
+  &__priceBlock {
     display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    min-width: 105px;
-    @media(max-width: 800px) {
-      //flex-direction: row;
-      flex-basis: 100%;
-      align-items: center;
-      justify-content: space-between;
-      padding-right: 10px;
-      margin-top: 10px;
-      flex-direction: row-reverse;
-    }
+    justify-content: space-between;
+    min-width: 320px;
   }
 
   &__price {
@@ -151,82 +167,11 @@
     line-height: 1.4;
     color: #333;
     white-space: nowrap;
-    margin-bottom: 30px;
+    margin: 0 15px;
+    align-self: center;
     @media(max-width: 800px) {
       margin: 0;
     }
-  }
-
-  &__countButtons {
-    display: flex;
-    font-size: 16px;
-    line-height: 1.42857;
-    color: #333;
-    width: 100%;
-    max-width: 105px;
-    @media(max-width: 800px) {
-      margin-left: 85px;
-    }
-  }
-
-  &__countButton {
-    box-shadow: none;
-    background: #fff;
-    color: #ababab;
-    font-size: 22px;
-    font-weight: bold;
-    overflow: hidden;
-    padding: 0;
-    border: 1px solid #ddd;
-    display: inline-block;
-    height: 38px;
-    text-align: center;
-    vertical-align: top;
-    width: calc(100% / 3);
-    line-height: 1.5;
-    outline: none;
-
-    &:disabled {
-      color: #ddd;
-    }
-
-    &:hover:not([disabled]) {
-      border-color: #aaa;
-      color: #333;
-    }
-
-    &:active:not([disabled]) {
-      color: #fff;
-      background: $primary-color
-    }
-  }
-
-  &__countButtonMinus {
-    border-radius: 8px 0 0 8px;
-    border-right: none;
-    color: #ddd;
-  }
-
-  &__countButtonPlus {
-    border-radius: 0 8px 8px 0;
-    border-left: none;
-    color: #ddd;
-  }
-
-  &__countInput {
-    border: 1px solid #ddd;
-    display: inline-block;
-    height: 38px;
-    text-align: center;
-    vertical-align: top;
-    width: calc(100% / 3);
-    border-left: none;
-    border-right: none;
-    font-size: 14px;
-    line-height: 33px;
-    color: #666;
-    -webkit-appearance: none;
-    border-radius: 0;
   }
 
   &__caption {
@@ -255,7 +200,7 @@
     justify-content: center;
     align-items: center;
     font-size: 14px;
-    color: green;
+    color: $primary-color;
     border-bottom: 1px dashed #000;
     cursor: pointer;
     white-space: nowrap;

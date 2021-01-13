@@ -1,3 +1,6 @@
+@import "variables";
+@import url('https://fonts.googleapis.com/css2?family=Numans&display=swap');
+
 @keyframes bounceInLeft {
     0% {
         opacity: 0;
@@ -31,7 +34,7 @@
 
 body {
     margin: 0;
-    font-family: PTSans-Regular, Helvetica, Arial, sans-serif;
+    font-family: $primary-font;
 }
 
 @font-face {

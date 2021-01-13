@@ -52,11 +52,11 @@ const CardPage = (props) => {
     }
   }, [props.catalog, props.productInfo])
 
-  const priceRetail = () => {
+  const minPriceRetail = () => {
     if (typeof productInfo === 'string' || (typeof productInfo === 'object' && productInfo?.length === 0)) {
       return null
     } else {
-      return productInfo.retails[0].priceRetail
+      return productInfo?.retails.sort((a, b) => a.priceRetail > b.priceRetail ? 1 : -1)[0].priceRetail
     }
   }
 
@@ -122,7 +122,7 @@ const CardPage = (props) => {
       {error
         ? <Error/>
         : <ErrorBoundary>
-          {!priceRetail()
+          {!minPriceRetail()
             ? <div style={{fontSize: 18, padding: 15,}}>
               <p>Подробная информация по данному товару отсутствует. </p>
               <p style={{padding: '10px 0'}}>Возможно произошла ошибка.</p>
@@ -175,17 +175,17 @@ const CardPage = (props) => {
                     <div className='CardPage__priceContainer'>
                       <div className='CardPage__priceContent'>
                         <p className='CardPage__priceText'>Цена в наших аптеках: </p>
-                        <p className='CardPage__price'>от {priceRetail()} ₽</p>
+                        <p className='CardPage__price'>от {minPriceRetail()} ₽</p>
                       </div>
                       <div className='CardPage__amount'>
                         <div className='CardPage__amountBlock CardPage__activePrice'>
                           <span className='CardPage__amountText'>10 мл</span>
                           <span className='CardPage__amountText'>22,5 мкг/доза</span>
-                          <span className='CardPage__amountPrice'>от {priceRetail()} ₽</span>
+                          <span className='CardPage__amountPrice'>от {minPriceRetail()} ₽</span>
                         </div>
                         <div className='CardPage__amountBlock'>
                           <span className='CardPage__amountText'>10 мл</span>
-                          <span className='CardPage__amountPrice'>от {priceRetail()} ₽</span>
+                          <span className='CardPage__amountPrice'>от {minPriceRetail()} ₽</span>
                         </div>
                       </div>
                       <div className='CardPage__buttons'>
@@ -261,17 +261,17 @@ const CardPage = (props) => {
                   <div className='CardPage__priceContainer'>
                     <div className='CardPage__priceContent'>
                       <p className='CardPage__priceText'>Цена в наших аптеках: </p>
-                      <p className='CardPage__price'>от {priceRetail()} ₽</p>
+                      <p className='CardPage__price'>от {minPriceRetail()} ₽</p>
                     </div>
                     <div className='CardPage__amount'>
                       <div className='CardPage__amountBlock CardPage__activePrice'>
                         <span className='CardPage__amountText'>10 мл</span>
                         <span className='CardPage__amountText'>22,5 мкг/доза</span>
-                        <span className='CardPage__amountPrice'>от {priceRetail()} ₽</span>
+                        <span className='CardPage__amountPrice'>от {minPriceRetail()} ₽</span>
                       </div>
                       <div className='CardPage__amountBlock'>
                         <span className='CardPage__amountText'>10 мл</span>
-                        <span className='CardPage__amountPrice'>от {priceRetail()} ₽</span>
+                        <span className='CardPage__amountPrice'>от {minPriceRetail()} ₽</span>
                       </div>
                     </div>
                     <div className='CardPage__buttons'>

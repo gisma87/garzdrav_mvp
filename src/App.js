@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Redirect, Switch, Route} from 'react-router-dom';
-import './App.css';
+import './App.scss';
 import 'normalize.css';
 import Cities from "./containers/Cities";
 import Cart from "./containers/Cart";

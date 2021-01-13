@@ -2,6 +2,8 @@ import React, {useRef, useState} from "react";
 import './CartItem.scss'
 import SvgPillsIcon from "../../img/SVGcomponents/SvgPillsIcon";
 import SvgAngleUpSolid from "../../img/SVGcomponents/SvgAngleUpSolid";
+import SvgClose from "../UI/icons/SvgClose";
+import CountButton from "../UI/CountButton/CountButton";
 
 const CartItem = (props) => {
   const [showDescription, setShowDescription] = useState(false)
@@ -29,6 +31,8 @@ const CartItem = (props) => {
 
   return (
     <div className='CartItem'>
+
+      <SvgClose className='CartItem__closeIcon' onClick={allItemRemovedFromCart}/>
       <div className='CartItem__container'>
         <div className='CartItem__imageContainer'>
           {img
@@ -40,39 +44,36 @@ const CartItem = (props) => {
         <div className='CartItem__descriptionContainer'>
           <h3>{title}</h3>
           <p className='CartItem__maker'>{maker}</p>
-          <div className='CartItem__buttonToDescription'>
-            <button
-              onClick={() => {
-                addedToFavorits()
-              }}
-            >{isFavorite ? 'Удалить из избранного' : 'В избранное'}
-            </button>
-            <button onClick={allItemRemovedFromCart}>Удалить
-            </button>
-          </div>
+
+          {/*<div className='CartItem__buttonToDescription'>*/}
+          {/*  <button*/}
+          {/*    onClick={() => {*/}
+          {/*      addedToFavorits()*/}
+          {/*    }}*/}
+          {/*  >{isFavorite ? 'Удалить из избранного' : 'В избранное'}*/}
+          {/*  </button>*/}
+          {/*  <button onClick={allItemRemovedFromCart}>Удалить*/}
+          {/*  </button>*/}
+          {/*</div>*/}
         </div>
 
-        <div className='CartItem__itemPrice'>
-          <p className='CartItem__price'>{sum ? sum.toFixed(2) : `от ${minPrice}`} ₽</p>
-          <div className='CartItem__countButtons'>
-            <button className='CartItem__countButtonMinus CartItem__countButton'
-                    onClick={itemRemovedFromCart}
-            >-
-            </button>
-            <input className='CartItem__countInput' type="text" value={count} readOnly
-                   style={sum && isLastCount ? {fontWeight: 'bold'} : {}}/>
-            <button className='CartItem__countButtonPlus CartItem__countButton'
-                    style={sum && isLastCount ? {background: 'rgba(144, 0, 32, .3'} : {}}
-                    onClick={() => {
-                      console.log('count: ', count, ' countLast: ', props.item.countLast, ' isLastCount: ', isLastCount)
-                      if (!isLastCount) {
-                        addedToCart()
-                      }
-                    }}
-            >+
-            </button>
-          </div>
-        </div>
+       <div className="CartItem__priceBlock">
+         <p className='CartItem__price'>{sum ? sum.toFixed(2) : `от ${minPrice}`} ₽</p>
+
+         <CountButton
+           count={count}
+           isLastCount={sum && isLastCount}
+           onDecrement={itemRemovedFromCart}
+           onIncrement={() => {
+             console.log('count: ', count, ' countLast: ', props.item.countLast, ' isLastCount: ', isLastCount)
+             if (!isLastCount) {
+               addedToCart()
+             }
+           }}
+         />
+
+         <p className='CartItem__price'>{sum ? sum.toFixed(2) : `от ${minPrice}`} ₽</p>
+       </div>
       </div>
 
       <div className='CartItem__description'>
