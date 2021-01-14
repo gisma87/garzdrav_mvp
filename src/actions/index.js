@@ -72,50 +72,7 @@ const fetchCartItems = (city = null) => (dispatch, getState, apiService) => {
       .then(allResponses => {
         const responseArray = allResponses.filter(item => Boolean(item.length !== 0))
         if (responseArray.length) {
-          const resultArr = responseArray.map(item => {
-            const retails = item.retails.map(retailItem => {
-              return {
-                countLast: retailItem.countLast,
-                priceRetail: retailItem.priceRetail,
-                brand: retailItem.retail.brand,
-                buildNumber: retailItem.retail.buildNumber,
-                city: retailItem.retail.city,
-                coordinates: retailItem.retail.coordinates,
-                guid: retailItem.retail.guid,
-                phone: retailItem.retail.phone,
-                street: retailItem.retail.street,
-                title: retailItem.retail.title,
-                weekDayTime: retailItem.retail.weekDayTime
-              }
-            })
-            return {
-              ...item,
-              retails
-            }
-          })
-
-          // нужный ФОРМАТ ДАННЫХ
-          // [{
-          //    guid: string,
-          //    product: string,
-          //    manufacturer: string,
-          //    categoryGuid: string,
-          //    categoryTitle: string,
-          //    retails: [{
-          //      countLast: number,
-          //      priceRetail: number,
-          //      brand: string,
-          //      buildNumber: string,
-          //      city: string,
-          //      coordinates: [56.034496, 92.884345],
-          //      guid: string,
-          //      phone: string,
-          //      street: string,
-          //      title: string,
-          //      weekDayTime: "09:00:00 - 18:00:00",
-          //    }]
-          // }]
-          dispatch(setCartItems(resultArr))
+          dispatch(setCartItems(responseArray))
         }
       })
       .catch(allError => dispatch(setError(allError)))
@@ -137,51 +94,7 @@ const repeatOrder = (arrayProducts) => (dispatch, getState, apiService) => {
       .then(allResponses => {
         const responseArray = allResponses.filter(item => Boolean(item.length !== 0))
         if (responseArray.length) {
-          const resultArr = responseArray.map(item => {
-            const retails = item.retails.map(retailItem => {
-              return {
-                countLast: retailItem.countLast,
-                priceRetail: retailItem.priceRetail,
-                brand: retailItem.retail.brand,
-                buildNumber: retailItem.retail.buildNumber,
-                city: retailItem.retail.city,
-                coordinates: retailItem.retail.coordinates,
-                guid: retailItem.retail.guid,
-                phone: retailItem.retail.phone,
-                street: retailItem.retail.street,
-                title: retailItem.retail.title,
-                weekDayTime: retailItem.retail.weekDayTime
-              }
-            })
-            return {
-              ...item,
-              retails
-            }
-          })
-
-          // нужный ФОРМАТ ДАННЫХ
-          // [{
-          //    guid: string,
-          //    product: string,
-          //    manufacturer: string,
-          //    categoryGuid: string,
-          //    categoryTitle: string,
-          //    retails: [{
-          //      countLast: number,
-          //      priceRetail: number,
-          //      brand: string,
-          //      buildNumber: string,
-          //      city: string,
-          //      coordinates: [56.034496, 92.884345],
-          //      guid: string,
-          //      phone: string,
-          //      street: string,
-          //      title: string,
-          //      weekDayTime: "09:00:00 - 18:00:00",
-          //    }]
-          // }]
-
-          resultArr.forEach(item => {
+          responseArray.forEach(item => {
             const index = arrayProducts.findIndex(el => el.idProduct === item.guid)
             if (index >= 0) {
               const count = arrayProducts[index].count
@@ -349,48 +262,7 @@ const fetchProductInfo = (productId) => {
     dispatch(loadingTrue('fetchProductInfo'))
     try {
       const response = await apiService.getProductInfo(productId, getState().isCity.guid)
-      // нужный ФОРМАТ ДАННЫХ - response должен быть:
-      // {
-      //    guid: string,
-      //    product: string,
-      //    manufacturer: string,
-      //    categoryGuid: string,
-      //    categoryTitle: string,
-      //    retails: [{
-      //      countLast: number,
-      //      priceRetail: number,
-      //      brand: string,
-      //      buildNumber: string,
-      //      city: string,
-      //      coordinates: [56.034496, 92.884345],
-      //      guid: string,
-      //      phone: string,
-      //      street: string,
-      //      title: string,
-      //      weekDayTime: "09:00:00 - 18:00:00",
-      //    }]
-      // }
-
-      const retails = response.retails.map(retailItem => {
-        return {
-          countLast: retailItem.countLast,
-          priceRetail: retailItem.priceRetail,
-          brand: retailItem.retail.brand,
-          buildNumber: retailItem.retail.buildNumber,
-          city: retailItem.retail.city,
-          coordinates: retailItem.retail.coordinates,
-          guid: retailItem.retail.guid,
-          phone: retailItem.retail.phone,
-          street: retailItem.retail.street,
-          title: retailItem.retail.title,
-          weekDayTime: retailItem.retail.weekDayTime
-        }
-      })
-      const resultProduct = {
-        ...response,
-        retails
-      }
-      dispatch(loadingProductInfo(resultProduct))
+      dispatch(loadingProductInfo(response))
     } catch (e) {
       dispatch(setError(e))
     }
@@ -493,6 +365,14 @@ const authorizedByPassOrSMS = (phone, passOrSms) => async (dispatch, getState, a
 const setFavoritesToStore = (favoritesObject) => {
   return {
     type: 'SET_FAVORITES_TO_STORE',
+    payload: favoritesObject
+  }
+}
+
+// подробная информация об избранных товарах
+const setFavoritesProductInfo = (favoritesObject) => {
+  return {
+    type: 'SET_FAVORITES_PRODUCT_INFO',
     payload: favoritesObject
   }
 }
@@ -701,6 +581,7 @@ const cancelOrder = (orderGuid) => async (dispatch, getState, apiService) => {
 }
 
 export {
+  setFavoritesProductInfo,
   setUserData,
   setToken,
   delToFavorites,

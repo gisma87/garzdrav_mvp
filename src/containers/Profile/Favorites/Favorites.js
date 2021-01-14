@@ -1,26 +1,42 @@
-import React from "react";
+import React, {useEffect} from "react";
 import './Favorites.scss'
 import {useMediaQuery} from "react-responsive";
 import BlockWrapper from "../../../components/BlockWrapper";
 import FavoriteItem from "../../../components/FavoriteItem";
 import CardItemMobile from "../../../components/CardItemMobile";
+import apiService from "../../../service/ApiService";
 
-const Favorites = ({data}) => {
+const Favorites = (props) => {
   const isMobile = useMediaQuery({query: '(max-width: 800px)'})
-  const {addedToCart, itemRemovedFromCart, cart, history, favorites, delToFavorites} = data;
+  const {addedToCart, itemRemovedFromCart, cart, history, favorites, delToFavorites} = props.data;
   const handlerToCards = (itemId) => {
     history.push(`/Cards/${itemId}`)
     window.scroll(0, 0)
   }
+
+  useEffect(() => {
+    const arrFetchFromFavorites = favorites.map(item => {
+      return apiService.getProductInfo(item.guid, props.isCity.guid)
+    })
+    props.loadingTrue('arrFetchFromFavorites')
+    Promise.all([...arrFetchFromFavorites])
+      .then(allResponses => {
+        const responseArray = allResponses.filter(item => Boolean(item.length !== 0))
+        props.setFavoritesProductInfo(responseArray)
+      })
+
+  }, [])
+
   return (
     <BlockWrapper classStyle='Favorites'>
       <h4>Избранное</h4>
       <div className='Favorites__container'>
         {!isMobile &&
-        favorites.map((item) => {
-
+        props.favoritesProductInfo.map((item) => {
+          const minPrice = item?.retails.sort((a, b) => a.priceRetail > b.priceRetail ? 1 : -1)[0].priceRetail.toFixed(2)
           return <FavoriteItem key={item.guid + Math.random()}
                                item={item}
+                               minPrice={minPrice}
                                functions={{addedToCart, itemRemovedFromCart, cart, handlerToCards, delToFavorites}}/>
         })
         }

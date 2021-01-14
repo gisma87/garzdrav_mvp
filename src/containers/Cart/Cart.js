@@ -108,29 +108,8 @@ class Cart extends React.Component {
         this.props.loadingTrue('getProductInfo for promoBlock in Cart')
         apiService.getProductInfo(productId, this.props.isCity.guid)
           .then(response => {
-            const retails = response.retails.map(retailItem => {
-              return {
-                countLast: retailItem.countLast,
-                priceRetail: retailItem.priceRetail,
-                brand: retailItem.retail.brand,
-                buildNumber: retailItem.retail.buildNumber,
-                city: retailItem.retail.city,
-                coordinates: retailItem.retail.coordinates,
-                guid: retailItem.retail.guid,
-                phone: retailItem.retail.phone,
-                street: retailItem.retail.street,
-                title: retailItem.retail.title,
-                weekDayTime: retailItem.retail.weekDayTime
-              }
-            })
-            const resultElement = {
-              ...response,
-              retails
-            }
-
-
             const newCartItems = [...this.props.cartItems]
-            newCartItems.push(resultElement)
+            newCartItems.push(response)
             this.props.setCartItems(newCartItems)
           })
       } else {

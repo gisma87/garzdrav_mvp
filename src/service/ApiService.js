@@ -9,7 +9,48 @@ class ApiService {
   //подробная информация по товару - нужен id товара и id города
   async getProductInfo(productId, cityId) {
     const result = await axios.get(`${this.URL}/Products/byGuid?productGuid=${productId}&cityGuid=${cityId}`)
-    return result.data
+
+    return this._transformProductInfo(result.data)
+  }
+
+  _transformProductInfo(product) {
+    const retails = product.retails.map(retailItem => {
+      return {
+        countLast: retailItem.countLast,
+        priceRetail: retailItem.priceRetail,
+        brand: retailItem.retail.brand,
+        buildNumber: retailItem.retail.buildNumber,
+        city: retailItem.retail.city,
+        coordinates: retailItem.retail.coordinates,
+        guid: retailItem.retail.guid,
+        phone: retailItem.retail.phone,
+        street: retailItem.retail.street,
+        title: retailItem.retail.title,
+        weekDayTime: retailItem.retail.weekDayTime
+      }
+    })
+    return {...product, retails}
+    // нужный ФОРМАТ ДАННЫХ - response должен быть:
+    // {
+    //    guid: string,
+    //    product: string,
+    //    manufacturer: string,
+    //    categoryGuid: string,
+    //    categoryTitle: string,
+    //    retails: [{
+    //      countLast: number,
+    //      priceRetail: number,
+    //      brand: string,
+    //      buildNumber: string,
+    //      city: string,
+    //      coordinates: [56.034496, 92.884345],
+    //      guid: string,
+    //      phone: string,
+    //      street: string,
+    //      title: string,
+    //      weekDayTime: "09:00:00 - 18:00:00",
+    //    }]
+    // }
   }
 
   // запрос списка городов
