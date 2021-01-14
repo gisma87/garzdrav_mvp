@@ -2,7 +2,6 @@ import React, {useState} from "react";
 import './ChangeData.scss'
 import BlockWrapper from "../../../components/BlockWrapper";
 import apiService from "../../../service/ApiService";
-import {loadingTrue, logout, setToken} from "../../../actions";
 
 const ChangeData = (props) => {
 

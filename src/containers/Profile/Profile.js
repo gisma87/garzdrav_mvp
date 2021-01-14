@@ -24,7 +24,7 @@ import Favorites from "./Favorites/Favorites";
 const Profile = (props) => {
 
   const {addedToCart, itemRemovedFromCart, cart, history, favorites, delToFavorites} = props;
-  const [changeData, setChangeData] = useState(false)
+  const [changeSetting, setChangeSetting] = useState('setting')
 
   const [block, setBlock] = useState('main');
 
@@ -73,8 +73,8 @@ const Profile = (props) => {
                   userData={props.userData}
                   TOKEN={props.TOKEN}
                   fetchUserData={props.fetchUserData}
-                  changeData={changeData}
-                  setChangeData={setChangeData}
+                  changeSetting={changeSetting}
+                  setChangeSetting={setChangeSetting}
                   refreshAuthentication={props.refreshAuthentication}
                   setToken={() => setToken(props.TOKEN)}
                   loadingTrue={props.loadingTrue}
@@ -94,7 +94,7 @@ const Profile = (props) => {
                   <li className='Profile__item' onClick={() => setBlock('favoriteRetail')}>Любимая аптека <span
                     style={{color: 'red', fontSize: 12}}>в разработке</span></li>
                   <li className='Profile__item' onClick={() => {
-                    setChangeData(false)
+                    setChangeSetting('setting')
                     setBlock('profileSettings')
                   }}>Настройка профиля
                   </li>
