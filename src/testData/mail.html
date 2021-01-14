@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Title</title>
+  <style>
+      * {
+          padding: 0;
+          margin: 0;
+          border: 0;
+          box-sizing: border-box;
+      }
+
+      main {
+          max-width: 600px;
+          width: 100%;
+          margin: 0 auto;
+          background-color: #bbcbd6;
+      }
+
+      .content {
+          padding: 15px 0 0;
+      }
+
+      .logo-panel {
+          display: flex;
+          max-height: 50px;
+          width: 100%;
+          padding-left: 20px;
+          background-color: #1f5377;
+      }
+
+      .logo-panel__img {
+          object-fit: contain;
+          height: 50px;
+      }
+
+      .status {
+          font-size: 20px;
+          margin: 0 0 15px;
+          padding: 0 15px;
+      }
+
+      .card {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-start;
+          border-bottom: 1px solid #1f5377;
+          padding: 12px 20px;
+      }
+
+      .card:last-child {
+          border-bottom: none;
+      }
+
+      .card__title {
+          flex: 1 1 65%;
+          font-size: 14px;
+          overflow: hidden;
+          margin-bottom: 8px;
+          white-space: normal;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
+      }
+
+      .card__title,
+      .card__count {
+          margin-bottom: 10px;
+      }
+
+      .card__count,
+      .card__price {
+          font-size: 16px;
+      }
+
+      .result-block {
+          display: flex;
+          justify-content: space-between;
+          padding: 15px 20px;
+          border: 1px solid #1f5377;
+          background-color: #1f5377;
+          color: #fff;
+          font-weight: bold;
+      }
+
+      .result-block__title {
+          font-size: 24px;
+      }
+
+      .result-block__sum {
+          font-size: 26px;
+      }
+
+      .address {
+          display: flex;
+          justify-content: space-between;
+          flex-wrap: wrap;
+          padding: 15px;
+          font-size: 18px;
+      }
+
+      .address__title {
+          margin: 0 10px 10px 0;
+
+      }
+
+      .address__text {
+          font-size: 22px;
+      }
+
+  </style>
+</head>
+<body>
+<main>
+  <div class="logo-panel">
+    <a target="_blank" href="https://garzdrav.ru/">
+      <img src="https://garzdrav.ru/bitrix/templates/ovi_gz/images/zamainlogo.png" class="logo-panel__img" alt="logo"/>
+    </a>
+  </div>
+  <div class="content">
+    <h1 class="status">Заказ №1234567 принят</h1>
+    <div class="cards">
+      <div class="card">
+        <div class="card__content">
+          <h2 class="card__title">НАЗИВИН 0,01% 5МЛ. №1 НАЗАЛ.КАПЛИ ФЛ./КАП.</h2>
+          <p class="card__maker">Мерк КГаА для Никомед (NIKOMED )</p>
+        </div>
+        <div class="card__price-block">
+          <p class="card__count">Количество: <b>3</b></p>
+          <p class="card__price">Цена: <b>148 ₽</b></p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card__content">
+          <h2 class="card__title">НАЗИВИН 0,01% 5МЛ. №1 НАЗАЛ.КАПЛИ ФЛ./КАП.</h2>
+          <p class="card__maker">Мерк КГаА для Никомед (NIKOMED )</p>
+        </div>
+        <div class="card__price-block">
+          <p class="card__count">Количество: <b>3</b></p>
+          <p class="card__price">Цена: <b>148 ₽</b></p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card__content">
+          <h2 class="card__title">НАЗИВИН 0,01% 5МЛ. №1 НАЗАЛ.КАПЛИ ФЛ./КАП.</h2>
+          <p class="card__maker">Мерк КГаА для Никомед (NIKOMED )</p>
+        </div>
+        <div class="card__price-block">
+          <p class="card__count">Количество: <b>3</b></p>
+          <p class="card__price">Цена: <b>148 ₽</b></p>
+        </div>
+      </div>
+    </div>
+    <div class="result-block">
+      <p class="result-block__title">Общая сумма</p>
+      <p class="result-block__sum">1234 ₽</p>
+    </div>
+
+    <div class="address">
+      <h3 class="address__title">Забрать из аптеки:</h3>
+      <p class="address__text">г.Красноярск ул.Вавилова 1 с39</p>
+    </div>
+  </div>
+</main>
+</body>
+</html>
