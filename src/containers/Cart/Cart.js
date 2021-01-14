@@ -78,13 +78,7 @@ class Cart extends React.Component {
     loadingText: <Loader classStyle='Loader_is-opened'/>,
     OrderNumber: '',
     popupBuy: false,
-    promoItem: {
-      guid: 'ebbc25d4-3fad-4923-a445-6617d7b8981f',
-      product: 'ПИРАЦЕТАМ 200МГ. №60 ТАБ. П/П/О /ОЗОН/',
-      manufacturer: 'ОЗОН ООО',
-      img: imgPiracetam,
-      minPrice: 129
-    }
+    promoItem: null
   }
 
   componentDidMount() {
@@ -92,6 +86,16 @@ class Cart extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
+
+    // запрашиваем данные для promoItem.
+    if (!this.state.promoItem && this.props.cartItems.length) {
+      apiService.getProductInfo(this.props.cartItems[0].guid, this.props.isCity.guid)
+        .then(response => {
+          const minPrice = response.retails.sort((a, b) => a.priceRetail > b.priceRetail ? 1 : -1)[0].priceRetail
+          this.setState({promoItem: {...response, minPrice}})
+        })
+    }
+
     // Если корзина изменилась, берём её данные с LocalStorage и на основании этих данных пересобираем массивы cartItems и retailsArr
     if (prevProps.cart !== this.props.cart) {
       let oldCart = [...this.props.cart]
@@ -160,8 +164,6 @@ class Cart extends React.Component {
   render() {
     const sum = this.getSum()
     const dataForPromoItem = this.getDataForPromoItem();
-    console.log('result: ', dataForPromoItem)
-    console.log('dataForPromoItem.guid: ', dataForPromoItem.guid)
 
     // список аптек с неполным наличием товара
     let incompleteRetailItemState = this.props.retailsArr

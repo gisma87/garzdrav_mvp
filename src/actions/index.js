@@ -418,9 +418,17 @@ const fetchUserData = () => async (dispatch, getState, apiService) => {
   try {
     const response = await apiService.getUserData(accessToken)
     dispatch({type: 'USER_DATA', payload: response})
-    dispatch(getToFavorites())
   } catch (e) {
     dispatch(setError(e))
+    if (e.response) {
+      // client received an error response (5xx, 4xx)
+      console.log('e.response: ', e.response)
+    } else if (e.request) {
+      // client never received a response, or request never left
+      console.log('e.request: ', e.request)
+    } else {
+      // anything else
+    }
   }
 }
 
@@ -449,6 +457,7 @@ const authentication = (phone, password) => async (dispatch, getState, apiServic
     localStorage.setItem('TOKEN', JSON.stringify(response))
     console.log('access_TOKEN')
     dispatch(fetchUserData(response.accessToken))
+    dispatch(getToFavorites())
   } catch (e) {
     dispatch(setError(e))
   }

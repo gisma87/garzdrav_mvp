@@ -6,15 +6,17 @@ const PopupLocation = props => {
   return (
 
     <div className={"PopupLocation" + (props.active ? ' PopupLocation__active' : '')}>
-      <p>Ваш город
-        <SvgIconLocation className='PopupLocation__locationIcon'/>
+      <p className='PopupLocation__title'>
+        <span>Ваш город</span>
+        <span>
+          <SvgIconLocation className='PopupLocation__locationIcon'/>
         <b>{props.city}</b> ?
+        </span>
       </p>
-      <button className="PopupLocation__btn"
-              onClick={props.closeThisPopup}
-      >Да
-      </button>
-      <button className="PopupLocation__btnLink" onClick={props.openPopupCities}>Выбрать другой</button>
+      <div className="PopupLocation__btnContainer">
+        <button className="PopupLocation__btn" onClick={props.closeThisPopup}>Да</button>
+        <button className="PopupLocation__btnLink" onClick={props.openPopupCities}>Выбрать другой</button>
+      </div>
     </div>
 
   )
