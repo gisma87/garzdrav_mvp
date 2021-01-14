@@ -72,7 +72,7 @@ const OrderContent = props => {
         <div className='OrderContent__contentWrapperForAnimation' ref={contentWrapper}>
           {
             item.items.map((product, index) => <BlockWrapper classStyle='OrderContent__product'
-                                                             key={product.title + index}>
+                                                             key={index + Math.random()}>
                 <p className='OrderContent__productTitle' onClick={() => {
                   apiService.getProductInfo(product.product, props.isCity.guid)
                     .then(res => props.history.push(`/Cards/${product.product}`))

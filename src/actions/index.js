@@ -411,25 +411,10 @@ const clearCart = () => {
   }
 }
 
-// запрос информации о пользователе по TOKEN из LocalStorage
-const fetchUserData = () => async (dispatch, getState, apiService) => {
-  const accessToken = getState().TOKEN.accessToken || JSON.parse(localStorage.getItem('TOKEN')).accessToken
-  dispatch(loadingTrue('fetchUserData'))
-  try {
-    const response = await apiService.getUserData(accessToken)
-    dispatch({type: 'USER_DATA', payload: response})
-  } catch (e) {
-    dispatch(setError(e))
-    if (e.response) {
-      // client received an error response (5xx, 4xx)
-      console.log('e.response: ', e.response)
-    } else if (e.request) {
-      // client never received a response, or request never left
-      console.log('e.request: ', e.request)
-    } else {
-      // anything else
-    }
-  }
+const setToken = (TOKEN) => {
+  localStorage.setItem('TOKEN', JSON.stringify(TOKEN))
+  console.log('refresh_TOKEN')
+  return {type: 'TOKEN', payload: TOKEN}
 }
 
 // POST запрос refreshTOKEN
@@ -456,7 +441,6 @@ const authentication = (phone, password) => async (dispatch, getState, apiServic
     dispatch({type: 'TOKEN', payload: response})
     localStorage.setItem('TOKEN', JSON.stringify(response))
     console.log('access_TOKEN')
-    dispatch(fetchUserData(response.accessToken))
     dispatch(getToFavorites())
   } catch (e) {
     dispatch(setError(e))
@@ -471,7 +455,6 @@ const authorizedByPassOrSMS = (phone, passOrSms) => async (dispatch, getState, a
       dispatch({type: 'TOKEN', payload: response})
       localStorage.setItem('TOKEN', JSON.stringify(response))
       console.log('access_TOKEN')
-      dispatch(fetchUserData(response.accessToken))
     })
     .catch(err => {
       if (err.response) {
@@ -482,7 +465,6 @@ const authorizedByPassOrSMS = (phone, passOrSms) => async (dispatch, getState, a
             dispatch({type: 'TOKEN', payload: response})
             localStorage.setItem('TOKEN', JSON.stringify(response))
             console.log('access_TOKEN')
-            dispatch(fetchUserData(response.accessToken))
           })
           .catch(err => {
             if (err.response) {
@@ -617,6 +599,23 @@ const setProductsToCategory = (options) => async (dispatch, getState, apiService
   }
 }
 
+const setUserData = (data) => {
+  return {type: 'USER_DATA', payload: data}
+}
+
+// запрос информации о пользователе по TOKEN из LocalStorage
+const fetchUserData = () => async (dispatch, getState, apiService) => {
+  const accessToken = getState().TOKEN.accessToken || JSON.parse(localStorage.getItem('TOKEN')).accessToken
+  dispatch(loadingTrue('fetchUserData'))
+  try {
+    const response = await apiService.getUserData(accessToken)
+    dispatch({type: 'USER_DATA', payload: response})
+  } catch (e) {
+    dispatch(setError(e))
+  }
+}
+
+// запрос истории покупок
 const setSales = () => async (dispatch, getState, apiService) => {
   dispatch(loadingTrue('setSales'))
   try {
@@ -628,14 +627,6 @@ const setSales = () => async (dispatch, getState, apiService) => {
   } catch (e) {
     dispatch(setError(e))
   }
-}
-
-// true, когда происходит запрос от панели поиска - для сброса страниц на первую в Cards
-const onRequestFromSearchPanel = () => {
-  return {type: 'ON_REQUEST_FROM_SEARCH_PANEL'}
-}
-const offRequestFromSearchPanel = () => {
-  return {type: 'OFF_REQUEST_FROM_SEARCH_PANEL'}
 }
 
 // запрос истории интернет заказов
@@ -650,6 +641,49 @@ const getInternetSales = () => async (dispatch, getState, apiService) => {
   } catch (e) {
     dispatch(setError(e))
   }
+}
+
+// получить данные необходимы для личного кабинета
+function getDataProfile() {
+  return async (dispatch, getState, apiService) => {
+    const TOKEN = getState().TOKEN || JSON.parse(localStorage.getItem('TOKEN'))
+    const accessToken = TOKEN.accessToken
+    dispatch(loadingTrue('fetchUserData'))
+    try {
+      // запрашиваем userData
+      const response = await apiService.getUserData(accessToken)
+      //если всё хорошо, то записываем данные в store и запрашиваем интернет заказы и историю покупок
+      dispatch({type: 'USER_DATA', payload: response})
+      dispatch(getInternetSales())
+      dispatch(setSales())
+    } catch (e) {
+      dispatch(setError(e))
+      dispatch(loadingTrue('refreshAuthentication'))
+      try {
+        // если запрос userData failed, то обновляем токен
+        const response = await apiService.refreshToken(TOKEN)
+        dispatch({type: 'TOKEN', payload: response})
+        localStorage.setItem('TOKEN', JSON.stringify(response))
+        console.log('refresh_TOKEN')
+        // затем опять запрашиваем все данные для Profile
+        dispatch(getToFavorites())
+        dispatch(fetchUserData())
+        dispatch(getInternetSales())
+        dispatch(setSales())
+      } catch (e) {
+        dispatch(setError(e))
+        dispatch(logout())
+      }
+    }
+  }
+}
+
+// true, когда происходит запрос от панели поиска - для сброса страниц на первую в Cards
+const onRequestFromSearchPanel = () => {
+  return {type: 'ON_REQUEST_FROM_SEARCH_PANEL'}
+}
+const offRequestFromSearchPanel = () => {
+  return {type: 'OFF_REQUEST_FROM_SEARCH_PANEL'}
 }
 
 // отмена заказа
@@ -667,6 +701,8 @@ const cancelOrder = (orderGuid) => async (dispatch, getState, apiService) => {
 }
 
 export {
+  setUserData,
+  setToken,
   delToFavorites,
   addToFavorites,
   authorizedByPassOrSMS,
@@ -703,5 +739,6 @@ export {
   onSelectRetail,
   fetchRetailsCity,
   getProductsFromSearchLimit,
-  repeatOrder
+  repeatOrder,
+  getDataProfile
 }

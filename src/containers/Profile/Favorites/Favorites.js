@@ -3,7 +3,6 @@ import './Favorites.scss'
 import {useMediaQuery} from "react-responsive";
 import BlockWrapper from "../../../components/BlockWrapper";
 import FavoriteItem from "../../../components/FavoriteItem";
-import dataCatds from "../../../testData/dataCards";
 import CardItemMobile from "../../../components/CardItemMobile";
 
 const Favorites = ({data}) => {
@@ -26,25 +25,25 @@ const Favorites = ({data}) => {
         })
         }
 
-        {isMobile && favorites.map((itemId) => {
-          const itemIndex = cart.findIndex((item) => +item.itemId === +itemId);
-          const isActive = itemIndex >= 0;
-          const {img, title, maker, minPrice, id} = dataCatds[itemId - 1];
-          return <CardItemMobile onItemSelected={handlerToCards}
-                                 updateToCart={() => {
-                                   !isActive ? addedToCart(id) : itemRemovedFromCart(id);
-                                 }}
-                                 active={isActive}
-                                 key={itemId}
-                                 id={itemId}
-                                 title={title}
-                                 maker={maker}
-                                 img={img}
-                                 minPrice={minPrice}
-                                 favoriteButton={true}
+        {/*{isMobile && favorites.map((item) => {*/}
+        {/*  const itemIndex = cart.findIndex((item) => +item.itemId === +itemId);*/}
+        {/*  const isActive = itemIndex >= 0;*/}
+        {/*  const {img, title, maker, minPrice, id} = item;*/}
+        {/*  return <CardItemMobile onItemSelected={handlerToCards}*/}
+        {/*                         updateToCart={() => {*/}
+        {/*                           !isActive ? addedToCart(id) : itemRemovedFromCart(id);*/}
+        {/*                         }}*/}
+        {/*                         active={isActive}*/}
+        {/*                         key={item.guid}*/}
+        {/*                         id={item.guid}*/}
+        {/*                         title={title}*/}
+        {/*                         maker={maker}*/}
+        {/*                         img={img}*/}
+        {/*                         minPrice={minPrice}*/}
+        {/*                         favoriteButton={true}*/}
 
-          />
-        })}
+        {/*  />*/}
+        {/*})}*/}
       </div>
     </BlockWrapper>
   )

@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import './ChangeData.scss'
 import BlockWrapper from "../../../components/BlockWrapper";
 import apiService from "../../../service/ApiService";
+import {loadingTrue, logout, setToken} from "../../../actions";
 
 const ChangeData = (props) => {
 
@@ -54,12 +55,21 @@ const ChangeData = (props) => {
       <h4>Изменить данные</h4>
       <form onSubmit={(event) => {
         event.preventDefault()
-        console.log('getDataProfile(event): ', getDataProfile(event))
-        apiService.changeDataProfile(getDataProfile(event), props.TOKEN.accessToken)
-          .then(res => console.log('ответ от changeDataProfile: ', res))
-          .catch(err => console.log(err))
-        props.fetchUserData(props.TOKEN.accessToken)
-        props.returnPage()
+        props.loadingTrue('refreshToken in ChangeData')
+        apiService.refreshToken(props.TOKEN)
+          .then(response => {
+            props.setToken(response)
+            apiService.changeDataProfile(getDataProfile(event), response.accessToken)
+              .then(res => {
+                props.setUserData(res)
+              })
+              .catch(err => console.log(err))
+            props.returnPage()
+          })
+          .catch(e => {
+            console.log(e)
+            props.logout()
+          })
       }}>
         <BlockWrapper classStyle='ProfileSetting__item'>
           <label htmlFor="phone">

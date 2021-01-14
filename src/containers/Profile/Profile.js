@@ -5,11 +5,11 @@ import {Link, Redirect, withRouter} from "react-router-dom";
 import {
   addedToCart,
   allItemRemovedFromCart, delToFavorites,
-  fetchUserData,
+  fetchUserData, getDataProfile,
   getInternetSales,
-  itemRemovedFromCart,
-  logout,
-  setSales
+  itemRemovedFromCart, loadingTrue,
+  logout, refreshAuthentication,
+  setSales, setToken, setUserData
 } from "../../actions";
 import {connect} from "react-redux";
 import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
@@ -30,11 +30,7 @@ const Profile = (props) => {
 
   useEffect(() => {
     if (props.TOKEN) {
-      if (!props.userData) {
-        props.fetchUserData(props.TOKEN.accessToken)
-      }
-      props.setSales()
-      props.getInternetSales()
+      props.getDataProfile()
     }
   }, [])// eslint-disable-line
 
@@ -74,6 +70,11 @@ const Profile = (props) => {
                   fetchUserData={props.fetchUserData}
                   changeData={changeData}
                   setChangeData={setChangeData}
+                  refreshAuthentication={props.refreshAuthentication}
+                  setToken={() => setToken(props.TOKEN)}
+                  loadingTrue={props.loadingTrue}
+                  logout={props.logout}
+                  setUserData={props.setUserData}
                 />
               }
 
@@ -90,7 +91,8 @@ const Profile = (props) => {
                   <li className='Profile__item' onClick={() => {
                     setChangeData(false)
                     setBlock('profileSettings')
-                  }}>Настройка профиля</li>
+                  }}>Настройка профиля
+                  </li>
                 </ul>
 
                 <Link to='/' className='Profile__btnOut'
@@ -107,13 +109,18 @@ const Profile = (props) => {
 }
 
 
-const mapStateToProps = ({TOKEN, cart, favorites, userData, sales}) => {
-  return {TOKEN, cart, favorites, userData, sales}
+const mapStateToProps = ({TOKEN, cart, favorites, userData, sales, error}) => {
+  return {TOKEN, cart, favorites, userData, sales, error}
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     logout: () => dispatch(logout()),
+    setUserData: (data) => dispatch(setUserData(data)),
+    loadingTrue: (info) => dispatch(loadingTrue(info)),
+    setToken: (TOKEN) => dispatch(setToken(TOKEN)),
+    refreshAuthentication: () => dispatch(refreshAuthentication()),
+    getDataProfile: () => dispatch(getDataProfile()),
     delToFavorites: (productGuid) => dispatch(delToFavorites(productGuid)), // удаляет из избранного
     fetchUserData: () => dispatch(fetchUserData()), // данные пользователя
     getInternetSales: () => dispatch(getInternetSales()), // интернет заказы
