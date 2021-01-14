@@ -277,7 +277,7 @@ const reducer = (state = initialState, action) => {
               // удаляем цену и остаток товара
               delete retailItem.priceRetail
               delete retailItem.countLast
-              retailItem.weekDayTime = retailItem.weekDayTime.match(/\d\d:\d\d/g).join(' - ')
+              retailItem.weekDayTime = retailItem.weekDayTime?.match(/\d\d:\d\d/g).join(' - ')
 
               // добавляем в аптеку данные товара без списка аптек
               retailItem.product = []

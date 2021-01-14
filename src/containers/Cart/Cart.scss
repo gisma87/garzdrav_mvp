@@ -110,10 +110,9 @@
   }
 
   &__promoBlock {
-    border: 1px solid $primary-color;
-    border-radius: 20px;
-    height: 100px;
-    padding: 20px;
+    border: 1px solid $primary-color !important;
+    border-radius: 20px !important;
+    max-width: 100% !important;
   }
 
   &__itemContainer {

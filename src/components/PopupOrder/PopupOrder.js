@@ -72,17 +72,21 @@ const PopupOrder = props => {
 
         {
           <div className={'PopupOrder__containerLists' + (showDescription ? ' PopupOrder__listShow' : '')}>
-            {props.product.map((item) => {
-              return (
-                <div className='PopupOrder__productsList' key={item.guid}>
-                  <p className='PopupOrder__titleProduct'>{item.product}</p>
-                  <div className='PopupOrder__priceContainerProduct'>
-                    <p className='PopupOrder__countProduct'><span>{item.count}</span> шт:</p>
-                    <p className='PopupOrder__priceProduct'>{(item.priceRetail * item.count).toFixed(2)} ₽</p>
-                  </div>
-                </div>
-              )
-            })}
+            {
+              props.product
+                ? props.product.map((item) => {
+                  return (
+                    <div className='PopupOrder__productsList' key={item.guid}>
+                      <p className='PopupOrder__titleProduct'>{item.product}</p>
+                      <div className='PopupOrder__priceContainerProduct'>
+                        <p className='PopupOrder__countProduct'><span>{item.count}</span> шт:</p>
+                        <p className='PopupOrder__priceProduct'>{(item.priceRetail * item.count).toFixed(2)} ₽</p>
+                      </div>
+                    </div>
+                  )
+                })
+                : 'аптека не выбрана'
+            }
           </div>
         }
 

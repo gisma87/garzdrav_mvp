@@ -44,6 +44,7 @@ import PopupLogin from "../../components/PopupLogin/PopupLogin";
 import SvgArrowLongRight from "../../components/UI/icons/SvgArrowLongRight";
 import CardItem from "../../components/CardItem";
 import imgPiracetam from '../../img/test/img_piracetam.jpeg'
+import apiService from "../../service/ApiService";
 
 class Cart extends React.Component {
   constructor(props) {
@@ -94,11 +95,45 @@ class Cart extends React.Component {
     // Если корзина изменилась, берём её данные с LocalStorage и на основании этих данных пересобираем массивы cartItems и retailsArr
     if (prevProps.cart !== this.props.cart) {
       let oldCart = [...this.props.cart]
-      if (localStorage.getItem("cart")) {
-        oldCart = JSON.parse(localStorage.getItem("cart"))
+      // if (localStorage.getItem("cart")) {
+      //   oldCart = JSON.parse(localStorage.getItem("cart"))
+      // }
+      // если в корзину добавился новый товар - делаем по нему запрос и обновляем cartItems и retailsArr
+      if (this.props.cartItems.length < this.props.cart.length) {
+        const productId = this.props.cart[this.props.cart.length - 1].itemId
+        this.props.loadingTrue('getProductInfo for promoBlock in Cart')
+        apiService.getProductInfo(productId, this.props.isCity.guid)
+          .then(response => {
+            const retails = response.retails.map(retailItem => {
+              return {
+                countLast: retailItem.countLast,
+                priceRetail: retailItem.priceRetail,
+                brand: retailItem.retail.brand,
+                buildNumber: retailItem.retail.buildNumber,
+                city: retailItem.retail.city,
+                coordinates: retailItem.retail.coordinates,
+                guid: retailItem.retail.guid,
+                phone: retailItem.retail.phone,
+                street: retailItem.retail.street,
+                title: retailItem.retail.title,
+                weekDayTime: retailItem.retail.weekDayTime
+              }
+            })
+            const resultElement = {
+              ...response,
+              retails
+            }
+
+
+            const newCartItems = [...this.props.cartItems]
+            newCartItems.push(resultElement)
+            this.props.setCartItems(newCartItems)
+          })
+      } else {
+        // товар удалили из корзины, удаляем его из cartItems и пересобираем cartItems и retailsArr
+        const newCartItems = this.props.cartItems.filter(item => oldCart.some(i => i.itemId === item.guid))
+        this.props.setCartItems(newCartItems)
       }
-      const newCartItems = this.props.cartItems.filter(item => oldCart.some(i => i.itemId === item.guid))
-      this.props.setCartItems(newCartItems)
     }
   }
 
@@ -256,8 +291,10 @@ class Cart extends React.Component {
                       <div className='Cart__promoContainer'>
                         <p className="Cart__titlePanel">Вам пригодится</p>
                         {this.state.promoItem
-                        && <CardItem onItemSelected={() => {
+                        && <CardItem onItemSelected={(itemId, event) => {
+                          if (!event.target.closest('button')) this.props.history.push(`/Cards/${itemId}`);
                         }}
+                                     classStyle='Cart__promoBlock'
                                      onIncrement={dataForPromoItem.onIncrement}
                                      onDecrement={dataForPromoItem.onDecrement}
                                      isBuy={dataForPromoItem.isBuy}
@@ -270,10 +307,6 @@ class Cart extends React.Component {
                                      minPrice={dataForPromoItem.minPrice}
                         />
                         }
-
-                        <div className="Cart__promoBlock">
-
-                        </div>
                       </div>
                     </div>
                     }
