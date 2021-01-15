@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import './ChangePassword.scss'
 import BlockWrapper from "../../../components/BlockWrapper";
 import apiService from "../../../service/ApiService";
 
@@ -7,117 +8,135 @@ const ChangePassword = (props) => {
   const [valueForm, setValueForm] = useState({
     oldPassword: '',
     newPassword: '',
-    repeatNewPassword: ''
+    repeatNewPassword: '',
+    errorMessage: false
   })
-
-  function isEmpty(obj) {
-    for (let key in obj) {
-      return false;
-    }
-    return true;
-  }
 
   function onChangeHandler(e) {
     const name = e.target.name;
     const value = e.target.value;
-    setValueForm({...valueForm, [name]: value})
+    setValueForm({...valueForm, [name]: value, errorMessage: false})
   }
 
-  function getDataProfile(event) {
-    event.preventDefault()
-    const data = {
-      gender: props.userData.gender,
-      birthDate: props.userData.birthDate,
-      email: props.userData.email,
-      lastName: props.userData.lastName,
-      firstName: props.userData.firstName,
-      middleName: props.userData.middleName
+  function changePassword() {
+    if (valueForm.repeatNewPassword !== valueForm.newPassword) {
+      setValueForm({...valueForm, errorMessage: true})
+    } else {
+      props.loadingTrue('changePasswordProfile')
+      const objectPassword = {"oldPassword": valueForm.oldPassword, "newPassword": valueForm.newPassword}
+      apiService.changePasswordProfile(objectPassword, props.TOKEN.accessToken)
+        .then(response => {
+          props.setUserData(response)
+          props.returnPage()
+        })
+        .catch(err => {
+          console.log(err)
+          apiService.refreshToken(props.TOKEN)
+            .then(res => {
+              props.setToken(res)
+              apiService.changeDataProfile(objectPassword, res.accessToken)
+                .then(response => {
+                  props.setUserData(response)
+                  props.returnPage()
+                })
+                .catch(e => console.log('Произошла ошибка запроса. Попробуйте повторить позже'))
+            })
+            .catch(e => {
+              console.log(e)
+              props.logout()
+            })
+        })
     }
-
-    if (valueForm.gender !== '') data.gender = valueForm.gender === 'male';
-    if (valueForm.birthDate !== '') data.birthDate = valueForm.birthDate;
-    if (valueForm.email !== '') data.email = valueForm.email;
-    if (valueForm.lastName !== '') data.lastName = valueForm.lastName;
-    if (valueForm.firstName !== '') data.firstName = valueForm.firstName;
-    if (valueForm.middleName !== '') data.middleName = valueForm.middleName;
-
-    return data
   }
 
   return (
     <BlockWrapper classStyle='ProfileSetting ChangeData'>
       <h4>Изменить пароль</h4>
-      <form onSubmit={(event) => {
+      <form noValidate onSubmit={(event) => {
         event.preventDefault()
-        props.loadingTrue('refreshToken in ChangeData')
-        apiService.refreshToken(props.TOKEN)
-          .then(response => {
-            props.setToken(response)
-            apiService.changeDataProfile(getDataProfile(event), response.accessToken)
-              .then(res => {
-                props.setUserData(res)
-              })
-              .catch(err => console.log(err))
-            props.returnPage()
-          })
-          .catch(e => {
-            console.log(e)
-            props.logout()
-          })
-      }}>
-        <BlockWrapper classStyle='ProfileSetting__item'>
-          <label htmlFor="oldPassword">
-            <p className='ProfileSetting__itemTitle'>Старый пароль</p>
-            <div className='ProfileSetting__itemContent'>
-              <input type="password"
-                     id="oldPassword"
-                     name="oldPassword"
-                     placeholder=''
-                     className='ProfileSetting__info ChangeData__input'
-                     value={valueForm.oldPassword}
-                     onChange={onChangeHandler}
-              />
-            </div>
-          </label>
-        </BlockWrapper>
-        <BlockWrapper classStyle='ProfileSetting__item'>
-          <label htmlFor="newPassword">
-            <p className='ProfileSetting__itemTitle'>Новый пароль</p>
-            <div className='ProfileSetting__itemContent'>
-              <input type="password"
-                     id="newPassword"
-                     name="newPassword"
-                     className='ProfileSetting__info ChangeData__input'
-                     value={valueForm.newPassword}
-                     onChange={onChangeHandler}
-              />
-            </div>
-          </label>
-        </BlockWrapper>
-        <BlockWrapper classStyle='ProfileSetting__item'>
-          <label htmlFor="repeatNewPassword" className='ChangeData__label'>
-            <p className='ProfileSetting__itemTitle ProfileSetting__itemTitle_listItem'>Повторите новый пароль</p>
-            <div className='ProfileSetting__itemContent'>
-              <input type="password"
-                     id="repeatNewPassword"
-                     name="repeatNewPassword"
-                     className='ProfileSetting__info ChangeData__input'
-                     value={valueForm.repeatNewPassword}
-                     onChange={onChangeHandler}
-              />
-            </div>
-          </label>
+        changePassword()
+        // apiService.changePasswordProfile(objectPassword, props.TOKEN.accessToken)
+        //   .then((response) => {
+        //     console.log(response)
+        //     console.log(response.data);
+        //     console.log(response.status);
+        //     console.log(response.statusText);
+        //     console.log(response.headers);
+        //     console.log(response.config);
+        //   })
+        //   .catch(function (error) {
+        //     if (error.response) {
+        //       // The request was made and the server responded with a status code
+        //       // that falls out of the range of 2xx
+        //       console.log(error.response.data);
+        //       console.log(error.response.status);
+        //       console.log(error.response.headers);
+        //     } else if (error.request) {
+        //       // The request was made but no response was received
+        //       // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+        //       // http.ClientRequest in node.js
+        //       console.log(error.request);
+        //     } else {
+        //       // Something happened in setting up the request that triggered an Error
+        //       console.log(error.message);
+        //     }
+        //     console.log(error);
+        //     console.log(error.config);
+        //     console.log(error.message);
+        //     console.log(error.code);
+        //     console.log(error.request);
+        //     console.log(error.response);
+        //   });
+      }}
+      >
+        <BlockWrapper classStyle='ChangePassword__item'>
 
+          <label className="ChangePassword__element">
+            <input name="oldPassword"
+                   id="oldPassword"
+                   type="password"
+                   className="ChangePassword__input"
+                   required
+                   value={valueForm.oldPassword}
+                   onChange={onChangeHandler}
+            />
+            <p className="ChangePassword__label">Старый пароль</p>
+            <span className="ChangePassword__errorMessage">Неверный логин</span>
+          </label>
+          <label className="ChangePassword__element">
+            <input name="newPassword"
+                   id="newPassword"
+                   type="password"
+                   className="ChangePassword__input"
+                   required
+                   value={valueForm.newPassword}
+                   onChange={onChangeHandler}
+            />
+            <p className="ChangePassword__label">Новый пароль</p>
+            <span className="ChangePassword__errorMessage">ошибка</span>
+          </label>
+          <label className="ChangePassword__element">
+            <input name="repeatNewPassword"
+                   id="repeatNewPassword"
+                   type="password"
+                   className={'ChangePassword__input' + (valueForm.errorMessage ? ' ChangePassword__input_error' : '')}
+                   required
+                   value={valueForm.repeatNewPassword}
+                   onChange={onChangeHandler}
+            />
+            <p className="ChangePassword__label">Повторите новый пароль</p>
+            <span
+              className={'ChangePassword__errorMessage' + (valueForm.errorMessage ? ' ChangePassword__errorMessage_visible' : '')}>пароли не совпадают</span>
+          </label>
         </BlockWrapper>
 
         <nav className='ProfileSetting__changeBtnContainer'>
           <button type='submit' className='ProfileSetting__submit'>Сохранить изменения
           </button>
         </nav>
-
       </form>
     </BlockWrapper>
-  );
+  )
 }
 
 export default ChangePassword

@@ -29,6 +29,14 @@ const Profile = (props) => {
   const [block, setBlock] = useState('main');
 
   useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
+  }, [changeSetting, block])
+
+  useEffect(() => {
     if (props.TOKEN) {
       props.getDataProfile()
     }

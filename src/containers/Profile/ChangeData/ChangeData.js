@@ -49,26 +49,38 @@ const ChangeData = (props) => {
     return data
   }
 
-  return (
-    <BlockWrapper classStyle='ProfileSetting ChangeData'>
-      <h4>Изменить данные</h4>
-      <form onSubmit={(event) => {
-        event.preventDefault()
-        props.loadingTrue('refreshToken in ChangeData')
+  function changeData(event) {
+    props.loadingTrue('changeDataProfile')
+    apiService.changeDataProfile(getDataProfile(event), props.TOKEN.accessToken)
+      .then(response => {
+        props.setUserData(response)
+        props.returnPage()
+      })
+      .catch(err => {
+        console.log(err)
         apiService.refreshToken(props.TOKEN)
-          .then(response => {
-            props.setToken(response)
-            apiService.changeDataProfile(getDataProfile(event), response.accessToken)
-              .then(res => {
-                props.setUserData(res)
+          .then(res => {
+            props.setToken(res)
+            apiService.changeDataProfile(getDataProfile(event), res.accessToken)
+              .then(response => {
+                props.setUserData(response)
+                props.returnPage()
               })
-              .catch(err => console.log(err))
-            props.returnPage()
+              .catch(e => console.log('Произошла ошибка запроса. Попробуйте повторить позже'))
           })
           .catch(e => {
             console.log(e)
             props.logout()
           })
+      })
+  }
+
+  return (
+    <BlockWrapper classStyle='ProfileSetting ChangeData'>
+      <h4>Изменить данные</h4>
+      <form onSubmit={(event) => {
+        event.preventDefault()
+        changeData(event)
       }}>
         <BlockWrapper classStyle='ProfileSetting__item'>
           <label htmlFor="phone">

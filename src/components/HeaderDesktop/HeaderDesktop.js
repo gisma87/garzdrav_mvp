@@ -19,7 +19,8 @@ const HeaderDesktop = () => {
         style={{
           width: '100%',
           display: 'flex',
-          height: headerDesktop.current?.clientHeight,
+          // height: headerDesktop.current?.clientHeight,
+          height: 147,
           marginBottom: 15
         }}>
       </div>

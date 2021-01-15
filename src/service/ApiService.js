@@ -264,6 +264,20 @@ class ApiService {
     return response.data
   }
 
+  // изменить Пароль Profile
+  async changePasswordProfile(objectPassword, TOKEN) {
+    const response = await axios({
+      method: 'put',
+      url: `${this.URL}/Users/password`,
+      data: objectPassword,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${TOKEN}`
+      }
+    })
+    return response
+  }
+
   // POST запрос - добавить товар в Избранное
   async addToFavorites(TOKEN, productGuid) {
     const response = await axios.post(
