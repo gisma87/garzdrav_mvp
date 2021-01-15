@@ -64,7 +64,7 @@ const Cities = props => {
   const worksNow = () => {
     if (props.retailsCity?.length > 0 && activeMarker) {
       const activeRetail = props.retailsCity.find(el => el.guid === activeMarker)
-      const clockArr = activeRetail.weekDayTime.match(/\d\d:\d\d/g) || []
+      const clockArr = activeRetail?.weekDayTime.match(/\d\d:\d\d/g) || []
       const hours = new Date().getHours()
       const minutes = new Date().getMinutes()
       const timeNow = `${hours}:${minutes}`

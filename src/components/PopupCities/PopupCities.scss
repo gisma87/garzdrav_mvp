@@ -1,3 +1,5 @@
+@import "../../variables";
+
 .PopupCities {
   font-family: PTSans-Regular, Helvetica, Arial, sans-serif;
   color: #000;
@@ -74,8 +76,8 @@
 
       &:hover {
         background: #eaeaea;
-        transform: scale(1.02);
-        transition: all .2s;
+        //transform: scale(1.02);
+        transition: background .2s;
       }
 
       &:active, &:target {
@@ -87,13 +89,13 @@
   }
 
   &__itemActive {
-    background: #E26C2D;
+    background: $primary-color;
     color: white;
     font-weight: bold;
     &:hover {
       color: #000;
       background: #eaeaea;
-      transform: scale(1.02);
+      //transform: scale(1.02);
       transition: all .2s;
     }
   }
