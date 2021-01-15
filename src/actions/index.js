@@ -543,8 +543,7 @@ function getDataProfile() {
       try {
         // если запрос userData failed, то обновляем токен
         const response = await apiService.refreshToken(TOKEN)
-        dispatch({type: 'TOKEN', payload: response})
-        localStorage.setItem('TOKEN', JSON.stringify(response))
+        dispatch(setToken(response))
         console.log('refresh_TOKEN')
         // затем опять запрашиваем все данные для Profile
         dispatch(getToFavorites())
