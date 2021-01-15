@@ -50,23 +50,21 @@ const ChangePassword = (props) => {
           props.setAlertShow()
           props.returnPage()
         })
-        .catch(err => {
-          console.log(err)
-          if (err.response) {
-            errResponse(err.response.status)
-          } else if (err.request) {
+        .catch(err1 => {
+          if (err1.response) {
+            errResponse(err1.response.status)
+          } else if (err1.request) {
             apiService.refreshToken(props.TOKEN)
               .then(resToken => {
-                console.log('props.TOKEN до замены: ', props.TOKEN.accessToken.slice(-10))
-                console.log('refresh_TOKEN: ', resToken.accessToken.slice(-10))
                 props.setToken(resToken)
+                props.loadingTrue('changePasswordProfile')
                 apiService.changePasswordProfile(objectPassword, resToken.accessToken)
                   .then(response => {
                     showAlertAndReturnPageProfileSetting('executed')
                   })
-                  .catch(e => {
-                    if (err.response) {
-                      errResponse(err.response.status)
+                  .catch(err2 => {
+                    if (err2.response) {
+                      errResponse(err2.response.status)
                     } else {
                       showAlertAndReturnPageProfileSetting('failure')
                     }
@@ -74,12 +72,11 @@ const ChangePassword = (props) => {
               })
               .catch(e => {
                 props.loadingFalse('changePasswordProfile')
-                console.log(e)
-                console.log('LOGOUT')
+                console.log('LOGOUT', e)
                 props.logout()
               })
           } else {
-            console.log(err)
+            console.log(err1)
           }
         })
     }

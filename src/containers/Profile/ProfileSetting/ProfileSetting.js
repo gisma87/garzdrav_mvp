@@ -5,15 +5,11 @@ import SvgCheck from "../../../components/UI/icons/SvgCheck";
 import ChangeData from "../ChangeData/ChangeData";
 import ChangePassword from "../ChangePassword/ChangePassword";
 import Alert from "../../../components/UI/Alert/Alert";
-import {setToken} from "../../../actions";
-
 
 const ProfileSetting = (props) => {
 
   const [alertShow, setAlertShow] = useState(false)
   const [statusAlert, setStatusAlert] = useState('')
-
-  console.log('props.TOKEN после записи: ', props.TOKEN.accessToken.slice(-10))
 
   if (props.changeSetting === 'setting') {
     return <>
@@ -127,7 +123,6 @@ const ProfileSetting = (props) => {
       returnPage={() => props.setChangeSetting('setting')}
     />
   }
-
 }
 
 export default ProfileSetting
