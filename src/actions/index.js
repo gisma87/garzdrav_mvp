@@ -283,10 +283,12 @@ const clearCart = () => {
   }
 }
 
-const setToken = (TOKEN) => {
-  localStorage.setItem('TOKEN', JSON.stringify(TOKEN))
-  console.log('refresh_TOKEN')
-  return {type: 'TOKEN', payload: TOKEN}
+const setToken = (token) => {
+  localStorage.setItem('TOKEN', JSON.stringify(token))
+  return {
+    type: 'TOKEN',
+    payload: token
+  }
 }
 
 // POST запрос refreshTOKEN
@@ -295,8 +297,8 @@ const refreshAuthentication = () => async (dispatch, getState, apiService) => {
   dispatch(loadingTrue('refreshAuthentication'))
   try {
     const response = await apiService.refreshToken(TOKEN)
-    dispatch({type: 'TOKEN', payload: response})
-    localStorage.setItem('TOKEN', JSON.stringify(response))
+    dispatch(setToken(response))
+    // localStorage.setItem('TOKEN', JSON.stringify(response))
     console.log('refresh_TOKEN')
     dispatch(getToFavorites())
   } catch (e) {
@@ -310,8 +312,7 @@ const authentication = (phone, password) => async (dispatch, getState, apiServic
   dispatch(loadingTrue('authentication'))
   try {
     const response = await apiService.authentication(phone, password)
-    dispatch({type: 'TOKEN', payload: response})
-    localStorage.setItem('TOKEN', JSON.stringify(response))
+    dispatch(setToken(response))
     console.log('access_TOKEN')
     dispatch(getToFavorites())
   } catch (e) {

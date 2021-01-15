@@ -69,6 +69,7 @@ const ChangeData = (props) => {
               .catch(e => console.log('Произошла ошибка запроса. Попробуйте повторить позже'))
           })
           .catch(e => {
+            props.loadingFalse('changeDataProfile')
             console.log(e)
             props.logout()
           })

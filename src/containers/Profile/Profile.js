@@ -7,7 +7,7 @@ import {
   allItemRemovedFromCart, delToFavorites,
   fetchUserData, getDataProfile,
   getInternetSales,
-  itemRemovedFromCart, loadingTrue,
+  itemRemovedFromCart, loadingFalse, loadingTrue,
   logout, refreshAuthentication, setFavoritesProductInfo,
   setSales, setToken, setUserData
 } from "../../actions";
@@ -84,8 +84,9 @@ const Profile = (props) => {
                   changeSetting={changeSetting}
                   setChangeSetting={setChangeSetting}
                   refreshAuthentication={props.refreshAuthentication}
-                  setToken={() => setToken(props.TOKEN)}
+                  setToken={setToken}
                   loadingTrue={props.loadingTrue}
+                  loadingFalse={props.loadingFalse}
                   logout={props.logout}
                   setUserData={props.setUserData}
                 />
@@ -129,10 +130,11 @@ const mapStateToProps = ({TOKEN, cart, favorites, userData, sales, error, isCity
 const mapDispatchToProps = (dispatch) => {
   return {
     logout: () => dispatch(logout()),
+    loadingFalse: () => dispatch(loadingFalse()),
     setFavoritesProductInfo: (favoritesObject) => dispatch(setFavoritesProductInfo(favoritesObject)), // подробная информация об избранных товарах
     setUserData: (data) => dispatch(setUserData(data)),
     loadingTrue: (info) => dispatch(loadingTrue(info)),
-    setToken: (TOKEN) => dispatch(setToken(TOKEN)),
+    setToken: (newToken) => dispatch(setToken(newToken)),
     refreshAuthentication: () => dispatch(refreshAuthentication()),
     getDataProfile: () => dispatch(getDataProfile()),
     delToFavorites: (productGuid) => dispatch(delToFavorites(productGuid)), // удаляет из избранного

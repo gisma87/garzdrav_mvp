@@ -2,6 +2,8 @@ import React, {useState} from "react";
 import './ChangePassword.scss'
 import BlockWrapper from "../../../components/BlockWrapper";
 import apiService from "../../../service/ApiService";
+import {connect} from "react-redux";
+import {loadingFalse, loadingTrue, logout, setToken} from "../../../actions";
 
 const ChangePassword = (props) => {
 
@@ -19,6 +21,23 @@ const ChangePassword = (props) => {
   }
 
   function changePassword() {
+
+    function showAlertAndReturnPageProfileSetting(statusText) {
+      props.loadingFalse('changePasswordProfile')
+      props.setStatusAlert(statusText)
+      props.setAlertShow()
+      props.returnPage()
+    }
+
+    function errResponse(status) {
+      if (status === 400) {
+        showAlertAndReturnPageProfileSetting('shortMessage')
+      }
+      if (status === 401) {
+        showAlertAndReturnPageProfileSetting('Unauthorized')
+      }
+    }
+
     if (valueForm.repeatNewPassword !== valueForm.newPassword) {
       setValueForm({...valueForm, errorMessage: true})
     } else {
@@ -26,25 +45,42 @@ const ChangePassword = (props) => {
       const objectPassword = {"oldPassword": valueForm.oldPassword, "newPassword": valueForm.newPassword}
       apiService.changePasswordProfile(objectPassword, props.TOKEN.accessToken)
         .then(response => {
-          props.setUserData(response)
+          props.loadingFalse('changePasswordProfile')
+          props.setStatusAlert('executed')
+          props.setAlertShow()
           props.returnPage()
         })
         .catch(err => {
           console.log(err)
-          apiService.refreshToken(props.TOKEN)
-            .then(res => {
-              props.setToken(res)
-              apiService.changeDataProfile(objectPassword, res.accessToken)
-                .then(response => {
-                  props.setUserData(response)
-                  props.returnPage()
-                })
-                .catch(e => console.log('Произошла ошибка запроса. Попробуйте повторить позже'))
-            })
-            .catch(e => {
-              console.log(e)
-              props.logout()
-            })
+          if (err.response) {
+            errResponse(err.response.status)
+          } else if (err.request) {
+            apiService.refreshToken(props.TOKEN)
+              .then(resToken => {
+                console.log('props.TOKEN до замены: ', props.TOKEN.accessToken.slice(-10))
+                console.log('refresh_TOKEN: ', resToken.accessToken.slice(-10))
+                props.setToken(resToken)
+                apiService.changePasswordProfile(objectPassword, resToken.accessToken)
+                  .then(response => {
+                    showAlertAndReturnPageProfileSetting('executed')
+                  })
+                  .catch(e => {
+                    if (err.response) {
+                      errResponse(err.response.status)
+                    } else {
+                      showAlertAndReturnPageProfileSetting('failure')
+                    }
+                  })
+              })
+              .catch(e => {
+                props.loadingFalse('changePasswordProfile')
+                console.log(e)
+                console.log('LOGOUT')
+                props.logout()
+              })
+          } else {
+            console.log(err)
+          }
         })
     }
   }
@@ -55,38 +91,6 @@ const ChangePassword = (props) => {
       <form noValidate onSubmit={(event) => {
         event.preventDefault()
         changePassword()
-        // apiService.changePasswordProfile(objectPassword, props.TOKEN.accessToken)
-        //   .then((response) => {
-        //     console.log(response)
-        //     console.log(response.data);
-        //     console.log(response.status);
-        //     console.log(response.statusText);
-        //     console.log(response.headers);
-        //     console.log(response.config);
-        //   })
-        //   .catch(function (error) {
-        //     if (error.response) {
-        //       // The request was made and the server responded with a status code
-        //       // that falls out of the range of 2xx
-        //       console.log(error.response.data);
-        //       console.log(error.response.status);
-        //       console.log(error.response.headers);
-        //     } else if (error.request) {
-        //       // The request was made but no response was received
-        //       // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-        //       // http.ClientRequest in node.js
-        //       console.log(error.request);
-        //     } else {
-        //       // Something happened in setting up the request that triggered an Error
-        //       console.log(error.message);
-        //     }
-        //     console.log(error);
-        //     console.log(error.config);
-        //     console.log(error.message);
-        //     console.log(error.code);
-        //     console.log(error.request);
-        //     console.log(error.response);
-        //   });
       }}
       >
         <BlockWrapper classStyle='ChangePassword__item'>
@@ -139,4 +143,17 @@ const ChangePassword = (props) => {
   )
 }
 
-export default ChangePassword
+const mapStateToProps = ({TOKEN}) => {
+  return {TOKEN}
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logout: () => dispatch(logout()),
+    loadingFalse: (info) => dispatch(loadingFalse(info)),
+    loadingTrue: (info) => dispatch(loadingTrue(info)),
+    setToken: (newToken) => dispatch(setToken(newToken))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChangePassword)

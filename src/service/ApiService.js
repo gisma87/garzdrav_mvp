@@ -275,7 +275,7 @@ class ApiService {
         Authorization: `Bearer ${TOKEN}`
       }
     })
-    return response
+    return response.data
   }
 
   // POST запрос - добавить товар в Избранное
