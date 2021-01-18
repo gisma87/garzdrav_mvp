@@ -88,6 +88,11 @@
     }
   }
 
+  &__containerProductsPage {
+    display: flex;
+    flex-direction: column;
+  }
+
   &__mainContainer {
     display: flex;
     justify-content: space-between;
@@ -97,6 +102,23 @@
       flex-direction: column;
     }
 
+  }
+
+  &__containerInfo {
+    font-size: 1.1rem;
+    width: 100%;
+    max-width: 820px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__infoBlock-title {
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+  }
+
+  &__infoBlock-info {
+    margin: 7px 0;
   }
 
   &__titlePanel {

@@ -147,7 +147,7 @@ class Cart extends React.Component {
     const dataForPromoItem = this.getDataForPromoItem();
     const getMinSum = () => {
       const minPrice = (product) => product.retails.sort((a, b) => a.priceRetail > b.priceRetail ? 1 : -1)[0].priceRetail
-      const count = (product) => this.props.cart.find(item => item.itemId === product.guid).count
+      const count = (product) => this.props.cart.find(item => item.itemId === product.guid)?.count
       return this.props.cartItems.reduce((acc, product) => {
         return acc = acc + (minPrice(product) * count(product))
       }, 0)
@@ -211,130 +211,117 @@ class Cart extends React.Component {
                   {/*</div>*/}
                   {
                     this.state.pageStage === 1
-                    && <section className='Cart__mainContainer'>
-                      <div className="Cart__productsContainer" style={!this.props.cart.length ? {width: '100%'} : {}}>
-                        <p className="Cart__titlePanel">
-                          В корзине {countProducts} {num_word(countProducts, ['товар', 'товара', 'товаров'])}
-                        </p>
-                        <div className='Cart__itemContainer'>
-                          {this.props.cart.length === 0
-                            ? <p style={{padding: 20, fontSize: '2rem'}}>Корзина пуста</p>
-                            : this.props.cartItems.map((item) => {
-                              // const countLast = this.getCountLast(item.guid)
-                              const index = this.props.cart.findIndex((cartItem) => cartItem.itemId === item.guid);
-                              const count = index > -1 ? this.props.cart[index].count : null
-                              const maxCountProduct = stopCount(item)
-                              if (maxCountProduct && count && count > maxCountProduct) {
-                                const delta = count - maxCountProduct
-                                // ставим в cart[index].count значение maxCountProduct
-                                this.props.setCountItemCart(item.guid, delta)
-                              }
-                              const priceIndex = item.retails.findIndex(retail => retail.guid === this.props.selectedRetail)
-                              const price = priceIndex >= 0 ? item.retails[priceIndex].priceRetail : null
-                              // const sum = this.calculateAmountArray().find(itemArr => itemArr.guid === item.guid)?.sum
-                              return this.props.cart[index] !== undefined
-                                && <CartItem item={{
-                                  id: item.guid,
-                                  img: null,
-                                  title: item.product,
-                                  maker: item.manufacturer,
-                                  minPrice: item.retails.sort((a, b) => a.priceRetail > b.priceRetail ? 1 : -1)[0].priceRetail,
-                                  price,
-                                  // sum,
-                                  // countLast
-                                }}
-                                             retails={item.retails}
-                                             classStyle={'Cart__item'}
-                                             count={count}
-                                             addedToCart={() => {
-                                               this.props.addedToCart(item.guid)
-                                             }}
-                                             itemRemovedFromCart={() => {
-                                               this.props.itemRemovedFromCart(item.guid)
-                                             }}
-                                             allItemRemovedFromCart={() => {
-                                               this.props.allItemRemovedFromCart(item.guid)
-                                             }}
-                                             key={item.guid}
-                                />
-                            })
-                          }
-                        </div>
-                      </div>
-
-
-                      {
-                        this.props.cart.length > 0 && <div className='Cart__rightPanel'>
-                          <p className="Cart__titlePanel">Ваш заказ</p>
-                          <div className='Cart__pricePanel'>
-                            <div className="Cart__pricePanelContent">
-                              <div className='Cart__resultPrice'>
-                                <span>{countProducts} {num_word(countProducts, ['товар', 'товара', 'товаров'])} на сумму от {minSum} ₽</span>
-                              </div>
-                              <button className='Cart__buttonToCart'
-                                      onClick={() => this.setState({pageStage: 2})}
-                                // onClick={() => {
-                                //   if (!!this.props.TOKEN) {
-                                //     this.setState({popupOrder: true})
-                                //   } else {
-                                //     this.setState({popupLogin: true, isHasBuy: true})
-                                //   }
-                                // }}
-                              >
-                                выбрать аптеку
-                              </button>
-                            </div>
-                          </div>
-                          <div className='Cart__promoContainer'>
-                            <p className="Cart__titlePanel">Вам пригодится</p>
-                            {this.state.promoItem
-                            && <CardItem onItemSelected={(itemId, event) => {
-                              if (!event.target.closest('button')) this.props.history.push(`/Cards/${itemId}`);
-                            }}
-                                         classStyle='Cart__promoBlock'
-                                         onIncrement={dataForPromoItem.onIncrement}
-                                         onDecrement={dataForPromoItem.onDecrement}
-                                         isBuy={dataForPromoItem.isBuy}
-                                         count={dataForPromoItem.count}
-                                         key={dataForPromoItem.key}
-                                         id={dataForPromoItem.id}
-                                         title={dataForPromoItem.title}
-                                         maker={dataForPromoItem.maker}
-                                         img={dataForPromoItem.img}
-                                         minPrice={dataForPromoItem.minPrice}
-                            />
+                    && <section className='Cart__containerProductsPage'>
+                      <div className='Cart__mainContainer'>
+                        <div className="Cart__productsContainer" style={!this.props.cart.length ? {width: '100%'} : {}}>
+                          <p className="Cart__titlePanel">
+                            В корзине {countProducts} {num_word(countProducts, ['товар', 'товара', 'товаров'])}
+                          </p>
+                          <div className='Cart__itemContainer'>
+                            {this.props.cart.length === 0
+                              ? <p style={{padding: 20, fontSize: '2rem'}}>Корзина пуста</p>
+                              : this.props.cartItems.map((item) => {
+                                // const countLast = this.getCountLast(item.guid)
+                                const index = this.props.cart.findIndex((cartItem) => cartItem.itemId === item.guid);
+                                const count = index > -1 ? this.props.cart[index].count : null
+                                const maxCountProduct = stopCount(item)
+                                if (maxCountProduct && count && count > maxCountProduct) {
+                                  const delta = count - maxCountProduct
+                                  // ставим в cart[index].count значение maxCountProduct
+                                  this.props.setCountItemCart(item.guid, delta)
+                                }
+                                const priceIndex = item.retails.findIndex(retail => retail.guid === this.props.selectedRetail)
+                                const price = priceIndex >= 0 ? item.retails[priceIndex].priceRetail : null
+                                // const sum = this.calculateAmountArray().find(itemArr => itemArr.guid === item.guid)?.sum
+                                return this.props.cart[index] !== undefined
+                                  && <CartItem item={{
+                                    id: item.guid,
+                                    img: null,
+                                    title: item.product,
+                                    maker: item.manufacturer,
+                                    minPrice: item.retails.sort((a, b) => a.priceRetail > b.priceRetail ? 1 : -1)[0].priceRetail,
+                                    price,
+                                    // sum,
+                                    // countLast
+                                  }}
+                                               retails={item.retails}
+                                               classStyle={'Cart__item'}
+                                               count={count}
+                                               addedToCart={() => {
+                                                 this.props.addedToCart(item.guid)
+                                               }}
+                                               itemRemovedFromCart={() => {
+                                                 this.props.itemRemovedFromCart(item.guid)
+                                               }}
+                                               allItemRemovedFromCart={() => {
+                                                 this.props.allItemRemovedFromCart(item.guid)
+                                               }}
+                                               key={item.guid}
+                                  />
+                              })
                             }
                           </div>
                         </div>
-                      }
 
-                      {false && <div className='Cart__rightPanel'>
-                        <div className='Cart__pricePanel'>
-                          <div className='Cart__resultPrice'>
-                            <span>Общая сумма:</span> <span>{sum} ₽</span>
+                        {
+                          this.props.cart.length > 0 && <div className='Cart__rightPanel'>
+                            <p className="Cart__titlePanel">Ваш заказ</p>
+                            <div className='Cart__pricePanel'>
+                              <div className="Cart__pricePanelContent">
+                                <div className='Cart__resultPrice'>
+                                  <span>{countProducts} {num_word(countProducts, ['товар', 'товара', 'товаров'])} на сумму от {minSum} ₽</span>
+                                </div>
+                                <button className='Cart__buttonToCart'
+                                        onClick={() => this.setState({pageStage: 2})}
+                                  // onClick={() => {
+                                  //   if (!!this.props.TOKEN) {
+                                  //     this.setState({popupOrder: true})
+                                  //   } else {
+                                  //     this.setState({popupLogin: true, isHasBuy: true})
+                                  //   }
+                                  // }}
+                                >
+                                  выбрать аптеку
+                                </button>
+                              </div>
+                            </div>
+                            <div className='Cart__promoContainer'>
+                              <p className="Cart__titlePanel">Вам пригодится</p>
+                              {this.state.promoItem
+                              && <CardItem onItemSelected={(itemId, event) => {
+                                if (!event.target.closest('button')) this.props.history.push(`/Cards/${itemId}`);
+                              }}
+                                           classStyle='Cart__promoBlock'
+                                           onIncrement={dataForPromoItem.onIncrement}
+                                           onDecrement={dataForPromoItem.onDecrement}
+                                           isBuy={dataForPromoItem.isBuy}
+                                           count={dataForPromoItem.count}
+                                           key={dataForPromoItem.key}
+                                           id={dataForPromoItem.id}
+                                           title={dataForPromoItem.title}
+                                           maker={dataForPromoItem.maker}
+                                           img={dataForPromoItem.img}
+                                           minPrice={dataForPromoItem.minPrice}
+                              />
+                              }
+                            </div>
+
+
                           </div>
-                          <div className='Cart__retail'>
-                            <p>Забрать из аптеки:</p>
-                            <p className='Cart__address'>
-                              г. {this.checkRetailItem()?.city}, {this.checkRetailItem()?.street}, {this.checkRetailItem()?.buildNumber}
-                            </p>
-                            {!(this.checkRetailItem()?.product?.length === this.props.cart.length) &&
-                            <span className='Cart__warningMessage'>ТОВАР ДОСТУПЕН ЧАСТИЧНО</span>}
-                          </div>
-                          <button className='Cart__buttonToCart'
-                                  onClick={() => {
-                                    if (!!this.props.TOKEN) {
-                                      this.setState({popupOrder: true})
-                                    } else {
-                                      this.setState({popupLogin: true, isHasBuy: true})
-                                    }
-                                  }}
-                          >
-                            Купить
-                          </button>
+                        }
+
+                      </div>
+                      <BlockWrapper classStyle='Cart__containerInfo'>
+                        <h3 className='Cart__infoBlock-title'>Почему указана цена "ОТ" ?</h3>
+                        <p className='Cart__infoBlock-text'>Цены в разных аптеках отличаются.</p>
+                        <p className='Cart__infoBlock-text'>Мы показываем минимальную стоимость товара в вашем городе.</p>
+                        <p className='Cart__infoBlock-info'>Вот список товаров из вашей корзины по минимальным ценам:</p>
+
+                        <div>
+
                         </div>
-                      </div>}
 
+                      </BlockWrapper>
                     </section>
                   }
 
@@ -550,6 +537,41 @@ class Cart extends React.Component {
                         onClose={() => this.setState({popupBuy: false})}
                       />
                     </>
+                  }
+
+                  {
+                    this.state.pageStage === 3
+                    && <div>
+                      <p>Подтверждение заказа</p>
+                      {
+                        this.props.selectedRetail
+                        && <div className='Cart__rightPanel'>
+                          <div className='Cart__pricePanel'>
+                            <div className='Cart__resultPrice'>
+                              <span>Общая сумма:</span> <span>{sum} ₽</span>
+                            </div>
+                            <div className='Cart__retail'>
+                              <p>Забрать из аптеки:</p>
+                              <p className='Cart__address'>
+                                г. {this.checkRetailItem()?.city}, {this.checkRetailItem()?.street}, {this.checkRetailItem()?.buildNumber}
+                              </p>
+                              {!(this.checkRetailItem()?.product?.length === this.props.cart.length) &&
+                              <span className='Cart__warningMessage'>ТОВАР ДОСТУПЕН ЧАСТИЧНО</span>}
+                            </div>
+                            <button className='Cart__buttonToCart'
+                                    onClick={() => {
+                                      if (!!this.props.TOKEN) {
+                                        this.setState({popupOrder: true})
+                                      } else {
+                                        this.setState({popupLogin: true, isHasBuy: true})
+                                      }
+                                    }}
+                            >
+                              Купить
+                            </button>
+                          </div>
+                        </div>}
+                    </div>
                   }
                 </>
               }

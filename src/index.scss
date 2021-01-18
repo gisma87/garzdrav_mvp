@@ -98,18 +98,18 @@ body {
 ::-webkit-scrollbar {
     width: 10px; /* ширина для вертикального скролла */
     height: 8px; /* высота для горизонтального скролла */
-    background-color: #F5F5F5;
+    background-color: #fff;
 }
 
 /* ползунок скроллбара */
 ::-webkit-scrollbar-thumb {
-    background-color: #4665d7;
+    background-color: rgba(0,0,0,0.3);
     border-radius: 9em;
     box-shadow: inset 1px 1px 10px #f3faf7;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background-color: #fc8507;
+    background-color: rgba(0,0,0,0.8);
 }
 
 /* Стрелки */
