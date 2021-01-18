@@ -4,7 +4,7 @@ import './OrderContent.scss'
 import SvgAngleUpSolid from "../../../../img/SVGcomponents/SvgAngleUpSolid";
 import BlockWrapper from "../../../../components/BlockWrapper";
 import {connect} from "react-redux";
-import {repeatOrder, setStatusRequestOrder} from "../../../../actions";
+import {setStatusRequestOrder} from "../../../../actions";
 import apiService from "../../../../service/ApiService";
 import ButtonRepeatOrder from "../../../../components/ButtonRepeatOrder/ButtonRepeatOrder";
 

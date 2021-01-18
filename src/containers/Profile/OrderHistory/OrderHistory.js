@@ -17,7 +17,7 @@ const OrderHistory = props => {
         {props.sales.length
           ? props.sales.map((item, index) => {
             delay += .09
-            return <OrderContent key={index + Math.random()} item={item} delay={delay}
+            return <OrderContent key={index} item={item} delay={delay}
                                  setRepeatInfo={(status) => {
                                    setStatusAlert(status)
                                    setAlertShow(true)
