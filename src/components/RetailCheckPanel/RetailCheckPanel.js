@@ -6,20 +6,22 @@ import CheckboxOrange from "../UI/CheckboxOrange";
 import iconLocation from "../../img/location.svg"
 import iconPhone from "../../img/phone-solid.svg"
 import iconClock from "../../img/clock-regular.svg"
+import ProductListDropdown from "../UI/MoreDetailedDropdown/ProductListDropdown";
 
 const RetailCheckPanel = (props) => {
 
   const [showDescription, setShowDescription] = useState(false)
+  const [showDropdown, setShowDropdown] = useState(false)
   const refDescription = useRef(null)
-  const [styleContent, setStyleContent] = useState({})
-  const content = useRef(null)
-  const contentWrapper = useRef(null)
+  // const [styleContent, setStyleContent] = useState({})
+  // const content = useRef(null)
+  // const contentWrapper = useRef(null)
 
-  function animate() {
-    content.current?.clientHeight
-      ? setStyleContent({height: 0})
-      : setStyleContent({height: `${contentWrapper.current?.clientHeight + 15}px`})
-  }
+  // function animate() {
+  //   content.current?.clientHeight
+  //     ? setStyleContent({height: 0})
+  //     : setStyleContent({height: `${contentWrapper.current?.clientHeight + 15}px`})
+  // }
 
   const {
     guid = '',
@@ -66,7 +68,7 @@ const RetailCheckPanel = (props) => {
           <div>
             <p>Сумма: {sum} ₽</p>
             <div ref={refDescription} onClick={() => {
-              animate()
+              setShowDropdown(!showDropdown)
               setShowDescription(!showDescription)
             }}
                  className='RetailCheckPanel__descriptionContainer'
@@ -78,25 +80,8 @@ const RetailCheckPanel = (props) => {
         </div>
       </div>
 
-      <div ref={content}
-           style={styleContent}
-           className={'RetailCheckPanelIncomplete__dropdown' + (!showDescription ? ' RetailCheckPanelIncomplete__contentDisabled' : '')}>
-        <div ref={contentWrapper} className='RetailCheckPanelIncomplete__contentDropdown'>
-          {
-            product.map((item) => {
-              return (
-                <div className='RetailCheckPanelIncomplete' key={item.guid}>
-                  <p className='RetailCheckPanelIncomplete__title'>{item.product}</p>
-                  <div className='RetailCheckPanelIncomplete__priceContainer'>
-                    <p className='RetailCheckPanelIncomplete__count'><span>{item.count}</span> шт:</p>
-                    <p
-                      className='RetailCheckPanelIncomplete__price'>{(item.priceRetail * item.count).toFixed(2)} ₽</p>
-                  </div>
-                </div>
-              )
-            })}
-        </div>
-      </div>
+      <ProductListDropdown list={product} active={showDropdown}/>
+
     </BlockWrapper>
   )
 }

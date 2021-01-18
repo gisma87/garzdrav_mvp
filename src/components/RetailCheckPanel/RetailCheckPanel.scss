@@ -175,6 +175,11 @@
     transition: all .4s;
   }
 
+  &__contentDropdown {
+    border-top: 1px solid #eaeaea;
+    padding-top: 7px;
+  }
+
   &__dropdown {
     transition: height .3s, transform .3s;
     height: 0;
