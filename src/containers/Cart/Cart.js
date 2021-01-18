@@ -66,7 +66,7 @@ class Cart extends React.Component {
   }
 
   state = {
-    pageStage: 2,
+    pageStage: 1,
     active: false,
     popupMap: false,
     popupOrder: false,
@@ -140,9 +140,19 @@ class Cart extends React.Component {
     return null
   }
 
+
   render() {
     const sum = this.getSum()
+    const stopCount = (product) => product.retails.sort((a, b) => a.countLast < b.countLast ? 1 : -1)[0].countLast
     const dataForPromoItem = this.getDataForPromoItem();
+    const getMinSum = () => {
+      const minPrice = (product) => product.retails.sort((a, b) => a.priceRetail > b.priceRetail ? 1 : -1)[0].priceRetail
+      const count = (product) => this.props.cart.find(item => item.itemId === product.guid).count
+      return this.props.cartItems.reduce((acc, product) => {
+        return acc = acc + (minPrice(product) * count(product))
+      }, 0)
+    }
+    const minSum = getMinSum()
 
     // список аптек с неполным наличием товара
     let incompleteRetailItemState = this.props.retailsArr
@@ -158,17 +168,17 @@ class Cart extends React.Component {
       <div className='Cart wrapper'>
         <div className='Cart__topPanel'>
 
-          <div className="Cart__pageTitle">
+          <div className="Cart__pageTitle" onClick={() => this.setState({pageStage: 1})}>
             <p className={'Cart__pageNumber' + (this.state.pageStage === 1 ? ' Cart__pageNumber_active' : '')}>1</p>
             <p className="Cart__pageName">Корзина</p>
           </div>
           <SvgArrowLongRight className="Cart__pageArrow"/>
-          <div className="Cart__pageTitle">
+          <div className="Cart__pageTitle" onClick={() => this.setState({pageStage: 2})}>
             <p className={'Cart__pageNumber' + (this.state.pageStage === 2 ? ' Cart__pageNumber_active' : '')}>2</p>
             <p className="Cart__pageName">Выбор аптеки</p>
           </div>
           <SvgArrowLongRight className="Cart__pageArrow"/>
-          <div className="Cart__pageTitle">
+          <div className="Cart__pageTitle" onClick={() => this.setState({pageStage: 3})}>
             <p className={'Cart__pageNumber' + (this.state.pageStage === 3 ? ' Cart__pageNumber_active' : '')}>3</p>
             <p className="Cart__pageName">Подтверждение заказа</p>
           </div>
@@ -207,18 +217,21 @@ class Cart extends React.Component {
                           В корзине {countProducts} {num_word(countProducts, ['товар', 'товара', 'товаров'])}
                         </p>
                         <div className='Cart__itemContainer'>
-                          {this.props.cart.length === 0 ? <p style={{padding: 20, fontSize: '2rem'}}>Корзина пуста</p> :
-                            this.sortProductThisRetail().map((item) => {
-                              const countLast = this.getCountLast(item.guid)
+                          {this.props.cart.length === 0
+                            ? <p style={{padding: 20, fontSize: '2rem'}}>Корзина пуста</p>
+                            : this.props.cartItems.map((item) => {
+                              // const countLast = this.getCountLast(item.guid)
                               const index = this.props.cart.findIndex((cartItem) => cartItem.itemId === item.guid);
                               const count = index > -1 ? this.props.cart[index].count : null
-                              if (countLast && count && count > countLast) {
-                                const delta = count - countLast
+                              const maxCountProduct = stopCount(item)
+                              if (maxCountProduct && count && count > maxCountProduct) {
+                                const delta = count - maxCountProduct
+                                // ставим в cart[index].count значение maxCountProduct
                                 this.props.setCountItemCart(item.guid, delta)
                               }
                               const priceIndex = item.retails.findIndex(retail => retail.guid === this.props.selectedRetail)
                               const price = priceIndex >= 0 ? item.retails[priceIndex].priceRetail : null
-                              const sum = this.calculateAmountArray().find(itemArr => itemArr.guid === item.guid)?.sum
+                              // const sum = this.calculateAmountArray().find(itemArr => itemArr.guid === item.guid)?.sum
                               return this.props.cart[index] !== undefined
                                 && <CartItem item={{
                                   id: item.guid,
@@ -227,8 +240,8 @@ class Cart extends React.Component {
                                   maker: item.manufacturer,
                                   minPrice: item.retails.sort((a, b) => a.priceRetail > b.priceRetail ? 1 : -1)[0].priceRetail,
                                   price,
-                                  sum,
-                                  countLast
+                                  // sum,
+                                  // countLast
                                 }}
                                              retails={item.retails}
                                              classStyle={'Cart__item'}
@@ -256,16 +269,17 @@ class Cart extends React.Component {
                           <div className='Cart__pricePanel'>
                             <div className="Cart__pricePanelContent">
                               <div className='Cart__resultPrice'>
-                                <span>{countProducts} {num_word(countProducts, ['товар', 'товара', 'товаров'])} на сумму от {sum} ₽</span>
+                                <span>{countProducts} {num_word(countProducts, ['товар', 'товара', 'товаров'])} на сумму от {minSum} ₽</span>
                               </div>
                               <button className='Cart__buttonToCart'
-                                      onClick={() => {
-                                        if (!!this.props.TOKEN) {
-                                          this.setState({popupOrder: true})
-                                        } else {
-                                          this.setState({popupLogin: true, isHasBuy: true})
-                                        }
-                                      }}
+                                      onClick={() => this.setState({pageStage: 2})}
+                                // onClick={() => {
+                                //   if (!!this.props.TOKEN) {
+                                //     this.setState({popupOrder: true})
+                                //   } else {
+                                //     this.setState({popupLogin: true, isHasBuy: true})
+                                //   }
+                                // }}
                               >
                                 выбрать аптеку
                               </button>
@@ -330,6 +344,7 @@ class Cart extends React.Component {
                       {
                         this.props.cart.length !== 0
                         && <section className='Cart__choiceRetail'>
+                          <h3 className='Cart__choiceRetailTitle'>Выберите аптеку, в которой хотите забрать заказ</h3>
 
                           <MediaQuery maxWidth={800}>
                             <div className='CitiesMobile__menu Cart__menu'>

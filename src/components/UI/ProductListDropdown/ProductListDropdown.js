@@ -12,11 +12,6 @@ const ProductListDropdown = props => {
     animate()
   }, [props.active])
 
-  // function animate() {
-  //   content.current?.clientHeight
-  //     ? setStyleContent({height: 0})
-  //     : setStyleContent({height: `${contentWrapper.current?.clientHeight + 15}px`})
-  // }
   function animate() {
     props.active
       ? setStyleContent({height: `${contentWrapper.current?.clientHeight + 15}px`})

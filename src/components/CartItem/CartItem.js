@@ -4,12 +4,12 @@ import SvgPillsIcon from "../../img/SVGcomponents/SvgPillsIcon";
 import SvgAngleUpSolid from "../../img/SVGcomponents/SvgAngleUpSolid";
 import SvgClose from "../UI/icons/SvgClose";
 import CountButton from "../UI/CountButton/CountButton";
+import ProductListDropdown from "../UI/ProductListDropdown/ProductListDropdown";
+import RetailsListDropdown from "../UI/RetailsListDropdown/RetailsListDropdown";
 
 const CartItem = (props) => {
   const [showDescription, setShowDescription] = useState(false)
-  const [styleContent, setStyleContent] = useState({})
-  const content = useRef(null)
-  const contentWrapper = useRef(null)
+  const [showDropdown, setShowDropdown] = useState(false)
 
   const {
     allItemRemovedFromCart,
@@ -20,14 +20,11 @@ const CartItem = (props) => {
     isFavorite,
     classStyle = ''
   } = props;
-  const {img, title, maker, sum, minPrice, countLast} = props.item;
-  const isLastCount = !(countLast > count)
+  const {img, title, maker, minPrice} = props.item;
 
-  function animate() {
-    content.current?.clientHeight
-      ? setStyleContent({height: 0})
-      : setStyleContent({height: `${contentWrapper.current?.clientHeight}px`})
-  }
+  const stopCount = props.retails.sort((a, b) => a.countLast < b.countLast ? 1 : -1)[0].countLast
+  const isLastCount = !(stopCount > count)
+  const listRetails = props.retails.filter(retail => retail.countLast >= count)
 
   return (
     <div className='CartItem'>
@@ -57,32 +54,32 @@ const CartItem = (props) => {
           {/*</div>*/}
         </div>
 
-       <div className="CartItem__priceBlock">
-         <p className='CartItem__price'>{sum ? sum.toFixed(2) : `от ${minPrice}`} ₽</p>
+        <div className="CartItem__priceBlock">
+          {/*<p className='CartItem__price'>{sum ? sum.toFixed(2) : `от ${minPrice}`} ₽</p>*/}
+          <p className='CartItem__price'>от {minPrice} ₽</p>
 
-         <CountButton
-           count={count}
-           isLastCount={sum && isLastCount}
-           onDecrement={itemRemovedFromCart}
-           onIncrement={() => {
-             console.log('count: ', count, ' countLast: ', props.item.countLast, ' isLastCount: ', isLastCount)
-             if (!isLastCount) {
-               addedToCart()
-             }
-           }}
-         />
+          <CountButton
+            count={count}
+            isLastCount={isLastCount}
+            onDecrement={itemRemovedFromCart}
+            onIncrement={() => {
+              console.log('count: ', count, ' countLast: ', props.item.countLast, ' isLastCount: ', isLastCount)
+              if (!isLastCount) {
+                addedToCart()
+              }
+            }}
+          />
 
-         <p className='CartItem__price'>{sum ? sum.toFixed(2) : `от ${minPrice}`} ₽</p>
-       </div>
+          {/*<p className='CartItem__price'>{sum ? sum.toFixed(2) : `от ${minPrice}`} ₽</p>*/}
+          <p className='CartItem__price'>от {(minPrice * count).toFixed(2)} ₽</p>
+        </div>
       </div>
 
       <div className='CartItem__description'>
-        {sum
-          ? <p className='CartItem__caption'>Внешний вид товара может отличаться от изображения на сайте</p>
-          : <p className='CartItem__caption' style={{color: 'red'}}>В выбранной аптеке нет данного препарата</p>
-        }
+        <p className='CartItem__caption'>Внешний вид товара может отличаться от изображения на сайте</p>
+
         <div className='CartItem__dropdownBtn' onClick={() => {
-          animate()
+          setShowDropdown(!showDropdown)
           setShowDescription(!showDescription)
         }}>
           <span>есть в аптеках</span>
@@ -92,26 +89,11 @@ const CartItem = (props) => {
         </div>
       </div>
 
+      <RetailsListDropdown list={listRetails} active={showDropdown} count={count}/>
 
-      <div ref={content}
-           style={styleContent}
-           className={'CartItem__dropdown' + (!showDescription ? ' CartItem__contentDisabled' : '')}>
-        <div ref={contentWrapper} className='CartItem__contentDropdown'>
-          {
-            props.retails.map((item) => {
-              return (
-                <div className='CartItem__dropdownItem' key={item.guid}>
-                  <p className='CartItem__titleDropdownItem'>ул. {item.street} {item.buildNumber}</p>
-                  <div className='CartItem__dropdownPriceContainer'>
-                    <p className='CartItem__dropdownCount'><span>{count}</span> шт:</p>
-                    <p className='CartItem__dropdownPrice'>{(item.priceRetail * count).toFixed(2)} ₽</p>
-                  </div>
-                </div>
-              )
-            })}
-        </div>
-      </div>
     </div>
+
+
   )
 }
 

@@ -26,6 +26,7 @@
   &__pageTitle {
     display: flex;
     align-items: center;
+    cursor: pointer;
   }
 
   &__pageNumber {
@@ -263,6 +264,12 @@
 
   }
 
+  &__choiceRetailTitle {
+    color: #000;
+    font-size: 1.6rem;
+    padding: 5px 0 20px;
+  }
+
   &__titleChoice {
     font-size: 22px;
     font-weight: bold;
@@ -277,7 +284,7 @@
 
   &__blockMoreItems {
     max-width: 860px;
-    padding: 0;
+    padding: 10px 0 !important;
 
     @media (max-width: 800px) {
       border: none;

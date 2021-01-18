@@ -133,7 +133,7 @@ const reducer = (state = initialState, action) => {
         requestFromSearchPanelThisTime: false
       }
 
-      case 'SET_FAVORITES_PRODUCT_INFO':
+    case 'SET_FAVORITES_PRODUCT_INFO':
       return {
         ...state,
         favoritesProductInfo: action.payload,
@@ -349,7 +349,8 @@ const reducer = (state = initialState, action) => {
         ...state,
         cartItems: newCardItems,
         retailsArr: [...upgradeRetailItems(retailsArr, state.cart)],
-        selectedRetail: state.selectedRetail ? state.selectedRetail : selectedRetail,
+        // selectedRetail: state.selectedRetail ? state.selectedRetail : selectedRetail,
+        selectedRetail: null,
         isRetailAllProduct,
         loading: (state.loading > 0) ? (state.loading - 1) : 0,
         error: null

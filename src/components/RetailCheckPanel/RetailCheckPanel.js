@@ -6,22 +6,13 @@ import CheckboxOrange from "../UI/CheckboxOrange";
 import iconLocation from "../../img/location.svg"
 import iconPhone from "../../img/phone-solid.svg"
 import iconClock from "../../img/clock-regular.svg"
-import ProductListDropdown from "../UI/MoreDetailedDropdown/ProductListDropdown";
+import ProductListDropdown from "../UI/ProductListDropdown/ProductListDropdown";
 
 const RetailCheckPanel = (props) => {
 
   const [showDescription, setShowDescription] = useState(false)
   const [showDropdown, setShowDropdown] = useState(false)
   const refDescription = useRef(null)
-  // const [styleContent, setStyleContent] = useState({})
-  // const content = useRef(null)
-  // const contentWrapper = useRef(null)
-
-  // function animate() {
-  //   content.current?.clientHeight
-  //     ? setStyleContent({height: 0})
-  //     : setStyleContent({height: `${contentWrapper.current?.clientHeight + 15}px`})
-  // }
 
   const {
     guid = '',
