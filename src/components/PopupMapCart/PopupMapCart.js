@@ -75,10 +75,10 @@ const PopupMapCart = props => {
                     active={retailItem.guid === activeMarker}
                     buttonActive={props.activeRetail === retailItem.guid}
                     onSelectItem={() => onSelectItem(retailItem.guid)}
-                    setMapSetting={() => {
+                    setMapSetting={(id) => {
                       setPoint(retailItem.coordinates)
                       setZoom(17)
-                      setActiveMarker(null)
+                      setActiveMarker(id)
                     }}
                   />
                 )

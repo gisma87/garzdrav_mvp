@@ -17,7 +17,7 @@ const initialState = {
   cartItems: [], // товары в корзине
   retailsArr: [], // массив аптек - формируется из cartItems
   selectedRetail: null, // текущая выбранная аптека
-  isRetailAllProduct: true, // есть ли аптеки с полным ассортиментом товара из корзины
+  // isRetailAllProduct: true, // есть ли аптеки с полным ассортиментом товара из корзины
   isPopupLocation: false, // статус popup о подтверждении автовыбора города
   TOKEN: null,
   userData: null,
@@ -328,31 +328,31 @@ const reducer = (state = initialState, action) => {
           cartItems: [],
           retailsArr: [],
           selectedRetail: null,
-          isRetailAllProduct: true,
+          // isRetailAllProduct: true,
           loading: (state.loading > 0) ? (state.loading - 1) : 0,
           error: null
         }
       }
-      const fullProductArr = retailsArr.filter(item => item.product.length === state.cart.length)
-      let selectedRetail = null
-      if (fullProductArr.length > 0) {
-        selectedRetail = fullProductArr[0].guid
-      }
-      let isRetailAllProduct = selectedRetail !== null;
-      if (retailsArr.length) {
-        if (retailsArr.length > 1) {
-          const retailsByNumberOfProducts = retailsArr.sort((a, b) => a.product.length < b.product.length ? 1 : -1)
-          selectedRetail = retailsByNumberOfProducts[0].guid
-        } else selectedRetail = retailsArr[0].guid
-      }
+      // const fullProductArr = retailsArr.filter(item => item.product.length === state.cart.length)
+      // let selectedRetail = null
+      // if (fullProductArr.length > 0) {
+      //   selectedRetail = fullProductArr[0].guid
+      // }
+      // let isRetailAllProduct = selectedRetail !== null;
+      // if (retailsArr.length) {
+      //   if (retailsArr.length > 1) {
+      //     const retailsByNumberOfProducts = [...retailsArr].sort((a, b) => a.product.length < b.product.length ? 1 : -1)
+      //     selectedRetail = retailsByNumberOfProducts[0].guid
+      //   } else selectedRetail = retailsArr[0].guid
+      // }
 
       return {
         ...state,
         cartItems: newCardItems,
         retailsArr: [...upgradeRetailItems(retailsArr, state.cart)],
         // selectedRetail: state.selectedRetail ? state.selectedRetail : selectedRetail,
-        selectedRetail: null,
-        isRetailAllProduct,
+        // selectedRetail: null,
+        // isRetailAllProduct,
         loading: (state.loading > 0) ? (state.loading - 1) : 0,
         error: null
       }

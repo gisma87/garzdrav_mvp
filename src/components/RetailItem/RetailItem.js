@@ -21,7 +21,7 @@ const RetailItem = (props) => {
     <li
       className={'RetailItem' + (active ? ' RetailItem__activeItem' : '')}
       key={retailItem.guid}
-      onClick={setMapSetting}
+      onClick={() => setMapSetting(retailItem.guid)}
     >
       <div className='RetailItem__retailItemContainer'>
         <div className='RetailItem__itemBlock'>

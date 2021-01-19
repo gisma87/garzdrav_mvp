@@ -383,7 +383,7 @@ class Cart extends React.Component {
                             </div>
 
                             <PopupMapCartMobile active={this.state.popupMap}
-                                                retails={this.props.retailsArr.reverse()}
+                                                retails={this.props.retailsArr}
                                                 activeRetail={this.props.selectedRetail}
                                                 cartLength={this.props.cart.length}
                                                 point={this.checkRetailItem()?.coordinates}
@@ -645,7 +645,7 @@ const mapStateToProps = (state) => {
     retailsArr: state.retailsArr,
     loading: state.loading,
     selectedRetail: state.selectedRetail,
-    isRetailAllProduct: state.isRetailAllProduct,
+    // isRetailAllProduct: state.isRetailAllProduct,
     TOKEN: state.TOKEN
   }
 }
