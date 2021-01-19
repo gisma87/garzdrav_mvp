@@ -167,6 +167,17 @@ class Cart extends React.Component {
 
     const {allCountFullProductRetails, notCompleteCountProductsRetails} = this.getFullCountProductsRetails()
 
+    const retailsForMap = [...this.props.retailsArr].sort((a, b) => {
+      const aCount = a.product.reduce((acc, val) => {
+        return acc + val.count
+      }, 0)
+      const bCount = b.product.reduce((acc, val) => {
+        return acc + val.count
+      }, 0)
+      const isResult = (a.product.length < b.product.length) || ((a.product.length === b.product.length) && (aCount < bCount)) || ((aCount === bCount) && (a.sum > b.sum))
+      return isResult ? 1 : -1
+    })
+
     return (
       <div className='Cart wrapper'>
         <div className='Cart__topPanel'>
@@ -403,7 +414,7 @@ class Cart extends React.Component {
                             </div>
 
                             <PopupMapCart active={this.state.popupMap}
-                                          retails={this.props.retailsArr.sort((a, b) => a.product.length < b.product.length ? 1 : -1)}
+                                          retails={retailsForMap}
                                           activeRetail={this.props.selectedRetail}
                                           cartLength={this.props.cart.length}
                                           onClick={() => {

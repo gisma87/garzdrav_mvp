@@ -200,6 +200,7 @@
 .mapBalloon {
   display: flex;
   flex-direction: column;
+  position: relative;
 
   &__title {
     color: $primary-color;

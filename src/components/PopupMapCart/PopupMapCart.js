@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import './PopupMapCart.scss'
 import BlockWrapper from "../BlockWrapper";
 import {Clusterer, GeolocationControl, Map, Placemark, SearchControl, YMaps} from "react-yandex-maps";
@@ -10,6 +10,15 @@ const PopupMapCart = props => {
   const [zoom, setZoom] = useState(11)
   const [activeMarker, setActiveMarker] = useState(null)
   const {retails, onSelectItem} = props;
+
+  useEffect(() => {
+    if (props.activeRetail) {
+      const retail = retails.find(item => item.guid === props.activeRetail)
+      setActiveMarker(props.activeRetail)
+      setPoint(retail.coordinates)
+      setZoom(17)
+    }
+  }, [props.active])
 
   const popup = ({title, address, clock, tel}) => `
   <div class="mapBalloon">

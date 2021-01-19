@@ -48,6 +48,7 @@ const PopupOrder = props => {
                   value={props.checked}
                   onChange={props.onChange}>
             {props.retails.map((item) => {
+                if (!item) return;
                 return (
                   <option key={item.guid} value={item.guid}>
                     ул. {item.street}, {item.buildNumber}
