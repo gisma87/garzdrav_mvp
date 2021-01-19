@@ -158,7 +158,7 @@ class Cart extends React.Component {
     // список аптек с неполным наличием товара
     let incompleteRetailItemState = this.props.retailsArr
       .filter(item => item.product.length < this.props.cart.length)
-      .sort((a, b) => a.product.length < b.product.length ? 1 : -1)
+      .sort((a, b) => ((a.product.length < b.product.length) || ((a.product.length === b.product.length) && (a.sum > b.sum))) ? 1 : -1)
 
     // общее количество товаров в корзине
     const countProducts = this.props.cart.reduce((sum, item) => {
@@ -225,7 +225,7 @@ class Cart extends React.Component {
                           <div className='Cart__itemContainer'>
                             {this.props.cart.length === 0
                               ? <p style={{padding: 20, fontSize: '2rem'}}>Корзина пуста</p>
-                              : this.props.cartItems.map((item) => {
+                              : this.props.cartItems.map((item, i) => {
                                 // const countLast = this.getCountLast(item.guid)
                                 const index = this.props.cart.findIndex((cartItem) => cartItem.itemId === item.guid);
                                 const count = index > -1 ? this.props.cart[index].count : null
@@ -239,16 +239,17 @@ class Cart extends React.Component {
                                 const price = priceIndex >= 0 ? item.retails[priceIndex].priceRetail : null
                                 // const sum = this.calculateAmountArray().find(itemArr => itemArr.guid === item.guid)?.sum
                                 return this.props.cart[index] !== undefined
-                                  && <CartItem item={{
-                                    id: item.guid,
-                                    img: null,
-                                    title: item.product,
-                                    maker: item.manufacturer,
-                                    minPrice: item.retails.sort((a, b) => a.priceRetail > b.priceRetail ? 1 : -1)[0].priceRetail,
-                                    price,
-                                    // sum,
-                                    // countLast
-                                  }}
+                                  && <CartItem key={item.guid + i}
+                                               item={{
+                                                 id: item.guid,
+                                                 img: null,
+                                                 title: item.product,
+                                                 maker: item.manufacturer,
+                                                 minPrice: item.retails.sort((a, b) => a.priceRetail > b.priceRetail ? 1 : -1)[0].priceRetail,
+                                                 price,
+                                                 // sum,
+                                                 // countLast
+                                               }}
                                                retails={item.retails}
                                                classStyle={'Cart__item'}
                                                count={count}
@@ -261,7 +262,6 @@ class Cart extends React.Component {
                                                allItemRemovedFromCart={() => {
                                                  this.props.allItemRemovedFromCart(item.guid)
                                                }}
-                                               key={item.guid}
                                   />
                               })
                             }
@@ -327,9 +327,9 @@ class Cart extends React.Component {
                             ценам:</p>
 
                           {
-                            this.props.cartItems.map(product => {
+                            this.props.cartItems.map((product, index) => {
                               const minPriceRetail = product.retails.sort((a, b) => a.priceRetail > b.priceRetail ? 1 : -1)[0];
-                              return <div className='Cart__infoBlock-minPriceProducts' key={product.guid}>
+                              return <div className='Cart__infoBlock-minPriceProducts' key={product.guid + index}>
                                 <div>
                                   <p className='Cart__infoBlock-productTitle'>{product.product}</p>
                                   <div className='Cart__infoBlock-streetRetail'>
@@ -445,7 +445,7 @@ class Cart extends React.Component {
                                   : this.getFullRetailItemState().map((item, index) => {
                                     if (index === 0) return null;
                                     return <RetailItem
-                                      key={item.guid}
+                                      key={item.guid + index}
                                       retailItem={item}
                                       quantity={this.calcQuantityProduct(item.product)}
                                       notFullItems={false}
@@ -463,22 +463,13 @@ class Cart extends React.Component {
                           {
                             this.getFullRetailItemState() !== null
                             && <MediaQuery minWidth={801}>
-                              {/*{*/}
-                              {/*  this.getFullRetailItemState()[0]*/}
-                              {/*  && <RetailCheckPanel item={this.getFullRetailItemState()[0]}*/}
-                              {/*                       quantity={this.calcQuantityProduct(this.getFullRetailItemState()[0].product)}*/}
-                              {/*                       isChecked={this.isChecked(this.getFullRetailItemState()[0]?.guid)}*/}
-                              {/*                       onCheck={() => this.props.onSelectRetail(this.getFullRetailItemState()[0]?.guid)}*/}
-                              {/*  />*/}
-                              {/*}*/}
-
                               {
                                 allCountFullProductRetails.length > 0
                                 && <BlockWrapper classStyle='Cart__blockMoreItems'>
                                   {
-                                    allCountFullProductRetails.map(product => {
+                                    allCountFullProductRetails.map((product, index) => {
                                       // if (index === 0) return null;
-                                      return <RetailCheckPanelListItem key={product.guid}
+                                      return <RetailCheckPanelListItem key={product.guid + index}
                                                                        quantity={this.calcQuantityProduct(product.product)}
                                                                        item={product}
                                                                        isChecked={this.isChecked(product.guid)}
@@ -495,9 +486,9 @@ class Cart extends React.Component {
                                   <h2 className='Cart__titleChoice'>Частично:</h2>
                                   <BlockWrapper classStyle='Cart__blockMoreItems'>
                                     {
-                                      notCompleteCountProductsRetails.map(product => {
+                                      notCompleteCountProductsRetails.map((product, index) => {
                                         // if (index === 0) return null;
-                                        return <RetailCheckPanelListItem key={product.guid}
+                                        return <RetailCheckPanelListItem key={product.guid + index}
                                                                          quantity={this.calcQuantityProduct(product.product)}
                                                                          item={product}
                                                                          isChecked={this.isChecked(product.guid)}
@@ -507,7 +498,6 @@ class Cart extends React.Component {
                                     }
                                   </BlockWrapper>
                                 </>
-
                               }
                             </MediaQuery>
                           }
@@ -519,9 +509,9 @@ class Cart extends React.Component {
 
                               <MediaQuery maxWidth={800}>
                                 <BlockWrapper classStyle='Cart__blockMoreItems'>
-                                  {incompleteRetailItemState.map((item) => {
+                                  {incompleteRetailItemState.map((item, index) => {
                                     return <RetailItem
-                                      key={item.guid}
+                                      key={item.guid + index}
                                       retailItem={item}
                                       quantity={this.calcQuantityProduct(item.product)}
                                       notFullItems={true}
@@ -538,8 +528,8 @@ class Cart extends React.Component {
                               <MediaQuery minWidth={801}>
                                 <BlockWrapper classStyle='Cart__blockMoreItems'>
                                   {
-                                    incompleteRetailItemState.map((item) => {
-                                      return <RetailCheckPanelIncomplete key={item.guid}
+                                    incompleteRetailItemState.map((item, index) => {
+                                      return <RetailCheckPanelIncomplete key={item.guid + index}
                                                                          item={item}
                                                                          quantity={this.calcQuantityProduct(item.product)}
                                                                          isChecked={this.isChecked(item.guid)}

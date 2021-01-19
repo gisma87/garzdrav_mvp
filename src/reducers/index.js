@@ -43,7 +43,7 @@ const upgradeRetailItems = (array, cart) => {
       sum: +sum.toFixed(2)
     }
   })
-  return retailItems.sort((a, b) => a.sum > b.sum ? 1 : -1)
+  return retailItems
 }
 
 const updateCartItems = (cart, item, idx) => {
@@ -277,8 +277,9 @@ const reducer = (state = initialState, action) => {
               productItem.priceRetail = retail.priceRetail
               productItem.countLast = retail.countLast
 
-              // добавляем количество товара из корзины в продукт
-              productItem.count = state.cart.find(cartItem => cartItem.itemId === item.guid).count
+              // добавляем количество товара из корзины в продукт - если количество больше, чем макс.кол в аптеке, то ставим макс. в аптеке
+              const countProductInCart = state.cart.find(cartItem => cartItem.itemId === item.guid).count
+              productItem.count = countProductInCart <= retail.countLast ? countProductInCart : retail.countLast
 
               // копируем аптеку
               const retailItem = {...retail}

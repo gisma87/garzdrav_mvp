@@ -45,7 +45,7 @@ function getFullCountProductsRetails() {
         // элемент товара в корзине
         const productInCart = this.props.cart.find(itemCart => itemCart.itemId === productItem.guid)
         // если макс.кол. товара в этой аптеке больше, чем выбрано в корзине, то оставляем эту аптеку
-        return productItem.countLast >= productInCart.count
+        return productItem?.countLast >= productInCart?.count
       })
 
       if (complete) {
@@ -55,6 +55,18 @@ function getFullCountProductsRetails() {
       }
     })
   }
+  allCountFullProductRetails.sort((a, b) => a.sum > b.sum ? 1 : -1)
+  notCompleteCountProductsRetails.sort((a, b) => {
+    const aCount = a.product.reduce((acc, val) => {
+      return acc + val.count
+    }, 0)
+    const bCount = b.product.reduce((acc, val) => {
+      return acc + val.count
+    }, 0)
+    const isResult = (aCount < bCount) || ((aCount === bCount) && (a.sum > b.sum))
+    return isResult ? 1 : -1
+  })
+
   return {allCountFullProductRetails, notCompleteCountProductsRetails}
 }
 
