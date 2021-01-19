@@ -33,6 +33,31 @@ function getFullRetailItemState() {
   return null
 }
 
+// возвращает массив аптек с полным наличием товара НУЖНОГО КОЛИЧЕСТВА или null
+function getFullCountProductsRetails() {
+  const allCountFullProductRetails = [];
+  const notCompleteCountProductsRetails = []
+
+  const fullRetails = getFullRetailItemState.call(this) // аптеки, где все товары доступны, но не факт, что в нужном количестве.
+  if (fullRetails) {
+    fullRetails.forEach(retail => {
+      const complete = retail.product.every(productItem => {
+        // элемент товара в корзине
+        const productInCart = this.props.cart.find(itemCart => itemCart.itemId === productItem.guid)
+        // если макс.кол. товара в этой аптеке больше, чем выбрано в корзине, то оставляем эту аптеку
+        return productItem.countLast >= productInCart.count
+      })
+
+      if (complete) {
+        allCountFullProductRetails.push(retail)
+      } else {
+        notCompleteCountProductsRetails.push(retail)
+      }
+    })
+  }
+  return {allCountFullProductRetails, notCompleteCountProductsRetails}
+}
+
 // возвращает подпись в сколько товаров из списка есть в данной аптеке. На вход принимает массив товаров в аптеке.
 function calcQuantityProduct(obj) {
   const styleErr = {
@@ -171,5 +196,6 @@ export {
   sortProductThisRetail, // сортировка товаров по наличию в текущей аптеке
   newCartItems,
   isChecked,
-  indexActiveRetail
+  indexActiveRetail,
+  getFullCountProductsRetails
 }

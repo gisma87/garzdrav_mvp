@@ -110,6 +110,7 @@
     max-width: 820px;
     display: flex;
     flex-direction: column;
+    margin-bottom: 20px;
   }
 
   &__infoBlock-title {
@@ -119,6 +120,48 @@
 
   &__infoBlock-info {
     margin: 7px 0;
+  }
+
+  &__infoBlock-minPriceProducts {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 -20px;
+    padding: 7px 20px;
+    cursor: default;
+
+    &:not(:last-child) {
+      border-bottom: 1px dashed $bg-color;
+    }
+
+    &:hover {
+      background-color: #FCFCEE;
+    }
+  }
+
+  &__infoBlock-productTitle {
+    margin-bottom: 5px;
+    color: #000;
+    font-size: .9rem;
+    font-weight: 500;
+  }
+
+  &__infoBlock-streetRetail {
+    display: flex;
+    color: #000;
+    font-weight: 500;
+    font-size: 1rem;
+  }
+
+  &__infoBlock-brand {
+    margin-right: 10px;
+    color: #000;
+  }
+
+  &__infoBlock-streetText {
+
+    margin-right: 7px;
+    color: #000;
   }
 
   &__titlePanel {
@@ -320,13 +363,14 @@
     justify-content: space-between;
     max-width: 860px;
     align-items: center;
+    padding-top: 20px;
   }
 
-  &__buttonMap {
-    color: #000;
-    border: 1px solid #737373;
-    max-width: 300px;
-  }
+  //&__buttonMap {
+  //  color: #000;
+  //  border: 1px solid #737373;
+  //  max-width: 300px;
+  //}
 
   &__clearBtn {
     font-size: 1rem;
@@ -337,5 +381,29 @@
       color: blue;
     }
   }
+
+  &__menuButton {
+    cursor: pointer;
+    outline: none;
+    font-weight: bold;
+    background: #fff;
+    color: $primary-color;
+    padding: 8px 15px;
+    border: 1px solid $primary-color;
+    border-radius: 15px;
+    justify-content: center;
+    margin-right: 20px;
+
+    &_active {
+      background: $primary-color;
+      color: #fff;
+    }
+
+    &:active {
+      background: $primary-color;
+      color: #fff;
+    }
+  }
+
 
 }
