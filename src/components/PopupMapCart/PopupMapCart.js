@@ -17,6 +17,10 @@ const PopupMapCart = props => {
       setActiveMarker(props.activeRetail)
       setPoint(retail.coordinates)
       setZoom(17)
+      setTimeout(() => {
+        const activeItem = document.querySelector('.RetailItem__activeItem');
+        if (activeItem) activeItem.scrollIntoView({behavior: "smooth"});
+      }, 1000)
     }
   }, [props.active])
 

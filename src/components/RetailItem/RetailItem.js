@@ -38,9 +38,11 @@ const RetailItem = (props) => {
                className='RetailCheckPanel__descriptionContainer'
           >{props.quantity && props.quantity}</div>
           <button
-            className={'RetailItem__button ' + (buttonActive ? 'RetailItem__buttonActive' : '')}
+            // className={'RetailItem__button ' + (buttonActive ? 'RetailItem__buttonActive' : '')}
+            className='RetailItem__button'
             onClick={onSelectItem}>
-            {buttonActive ? 'Выбран' : 'Выбрать'}
+            {/*{buttonActive ? 'Выбран' : 'Выбрать'}*/}
+            Выбрать
           </button>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import React, {useState} from "react";
 import './RetailCheckPanel.scss'
 import iconLocation from "../../img/icon/location.svg"
 import iconPhone from "../../img/icon/phone.svg"
@@ -9,7 +9,6 @@ const RetailCheckPanel = (props) => {
 
   const [showDescription, setShowDescription] = useState(false)
   const [showDropdown, setShowDropdown] = useState(false)
-  const refDescription = useRef(null)
 
   const {
     guid = '',
@@ -22,17 +21,11 @@ const RetailCheckPanel = (props) => {
     product = ''
   } = props.item
 
-  const {isChecked, onCheck, openPopupMap} = props;
-
-  const onCheckPanel = (e) => {
-    if (!e.target.closest(`.${refDescription.current.className}`)) {
-      onCheck()
-    }
-  }
+  const {onCheck, openPopupMap} = props;
 
   return (
     <div className='RetailCheckPanel'>
-      <div className='RetailCheckPanel__mainContainer' onClick={onCheckPanel}>
+      <div className='RetailCheckPanel__mainContainer'>
         <div className='RetailCheckPanel__content RetailCheckPanel__block'>
           <p className='RetailCheckPanel__name'>
             <img src={iconLocation} alt="Адрес"/>
@@ -50,7 +43,7 @@ const RetailCheckPanel = (props) => {
         <div className='RetailCheckPanel__priceContainer'>
           <div className='RetailCheckPanel__price'>
             <p>Сумма: {sum} ₽</p>
-            <div ref={refDescription} onClick={() => {
+            <div onClick={() => {
               setShowDropdown(!showDropdown)
               setShowDescription(!showDescription)
             }}
@@ -59,7 +52,7 @@ const RetailCheckPanel = (props) => {
           </div>
         </div>
         <div className="RetailCheckPanel__btnContainer">
-          <button className="RetailCheckPanel__button">Выбрать эту аптеку</button>
+          <button className="RetailCheckPanel__button" onClick={onCheck}>Выбрать эту аптеку</button>
         </div>
       </div>
 

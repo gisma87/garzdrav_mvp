@@ -466,10 +466,12 @@ class Cart extends React.Component {
                                           retails={retailsForMap}
                                           activeRetail={this.props.selectedRetail}
                                           cartLength={this.props.cart.length}
-                                          onClick={() => {
+                                          onClick={() => this.setState({popupMap: false})}
+                                          onSelectItem={(retailId) => {
+                                            this.props.onSelectRetail(retailId)
                                             this.setState({popupMap: false})
+                                            this.setState({pageStage: 3})
                                           }}
-                                          onSelectItem={(item) => this.props.onSelectRetail(item)}
                             />
                           </MediaQuery>
 
@@ -532,8 +534,10 @@ class Cart extends React.Component {
                                       return <RetailCheckPanel key={product.guid + index}
                                                                quantity={this.calcQuantityProduct(product.product)}
                                                                item={product}
-                                                               isChecked={this.isChecked(product.guid)}
-                                                               onCheck={() => this.props.onSelectRetail(product.guid)}
+                                                               onCheck={() => {
+                                                                 this.props.onSelectRetail(product.guid)
+                                                                 this.setState({pageStage: 3})
+                                                               }}
                                                                openPopupMap={() => {
                                                                  this.props.onSelectRetail(product.guid)
                                                                  this.setState({popupMap: true})
@@ -555,8 +559,10 @@ class Cart extends React.Component {
                                         return <RetailCheckPanel key={product.guid + index}
                                                                  quantity={this.calcQuantityProduct(product.product)}
                                                                  item={product}
-                                                                 isChecked={this.isChecked(product.guid)}
-                                                                 onCheck={() => this.props.onSelectRetail(product.guid)}
+                                                                 onCheck={() => {
+                                                                   this.props.onSelectRetail(product.guid)
+                                                                   this.setState({pageStage: 3})
+                                                                 }}
                                                                  openPopupMap={() => {
                                                                    this.props.onSelectRetail(product.guid)
                                                                    this.setState({popupMap: true})
@@ -600,8 +606,10 @@ class Cart extends React.Component {
                                       return <RetailCheckPanel key={product.guid + index}
                                                                item={product}
                                                                quantity={this.calcQuantityProduct(product.product)}
-                                                               isChecked={this.isChecked(product.guid)}
-                                                               onCheck={() => this.props.onSelectRetail(product.guid)}
+                                                               onCheck={() => {
+                                                                 this.props.onSelectRetail(product.guid)
+                                                                 this.setState({pageStage: 3})
+                                                               }}
                                                                openPopupMap={() => {
                                                                  this.props.onSelectRetail(product.guid)
                                                                  this.setState({popupMap: true})
