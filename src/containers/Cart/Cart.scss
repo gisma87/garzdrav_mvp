@@ -80,14 +80,14 @@
   &__rightPanel {
     display: flex;
     flex-direction: column;
-    margin: 0 auto;
+    margin-left: 20px;
     width: 100%;
     max-width: 350px;
     @media (max-width: 1200px) {
       flex-direction: row;
       justify-content: space-between;
       max-width: 820px;
-      margin-bottom: 30px;
+      margin: 0 auto 30px;
     }
   }
 
@@ -115,7 +115,7 @@
   &__containerInfo {
     font-size: 1.1rem;
     width: 100%;
-    max-width: 820px;
+    max-width: 840px;
     display: flex;
     flex-direction: column;
     margin-bottom: 20px;
@@ -170,6 +170,10 @@
 
     margin-right: 7px;
     color: #000;
+  }
+
+  &__productsContainer {
+    width: 100%;
   }
 
   &__titlePanel {

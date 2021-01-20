@@ -56,7 +56,7 @@ const CartItem = (props) => {
 
         <div className="CartItem__priceBlock">
           {/*<p className='CartItem__price'>{sum ? sum.toFixed(2) : `от ${minPrice}`} ₽</p>*/}
-          <p className='CartItem__price'>от {minPrice} ₽</p>
+          {count > 1 && <p className='CartItem__priceOne'>от {minPrice} ₽/шт.</p>}
 
           <CountButton
             count={count}

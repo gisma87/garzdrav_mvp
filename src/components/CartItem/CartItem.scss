@@ -67,7 +67,8 @@
     display: flex;
     flex-direction: column;
     flex: 1 1;
-    max-width: 300px;
+    max-width: 400px;
+    justify-self: flex-end;
 
     @media(max-width: 1200px) {
       max-width: 100%;
@@ -156,9 +157,17 @@
   }
 
   &__priceBlock {
+    position: relative;
     display: flex;
     justify-content: space-between;
-    min-width: 320px;
+    min-width: 250px;
+  }
+
+  &__priceOne {
+    position: absolute;
+    bottom: 33px;
+    left: 0;
+    color: #999;
   }
 
   &__price {

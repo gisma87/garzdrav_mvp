@@ -264,7 +264,9 @@ class Cart extends React.Component {
                                                  this.props.addedToCart(item.guid)
                                                }}
                                                itemRemovedFromCart={() => {
-                                                 this.props.itemRemovedFromCart(item.guid)
+                                                 if (count > 1) {
+                                                   this.props.itemRemovedFromCart(item.guid)
+                                                 }
                                                }}
                                                allItemRemovedFromCart={() => {
                                                  this.props.allItemRemovedFromCart(item.guid)
