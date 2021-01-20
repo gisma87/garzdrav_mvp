@@ -15,9 +15,9 @@ import Loader from "../../components/UI/Loader";
 import PopupAfterBuy from "../../components/PopupAfterBuy/PopupAfterBuy";
 import num_word from "../../utils/numWord";
 import {
-  RetailCheckPanel,
+  // RetailCheckPanel,
   RetailCheckPanelListItem,
-  RetailCheckPanelIncomplete
+  // RetailCheckPanelIncomplete
 } from '../../components/RetailCheckPanel'
 import {
   addedToCart,
@@ -280,50 +280,103 @@ class Cart extends React.Component {
                         </div>
 
                         {
-                          this.props.cart.length > 0 && <div className='Cart__rightPanel'>
-                            <p className="Cart__titlePanel">Ваш заказ</p>
-                            <div className='Cart__pricePanel'>
-                              <div className="Cart__pricePanelContent">
-                                <div className='Cart__resultPrice'>
-                                  <span>{countProducts} {num_word(countProducts, ['товар', 'товара', 'товаров'])} на сумму от {minSum} ₽</span>
+                          this.props.cart.length > 0
+                          && <>
+                            <MediaQuery maxWidth={1200}>
+
+                              <div className='Cart__rightPanel'>
+                                <div className='Cart__promoContainer'>
+                                  <p className="Cart__titlePanel">Вам пригодится</p>
+                                  {this.state.promoItem
+                                  && <CardItem onItemSelected={(itemId, event) => {
+                                    if (!event.target.closest('button')) this.props.history.push(`/Cards/${itemId}`);
+                                  }}
+                                               classStyle='Cart__promoBlock'
+                                               onIncrement={dataForPromoItem.onIncrement}
+                                               onDecrement={dataForPromoItem.onDecrement}
+                                               isBuy={dataForPromoItem.isBuy}
+                                               count={dataForPromoItem.count}
+                                               key={dataForPromoItem.key}
+                                               id={dataForPromoItem.id}
+                                               title={dataForPromoItem.title}
+                                               maker={dataForPromoItem.maker}
+                                               img={dataForPromoItem.img}
+                                               minPrice={dataForPromoItem.minPrice}
+                                  />
+                                  }
                                 </div>
-                                <button className='Cart__buttonToCart'
-                                        onClick={() => this.setState({pageStage: 2})}
-                                  // onClick={() => {
-                                  //   if (!!this.props.TOKEN) {
-                                  //     this.setState({popupOrder: true})
-                                  //   } else {
-                                  //     this.setState({popupLogin: true, isHasBuy: true})
-                                  //   }
-                                  // }}
-                                >
-                                  выбрать аптеку
-                                </button>
+                                <div>
+                                  <p className="Cart__titlePanel">Ваш заказ</p>
+                                  <div className='Cart__pricePanel'>
+                                    <div className="Cart__pricePanelContent">
+                                      <div className='Cart__resultPrice'>
+                                        <span>{countProducts} {num_word(countProducts, ['товар', 'товара', 'товаров'])} на сумму от {minSum} ₽</span>
+                                      </div>
+                                      <button className='Cart__buttonToCart'
+                                              onClick={() => this.setState({pageStage: 2})}
+                                        // onClick={() => {
+                                        //   if (!!this.props.TOKEN) {
+                                        //     this.setState({popupOrder: true})
+                                        //   } else {
+                                        //     this.setState({popupLogin: true, isHasBuy: true})
+                                        //   }
+                                        // }}
+                                      >
+                                        выбрать аптеку
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
                               </div>
-                            </div>
-                            <div className='Cart__promoContainer'>
-                              <p className="Cart__titlePanel">Вам пригодится</p>
-                              {this.state.promoItem
-                              && <CardItem onItemSelected={(itemId, event) => {
-                                if (!event.target.closest('button')) this.props.history.push(`/Cards/${itemId}`);
-                              }}
-                                           classStyle='Cart__promoBlock'
-                                           onIncrement={dataForPromoItem.onIncrement}
-                                           onDecrement={dataForPromoItem.onDecrement}
-                                           isBuy={dataForPromoItem.isBuy}
-                                           count={dataForPromoItem.count}
-                                           key={dataForPromoItem.key}
-                                           id={dataForPromoItem.id}
-                                           title={dataForPromoItem.title}
-                                           maker={dataForPromoItem.maker}
-                                           img={dataForPromoItem.img}
-                                           minPrice={dataForPromoItem.minPrice}
-                              />
-                              }
-                            </div>
+                            </MediaQuery>
+
+                            <MediaQuery minWidth={1201}>
+                              <div className='Cart__rightPanel'>
+                                <p className="Cart__titlePanel">Ваш заказ</p>
+                                <div className='Cart__pricePanel'>
+                                  <div className="Cart__pricePanelContent">
+                                    <div className='Cart__resultPrice'>
+                                      <span>{countProducts} {num_word(countProducts, ['товар', 'товара', 'товаров'])} на сумму от {minSum} ₽</span>
+                                    </div>
+                                    <button className='Cart__buttonToCart'
+                                            onClick={() => this.setState({pageStage: 2})}
+                                      // onClick={() => {
+                                      //   if (!!this.props.TOKEN) {
+                                      //     this.setState({popupOrder: true})
+                                      //   } else {
+                                      //     this.setState({popupLogin: true, isHasBuy: true})
+                                      //   }
+                                      // }}
+                                    >
+                                      выбрать аптеку
+                                    </button>
+                                  </div>
+                                </div>
+                                <div className='Cart__promoContainer'>
+                                  <p className="Cart__titlePanel">Вам пригодится</p>
+                                  {this.state.promoItem
+                                  && <CardItem onItemSelected={(itemId, event) => {
+                                    if (!event.target.closest('button')) this.props.history.push(`/Cards/${itemId}`);
+                                  }}
+                                               classStyle='Cart__promoBlock'
+                                               onIncrement={dataForPromoItem.onIncrement}
+                                               onDecrement={dataForPromoItem.onDecrement}
+                                               isBuy={dataForPromoItem.isBuy}
+                                               count={dataForPromoItem.count}
+                                               key={dataForPromoItem.key}
+                                               id={dataForPromoItem.id}
+                                               title={dataForPromoItem.title}
+                                               maker={dataForPromoItem.maker}
+                                               img={dataForPromoItem.img}
+                                               minPrice={dataForPromoItem.minPrice}
+                                  />
+                                  }
+                                </div>
 
 
-                          </div>
+                              </div>
+                            </MediaQuery>
+                          </>
                         }
 
                       </div>
@@ -409,7 +462,7 @@ class Cart extends React.Component {
                             <div className='Cart__blockTitle'>
                               {
                                 allCountFullProductRetails.length > 0 &&
-                                <h2 className='Cart__titleChoice'>Полное наличие:</h2>
+                                <h2 className='Cart__titleChoice'>Всё в наличии:</h2>
                               }
                             </div>
 
@@ -494,7 +547,7 @@ class Cart extends React.Component {
                               {
                                 notCompleteCountProductsRetails.length > 0
                                 && <>
-                                  <h2 className='Cart__titleChoice'>Частично:</h2>
+                                  <h2 className='Cart__titleChoice'>Не полное количество:</h2>
                                   <BlockWrapper classStyle='Cart__blockMoreItems'>
                                     {
                                       notCompleteCountProductsRetails.map((product, index) => {
@@ -516,7 +569,7 @@ class Cart extends React.Component {
                           {
                             incompleteRetailItemState.length > 0
                             && <>
-                              <h2 className='Cart__titleChoice'>Не полное наличие: </h2>
+                              <h2 className='Cart__titleChoice'>Нет части товаров: </h2>
 
                               <MediaQuery maxWidth={800}>
                                 <BlockWrapper classStyle='Cart__blockMoreItems'>
@@ -540,7 +593,7 @@ class Cart extends React.Component {
                                 <BlockWrapper classStyle='Cart__blockMoreItems'>
                                   {
                                     incompleteRetailItemState.map((item, index) => {
-                                      return <RetailCheckPanelIncomplete key={item.guid + index}
+                                      return <RetailCheckPanelListItem key={item.guid + index}
                                                                          item={item}
                                                                          quantity={this.calcQuantityProduct(item.product)}
                                                                          isChecked={this.isChecked(item.guid)}

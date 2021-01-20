@@ -33,8 +33,8 @@ const RetailCheckPanelListItem = props => {
   }
 
   return (
-    <div className='RetailCheckPanel RetailCheckPanelList'>
-      <div className='RetailCheckPanel__wrapperOnClick RetailCheckPanelList__wrapperOnClick'
+    <div className='RetailCheckPanel'>
+      <div className='RetailCheckPanel__wrapperOnClick'
            onClick={onCheckPanel}>
         <div className='RetailCheckPanel__checkbox RetailCheckPanel__block'>
           <CheckboxOrange check={isChecked}
@@ -44,7 +44,7 @@ const RetailCheckPanelListItem = props => {
                           type={'radio'}
           />
         </div>
-        <div className='RetailCheckPanel__content RetailCheckPanel__block RetailCheckPanelList__content'>
+        <div className='RetailCheckPanel__content RetailCheckPanel__block'>
           <p className='RetailCheckPanel__name'>
             <img src={iconLocation} alt="Адрес"/> Адрес: <span>г. {city}, ул. {street}, {buildNumber}</span>
           </p>

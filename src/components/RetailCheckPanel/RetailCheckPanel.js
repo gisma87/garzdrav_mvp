@@ -25,7 +25,7 @@ const RetailCheckPanel = (props) => {
     product = ''
   } = props.item
 
-  const {list = 'main', isChecked, onCheck} = props;
+  const {isChecked, onCheck} = props;
 
   const onCheckPanel = (e) => {
     if (!e.target.closest(`.${refDescription.current.className}`)) {
