@@ -4,10 +4,56 @@ import BlockWrapper from "../../../components/BlockWrapper";
 import iconLocation from "../../../img/icon/location.svg";
 import iconClock from "../../../img/icon/clock.svg";
 import iconPhone from "../../../img/icon/phone.svg";
+import InputMask from "react-input-mask";
+import apiService from "../../../service/ApiService";
 
 const CartOrderPage = props => {
 
   const [phone, setPhone] = useState(null)
+  const [smsCode, setSmsCode] = useState(null)
+  const [formValid, setFormValid] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('')
+
+  function validate(event) {
+    setErrorMessage('')
+    const value = event.target.value.trim()
+    const regexp = value.match(/\d+/g)
+    let data = ''
+    if (regexp instanceof Object) {
+      data = regexp.length > 1 ? regexp.slice(1).join('') : regexp.join('')
+    }
+    if (data.length) {
+      setPhone(data)
+    }
+
+    const result = Number.isInteger(+data) && String(data).length === 10
+    setFormValid(result)
+    return result
+  }
+
+  function submitOrder(event) {
+    event.preventDefault()
+    if (!formValid) {
+      setErrorMessage('Неверно введён номер')
+      return
+    }
+
+    if (formValid && !props.isAuth && !smsCode) {
+      console.log('Введите СМС код для подтверждения номера')
+      return
+    }
+
+    if (formValid && !props.isAuth && smsCode) {
+      console.log('послали смс код')
+      return
+    }
+
+    if (formValid && props.isAuth) {
+      props.onSubmit()
+      console.log('SUBMIT');
+    }
+
+  }
 
   return (
     <div className='CartOrderPage'>
@@ -55,28 +101,49 @@ const CartOrderPage = props => {
                   onSubmit={(event) => {
                     event.preventDefault()
                   }}>
-              <label className="CartOrderPage__element">
-                <input name="phone"
-                       id="phone"
-                       type="tel"
-                       className="CartOrderPage__input"
-                       required
-                       value={phone}
-                       onChange={(e) => setPhone(e.target.value)}
-                />
-                <p className="CartOrderPage__label">Введите телефон</p>
-                <span className="CartOrderPage__errorMessage">ошибка</span>
-              </label>
-              <button className='CartOrderPage__buttonSMS'>получить код</button>
+              <div>
+                <label className="CartOrderPage__element">
+                  <InputMask mask="+7\ (999)\ 999\ 99\ 99"
+                             maskChar=" "
+                             value={phone}
+                             onChange={validate}
+                             className="CartOrderPage__input"
+                             placeholder=""
+                             required
+                             type="tel"
+                             name="phone"
+                             id="CartOrderPage-phone"
+                  />
+                  <p className="CartOrderPage__label">Введите телефон</p>
+                  <span
+                    className={'CartOrderPage__errorMessage' + (errorMessage.length ? ' CartOrderPage__errorMessage_visible' : '')}>{errorMessage}</span>
+                </label>
+                <label className="CartOrderPage__element">
+                  <input className="CartOrderPage__input"
+                         value={smsCode}
+                         onChange={(e) => setSmsCode(e.target.value)}
+                         required
+                         type="text"
+                         name="CartOrderPage-smsCode"
+                         id="CartOrderPage-smsCode"
+                  />
+                  <p className="CartOrderPage__label">Код из СМС</p>
+                  <span
+                    className={'CartOrderPage__errorMessage' + (errorMessage.length ? ' CartOrderPage__errorMessage_visible' : '')}>{errorMessage}</span>
+                </label>
+              </div>
+
+              <button className={'CartOrderPage__buttonSMS' + (formValid ? ' CartOrderPage__buttonSMS_enabled' : '')}
+                      disabled={!formValid}
+                      onClick={() => apiService.getSmsCode(phone)}
+              >получить код
+              </button>
             </form>
           </div>
         }
-        <button className='CartOrderPage__buttonToBuy'>оформить заказ</button>
+        <button className='CartOrderPage__buttonToBuy' onClick={submitOrder}>оформить заказ</button>
       </div>
-
-
     </div>
-
   )
 }
 

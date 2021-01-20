@@ -125,7 +125,7 @@
     max-width: 600px;
     width: 100%;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     background-color: $bg-color-light;
     padding: 10px 30px;
     border-radius: 8px;
@@ -142,11 +142,17 @@
     color: $primary-color;
     margin: 20px 0;
     transition: color .2s, background-color .2s;
-    cursor: pointer;
+    opacity: .5;
 
-    &:hover {
-      color: #fff;
-      background-color: $primary-color;
+
+    &_enabled {
+      cursor: pointer;
+      opacity: 1;
+
+      &:hover {
+        color: #fff;
+        background-color: $primary-color;
+      }
     }
 
     &:active {
