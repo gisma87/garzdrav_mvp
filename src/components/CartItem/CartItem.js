@@ -1,10 +1,9 @@
-import React, {useRef, useState} from "react";
+import React, {useState} from "react";
 import './CartItem.scss'
 import SvgPillsIcon from "../../img/SVGcomponents/SvgPillsIcon";
 import SvgAngleUpSolid from "../../img/SVGcomponents/SvgAngleUpSolid";
 import SvgClose from "../UI/icons/SvgClose";
 import CountButton from "../UI/CountButton/CountButton";
-import ProductListDropdown from "../UI/ProductListDropdown/ProductListDropdown";
 import RetailsListDropdown from "../UI/RetailsListDropdown/RetailsListDropdown";
 
 const CartItem = (props) => {

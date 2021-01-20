@@ -30,7 +30,8 @@ const ProductListDropdown = props => {
               <div className='ProductListDropdown__item' key={item.guid}>
                 <p className='ProductListDropdown__titleItem'>{item.product}</p>
                 <div className='ProductListDropdown__priceContainer'>
-                  <p className='ProductListDropdown__count'><span>{item.count}</span> шт:</p>
+                  {/*<p className='ProductListDropdown__count'><span>{item.count}</span> шт:</p>*/}
+                  <p className='ProductListDropdown__count'>{item.count}шт. * {item.priceRetail} ₽/шт.</p>
                   <p
                     className='ProductListDropdown__price'>{(item.priceRetail * item.count).toFixed(2)} ₽</p>
                 </div>

@@ -35,8 +35,8 @@ const initialState = {
 const upgradeRetailItems = (array, cart) => {
   const retailItems = array.map((item) => {
     const sum = item.product.reduce((accumulator, currentValue) => {
-      const count = cart.find(item => item.itemId === currentValue.guid).count
-      return ((currentValue.priceRetail * count) + accumulator)
+      // const count = cart.find(item => item.itemId === currentValue.guid).count
+      return ((currentValue.priceRetail * currentValue.count) + accumulator)
     }, 0)
     return {
       ...item,

@@ -1,0 +1,90 @@
+.CartOrderPage {
+  max-width: 800px;
+  width: 100%;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  &__title {
+    padding-bottom: 5px;
+  }
+
+  &__addressAndPrice {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  &__sum {
+    color: #333;
+    white-space: nowrap;
+    font-size: 1.4rem;
+    font-weight: 600;
+  }
+
+  &__addressContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #3e3e3e;
+    margin: 5px 20px 5px 0;
+    font-weight: 600;
+    flex: 1 1;
+
+    p {
+      margin: 2px 0;
+      font-weight: 600;
+
+      span {
+        color: #000;
+        font-weight: normal;
+        margin-left: 5px;
+        font-size: 16px;
+      }
+
+      img {
+        width: 15px;
+        height: 15px;
+        transform: translate(-10px, 2px);
+      }
+    }
+  }
+
+  &__productContainer {
+    margin: 3px 0 7px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px dashed #eaeaea;
+  }
+
+  &__productTitle {
+    flex: 1 1 50%;
+    text-align: left;
+
+    overflow: hidden;
+    white-space: normal;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+  }
+
+  &__productCount {
+    flex: 1 1 25%;
+    text-align: right;
+  }
+
+  &__price {
+    flex: 1 1 15%;
+    text-align: right;
+  }
+
+  &__price {
+    font-size: 1.1rem;
+  }
+
+}

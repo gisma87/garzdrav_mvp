@@ -16,7 +16,7 @@ const PopupMapCart = props => {
       const retail = retails.find(item => item.guid === props.activeRetail)
       setActiveMarker(props.activeRetail)
       setPoint(retail.coordinates)
-      setZoom(17)
+      setZoom(18)
       setTimeout(() => {
         const activeItem = document.querySelector('.RetailItem__activeItem');
         if (activeItem) activeItem.scrollIntoView({behavior: "smooth"});
@@ -81,7 +81,7 @@ const PopupMapCart = props => {
                     onSelectItem={() => onSelectItem(retailItem.guid)}
                     setMapSetting={(id) => {
                       setPoint(retailItem.coordinates)
-                      setZoom(17)
+                      setZoom(18)
                       setActiveMarker(id)
                     }}
                   />

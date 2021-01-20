@@ -40,6 +40,7 @@ import PopupLogin from "../../components/PopupLogin/PopupLogin";
 import SvgArrowLongRight from "../../components/UI/icons/SvgArrowLongRight";
 import CardItem from "../../components/CardItem";
 import apiService from "../../service/ApiService";
+import CartOrderPage from "./CartOrderPage/CartOrderPage";
 
 class Cart extends React.Component {
   constructor(props) {
@@ -137,9 +138,20 @@ class Cart extends React.Component {
     return null
   }
 
+  goToPageStageThree = (retailId = null) => {
+    if (retailId) {
+      this.props.onSelectRetail(retailId);
+      this.setState({pageStage: 3})
+    } else if (this.props.selectedRetail) {
+      this.setState({pageStage: 3})
+    } else {
+      this.setState({pageStage: 2})
+    }
+  }
+
 
   render() {
-    const sum = this.getSum()
+    // const sum = this.getSum()
     const stopCount = (product) => product.retails.sort((a, b) => a.countLast < b.countLast ? 1 : -1)[0].countLast
     const dataForPromoItem = this.getDataForPromoItem();
     const getMinSum = () => {
@@ -188,7 +200,7 @@ class Cart extends React.Component {
             <p className="Cart__pageName">Выбор аптеки</p>
           </div>
           <SvgArrowLongRight className="Cart__pageArrow"/>
-          <div className="Cart__pageTitle" onClick={() => this.setState({pageStage: 3})}>
+          <div className="Cart__pageTitle" onClick={() => this.goToPageStageThree(null)}>
             <p className={'Cart__pageNumber' + (this.state.pageStage === 3 ? ' Cart__pageNumber_active' : '')}>3</p>
             <p className="Cart__pageName">Подтверждение заказа</p>
           </div>
@@ -470,9 +482,8 @@ class Cart extends React.Component {
                                           cartLength={this.props.cart.length}
                                           onClick={() => this.setState({popupMap: false})}
                                           onSelectItem={(retailId) => {
-                                            this.props.onSelectRetail(retailId)
                                             this.setState({popupMap: false})
-                                            this.setState({pageStage: 3})
+                                            this.goToPageStageThree(retailId)
                                           }}
                             />
                           </MediaQuery>
@@ -537,8 +548,8 @@ class Cart extends React.Component {
                                                                quantity={this.calcQuantityProduct(product.product)}
                                                                item={product}
                                                                onCheck={() => {
-                                                                 this.props.onSelectRetail(product.guid)
-                                                                 this.setState({pageStage: 3})
+
+                                                                 this.goToPageStageThree(product.guid)
                                                                }}
                                                                openPopupMap={() => {
                                                                  this.props.onSelectRetail(product.guid)
@@ -562,8 +573,7 @@ class Cart extends React.Component {
                                                                  quantity={this.calcQuantityProduct(product.product)}
                                                                  item={product}
                                                                  onCheck={() => {
-                                                                   this.props.onSelectRetail(product.guid)
-                                                                   this.setState({pageStage: 3})
+                                                                   this.goToPageStageThree(product.guid)
                                                                  }}
                                                                  openPopupMap={() => {
                                                                    this.props.onSelectRetail(product.guid)
@@ -609,8 +619,7 @@ class Cart extends React.Component {
                                                                item={product}
                                                                quantity={this.calcQuantityProduct(product.product)}
                                                                onCheck={() => {
-                                                                 this.props.onSelectRetail(product.guid)
-                                                                 this.setState({pageStage: 3})
+                                                                 this.goToPageStageThree(product.guid)
                                                                }}
                                                                openPopupMap={() => {
                                                                  this.props.onSelectRetail(product.guid)
@@ -663,38 +672,39 @@ class Cart extends React.Component {
                   }
 
                   {
-                    this.state.pageStage === 3
-                    && <div>
-                      <p>Подтверждение заказа</p>
-                      {
-                        this.props.selectedRetail
-                        && <div className='Cart__rightPanel'>
-                          <div className='Cart__pricePanel'>
-                            <div className='Cart__resultPrice'>
-                              <span>Общая сумма:</span> <span>{sum} ₽</span>
-                            </div>
-                            <div className='Cart__retail'>
-                              <p>Забрать из аптеки:</p>
-                              <p className='Cart__address'>
-                                г. {this.checkRetailItem()?.city}, {this.checkRetailItem()?.street}, {this.checkRetailItem()?.buildNumber}
-                              </p>
-                              {!(this.checkRetailItem()?.product?.length === this.props.cart.length) &&
-                              <span className='Cart__warningMessage'>ТОВАР ДОСТУПЕН ЧАСТИЧНО</span>}
-                            </div>
-                            <button className='Cart__buttonToCart'
-                                    onClick={() => {
-                                      if (!!this.props.TOKEN) {
-                                        this.setState({popupOrder: true})
-                                      } else {
-                                        this.setState({popupLogin: true, isHasBuy: true})
-                                      }
-                                    }}
-                            >
-                              Купить
-                            </button>
-                          </div>
-                        </div>}
-                    </div>
+                    this.state.pageStage === 3 && this.props.selectedRetail
+                    && <CartOrderPage retail={this.checkRetailItem()}/>
+                    // <div>
+                    //   <p>Подтверждение заказа</p>
+                    //   {
+                    //     this.props.selectedRetail
+                    //     && <div className='Cart__rightPanel'>
+                    //       <div className='Cart__pricePanel'>
+                    //         <div className='Cart__resultPrice'>
+                    //           <span>Общая сумма:</span> <span>{sum} ₽</span>
+                    //         </div>
+                    //         <div className='Cart__retail'>
+                    //           <p>Забрать из аптеки:</p>
+                    //           <p className='Cart__address'>
+                    //             г. {this.checkRetailItem()?.city}, {this.checkRetailItem()?.street}, {this.checkRetailItem()?.buildNumber}
+                    //           </p>
+                    //           {!(this.checkRetailItem()?.product?.length === this.props.cart.length) &&
+                    //           <span className='Cart__warningMessage'>ТОВАР ДОСТУПЕН ЧАСТИЧНО</span>}
+                    //         </div>
+                    //         <button className='Cart__buttonToCart'
+                    //                 onClick={() => {
+                    //                   if (!!this.props.TOKEN) {
+                    //                     this.setState({popupOrder: true})
+                    //                   } else {
+                    //                     this.setState({popupLogin: true, isHasBuy: true})
+                    //                   }
+                    //                 }}
+                    //         >
+                    //           Купить
+                    //         </button>
+                    //       </div>
+                    //     </div>}
+                    // </div>
                   }
                 </>
               }
