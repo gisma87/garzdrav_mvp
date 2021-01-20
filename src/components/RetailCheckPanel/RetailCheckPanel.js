@@ -1,11 +1,8 @@
 import React, {useRef, useState} from "react";
 import './RetailCheckPanel.scss'
-import SvgCheck from "../UI/icons/SvgCheck";
-import BlockWrapper from "../BlockWrapper";
-import CheckboxOrange from "../UI/CheckboxOrange";
-import iconLocation from "../../img/location.svg"
-import iconPhone from "../../img/phone-solid.svg"
-import iconClock from "../../img/clock-regular.svg"
+import iconLocation from "../../img/icon/location.svg"
+import iconPhone from "../../img/icon/phone.svg"
+import iconClock from "../../img/icon/clock.svg"
 import ProductListDropdown from "../UI/ProductListDropdown/ProductListDropdown";
 
 const RetailCheckPanel = (props) => {
@@ -25,7 +22,7 @@ const RetailCheckPanel = (props) => {
     product = ''
   } = props.item
 
-  const {isChecked, onCheck} = props;
+  const {isChecked, onCheck, openPopupMap} = props;
 
   const onCheckPanel = (e) => {
     if (!e.target.closest(`.${refDescription.current.className}`)) {
@@ -34,19 +31,14 @@ const RetailCheckPanel = (props) => {
   }
 
   return (
-    <BlockWrapper classStyle='RetailCheckPanel'>
-      <div className='RetailCheckPanel__wrapperOnClick' onClick={onCheckPanel}>
-        <div className='RetailCheckPanel__checkbox RetailCheckPanel__block'>
-          <CheckboxOrange check={isChecked}
-                          onCheck={onCheck}
-                          id={guid}
-                          name={'RetailCheckPanel'}
-                          type={'radio'}
-          />
-        </div>
+    <div className='RetailCheckPanel'>
+      <div className='RetailCheckPanel__mainContainer' onClick={onCheckPanel}>
         <div className='RetailCheckPanel__content RetailCheckPanel__block'>
-          <p className='RetailCheckPanel__name'><img src={iconLocation}
-                                                     alt="Адрес"/> Адрес: <span>г. {city}, ул. {street}, {buildNumber}</span>
+          <p className='RetailCheckPanel__name'>
+            <img src={iconLocation} alt="Адрес"/>
+            Адрес:
+            <span className='RetailCheckPanel__address'
+                  onClick={openPopupMap}>г. {city}, ул. {street}, {buildNumber}</span>
           </p>
           <p className='RetailCheckPanel__openHours'><img src={iconClock} alt="Часы работы"/>Часы
             работы: <span>{weekDayTime}</span>
@@ -55,8 +47,8 @@ const RetailCheckPanel = (props) => {
             телефон: <span>{phone}</span>
           </p>
         </div>
-        <div className='RetailCheckPanel__price'>
-          <div>
+        <div className='RetailCheckPanel__priceContainer'>
+          <div className='RetailCheckPanel__price'>
             <p>Сумма: {sum} ₽</p>
             <div ref={refDescription} onClick={() => {
               setShowDropdown(!showDropdown)
@@ -65,16 +57,14 @@ const RetailCheckPanel = (props) => {
                  className='RetailCheckPanel__descriptionContainer'
             >{props.quantity && props.quantity}</div>
           </div>
-          <div className={'RetailCheckPanel__check ' + (isChecked ? 'bounceInLeft' : '')}>
-            <SvgCheck style={{color: 'green'}}/>
-          </div>
+        </div>
+        <div className="RetailCheckPanel__btnContainer">
+          <button className="RetailCheckPanel__button">Выбрать эту аптеку</button>
         </div>
       </div>
 
       <ProductListDropdown list={product} active={showDropdown}/>
-
-    </BlockWrapper>
+    </div>
   )
 }
-
 export default RetailCheckPanel

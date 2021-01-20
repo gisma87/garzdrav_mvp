@@ -360,8 +360,8 @@
   }
 
   &__blockMoreItems {
-    max-width: 860px;
-    padding: 10px 0 !important;
+    //max-width: 860px;
+    padding: 5px 0 !important;
 
     @media (max-width: 800px) {
       border: none;

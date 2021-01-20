@@ -14,11 +14,7 @@ import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
 import Loader from "../../components/UI/Loader";
 import PopupAfterBuy from "../../components/PopupAfterBuy/PopupAfterBuy";
 import num_word from "../../utils/numWord";
-import {
-  // RetailCheckPanel,
-  RetailCheckPanelListItem,
-  // RetailCheckPanelIncomplete
-} from '../../components/RetailCheckPanel'
+import RetailCheckPanel from "../../components/RetailCheckPanel";
 import {
   addedToCart,
   allItemRemovedFromCart,
@@ -533,11 +529,15 @@ class Cart extends React.Component {
                                   {
                                     allCountFullProductRetails.map((product, index) => {
                                       // if (index === 0) return null;
-                                      return <RetailCheckPanelListItem key={product.guid + index}
-                                                                       quantity={this.calcQuantityProduct(product.product)}
-                                                                       item={product}
-                                                                       isChecked={this.isChecked(product.guid)}
-                                                                       onCheck={() => this.props.onSelectRetail(product.guid)}
+                                      return <RetailCheckPanel key={product.guid + index}
+                                                               quantity={this.calcQuantityProduct(product.product)}
+                                                               item={product}
+                                                               isChecked={this.isChecked(product.guid)}
+                                                               onCheck={() => this.props.onSelectRetail(product.guid)}
+                                                               openPopupMap={() => {
+                                                                 this.props.onSelectRetail(product.guid)
+                                                                 this.setState({popupMap: true})
+                                                               }}
                                       />
                                     })
                                   }
@@ -552,11 +552,15 @@ class Cart extends React.Component {
                                     {
                                       notCompleteCountProductsRetails.map((product, index) => {
                                         // if (index === 0) return null;
-                                        return <RetailCheckPanelListItem key={product.guid + index}
-                                                                         quantity={this.calcQuantityProduct(product.product)}
-                                                                         item={product}
-                                                                         isChecked={this.isChecked(product.guid)}
-                                                                         onCheck={() => this.props.onSelectRetail(product.guid)}
+                                        return <RetailCheckPanel key={product.guid + index}
+                                                                 quantity={this.calcQuantityProduct(product.product)}
+                                                                 item={product}
+                                                                 isChecked={this.isChecked(product.guid)}
+                                                                 onCheck={() => this.props.onSelectRetail(product.guid)}
+                                                                 openPopupMap={() => {
+                                                                   this.props.onSelectRetail(product.guid)
+                                                                   this.setState({popupMap: true})
+                                                                 }}
                                         />
                                       })
                                     }
@@ -592,12 +596,16 @@ class Cart extends React.Component {
                               <MediaQuery minWidth={801}>
                                 <BlockWrapper classStyle='Cart__blockMoreItems'>
                                   {
-                                    incompleteRetailItemState.map((item, index) => {
-                                      return <RetailCheckPanelListItem key={item.guid + index}
-                                                                         item={item}
-                                                                         quantity={this.calcQuantityProduct(item.product)}
-                                                                         isChecked={this.isChecked(item.guid)}
-                                                                         onCheck={() => this.props.onSelectRetail(item.guid)}
+                                    incompleteRetailItemState.map((product, index) => {
+                                      return <RetailCheckPanel key={product.guid + index}
+                                                               item={product}
+                                                               quantity={this.calcQuantityProduct(product.product)}
+                                                               isChecked={this.isChecked(product.guid)}
+                                                               onCheck={() => this.props.onSelectRetail(product.guid)}
+                                                               openPopupMap={() => {
+                                                                 this.props.onSelectRetail(product.guid)
+                                                                 this.setState({popupMap: true})
+                                                               }}
                                       />
                                     })
                                   }
