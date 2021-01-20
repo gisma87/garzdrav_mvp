@@ -673,7 +673,7 @@ class Cart extends React.Component {
 
                   {
                     this.state.pageStage === 3 && this.props.selectedRetail
-                    && <CartOrderPage retail={this.checkRetailItem()}/>
+                    && <CartOrderPage retail={this.checkRetailItem()} isAuth={Boolean(this.props.TOKEN)}/>
                     // <div>
                     //   <p>Подтверждение заказа</p>
                     //   {

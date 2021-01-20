@@ -1,10 +1,30 @@
+@import "../../../variables";
+
 .CartOrderPage {
+
+  @keyframes boostText {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.2);
+      font-weight: bold;
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
   max-width: 800px;
   width: 100%;
   align-self: center;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+
+  &__container {
+
+  }
 
   &__title {
     padding-bottom: 5px;
@@ -83,8 +103,159 @@
     text-align: right;
   }
 
-  &__price {
+  &__buyPanel {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__authBlock {
+    padding: 30px 0;
+    min-width: 580px;
+  }
+
+  &__authTitle {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+  }
+
+  &__form {
+    display: flex;
+    max-width: 600px;
+    width: 100%;
+    justify-content: space-between;
+    align-items: flex-start;
+    background-color: $bg-color-light;
+    padding: 10px 30px;
+    border-radius: 8px;
+  }
+
+  &__buttonSMS {
+    border: 1px solid $primary-color;
+    height: 50px;
+    width: 170px;
+    outline: none;
+    background-color: #fff;
     font-size: 1.1rem;
+    font-weight: bold;
+    color: $primary-color;
+    margin: 20px 0;
+    transition: color .2s, background-color .2s;
+    cursor: pointer;
+
+    &:hover {
+      color: #fff;
+      background-color: $primary-color;
+    }
+
+    &:active {
+      transform: scale(.96);
+    }
+  }
+
+  &__buttonToBuy {
+    transform: translateY(20px);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    width: 200px;
+    height: 50px;
+
+    font-size: 1.2rem;
+    font-weight: bold;
+
+    outline: none;
+    border: 1px solid $primary-color;
+    border-radius: 15px;
+    background: $primary-color;
+    color: #fff;
+    cursor: pointer;
+
+    &:hover {
+      background-image: linear-gradient(to bottom, #1f5377, #1F3277);
+    }
+  }
+
+  // ============== INPUT ELEMENT =======================
+
+  &__element {
+    max-width: 300px;
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding-top: 17px;
+
+    &:first-child {
+      margin-top: 5px;
+    }
+
+    &:not(:first-child) {
+      margin-top: 20px;
+    }
+  }
+
+  &__label {
+    position: absolute;
+    bottom: 4px;
+    left: 0;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.2rem;
+    color: #000;
+    transform: translateY(0);
+    transition: transform .3s, font-size .3s;
+  }
+
+  &__input {
+    max-width: 300px;
+    outline: none;
+    border-bottom: 1px solid $primary-color;
+    padding: 5px 0;
+    font-size: 1rem;
+    line-height: 1.1rem;
+    background-color: transparent;
+
+    &:focus {
+      border-bottom: 3px solid $secondary-color;
+      padding-bottom: 3px;
+
+      + .CartOrderPage__label {
+        font-size: .85rem;
+        transform: translateY(-24px);
+      }
+    }
+
+    &:valid {
+      + .CartOrderPage__label {
+        font-size: .85rem;
+        transform: translateY(-24px);
+      }
+    }
+
+    &_error {
+      border-bottom: 1px solid red;
+    }
+  }
+
+  &__errorMessage {
+    position: absolute;
+    bottom: -18px;
+    left: 0;
+    color: #FF2F2F;
+    font-size: .7rem;
+    font-weight: 500;
+    opacity: 0;
+  }
+
+  &__errorMessage_visible {
+    animation: boostText .8s;
+    display: inline-block !important;
+    opacity: 1 !important;
   }
 
 }

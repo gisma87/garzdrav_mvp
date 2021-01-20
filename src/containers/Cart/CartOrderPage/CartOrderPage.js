@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import './CartOrderPage.scss'
 import BlockWrapper from "../../../components/BlockWrapper";
 import iconLocation from "../../../img/icon/location.svg";
@@ -6,9 +6,12 @@ import iconClock from "../../../img/icon/clock.svg";
 import iconPhone from "../../../img/icon/phone.svg";
 
 const CartOrderPage = props => {
+
+  const [phone, setPhone] = useState(null)
+
   return (
-    <>
-      <BlockWrapper classStyle='CartOrderPage'>
+    <div className='CartOrderPage'>
+      <BlockWrapper classStyle='CartOrderPage__container'>
         <h3 className='CartOrderPage__title'>Ваш заказ:</h3>
         <div className="CartOrderPage__addressAndPrice">
           <div className='CartOrderPage__addressContainer'>
@@ -42,8 +45,37 @@ const CartOrderPage = props => {
         </div>
       </BlockWrapper>
 
+      <div className='CartOrderPage__buyPanel' style={props.isAuth ? {justifyContent: 'flex-end'} : {}}>
+        {
+          !props.isAuth &&
+          <div className='CartOrderPage__authBlock'>
+            <p className='CartOrderPage__authTitle'>Авторизуйтесь или подтвердите номер телефона:</p>
+            <form className='CartOrderPage__form'
+                  noValidate
+                  onSubmit={(event) => {
+                    event.preventDefault()
+                  }}>
+              <label className="CartOrderPage__element">
+                <input name="phone"
+                       id="phone"
+                       type="tel"
+                       className="CartOrderPage__input"
+                       required
+                       value={phone}
+                       onChange={(e) => setPhone(e.target.value)}
+                />
+                <p className="CartOrderPage__label">Введите телефон</p>
+                <span className="CartOrderPage__errorMessage">ошибка</span>
+              </label>
+              <button className='CartOrderPage__buttonSMS'>получить код</button>
+            </form>
+          </div>
+        }
+        <button className='CartOrderPage__buttonToBuy'>оформить заказ</button>
+      </div>
 
-    </>
+
+    </div>
 
   )
 }
