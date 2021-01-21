@@ -70,16 +70,7 @@ const CartOrderPage = props => {
     }
 
     if (formValid && !props.isAuth && smsCode) {
-      props.authorizedByPassOrSMS(phone, smsCode)
-      debugger
-      const isAuth = () => {
-        if (props.isAuth) {
-          props.onSubmit()
-        } else {
-          setTimeout(isAuth, 1000);
-        }
-      }
-      isAuth()
+      props.authorizedByPassOrSMS(phone, smsCode, props.onSubmit)
     }
   }
 
@@ -157,10 +148,8 @@ const CartOrderPage = props => {
                            value={smsCode}
                            onChange={(event) => {
                              const input = event.target
-                             if (Number.isInteger(+input.value)) {
-                               setSmsCode(input.value.trim())
-                               setErrorMessageCode('')
-                             }
+                             setSmsCode(input.value.trim())
+                             setErrorMessageCode('')
                            }}
                            required
                            type="text"

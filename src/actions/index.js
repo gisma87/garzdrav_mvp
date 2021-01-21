@@ -331,13 +331,14 @@ const authentication = (phone, password) => async (dispatch, getState, apiServic
 }
 
 // авторизация по паролю или СМС
-const authorizedByPassOrSMS = (phone, passOrSms) => async (dispatch, getState, apiService) => {
+const authorizedByPassOrSMS = (phone, passOrSms, func = null) => async (dispatch, getState, apiService) => {
   dispatch(loadingTrue('authorizedByPassOrSMS'))
   apiService.authentication(phone, passOrSms)
     .then(response => {
       dispatch({type: 'TOKEN', payload: response})
       localStorage.setItem('TOKEN', JSON.stringify(response))
       console.log('access_TOKEN')
+      if (func) func();
     })
     .catch(err => {
       if (err.response) {
@@ -348,6 +349,7 @@ const authorizedByPassOrSMS = (phone, passOrSms) => async (dispatch, getState, a
             dispatch({type: 'TOKEN', payload: response})
             localStorage.setItem('TOKEN', JSON.stringify(response))
             console.log('access_TOKEN')
+            if (func) func();
           })
           .catch(e => {
             if (e.response) {

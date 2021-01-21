@@ -714,7 +714,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     refreshAuthentication: () => dispatch(refreshAuthentication()),
-    authorizedByPassOrSMS: (phone, smsOrPass) => dispatch(authorizedByPassOrSMS(phone, smsOrPass)),
+    authorizedByPassOrSMS: (phone, smsOrPass, func) => dispatch(authorizedByPassOrSMS(phone, smsOrPass, func)),
     addedToCart: (item) => dispatch(addedToCart(item)),
     itemRemovedFromCart: (item) => dispatch(itemRemovedFromCart(item)),
     allItemRemovedFromCart: (item) => dispatch(allItemRemovedFromCart(item)),
