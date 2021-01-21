@@ -147,6 +147,18 @@ class Cart extends React.Component {
     } else {
       this.setState({pageStage: 2})
     }
+    window.scrollTo({
+      top: 0,
+      left: 0,
+    });
+  }
+
+  goToPage(n) {
+    this.setState({pageStage: n})
+    window.scrollTo({
+      top: 0,
+      left: 0,
+    });
   }
 
 
@@ -175,7 +187,7 @@ class Cart extends React.Component {
 
     const {allCountFullProductRetails, notCompleteCountProductsRetails} = this.getFullCountProductsRetails()
 
-    const retailsForMap = [...this.props.retailsArr].sort((a, b) => {
+    const retailsForMap = () => [...this.props.retailsArr].sort((a, b) => {
       const aCount = a.product.reduce((acc, val) => {
         return acc + val.count
       }, 0)
@@ -190,12 +202,12 @@ class Cart extends React.Component {
       <div className='Cart wrapper'>
         <div className='Cart__topPanel'>
 
-          <div className="Cart__pageTitle" onClick={() => this.setState({pageStage: 1})}>
+          <div className="Cart__pageTitle" onClick={() => this.goToPage(1)}>
             <p className={'Cart__pageNumber' + (this.state.pageStage === 1 ? ' Cart__pageNumber_active' : '')}>1</p>
             <p className="Cart__pageName">Корзина</p>
           </div>
           <SvgArrowLongRight className="Cart__pageArrow"/>
-          <div className="Cart__pageTitle" onClick={() => this.setState({pageStage: 2})}>
+          <div className="Cart__pageTitle" onClick={() => this.goToPage(2)}>
             <p className={'Cart__pageNumber' + (this.state.pageStage === 2 ? ' Cart__pageNumber_active' : '')}>2</p>
             <p className="Cart__pageName">Выбор аптеки</p>
           </div>
@@ -323,7 +335,7 @@ class Cart extends React.Component {
                                         <span>{countProducts} {num_word(countProducts, ['товар', 'товара', 'товаров'])} на сумму от {minSum} ₽</span>
                                       </div>
                                       <button className='Cart__buttonToCart'
-                                              onClick={() => this.setState({pageStage: 2})}
+                                              onClick={() => this.goToPage(2)}
                                         // onClick={() => {
                                         //   if (!!this.props.TOKEN) {
                                         //     this.setState({popupOrder: true})
@@ -349,7 +361,7 @@ class Cart extends React.Component {
                                       <span>{countProducts} {num_word(countProducts, ['товар', 'товара', 'товаров'])} на сумму от {minSum} ₽</span>
                                     </div>
                                     <button className='Cart__buttonToCart'
-                                            onClick={() => this.setState({pageStage: 2})}
+                                            onClick={() => this.goToPage(2)}
                                       // onClick={() => {
                                       //   if (!!this.props.TOKEN) {
                                       //     this.setState({popupOrder: true})
@@ -477,7 +489,7 @@ class Cart extends React.Component {
                             </div>
 
                             <PopupMapCart active={this.state.popupMap}
-                                          retails={retailsForMap}
+                                          retails={retailsForMap()}
                                           activeRetail={this.props.selectedRetail}
                                           cartLength={this.props.cart.length}
                                           onClick={() => this.setState({popupMap: false})}
@@ -672,12 +684,14 @@ class Cart extends React.Component {
                   }
 
                   {
-                    this.state.pageStage === 3 && this.props.selectedRetail
+                    this.state.pageStage === 3 && (this.props.selectedRetail || this.state.OrderNumber)
                     && <CartOrderPage retail={this.checkRetailItem()}
                                       isAuth={Boolean(this.props.TOKEN)}
                                       authorizedByPassOrSMS={this.props.authorizedByPassOrSMS}
                                       onSubmit={this.postBuyOrder}
                                       OrderNumber={this.state.OrderNumber}
+                                      delOrderNumber={() => this.setState({OrderNumber: ''})}
+                                      offSelectRetail={() => this.props.onSelectRetail(null)}
                                       refreshToken={this.props.refreshAuthentication}
                     />
                     // <div>

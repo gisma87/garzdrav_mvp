@@ -129,6 +129,11 @@
     background-color: $bg-color-light;
     padding: 10px 30px 25px;
     border-radius: 8px;
+
+    &_message {
+      flex-direction: column;
+      align-items: flex-start;
+    }
   }
 
   &__buttonSMS {

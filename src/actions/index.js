@@ -5,13 +5,6 @@ const setError = (error) => {
   }
 }
 
-const setErrorAUTH = (error) => {
-  return {
-    type: 'AUTH_FAILURE',
-    payload: error
-  }
-}
-
 //  очищаем ошибку
 const clearError = () => {
   return {

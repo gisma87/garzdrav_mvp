@@ -96,7 +96,8 @@ function calcQuantityProduct(obj) {
 }
 
 // отправка на сервер собранного интернет заказа
-function postBuyOrder() {
+async function postBuyOrder() {
+  this.props.loadingTrue('postBuyOrder')
   const {guid, product, sum} = this.checkRetailItem()
   const products = product.map(item => {
     return {
@@ -108,21 +109,14 @@ function postBuyOrder() {
     }
   })
   const send = {retailGuid: guid, telephone: this.state.telephone, products: products, sum}
-  const sendOrder = async () => {
-    const response = await apiService.sendOrder(send, this.props.TOKEN.accessToken)
-    this.setState({OrderNumber: response})
-    console.log('Заказ отправлен: ', send);
-    console.log('Номер заказа: ', response)
-  }
-  this.props.loadingTrue('postBuyOrder')
-  try {
-    sendOrder()
-    this.props.loadingFalse('postBuyOrder')
-  } catch (e) {
-    this.props.setError(e)
-  }
-
+  const response = await apiService.sendOrder(send, this.props.TOKEN.accessToken)
+  this.setState({OrderNumber: response})
+  console.log('Заказ отправлен: ', send);
+  console.log('Номер заказа: ', response)
   product.forEach(item => this.props.allItemRemovedFromCart(item.guid)) // удалить заказанные позиции из корзины
+  this.props.loadingFalse('postBuyOrder')
+  this.props.onSelectRetail(null)
+  return response
 }
 
 function clearCartError() {
