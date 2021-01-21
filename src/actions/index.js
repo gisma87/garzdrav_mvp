@@ -5,6 +5,13 @@ const setError = (error) => {
   }
 }
 
+const setErrorAUTH = (error) => {
+  return {
+    type: 'AUTH_FAILURE',
+    payload: error
+  }
+}
+
 //  очищаем ошибку
 const clearError = () => {
   return {
@@ -301,8 +308,10 @@ const refreshAuthentication = () => async (dispatch, getState, apiService) => {
     // localStorage.setItem('TOKEN', JSON.stringify(response))
     console.log('refresh_TOKEN')
     dispatch(getToFavorites())
+    return Promise.resolve('refresh_TOKEN')
   } catch (e) {
-    dispatch(setError(e))
+    // dispatch(setError(e))
+    console.log(e)
     dispatch(logout())
   }
 }
@@ -316,6 +325,7 @@ const authentication = (phone, password) => async (dispatch, getState, apiServic
     console.log('access_TOKEN')
     dispatch(getToFavorites())
   } catch (e) {
+    console.log(e)
     dispatch(setError(e))
   }
 }
@@ -339,13 +349,13 @@ const authorizedByPassOrSMS = (phone, passOrSms) => async (dispatch, getState, a
             localStorage.setItem('TOKEN', JSON.stringify(response))
             console.log('access_TOKEN')
           })
-          .catch(err => {
-            if (err.response) {
+          .catch(e => {
+            if (e.response) {
               // client received an error response (5xx, 4xx)
-              console.log('err.response: ', err.response)
-            } else if (err.request) {
+              console.log('err.response: ', e.response)
+            } else if (e.request) {
               // client never received a response, or request never left
-              console.log('err.request ', err.request)
+              console.log('err.request ', e.request)
             } else {
               // anything else
               console.log('ошибка запроса')
@@ -358,6 +368,7 @@ const authorizedByPassOrSMS = (phone, passOrSms) => async (dispatch, getState, a
         // anything else
         console.log('ошибка запроса')
       }
+      dispatch(setError(err))
     })
   dispatch(loadingFalse('authorizedByPassOrSMS - вручную'))
 }

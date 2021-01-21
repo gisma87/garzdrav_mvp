@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import './CartOrderPage.scss'
 import BlockWrapper from "../../../components/BlockWrapper";
 import iconLocation from "../../../img/icon/location.svg";
@@ -6,13 +6,33 @@ import iconClock from "../../../img/icon/clock.svg";
 import iconPhone from "../../../img/icon/phone.svg";
 import InputMask from "react-input-mask";
 import apiService from "../../../service/ApiService";
+import service from "../../../service/service";
+import Loader from "../../../components/UI/Loader";
 
 const CartOrderPage = props => {
 
-  const [phone, setPhone] = useState(null)
-  const [smsCode, setSmsCode] = useState(null)
+  const [phone, setPhone] = useState('')
+  const [smsCode, setSmsCode] = useState('')
   const [formValid, setFormValid] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
+  const [errorMessageCode, setErrorMessageCode] = useState('')
+  const [isSubmit, setIsSubmit] = useState(false)
+  const [loading, setLoading] = useState(false)
+
+
+  // useEffect(() => {
+  //   if (isSubmit && formValid && props.isAuth) {
+  //     setLoading(true)
+  //     props.onSubmit()
+  //   }
+  //   setIsSubmit(false)
+  // }, [isSubmit])
+
+  useEffect(() => {
+    if (props.OrderNumber.length) {
+      setLoading(false)
+    }
+  }, [props.OrderNumber])
 
   function validate(event) {
     setErrorMessage('')
@@ -33,26 +53,26 @@ const CartOrderPage = props => {
 
   function submitOrder(event) {
     event.preventDefault()
-    if (!formValid) {
+    if (props.isAuth) {
+      service.wrapperRefreshToken(props.onSubmit, props.refreshToken)
+      return
+    }
+
+    if (!formValid && !props.isAuth) {
       setErrorMessage('Неверно введён номер')
       return
     }
 
     if (formValid && !props.isAuth && !smsCode) {
-      console.log('Введите СМС код для подтверждения номера')
+      setErrorMessageCode('Введите СМС код')
       return
     }
 
     if (formValid && !props.isAuth && smsCode) {
-      console.log('послали смс код')
+      props.authorizedByPassOrSMS(phone, smsCode)
+      setIsSubmit(true)
       return
     }
-
-    if (formValid && props.isAuth) {
-      props.onSubmit()
-      console.log('SUBMIT');
-    }
-
   }
 
   return (
@@ -92,6 +112,8 @@ const CartOrderPage = props => {
       </BlockWrapper>
 
       <div className='CartOrderPage__buyPanel' style={props.isAuth ? {justifyContent: 'flex-end'} : {}}>
+        <Loader classStyle={loading ? 'Loader_is-opened' : ''}/>
+
         {
           !props.isAuth &&
           <div className='CartOrderPage__authBlock'>
@@ -111,7 +133,7 @@ const CartOrderPage = props => {
                              placeholder=""
                              required
                              type="tel"
-                             name="phone"
+                             name="CartOrderPage-phone"
                              id="CartOrderPage-phone"
                   />
                   <p className="CartOrderPage__label">Введите телефон</p>
@@ -121,7 +143,13 @@ const CartOrderPage = props => {
                 <label className="CartOrderPage__element">
                   <input className="CartOrderPage__input"
                          value={smsCode}
-                         onChange={(e) => setSmsCode(e.target.value)}
+                         onChange={(event) => {
+                           const input = event.target
+                           if (Number.isInteger(+input.value)) {
+                             setSmsCode(input.value)
+                             setErrorMessageCode('')
+                           }
+                         }}
                          required
                          type="text"
                          name="CartOrderPage-smsCode"
@@ -129,7 +157,7 @@ const CartOrderPage = props => {
                   />
                   <p className="CartOrderPage__label">Код из СМС</p>
                   <span
-                    className={'CartOrderPage__errorMessage' + (errorMessage.length ? ' CartOrderPage__errorMessage_visible' : '')}>{errorMessage}</span>
+                    className={'CartOrderPage__errorMessage' + (errorMessageCode.length ? ' CartOrderPage__errorMessage_visible' : '')}>{errorMessageCode}</span>
                 </label>
               </div>
 
@@ -139,6 +167,16 @@ const CartOrderPage = props => {
               >получить код
               </button>
             </form>
+          </div>
+        }
+
+        {
+          props.OrderNumber.length > 0 &&
+          <div className='CartOrderPage__authBlock'>
+            <div className='CartOrderPage__form'>
+              <p className='CartOrderPage__AfterBuy'>Ваш заказ N-{props.OrderNumber} принят к исполнению.</p>
+              <p className='CartOrderPage__AfterBuy'>Об изменении статуса заказа будет сообщено по СМС</p>
+            </div>
           </div>
         }
         <button className='CartOrderPage__buttonToBuy' onClick={submitOrder}>оформить заказ</button>

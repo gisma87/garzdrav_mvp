@@ -17,13 +17,13 @@ import num_word from "../../utils/numWord";
 import RetailCheckPanel from "../../components/RetailCheckPanel";
 import {
   addedToCart,
-  allItemRemovedFromCart,
+  allItemRemovedFromCart, authorizedByPassOrSMS,
   clearCart,
   fetchCartItems,
   itemRemovedFromCart,
   loadingFalse,
   loadingTrue,
-  onSelectRetail,
+  onSelectRetail, refreshAuthentication,
   rewriteCart,
   setCartItems,
   setCountItemCart,
@@ -675,7 +675,10 @@ class Cart extends React.Component {
                     this.state.pageStage === 3 && this.props.selectedRetail
                     && <CartOrderPage retail={this.checkRetailItem()}
                                       isAuth={Boolean(this.props.TOKEN)}
+                                      authorizedByPassOrSMS={this.props.authorizedByPassOrSMS}
                                       onSubmit={this.postBuyOrder}
+                                      OrderNumber={this.state.OrderNumber}
+                                      refreshToken={this.props.refreshAuthentication}
                     />
                     // <div>
                     //   <p>Подтверждение заказа</p>
@@ -736,6 +739,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    refreshAuthentication: () => dispatch(refreshAuthentication()),
+    authorizedByPassOrSMS: (phone, smsOrPass) => dispatch(authorizedByPassOrSMS(phone, smsOrPass)),
     addedToCart: (item) => dispatch(addedToCart(item)),
     itemRemovedFromCart: (item) => dispatch(itemRemovedFromCart(item)),
     allItemRemovedFromCart: (item) => dispatch(allItemRemovedFromCart(item)),

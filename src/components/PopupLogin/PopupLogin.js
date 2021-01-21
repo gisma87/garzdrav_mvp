@@ -3,7 +3,7 @@ import './PopupLogin.scss'
 import PopupWrapper from "../UI/PopupWrapper/PopupWrapper";
 import InputMask from 'react-input-mask'
 import {connect} from "react-redux";
-import {authentication, authorizedByPassOrSMS} from "../../actions";
+import {authorizedByPassOrSMS} from "../../actions";
 import apiService from "../../service/ApiService";
 
 const PopupLogin = props => {
@@ -84,8 +84,7 @@ const PopupLogin = props => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    authentication: (phone, smsCodeOrPassword) => dispatch(authentication(phone, smsCodeOrPassword)),
-    authorizedByPassOrSMS: (phone, smsOrPass) => dispatch(authorizedByPassOrSMS(phone, smsOrPass)),
+    authorizedByPassOrSMS: (phone, smsOrPass) => dispatch(authorizedByPassOrSMS(phone, smsOrPass))
   }
 }
 

@@ -127,7 +127,7 @@
     justify-content: space-between;
     align-items: center;
     background-color: $bg-color-light;
-    padding: 10px 30px;
+    padding: 10px 30px 25px;
     border-radius: 8px;
   }
 
@@ -184,6 +184,16 @@
     &:hover {
       background-image: linear-gradient(to bottom, #1f5377, #1F3277);
     }
+
+    &:active {
+      transform: translateY(20px) scale(.96);
+    }
+  }
+
+  &__AfterBuy {
+    font-size: 1.1rem;
+    color: black;
+    margin: 10px 0;
   }
 
   // ============== INPUT ELEMENT =======================

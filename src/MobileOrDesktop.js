@@ -27,6 +27,12 @@ const MobileOrDesktop = (props) => {
     localStorage.setItem('cart', JSON.stringify(props.cart));
   }, [props.cart])
 
+  // useEffect(() => {
+  //   if (props.error) {
+  //     props.refreshAuthentication()
+  //   }
+  // }, [props.error])
+
   const isMobile = useMediaQuery({query: '(max-width: 800px)'})
 
   return (
@@ -35,8 +41,8 @@ const MobileOrDesktop = (props) => {
 
 }
 
-const mapStateToProps = ({cart, loading}) => {
-  return {cart, loading}
+const mapStateToProps = ({cart, loading, error}) => {
+  return {cart, loading, error}
 }
 
 const mapDispatchToProps = (dispatch) => {
