@@ -26,6 +26,7 @@
     height: 30px;
     cursor: pointer;
     padding: 5px;
+    z-index: 1;
 
     &:hover {
       color: red;

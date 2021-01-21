@@ -6,6 +6,14 @@ class Service {
     })
   }
 
+  // runPromiseSeries(...args) {
+  //   const promise = args.reduce((promise, item) => {
+  //     return promise.then(() => item())
+  //   }, Promise.resolve());
+  //
+  //   promise()
+  // }
+
 }
 
 const service = new Service()

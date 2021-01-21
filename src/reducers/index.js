@@ -3,6 +3,7 @@ const initialState = {
   regions: [], // список всех регионов
   loading: 0,
   error: null,
+  errorAuth: null,
   isCity: JSON.parse(localStorage.getItem("city")) ? JSON.parse(localStorage.getItem("city"))[0] : {
     guid: "c384a061-7641-4605-a340-afb825fdcb70",
     title: "Абакан"
@@ -430,6 +431,13 @@ const reducer = (state = initialState, action) => {
         ...state,
         loading: (state.loading > 0) ? (state.loading - 1) : 0,
         error: action.payload
+      };
+
+    case 'AUTH_FAILURE' :
+      return {
+        ...state,
+        loading: (state.loading > 0) ? (state.loading - 1) : 0,
+        errorAuth: action.payload
       };
 
     case 'CLEAR_ERROR' :

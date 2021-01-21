@@ -235,16 +235,6 @@ class Cart extends React.Component {
                   }
                 </>
                 : <>
-                  {/*{!this.props.isRetailAllProduct &&*/}
-                  {/*<p style={{marginBottom: 10}}>К сожалению нет аптек с полным ассортиментом выбранного товара</p>}*/}
-
-                  {/*<div className="Cart__titleContainer">*/}
-                  {/*  <p className="Cart__countProducts">*/}
-                  {/*    В корзине {countProducts} {num_word(countProducts, ['товар', 'товара', 'товаров'])}*/}
-                  {/*  </p>*/}
-                  {/*</div>*/}
-
-
                   {
                     this.state.pageStage === 1
                     && <section className='Cart__containerProductsPage'>
@@ -299,6 +289,37 @@ class Cart extends React.Component {
                               })
                             }
                           </div>
+                          {
+                            this.props.cart.length > 0 &&
+                            <BlockWrapper classStyle='Cart__containerInfo'>
+                              <h3 className='Cart__infoBlock-title'>Почему указана цена "ОТ" ?</h3>
+                              <p className='Cart__infoBlock-text'>Цены в разных аптеках отличаются.</p>
+                              <p className='Cart__infoBlock-text'>Мы показываем минимальную стоимость товара в вашем
+                                городе.</p>
+                              <p className='Cart__infoBlock-info'>Вот список товаров из вашей корзины по минимальным
+                                ценам:</p>
+
+                              {
+                                this.props.cartItems.map((product, index) => {
+                                  const minPriceRetail = product.retails.sort((a, b) => a.priceRetail > b.priceRetail ? 1 : -1)[0];
+                                  return <div className='Cart__infoBlock-minPriceProducts'
+                                              key={product.guid + index}>
+                                    <div>
+                                      <p className='Cart__infoBlock-productTitle'>{product.product}</p>
+                                      <div className='Cart__infoBlock-streetRetail'>
+                                        <p className='Cart__infoBlock-brand'>{minPriceRetail.brand}</p>
+                                        <p className='Cart__infoBlock-streetText'>ул. {minPriceRetail.street}</p>
+                                        <p className='Cart__infoBlock-streetText'>{minPriceRetail.buildNumber}</p>
+                                      </div>
+
+                                    </div>
+                                    <p><b>{minPriceRetail.priceRetail} ₽</b></p>
+                                  </div>
+                                })
+                              }
+
+                            </BlockWrapper>
+                          }
                         </div>
 
                         {
@@ -402,36 +423,6 @@ class Cart extends React.Component {
                         }
 
                       </div>
-                      {
-                        this.props.cart.length > 0 &&
-                        <BlockWrapper classStyle='Cart__containerInfo'>
-                          <h3 className='Cart__infoBlock-title'>Почему указана цена "ОТ" ?</h3>
-                          <p className='Cart__infoBlock-text'>Цены в разных аптеках отличаются.</p>
-                          <p className='Cart__infoBlock-text'>Мы показываем минимальную стоимость товара в вашем
-                            городе.</p>
-                          <p className='Cart__infoBlock-info'>Вот список товаров из вашей корзины по минимальным
-                            ценам:</p>
-
-                          {
-                            this.props.cartItems.map((product, index) => {
-                              const minPriceRetail = product.retails.sort((a, b) => a.priceRetail > b.priceRetail ? 1 : -1)[0];
-                              return <div className='Cart__infoBlock-minPriceProducts' key={product.guid + index}>
-                                <div>
-                                  <p className='Cart__infoBlock-productTitle'>{product.product}</p>
-                                  <div className='Cart__infoBlock-streetRetail'>
-                                    <p className='Cart__infoBlock-brand'>{minPriceRetail.brand}</p>
-                                    <p className='Cart__infoBlock-streetText'>ул. {minPriceRetail.street}</p>
-                                    <p className='Cart__infoBlock-streetText'>{minPriceRetail.buildNumber}</p>
-                                  </div>
-
-                                </div>
-                                <p><b>{minPriceRetail.priceRetail} ₽</b></p>
-                              </div>
-                            })
-                          }
-
-                        </BlockWrapper>
-                      }
                     </section>
                   }
 
@@ -694,37 +685,6 @@ class Cart extends React.Component {
                                       offSelectRetail={() => this.props.onSelectRetail(null)}
                                       refreshToken={this.props.refreshAuthentication}
                     />
-                    // <div>
-                    //   <p>Подтверждение заказа</p>
-                    //   {
-                    //     this.props.selectedRetail
-                    //     && <div className='Cart__rightPanel'>
-                    //       <div className='Cart__pricePanel'>
-                    //         <div className='Cart__resultPrice'>
-                    //           <span>Общая сумма:</span> <span>{sum} ₽</span>
-                    //         </div>
-                    //         <div className='Cart__retail'>
-                    //           <p>Забрать из аптеки:</p>
-                    //           <p className='Cart__address'>
-                    //             г. {this.checkRetailItem()?.city}, {this.checkRetailItem()?.street}, {this.checkRetailItem()?.buildNumber}
-                    //           </p>
-                    //           {!(this.checkRetailItem()?.product?.length === this.props.cart.length) &&
-                    //           <span className='Cart__warningMessage'>ТОВАР ДОСТУПЕН ЧАСТИЧНО</span>}
-                    //         </div>
-                    //         <button className='Cart__buttonToCart'
-                    //                 onClick={() => {
-                    //                   if (!!this.props.TOKEN) {
-                    //                     this.setState({popupOrder: true})
-                    //                   } else {
-                    //                     this.setState({popupLogin: true, isHasBuy: true})
-                    //                   }
-                    //                 }}
-                    //         >
-                    //           Купить
-                    //         </button>
-                    //       </div>
-                    //     </div>}
-                    // </div>
                   }
                 </>
               }

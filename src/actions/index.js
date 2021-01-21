@@ -5,6 +5,13 @@ const setError = (error) => {
   }
 }
 
+const setErrorAuth = (error) => {
+  return {
+    type: 'AUTH_FAILURE',
+    payload: error
+  }
+}
+
 //  очищаем ошибку
 const clearError = () => {
   return {
@@ -346,22 +353,26 @@ const authorizedByPassOrSMS = (phone, passOrSms) => async (dispatch, getState, a
             if (e.response) {
               // client received an error response (5xx, 4xx)
               console.log('err.response: ', e.response)
+              dispatch(setErrorAuth(e.response))
             } else if (e.request) {
               // client never received a response, or request never left
               console.log('err.request ', e.request)
+              dispatch(setErrorAuth(e.request))
             } else {
               // anything else
+              dispatch(setErrorAuth(e))
               console.log('ошибка запроса')
             }
           })
       } else if (err.request) {
         // client never received a response, or request never left
         console.log('err.request ', err.request)
+        dispatch(setErrorAuth(err.request))
       } else {
         // anything else
+        dispatch(setErrorAuth(err))
         console.log('ошибка запроса')
       }
-      dispatch(setError(err))
     })
   dispatch(loadingFalse('authorizedByPassOrSMS - вручную'))
 }
