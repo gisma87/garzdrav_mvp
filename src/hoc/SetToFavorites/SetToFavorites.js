@@ -37,13 +37,11 @@ const SetToFavorites = props => {
 
   return (
     <>
-      <div onClick={setFavorites}>
-        {React.cloneElement(
-          props.children,
-          {
-            active: isLike
-          }
-        )}
+      <div onClick={setFavorites} className={props.classStyle}>
+        {
+          React.Children.map(props.children, child => React.cloneElement(child, {active: isLike}))
+        }
+
       </div>
       <PopupLogin active={showPopupLogin}
                   onClick={() => setShowPopupLogin(false)}

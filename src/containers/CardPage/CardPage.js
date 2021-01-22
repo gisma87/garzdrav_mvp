@@ -153,12 +153,10 @@ const CardPage = (props) => {
                 <BlockWrapper>
                   <div className='CardPage__titleContainer'>
                     <h1 className='CardPage__title'>{productInfo.product}
-                      <div className='CardPage__like' style={{color: "red", marginLeft: 15, fontSize: 26}}>
-                        <SetToFavorites productGuid={productInfo.guid}>
-                          <ButtonHeart/>
-                        </SetToFavorites>
+                      <SetToFavorites productGuid={productInfo.guid} classStyle='CardPage__like'>
+                        <ButtonHeart/>
                         <span>В избранное</span>
-                      </div>
+                      </SetToFavorites>
                     </h1>
                     <p>Спрей, 10 мл, 22,5 мкг/доза</p>
                   </div>

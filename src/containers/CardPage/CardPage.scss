@@ -61,6 +61,9 @@
     align-items: center;
     cursor: pointer;
     white-space: nowrap;
+    color: red;
+    margin-left: 15px;
+    font-size: 26px;
     @media(max-width: 800px) {
       position: absolute;
       top: 0;

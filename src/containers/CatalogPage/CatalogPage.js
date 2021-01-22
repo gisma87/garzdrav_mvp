@@ -99,6 +99,7 @@ const CatalogPage = props => {
         <div className='CatalogPage__topPanel-right'>
           <p>Сортировать: </p>
           <SortCards selectItem={(idMethod) => sortCards(idMethod)}
+                     methodSort={methodSort}
                      items={[
                        {id: 0, text: 'По популярности'},
                        {id: 'TitleAscending', text: '🠗 По наименованию А - Я'},
