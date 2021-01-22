@@ -66,7 +66,8 @@ const Pagination = props => {
     }
   }
   // eslint-disable-next-line
-  useEffect(() => goToPage(1), [])
+  // useEffect(() => props.setCurrentPage(1), [])
+  // useEffect(() => goToPage(1), [])
 
   useEffect(() => {
     if (props.page) {
@@ -104,7 +105,8 @@ const Pagination = props => {
           <SvgArrowLightRight className='Pagination__arrow'/>
         </span>
 
-        <p className='Pagination__item Pagination__itemText Pagination__lastItem' onClick={() => goToPage(totalPages)}>Последняя</p>
+        <p className='Pagination__item Pagination__itemText Pagination__lastItem'
+           onClick={() => goToPage(totalPages)}>Последняя</p>
       </ul>
       {currentPageState &&
       <div className="Pagination__currentPage">

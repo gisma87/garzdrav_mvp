@@ -73,7 +73,7 @@ const Profile = (props) => {
                          loadingTrue={props.loadingTrue}
               />}
 
-              {block === 'favoriteRetail' && <img src={devMessage} alt="В разработке"/>}
+              {/*{block === 'favoriteRetail' && <img src={devMessage} alt="В разработке"/>}*/}
 
               {/*раздел Настройка профиля*/}
               {
@@ -100,8 +100,10 @@ const Profile = (props) => {
                   <li className='Profile__item' onClick={() => setBlock('historyOrder')}>История покупок</li>
                   <li className='Profile__item' onClick={() => setBlock('favorites')}>Избранное <span
                     style={{color: 'red', fontSize: 12}}>в разработке</span></li>
-                  <li className='Profile__item' onClick={() => setBlock('favoriteRetail')}>Любимая аптека <span
-                    style={{color: 'red', fontSize: 12}}>в разработке</span></li>
+
+                  {/*<li className='Profile__item' onClick={() => setBlock('favoriteRetail')}>Любимая аптека <span*/}
+                  {/*  style={{color: 'red', fontSize: 12}}>в разработке</span></li>*/}
+
                   <li className='Profile__item' onClick={() => {
                     setChangeSetting('setting')
                     setBlock('profileSettings')

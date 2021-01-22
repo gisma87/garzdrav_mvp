@@ -30,6 +30,8 @@ const Cards = props => {
   useEffect(() => {
     if (props.requestFromSearchPanelThisTime) {
       setCurrentPage(1)
+      setMethodSort(0);
+      console.log('Я ТУТА')
       props.offRequestFromSearchPanel()
     }
   }, [props.requestFromSearchPanelThisTime])
@@ -98,6 +100,7 @@ const Cards = props => {
               <div className='Cards__topPanel-right'>
                 <p>Сортировать: </p>
                 <SortCards selectItem={(idMethod) => sortCards(idMethod)}
+                           methodSort={methodSort}
                            items={[
                              {id: 0, text: 'По популярности'},
                              {id: 'TitleAscending', text: '🠗 По наименованию А - Я'},
@@ -166,6 +169,7 @@ const Cards = props => {
                 // setPage={(page) => {
                 //   props.getProductsFromSearchLimit(props.productSearch, 32, page)
                 // }}
+                          setCurrentPage={(page) => setCurrentPage(page)}
                           pageLimitItems={32}
                           onPageChanged={onPageChanged}
               />

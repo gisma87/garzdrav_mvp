@@ -24,7 +24,9 @@ const SortCards = props => {
     <div className={"SortCards " + (dropdownShow ? 'SortCards_active' : '')}>
       <button className="SortCards__button"
               onClick={() => setDropdownShow(!dropdownShow)}
-      >{method}<SvgAngleUpSolid className='SortCards__arrowIcon'/></button>
+      >{props.items.find(el => el.id.toString() === props.methodSort.toString()).text}
+      <SvgAngleUpSolid className='SortCards__arrowIcon'/>
+      </button>
       <div className="SortCards__dropdown">
 
         {
@@ -33,7 +35,7 @@ const SortCards = props => {
                            className="SortCards__item"
                            onClick={() => {
                              props.selectItem(item.id)
-                             setMethod(item.text)
+                             // setMethod(item.text)
                              setDropdownShow(false)
                            }}>
               {item.text}
