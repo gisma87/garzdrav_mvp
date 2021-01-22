@@ -3,7 +3,7 @@ import './Favorites.scss'
 import {useMediaQuery} from "react-responsive";
 import BlockWrapper from "../../../components/BlockWrapper";
 import FavoriteItem from "../../../components/FavoriteItem";
-import CardItemMobile from "../../../components/CardItemMobile";
+// import CardItemMobile from "../../../components/CardItemMobile";
 import apiService from "../../../service/ApiService";
 
 const Favorites = (props) => {

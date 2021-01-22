@@ -6,13 +6,11 @@ import MediaQuery from 'react-responsive'
 import CartItem from "../../components/CartItem";
 import BlockWrapper from "../../components/BlockWrapper";
 import PopupMapCart from "../../components/PopupMapCart/PopupMapCart";
-import PopupOrder from "../../components/PopupOrder";
 import RetailItem from "../../components/RetailItem";
 import PopupMapCartMobile from "../../components/PopupMapCartMobile/PopupMapCartMobile";
 import Error from "../../components/Error/Error";
 import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
 import Loader from "../../components/UI/Loader";
-import PopupAfterBuy from "../../components/PopupAfterBuy/PopupAfterBuy";
 import num_word from "../../utils/numWord";
 import RetailCheckPanel from "../../components/RetailCheckPanel";
 import {
@@ -36,11 +34,14 @@ import {
   getFullRetailItemState, getSum, indexActiveRetail, isChecked, isFullActiveRetail, newCartItems, onLoading,
   postBuyOrder, sortProductThisRetail
 } from './cartUtils'
-import PopupLogin from "../../components/PopupLogin/PopupLogin";
 import SvgArrowLongRight from "../../components/UI/icons/SvgArrowLongRight";
 import CardItem from "../../components/CardItem";
 import apiService from "../../service/ApiService";
 import CartOrderPage from "./CartOrderPage/CartOrderPage";
+
+// import PopupLogin from "../../components/PopupLogin/PopupLogin";
+// import PopupOrder from "../../components/PopupOrder";
+// import PopupAfterBuy from "../../components/PopupAfterBuy/PopupAfterBuy";
 
 class Cart extends React.Component {
   constructor(props) {
@@ -65,18 +66,18 @@ class Cart extends React.Component {
 
   state = {
     pageStage: 1,
-    active: false,
     popupMap: false,
-    popupOrder: false,
-    popupLogin: false,
-    isHasBuy: false,
     view: false,
     telephone: '',
     error: <Error/>,
     loadingText: <Loader classStyle='Loader_is-opened'/>,
     OrderNumber: '',
-    popupBuy: false,
     promoItem: null,
+    // active: false,
+    // popupBuy: false,
+    // popupOrder: false,
+    // popupLogin: false,
+    // isHasBuy: false,
   }
 
   componentDidMount() {
@@ -339,6 +340,7 @@ class Cart extends React.Component {
                                                onDecrement={dataForPromoItem.onDecrement}
                                                isBuy={dataForPromoItem.isBuy}
                                                count={dataForPromoItem.count}
+                                               countLast={dataForPromoItem.countLast}
                                                key={dataForPromoItem.key}
                                                id={dataForPromoItem.id}
                                                title={dataForPromoItem.title}
@@ -638,45 +640,46 @@ class Cart extends React.Component {
                         </section>
                       }
 
-                      {
-                        this.state.popupLogin
-                        && <PopupLogin active={this.state.popupLogin}
-                                       onClick={() => {
-                                         this.setState({popupLogin: false})
-                                       }}
-                        />
-                      }
+                      {/*{*/}
+                      {/*  this.state.popupLogin*/}
+                      {/*  && <PopupLogin active={this.state.popupLogin}*/}
+                      {/*                 onClick={() => {*/}
+                      {/*                   this.setState({popupLogin: false})*/}
+                      {/*                 }}*/}
+                      {/*  />*/}
+                      {/*}*/}
 
-                      {
-                        this.props.retailsArr.length > 0
-                        && <PopupOrder active={this.state.popupOrder || (this.state.isHasBuy && !!this.props.TOKEN)}
-                                       isLogin={!!this.props.TOKEN}
-                                       checked={this.props.selectedRetail}
-                                       onClick={() => this.setState({popupOrder: false, isHasBuy: false})}
-                                       onChange={(e) => this.props.onSelectRetail(e.target.value)}
-                                       onChangeInput={(e) => this.setState({telephone: e.target.value})}
-                                       retails={this.props.retailsArr}
-                                       isFullActiveRetail={this.isFullActiveRetail()}
-                                       cart={this.props.cart}
-                                       product={this.checkRetailItem()?.product}
-                                       onSubmit={() => {
-                                         this.postBuyOrder()
-                                         this.setState({popupBuy: true})
-                                       }}
-                                       OrderNumber={this.state.OrderNumber}
-                        />
-                      }
-                      <PopupAfterBuy
-                        show={this.state.popupBuy}
-                        OrderNumber={this.state.OrderNumber}
-                        onClose={() => this.setState({popupBuy: false})}
-                      />
+                      {/*{*/}
+                      {/*  this.props.retailsArr.length > 0*/}
+                      {/*  && <PopupOrder active={this.state.popupOrder || (this.state.isHasBuy && !!this.props.TOKEN)}*/}
+                      {/*                 isLogin={!!this.props.TOKEN}*/}
+                      {/*                 checked={this.props.selectedRetail}*/}
+                      {/*                 onClick={() => this.setState({popupOrder: false, isHasBuy: false})}*/}
+                      {/*                 onChange={(e) => this.props.onSelectRetail(e.target.value)}*/}
+                      {/*                 onChangeInput={(e) => this.setState({telephone: e.target.value})}*/}
+                      {/*                 retails={this.props.retailsArr}*/}
+                      {/*                 isFullActiveRetail={this.isFullActiveRetail()}*/}
+                      {/*                 cart={this.props.cart}*/}
+                      {/*                 product={this.checkRetailItem()?.product}*/}
+                      {/*                 onSubmit={() => {*/}
+                      {/*                   this.postBuyOrder()*/}
+                      {/*                   this.setState({popupBuy: true})*/}
+                      {/*                 }}*/}
+                      {/*                 OrderNumber={this.state.OrderNumber}*/}
+                      {/*  />*/}
+                      {/*}*/}
+                      {/*<PopupAfterBuy*/}
+                      {/*  show={this.state.popupBuy}*/}
+                      {/*  OrderNumber={this.state.OrderNumber}*/}
+                      {/*  onClose={() => this.setState({popupBuy: false})}*/}
+                      {/*/>*/}
                     </>
                   }
 
                   {
                     this.state.pageStage === 3 && (this.props.selectedRetail || this.state.OrderNumber)
                     && <CartOrderPage retail={this.checkRetailItem()}
+                                      errorAuth={this.props.errorAuth}
                                       isAuth={Boolean(this.props.TOKEN)}
                                       authorizedByPassOrSMS={this.props.authorizedByPassOrSMS}
                                       onSubmit={this.postBuyOrder}
@@ -698,6 +701,7 @@ class Cart extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
+    errorAuth: state.errorAuth,
     error: state.error,
     cart: state.cart,
     favorites: state.favorites,

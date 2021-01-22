@@ -16,7 +16,10 @@ const CardItem = props => {
     minPrice,
     classStyle = '',
     onItemSelected,
+    countLast
   } = props
+
+  const isLastCount = !(countLast > count)
 
   return (
     <div className={'CardItem ' + classStyle}
@@ -42,6 +45,7 @@ const CardItem = props => {
               isBuy
                 ? <CountButton
                   count={count}
+                  isLastCount={isLastCount}
                   onIncrement={props.onIncrement}
                   onDecrement={props.onDecrement}
                 />

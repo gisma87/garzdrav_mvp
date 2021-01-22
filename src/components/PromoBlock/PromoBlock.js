@@ -59,7 +59,7 @@ class PromoBlock extends React.Component {
           >
             {
               dataCatds.map((item) => {
-                const {id, title, maker, img, minPrice} = item;
+                const {id, title, maker, img, minPrice, countLast} = item;
                 const itemIndex = this.props.cart.findIndex((item) => item.itemId === id);
                 const isBuy = itemIndex >= 0;
                 const count = isBuy ? this.props.cart[itemIndex].count : 0
@@ -68,6 +68,7 @@ class PromoBlock extends React.Component {
                                  onDecrement={() => this.props.itemRemovedFromCart(id)}
                                  isBuy={isBuy}
                                  count={count}
+                                 countLast={countLast}
                                  key={id}
                                  id={id}
                                  title={title}

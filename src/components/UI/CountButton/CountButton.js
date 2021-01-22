@@ -8,9 +8,12 @@ const CountButton = props => {
       <button className='CountButton__decrement' onClick={props.onDecrement}>–</button>
       <p className='CountButton__count' style={props.isLastCount ? {fontWeight: 'bold'} : {}}>{props.count}</p>
       <button className='CountButton__increment'
-              onClick={props.onIncrement}
+              onClick={() => {
+                if (!props.isLastCount) props.onIncrement();
+              }}
               style={props.isLastCount ? {background: 'rgba(144, 0, 32, .3'} : {}}
-      >+</button>
+      >+
+      </button>
     </div>
   )
 }

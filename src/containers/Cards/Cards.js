@@ -116,7 +116,7 @@ const Cards = props => {
               {(touchedSearch || !isMobile) &&
               productsFromSearch.length
                 ? productsFromSearch.map((item) => {
-                  const {guid, product, manufacturer, img = null, minPrice} = item;
+                  const {guid, product, manufacturer, img = null, minPrice, countLast} = item;
                   const itemIndex = cart.findIndex((item) => item.itemId === guid);
                   const isBuy = itemIndex >= 0;
                   const count = isBuy ? props.cart[itemIndex].count : 0
@@ -138,6 +138,7 @@ const Cards = props => {
                                   onDecrement={() => itemRemovedFromCart(guid)}
                                   isBuy={isBuy}
                                   count={count}
+                                  countLast={countLast}
                                   key={guid}
                                   id={guid}
                                   title={product}

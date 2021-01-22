@@ -45,6 +45,17 @@ const CartOrderPage = props => {
     return () => props.delOrderNumber;
   }, [])
 
+  useEffect(() => {
+    if (props.errorAuth) {
+      if (+props.errorAuth?.data.code === 2) {
+        setErrorMessageCode('Не верный СМС-код')
+      }
+      if (+props.errorAuth?.data.code === 3) {
+        setErrorMessageCode('Превышены попытки ввода')
+      }
+    }
+  }, [props.errorAuth])
+
   function validate(event) {
     setErrorMessage('')
     const value = event.target.value.trim()
@@ -177,7 +188,7 @@ const CartOrderPage = props => {
                     className={'CartOrderPage__buttonSMS' + ((formValid && !showTimer) ? ' CartOrderPage__buttonSMS_enabled' : '')}
                     disabled={!formValid || showTimer}
                     onClick={() => {
-                      // apiService.getSmsCode(phone);
+                      apiService.getSmsCode(phone);
                       setShowTimer(true);
                     }}
                   >получить код
