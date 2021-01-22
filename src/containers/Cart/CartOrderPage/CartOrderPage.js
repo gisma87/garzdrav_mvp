@@ -9,6 +9,7 @@ import apiService from "../../../service/ApiService";
 import service from "../../../service/service";
 import Loader from "../../../components/UI/Loader";
 import {NavLink} from "react-router-dom";
+import LoaderTimer from "../../../components/UI/LoaderTimer/LoaderTimer";
 
 const CartOrderPage = props => {
 
@@ -19,6 +20,8 @@ const CartOrderPage = props => {
   const [errorMessageCode, setErrorMessageCode] = useState('')
   const [loading, setLoading] = useState(false)
   const [order, setOrder] = useState(false)
+  const [showTimer, setShowTimer] = useState(false)
+
 
   useEffect(() => {
     if (props.OrderNumber.length) {
@@ -27,12 +30,19 @@ const CartOrderPage = props => {
   }, [props.OrderNumber])
 
   useEffect(() => {
+    let timer = null;
+    if (showTimer) {
+      timer = setTimeout(() => setShowTimer(false), 60000)
+    }
+    return () => {
+      if (timer) clearTimeout(timer);
+    };
+  }, [showTimer])
+
+  useEffect(() => {
     setOrder({...props.retail})
     console.log('order: ', order)
-    return () => {
-
-      props.delOrderNumber()
-    }
+    return () => props.delOrderNumber;
   }, [])
 
   function validate(event) {
@@ -162,11 +172,18 @@ const CartOrderPage = props => {
                   </label>
                 </div>
 
-                <button className={'CartOrderPage__buttonSMS' + (formValid ? ' CartOrderPage__buttonSMS_enabled' : '')}
-                        disabled={!formValid}
-                        onClick={() => apiService.getSmsCode(phone)}
-                >получить код
-                </button>
+                <div className='CartOrderPage__buttonContainer'>
+                  <button
+                    className={'CartOrderPage__buttonSMS' + ((formValid && !showTimer) ? ' CartOrderPage__buttonSMS_enabled' : '')}
+                    disabled={!formValid || showTimer}
+                    onClick={() => {
+                      // apiService.getSmsCode(phone);
+                      setShowTimer(true);
+                    }}
+                  >получить код
+                  </button>
+                  <LoaderTimer active={showTimer}/>
+                </div>
               </form>
             </div>
           </>

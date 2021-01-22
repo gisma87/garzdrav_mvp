@@ -26,6 +26,12 @@
 
   }
 
+  &__buttonContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
   &__title {
     padding-bottom: 5px;
   }
@@ -166,7 +172,7 @@
   }
 
   &__buttonToBuy {
-    transform: translateY(20px);
+    transform: translateY(-23px);
 
     display: flex;
     justify-content: center;
