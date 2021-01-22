@@ -8,7 +8,7 @@ import apiService from "../../../service/ApiService";
 
 const Favorites = (props) => {
   const isMobile = useMediaQuery({query: '(max-width: 800px)'})
-  const {addedToCart, itemRemovedFromCart, cart, history, favorites, delToFavorites} = props.data;
+  const {addedToCart, itemRemovedFromCart, cart, history, favorites, delFavorites} = props.data;
   const handlerToCards = (itemId) => {
     history.push(`/Cards/${itemId}`)
     window.scroll(0, 0)
@@ -37,7 +37,7 @@ const Favorites = (props) => {
           return <FavoriteItem key={item.guid + Math.random()}
                                item={item}
                                minPrice={minPrice}
-                               functions={{addedToCart, itemRemovedFromCart, cart, handlerToCards, delToFavorites}}/>
+                               functions={{addedToCart, itemRemovedFromCart, cart, handlerToCards, delFavorites}}/>
         })
         }
 

@@ -429,6 +429,7 @@ function addToFavorites(productGuid) {
       dispatch(addFavoritesToStore(response))
     } catch (e) {
       dispatch(setError(e))
+      return Promise.reject('failed addToFavorites')
     }
   }
 }
@@ -442,6 +443,7 @@ function delToFavorites(productGuid) {
       }
     } catch (e) {
       dispatch(setError(e))
+      return Promise.reject('failed delToFavorites')
     }
   }
 }

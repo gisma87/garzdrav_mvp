@@ -20,13 +20,19 @@ import OrderHistory from "./OrderHistory/OrderHistory";
 import ProfileSetting from "./ProfileSetting/ProfileSetting";
 import Bonus from "./Bonus/Bonus";
 import Favorites from "./Favorites/Favorites";
+import service from "../../service/service";
 
 const Profile = (props) => {
 
-  const {addedToCart, itemRemovedFromCart, cart, history, favorites, delToFavorites} = props;
+  const {addedToCart, itemRemovedFromCart, cart, history, favorites} = props;
   const [changeSetting, setChangeSetting] = useState('setting')
 
   const [block, setBlock] = useState('main');
+
+  const delFavorites = (guid) => {
+    console.log('delFavorites: ', guid)
+    service.wrapperRefreshToken(() => props.delToFavorites(guid), props.refreshAuthentication)
+  }
 
   // useEffect(() => {
   //   window.scrollTo({
@@ -67,7 +73,7 @@ const Profile = (props) => {
               {/*раздел Избранное*/}
               {block === 'favorites' &&
               <Favorites isCity={props.isCity}
-                         data={{addedToCart, itemRemovedFromCart, cart, history, favorites, delToFavorites}}
+                         data={{addedToCart, itemRemovedFromCart, cart, history, favorites, delFavorites}}
                          setFavoritesProductInfo={props.setFavoritesProductInfo}
                          favoritesProductInfo={props.favoritesProductInfo}
                          loadingTrue={props.loadingTrue}
@@ -98,8 +104,7 @@ const Profile = (props) => {
                   <li className='Profile__item' onClick={() => setBlock('main')}>Бонусы</li>
                   <li className='Profile__item' onClick={() => setBlock('order')}>Интернет заказы</li>
                   <li className='Profile__item' onClick={() => setBlock('historyOrder')}>История покупок</li>
-                  <li className='Profile__item' onClick={() => setBlock('favorites')}>Избранное <span
-                    style={{color: 'red', fontSize: 12}}>в разработке</span></li>
+                  <li className='Profile__item' onClick={() => setBlock('favorites')}>Избранное</li>
 
                   {/*<li className='Profile__item' onClick={() => setBlock('favoriteRetail')}>Любимая аптека <span*/}
                   {/*  style={{color: 'red', fontSize: 12}}>в разработке</span></li>*/}

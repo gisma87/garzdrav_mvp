@@ -125,6 +125,7 @@ class Cart extends React.Component {
       const itemIndex = this.props.cart.findIndex((item) => item.itemId === this.state.promoItem.guid);
       result.isBuy = itemIndex >= 0;
       result.count = result.isBuy ? this.props.cart[itemIndex].count : 0
+      result.countLast = this.state.promoItem.retails.sort((a, b) => a.countLast < b.countLast ? 1 : -1)[0].countLast
       result.key = this.state.promoItem.guid
       result.id = this.state.promoItem.guid
       result.title = this.state.promoItem.product
@@ -408,6 +409,7 @@ class Cart extends React.Component {
                                                onDecrement={dataForPromoItem.onDecrement}
                                                isBuy={dataForPromoItem.isBuy}
                                                count={dataForPromoItem.count}
+                                               countLast={dataForPromoItem.countLast}
                                                key={dataForPromoItem.key}
                                                id={dataForPromoItem.id}
                                                title={dataForPromoItem.title}

@@ -5,13 +5,13 @@ import SvgCheck from "../UI/icons/SvgCheck";
 import SvgPillsIcon from "../../img/SVGcomponents/SvgPillsIcon";
 
 const FavoriteItem = (props) => {
-  const {addedToCart, itemRemovedFromCart, cart, handlerToCards, delToFavorites} = props.functions;
+  const {addedToCart, itemRemovedFromCart, cart, handlerToCards, delFavorites} = props.functions;
   const {item} = props;
   const itemIndex = cart.findIndex((el) => el.itemId === item.guid);
   const isActive = itemIndex >= 0;
   return (
     <BlockWrapper classStyle='FavoriteItem'>
-      <div onClick={() => handlerToCards(item.guid)}>
+      <div className='FavoriteItem__imgContainer' onClick={() => handlerToCards(item.guid)}>
         {
           item.img
             ? <img className='CardItem__image' src={item.img} alt="icon"/>
@@ -19,14 +19,15 @@ const FavoriteItem = (props) => {
         }
       </div>
       <div className='FavoriteItem__content'>
-        <p className='FavoriteItem__title'
-           onClick={() => handlerToCards(item.guid)}>
-          {item.product}
-          <span className='FavoriteItem__price'>от {props.minPrice} ₽</span>
-        </p>
-        <p className='FavoriteItem__maker'>{item.manufacturer}</p>
+        <div className='FavoriteItem__topBlock'>
+          <p className='FavoriteItem__titleBlock'>
+            <span className='FavoriteItem__title' onClick={() => handlerToCards(item.guid)}>{item.product}</span>
+            <span className='FavoriteItem__price'>от {props.minPrice} ₽</span>
+          </p>
+          <p className='FavoriteItem__maker'>{item.manufacturer}</p>
+        </div>
         <div className='FavoriteItem__buttonContainer'>
-          <p className='FavoriteItem__buttonDel' onClick={() => delToFavorites(item.guid)}>Удалить из избранного</p>
+          <p className='FavoriteItem__buttonDel' onClick={() => delFavorites(item.guid)}>Удалить из избранного</p>
           <button className='FavoriteItem__buttonToCart' onClick={() => {
             !isActive ? addedToCart(item.guid) : itemRemovedFromCart(item.guid)
           }}>

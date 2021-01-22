@@ -5,7 +5,7 @@ import SvgAngleUpSolid from "../../img/SVGcomponents/SvgAngleUpSolid";
 const SortCards = props => {
 
   const [dropdownShow, setDropdownShow] = useState(false)
-  const [method, setMethod] = useState(props.items[0].text)
+  // const [method, setMethod] = useState(props.items[0].text)
 
   useEffect(() => {
     function close(e) {

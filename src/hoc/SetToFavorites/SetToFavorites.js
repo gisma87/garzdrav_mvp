@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from "react";
-import {addToFavorites, delToFavorites} from "../../actions";
+import {addToFavorites, delToFavorites, refreshAuthentication} from "../../actions";
 import {connect} from "react-redux";
 import PopupLogin from "../../components/PopupLogin/PopupLogin";
+import service from "../../service/service";
 
 const SetToFavorites = props => {
 
@@ -9,7 +10,7 @@ const SetToFavorites = props => {
   const [showPopupLogin, setShowPopupLogin] = useState(false)
 
   const isFavorites = () => {
-    if(props.favorites.length) {
+    if (props.favorites.length) {
       return props.favorites.some(item => item.guid === props.productGuid)
     }
     return false;
@@ -23,10 +24,11 @@ const SetToFavorites = props => {
     if (props.TOKEN) {
       if (isFavorites()) {
         setIsLike(false)
-        props.delToFavorites(props.productGuid)
+        service.wrapperRefreshToken(() => props.delToFavorites(props.productGuid), props.refreshAuthentication)
       } else {
         setIsLike(true)
-        props.addToFavorites(props.productGuid)
+        service.wrapperRefreshToken(() => props.addToFavorites(props.productGuid), props.refreshAuthentication)
+
       }
     } else {
       setShowPopupLogin(true)
@@ -57,7 +59,8 @@ const mapStateToProps = ({favorites, TOKEN}) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     addToFavorites: (productGuid) => dispatch(addToFavorites(productGuid)),
-    delToFavorites: (productGuid) => dispatch(delToFavorites(productGuid))
+    delToFavorites: (productGuid) => dispatch(delToFavorites(productGuid)),
+    refreshAuthentication: () => dispatch(refreshAuthentication())
   }
 }
 
