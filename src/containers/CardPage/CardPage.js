@@ -18,15 +18,16 @@ import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
 import PopupQuickOrder from "../../components/PopupQuickOrder/PopupQuickOrder";
 import ButtonHeart from "../../components/UI/ButtonHeart/ButtonHeart";
 import SetToFavorites from "../../hoc/SetToFavorites/SetToFavorites";
+// import CountButton from "../../components/UI/CountButton/CountButton";
 
 const CardPage = (props) => {
   const {
     itemId,
     addedToCart,
     itemRemovedFromCart,
-    addedToFavorits,
+    // addedToFavorits,
     cart,
-    favorites,
+    // favorites,
     productInfo,
     error,
   } = props;
@@ -41,6 +42,7 @@ const CardPage = (props) => {
   const itemIndex = cart.findIndex((item) => item.itemId === itemId);
   const isActive = itemIndex >= 0;
   const isMobile = useMediaQuery({query: '(max-width: 800px)'})
+  const countInCart = isActive ? cart[itemIndex]?.count : 0
 
   useEffect(() => {
     props.fetchProductInfo(itemId)
@@ -59,6 +61,9 @@ const CardPage = (props) => {
       return productInfo?.retails.sort((a, b) => a.priceRetail > b.priceRetail ? 1 : -1)[0].priceRetail
     }
   }
+
+  const stopCount = () => productInfo?.retails?.sort((a, b) => a.countLast < b.countLast ? 1 : -1)[0].countLast
+  const isLastCount = !(stopCount() > countInCart)
 
   const getActiveItemCategory = () => {
     const idCategoryProduct = props.productInfo.categoryGuid
@@ -175,23 +180,49 @@ const CardPage = (props) => {
                         <p className='CardPage__priceText'>Цена в наших аптеках: </p>
                         <p className='CardPage__price'>от {minPriceRetail()} ₽</p>
                       </div>
+
+
+                      {/*============== DISPLAY: NONE ===========================================*/}
                       <div className='CardPage__amount'>
-                        <div className='CardPage__amountBlock CardPage__activePrice'>
-                          <span className='CardPage__amountText'>10 мл</span>
-                          <span className='CardPage__amountText'>22,5 мкг/доза</span>
-                          <span className='CardPage__amountPrice'>от {minPriceRetail()} ₽</span>
-                        </div>
-                        <div className='CardPage__amountBlock'>
-                          <span className='CardPage__amountText'>10 мл</span>
-                          <span className='CardPage__amountPrice'>от {minPriceRetail()} ₽</span>
-                        </div>
+                        {/*<div className='CardPage__amountBlock CardPage__activePrice'>*/}
+                        {/*  <span className='CardPage__amountText'>10 мл</span>*/}
+                        {/*  <span className='CardPage__amountText'>22,5 мкг/доза</span>*/}
+                        {/*  <span className='CardPage__amountPrice'>от {minPriceRetail()} ₽</span>*/}
+                        {/*</div>*/}
+                        {/*<div className='CardPage__amountBlock'>*/}
+                        {/*  <span className='CardPage__amountText'>10 мл</span>*/}
+                        {/*  <span className='CardPage__amountPrice'>от {minPriceRetail()} ₽</span>*/}
+                        {/*</div>*/}
                       </div>
+                      {/*============== END   DISPLAY: NONE ===========================================*/}
+
+
                       <div className='CardPage__buttons'>
-                        <button className='CardPage__button CardPage__buttonToCart' onClick={() => {
+
+                        <button className={'CardPage__button CardPage__buttonToCart' + (isActive ? ' CardPage__buttonToCart_active' : '')} onClick={() => {
                           !isActive ? addedToCart(itemId) : itemRemovedFromCart(itemId)
                         }}>
-                          {isActive ? <SvgCheck style={{color: 'white'}}/> : 'Добавить в корзину'}
+                          {isActive ? <><SvgCheck style={{color: 'white', marginRight: 15}}/> В корзине</> : 'Добавить в корзину'}
                         </button>
+
+
+                        {/*=================== НОВАЯ КНОПКА c плюс и минус  =========================*/}
+                        {/*{*/}
+                        {/*  isActive*/}
+                        {/*    ? <div className='CardPage__buttonToCartActive'><CountButton*/}
+                        {/*          count={countInCart}*/}
+                        {/*          isLastCount={isLastCount}*/}
+                        {/*          onIncrement={() => addedToCart(itemId)}*/}
+                        {/*          onDecrement={() => itemRemovedFromCart(itemId)}*/}
+                        {/*        /></div>*/}
+                        {/*    : <button className='CardPage__button CardPage__buttonToCart'*/}
+                        {/*              onClick={() => addedToCart(itemId)}>*/}
+                        {/*      Добавить в корзину*/}
+                        {/*    </button>*/}
+                        {/*}*/}
+                        {/*=============== КОНЕЦ НОВАЯ КНОПКА ========================================*/}
+
+
                         <button className='CardPage__button CardPage__buttonBuy'
                                 onClick={() => {
                                   setActiveRetailGuid(productInfo.retails[0].guid)

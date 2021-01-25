@@ -6,14 +6,14 @@ import service from "../../service/service";
 
 const SetToFavorites = props => {
 
-  const [isLike, setIsLike] = useState(false)
+  const [isLike, setIsLike] = useState('false')
   const [showPopupLogin, setShowPopupLogin] = useState(false)
 
   const isFavorites = () => {
     if (props.favorites.length) {
       return props.favorites.some(item => item.guid === props.productGuid)
     }
-    return false;
+    return 'false';
   };
 
   useEffect(() => {
@@ -23,10 +23,10 @@ const SetToFavorites = props => {
   function setFavorites() {
     if (props.TOKEN) {
       if (isFavorites()) {
-        setIsLike(false)
+        setIsLike('false')
         service.wrapperRefreshToken(() => props.delToFavorites(props.productGuid), props.refreshAuthentication)
       } else {
-        setIsLike(true)
+        setIsLike('true')
         service.wrapperRefreshToken(() => props.addToFavorites(props.productGuid), props.refreshAuthentication)
 
       }

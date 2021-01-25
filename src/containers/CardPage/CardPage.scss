@@ -2,6 +2,7 @@
 
 .CardPage {
   font-family: $primary-font;
+  padding-bottom: 30px;
 
   @media(max-width: 800px) {
     padding-bottom: 60px;
@@ -135,13 +136,16 @@
   &__priceContainer {
     max-width: 380px;
     width: 100%;
-    flex: 1 0 30%;
+    flex: 1 0 20%;
     margin: 0 60px 15px 0;
     display: flex;
     flex-direction: column;
 
     @media (max-width: 1130px) {
       margin: 0 30px 15px 0;
+    }
+    @media (max-width: 1024px) {
+      margin: 0 15px 15px 0;
     }
     @media (max-width: 850px) {
       margin: 0 0 15px 0;
@@ -170,8 +174,10 @@
 
   &__amount {
     display: flex;
-    padding-left: 2px;
-    padding-bottom: 16px;
+    opacity: 0;
+    padding-bottom: 70px;
+    //padding-left: 2px;
+    //padding-bottom: 16px;
     @media (max-width: 800px) {
       flex-wrap: wrap;
     }
@@ -246,10 +252,9 @@
     border-radius: 8px;
 
     &:hover {
-      background-image: linear-gradient(to bottom, #ffbc0b, #ff7400);
-      box-shadow: inset 0 -2px 0 0 rgba(0, 0, 0, 0.2);
-      border-top-color: #ffbc0b;
-      border-bottom-color: #ff7400;
+      background: linear-gradient(to bottom, #1f5377, #1F3277);
+      box-shadow: inset 0 -2px 0 0 rgba(0, 0, 0, 0.6);
+
     }
   }
 
@@ -258,24 +263,50 @@
   }
 
   &__buttonToCart {
-    background: linear-gradient(to top, #fc8507, #ffa218);
-    border: 1px solid transparent;
-    border-top-color: #fc8507;
-    border-bottom-color: #ffa218;
+    white-space: nowrap;
+    background-color: $primary-color;
+    cursor: pointer;
+
+    @media (max-width: 970px) {
+      font-size: 1rem;
+    };
+
+    &:hover {
+      box-shadow: 0 1px 2px 1px rgba(0, 0, 0, .4);
+    }
+
+    &:active {
+      transform: scale(.99);
+    }
+
+    &_active {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #2A8D9C;
+    }
+  }
+
+  &__buttonToCartActive {
+    width: 100%;
+    height: 52px;
+    margin: 5px 0 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   &__buttonBuy {
     color: #333;
     background: #fff;
     border: 1px solid #d9d9d9;
+    cursor: pointer;
 
     &:hover {
-      background-image: linear-gradient(to bottom, #ffbc0b, #ff7400);
-      box-shadow: inset 0 -2px 0 0 rgba(0, 0, 0, 0.2);
+      background: linear-gradient(to bottom, #1f5377, #1F3277);
+      box-shadow: inset 0 -2px 0 0 rgba(0, 0, 0, 0.6);
       color: #fff;
       border-color: transparent;
-      border-top-color: #ffbc0b;
-      border-bottom-color: #ff7400;
       font-weight: bold;
     }
   }
