@@ -31,7 +31,7 @@ const CardPage = (props) => {
     productInfo,
     error,
   } = props;
-  const [like, setLike] = useState(false)
+  // const [like, setLike] = useState(false)
   const [quickOrder, setQuickOrder] = useState(false)
   const [activeRetailGuid, setActiveRetailGuid] = useState(null)
   const [telephone, setTelephone] = useState('')
@@ -492,7 +492,7 @@ const CardPage = (props) => {
                                activeRetailGuid={activeRetailGuid ? activeRetailGuid : productInfo.retails[0].guid}
                                onChange={(e) => setActiveRetailGuid(e.target.value)}
                                productInfo={productInfo}
-                               onChangeInput={(e) => setTelephone(e.target.value)}
+                               onChangeInput={(phone) => setTelephone(phone)}
                                count={count}
                                setCount={(value) => setCount(value)}
               />

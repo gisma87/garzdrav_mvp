@@ -1,11 +1,13 @@
 import React, {useState} from "react";
 import './PopupQuickOrder.scss'
 import PopupWrapper from "../UI/PopupWrapper/PopupWrapper";
+import InputMask from "react-input-mask";
 
 const PopupQuickOrder = props => {
 
   const [formValid, setFormValid] = useState(false)
   const [buy, setBuy] = useState(false)
+  const [phone, setPhone] = useState('')
 
   const checkedItem = () => {
     return props.productInfo.retails.find((item) => item.guid === props.activeRetailGuid)
@@ -16,6 +18,23 @@ const PopupQuickOrder = props => {
     setBuy(true)
     setFormValid(false)
     props.onSubmit()
+  }
+
+  function validate(event) {
+    const value = event.target.value.trim()
+    const regexp = value.match(/\d+/g)
+    let data = ''
+    if (regexp instanceof Object) {
+      data = regexp.length > 1 ? regexp.slice(1).join('') : regexp.join('')
+    }
+    if (data.length) {
+      setPhone(data)
+      props.onChangeInput(data)
+    }
+
+    const result = Number.isInteger(+data) && String(data).length === 10
+    setFormValid(result)
+    return result
   }
 
   return (
@@ -73,16 +92,27 @@ const PopupQuickOrder = props => {
           <label htmlFor="PopupQuickOrder-contact">
             <fieldset>
               <legend>Введите телефон</legend>
-              <input
-                onChange={props.onChangeInput}
-                type="text"
-                name="PopupQuickOrder-contact"
-                className="PopupQuickOrder__input PopupQuickOrder__input_type_name"
-                placeholder="8-XXX-XXX-XXXX"
-                required
-                minLength="6"
-                maxLength="30"
-                id="PopupQuickOrder-contact"
+              {/*<input*/}
+              {/*  onChange={props.onChangeInput}*/}
+              {/*  type="text"*/}
+              {/*  name="PopupQuickOrder-contact"*/}
+              {/*  className="PopupQuickOrder__input PopupQuickOrder__input_type_name"*/}
+              {/*  placeholder="8-XXX-XXX-XXXX"*/}
+              {/*  required*/}
+              {/*  minLength="6"*/}
+              {/*  maxLength="30"*/}
+              {/*  id="PopupQuickOrder-contact"*/}
+              {/*/>*/}
+              <InputMask mask="+7\ (999)\ 999\ 99\ 99"
+                         maskChar=" "
+                         value={phone}
+                         onChange={validate}
+                         className="PopupQuickOrder__input PopupQuickOrder__input_type_name"
+                         placeholder="Телефон"
+                         required
+                         type="tel"
+                         name="PopupQuickOrder-contact"
+                         id="PopupQuickOrder-contact"
               />
               <span id="error-PopupQuickOrder-contact" className="popup__error-message"/>
             </fieldset>
