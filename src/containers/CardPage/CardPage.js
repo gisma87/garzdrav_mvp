@@ -15,34 +15,41 @@ import {connect} from "react-redux";
 import {NavLink, withRouter} from "react-router-dom";
 import {useMediaQuery} from 'react-responsive'
 import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
-import PopupQuickOrder from "../../components/PopupQuickOrder/PopupQuickOrder";
 import ButtonHeart from "../../components/UI/ButtonHeart/ButtonHeart";
 import SetToFavorites from "../../hoc/SetToFavorites/SetToFavorites";
-// import CountButton from "../../components/UI/CountButton/CountButton";
+import CardItem from "../../components/CardItem";
+import apiService from "../../service/ApiService";
 
 const CardPage = (props) => {
   const {
     itemId,
     addedToCart,
     itemRemovedFromCart,
-    // addedToFavorits,
     cart,
-    // favorites,
     productInfo,
     error,
   } = props;
-  // const [like, setLike] = useState(false)
-  const [quickOrder, setQuickOrder] = useState(false)
+
   const [activeRetailGuid, setActiveRetailGuid] = useState(null)
   const [telephone, setTelephone] = useState('')
   const [count, setCount] = useState(1)
+  const [promoItem, setPromoItem] = useState(null)
 
   const img = null
 
   const itemIndex = cart.findIndex((item) => item.itemId === itemId);
   const isActive = itemIndex >= 0;
   const isMobile = useMediaQuery({query: '(max-width: 800px)'})
-  const countInCart = isActive ? cart[itemIndex]?.count : 0
+  // const countInCart = isActive ? cart[itemIndex]?.count : 0
+
+  useEffect(() => {
+    // запрашиваем данные для promoItem.
+    apiService.getProductInfo(itemId, props.isCity.guid)
+      .then(response => {
+        const minPrice = response.retails.sort((a, b) => a.priceRetail > b.priceRetail ? 1 : -1)[0].priceRetail
+        setPromoItem({...response, minPrice})
+      })
+  }, [])
 
   useEffect(() => {
     props.fetchProductInfo(itemId)
@@ -54,6 +61,30 @@ const CardPage = (props) => {
     }
   }, [props.catalog, props.productInfo])
 
+  function getDataForPromoItem() {
+    if (promoItem) {
+      const result = {}
+      const itemIndex = props.cart.findIndex((item) => item.itemId === promoItem.guid);
+      result.isBuy = itemIndex >= 0;
+      result.count = result.isBuy ? props.cart[itemIndex].count : 0
+      result.countLast = promoItem.retails.sort((a, b) => a.countLast < b.countLast ? 1 : -1)[0].countLast
+      result.key = promoItem.guid
+      result.id = promoItem.guid
+      result.title = promoItem.product
+      result.maker = promoItem.manufacturer
+      result.img = promoItem.img
+      result.minPrice = promoItem.minPrice
+      result.onIncrement = () => props.addedToCart(promoItem.guid)
+      result.onDecrement = () => props.itemRemovedFromCart(promoItem.guid)
+
+      return result
+    }
+    return null
+  }
+
+  const dataForPromoItem = getDataForPromoItem();
+
+
   const minPriceRetail = () => {
     if (typeof productInfo === 'string' || (typeof productInfo === 'object' && productInfo?.length === 0)) {
       return null
@@ -62,8 +93,22 @@ const CardPage = (props) => {
     }
   }
 
-  const stopCount = () => productInfo?.retails?.sort((a, b) => a.countLast < b.countLast ? 1 : -1)[0].countLast
-  const isLastCount = !(stopCount() > countInCart)
+  function getActiveRetail(retailGuid) {
+    if (retailGuid) return productInfo.retails.find(item => item.guid === retailGuid);
+    if (activeRetailGuid) return productInfo.retails.find(item => item.guid === activeRetailGuid);
+
+    return null
+  }
+
+  const stopCount = (activeRetailGuid) => {
+    const activeRetail = getActiveRetail(activeRetailGuid)
+    if (activeRetail) return activeRetail.countLast;
+    if (productInfo) return productInfo?.retails[0].countLast;
+    return 1
+  }
+  const isLastCount = (activeRetailGuid = null) => {
+    return !(stopCount(activeRetailGuid) > count)
+  }
 
   const getActiveItemCategory = () => {
     const idCategoryProduct = props.productInfo.categoryGuid
@@ -107,20 +152,21 @@ const CardPage = (props) => {
     return {title: title[index], activeItem: activeItem[index]}
   }
 
-  const submitOrder = () => {
+  // const submitOrder = () => {
+  //
+  //   const activeRetail = productInfo.retails.find(item => item.guid === activeRetailGuid)
+  //   const product = [{
+  //     guid: productInfo.guid,
+  //     count,
+  //     priceRetail: activeRetail.priceRetail,
+  //     product: productInfo.product,
+  //     manufacturer: productInfo.manufacturer
+  //   }]
+  //   const sum = activeRetail.priceRetail * count
+  //   const send = {guid: activeRetail.guid, telephone: telephone, product, sum}
+  //   console.log(send);
+  // }
 
-    const activeRetail = productInfo.retails.find(item => item.guid === activeRetailGuid)
-    const product = [{
-      guid: productInfo.guid,
-      count,
-      priceRetail: activeRetail.priceRetail,
-      product: productInfo.product,
-      manufacturer: productInfo.manufacturer
-    }]
-    const sum = activeRetail.priceRetail * count
-    const send = {guid: activeRetail.guid, telephone: telephone, product, sum}
-    console.log(send);
-  }
 
   return (
     <section className='CardPage wrapper'>
@@ -155,109 +201,119 @@ const CardPage = (props) => {
                 </div>}
                 {/*===================================================================*/}
 
-                <BlockWrapper>
-                  <div className='CardPage__titleContainer'>
-                    <h1 className='CardPage__title'>{productInfo.product}
-                      <SetToFavorites productGuid={productInfo.guid} classStyle='CardPage__like'>
-                        <ButtonHeart/>
-                        <span>В избранное</span>
-                      </SetToFavorites>
-                    </h1>
-                    <p>Спрей, 10 мл, 22,5 мкг/доза</p>
+                <div className='CardPage__topBlock'>
+                  <BlockWrapper classStyle='CardPage__cardProduct'>
+                    <div className='CardPage__titleContainer'>
+                      <h1 className='CardPage__title'>{productInfo.product}
+                        <SetToFavorites productGuid={productInfo.guid} classStyle='CardPage__like'>
+                          <ButtonHeart/>
+                          <span>В избранное</span>
+                        </SetToFavorites>
+                      </h1>
+                      <p>Спрей, 10 мл, 22,5 мкг/доза</p>
+                    </div>
+
+                    <div className='CardPage__contentContainer'>
+                      <div className='CardPage__imageContainer'>
+                        {img
+                          ? <img className='CardPage__image' src={img} alt="фото лекарство"/>
+                          : <img src={notPhoto} alt="pills icon" className='CardPage__image'/>}
+                        <p className='CardPage__caption'>Внешний вид товара может отличаться от изображения на
+                          сайте</p>
+                      </div>
+
+                      <div className='CardPage__infoBlock'>
+                        <div className='CardPage__descriptionContainer'>
+                          <p className='CardPage__maker CardPage__description'>
+                            <span>Производитель</span>
+                            <NavLink to={props.history.location}>{productInfo.manufacturer}</NavLink>
+                          </p>
+                          <p className='CardPage__substance CardPage__description'>
+                            <span>Действующее вещество:</span>
+                            <NavLink to={props.history.location}>Оксиметазолин</NavLink>
+                          </p>
+                          {/*<p className='CardPage__characteristic CardPage__description'>*/}
+                          {/*  <span>Общее описание:</span>*/}
+                          {/*  <span className='CardPage__textCharacteristic'>Сосудосуживающий препарат для местного применения. При нанесении на воспаленную слизистую оболочку полости носа уменьшает ее отечность и выделения из носа. Восстанавливает носовое дыхание. Устранение отека слизистой оболочки полости носа способствует восстановлению аэрации придаточных пазух полости носа, полости среднего уха, что уменьшает вероятность возникновения бактериальных осложнений (гайморита, синусита, среднего отита). При местном интраназальном применении в терапевтических концентрациях не раздражает и не вызывает гиперемию слизистой оболочки полости носа. При местном интраназальном применении оксиметазолин не обладает системным действием. Оксиметазолин начинает действовать быстро, в течение нескольких минут. Продолжительность действия препарата Називин Сенситив - до 12 ч.</span>*/}
+                          {/*</p>*/}
+                          <div style={{textAlign: 'right'}}><Link to="anchor" smooth={true} offset={-150}
+                                                                  duration={500}>Инструкция</Link></div>
+
+
+                        </div>
+                        <div className='CardPage__priceContainer'>
+                          <div className='CardPage__priceContent'>
+                            <p className='CardPage__priceText'>Цена в наших аптеках: </p>
+                            <p className='CardPage__price'>от {minPriceRetail()} ₽</p>
+                          </div>
+
+                          <div className='CardPage__buttons'>
+
+                            <button
+                              className={'CardPage__button CardPage__buttonToCart' + (isActive ? ' CardPage__buttonToCart_active' : '')}
+                              onClick={() => {
+                                !isActive ? addedToCart(itemId) : itemRemovedFromCart(itemId)
+                              }}>
+                              {isActive ? <><SvgCheck style={{color: 'white', marginRight: 15}}/> В
+                                корзине</> : 'Добавить в корзину'}
+                            </button>
+
+
+                            {/*=================== НОВАЯ КНОПКА c плюс и минус  =========================*/}
+                            {/*{*/}
+                            {/*  isActive*/}
+                            {/*    ? <div className='CardPage__buttonToCartActive'><CountButton*/}
+                            {/*          count={countInCart}*/}
+                            {/*          isLastCount={isLastCount}*/}
+                            {/*          onIncrement={() => addedToCart(itemId)}*/}
+                            {/*          onDecrement={() => itemRemovedFromCart(itemId)}*/}
+                            {/*        /></div>*/}
+                            {/*    : <button className='CardPage__button CardPage__buttonToCart'*/}
+                            {/*              onClick={() => addedToCart(itemId)}>*/}
+                            {/*      Добавить в корзину*/}
+                            {/*    </button>*/}
+                            {/*}*/}
+                            {/*=============== КОНЕЦ НОВАЯ КНОПКА ========================================*/}
+
+
+                            {/*<button className='CardPage__button CardPage__buttonBuy'*/}
+                            {/*        onClick={() => {*/}
+                            {/*          setActiveRetailGuid(productInfo.retails[0].guid)*/}
+                            {/*          setQuickOrder(true)*/}
+                            {/*        }}*/}
+                            {/*>Быстрый заказ*/}
+                            {/*</button>*/}
+                          </div>
+                          {/*<p className='CardPage__priceText CardPage__priceCaption'>Цена зависит от выбранной аптеки</p>*/}
+                        </div>
+                      </div>
+                    </div>
+                  </BlockWrapper>
+
+                  {/*================== Рекламный блок ===================================*/}
+                  <div className='CardPage__promoContainer'>
+                    <p className="Cart__titlePanel">Вам пригодится</p>
+                    {promoItem
+                    && <CardItem onItemSelected={(itemId, event) => {
+                      if (!event.target.closest('button')) props.history.push(`/Cards/${itemId}`);
+                    }}
+                                 classStyle='Cart__promoBlock'
+                                 onIncrement={dataForPromoItem.onIncrement}
+                                 onDecrement={dataForPromoItem.onDecrement}
+                                 isBuy={dataForPromoItem.isBuy}
+                                 count={dataForPromoItem.count}
+                                 countLast={dataForPromoItem.countLast}
+                                 key={dataForPromoItem.key}
+                                 id={dataForPromoItem.id}
+                                 title={dataForPromoItem.title}
+                                 maker={dataForPromoItem.maker}
+                                 img={dataForPromoItem.img}
+                                 minPrice={dataForPromoItem.minPrice}
+                    />
+                    }
                   </div>
+                </div>
 
-                  <div className='CardPage__contentContainer'>
-                    <div className='CardPage__imageContainer'>
-                      {img
-                        ? <img className='CardPage__image' src={img} alt="фото лекарство"/>
-                        : <img src={notPhoto} alt="pills icon" className='CardPage__image'/>}
-                      <p className='CardPage__caption'>Внешний вид товара может отличаться от изображения на
-                        сайте</p>
-                    </div>
-
-                    <div className='CardPage__priceContainer'>
-                      <div className='CardPage__priceContent'>
-                        <p className='CardPage__priceText'>Цена в наших аптеках: </p>
-                        <p className='CardPage__price'>от {minPriceRetail()} ₽</p>
-                      </div>
-
-
-                      {/*============== DISPLAY: NONE ===========================================*/}
-                      <div className='CardPage__amount'>
-                        {/*<div className='CardPage__amountBlock CardPage__activePrice'>*/}
-                        {/*  <span className='CardPage__amountText'>10 мл</span>*/}
-                        {/*  <span className='CardPage__amountText'>22,5 мкг/доза</span>*/}
-                        {/*  <span className='CardPage__amountPrice'>от {minPriceRetail()} ₽</span>*/}
-                        {/*</div>*/}
-                        {/*<div className='CardPage__amountBlock'>*/}
-                        {/*  <span className='CardPage__amountText'>10 мл</span>*/}
-                        {/*  <span className='CardPage__amountPrice'>от {minPriceRetail()} ₽</span>*/}
-                        {/*</div>*/}
-                      </div>
-                      {/*============== END   DISPLAY: NONE ===========================================*/}
-
-
-                      <div className='CardPage__buttons'>
-
-                        <button className={'CardPage__button CardPage__buttonToCart' + (isActive ? ' CardPage__buttonToCart_active' : '')} onClick={() => {
-                          !isActive ? addedToCart(itemId) : itemRemovedFromCart(itemId)
-                        }}>
-                          {isActive ? <><SvgCheck style={{color: 'white', marginRight: 15}}/> В корзине</> : 'Добавить в корзину'}
-                        </button>
-
-
-                        {/*=================== НОВАЯ КНОПКА c плюс и минус  =========================*/}
-                        {/*{*/}
-                        {/*  isActive*/}
-                        {/*    ? <div className='CardPage__buttonToCartActive'><CountButton*/}
-                        {/*          count={countInCart}*/}
-                        {/*          isLastCount={isLastCount}*/}
-                        {/*          onIncrement={() => addedToCart(itemId)}*/}
-                        {/*          onDecrement={() => itemRemovedFromCart(itemId)}*/}
-                        {/*        /></div>*/}
-                        {/*    : <button className='CardPage__button CardPage__buttonToCart'*/}
-                        {/*              onClick={() => addedToCart(itemId)}>*/}
-                        {/*      Добавить в корзину*/}
-                        {/*    </button>*/}
-                        {/*}*/}
-                        {/*=============== КОНЕЦ НОВАЯ КНОПКА ========================================*/}
-
-
-                        <button className='CardPage__button CardPage__buttonBuy'
-                                onClick={() => {
-                                  setActiveRetailGuid(productInfo.retails[0].guid)
-                                  setQuickOrder(true)
-                                }}
-                        >Быстрый заказ
-                        </button>
-                      </div>
-                      <p className='CardPage__priceText CardPage__priceCaption'>Цена зависит от выбранной
-                        аптеки</p>
-                    </div>
-
-                    <div className='CardPage__descriptionContainer'>
-                      <p className='CardPage__maker CardPage__description'>
-                        <span>Производитель</span>
-                        <NavLink to={props.history.location}>{productInfo.manufacturer}</NavLink>
-                      </p>
-                      <p className='CardPage__substance CardPage__description'>
-                        <span>Действующее вещество:</span>
-                        <NavLink to={props.history.location}>Оксиметазолин</NavLink>
-                      </p>
-                      <p className='CardPage__characteristic CardPage__description'>
-                        <span>Общее описание:</span>
-                        <span className='CardPage__textCharacteristic'>Сосудосуживающий препарат для местного применения. При нанесении на воспаленную слизистую оболочку полости носа уменьшает ее отечность и выделения из носа. Восстанавливает носовое дыхание. Устранение отека слизистой оболочки полости носа способствует восстановлению аэрации придаточных пазух полости носа, полости среднего уха, что уменьшает вероятность возникновения бактериальных осложнений (гайморита, синусита, среднего отита). При местном интраназальном применении в терапевтических концентрациях не раздражает и не вызывает гиперемию слизистой оболочки полости носа. При местном интраназальном применении оксиметазолин не обладает системным действием. Оксиметазолин начинает действовать быстро, в течение нескольких минут. Продолжительность действия препарата Називин Сенситив - до 12 ч.</span>
-                        <Link to="anchor"
-                              smooth={true}
-                              offset={-150}
-                              duration={500}>
-                          Инструкция
-                        </Link>
-                      </p>
-
-                    </div>
-                  </div>
-                </BlockWrapper>
               </>}
 
 
@@ -309,13 +365,13 @@ const CardPage = (props) => {
                       }}>
                         {isActive ? <SvgCheck style={{color: 'white'}}/> : 'Добавить в корзину'}
                       </button>
-                      <button className='CardPage__button CardPage__buttonBuy'
-                              onClick={() => {
-                                setActiveRetailGuid(productInfo.retails[0].guid)
-                                setQuickOrder(true)
-                              }}
-                      >Быстрый заказ
-                      </button>
+                      {/*<button className='CardPage__button CardPage__buttonBuy'*/}
+                      {/*        onClick={() => {*/}
+                      {/*          setActiveRetailGuid(productInfo.retails[0].guid)*/}
+                      {/*          setQuickOrder(true)*/}
+                      {/*        }}*/}
+                      {/*>Быстрый заказ*/}
+                      {/*</button>*/}
                     </div>
                     <p className='CardPage__priceText CardPage__priceCaption'>Цена зависит от выбранной
                       аптеки</p>
@@ -486,16 +542,20 @@ const CardPage = (props) => {
                   </div>
                 </div>
               </BlockWrapper>
-              <PopupQuickOrder active={quickOrder}
-                               onClose={() => setQuickOrder(false)}
-                               onSubmit={submitOrder}
-                               activeRetailGuid={activeRetailGuid ? activeRetailGuid : productInfo.retails[0].guid}
-                               onChange={(e) => setActiveRetailGuid(e.target.value)}
-                               productInfo={productInfo}
-                               onChangeInput={(phone) => setTelephone(phone)}
-                               count={count}
-                               setCount={(value) => setCount(value)}
-              />
+              {/*<PopupQuickOrder active={quickOrder}*/}
+              {/*                 onClose={() => setQuickOrder(false)}*/}
+              {/*                 onSubmit={submitOrder}*/}
+              {/*                 activeRetailGuid={activeRetailGuid ? activeRetailGuid : productInfo.retails[0].guid}*/}
+              {/*                 onChange={(e) => {*/}
+              {/*                   setActiveRetailGuid(e.target.value)*/}
+              {/*                   if (isLastCount(e.target.value)) setCount(getActiveRetail(e.target.value)?.countLast);*/}
+              {/*                 }}*/}
+              {/*                 productInfo={productInfo}*/}
+              {/*                 onChangeInput={(phone) => setTelephone(phone)}*/}
+              {/*                 count={count}*/}
+              {/*                 setCount={(value) => setCount(value)}*/}
+              {/*                 isLastCount={isLastCount()}*/}
+              {/*/>*/}
 
             </>
           }
@@ -507,10 +567,10 @@ const CardPage = (props) => {
 
 const mapStateToProps = (
   {
-    cart, favorites, productInfo, error, catalog, activeCategory, TOKEN
+    cart, favorites, productInfo, error, catalog, activeCategory, TOKEN, isCity
   }
 ) => {
-  return {cart, favorites, productInfo, error, catalog, activeCategory, TOKEN}
+  return {cart, favorites, productInfo, error, catalog, activeCategory, TOKEN, isCity}
 }
 
 const mapDispatchToProps = (dispatch) => {

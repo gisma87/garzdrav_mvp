@@ -13,6 +13,11 @@
     cursor: pointer;
   }
 
+  &__cardProduct {
+    max-width: 880px;
+    margin-right: 20px;
+  }
+
   &__mobile {
     padding: 20px 10px;
     display: flex;
@@ -46,11 +51,16 @@
 
   &__title {
     font-family: inherit;
-    font-size: 32px;
+    font-size: 1.55rem;
     line-height: 40px;
-    margin: 0;
     display: flex;
+    align-items: flex-start;
     justify-content: space-between;
+    margin: 0;
+    @media(max-width: 1200px) {
+      font-size: 1.3rem;
+      line-height: 24px;
+    }
     @media(max-width: 800px) {
       font-size: 22px;
       line-height: 24px;
@@ -58,6 +68,7 @@
   }
 
   &__like {
+    font-family: $primary-font;
     display: flex;
     align-items: center;
     cursor: pointer;
@@ -65,6 +76,10 @@
     color: red;
     margin-left: 15px;
     font-size: 26px;
+    @media(max-width: 1200px) {
+      font-size: 1.1rem;
+      margin-left: 10px;
+    }
     @media(max-width: 800px) {
       position: absolute;
       top: 0;
@@ -76,6 +91,12 @@
       font-weight: bold;
       font-size: 16px;
       margin: 0 0 0 10px;
+
+      @media(max-width: 1200px) {
+        font-size: .9rem;
+        font-weight: normal;
+        margin: 0 0 0 7px;
+      }
       @media(max-width: 800px) {
         font-size: 14px;
         margin: 0 0 0 5px;
@@ -85,7 +106,7 @@
 
   &__contentContainer {
     display: flex;
-    flex-wrap: wrap;
+    justify-content: space-between;
     @media(max-width: 800px) {
       flex-direction: column;
       align-items: center;
@@ -93,12 +114,12 @@
   }
 
   &__imageContainer {
-    flex: 1 0 30%;
-    margin: 0 60px 15px 0;
-    max-width: 320px;
+    max-width: 250px;
+    margin-right: 30px;
     width: 100%;
-    @media (max-width: 1130px) {
-      margin: 0 30px 15px 0;
+    @media (max-width: 1140px) {
+      margin-right: 20px;
+      max-width: 220px;
     }
     @media(max-width: 800px) {
       position: relative;
@@ -112,9 +133,13 @@
 
   &__image {
     color: #999;
-    min-width: 320px;
-    max-height: 320px;
+    min-width: 250px;
+    max-height: 250px;
     object-fit: contain;
+    @media (max-width: 1140px) {
+      min-width: 220px;
+      max-height: 220px;
+    }
 
     @media(max-width: 800px) {
       min-width: 250px;
@@ -134,19 +159,12 @@
   }
 
   &__priceContainer {
-    max-width: 380px;
     width: 100%;
-    flex: 1 0 20%;
-    margin: 0 60px 15px 0;
+    max-width: 490px;
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
 
-    @media (max-width: 1130px) {
-      margin: 0 30px 15px 0;
-    }
-    @media (max-width: 1024px) {
-      margin: 0 15px 15px 0;
-    }
     @media (max-width: 850px) {
       margin: 0 0 15px 0;
       text-align: right;
@@ -155,76 +173,36 @@
   }
 
   &__priceContent {
-    margin: 0 0 20px;
+    text-align: right;
   }
 
   &__priceText {
     color: #999;
     font-size: 15px;
     line-height: 20px;
+    text-align: right;
+    @media (max-width: 1140px) {
+      font-size: .85rem;
+    }
   }
 
   &__price {
     font-weight: bold;
     font-size: 32px;
+    @media (max-width: 1140px) {
+      font-size: 1.6rem;
+    }
     @media (max-width: 800px) {
       font-size: 26px;
     }
   }
 
-  &__amount {
-    display: flex;
-    opacity: 0;
-    padding-bottom: 70px;
-    //padding-left: 2px;
-    //padding-bottom: 16px;
-    @media (max-width: 800px) {
-      flex-wrap: wrap;
-    }
-  }
-
-  &__amountBlock {
-    font-weight: bold;
-    font-size: 14px;
-    line-height: 20px;
+  &__infoBlock {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    max-width: 140px;
-    min-width: 70px;
-    min-height: 88px;
+    justify-content: space-between;
+    align-items: flex-end;
     width: 100%;
-    margin-right: 8px;
-    padding: 12px;
-    text-align: center;
-    text-decoration: none;
-
-    @media (max-width: 800px) {
-      max-width: 120px;
-      min-height: 65px;
-      font-size: 12px;
-      line-height: 14px;
-      padding: 6px;
-      margin-right: 5px;
-    }
-
-    &:hover {
-      outline: 2px solid #fc8507;
-    }
-
-    span {
-      margin: 1px 0;
-    }
-  }
-
-  &__activePrice {
-    outline: 2px solid #fc8507;
-  }
-
-  &__amountPrice {
-    color: #999;
   }
 
   &__buttons {
@@ -232,6 +210,11 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    max-width: 250px;
+    width: 100%;
+    @media (max-width: 1140px) {
+      max-width: 220px;
+    }
     @media (max-width: 850px) {
       flex-direction: column;
     }
@@ -241,20 +224,20 @@
     outline: none;
     font-size: 18px;
     padding: 15px 10px;
-    min-width: 182px;
+    min-width: 160px;
     text-align: center;
     width: 100%;
     flex-basis: 45%;
     flex-grow: 1;
-    margin: 5px 5px 5px 0;
-
     color: #fff;
     border-radius: 8px;
 
     &:hover {
-      background: linear-gradient(to bottom, #1f5377, #1F3277);
       box-shadow: inset 0 -2px 0 0 rgba(0, 0, 0, 0.6);
+    }
 
+    @media (max-width: 1140px) {
+      font-size: 1rem;
     }
   }
 
@@ -284,6 +267,7 @@
       justify-content: center;
       align-items: center;
       background-color: #2A8D9C;
+
     }
   }
 
@@ -313,11 +297,14 @@
 
 
   &__descriptionContainer {
-    flex: 1 1 30%;
-    max-width: 380px;
     font-size: 17px;
     line-height: 24px;
     color: #999;
+    margin-bottom: 20px;
+    @media (max-width: 1140px) {
+      font-size: .95rem;
+      line-height: 1.2rem;
+    }
     @media(max-width: 800px) {
       max-width: 450px;
       width: 100%;
@@ -326,8 +313,12 @@
 
   &__description {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     margin: 0 0 10px;
+
+    span:first-child {
+      margin-right: 15px;
+    }
   }
 
   &__maker {
@@ -335,6 +326,7 @@
   }
 
   &__textCharacteristic {
+    text-align: right;
     color: #000;
     overflow: hidden;
     white-space: normal;
@@ -391,6 +383,18 @@
     color: gray;
     cursor: default;
     margin: 0 5px;
+  }
+
+  &__topBlock {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__promoContainer {
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
 }

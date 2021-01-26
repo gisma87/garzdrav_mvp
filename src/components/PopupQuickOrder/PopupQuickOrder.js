@@ -48,7 +48,7 @@ const PopupQuickOrder = props => {
             onChange={(event) => {
               const input = event.target;
               if (input.id === 'PopupQuickOrder-contact') {
-                setFormValid(input.checkValidity())
+                setFormValid(validate(event))
               }
             }}
       >
@@ -83,7 +83,11 @@ const PopupQuickOrder = props => {
             </div>
             <input className="PopupQuickOrder__countInput" type="text" readOnly value={props.count}/>
             <div className="PopupQuickOrder__countButtonPlus PopupQuickOrder__countButton"
-                 onClick={() => props.setCount(props.count + 1)}>+
+                 onClick={() => {
+                   if (!props.isLastCount) props.setCount(props.count + 1);
+                 }}
+                 style={props.isLastCount ? {background: 'rgba(144, 0, 32, .3'} : {}}
+            >+
             </div>
           </div>
         </div>
@@ -92,17 +96,6 @@ const PopupQuickOrder = props => {
           <label htmlFor="PopupQuickOrder-contact">
             <fieldset>
               <legend>Введите телефон</legend>
-              {/*<input*/}
-              {/*  onChange={props.onChangeInput}*/}
-              {/*  type="text"*/}
-              {/*  name="PopupQuickOrder-contact"*/}
-              {/*  className="PopupQuickOrder__input PopupQuickOrder__input_type_name"*/}
-              {/*  placeholder="8-XXX-XXX-XXXX"*/}
-              {/*  required*/}
-              {/*  minLength="6"*/}
-              {/*  maxLength="30"*/}
-              {/*  id="PopupQuickOrder-contact"*/}
-              {/*/>*/}
               <InputMask mask="+7\ (999)\ 999\ 99\ 99"
                          maskChar=" "
                          value={phone}
