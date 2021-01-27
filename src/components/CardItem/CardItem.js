@@ -37,8 +37,14 @@ const CardItem = props => {
           <h4 className='CardItem__maker'>{maker}</h4>
         </div>
         <div className='CardItem__price'>
-          <p>от <span className='CardItem__priceNumber'>{minPrice} ₽</span></p>
-
+          <div>
+            {
+              minPrice
+                ? <p>от <span className='CardItem__priceNumber'>{minPrice} ₽</span></p>
+                : <p  className='CardItem__linkToProduct'
+                      onClick={(event) => onItemSelected(id, event)}>Подробнее...</p>
+            }
+          </div>
 
           <div className='CardItem__button'>
             {

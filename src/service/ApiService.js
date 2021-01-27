@@ -169,38 +169,38 @@ class ApiService {
   }
 
   // запрос списка покупок
-  async getSales(TOKEN) {
+  async getSales(accessToken) {
     const response = await axios.get(`${this.URL}/Sales`,
       {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${TOKEN}`
+          Authorization: `Bearer ${accessToken}`
         }
       })
     return response.data
   }
 
   // POST запрос сформированный заказ (отправка заказа)
-  async sendOrder(order, TOKEN) {
+  async sendOrder(order, accessToken) {
     const response = await axios({
       method: 'post',
       url: `${this.URL}/Orders`,
       data: order,
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${TOKEN}`
+        Authorization: `Bearer ${accessToken}`
       }
     })
     return response.data
   }
 
   // запрос списка интернет заказов
-  async getOrder(TOKEN) {
+  async getOrder(accessToken) {
     const response = await axios.get(`${this.URL}/Orders`,
       {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${TOKEN}`
+          Authorization: `Bearer ${accessToken}`
         }
       })
     return response.data
@@ -240,75 +240,161 @@ class ApiService {
   }
 
   // отмена заказа
-  async cancelOrder(orderGuid, TOKEN) {
+  async cancelOrder(orderGuid, accessToken) {
     return await axios.delete(`${this.URL}/Orders?orderGuid=${orderGuid}`,
       {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${TOKEN}`
+          Authorization: `Bearer ${accessToken}`
         }
       })
   }
 
   // изменить данные Profile
-  async changeDataProfile(data, TOKEN) {
+  async changeDataProfile(data, accessToken) {
     const response = await axios({
       method: 'put',
       url: `${this.URL}/Users/data`,
       data: data,
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${TOKEN}`
+        Authorization: `Bearer ${accessToken}`
       }
     })
     return response.data
   }
 
   // изменить Пароль Profile
-  async changePasswordProfile(objectPassword, TOKEN) {
+  async changePasswordProfile(objectPassword, accessToken) {
     const response = await axios({
       method: 'put',
       url: `${this.URL}/Users/password`,
       data: objectPassword,
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${TOKEN}`
+        Authorization: `Bearer ${accessToken}`
       }
     })
     return response.data
   }
 
   // POST запрос - добавить товар в Избранное
-  async addToFavorites(TOKEN, productGuid) {
+  async addToFavorites(accessToken, productGuid) {
     const response = await axios.post(
       `${this.URL}/Favorites?productGuid=${productGuid}`,
       null,
-      {headers: {'Content-Type': 'application/json', Authorization: `Bearer ${TOKEN}`}}
+      {headers: {'Content-Type': 'application/json', Authorization: `Bearer ${accessToken}`}}
     )
     return response.data
   }
 
   // запрос избранных товаров
-  async getToFavorites(TOKEN) {
+  async getToFavorites(accessToken) {
     const response = await axios.get(`${this.URL}/Favorites`,
       {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${TOKEN}`
+          Authorization: `Bearer ${accessToken}`
         }
       })
     return response.data
   }
 
-  async delToFavorites(TOKEN, productGuid) {
+  async delToFavorites(accessToken, productGuid) {
     const response = await axios.delete(`${this.URL}/Favorites?productGuid=${productGuid}`,
       {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${TOKEN}`
+          Authorization: `Bearer ${accessToken}`
         }
       })
     return response.status
+  }
+
+  async getComplexes(productGuid, cityGuid) {
+    const response = await axios.get(`${this.URL}/Complexes?productGuid=${productGuid}&cityGuid=${cityGuid}`)
+
+    const result = () => {
+      const promoItems = []
+      response.data.complexes.forEach(item => {
+        item.products.forEach(product => promoItems.push(product))
+      })
+
+      return {
+        type: 'complexes',
+        courses: response.data.courses,
+        promoItems
+      }
+    }
+
+    return result()
+    /*
+    {
+      "courses": [],
+      "complexes": [
+      {
+        "title": "1. Для промывания носа",
+        "products": [
+          {
+            "guid": "1b5caf17-3883-4988-847a-6f89286581ca",
+            "product": "АКВА ЭЙР МОРЕ 100МЛ. НАЗАЛ.СПРЕЙ",
+            "manufacturer": "Самарамедпром ОАО",
+            "categoryGuid": "805357b5-9d43-455d-9763-4a9eb4aead2a",
+            "categoryTitle": "Насморк"
+          },
+          {
+            "guid": "ddd2bc77-c086-4de3-a55a-2c7e83e7935b",
+            "product": "АКВА ЭЙР МОРЕ 50МЛ. НАЗАЛ.СПРЕЙ",
+            "manufacturer": "Самарамедпром ОАО",
+            "categoryGuid": "805357b5-9d43-455d-9763-4a9eb4aead2a",
+            "categoryTitle": "Насморк"
+          }
+        ]
+      }
+    }
+   */
+  }
+
+  async getAnalogues(productGuid) {
+    const response = await axios.get(`${this.URL}/Analogues?productsGuid=${productGuid}`)
+
+    const result = () => {
+      const promoItems = []
+      response.data.forEach(item => {
+        item.analogues.forEach(analog => promoItems.push(analog))
+      })
+
+      return {
+        type: 'analogues',
+        promoItems
+      }
+    }
+
+    return result()
+    /*
+    curl -X GET "http://172.16.17.7:5000/Analogues?productsGuid=d5decd3c-c58a-4327-b8bf-a31016a419b0&productsGuid=62e27420-f20e-4a3b-9b2f-9e03dba915ba&limit=5" -H  "accept: application/json"
+    [
+      {
+        "productGuid": "46ac0a85-2610-4d5f-af09-d981d6d9523e",
+        "analogues": [
+          {
+            "guid": "b9026773-a2a7-4cb0-b374-479d4dd3f8b5",
+            "product": "БИСИ БЬЮТИ КЕА ЩИПЧИКИ Д/ЗАВИВКИ РЕСНИЦ [BC BEAUTY CARE]",
+            "manufacturer": "БЬЮТИ СТАЙЛ ИНК.",
+            "categoryGuid": null,
+            "categoryTitle": null
+          },
+          {
+            "guid": "83130bfb-3792-40e8-87f9-f2ed1a1fe909",
+            "product": "ЛЕККЕР ГЕЛЬ Д/РУК А/СЕПТ. ИЗОПРОП.СПИРТ 50МЛ.",
+            "manufacturer": "ЛЕККЕР ООО",
+            "categoryGuid": null,
+            "categoryTitle": null
+          }
+        ]
+      }
+    ]
+ */
   }
 
 }

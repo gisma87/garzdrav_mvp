@@ -9,7 +9,7 @@ import {
   addedToCart,
   allItemRemovedFromCart,
   itemRemovedFromCart,
-  fetchProductInfo, setActiveCategory
+  fetchProductInfo, setActiveCategory, getPromoItem
 } from "../../actions";
 import {connect} from "react-redux";
 import {NavLink, withRouter} from "react-router-dom";
@@ -18,7 +18,6 @@ import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
 import ButtonHeart from "../../components/UI/ButtonHeart/ButtonHeart";
 import SetToFavorites from "../../hoc/SetToFavorites/SetToFavorites";
 import CardItem from "../../components/CardItem";
-import apiService from "../../service/ApiService";
 
 const CardPage = (props) => {
   const {
@@ -33,7 +32,6 @@ const CardPage = (props) => {
   const [activeRetailGuid, setActiveRetailGuid] = useState(null)
   const [telephone, setTelephone] = useState('')
   const [count, setCount] = useState(1)
-  const [promoItem, setPromoItem] = useState(null)
 
   const img = null
 
@@ -42,17 +40,18 @@ const CardPage = (props) => {
   const isMobile = useMediaQuery({query: '(max-width: 800px)'})
   // const countInCart = isActive ? cart[itemIndex]?.count : 0
 
-  useEffect(() => {
-    // запрашиваем данные для promoItem.
-    apiService.getProductInfo(itemId, props.isCity.guid)
-      .then(response => {
-        const minPrice = response.retails.sort((a, b) => a.priceRetail > b.priceRetail ? 1 : -1)[0].priceRetail
-        setPromoItem({...response, minPrice})
-      })
-  }, [])
+  // useEffect(() => {
+  //   // запрашиваем данные для promoItem.
+  //   apiService.getProductInfo(itemId, props.isCity.guid)
+  //     .then(response => {
+  //       const minPrice = response.retails.sort((a, b) => a.priceRetail > b.priceRetail ? 1 : -1)[0].priceRetail
+  //       setPromoItem({...response, minPrice})
+  //     })
+  // }, [])
 
   useEffect(() => {
     props.fetchProductInfo(itemId)
+    props.getPromoItem(itemId)
   }, [itemId])// eslint-disable-line
 
   useEffect(() => {
@@ -62,12 +61,15 @@ const CardPage = (props) => {
   }, [props.catalog, props.productInfo])
 
   function getDataForPromoItem() {
-    if (promoItem) {
+    if (props.promoItems) {
+      const promoItem = props.promoItems?.promoItems[0]
       const result = {}
       const itemIndex = props.cart.findIndex((item) => item.itemId === promoItem.guid);
       result.isBuy = itemIndex >= 0;
       result.count = result.isBuy ? props.cart[itemIndex].count : 0
-      result.countLast = promoItem.retails.sort((a, b) => a.countLast < b.countLast ? 1 : -1)[0].countLast
+      // countLast не возвращает данный запрос - решили ограничить кол. одной штукой - чтобы можно было в корзину добавить
+      // result.countLast = promoItem.retails.sort((a, b) => a.countLast < b.countLast ? 1 : -1)[0].countLast
+      result.countLast = 1
       result.key = promoItem.guid
       result.id = promoItem.guid
       result.title = promoItem.product
@@ -291,27 +293,29 @@ const CardPage = (props) => {
                   </BlockWrapper>
 
                   {/*================== Рекламный блок ===================================*/}
-                  <div className='CardPage__promoContainer'>
-                    <p className="Cart__titlePanel">Вам пригодится</p>
-                    {promoItem
-                    && <CardItem onItemSelected={(itemId, event) => {
-                      if (!event.target.closest('button')) props.history.push(`/Cards/${itemId}`);
-                    }}
-                                 classStyle='Cart__promoBlock'
-                                 onIncrement={dataForPromoItem.onIncrement}
-                                 onDecrement={dataForPromoItem.onDecrement}
-                                 isBuy={dataForPromoItem.isBuy}
-                                 count={dataForPromoItem.count}
-                                 countLast={dataForPromoItem.countLast}
-                                 key={dataForPromoItem.key}
-                                 id={dataForPromoItem.id}
-                                 title={dataForPromoItem.title}
-                                 maker={dataForPromoItem.maker}
-                                 img={dataForPromoItem.img}
-                                 minPrice={dataForPromoItem.minPrice}
-                    />
-                    }
-                  </div>
+                  {
+                    props.promoItems
+                    && <div className='CardPage__promoContainer'>
+                      <p className="CardPage__titlePanel">Вам пригодится</p>
+                      <CardItem onItemSelected={(itemId, event) => {
+                        if (!event.target.closest('button')) props.history.push(`/Cards/${itemId}`);
+                      }}
+                                classStyle='Cart__promoBlock'
+                                onIncrement={dataForPromoItem.onIncrement}
+                                onDecrement={dataForPromoItem.onDecrement}
+                                isBuy={dataForPromoItem.isBuy}
+                                count={dataForPromoItem.count}
+                                countLast={dataForPromoItem.countLast}
+                                key={dataForPromoItem.key}
+                                id={dataForPromoItem.id}
+                                title={dataForPromoItem.title}
+                                maker={dataForPromoItem.maker}
+                                img={dataForPromoItem.img}
+                                minPrice={dataForPromoItem.minPrice}
+                      />
+                    </div>
+                  }
+
                 </div>
 
               </>}
@@ -567,14 +571,15 @@ const CardPage = (props) => {
 
 const mapStateToProps = (
   {
-    cart, favorites, productInfo, error, catalog, activeCategory, TOKEN, isCity
+    cart, favorites, productInfo, error, catalog, activeCategory, TOKEN, isCity, promoItems
   }
 ) => {
-  return {cart, favorites, productInfo, error, catalog, activeCategory, TOKEN, isCity}
+  return {cart, favorites, productInfo, error, catalog, activeCategory, TOKEN, isCity, promoItems}
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    getPromoItem: (productGuid) => dispatch(getPromoItem(productGuid)),
     addedToCart: (item) => dispatch(addedToCart(item)),
     itemRemovedFromCart: (item) => dispatch(itemRemovedFromCart(item)),
     allItemRemovedFromCart: (item) => dispatch(allItemRemovedFromCart(item)),

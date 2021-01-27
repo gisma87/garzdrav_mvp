@@ -30,7 +30,8 @@ const initialState = {
   productSearch: '', // string - значение последнего поискового запроса
   requestFromSearchPanelThisTime: false, // true, если запрос сделан из searchPanel
   internetSales: [], // интернет заказы
-  statusRequestRepeatOrder: ''
+  statusRequestRepeatOrder: '',
+  promoItems: null
 }
 
 const upgradeRetailItems = (array, cart) => {
@@ -162,6 +163,12 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         favorites: copyFavorites
+      };
+
+    case 'GET_PROMO_ITEMS':
+      return {
+        ...state,
+        promoItems: action.payload
       };
 
     case 'DELETE_FAVORITES_TO_STORE':

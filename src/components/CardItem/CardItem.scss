@@ -121,6 +121,14 @@
   &__priceNumber {
     font-weight: bold;
   }
+  &__linkToProduct {
+    padding-bottom: 1px;
+    &:hover {
+      color: blue;
+      border-bottom: 1px dashed blue;
+      padding-bottom: 0;
+    }
+  }
 
   &__priceText {
     color: grey;
