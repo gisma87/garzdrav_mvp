@@ -211,7 +211,10 @@ const CartOrderPage = props => {
               </div>
               <NavLink className='CartOrderPage__buttonToBuy' style={{transform: 'scale(1)'}} to='/'>ОК</NavLink>
             </>
-            : <button className='CartOrderPage__buttonToBuy' onClick={submitOrder}>оформить заказ</button>
+            : <button className='CartOrderPage__buttonToBuy'
+                      onClick={submitOrder}
+                      style={props.isAuth ? {transform: 'translateY(20px)'} : {}}
+            >оформить заказ</button>
         }
       </div>
     </div>
