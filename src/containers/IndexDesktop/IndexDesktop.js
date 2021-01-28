@@ -25,7 +25,7 @@ const IndexDesktop = props => {
       <Advertising/>
       <PromoBlock/>
       <div ref={howToBuyElement} style={{width: '100%'}}><HowToBuy/></div>
-      <PromoBlock2 style={{marginTop: 20}}/>
+      <PromoBlock2/>
       <BrandsBlock/>
       <LegkoBlock/>
       <ArticlesBlock/>

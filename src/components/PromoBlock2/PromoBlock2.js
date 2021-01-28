@@ -5,8 +5,10 @@ const PromoBlock2 = props => {
 
   const {classStyle = '', style = {}} = props;
   return (
-    <div className={'PromoBlock2' + classStyle} style={style}>
-      <p>Тут могла бы быть ваша реклама...</p>
+    <div className='PromoBlock2'>
+      <div className={'PromoBlock2__wrapper' + classStyle} style={style}>
+        <p>Тут могла бы быть ваша реклама...</p>
+      </div>
     </div>
   )
 }

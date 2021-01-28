@@ -1,25 +1,32 @@
-import React from "react";
+import React, {useState} from "react";
 import './AskQuestion.scss'
 import {Link} from "react-router-dom";
 
 const AskQuestion = () => {
 
+  const [message, setMessage] = useState({})
+  const [check, setCheck] = useState(false)
 
   const setStatusText = (target) => {
-    console.log(target.value)
+    setMessage({
+      ...message,
+      [target.name]: target.value
+    })
   }
-
 
   return (
     <div className='AskQuestion wrapper'>
 
       <form onSubmit={(e) => {
         e.preventDefault()
-        e.target.reset()
+        if (check) {
+          console.log(message)
+          e.target.reset()
+        }
       }}
             onChange={
               (e) => {
-                setStatusText(e.target)
+                if (e.target.id !== 'AskQuestion__checkbox') setStatusText(e.target);
               }
             }
       >
@@ -62,7 +69,13 @@ const AskQuestion = () => {
             />
           </label>
           <div className='AskQuestion__checkboxContainer'>
-            <input type="checkbox" className='AskQuestion__checkbox' id='AskQuestion__checkbox'/>
+            <input type="checkbox"
+                   name='checkIagree'
+                   className='AskQuestion__checkbox'
+                   id='AskQuestion__checkbox'
+                   value={check}
+                   onChange={(e) => setCheck(e.target.value)}
+            />
             <label htmlFor="AskQuestion__checkbox">Я даю согласие на обработку персональных данных</label>
           </div>
           <button className='AskQuestion__buttonBuy'>Отправить</button>

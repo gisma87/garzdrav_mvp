@@ -61,7 +61,7 @@ const CardPage = (props) => {
   }, [props.catalog, props.productInfo])
 
   function getDataForPromoItem() {
-    if (props.promoItems) {
+    if (props.promoItems instanceof Object && (props.promoItems?.promoItems.length > 0)) {
       const promoItem = props.promoItems?.promoItems[0]
       const result = {}
       const itemIndex = props.cart.findIndex((item) => item.itemId === promoItem.guid);

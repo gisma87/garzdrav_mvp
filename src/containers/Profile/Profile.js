@@ -14,7 +14,6 @@ import {
 import {connect} from "react-redux";
 import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
 import Loader from "../../components/UI/Loader";
-import devMessage from "../../img/devtMessage.svg";
 import OrdersInternet from "./OrdersInternet/OrdersInternet";
 import OrderHistory from "./OrderHistory/OrderHistory";
 import ProfileSetting from "./ProfileSetting/ProfileSetting";
@@ -34,13 +33,13 @@ const Profile = (props) => {
     service.wrapperRefreshToken(() => props.delToFavorites(guid), props.refreshAuthentication)
   }
 
-  // useEffect(() => {
-  //   window.scrollTo({
-  //     top: 0,
-  //     left: 0,
-  //     behavior: 'smooth'
-  //   });
-  // }, [changeSetting, block])
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
+  }, [changeSetting, block])
 
   useEffect(() => {
     if (props.TOKEN) {

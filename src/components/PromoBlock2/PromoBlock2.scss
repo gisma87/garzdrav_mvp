@@ -1,18 +1,24 @@
 @import "../../variables";
 
 .PromoBlock2 {
-  background: $primary-color;
-  border-radius: 15px;
-  min-height: 250px;
+  padding: 20px;
   width: 100%;
-  max-width: 1210px;
-  margin: 0 auto;
-
-
-  font-family: $primary-font;
-  color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 2.2rem;
+
+  &__wrapper {
+    background: $primary-color;
+    border-radius: 15px;
+    min-height: 250px;
+    width: 100%;
+    max-width: 1210px;
+    font-family: $primary-font;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.2rem;
+  }
+
 }

@@ -1,5 +1,3 @@
-import apiService from "../service/ApiService";
-
 const setError = (error) => {
   return {
     type: 'FETCH_FAILURE',
@@ -340,7 +338,7 @@ const authorizedByPassOrSMS = (phone, passOrSms, func = null) => async (dispatch
       dispatch({type: 'TOKEN', payload: response})
       localStorage.setItem('TOKEN', JSON.stringify(response))
       console.log('access_TOKEN')
-      if (func) func();
+      dispatch(getToFavorites())
     })
     .catch(err => {
       if (err.response) {
@@ -351,7 +349,7 @@ const authorizedByPassOrSMS = (phone, passOrSms, func = null) => async (dispatch
             dispatch({type: 'TOKEN', payload: response})
             localStorage.setItem('TOKEN', JSON.stringify(response))
             console.log('access_TOKEN')
-            if (func) func();
+            dispatch(getToFavorites())
           })
           .catch(e => {
             if (e.response) {
@@ -586,7 +584,7 @@ const getPromoItem = (productGuid) => async (dispatch, getState, apiService) => 
   apiService.getComplexes(productGuid, cityGuid)
     .then(response => {
       // если в ответе не пустой массив - круто - записываем в state.promoItems
-      if (response.promoItems.length) {
+      if (response.promoItems.length > 0) {
         dispatch({type: 'GET_PROMO_ITEMS', payload: response})
       } else {
         // если массив пустой, то запрашиваем аналоги

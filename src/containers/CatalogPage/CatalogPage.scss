@@ -48,6 +48,10 @@
     &:last-child .CatalogPage__pathArrow {
       display: none;
     }
+
+    @media (max-width: 1240px) {
+      padding-left: 15px;
+    }
   }
 
   &__pathItem {
@@ -80,6 +84,10 @@
     justify-content: space-between;
     align-items: center;
     padding-bottom: 10px;
+
+    @media (max-width: 1240px) {
+      padding: 0 15px 10px;
+    }
   }
 
   &__topPanel-right {
