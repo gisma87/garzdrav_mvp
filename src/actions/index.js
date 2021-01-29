@@ -308,7 +308,7 @@ const refreshAuthentication = () => async (dispatch, getState, apiService) => {
     // localStorage.setItem('TOKEN', JSON.stringify(response))
     console.log('refresh_TOKEN')
     dispatch(getToFavorites())
-    return Promise.resolve('refresh_TOKEN')
+    return Promise.resolve(response)
   } catch (e) {
     // dispatch(setError(e))
     console.log(e)
@@ -745,6 +745,7 @@ const cancelOrder = (orderGuid) => async (dispatch, getState, apiService) => {
     })
   } catch (e) {
     dispatch(setError(e))
+    return Promise.reject('failed cancelOrder')
   }
 }
 

@@ -1,8 +1,8 @@
 class Service {
 
-  wrapperRefreshToken(func, refreshToken) {
-    func().catch(error => {
-      refreshToken().then(res => func())
+  wrapperRefreshToken(callback, refreshToken) {
+    callback().catch(_ => {
+      refreshToken().then(res => callback(res.accessToken))
     })
   }
 

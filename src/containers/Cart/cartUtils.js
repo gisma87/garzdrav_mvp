@@ -96,7 +96,7 @@ function calcQuantityProduct(obj) {
 }
 
 // отправка на сервер собранного интернет заказа
-async function postBuyOrder() {
+async function postBuyOrder(accessToken = this.props.TOKEN.accessToken) {
   this.props.loadingTrue('postBuyOrder')
   const {guid, product, sum} = this.checkRetailItem()
   const products = product.map(item => {
@@ -109,7 +109,7 @@ async function postBuyOrder() {
     }
   })
   const send = {retailGuid: guid, telephone: this.state.telephone, products: products, sum}
-  const response = await apiService.sendOrder(send, this.props.TOKEN.accessToken)
+  const response = await apiService.sendOrder(send, accessToken)
   this.setState({OrderNumber: response})
   console.log('Заказ отправлен: ', send);
   console.log('Номер заказа: ', response)

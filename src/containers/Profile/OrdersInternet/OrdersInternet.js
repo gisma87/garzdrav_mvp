@@ -5,8 +5,9 @@ import BlockWrapper from "../../../components/BlockWrapper";
 import PopupCancelOrder from "../../../components/PopupCancelOrder/PopupCancelOrder";
 import OrderInternetContent from "./OrderInternetContent/OrderInternetContent";
 import {connect} from "react-redux";
-import {getInternetSales, loadingFalse, loadingTrue, setError} from "../../../actions";
+import {getInternetSales, loadingFalse, loadingTrue, refreshAuthentication, setError} from "../../../actions";
 import Alert from "../../../components/UI/Alert/Alert";
+import service from "../../../service/service";
 
 const OrdersInternet = props => {
   const [showPopupCancel, setShowPopupCancel] = useState(false)
@@ -16,10 +17,10 @@ const OrdersInternet = props => {
 
   let delay = 0;
 
-  async function onCancel() {
+  async function cancelOrder(accessToken = props.TOKEN.accessToken) {
     props.loadingTrue('onCancelOrder')
     try {
-      const response = await apiService.cancelOrder(cancelOrderGuid, props.TOKEN.accessToken)
+      const response = await apiService.cancelOrder(cancelOrderGuid, accessToken)
       if (response.status === 200) {
         console.log('Успешно удалён заказ ', cancelOrderGuid)
         props.getInternetSales()
@@ -27,9 +28,15 @@ const OrdersInternet = props => {
       props.loadingFalse()
     } catch (e) {
       props.setError(e)
+      return Promise.reject('failed cancelOrder')
     }
     setShowPopupCancel(false)
   }
+
+  function onCancel() {
+    service.wrapperRefreshToken(cancelOrder, props.refreshAuthentication)
+  }
+
 
   return (
     <>
@@ -81,7 +88,8 @@ const mapDispatchToProps = (dispatch) => {
     getInternetSales: () => dispatch(getInternetSales()),
     loadingTrue: (info) => dispatch(loadingTrue(info)),
     loadingFalse: () => dispatch(loadingFalse()),
-    setError: (e) => dispatch(setError(e))
+    setError: (e) => dispatch(setError(e)),
+    refreshAuthentication: () => dispatch(refreshAuthentication())
   }
 }
 

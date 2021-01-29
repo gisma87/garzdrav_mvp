@@ -164,7 +164,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         favorites: copyFavorites,
-        loadingFavorites: (state.loadingFavorites > 0) ? (state.loadingFavorites - 1) : 0
+        loadingFavorites: 0
       };
 
     case 'GET_PROMO_ITEMS':
@@ -180,7 +180,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         favorites: copyFavoritesFromDelete,
-        loadingFavorites: (state.loadingFavorites > 0) ? (state.loadingFavorites - 1) : 0,
+        loadingFavorites: 0,
       };
 
     case 'FETCH_RETAILS_CITY_SUCCESS':

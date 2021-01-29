@@ -1,3 +1,5 @@
+@import "../../variables";
+
 .PopupCancelOrder {
   font-family: PTSans-Regular, Helvetica, Arial, sans-serif;
   width: 375px;
@@ -42,20 +44,16 @@
   }
 
   &__button_active {
-    background: linear-gradient(to top, #fc8507, #ffa218);
+    background: $primary-color;
     border: 1px solid transparent;
-    border-top-color: #fc8507;
-    border-bottom-color: #ffa218;
     color: #fff;
     font-weight: bold;
     border-radius: 8px;
 
     &:hover {
       color: #fff;
-      background-image: linear-gradient(to bottom, #ffbc0b, #ff7400);
-      box-shadow: inset 0 -2px 0 0 rgba(0, 0, 0, 0.2);
-      border-top-color: #ffbc0b;
-      border-bottom-color: #ff7400;
+      background: $bg-button-color;
+      box-shadow: 1px 2px 0 0 rgba(0, 0, 0, 0.4);
     }
   }
 
