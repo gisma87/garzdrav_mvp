@@ -486,6 +486,7 @@ function getToFavorites() {
 function addToFavorites(productGuid) {
   return async (dispatch, getState, apiService) => {
     try {
+      dispatch({type: 'LOADING_FAVORITES'})
       const response = await apiService.addToFavorites(getState().TOKEN.accessToken, productGuid)
       dispatch(addFavoritesToStore(response))
     } catch (e) {
@@ -498,6 +499,7 @@ function addToFavorites(productGuid) {
 function delToFavorites(productGuid) {
   return async (dispatch, getState, apiService) => {
     try {
+      dispatch({type: 'LOADING_FAVORITES'})
       const response = await apiService.delToFavorites(getState().TOKEN.accessToken, productGuid)
       if (response === 200) {
         dispatch(delFavoritesToStore(productGuid))

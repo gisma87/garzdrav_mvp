@@ -2,6 +2,7 @@ const initialState = {
   cities: [], // список всех городов
   regions: [], // список всех регионов
   loading: 0,
+  loadingFavorites: 0,
   error: null,
   errorAuth: null,
   isCity: JSON.parse(localStorage.getItem("city")) ? JSON.parse(localStorage.getItem("city"))[0] : {
@@ -162,7 +163,8 @@ const reducer = (state = initialState, action) => {
       copyFavorites.push(action.payload)
       return {
         ...state,
-        favorites: copyFavorites
+        favorites: copyFavorites,
+        loadingFavorites: (state.loadingFavorites > 0) ? (state.loadingFavorites - 1) : 0
       };
 
     case 'GET_PROMO_ITEMS':
@@ -177,7 +179,8 @@ const reducer = (state = initialState, action) => {
       copyFavoritesFromDelete.splice(delIndex, 1)
       return {
         ...state,
-        favorites: copyFavoritesFromDelete
+        favorites: copyFavoritesFromDelete,
+        loadingFavorites: (state.loadingFavorites > 0) ? (state.loadingFavorites - 1) : 0,
       };
 
     case 'FETCH_RETAILS_CITY_SUCCESS':
@@ -242,6 +245,12 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         cart: action.payload
+      };
+
+    case 'LOADING_FAVORITES' :
+      return {
+        ...state,
+        loadingFavorites: state.loadingFavorites + 1
       };
 
     case 'LOADING' :

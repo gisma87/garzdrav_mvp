@@ -18,6 +18,7 @@ import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
 import ButtonHeart from "../../components/UI/ButtonHeart/ButtonHeart";
 import SetToFavorites from "../../hoc/SetToFavorites/SetToFavorites";
 import CardItem from "../../components/CardItem";
+import LoaderCircle from "../../components/UI/LoaderCircle/LoaderCircle";
 
 const CardPage = (props) => {
   const {
@@ -205,7 +206,9 @@ const CardPage = (props) => {
                     <div className='CardPage__titleContainer'>
                       <h1 className='CardPage__title'>{productInfo.product}
                         <SetToFavorites productGuid={productInfo.guid} classStyle='CardPage__like'>
-                          <ButtonHeart/>
+                          {props.loadingFavorites > 0
+                            ? <div style={{width: 20, height: 20}}><LoaderCircle/></div>
+                            : <ButtonHeart/>}
                           <span>В избранное</span>
                         </SetToFavorites>
                       </h1>
@@ -569,14 +572,16 @@ const CardPage = (props) => {
 
 
 const mapStateToProps = (
-  {
-    cart, favorites, productInfo, error, catalog, activeCategory, TOKEN, isCity, promoItems
-  }
-) => {
-  return {cart, favorites, productInfo, error, catalog, activeCategory, TOKEN, isCity, promoItems}
+{
+  cart, favorites, productInfo, error, catalog, activeCategory, TOKEN, isCity, promoItems, loadingFavorites
+}
+) =>
+{
+  return {cart, favorites, productInfo, error, catalog, activeCategory, TOKEN, isCity, promoItems, loadingFavorites}
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) =>
+{
   return {
     getPromoItem: (productGuid) => dispatch(getPromoItem(productGuid)),
     addedToCart: (item) => dispatch(addedToCart(item)),

@@ -1,5 +1,6 @@
 import React from "react";
 import './LoaderTimer.scss'
+import LoaderCircle from "../LoaderCircle/LoaderCircle";
 
 class LoaderTimer extends React.Component {
   constructor(props) {
@@ -13,20 +14,7 @@ class LoaderTimer extends React.Component {
           this.props.active &&
           <>
             <p className="LoaderTimer__timer">{this.props.seconds}</p>
-            <div className='LoaderTimer__holder'>
-              <div className="LoaderTimer__preloader">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-              </div>
-            </div>
+            <LoaderCircle/>
           </>
         }
       </div>
