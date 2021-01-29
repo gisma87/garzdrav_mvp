@@ -15,7 +15,7 @@ import num_word from "../../utils/numWord";
 import RetailCheckPanel from "../../components/RetailCheckPanel";
 import {
   addedToCart,
-  allItemRemovedFromCart, authorizedByPassOrSMS,
+  allItemRemovedFromCart, authorizedByPassOrSMS, authorizedBySMSorPassword,
   clearCart,
   fetchCartItems,
   itemRemovedFromCart,
@@ -46,6 +46,7 @@ import CartOrderPage from "./CartOrderPage/CartOrderPage";
 class Cart extends React.Component {
   constructor(props) {
     super(props);
+    this.timer = null;
     this.calculateAmountArray = calculateAmountArray.bind(this)
     this.getCountLast = getCountLast.bind(this)
     this.getFullRetailItemState = getFullRetailItemState.bind(this)
@@ -62,6 +63,9 @@ class Cart extends React.Component {
     this.indexActiveRetail = indexActiveRetail.bind(this)
     this.getFullCountProductsRetails = getFullCountProductsRetails.bind(this)
 
+    this.startTimer = this.startTimer.bind(this)
+    this.clearTimer = this.clearTimer.bind(this)
+
   }
 
   state = {
@@ -73,6 +77,9 @@ class Cart extends React.Component {
     loadingText: <Loader classStyle='Loader_is-opened'/>,
     OrderNumber: '',
     promoItem: null,
+    isShowTimer: false,
+    seconds: 60
+
     // active: false,
     // popupBuy: false,
     // popupOrder: false,
@@ -119,6 +126,10 @@ class Cart extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    if (this.timer) this.clearTimer();
+  }
+
   getDataForPromoItem() {
     if (this.state.promoItem) {
       const result = {}
@@ -163,6 +174,25 @@ class Cart extends React.Component {
     });
   }
 
+  startTimer() {
+    if (!this.timer) {
+      this.timer = setInterval(() => {
+        const count = this.state.seconds - 1
+        this.setState({seconds: count})
+        this.setState({isShowTimer: true})
+        if (this.state.seconds < 1) {
+          this.clearTimer()
+        }
+      }, 1000)
+    }
+  }
+
+  clearTimer() {
+    clearInterval(this.timer)
+    this.setState({isShowTimer: false})
+    this.timer = null;
+    this.setState({seconds: 60})
+  }
 
   render() {
     // const sum = this.getSum()
@@ -683,12 +713,17 @@ class Cart extends React.Component {
                     && <CartOrderPage retail={this.checkRetailItem()}
                                       errorAuth={this.props.errorAuth}
                                       isAuth={Boolean(this.props.TOKEN)}
-                                      authorizedByPassOrSMS={this.props.authorizedByPassOrSMS}
+                                      authorizedBySMSorPassword={this.props.authorizedBySMSorPassword}
                                       onSubmit={this.postBuyOrder}
                                       OrderNumber={this.state.OrderNumber}
                                       delOrderNumber={() => this.setState({OrderNumber: ''})}
                                       offSelectRetail={() => this.props.onSelectRetail(null)}
                                       refreshToken={this.props.refreshAuthentication}
+                                      timer={{
+                                        isShowTimer: this.state.isShowTimer,
+                                        seconds: this.state.seconds,
+                                        startTimer: this.startTimer
+                                      }}
                     />
                   }
                 </>
@@ -720,7 +755,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     refreshAuthentication: () => dispatch(refreshAuthentication()),
-    authorizedByPassOrSMS: (phone, smsOrPass, func) => dispatch(authorizedByPassOrSMS(phone, smsOrPass, func)),
+    authorizedByPassOrSMS: (phone, smsOrPass, callback) => dispatch(authorizedByPassOrSMS(phone, smsOrPass, callback)),
+    authorizedBySMSorPassword: (phone, smsOrPass, callback) => dispatch(authorizedBySMSorPassword(phone, smsOrPass, callback)),
     addedToCart: (item) => dispatch(addedToCart(item)),
     itemRemovedFromCart: (item) => dispatch(itemRemovedFromCart(item)),
     allItemRemovedFromCart: (item) => dispatch(allItemRemovedFromCart(item)),

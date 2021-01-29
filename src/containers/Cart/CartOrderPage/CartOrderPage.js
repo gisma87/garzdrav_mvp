@@ -20,29 +20,15 @@ const CartOrderPage = props => {
   const [errorMessageCode, setErrorMessageCode] = useState('')
   const [loading, setLoading] = useState(false)
   const [order, setOrder] = useState(false)
-  const [showTimer, setShowTimer] = useState(false)
-
 
   useEffect(() => {
-    if (props.OrderNumber.length) {
-      setLoading(false)
-    }
+    if (props.OrderNumber.length) setLoading(false);
   }, [props.OrderNumber])
-
-  useEffect(() => {
-    let timer = null;
-    if (showTimer) {
-      timer = setTimeout(() => setShowTimer(false), 60000)
-    }
-    return () => {
-      if (timer) clearTimeout(timer);
-    };
-  }, [showTimer])
 
   useEffect(() => {
     setOrder({...props.retail})
     console.log('order: ', order)
-    return () => props.delOrderNumber;
+    return () => props.delOrderNumber();
   }, [])
 
   useEffect(() => {
@@ -91,7 +77,7 @@ const CartOrderPage = props => {
     }
 
     if (formValid && !props.isAuth && smsCode) {
-      props.authorizedByPassOrSMS(phone, smsCode, props.onSubmit)
+      props.authorizedBySMSorPassword(phone, smsCode, props.onSubmit)
     }
   }
 
@@ -185,15 +171,15 @@ const CartOrderPage = props => {
 
                 <div className='CartOrderPage__buttonContainer'>
                   <button
-                    className={'CartOrderPage__buttonSMS' + ((formValid && !showTimer) ? ' CartOrderPage__buttonSMS_enabled' : '')}
-                    disabled={!formValid || showTimer}
+                    className={'CartOrderPage__buttonSMS' + ((formValid && !props.timer.isShowTimer) ? ' CartOrderPage__buttonSMS_enabled' : '')}
+                    disabled={!formValid || props.timer.isShowTimer}
                     onClick={() => {
                       apiService.getSmsCode(phone);
-                      setShowTimer(true);
+                      props.timer.startTimer();
                     }}
                   >получить код
                   </button>
-                  <LoaderTimer active={showTimer}/>
+                  <LoaderTimer active={props.timer.isShowTimer} seconds={props.timer.seconds}/>
                 </div>
               </form>
             </div>

@@ -331,7 +331,7 @@ const authentication = (phone, password) => async (dispatch, getState, apiServic
 }
 
 // авторизация по паролю или СМС
-const authorizedByPassOrSMS = (phone, passOrSms, func = null) => async (dispatch, getState, apiService) => {
+const authorizedByPassOrSMS = (phone, passOrSms, callback = null) => async (dispatch, getState, apiService) => {
   dispatch(loadingTrue('authorizedByPassOrSMS'))
   apiService.authentication(phone, passOrSms)
     .then(response => {
@@ -339,6 +339,9 @@ const authorizedByPassOrSMS = (phone, passOrSms, func = null) => async (dispatch
       localStorage.setItem('TOKEN', JSON.stringify(response))
       console.log('access_TOKEN')
       dispatch(getToFavorites())
+      dispatch(setErrorAuth(null))
+      // запускаю callback для которого нужна авторизация.
+      if (callback) callback();
     })
     .catch(err => {
       if (err.response) {
@@ -350,6 +353,9 @@ const authorizedByPassOrSMS = (phone, passOrSms, func = null) => async (dispatch
             localStorage.setItem('TOKEN', JSON.stringify(response))
             console.log('access_TOKEN')
             dispatch(getToFavorites())
+            dispatch(setErrorAuth(null))
+            // запускаю callback для которого нужна авторизация.
+            if (callback) callback();
           })
           .catch(e => {
             if (e.response) {
@@ -377,6 +383,61 @@ const authorizedByPassOrSMS = (phone, passOrSms, func = null) => async (dispatch
       }
     })
   dispatch(loadingFalse('authorizedByPassOrSMS - вручную'))
+}
+
+// авторизация сначала по СМС, потом паролю
+const authorizedBySMSorPassword = (phone, passOrSms, callback = null) => async (dispatch, getState, apiService) => {
+  dispatch(loadingTrue('authorizedBySMSorPassword'))
+  apiService.postSmsCode(phone, passOrSms)
+    .then(response => {
+      dispatch({type: 'TOKEN', payload: response})
+      localStorage.setItem('TOKEN', JSON.stringify(response))
+      console.log('access_TOKEN')
+      dispatch(getToFavorites())
+      dispatch(setErrorAuth(null))
+      // запускаю callback для которого нужна авторизация.
+      if (callback) callback();
+    })
+    .catch(err => {
+      if (err.response) {
+        // client received an error response (5xx, 4xx)
+        console.log('err.response: ', err.response)
+        apiService.authentication(phone, passOrSms)
+          .then(response => {
+            dispatch({type: 'TOKEN', payload: response})
+            localStorage.setItem('TOKEN', JSON.stringify(response))
+            console.log('access_TOKEN')
+            dispatch(getToFavorites())
+            dispatch(setErrorAuth(null))
+            // запускаю callback для которого нужна авторизация.
+            if (callback) callback();
+          })
+          .catch(e => {
+            if (e.response) {
+              // client received an error response (5xx, 4xx)
+              console.log('err.response: ', e.response)
+              dispatch(setErrorAuth(e.response))
+            } else if (e.request) {
+              // client never received a response, or request never left
+              console.log('err.request ', e.request)
+              dispatch(setErrorAuth(e.request))
+            } else {
+              // anything else
+              dispatch(setErrorAuth(e))
+              console.log('ошибка запроса')
+            }
+          })
+      } else if (err.request) {
+        // client never received a response, or request never left
+        console.log('err.request ', err.request)
+        dispatch(setErrorAuth(err.request))
+      } else {
+        // anything else
+        dispatch(setErrorAuth(err))
+        console.log('ошибка запроса')
+      }
+    })
+  dispatch(loadingFalse('authorizedBySMSorPassword - вручную'))
 }
 
 // записываем избранное в store
@@ -693,6 +754,7 @@ export {
   delToFavorites,
   addToFavorites,
   authorizedByPassOrSMS,
+  authorizedBySMSorPassword,
   setStatusRequestOrder,
   setCountItemCart,
   cancelOrder,

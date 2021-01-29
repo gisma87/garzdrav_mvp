@@ -84,9 +84,6 @@ const CardPage = (props) => {
     return null
   }
 
-  const dataForPromoItem = getDataForPromoItem();
-
-
   const minPriceRetail = () => {
     if (typeof productInfo === 'string' || (typeof productInfo === 'object' && productInfo?.length === 0)) {
       return null
@@ -294,26 +291,28 @@ const CardPage = (props) => {
 
                   {/*================== Рекламный блок ===================================*/}
                   {
-                    props.promoItems
-                    && <div className='CardPage__promoContainer'>
-                      <p className="CardPage__titlePanel">Вам пригодится</p>
-                      <CardItem onItemSelected={(itemId, event) => {
-                        if (!event.target.closest('button')) props.history.push(`/Cards/${itemId}`);
-                      }}
-                                classStyle='Cart__promoBlock'
-                                onIncrement={dataForPromoItem.onIncrement}
-                                onDecrement={dataForPromoItem.onDecrement}
-                                isBuy={dataForPromoItem.isBuy}
-                                count={dataForPromoItem.count}
-                                countLast={dataForPromoItem.countLast}
-                                key={dataForPromoItem.key}
-                                id={dataForPromoItem.id}
-                                title={dataForPromoItem.title}
-                                maker={dataForPromoItem.maker}
-                                img={dataForPromoItem.img}
-                                minPrice={dataForPromoItem.minPrice}
-                      />
-                    </div>
+                    getDataForPromoItem() !== null
+                      ? <div className='CardPage__promoContainer'>
+                        <p className="CardPage__titlePanel">Вам пригодится</p>
+                        <CardItem onItemSelected={(itemId, event) => {
+                          if (!event.target.closest('button')) props.history.push(`/Cards/${itemId}`);
+                        }}
+                                  classStyle='Cart__promoBlock'
+                                  itemProps={getDataForPromoItem()}
+                          // onIncrement={dataForPromoItem.onIncrement}
+                          // onDecrement={dataForPromoItem.onDecrement}
+                          // isBuy={dataForPromoItem.isBuy}
+                          // count={dataForPromoItem.count}
+                          // countLast={dataForPromoItem.countLast}
+                          // key={dataForPromoItem.key}
+                          // id={dataForPromoItem.id}
+                          // title={dataForPromoItem.title}
+                          // maker={dataForPromoItem.maker}
+                          // img={dataForPromoItem.img}
+                          // minPrice={dataForPromoItem.minPrice}
+                        />
+                      </div>
+                      : undefined
                   }
 
                 </div>

@@ -1,54 +1,37 @@
-import React, {useEffect, useRef, useState} from "react";
+import React from "react";
 import './LoaderTimer.scss'
 
-const LoaderTimer = (props) => {
-
-
-  function Timer() {
-    const nodeTimer = useRef(null)
-
-    useEffect(() => {
-      const nodeTimer = document.querySelector('.LoaderTimer__timer');
-      let seconds = 60;
-      if (nodeTimer) {
-        const timer = setInterval(() => {
-          --seconds
-          nodeTimer.textContent = seconds
-          if (seconds <= 0) clearInterval(timer);
-        }, 1000)
-      }
-    }, [])
-
-
-    return (
-      <p ref={nodeTimer} className="LoaderTimer__timer">60</p>
-    )
+class LoaderTimer extends React.Component {
+  constructor(props) {
+    super();
   }
 
-
-  return (
-    <div className={'LoaderTimer' + (props.active ? ' LoaderTimer_active' : '')}>
-      {
-        props.active &&
-        <>
-          <Timer/>
-          <div className='LoaderTimer__holder'>
-            <div className="LoaderTimer__preloader">
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
+  render() {
+    return (
+      <div className={'LoaderTimer' + (this.props.active ? ' LoaderTimer_active' : '')}>
+        {
+          this.props.active &&
+          <>
+            <p className="LoaderTimer__timer">{this.props.seconds}</p>
+            <div className='LoaderTimer__holder'>
+              <div className="LoaderTimer__preloader">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
             </div>
-          </div>
-        </>
-      }
-    </div>
-  )
+          </>
+        }
+      </div>
+    )
+  }
 }
+
 export default LoaderTimer

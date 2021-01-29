@@ -16,8 +16,10 @@ const CardItem = props => {
     minPrice,
     classStyle = '',
     onItemSelected,
-    countLast
-  } = props
+    countLast,
+    onIncrement,
+    onDecrement
+  } = props?.itemProps ? props?.itemProps : props
 
   const isLastCount = !(countLast > count)
 
@@ -41,8 +43,8 @@ const CardItem = props => {
             {
               minPrice
                 ? <p>от <span className='CardItem__priceNumber'>{minPrice} ₽</span></p>
-                : <p  className='CardItem__linkToProduct'
-                      onClick={(event) => onItemSelected(id, event)}>Подробнее...</p>
+                : <p className='CardItem__linkToProduct'
+                     onClick={(event) => props.onItemSelected(id, event)}>Подробнее...</p>
             }
           </div>
 
@@ -52,10 +54,10 @@ const CardItem = props => {
                 ? <CountButton
                   count={count}
                   isLastCount={isLastCount}
-                  onIncrement={props.onIncrement}
-                  onDecrement={props.onDecrement}
+                  onIncrement={onIncrement}
+                  onDecrement={onDecrement}
                 />
-                : <button className='CardItem__cart' onClick={props.onIncrement}>
+                : <button className='CardItem__cart' onClick={onIncrement}>
                   <SvgCartIcon style={{fontSize: 28, color: '#fff'}}/>
                 </button>
             }
