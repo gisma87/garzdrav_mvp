@@ -89,6 +89,12 @@
       max-width: 820px;
       margin: 0 auto 30px;
     }
+    @media (max-width: 900px) {
+      flex-direction: column-reverse;
+      justify-content: space-between;
+      max-width: 820px;
+      margin: 0 auto 30px;
+    }
   }
 
   &__containerProductsPage {
@@ -119,11 +125,20 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 20px;
+    @media (max-width: 900px) {
+      font-size: .95rem;
+      border-radius: 0 !important;
+      padding-bottom: 10px !important;
+      margin-bottom: 10px;
+    }
   }
 
   &__infoBlock-title {
     font-size: 1.6rem;
     margin-bottom: 10px;
+    @media (max-width: 900px) {
+      font-size: 1.2rem
+    }
   }
 
   &__infoBlock-info {
@@ -154,6 +169,15 @@
     color: #000;
     font-size: .9rem;
     font-weight: 500;
+    @media (max-width: 900px) {
+      font-size: .8rem;
+      overflow: hidden;
+      white-space: normal;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 1;
+    }
   }
 
   &__infoBlock-streetRetail {
@@ -161,6 +185,9 @@
     color: #000;
     font-weight: 500;
     font-size: 1rem;
+    @media (max-width: 900px) {
+      font-size: .85rem;
+    }
   }
 
   &__infoBlock-brand {
@@ -174,6 +201,10 @@
     color: #000;
   }
 
+  &__infoBlock-price {
+    white-space: nowrap;
+  }
+
   &__productsContainer {
     width: 100%;
   }
@@ -183,6 +214,10 @@
     font-weight: bold;
     font-size: 1.4rem;
     color: #000;
+    @media (max-width: 900px) {
+      font-size: 1.2rem;
+      padding: 10px 15px;
+    }
   }
 
   &__promoContainer {
@@ -191,12 +226,21 @@
       margin-top: 0;
       max-width: 320px;
     }
+    @media (max-width: 900px) {
+      margin-top: 15px;
+      max-width: 100%;
+    }
   }
 
   &__promoBlock {
     border: 1px solid $primary-color !important;
     border-radius: 20px !important;
     max-width: 100% !important;
+
+    @media (max-width: 900px) {
+      max-width: 320px !important;
+      margin: 0 auto;
+    }
   }
 
   &__itemContainer {
@@ -249,9 +293,10 @@
       //box-shadow: none;
     }
 
-    @media (max-width: 800px) {
+    @media (max-width: 900px) {
       width: 100%;
       max-width: 450px;
+      border-radius: 0;
     }
 
   }

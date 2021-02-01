@@ -232,29 +232,32 @@ class Cart extends React.Component {
 
     return (
       <div className='Cart wrapper'>
-        <div className='Cart__topPanel'>
+        <MediaQuery minWidth={900}>
+          <div className='Cart__topPanel'>
 
-          <div className="Cart__pageTitle" onClick={() => this.goToPage(1)}>
-            <p className={'Cart__pageNumber' + (this.state.pageStage === 1 ? ' Cart__pageNumber_active' : '')}>1</p>
-            <p className="Cart__pageName">Корзина</p>
-          </div>
-          <SvgArrowLongRight className="Cart__pageArrow"/>
-          <div className="Cart__pageTitle" onClick={() => this.goToPage(2)}>
-            <p className={'Cart__pageNumber' + (this.state.pageStage === 2 ? ' Cart__pageNumber_active' : '')}>2</p>
-            <p className="Cart__pageName">Выбор аптеки</p>
-          </div>
-          <SvgArrowLongRight className="Cart__pageArrow"/>
-          <div className="Cart__pageTitle" onClick={() => this.goToPageStageThree(null)}>
-            <p className={'Cart__pageNumber' + (this.state.pageStage === 3 ? ' Cart__pageNumber_active' : '')}>3</p>
-            <p className="Cart__pageName">Подтверждение заказа</p>
-          </div>
+            <div className="Cart__pageTitle" onClick={() => this.goToPage(1)}>
+              <p className={'Cart__pageNumber' + (this.state.pageStage === 1 ? ' Cart__pageNumber_active' : '')}>1</p>
+              <p className="Cart__pageName">Корзина</p>
+            </div>
+            <SvgArrowLongRight className="Cart__pageArrow"/>
+            <div className="Cart__pageTitle" onClick={() => this.goToPage(2)}>
+              <p className={'Cart__pageNumber' + (this.state.pageStage === 2 ? ' Cart__pageNumber_active' : '')}>2</p>
+              <p className="Cart__pageName">Выбор аптеки</p>
+            </div>
+            <SvgArrowLongRight className="Cart__pageArrow"/>
+            <div className="Cart__pageTitle" onClick={() => this.goToPageStageThree(null)}>
+              <p className={'Cart__pageNumber' + (this.state.pageStage === 3 ? ' Cart__pageNumber_active' : '')}>3</p>
+              <p className="Cart__pageName">Подтверждение заказа</p>
+            </div>
 
-          {/*{*/}
-          {/*  this.props.cart.length > 0 &&*/}
-          {/*  <p className='Cart__clearBtn' onClick={this.props.clearCart}>Очистить корзину</p>*/}
-          {/*}*/}
+            {/*{*/}
+            {/*  this.props.cart.length > 0 &&*/}
+            {/*  <p className='Cart__clearBtn' onClick={this.props.clearCart}>Очистить корзину</p>*/}
+            {/*}*/}
 
-        </div>
+          </div>
+        </MediaQuery>
+
         <ErrorBoundary>
           {this.props.error ? this.clearCartError()
             : <>
@@ -345,7 +348,7 @@ class Cart extends React.Component {
                                       </div>
 
                                     </div>
-                                    <p><b>{minPriceRetail.priceRetail} ₽</b></p>
+                                    <p className='Cart__infoBlock-price'><b>{minPriceRetail.priceRetail} ₽</b></p>
                                   </div>
                                 })
                               }
