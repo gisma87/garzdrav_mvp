@@ -3,6 +3,9 @@
   transition: height .3s, transform .3s;
   height: 0;
   overflow: hidden;
+  @media (max-width: 900px) {
+    padding: 0 10px;
+  }
 
   &_contentDisabled {
     height: 0;
@@ -28,6 +31,9 @@
     justify-content: space-between;
     padding: 1px 3px;
     margin: 5px 20px 5px 10px;
+    @media (max-width: 900px) {
+      margin: 3px 0;
+    }
 
     &:not(:last-child) {
       border-bottom: 1px solid #8c8c8c;
@@ -43,6 +49,13 @@
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 1;
+
+    @media (max-width: 900px) {
+      font-size: .75rem;
+      line-height: 1.1rem;
+      overflow: hidden;
+      white-space: nowrap;
+    }
   }
 
   &__priceContainer {
@@ -55,6 +68,12 @@
 
   &__price {
     min-width: 75px;
+    @media (max-width: 900px) {
+      font-size: .75rem;
+      min-width: 50px;
+      white-space: nowrap;
+      margin-left: 3px;
+    }
   }
 
   &__count {
@@ -62,9 +81,15 @@
     color: #737373;
     padding: 0 5px;
     white-space: nowrap;
+    @media (max-width: 900px) {
+      font-size: .7rem;
+    }
 
     span {
       font-size: 14px;
+      @media (max-width: 900px) {
+        font-size: .7rem;
+      }
     }
   }
 

@@ -38,6 +38,7 @@ import SvgArrowLongRight from "../../components/UI/icons/SvgArrowLongRight";
 import CardItem from "../../components/CardItem";
 import apiService from "../../service/ApiService";
 import CartOrderPage from "./CartOrderPage/CartOrderPage";
+import CartItemMobile from "../../components/CartItemMobile/CartItemMobile";
 
 // import PopupLogin from "../../components/PopupLogin/PopupLogin";
 // import PopupOrder from "../../components/PopupOrder";
@@ -295,32 +296,64 @@ class Cart extends React.Component {
                                 const price = priceIndex >= 0 ? item.retails[priceIndex].priceRetail : null
                                 // const sum = this.calculateAmountArray().find(itemArr => itemArr.guid === item.guid)?.sum
                                 return this.props.cart[index] !== undefined
-                                  && <CartItem key={item.guid + i}
-                                               item={{
-                                                 id: item.guid,
-                                                 img: null,
-                                                 title: item.product,
-                                                 maker: item.manufacturer,
-                                                 minPrice: item.retails.sort((a, b) => a.priceRetail > b.priceRetail ? 1 : -1)[0].priceRetail,
-                                                 price,
-                                                 // sum,
-                                                 // countLast
-                                               }}
-                                               retails={item.retails}
-                                               classStyle={'Cart__item'}
-                                               count={count}
-                                               addedToCart={() => {
-                                                 this.props.addedToCart(item.guid)
-                                               }}
-                                               itemRemovedFromCart={() => {
-                                                 if (count > 1) {
-                                                   this.props.itemRemovedFromCart(item.guid)
-                                                 }
-                                               }}
-                                               allItemRemovedFromCart={() => {
-                                                 this.props.allItemRemovedFromCart(item.guid)
-                                               }}
-                                  />
+                                  && <>
+                                    <MediaQuery minWidth={901}>
+                                      <CartItem key={item.guid + i}
+                                                item={{
+                                                  id: item.guid,
+                                                  img: null,
+                                                  title: item.product,
+                                                  maker: item.manufacturer,
+                                                  minPrice: item.retails.sort((a, b) => a.priceRetail > b.priceRetail ? 1 : -1)[0].priceRetail,
+                                                  price,
+                                                  // sum,
+                                                  // countLast
+                                                }}
+                                                retails={item.retails}
+                                                classStyle={'Cart__item'}
+                                                count={count}
+                                                addedToCart={() => {
+                                                  this.props.addedToCart(item.guid)
+                                                }}
+                                                itemRemovedFromCart={() => {
+                                                  if (count > 1) {
+                                                    this.props.itemRemovedFromCart(item.guid)
+                                                  }
+                                                }}
+                                                allItemRemovedFromCart={() => {
+                                                  this.props.allItemRemovedFromCart(item.guid)
+                                                }}
+                                      />
+                                    </MediaQuery>
+                                    <MediaQuery maxWidth={900}>
+                                      <CartItemMobile key={item.guid + i}
+                                                      item={{
+                                                        id: item.guid,
+                                                        img: null,
+                                                        title: item.product,
+                                                        maker: item.manufacturer,
+                                                        minPrice: item.retails.sort((a, b) => a.priceRetail > b.priceRetail ? 1 : -1)[0].priceRetail,
+                                                        price,
+                                                        // sum,
+                                                        // countLast
+                                                      }}
+                                                      retails={item.retails}
+                                                      classStyle={'Cart__item'}
+                                                      count={count}
+                                                      addedToCart={() => {
+                                                        this.props.addedToCart(item.guid)
+                                                      }}
+                                                      itemRemovedFromCart={() => {
+                                                        if (count > 1) {
+                                                          this.props.itemRemovedFromCart(item.guid)
+                                                        }
+                                                      }}
+                                                      allItemRemovedFromCart={() => {
+                                                        this.props.allItemRemovedFromCart(item.guid)
+                                                      }}
+                                      />
+                                    </MediaQuery>
+                                  </>
                               })
                             }
                           </div>

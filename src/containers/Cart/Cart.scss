@@ -255,6 +255,9 @@
     @media (min-width: 1200px) {
       margin-right: 10px;
     }
+    @media (max-width: 900px) {
+      border-radius: 0;
+    }
 
     & > div {
       border-bottom: 1px solid $primary-color;
