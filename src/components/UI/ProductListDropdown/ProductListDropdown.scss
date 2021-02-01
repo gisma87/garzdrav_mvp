@@ -4,6 +4,10 @@
   height: 0;
   overflow: hidden;
 
+  @media (max-width: 900px) {
+    padding: 0;
+  }
+
   &_contentDisabled {
     height: 0;
     padding: 0 5px;
@@ -32,6 +36,11 @@
     &:not(:last-child) {
       border-bottom: 1px solid #8c8c8c;
     }
+
+    @media (max-width: 900px) {
+      padding: 0;
+      margin: 5px 0 5px 5px;
+    }
   }
 
   &__titleItem {
@@ -43,6 +52,10 @@
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 1;
+
+    @media (max-width: 900px) {
+      font-size: .8rem;
+    }
   }
 
   &__priceContainer {
@@ -55,6 +68,12 @@
 
   &__price {
     min-width: 75px;
+    @media (max-width: 900px) {
+      font-size: .8rem;
+      min-width: 50px;
+      margin-left: 3px;
+      white-space: nowrap;
+    }
   }
 
   &__count {
@@ -63,9 +82,15 @@
     color: #737373;
     padding: 0 5px;
     white-space: nowrap;
+    @media (max-width: 900px) {
+      font-size: .7rem;
+    }
 
     span {
       font-size: 14px;
+      @media (max-width: 900px) {
+        font-size: .7rem;
+      }
     }
   }
 

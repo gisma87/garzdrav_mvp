@@ -233,7 +233,7 @@ class Cart extends React.Component {
 
     return (
       <div className='Cart wrapper'>
-        <MediaQuery minWidth={900}>
+        <MediaQuery minWidth={901}>
           <div className='Cart__topPanel'>
 
             <div className="Cart__pageTitle" onClick={() => this.goToPage(1)}>
@@ -249,6 +249,28 @@ class Cart extends React.Component {
             <div className="Cart__pageTitle" onClick={() => this.goToPageStageThree(null)}>
               <p className={'Cart__pageNumber' + (this.state.pageStage === 3 ? ' Cart__pageNumber_active' : '')}>3</p>
               <p className="Cart__pageName">Подтверждение заказа</p>
+            </div>
+
+            {/*{*/}
+            {/*  this.props.cart.length > 0 &&*/}
+            {/*  <p className='Cart__clearBtn' onClick={this.props.clearCart}>Очистить корзину</p>*/}
+            {/*}*/}
+
+          </div>
+        </MediaQuery>
+        <MediaQuery maxWidth={900}>
+          <div className='Cart__topPanel'>
+
+            <div className="Cart__pageTitle" onClick={() => this.goToPage(1)}>
+              <p className={'Cart__pageNumber' + (this.state.pageStage === 1 ? ' Cart__pageNumber_active' : '')}>1</p>
+            </div>
+            <SvgArrowLongRight className="Cart__pageArrow"/>
+            <div className="Cart__pageTitle" onClick={() => this.goToPage(2)}>
+              <p className={'Cart__pageNumber' + (this.state.pageStage === 2 ? ' Cart__pageNumber_active' : '')}>2</p>
+            </div>
+            <SvgArrowLongRight className="Cart__pageArrow"/>
+            <div className="Cart__pageTitle" onClick={() => this.goToPageStageThree(null)}>
+              <p className={'Cart__pageNumber' + (this.state.pageStage === 3 ? ' Cart__pageNumber_active' : '')}>3</p>
             </div>
 
             {/*{*/}
@@ -312,17 +334,11 @@ class Cart extends React.Component {
                                                 retails={item.retails}
                                                 classStyle={'Cart__item'}
                                                 count={count}
-                                                addedToCart={() => {
-                                                  this.props.addedToCart(item.guid)
-                                                }}
+                                                addedToCart={() => this.props.addedToCart(item.guid)}
                                                 itemRemovedFromCart={() => {
-                                                  if (count > 1) {
-                                                    this.props.itemRemovedFromCart(item.guid)
-                                                  }
+                                                  if (count > 1) this.props.itemRemovedFromCart(item.guid);
                                                 }}
-                                                allItemRemovedFromCart={() => {
-                                                  this.props.allItemRemovedFromCart(item.guid)
-                                                }}
+                                                allItemRemovedFromCart={() => this.props.allItemRemovedFromCart(item.guid)}
                                       />
                                     </MediaQuery>
                                     <MediaQuery maxWidth={900}>
@@ -333,24 +349,16 @@ class Cart extends React.Component {
                                                         title: item.product,
                                                         maker: item.manufacturer,
                                                         minPrice: item.retails.sort((a, b) => a.priceRetail > b.priceRetail ? 1 : -1)[0].priceRetail,
-                                                        price,
-                                                        // sum,
-                                                        // countLast
+                                                        price
                                                       }}
                                                       retails={item.retails}
                                                       classStyle={'Cart__item'}
                                                       count={count}
-                                                      addedToCart={() => {
-                                                        this.props.addedToCart(item.guid)
-                                                      }}
+                                                      addedToCart={() => this.props.addedToCart(item.guid)}
                                                       itemRemovedFromCart={() => {
-                                                        if (count > 1) {
-                                                          this.props.itemRemovedFromCart(item.guid)
-                                                        }
+                                                        if (count > 1) this.props.itemRemovedFromCart(item.guid);
                                                       }}
-                                                      allItemRemovedFromCart={() => {
-                                                        this.props.allItemRemovedFromCart(item.guid)
-                                                      }}
+                                                      allItemRemovedFromCart={() => this.props.allItemRemovedFromCart(item.guid)}
                                       />
                                     </MediaQuery>
                                   </>
@@ -504,7 +512,7 @@ class Cart extends React.Component {
                         && <section className='Cart__choiceRetail'>
                           <h3 className='Cart__choiceRetailTitle'>Выберите аптеку, в которой хотите забрать заказ</h3>
 
-                          <MediaQuery maxWidth={800}>
+                          <MediaQuery maxWidth={900}>
                             <div className='CitiesMobile__menu Cart__menu'>
                               <p onClick={() => this.setState({view: false})}
                                  className={'CitiesMobile__btn ' + (!this.state.view ? 'CitiesMobile__btn_active' : '')}
@@ -518,17 +526,24 @@ class Cart extends React.Component {
                               </p>
                             </div>
 
-                            <PopupMapCartMobile active={this.state.popupMap}
-                                                retails={this.props.retailsArr}
-                                                activeRetail={this.props.selectedRetail}
-                                                cartLength={this.props.cart.length}
-                                                point={this.checkRetailItem()?.coordinates}
-                                                onClick={() => this.setState({popupMap: false})}
-                                                onSelectItem={idSelectRetail => this.props.onSelectRetail(idSelectRetail)}
-                            />
+                            <div className='Cart__blockTitle'>
+                              {
+                                allCountFullProductRetails.length > 0 &&
+                                <h2 className='Cart__titleChoice'>Всё в наличии:</h2>
+                              }
+                            </div>
+
+                            {/*<PopupMapCartMobile active={this.state.popupMap}*/}
+                            {/*                    retails={this.props.retailsArr}*/}
+                            {/*                    activeRetail={this.props.selectedRetail}*/}
+                            {/*                    cartLength={this.props.cart.length}*/}
+                            {/*                    point={this.checkRetailItem()?.coordinates}*/}
+                            {/*                    onClick={() => this.setState({popupMap: false})}*/}
+                            {/*                    onSelectItem={idSelectRetail => this.props.onSelectRetail(idSelectRetail)}*/}
+                            {/*/>*/}
                           </MediaQuery>
 
-                          <MediaQuery minWidth={801}>
+                          <MediaQuery minWidth={901}>
 
                             <div className='Cart__buttonContainer'>
                               <button
@@ -567,63 +582,61 @@ class Cart extends React.Component {
                             очистите корзину и осуществите ПОИСК заново по Вашему городу
                           </p>}
 
-                          <MediaQuery maxWidth={800}>
-                            {
-                              this.getFullRetailItemState()
-                              && <RetailItem
-                                retailItem={this.getFullRetailItemState()[0]}
-                                quantity={this.calcQuantityProduct(this.getFullRetailItemState()[0].product)}
-                                notFullItems={false}
-                                active={this.isChecked(this.getFullRetailItemState()[0]?.guid)}
-                                buttonActive={this.isChecked(this.getFullRetailItemState()[0]?.guid)}
-                                onSelectItem={() => this.props.onSelectRetail(this.getFullRetailItemState()[0]?.guid)}
-                                setMapSetting={() => {
-                                  // setPoint(retail.coordinates)
-                                  // setZoom(17)
-                                  // setActiveMarker(null)
-                                }}
-                              />
-                            }
-
-                            <BlockWrapper classStyle='Cart__blockMoreItems'>
-                              {
-                                this.getFullRetailItemState() === null
-                                  ?
-                                  <p style={{padding: 20}}>не найдено аптек с полным ассортиментом выбранного товара</p>
-                                  : this.getFullRetailItemState().map((item, index) => {
-                                    if (index === 0) return null;
-                                    return <RetailItem
-                                      key={item.guid + index}
-                                      retailItem={item}
-                                      quantity={this.calcQuantityProduct(item.product)}
-                                      notFullItems={false}
-                                      active={this.isChecked(item.guid)}
-                                      buttonActive={this.isChecked(item.guid)}
-                                      onSelectItem={() => this.props.onSelectRetail(item.guid)}
-                                      setMapSetting={() => {
-                                      }}
-                                    />
-                                  })
-                              }
-                            </BlockWrapper>
-                          </MediaQuery>
-
                           {
                             this.getFullRetailItemState() !== null
-                            && <MediaQuery minWidth={801}>
+                            && <MediaQuery maxWidth={900}>
                               {
                                 allCountFullProductRetails.length > 0
                                 && <BlockWrapper classStyle='Cart__blockMoreItems'>
                                   {
                                     allCountFullProductRetails.map((product, index) => {
-                                      // if (index === 0) return null;
+                                      return <RetailItem
+                                        key={product.guid + index}
+                                        retailItem={product}
+                                        quantity={this.calcQuantityProduct(product.product)}
+                                        active={this.isChecked(product.guid)}
+                                        onSelectItem={() => this.goToPageStageThree(product.guid)}
+                                        setMapSetting={() => {
+                                        }}
+                                      />
+                                    })
+                                  }
+                                </BlockWrapper>
+                              }
+                              {
+                                notCompleteCountProductsRetails.length > 0
+                                && <>
+                                  <h2 className='Cart__titleChoice'>Не полное количество:</h2>
+                                  <BlockWrapper classStyle='Cart__blockMoreItems'>
+                                    {
+                                      notCompleteCountProductsRetails.map((product, index) => {
+                                        return <RetailItem key={product.guid + index}
+                                                           quantity={this.calcQuantityProduct(product.product)}
+                                                           retailItem={product}
+                                                           onCheck={() => this.goToPageStageThree(product.guid)}
+                                                           setMapSetting={() => {
+                                                           }}
+                                        />
+                                      })
+                                    }
+                                  </BlockWrapper>
+                                </>
+                              }
+                            </MediaQuery>
+                          }
+
+                          {
+                            this.getFullRetailItemState() !== null
+                            && <MediaQuery minWidth={901}>
+                              {
+                                allCountFullProductRetails.length > 0
+                                && <BlockWrapper classStyle='Cart__blockMoreItems'>
+                                  {
+                                    allCountFullProductRetails.map((product, index) => {
                                       return <RetailCheckPanel key={product.guid + index}
                                                                quantity={this.calcQuantityProduct(product.product)}
                                                                item={product}
-                                                               onCheck={() => {
-
-                                                                 this.goToPageStageThree(product.guid)
-                                                               }}
+                                                               onCheck={() => this.goToPageStageThree(product.guid)}
                                                                openPopupMap={() => {
                                                                  this.props.onSelectRetail(product.guid)
                                                                  this.setState({popupMap: true})
@@ -661,22 +674,21 @@ class Cart extends React.Component {
                             </MediaQuery>
                           }
 
+
                           {
                             incompleteRetailItemState.length > 0
                             && <>
                               <h2 className='Cart__titleChoice'>Нет части товаров: </h2>
 
-                              <MediaQuery maxWidth={800}>
+                              <MediaQuery maxWidth={900}>
                                 <BlockWrapper classStyle='Cart__blockMoreItems'>
-                                  {incompleteRetailItemState.map((item, index) => {
+                                  {incompleteRetailItemState.map((product, index) => {
                                     return <RetailItem
-                                      key={item.guid + index}
-                                      retailItem={item}
-                                      quantity={this.calcQuantityProduct(item.product)}
-                                      notFullItems={true}
-                                      active={this.isChecked(item.guid)}
-                                      buttonActive={this.isChecked(item.guid)}
-                                      onSelectItem={() => this.props.onSelectRetail(item.guid)}
+                                      key={product.guid + index}
+                                      retailItem={product}
+                                      quantity={this.calcQuantityProduct(product.product)}
+                                      active={this.isChecked(product.guid)}
+                                      onSelectItem={() => this.goToPageStageThree(product.guid)}
                                       setMapSetting={() => {
                                       }}
                                     />
@@ -684,16 +696,14 @@ class Cart extends React.Component {
                                 </BlockWrapper>
                               </MediaQuery>
 
-                              <MediaQuery minWidth={801}>
+                              <MediaQuery minWidth={901}>
                                 <BlockWrapper classStyle='Cart__blockMoreItems'>
                                   {
                                     incompleteRetailItemState.map((product, index) => {
                                       return <RetailCheckPanel key={product.guid + index}
                                                                item={product}
                                                                quantity={this.calcQuantityProduct(product.product)}
-                                                               onCheck={() => {
-                                                                 this.goToPageStageThree(product.guid)
-                                                               }}
+                                                               onCheck={() => this.goToPageStageThree(product.guid)}
                                                                openPopupMap={() => {
                                                                  this.props.onSelectRetail(product.guid)
                                                                  this.setState({popupMap: true})
