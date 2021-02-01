@@ -144,7 +144,6 @@
   &__infoBlock-info {
     padding: 7px 20px;
     margin: 0 -20px;
-    border-bottom: 1px dashed $bg-color;
   }
 
   &__infoBlock-minPriceProducts {
@@ -154,13 +153,15 @@
     margin: 0 -20px;
     padding: 7px 20px;
     cursor: default;
-
-    &:not(:last-child) {
-      border-bottom: 1px dashed $bg-color;
-    }
+    border-top: 1px dashed $bg-color;
 
     &:hover {
       background-color: #FCFCEE;
+    }
+
+    @media (max-width: 900px) {
+      margin: 0 -8px;
+      padding: 7px 8px;
     }
   }
 
