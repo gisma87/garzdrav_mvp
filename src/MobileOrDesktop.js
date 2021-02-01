@@ -27,7 +27,7 @@ const MobileOrDesktop = (props) => {
     localStorage.setItem('cart', JSON.stringify(props.cart));
   }, [props.cart])
 
-  const isMobile = useMediaQuery({query: '(max-width: 800px)'})
+  const isMobile = useMediaQuery({query: '(max-width: 900px)'})
 
   return (
     isMobile ? <AppMobile/> : <App/>

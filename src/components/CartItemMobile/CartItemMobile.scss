@@ -1,6 +1,14 @@
 @import "../../variables";
 
 .CartItemMobile {
+  position: relative;
+  font-family: $primary-font;
+  padding: 10px 5px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 860px;
+
   &__container-img-price {
     display: flex;
     justify-content: space-between;
@@ -115,5 +123,42 @@
     display: flex;
     justify-content: space-between;
     padding: 10px 10px 5px;
+  }
+
+  &__dropdownBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    color: $primary-color;
+    border-bottom: 1px dashed #000;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  &__iconContainer {
+    display: flex;
+    align-items: center;
+    padding: 2px;
+    transition: transform .5s;
+
+    &:hover .CartItem__arrowIcon {
+      color: #fc8507;
+    }
+  }
+
+  &__rotate {
+    transform: rotate(180deg);
+    color: green;
+    transition: transform .5s;
+
+    .CartItem__arrowIcon {
+      color: green;
+    }
+  }
+
+  &__arrowIcon {
+    font-size: 16px;
+    color: #8c8c8c;
   }
 }

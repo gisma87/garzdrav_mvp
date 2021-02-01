@@ -170,6 +170,7 @@
     font-size: .9rem;
     font-weight: 500;
     @media (max-width: 900px) {
+      line-height: 1rem;
       font-size: .8rem;
       overflow: hidden;
       white-space: normal;
@@ -215,6 +216,9 @@
     font-size: 1.4rem;
     color: #000;
     @media (max-width: 900px) {
+      font-size: 1.2rem;
+    }
+    @media (max-width: 550px) {
       font-size: 1.2rem;
       padding: 10px 15px;
     }
@@ -281,6 +285,12 @@
     margin: 0 0 10px 0;
   }
 
+  &__pricePanelContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
   &__pricePanel {
     padding: 25px 30px;
     border-radius: 17px;
@@ -290,15 +300,9 @@
     background-color: $bg-color-light;
     box-shadow: $box-shadow;
 
-    @media (min-width: 801px) and (max-width: 1200px) {
-      align-items: flex-end;
-      //background-color: transparent;
-      //box-shadow: none;
-    }
-
     @media (max-width: 900px) {
       width: 100%;
-      max-width: 450px;
+      //max-width: 450px;
       border-radius: 0;
     }
 
@@ -345,6 +349,7 @@
 
   &__buttonToCart {
     min-width: 182px;
+    max-width: 400px;
     text-align: center;
     width: 100%;
     font-size: 1.2rem;

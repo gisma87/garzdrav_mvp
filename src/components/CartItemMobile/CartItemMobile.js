@@ -26,7 +26,7 @@ const CartItemMobile = (props) => {
   const listRetails = props.retails.filter(retail => retail.countLast >= count)
 
   return (
-    <div className='CartItem CartItemMobile'>
+    <div className='CartItemMobile'>
 
       <SvgClose className='CartItemMobile__closeIcon' onClick={allItemRemovedFromCart}/>
       <div className='CartItemMobile__container-img-price'>
@@ -52,13 +52,13 @@ const CartItemMobile = (props) => {
       </div>
 
       <div className='CartItemMobile__buttonContainer'>
-        <div className='CartItem__dropdownBtn' onClick={() => {
+        <div className='CartItemMobile__dropdownBtn' onClick={() => {
           setShowDropdown(!showDropdown)
           setShowDescription(!showDescription)
         }}>
           <span>есть в аптеках</span>
-          <div className={'CartItem__iconContainer' + (showDescription ? ' CartItem__rotate' : '')}>
-            <SvgAngleUpSolid className='CartItem__arrowIcon'/>
+          <div className={'CartItemMobile__iconContainer' + (showDescription ? ' CartItemMobile__rotate' : '')}>
+            <SvgAngleUpSolid className='CartItemMobile__arrowIcon'/>
           </div>
         </div>
 
