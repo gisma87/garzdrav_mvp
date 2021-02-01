@@ -177,7 +177,51 @@ class ApiService {
           Authorization: `Bearer ${accessToken}`
         }
       })
-    return response.data
+    return this._transformSales(response.data)
+  }
+
+  // приведение getSales к стандартному виду
+  _transformSales(sales) {
+    const retail = (sale) => {
+      return {
+        guid: sale?.retail?.guid,
+        title: sale?.retail?.title,
+        brand: sale?.retail?.brand,
+        city: sale?.retail?.city,
+        street: sale?.retail?.street,
+        buildNumber: sale?.retail?.buildNumber,
+        phone: sale?.retail?.phone,
+        weekDayTime: sale?.retail?.weekDayTime,
+        coordinates: sale?.retail?.coordinates
+      }
+    }
+
+    const products = (sale) => sale?.items?.map(product => {
+      return {
+        productTitle: product?.productTitle,
+        productGuid: product?.productGuid,
+        priceRetail: product?.priceRetail,
+        quantity: product?.quantity,
+        spendBonus: product?.spendBonus,
+        accumulationBonus: product?.accumulationBonus,
+        discount: product?.discount
+      }
+    })
+
+    const result = sales.map(sale => {
+      return {
+        sumDocument: sale?.sumDocument,
+        accumulationBonus: sale?.accumulationBonus,
+        spendBonus: sale?.spendBonus,
+        cash: sale?.cash,
+        cashless: sale?.cashless,
+        dateDocument: sale?.dateDocument,
+        retail: retail(sale),
+        products: products(sale)
+      }
+    })
+
+    return result
   }
 
   // POST запрос сформированный заказ (отправка заказа)

@@ -151,6 +151,7 @@ class Cart extends React.Component {
     return null
   }
 
+  // роутинг по страницам Cart
   goToPageStageThree = (retailId = null) => {
     if (retailId) {
       this.props.onSelectRetail(retailId);
@@ -195,7 +196,6 @@ class Cart extends React.Component {
   }
 
   render() {
-    // const sum = this.getSum()
     const stopCount = (product) => product.retails.sort((a, b) => a.countLast < b.countLast ? 1 : -1)[0].countLast
     const dataForPromoItem = this.getDataForPromoItem();
     const getMinSum = () => {

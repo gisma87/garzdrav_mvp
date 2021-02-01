@@ -71,14 +71,14 @@ const OrderContent = props => {
       >
         <div className='OrderContent__contentWrapperForAnimation' ref={contentWrapper}>
           {
-            item.items.map((product, index) => <BlockWrapper classStyle='OrderContent__product'
+            item?.products?.map((product, index) => <BlockWrapper classStyle='OrderContent__product'
                                                              key={index + Math.random()}>
                 <p className='OrderContent__productTitle' onClick={() => {
                   apiService.getProductInfo(product.product, props.isCity.guid)
                     .then(res => props.history.push(`/Cards/${product.product}`))
                     .catch(e => props.setRepeatInfo('failure'))
 
-                }}>{product.title}</p>
+                }}>{product.productTitle}</p>
                 <p className='OrderContent__info'>Куплено: {product.quantity} шт по {product.priceRetail} ₽</p>
                 <p className='OrderContent__info'>Начислено бонусов: <span
                   className='OrderContent__positive'>{product.accumulationBonus}</span></p>
