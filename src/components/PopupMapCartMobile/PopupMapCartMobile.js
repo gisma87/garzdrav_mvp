@@ -1,14 +1,24 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import './PopupMapCartMobile.scss'
 import {Clusterer, GeolocationControl, Map, Placemark, SearchControl, YMaps} from "react-yandex-maps";
 import RetailItem from "../RetailItem";
 import PopupWrapper from "../UI/PopupWrapper/PopupWrapper";
 
 const PopupMapCartMobile = props => {
-
+  const [point, setPoint] = useState([56.010563, 92.852572])
+  const [zoom, setZoom] = useState(11)
   const [activeMarker, setActiveMarker] = useState(null)
   const {retails, onSelectItem} = props;
   const activeItem = retails.findIndex(item => activeMarker === item.guid)
+
+  useEffect(() => {
+    if (props.activeRetail) {
+      const retail = retails.find(item => item.guid === props.activeRetail)
+      setActiveMarker(props.activeRetail)
+      setPoint(retail?.coordinates)
+      setZoom(18)
+    }
+  }, [props.active])
 
   const placeMark = (price, popupInfo, flag = false) => {
     return {
@@ -24,8 +34,8 @@ const PopupMapCartMobile = props => {
   }
 
   const mapState = {
-    center: props.point,
-    zoom: 11,
+    center: point,
+    zoom: zoom,
     controls: ['zoomControl', 'fullscreenControl']
   };
 
@@ -45,7 +55,7 @@ const PopupMapCartMobile = props => {
           >
             <Clusterer
               options={{
-                preset: 'islands#invertedVioletClusterIcons',
+                preset: 'islands#nightClusterIcons',
                 groupByCoordinates: false,
               }}
             >
@@ -71,7 +81,7 @@ const PopupMapCartMobile = props => {
                                  // iconImageHref: setIcon(type),
                                  // iconImageSize: [45, 61],
                                  // iconImageOffset: [-22, -61],
-                                 preset: 'islands#redStretchyIcon',
+                                 preset: 'islands#nightStretchyIcon',
                                  draggable: false, // передвигать маркеры
                                  // iconColor: 'red'
                                }}
@@ -87,18 +97,21 @@ const PopupMapCartMobile = props => {
       </div>
 
       <div className='PopupMapCartMobile__absoluteCardItem'>
-        {activeItem >= 0 && <RetailItem
-          retailItem={retails[activeItem]}
-          notFullItems={retails[activeItem].product.length < props.cartLength}
-          active={retails[activeItem].guid === activeMarker}
-          buttonActive={props.activeRetail === retails[activeItem].guid}
-          onSelectItem={() => onSelectItem(retails[activeItem].guid)}
-          setMapSetting={() => {
-            // setPoint(retails[activeItem].retail.coordinates)
-            // setZoom(17)
-            // setActiveMarker(null)
-          }}
-        />}
+        {
+          activeItem >= 0 && <RetailItem
+            retailItem={retails[activeItem]}
+            notFullItems={retails[activeItem].product.length < props.cartLength}
+            active={retails[activeItem].guid === activeMarker}
+            buttonActive={props.activeRetail === retails[activeItem].guid}
+            onSelectItem={() => onSelectItem(retails[activeItem].guid)}
+            setMapSetting={() => {
+              // setPoint(retails[activeItem].retail.coordinates)
+              // setZoom(17)
+              // setActiveMarker(null)
+            }}
+            quantity={props.quantity(retails[activeItem].product)}
+          />
+        }
       </div>
     </PopupWrapper>
 

@@ -39,6 +39,7 @@ import CardItem from "../../components/CardItem";
 import apiService from "../../service/ApiService";
 import CartOrderPage from "./CartOrderPage/CartOrderPage";
 import CartItemMobile from "../../components/CartItemMobile/CartItemMobile";
+import CartPageChoiceRetail from "./CartPageChoiceRetail/CartPageChoiceRetail";
 
 // import PopupLogin from "../../components/PopupLogin/PopupLogin";
 // import PopupOrder from "../../components/PopupOrder";
@@ -73,6 +74,7 @@ class Cart extends React.Component {
     pageStage: 1,
     popupMap: false,
     view: false,
+    showListAndMapRetail: true,
     telephone: '',
     error: <Error/>,
     loadingText: <Loader classStyle='Loader_is-opened'/>,
@@ -512,245 +514,24 @@ class Cart extends React.Component {
                         && <section className='Cart__choiceRetail'>
                           <h3 className='Cart__choiceRetailTitle'>Выберите аптеку, в которой хотите забрать заказ</h3>
 
-                          <MediaQuery maxWidth={900}>
-                            <div className='CitiesMobile__menu Cart__menu'>
-                              <p onClick={() => this.setState({view: false})}
-                                 className={'CitiesMobile__btn ' + (!this.state.view ? 'CitiesMobile__btn_active' : '')}
-                              >
-                                Список
-                              </p>
-                              <p onClick={() => this.setState({popupMap: true})}
-                                 className={'CitiesMobile__btn ' + (this.state.view ? 'CitiesMobile__btn_active' : '')}
-                              >
-                                Карта
-                              </p>
-                            </div>
+                          <CartPageChoiceRetail data={{
+                            allCountFullProductRetails,
+                            notCompleteCountProductsRetails,
+                            incompleteRetailItemState,
+                            calcQuantityProduct: this.calcQuantityProduct,
+                            isChecked: this.isChecked,
+                            goToPageStageThree: this.goToPageStageThree,
+                            showMap: this.state.popupMap,
+                            showDesktopPopupMap: (boolean) => this.setState({popupMap: boolean}),
+                            cartItems: this.props.cartItems,
+                            cart: this.props.cart,
+                            onSelectRetail: (retailGuid) => this.props.onSelectRetail(retailGuid),
+                            retailsForMap,
+                            selectedRetail: this.props.selectedRetail,
+                          }}/>
 
-                            <div className='Cart__blockTitle'>
-                              {
-                                allCountFullProductRetails.length > 0 &&
-                                <h2 className='Cart__titleChoice'>Всё в наличии:</h2>
-                              }
-                            </div>
-
-                            <PopupMapCartMobile active={this.state.popupMap}
-                                                retails={this.props.retailsArr}
-                                                activeRetail={this.props.selectedRetail}
-                                                cartLength={this.props.cart.length}
-                                                point={this.checkRetailItem()?.coordinates}
-                                                onClick={() => this.setState({popupMap: false})}
-                                                onSelectItem={idSelectRetail => this.props.onSelectRetail(idSelectRetail)}
-                            />
-                          </MediaQuery>
-
-                          <MediaQuery minWidth={901}>
-
-                            <div className='Cart__buttonContainer'>
-                              <button
-                                className='Cart__menuButton Cart__menuButton_active'
-                              >Показать списком
-                              </button>
-                              <button
-                                className='Cart__menuButton'
-                                onClick={() => this.setState({popupMap: true})}
-                              >Показать на карте
-                              </button>
-                            </div>
-
-                            <div className='Cart__blockTitle'>
-                              {
-                                allCountFullProductRetails.length > 0 &&
-                                <h2 className='Cart__titleChoice'>Всё в наличии:</h2>
-                              }
-                            </div>
-
-                            <PopupMapCart active={this.state.popupMap}
-                                          retails={retailsForMap()}
-                                          activeRetail={this.props.selectedRetail}
-                                          cartLength={this.props.cart.length}
-                                          onClick={() => this.setState({popupMap: false})}
-                                          onSelectItem={(retailId) => {
-                                            this.setState({popupMap: false})
-                                            this.goToPageStageThree(retailId)
-                                          }}
-                            />
-                          </MediaQuery>
-
-                          {this.props.cartItems.length < this.props.cart.length
-                          && <p className='Cart__alert'>
-                            Некоторых товаров нет в вашем городе. Чтобы искать более результативно
-                            очистите корзину и осуществите ПОИСК заново по Вашему городу
-                          </p>}
-
-                          {
-                            this.getFullRetailItemState() !== null
-                            && <MediaQuery maxWidth={900}>
-                              {
-                                allCountFullProductRetails.length > 0
-                                && <BlockWrapper classStyle='Cart__blockMoreItems'>
-                                  {
-                                    allCountFullProductRetails.map((product, index) => {
-                                      return <RetailItem
-                                        key={product.guid + index}
-                                        retailItem={product}
-                                        quantity={this.calcQuantityProduct(product.product)}
-                                        active={this.isChecked(product.guid)}
-                                        onSelectItem={() => this.goToPageStageThree(product.guid)}
-                                        setMapSetting={() => {
-                                        }}
-                                      />
-                                    })
-                                  }
-                                </BlockWrapper>
-                              }
-                              {
-                                notCompleteCountProductsRetails.length > 0
-                                && <>
-                                  <h2 className='Cart__titleChoice'>Не полное количество:</h2>
-                                  <BlockWrapper classStyle='Cart__blockMoreItems'>
-                                    {
-                                      notCompleteCountProductsRetails.map((product, index) => {
-                                        return <RetailItem key={product.guid + index}
-                                                           quantity={this.calcQuantityProduct(product.product)}
-                                                           retailItem={product}
-                                                           onCheck={() => this.goToPageStageThree(product.guid)}
-                                                           setMapSetting={() => {
-                                                           }}
-                                        />
-                                      })
-                                    }
-                                  </BlockWrapper>
-                                </>
-                              }
-                            </MediaQuery>
-                          }
-
-                          {
-                            this.getFullRetailItemState() !== null
-                            && <MediaQuery minWidth={901}>
-                              {
-                                allCountFullProductRetails.length > 0
-                                && <BlockWrapper classStyle='Cart__blockMoreItems'>
-                                  {
-                                    allCountFullProductRetails.map((product, index) => {
-                                      return <RetailCheckPanel key={product.guid + index}
-                                                               quantity={this.calcQuantityProduct(product.product)}
-                                                               item={product}
-                                                               onCheck={() => this.goToPageStageThree(product.guid)}
-                                                               openPopupMap={() => {
-                                                                 this.props.onSelectRetail(product.guid)
-                                                                 this.setState({popupMap: true})
-                                                               }}
-                                      />
-                                    })
-                                  }
-                                </BlockWrapper>
-                              }
-
-                              {
-                                notCompleteCountProductsRetails.length > 0
-                                && <>
-                                  <h2 className='Cart__titleChoice'>Не полное количество:</h2>
-                                  <BlockWrapper classStyle='Cart__blockMoreItems'>
-                                    {
-                                      notCompleteCountProductsRetails.map((product, index) => {
-                                        // if (index === 0) return null;
-                                        return <RetailCheckPanel key={product.guid + index}
-                                                                 quantity={this.calcQuantityProduct(product.product)}
-                                                                 item={product}
-                                                                 onCheck={() => {
-                                                                   this.goToPageStageThree(product.guid)
-                                                                 }}
-                                                                 openPopupMap={() => {
-                                                                   this.props.onSelectRetail(product.guid)
-                                                                   this.setState({popupMap: true})
-                                                                 }}
-                                        />
-                                      })
-                                    }
-                                  </BlockWrapper>
-                                </>
-                              }
-                            </MediaQuery>
-                          }
-
-
-                          {
-                            incompleteRetailItemState.length > 0
-                            && <>
-                              <h2 className='Cart__titleChoice'>Нет части товаров: </h2>
-
-                              <MediaQuery maxWidth={900}>
-                                <BlockWrapper classStyle='Cart__blockMoreItems'>
-                                  {incompleteRetailItemState.map((product, index) => {
-                                    return <RetailItem
-                                      key={product.guid + index}
-                                      retailItem={product}
-                                      quantity={this.calcQuantityProduct(product.product)}
-                                      active={this.isChecked(product.guid)}
-                                      onSelectItem={() => this.goToPageStageThree(product.guid)}
-                                      setMapSetting={() => {
-                                      }}
-                                    />
-                                  })}
-                                </BlockWrapper>
-                              </MediaQuery>
-
-                              <MediaQuery minWidth={901}>
-                                <BlockWrapper classStyle='Cart__blockMoreItems'>
-                                  {
-                                    incompleteRetailItemState.map((product, index) => {
-                                      return <RetailCheckPanel key={product.guid + index}
-                                                               item={product}
-                                                               quantity={this.calcQuantityProduct(product.product)}
-                                                               onCheck={() => this.goToPageStageThree(product.guid)}
-                                                               openPopupMap={() => {
-                                                                 this.props.onSelectRetail(product.guid)
-                                                                 this.setState({popupMap: true})
-                                                               }}
-                                      />
-                                    })
-                                  }
-                                </BlockWrapper>
-                              </MediaQuery>
-                            </>
-                          }
                         </section>
                       }
-
-                      {/*{*/}
-                      {/*  this.state.popupLogin*/}
-                      {/*  && <PopupLogin active={this.state.popupLogin}*/}
-                      {/*                 onClick={() => {*/}
-                      {/*                   this.setState({popupLogin: false})*/}
-                      {/*                 }}*/}
-                      {/*  />*/}
-                      {/*}*/}
-
-                      {/*{*/}
-                      {/*  this.props.retailsArr.length > 0*/}
-                      {/*  && <PopupOrder active={this.state.popupOrder || (this.state.isHasBuy && !!this.props.TOKEN)}*/}
-                      {/*                 isLogin={!!this.props.TOKEN}*/}
-                      {/*                 checked={this.props.selectedRetail}*/}
-                      {/*                 onClick={() => this.setState({popupOrder: false, isHasBuy: false})}*/}
-                      {/*                 onChange={(e) => this.props.onSelectRetail(e.target.value)}*/}
-                      {/*                 onChangeInput={(e) => this.setState({telephone: e.target.value})}*/}
-                      {/*                 retails={this.props.retailsArr}*/}
-                      {/*                 isFullActiveRetail={this.isFullActiveRetail()}*/}
-                      {/*                 cart={this.props.cart}*/}
-                      {/*                 product={this.checkRetailItem()?.product}*/}
-                      {/*                 onSubmit={() => {*/}
-                      {/*                   this.postBuyOrder()*/}
-                      {/*                   this.setState({popupBuy: true})*/}
-                      {/*                 }}*/}
-                      {/*                 OrderNumber={this.state.OrderNumber}*/}
-                      {/*  />*/}
-                      {/*}*/}
-                      {/*<PopupAfterBuy*/}
-                      {/*  show={this.state.popupBuy}*/}
-                      {/*  OrderNumber={this.state.OrderNumber}*/}
-                      {/*  onClose={() => this.setState({popupBuy: false})}*/}
-                      {/*/>*/}
                     </>
                   }
 

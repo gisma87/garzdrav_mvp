@@ -11,7 +11,8 @@ const RetailItem = (props) => {
     active,
     buttonActive,
     onSelectItem,
-    setMapSetting
+    setMapSetting = () => {
+    }
   } = props;
 
   const [showDescription, setShowDescription] = useState(false)
@@ -47,10 +48,11 @@ const RetailItem = (props) => {
 
 
           <button
-            className={'RetailItem__button ' + (active ? 'RetailItem__buttonActive' : '')}
-            // className='RetailItem__button'
+            // className={'RetailItem__button ' + ((active && isMobile) ? 'RetailItem__buttonActive' : '')}
+            className='RetailItem__button'
             onClick={onSelectItem}>
-            {active ? 'Выбран' : 'Выбрать'}
+            {/*{(active && isMobile) ? 'Выбран' : 'Выбрать'}*/}
+            Выбрать
           </button>
         </div>
       </div>
