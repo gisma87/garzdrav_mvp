@@ -7,7 +7,7 @@ import {connect} from "react-redux";
 import PopupLocation from "../PopupLocation/PopupLocation";
 
 const HeaderTop = (props) => {
-  const {regions, cities, isCity, setIsCity, history, isPopupLocation} = props;
+  const {regions, cities, isCity, setIsCity, isPopupLocation} = props;
   const [popup, setPopup] = useState(false)
 
   return (

@@ -10,6 +10,7 @@ const ProductListDropdown = props => {
 
   useEffect(() => {
     animate()
+    // eslint-disable-next-line
   }, [props.active])
 
   function animate() {

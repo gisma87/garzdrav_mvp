@@ -9,7 +9,6 @@ const RetailItem = (props) => {
     retailItem,
     notFullItems,
     active,
-    buttonActive,
     onSelectItem,
     setMapSetting = () => {
     }

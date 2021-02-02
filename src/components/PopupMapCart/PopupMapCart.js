@@ -22,6 +22,7 @@ const PopupMapCart = props => {
         if (activeItem) activeItem.scrollIntoView({behavior: "smooth"});
       }, 1000)
     }
+    // eslint-disable-next-line
   }, [props.active])
 
   const popup = ({title, address, clock, tel}) => `
@@ -68,11 +69,11 @@ const PopupMapCart = props => {
         <BlockWrapper classStyle='PopupMapCart__retails'>
           <ul>
             {
-              retails.map((retailItem) => {
+              retails.map((retailItem, index) => {
                 const notFullItems = () => retailItem.product.length < props.cartLength
                 return (
                   <RetailItem
-                    key={retailItem.guid}
+                    key={retailItem.guid + index + 27}
                     retailItem={retailItem}
                     notFullItems={notFullItems()}
                     active={retailItem.guid === activeMarker}
@@ -112,7 +113,7 @@ const PopupMapCart = props => {
                   }
                   const notFullItems = () => product.length < props.cartLength
                   return (
-                    <Placemark key={guid + index}
+                    <Placemark key={guid + index + 28}
                                onClick={() => onItemClick(guid)}
                                {...placeMark(sum, popup, notFullItems())}
                                geometry={coordinates}

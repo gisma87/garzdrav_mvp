@@ -11,7 +11,6 @@ const RetailCheckPanel = (props) => {
   const [showDropdown, setShowDropdown] = useState(false)
 
   const {
-    guid = '',
     city = '',
     street = '',
     buildNumber = '',

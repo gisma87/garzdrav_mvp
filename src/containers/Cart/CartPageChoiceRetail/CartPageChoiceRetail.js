@@ -1,5 +1,5 @@
 import React from "react";
-import MediaQuery, {useMediaQuery} from "react-responsive";
+import {useMediaQuery} from "react-responsive";
 import RetailItem from "../../../components/RetailItem";
 import BlockWrapper from "../../../components/BlockWrapper";
 import RetailCheckPanel from "../../../components/RetailCheckPanel";
@@ -48,7 +48,7 @@ const CartPageChoiceRetail = props => {
           {
             allCountFullProductRetails.map((retail, index) => {
               return <RetailItem
-                key={retail.guid + index}
+                key={retail.guid + index + 21}
                 retailItem={retail}
                 quantity={calcQuantityProduct(retail.product)}
                 active={isChecked(retail.guid)}
@@ -66,7 +66,7 @@ const CartPageChoiceRetail = props => {
         <BlockWrapper classStyle='Cart__blockMoreItems'>
           {
             notCompleteCountProductsRetails.map((retail, index) => {
-              return <RetailItem key={retail.guid + index}
+              return <RetailItem key={retail.guid + index + 22}
                                  retailItem={retail}
                                  quantity={calcQuantityProduct(retail.product)}
                                  active={isChecked(retail.guid)}
@@ -85,7 +85,7 @@ const CartPageChoiceRetail = props => {
         <BlockWrapper classStyle='Cart__blockMoreItems'>
           {
             incompleteRetailItemState.map((retail, index) => {
-              return <RetailItem key={retail.guid + index}
+              return <RetailItem key={retail.guid + index + 23}
                                  retailItem={retail}
                                  quantity={calcQuantityProduct(retail.product)}
                                  active={isChecked(retail.guid)}
@@ -119,7 +119,7 @@ const CartPageChoiceRetail = props => {
           {
             allCountFullProductRetails.map((retail, index) => {
               return <RetailCheckPanel
-                key={retail.guid + index + 1}
+                key={retail.guid + index + 24}
                 item={retail}
                 quantity={calcQuantityProduct(retail.product)}
                 onCheck={() => goToPageStageThree(retail.guid)}
@@ -141,7 +141,7 @@ const CartPageChoiceRetail = props => {
           {
             notCompleteCountProductsRetails.map((retail, index) => {
               return <RetailCheckPanel
-                key={retail.guid + index + 1}
+                key={retail.guid + index + 25}
                 item={retail}
                 quantity={calcQuantityProduct(retail.product)}
                 onCheck={() => goToPageStageThree(retail.guid)}
@@ -163,7 +163,7 @@ const CartPageChoiceRetail = props => {
           {
             incompleteRetailItemState.map((retail, index) => {
               return <RetailCheckPanel
-                key={retail.guid + index + 1}
+                key={retail.guid + index + 26}
                 item={retail}
                 quantity={calcQuantityProduct(retail.product)}
                 onCheck={() => goToPageStageThree(retail.guid)}

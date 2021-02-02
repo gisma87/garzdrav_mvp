@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import './CardPage.scss'
 import SvgCheck from "../../components/UI/icons/SvgCheck";
 import notPhoto from "../../img/notPhoto.svg"
@@ -15,10 +15,8 @@ import {connect} from "react-redux";
 import {NavLink, withRouter} from "react-router-dom";
 import {useMediaQuery} from 'react-responsive'
 import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
-import ButtonHeart from "../../components/UI/ButtonHeart/ButtonHeart";
 import SetToFavorites from "../../hoc/SetToFavorites/SetToFavorites";
 import CardItem from "../../components/CardItem";
-import LoaderCircle from "../../components/UI/LoaderCircle/LoaderCircle";
 
 const CardPage = (props) => {
   const {
@@ -30,25 +28,10 @@ const CardPage = (props) => {
     error,
   } = props;
 
-  const [activeRetailGuid, setActiveRetailGuid] = useState(null)
-  const [telephone, setTelephone] = useState('')
-  const [count, setCount] = useState(1)
-
   const img = null
-
   const itemIndex = cart.findIndex((item) => item.itemId === itemId);
   const isActive = itemIndex >= 0;
-  const isMobile = useMediaQuery({query: '(max-width: 800px)'})
-  // const countInCart = isActive ? cart[itemIndex]?.count : 0
-
-  // useEffect(() => {
-  //   // запрашиваем данные для promoItem.
-  //   apiService.getProductInfo(itemId, props.isCity.guid)
-  //     .then(response => {
-  //       const minPrice = response.retails.sort((a, b) => a.priceRetail > b.priceRetail ? 1 : -1)[0].priceRetail
-  //       setPromoItem({...response, minPrice})
-  //     })
-  // }, [])
+  const isMobile = useMediaQuery({query: '(max-width: 900px)'})
 
   useEffect(() => {
     props.fetchProductInfo(itemId)
@@ -59,6 +42,7 @@ const CardPage = (props) => {
     if (props.catalog && props.productInfo !== '') {
       props.setActiveCategory(getActiveItemCategory())
     }
+    // eslint-disable-next-line
   }, [props.catalog, props.productInfo])
 
   function getDataForPromoItem() {
@@ -93,38 +77,18 @@ const CardPage = (props) => {
     }
   }
 
-  function getActiveRetail(retailGuid) {
-    if (retailGuid) return productInfo.retails.find(item => item.guid === retailGuid);
-    if (activeRetailGuid) return productInfo.retails.find(item => item.guid === activeRetailGuid);
-
-    return null
-  }
-
-  const stopCount = (activeRetailGuid) => {
-    const activeRetail = getActiveRetail(activeRetailGuid)
-    if (activeRetail) return activeRetail.countLast;
-    if (productInfo) return productInfo?.retails[0].countLast;
-    return 1
-  }
-  const isLastCount = (activeRetailGuid = null) => {
-    return !(stopCount(activeRetailGuid) > count)
-  }
-
   const getActiveItemCategory = () => {
-    const idCategoryProduct = props.productInfo.categoryGuid
-    let iterable = 0
     let result = null
 
     function searchElement(element) {
       if (result) return result
 
       for (let i = 0; i < element.child.length; i++) {
-        iterable++
         const item = element.child[i]
         if (item.child.length) {
           searchElement(item) // спускаемся на самое дно
         } else {
-          const isElement = item.guid === idCategoryProduct
+          const isElement = item.guid === props.productInfo.categoryGuid
           if (isElement) {
             result = item
           }
@@ -151,22 +115,6 @@ const CardPage = (props) => {
     }
     return {title: title[index], activeItem: activeItem[index]}
   }
-
-  // const submitOrder = () => {
-  //
-  //   const activeRetail = productInfo.retails.find(item => item.guid === activeRetailGuid)
-  //   const product = [{
-  //     guid: productInfo.guid,
-  //     count,
-  //     priceRetail: activeRetail.priceRetail,
-  //     product: productInfo.product,
-  //     manufacturer: productInfo.manufacturer
-  //   }]
-  //   const sum = activeRetail.priceRetail * count
-  //   const send = {guid: activeRetail.guid, telephone: telephone, product, sum}
-  //   console.log(send);
-  // }
-
 
   return (
     <section className='CardPage wrapper'>
@@ -229,10 +177,6 @@ const CardPage = (props) => {
                             <span>Действующее вещество:</span>
                             <NavLink to={props.history.location}>Оксиметазолин</NavLink>
                           </p>
-                          {/*<p className='CardPage__characteristic CardPage__description'>*/}
-                          {/*  <span>Общее описание:</span>*/}
-                          {/*  <span className='CardPage__textCharacteristic'>Сосудосуживающий препарат для местного применения. При нанесении на воспаленную слизистую оболочку полости носа уменьшает ее отечность и выделения из носа. Восстанавливает носовое дыхание. Устранение отека слизистой оболочки полости носа способствует восстановлению аэрации придаточных пазух полости носа, полости среднего уха, что уменьшает вероятность возникновения бактериальных осложнений (гайморита, синусита, среднего отита). При местном интраназальном применении в терапевтических концентрациях не раздражает и не вызывает гиперемию слизистой оболочки полости носа. При местном интраназальном применении оксиметазолин не обладает системным действием. Оксиметазолин начинает действовать быстро, в течение нескольких минут. Продолжительность действия препарата Називин Сенситив - до 12 ч.</span>*/}
-                          {/*</p>*/}
                           <div style={{textAlign: 'right'}}><Link to="anchor" smooth={true} offset={-150}
                                                                   duration={500}>Инструкция</Link></div>
 
@@ -245,7 +189,6 @@ const CardPage = (props) => {
                           </div>
 
                           <div className='CardPage__buttons'>
-
                             <button
                               className={'CardPage__button CardPage__buttonToCart' + (isActive ? ' CardPage__buttonToCart_active' : '')}
                               onClick={() => {
@@ -254,34 +197,7 @@ const CardPage = (props) => {
                               {isActive ? <><SvgCheck style={{color: 'white', marginRight: 15}}/> В
                                 корзине</> : 'Добавить в корзину'}
                             </button>
-
-
-                            {/*=================== НОВАЯ КНОПКА c плюс и минус  =========================*/}
-                            {/*{*/}
-                            {/*  isActive*/}
-                            {/*    ? <div className='CardPage__buttonToCartActive'><CountButton*/}
-                            {/*          count={countInCart}*/}
-                            {/*          isLastCount={isLastCount}*/}
-                            {/*          onIncrement={() => addedToCart(itemId)}*/}
-                            {/*          onDecrement={() => itemRemovedFromCart(itemId)}*/}
-                            {/*        /></div>*/}
-                            {/*    : <button className='CardPage__button CardPage__buttonToCart'*/}
-                            {/*              onClick={() => addedToCart(itemId)}>*/}
-                            {/*      Добавить в корзину*/}
-                            {/*    </button>*/}
-                            {/*}*/}
-                            {/*=============== КОНЕЦ НОВАЯ КНОПКА ========================================*/}
-
-
-                            {/*<button className='CardPage__button CardPage__buttonBuy'*/}
-                            {/*        onClick={() => {*/}
-                            {/*          setActiveRetailGuid(productInfo.retails[0].guid)*/}
-                            {/*          setQuickOrder(true)*/}
-                            {/*        }}*/}
-                            {/*>Быстрый заказ*/}
-                            {/*</button>*/}
                           </div>
-                          {/*<p className='CardPage__priceText CardPage__priceCaption'>Цена зависит от выбранной аптеки</p>*/}
                         </div>
                       </div>
                     </div>
@@ -297,17 +213,6 @@ const CardPage = (props) => {
                         }}
                                   classStyle='Cart__promoBlock'
                                   itemProps={getDataForPromoItem()}
-                          // onIncrement={dataForPromoItem.onIncrement}
-                          // onDecrement={dataForPromoItem.onDecrement}
-                          // isBuy={dataForPromoItem.isBuy}
-                          // count={dataForPromoItem.count}
-                          // countLast={dataForPromoItem.countLast}
-                          // key={dataForPromoItem.key}
-                          // id={dataForPromoItem.id}
-                          // title={dataForPromoItem.title}
-                          // maker={dataForPromoItem.maker}
-                          // img={dataForPromoItem.img}
-                          // minPrice={dataForPromoItem.minPrice}
                         />
                       </div>
                       : undefined
@@ -360,13 +265,6 @@ const CardPage = (props) => {
                       }}>
                         {isActive ? <SvgCheck style={{color: 'white'}}/> : 'Добавить в корзину'}
                       </button>
-                      {/*<button className='CardPage__button CardPage__buttonBuy'*/}
-                      {/*        onClick={() => {*/}
-                      {/*          setActiveRetailGuid(productInfo.retails[0].guid)*/}
-                      {/*          setQuickOrder(true)*/}
-                      {/*        }}*/}
-                      {/*>Быстрый заказ*/}
-                      {/*</button>*/}
                     </div>
                     <p className='CardPage__priceText CardPage__priceCaption'>Цена зависит от выбранной
                       аптеки</p>
@@ -537,21 +435,6 @@ const CardPage = (props) => {
                   </div>
                 </div>
               </BlockWrapper>
-              {/*<PopupQuickOrder active={quickOrder}*/}
-              {/*                 onClose={() => setQuickOrder(false)}*/}
-              {/*                 onSubmit={submitOrder}*/}
-              {/*                 activeRetailGuid={activeRetailGuid ? activeRetailGuid : productInfo.retails[0].guid}*/}
-              {/*                 onChange={(e) => {*/}
-              {/*                   setActiveRetailGuid(e.target.value)*/}
-              {/*                   if (isLastCount(e.target.value)) setCount(getActiveRetail(e.target.value)?.countLast);*/}
-              {/*                 }}*/}
-              {/*                 productInfo={productInfo}*/}
-              {/*                 onChangeInput={(phone) => setTelephone(phone)}*/}
-              {/*                 count={count}*/}
-              {/*                 setCount={(value) => setCount(value)}*/}
-              {/*                 isLastCount={isLastCount()}*/}
-              {/*/>*/}
-
             </>
           }
         </ErrorBoundary>}

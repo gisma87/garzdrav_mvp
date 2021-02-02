@@ -29,6 +29,7 @@ const CartOrderPage = props => {
     setOrder({...props.retail})
     console.log('order: ', order)
     return () => props.delOrderNumber();
+    // eslint-disable-next-line
   }, [])
 
   useEffect(() => {
@@ -109,7 +110,7 @@ const CartOrderPage = props => {
           <div className="CartOrderPage__listOrder">
             {
               order.product.map((product, index) => {
-                return <div className='CartOrderPage__productContainer' key={product.guid + index}>
+                return <div className='CartOrderPage__productContainer' key={product.guid + index+3}>
                   <p className='CartOrderPage__productTitle'>{product.product}</p>
                   <p className='CartOrderPage__productCount'>{product.count}шт. * {product.priceRetail} ₽/шт.</p>
                   <p className='CartOrderPage__price'>{product.priceRetail * product.count} ₽</p>

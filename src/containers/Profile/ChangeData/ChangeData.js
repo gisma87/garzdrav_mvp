@@ -15,13 +15,6 @@ const ChangeData = (props) => {
     gender: ''
   })
 
-  function isEmpty(obj) {
-    for (let key in obj) {
-      return false;
-    }
-    return true;
-  }
-
   function onChangeHandler(e) {
     const name = e.target.name;
     const value = e.target.value;

@@ -14,6 +14,7 @@ const LegkoBlock = () => {
             <p>Покупайте</p>
             <p>за полцены</p>
             <p>с <a href="http://kartalegko.ru/" target="_blank"
+                    rel="noopener noreferrer"
                     className='LegkoBlock__linkLegko'
             >картой Легко</a></p>
           </div>

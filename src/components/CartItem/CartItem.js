@@ -14,10 +14,7 @@ const CartItem = (props) => {
     allItemRemovedFromCart,
     itemRemovedFromCart,
     addedToCart,
-    addedToFavorits,
     count,
-    isFavorite,
-    classStyle = ''
   } = props;
   const {img, title, maker, minPrice} = props.item;
 
@@ -40,21 +37,9 @@ const CartItem = (props) => {
         <div className='CartItem__descriptionContainer'>
           <h3>{title}</h3>
           <p className='CartItem__maker'>{maker}</p>
-
-          {/*<div className='CartItem__buttonToDescription'>*/}
-          {/*  <button*/}
-          {/*    onClick={() => {*/}
-          {/*      addedToFavorits()*/}
-          {/*    }}*/}
-          {/*  >{isFavorite ? 'Удалить из избранного' : 'В избранное'}*/}
-          {/*  </button>*/}
-          {/*  <button onClick={allItemRemovedFromCart}>Удалить*/}
-          {/*  </button>*/}
-          {/*</div>*/}
         </div>
 
         <div className="CartItem__priceBlock">
-          {/*<p className='CartItem__price'>{sum ? sum.toFixed(2) : `от ${minPrice}`} ₽</p>*/}
           {count > 1 && <p className='CartItem__priceOne'>от {minPrice} ₽/шт.</p>}
 
           <CountButton
@@ -69,7 +54,6 @@ const CartItem = (props) => {
             }}
           />
 
-          {/*<p className='CartItem__price'>{sum ? sum.toFixed(2) : `от ${minPrice}`} ₽</p>*/}
           <p className='CartItem__price'>от {(minPrice * count).toFixed(2)} ₽</p>
         </div>
       </div>

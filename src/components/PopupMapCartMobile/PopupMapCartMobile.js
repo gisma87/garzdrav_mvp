@@ -18,6 +18,7 @@ const PopupMapCartMobile = props => {
       setPoint(retail?.coordinates)
       setZoom(18)
     }
+// eslint-disable-next-line
   }, [props.active])
 
   const placeMark = (price, popupInfo, flag = false) => {
@@ -60,7 +61,7 @@ const PopupMapCartMobile = props => {
               }}
             >
               {
-                retails.map(item => {
+                retails.map((item, index) => {
                   if ((typeof item.coordinates !== 'object') || item.coordinates.length < 1) return null;
                   const {coordinates, guid, sum, brand, city, street, buildNumber, weekDayTime, phone} = item;
                   const popup = {
@@ -71,7 +72,7 @@ const PopupMapCartMobile = props => {
                   }
                   const notFullItems = () => item.product.length < props.cartLength
                   return (
-                    <Placemark key={guid}
+                    <Placemark key={guid + index + 29}
                                onClick={() => setActiveMarker(guid)}
                                {...placeMark(sum, popup, notFullItems())}
                                geometry={coordinates}

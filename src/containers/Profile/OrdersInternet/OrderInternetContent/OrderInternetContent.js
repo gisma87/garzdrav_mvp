@@ -24,6 +24,7 @@ const OrderInternetContent = props => {
       }
     }, 1100)
     return () => clearTimeout(wrap)
+    // eslint-disable-next-line
   }, [])
 
   useEffect(() => {
@@ -35,6 +36,7 @@ const OrderInternetContent = props => {
       props.setRepeatInfo('failure')
       props.setStatusRequestOrder('')
     }
+    // eslint-disable-next-line
   }, [props.statusRequestRepeatOrder])
 
   const {item, delay} = props

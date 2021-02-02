@@ -24,7 +24,7 @@ const Favorites = (props) => {
         const responseArray = allResponses.filter(item => Boolean(item.length !== 0))
         props.setFavoritesProductInfo(responseArray)
       })
-
+// eslint-disable-next-line
   }, [])
 
   return (

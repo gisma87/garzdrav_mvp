@@ -14,10 +14,7 @@ const CartItemMobile = (props) => {
     allItemRemovedFromCart,
     itemRemovedFromCart,
     addedToCart,
-    addedToFavorits,
     count,
-    isFavorite,
-    classStyle = ''
   } = props;
   const {img, title, maker, minPrice} = props.item;
 

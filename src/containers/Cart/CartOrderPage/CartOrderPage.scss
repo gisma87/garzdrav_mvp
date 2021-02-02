@@ -253,8 +253,6 @@
   }
 
   &__buttonToBuy {
-    transform: translateY(-23px);
-
     display: flex;
     justify-content: center;
     align-items: center;
@@ -273,19 +271,22 @@
     color: #fff;
     cursor: pointer;
 
-    @media (max-width: 900px) {
-      transform: translateY(0px);
+    @media (min-width: 901px) {
+      transform: translateY(-23px);
       &:active {
         transform: translateY(-23px) scale(.96);
       }
     }
 
-    &:hover {
-      background-image: linear-gradient(to bottom, #1f5377, #1F3277);
+    @media (max-width: 900px) {
+      transform: translateY(0px);
+      &:active {
+        transform: translateY(0px) scale(.96);
+      }
     }
 
-    &:active {
-      transform: translateY(-23px) scale(.96);
+    &:hover {
+      background-image: linear-gradient(to bottom, #1f5377, #1F3277);
     }
   }
 

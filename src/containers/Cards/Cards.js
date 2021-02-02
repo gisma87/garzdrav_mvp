@@ -31,9 +31,9 @@ const Cards = props => {
     if (props.requestFromSearchPanelThisTime) {
       setCurrentPage(1)
       setMethodSort(0);
-      console.log('Я ТУТА')
       props.offRequestFromSearchPanel()
     }
+    // eslint-disable-next-line
   }, [props.requestFromSearchPanelThisTime])
 
   const onPageChanged = ({currentPage}) => {

@@ -28,6 +28,7 @@ const OrderContent = props => {
       props.setRepeatInfo('failure')
       props.setStatusRequestOrder('')
     }
+    // eslint-disable-next-line
   }, [props.statusRequestRepeatOrder])
 
   const {item, delay} = props

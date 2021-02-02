@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React from "react";
 import SvgHeartSolid from "../icons/SvgHeartActive";
 import SvgHeartIcon from "../icons/SvgHeartIcon";
 

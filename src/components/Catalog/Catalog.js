@@ -2,7 +2,6 @@ import React, {useState} from "react";
 import './Catalog.scss'
 import Backdrop from "../UI/Backdrop/Backdrop";
 import Burger from "../UI/Burger/Burger";
-import {useMediaQuery} from 'react-responsive'
 import {Link, NavLink} from "react-router-dom";
 import {connect} from "react-redux";
 import {setActiveCategory} from "../../actions";
@@ -11,14 +10,12 @@ const Catalog = props => {
 
   const [activeItem, setActiveItem] = useState(1)
 
-  const isMobile = useMediaQuery({query: '(max-width: 1000px)'})
-
   return (
     <>
       <div className={'Catalog' + (props.isActive ? ' Catalog__active' : '')}>
         <div className="Catalog__header">
           <p> </p>
-          <Burger isActive={props.isActive} onClick={props.onClick} style='dark'/>
+          <Burger isActive={props.isActive} onClick={props.onClick} theme='dark'/>
         </div>
 
         <div className="Catalog__container">

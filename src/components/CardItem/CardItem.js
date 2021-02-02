@@ -15,7 +15,6 @@ const CardItem = props => {
     img,
     minPrice,
     classStyle = '',
-    onItemSelected,
     countLast,
     onIncrement,
     onDecrement

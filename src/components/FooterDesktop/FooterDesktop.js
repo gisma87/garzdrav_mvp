@@ -55,11 +55,11 @@ const FooterDesktop = () => {
               <ul>
                 <li className='FooterDesktop__iconContainer'>
                   <div className='FooterDesktop__icon'><SvgVkIcon className='FooterDesktop__iconVK'/></div>
-                  <a href='https://vk.com/garzdrav' target="_blank">Мы Вконтакте</a>
+                  <a href='https://vk.com/garzdrav' target="_blank" rel="noopener noreferrer">Мы Вконтакте</a>
                 </li>
                 <li className='FooterDesktop__iconContainer'>
                   <div className='FooterDesktop__icon'><SvgInstaIcon className='FooterDesktop__iconVK'/></div>
-                  <a href='https://www.instagram.com/garzdrav/?hl=ru' target="_blank">Мы Инстаграм</a>
+                  <a href='https://www.instagram.com/garzdrav/?hl=ru' target="_blank" rel="noopener noreferrer">Мы Инстаграм</a>
                 </li>
               </ul>
             </div>
