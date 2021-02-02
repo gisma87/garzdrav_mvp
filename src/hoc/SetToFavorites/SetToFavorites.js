@@ -3,17 +3,19 @@ import {addToFavorites, delToFavorites, refreshAuthentication} from "../../actio
 import {connect} from "react-redux";
 import PopupLogin from "../../components/PopupLogin/PopupLogin";
 import service from "../../service/service";
+import ButtonHeart from "../../components/UI/ButtonHeart/ButtonHeart";
+import LoaderCircle from "../../components/UI/LoaderCircle/LoaderCircle";
 
 const SetToFavorites = props => {
 
-  const [isLike, setIsLike] = useState('false')
+  const [isLike, setIsLike] = useState(false)
   const [showPopupLogin, setShowPopupLogin] = useState(false)
 
   const isFavorites = () => {
     if (props.favorites.length) {
       return props.favorites.some(item => item.guid === props.productGuid)
     }
-    return 'false';
+    return false;
   };
 
   useEffect(() => {
@@ -23,10 +25,10 @@ const SetToFavorites = props => {
   function setFavorites() {
     if (props.TOKEN) {
       if (isFavorites()) {
-        setIsLike('false')
+        setIsLike(false)
         service.wrapperRefreshToken(() => props.delToFavorites(props.productGuid), props.refreshAuthentication)
       } else {
-        setIsLike('true')
+        setIsLike(true)
         service.wrapperRefreshToken(() => props.addToFavorites(props.productGuid), props.refreshAuthentication)
 
       }
@@ -39,9 +41,11 @@ const SetToFavorites = props => {
     <>
       <div onClick={setFavorites} className={props.classStyle}>
         {
-          React.Children.map(props.children, child => React.cloneElement(child, {active: isLike}))
+          props.loadingFavorites > 0
+            ? <div style={{width: 20, height: 20}}><LoaderCircle/></div>
+            : <ButtonHeart active={isLike}/>
         }
-
+        <span>В избранное</span>
       </div>
       <PopupLogin active={showPopupLogin}
                   onClick={() => setShowPopupLogin(false)}
@@ -50,8 +54,8 @@ const SetToFavorites = props => {
   )
 }
 
-const mapStateToProps = ({favorites, TOKEN}) => {
-  return {favorites, TOKEN}
+const mapStateToProps = ({favorites, TOKEN, loadingFavorites}) => {
+  return {favorites, TOKEN, loadingFavorites}
 }
 
 const mapDispatchToProps = (dispatch) => {

@@ -174,7 +174,7 @@ const CartOrderPage = props => {
                     className={'CartOrderPage__buttonSMS' + ((formValid && !props.timer.isShowTimer) ? ' CartOrderPage__buttonSMS_enabled' : '')}
                     disabled={!formValid || props.timer.isShowTimer}
                     onClick={() => {
-                      // apiService.getSmsCode(phone);
+                      apiService.getSmsCode(phone);
                       props.timer.startTimer();
                     }}
                   >получить код

@@ -344,7 +344,7 @@ class Cart extends React.Component {
                                       />
                                     </MediaQuery>
                                     <MediaQuery maxWidth={900}>
-                                      <CartItemMobile key={item.guid + i}
+                                      <CartItemMobile key={item.guid + i + 1}
                                                       item={{
                                                         id: item.guid,
                                                         img: null,

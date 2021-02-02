@@ -55,7 +55,7 @@ const PopupLogin = props => {
           id="PopupLogin-pwd"
           onChange={(event) => {
             const input = event.target;
-            setSmsCodeOrPassword(input.value)
+            setSmsCodeOrPassword(input.value.trim())
           }}
         />
         <span id="error-linkPlace" className="popup__error-message"/>

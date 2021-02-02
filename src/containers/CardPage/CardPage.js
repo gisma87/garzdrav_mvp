@@ -205,12 +205,7 @@ const CardPage = (props) => {
                   <BlockWrapper classStyle='CardPage__cardProduct'>
                     <div className='CardPage__titleContainer'>
                       <h1 className='CardPage__title'>{productInfo.product}
-                        <SetToFavorites productGuid={productInfo.guid} classStyle='CardPage__like'>
-                          {props.loadingFavorites > 0
-                            ? <div style={{width: 20, height: 20}}><LoaderCircle/></div>
-                            : <ButtonHeart/>}
-                          <span>В избранное</span>
-                        </SetToFavorites>
+                        <SetToFavorites productGuid={productInfo.guid} classStyle='CardPage__like'/>
                       </h1>
                       <p>Спрей, 10 мл, 22,5 мкг/доза</p>
                     </div>
@@ -332,13 +327,7 @@ const CardPage = (props) => {
                     : <img src={notPhoto} alt="pills icon" className='CardPage__image'/>}
                   <p className='CardPage__caption'>Внешний вид товара может отличаться от изображения на
                     сайте</p>
-                  <p className='CardPage__like'
-                     style={{color: "red", marginLeft: 15, fontSize: 20}}>
-                    <SetToFavorites productGuid={productInfo.guid}>
-                      <ButtonHeart/>
-                    </SetToFavorites>
-                    <span>В избранное</span>
-                  </p>
+                  <SetToFavorites productGuid={productInfo.guid} classStyle='CardPage__like'/>
                 </div>
 
                 <div className='CardPage__titleContainer'>
@@ -571,17 +560,22 @@ const CardPage = (props) => {
 }
 
 
-const mapStateToProps = (
-{
-  cart, favorites, productInfo, error, catalog, activeCategory, TOKEN, isCity, promoItems, loadingFavorites
-}
-) =>
-{
+const mapStateToProps = ({
+                           cart,
+                           favorites,
+                           productInfo,
+                           error,
+                           catalog,
+                           activeCategory,
+                           TOKEN,
+                           isCity,
+                           promoItems,
+                           loadingFavorites
+                         }) => {
   return {cart, favorites, productInfo, error, catalog, activeCategory, TOKEN, isCity, promoItems, loadingFavorites}
 }
 
-const mapDispatchToProps = (dispatch) =>
-{
+const mapDispatchToProps = (dispatch) => {
   return {
     getPromoItem: (productGuid) => dispatch(getPromoItem(productGuid)),
     addedToCart: (item) => dispatch(addedToCart(item)),
