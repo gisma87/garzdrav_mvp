@@ -8,9 +8,8 @@
   align-items: center;
 
   &__decrement, &__increment {
-    font-family: PTSans-Regular, sans-serif;
     outline: none;
-    font-size: 26px;
+    font-size: 22px;
     color: #fff;
     background: $primary-color;
     width: 32px;
@@ -18,6 +17,7 @@
     border-radius: 50%;
     display: flex;
     justify-content: center;
+    align-items: center;
 
     //span {
     //  transform: translate(0px,-2px);
