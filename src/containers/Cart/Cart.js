@@ -533,14 +533,14 @@ class Cart extends React.Component {
                               }
                             </div>
 
-                            {/*<PopupMapCartMobile active={this.state.popupMap}*/}
-                            {/*                    retails={this.props.retailsArr}*/}
-                            {/*                    activeRetail={this.props.selectedRetail}*/}
-                            {/*                    cartLength={this.props.cart.length}*/}
-                            {/*                    point={this.checkRetailItem()?.coordinates}*/}
-                            {/*                    onClick={() => this.setState({popupMap: false})}*/}
-                            {/*                    onSelectItem={idSelectRetail => this.props.onSelectRetail(idSelectRetail)}*/}
-                            {/*/>*/}
+                            <PopupMapCartMobile active={this.state.popupMap}
+                                                retails={this.props.retailsArr}
+                                                activeRetail={this.props.selectedRetail}
+                                                cartLength={this.props.cart.length}
+                                                point={this.checkRetailItem()?.coordinates}
+                                                onClick={() => this.setState({popupMap: false})}
+                                                onSelectItem={idSelectRetail => this.props.onSelectRetail(idSelectRetail)}
+                            />
                           </MediaQuery>
 
                           <MediaQuery minWidth={901}>
