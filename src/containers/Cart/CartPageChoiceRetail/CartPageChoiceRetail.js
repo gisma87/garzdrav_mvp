@@ -48,7 +48,7 @@ const CartPageChoiceRetail = props => {
           {
             allCountFullProductRetails.map((retail, index) => {
               return <RetailItem
-                key={retail.guid + index + 1}
+                key={retail.guid + index}
                 retailItem={retail}
                 quantity={calcQuantityProduct(retail.product)}
                 active={isChecked(retail.guid)}
@@ -66,7 +66,7 @@ const CartPageChoiceRetail = props => {
         <BlockWrapper classStyle='Cart__blockMoreItems'>
           {
             notCompleteCountProductsRetails.map((retail, index) => {
-              return <RetailItem key={retail.guid + index + 1}
+              return <RetailItem key={retail.guid + index}
                                  retailItem={retail}
                                  quantity={calcQuantityProduct(retail.product)}
                                  active={isChecked(retail.guid)}
@@ -85,7 +85,7 @@ const CartPageChoiceRetail = props => {
         <BlockWrapper classStyle='Cart__blockMoreItems'>
           {
             incompleteRetailItemState.map((retail, index) => {
-              return <RetailItem key={retail.guid + index + 1}
+              return <RetailItem key={retail.guid + index}
                                  retailItem={retail}
                                  quantity={calcQuantityProduct(retail.product)}
                                  active={isChecked(retail.guid)}
@@ -201,12 +201,13 @@ const CartPageChoiceRetail = props => {
   />
 
   return (
-    <>
+    <section className='Cart__choiceRetail'>
+      <h3 className='Cart__choiceRetailTitle'>Выберите аптеку, в которой хотите забрать заказ</h3>
       {isMobile && isMobileList}
       {isMobile && isMobileMap}
       {!isMobile && isDesktopList}
       {!isMobile && isDesktopMap}
-    </>
+    </section>
   )
 }
 

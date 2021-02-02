@@ -507,32 +507,22 @@ class Cart extends React.Component {
                   }
 
                   {
-                    this.state.pageStage === 2
-                    && <>
-                      {
-                        this.props.cart.length !== 0
-                        && <section className='Cart__choiceRetail'>
-                          <h3 className='Cart__choiceRetailTitle'>Выберите аптеку, в которой хотите забрать заказ</h3>
-
-                          <CartPageChoiceRetail data={{
-                            allCountFullProductRetails,
-                            notCompleteCountProductsRetails,
-                            incompleteRetailItemState,
-                            calcQuantityProduct: this.calcQuantityProduct,
-                            isChecked: this.isChecked,
-                            goToPageStageThree: this.goToPageStageThree,
-                            showMap: this.state.popupMap,
-                            showDesktopPopupMap: (boolean) => this.setState({popupMap: boolean}),
-                            cartItems: this.props.cartItems,
-                            cart: this.props.cart,
-                            onSelectRetail: (retailGuid) => this.props.onSelectRetail(retailGuid),
-                            retailsForMap,
-                            selectedRetail: this.props.selectedRetail,
-                          }}/>
-
-                        </section>
-                      }
-                    </>
+                    (this.state.pageStage === 2 && this.props.cart.length !== 0)
+                    && <CartPageChoiceRetail data={{
+                      allCountFullProductRetails,
+                      notCompleteCountProductsRetails,
+                      incompleteRetailItemState,
+                      calcQuantityProduct: this.calcQuantityProduct,
+                      isChecked: this.isChecked,
+                      goToPageStageThree: this.goToPageStageThree,
+                      showMap: this.state.popupMap,
+                      showDesktopPopupMap: (boolean) => this.setState({popupMap: boolean}),
+                      cartItems: this.props.cartItems,
+                      cart: this.props.cart,
+                      onSelectRetail: (retailGuid) => this.props.onSelectRetail(retailGuid),
+                      retailsForMap,
+                      selectedRetail: this.props.selectedRetail
+                    }}/>
                   }
 
                   {

@@ -101,7 +101,7 @@ const PopupMapCart = props => {
               }}
             >
               {
-                retails.map((item) => {
+                retails.map((item, index) => {
                   if ((typeof item.coordinates !== 'object') || item.coordinates.length < 1) return null;
                   const {coordinates, guid, sum, brand, city, street, buildNumber, phone, weekDayTime, product} = item;
                   const popup = {
@@ -112,7 +112,7 @@ const PopupMapCart = props => {
                   }
                   const notFullItems = () => product.length < props.cartLength
                   return (
-                    <Placemark key={guid}
+                    <Placemark key={guid + index}
                                onClick={() => onItemClick(guid)}
                                {...placeMark(sum, popup, notFullItems())}
                                geometry={coordinates}
