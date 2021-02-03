@@ -20,7 +20,7 @@ const SetToFavorites = props => {
 
   useEffect(() => {
     setIsLike(isFavorites)
-  })
+  }, [props.favorites])
 
   function setFavorites() {
     if (props.TOKEN) {
