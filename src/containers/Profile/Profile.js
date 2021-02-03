@@ -8,7 +8,7 @@ import {
   fetchUserData, getDataProfile,
   getInternetSales,
   itemRemovedFromCart, loadingFalse, loadingTrue,
-  logout, refreshAuthentication, setFavoritesProductInfo,
+  logout, refreshAuthentication,
   setSales, setToken, setUserData
 } from "../../actions";
 import {connect} from "react-redux";
@@ -73,9 +73,6 @@ const Profile = (props) => {
               {block === 'favorites' &&
               <Favorites isCity={props.isCity}
                          data={{addedToCart, itemRemovedFromCart, cart, history, favorites, delFavorites}}
-                         setFavoritesProductInfo={props.setFavoritesProductInfo}
-                         favoritesProductInfo={props.favoritesProductInfo}
-                         loadingTrue={props.loadingTrue}
               />}
 
               {/*{block === 'favoriteRetail' && <img src={devMessage} alt="В разработке"/>}*/}
@@ -129,15 +126,14 @@ const Profile = (props) => {
 }
 
 
-const mapStateToProps = ({TOKEN, cart, favorites, userData, sales, error, isCity, favoritesProductInfo}) => {
-  return {TOKEN, cart, favorites, userData, sales, error, isCity, favoritesProductInfo}
+const mapStateToProps = ({TOKEN, cart, favorites, userData, sales, error, isCity}) => {
+  return {TOKEN, cart, favorites, userData, sales, error, isCity}
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     logout: () => dispatch(logout()),
     loadingFalse: () => dispatch(loadingFalse()),
-    setFavoritesProductInfo: (favoritesObject) => dispatch(setFavoritesProductInfo(favoritesObject)), // подробная информация об избранных товарах
     setUserData: (data) => dispatch(setUserData(data)),
     loadingTrue: (info) => dispatch(loadingTrue(info)),
     setToken: (newToken) => dispatch(setToken(newToken)),

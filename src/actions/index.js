@@ -448,14 +448,6 @@ const setFavoritesToStore = (favoritesObject) => {
   }
 }
 
-// подробная информация об избранных товарах
-const setFavoritesProductInfo = (favoritesObject) => {
-  return {
-    type: 'SET_FAVORITES_PRODUCT_INFO',
-    payload: favoritesObject
-  }
-}
-
 // добавляем элемент favorites в store
 function addFavoritesToStore(favoritesElement) {
   return {
@@ -475,7 +467,8 @@ function delFavoritesToStore(favoritesElement) {
 function getToFavorites() {
   return async (dispatch, getState, apiService) => {
     try {
-      const response = await apiService.getToFavorites(getState().TOKEN.accessToken)
+      const cityId = getState().isCity.guid;
+      const response = await apiService.getToFavorites(getState().TOKEN.accessToken, cityId)
       dispatch(setFavoritesToStore(response))
     } catch (e) {
       dispatch(setError(e))
@@ -751,7 +744,6 @@ const cancelOrder = (orderGuid) => async (dispatch, getState, apiService) => {
 
 export {
   getPromoItem,
-  setFavoritesProductInfo,
   setUserData,
   setToken,
   delToFavorites,

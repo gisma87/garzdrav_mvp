@@ -22,7 +22,7 @@ const FavoriteItem = (props) => {
         <div className='FavoriteItem__topBlock'>
           <p className='FavoriteItem__titleBlock'>
             <span className='FavoriteItem__title' onClick={() => handlerToCards(item.guid)}>{item.product}</span>
-            <span className='FavoriteItem__price'>от {props.minPrice} ₽</span>
+            <span className='FavoriteItem__price'>от {item.minPrice} ₽</span>
           </p>
           <p className='FavoriteItem__maker'>{item.manufacturer}</p>
         </div>

@@ -19,7 +19,7 @@ const FavoriteItemMobile = props => {
               : <SvgPillsIcon className='FavoriteItemMobile__notImage'/>
           }
         </div>
-        <span className='FavoriteItemMobile__price'>от {props.minPrice} ₽</span>
+        <span className='FavoriteItemMobile__price'>от {item.minPrice} ₽</span>
       </div>
       <div className='FavoriteItemMobile__content'>
         <div className='FavoriteItemMobile__topBlock'>

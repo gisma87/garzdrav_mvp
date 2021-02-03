@@ -334,8 +334,8 @@ class ApiService {
   }
 
   // запрос избранных товаров
-  async getToFavorites(accessToken) {
-    const response = await axios.get(`${this.URL}/Favorites`,
+  async getToFavorites(accessToken, cityGuid) {
+    const response = await axios.get(`${this.URL}/Favorites?cityGuid=${cityGuid}`,
       {
         headers: {
           'Content-Type': 'application/json',

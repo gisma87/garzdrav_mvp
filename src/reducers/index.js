@@ -12,7 +12,6 @@ const initialState = {
   retailsCity: [], // торговые точки города
   cart: [], // корзина
   favorites: [],
-  favoritesProductInfo: [], // подробная информация об избранных товарах
   productsFromSearch: [], // товары из текущего запроса
   countProductsSearch: null, // число товаров по текущему запросу
   productInfo: '',
@@ -134,14 +133,6 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         requestFromSearchPanelThisTime: false
-      }
-
-    case 'SET_FAVORITES_PRODUCT_INFO':
-      return {
-        ...state,
-        favoritesProductInfo: action.payload,
-        loading: (state.loading > 0) ? (state.loading - 1) : 0,
-        error: null
       }
 
     case 'SET_CATALOG':
