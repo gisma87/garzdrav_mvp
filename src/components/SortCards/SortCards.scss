@@ -8,6 +8,7 @@
   padding: 6px 10px 6px 13px;
   border-radius: 15px;
   border: 1px solid $primary-color;
+  font-family: $secondary-font;
 
   &__button {
     outline: none;
@@ -15,6 +16,10 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    @media (max-width: 900px) {
+      font-size: .8rem;
+    }
   }
 
   &__arrowIcon {

@@ -279,7 +279,7 @@ class Cart extends React.Component {
                           </p>
                           <div className='Cart__itemContainer'>
                             {this.props.cart.length === 0
-                              ? <p style={{padding: 20, fontSize: '2rem'}}>Корзина пуста</p>
+                              ? <p style={{padding: 40, fontSize: '2rem'}}>Корзина пуста</p>
                               : this.props.cartItems.map((item, i) => {
                                 const index = this.props.cart.findIndex((cartItem) => cartItem.itemId === item.guid);
                                 const count = index > -1 ? this.props.cart[index].count : null

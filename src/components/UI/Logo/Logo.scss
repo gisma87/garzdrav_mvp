@@ -8,6 +8,11 @@
   font-weight: bold;
   max-height: 40px;
   cursor: pointer;
+  color: #fff;
+
+  @media (max-width: 900px) {
+    max-height: 32px;
+  }
 
   &:hover {
     .Logo__textContent {
@@ -24,6 +29,11 @@
     max-width: 50px;
     object-fit: contain;
     margin-right: 3px;
+    @media (max-width: 900px) {
+      margin-right: 0;
+      max-height: 35px;
+      max-width: 35px;
+    }
   }
 
   &__textContent {
@@ -35,21 +45,36 @@
   }
 
   &__legko {
+    color: #fff;
     font-size: 3.2rem;
     line-height: 50px;
+    @media (max-width: 900px) {
+      font-size: 2.25rem;
+      line-height: 2.4rem;
+    }
   }
 
   &__text {
+    color: #fff;
     display: flex;
     flex-direction: column;
     margin-left: 10px;
     justify-content: space-between;
     font-size: 1.4rem;
     line-height: 18px;
+    @media (max-width: 900px) {
+      margin-left: 3px;
+      font-size: 1.2rem;
+      line-height: .85rem;
+    }
   }
 
   &__internet {
     font-size: 1.05rem;
     line-height: 20px;
+    @media (max-width: 900px) {
+      font-size: .91rem;
+      line-height: .85rem;
+    }
   }
 }

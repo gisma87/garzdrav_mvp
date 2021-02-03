@@ -18,6 +18,7 @@ import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
 import Error from "../../components/Error/Error";
 import Pagination from "../../components/Pagination/Pagination";
 import SortCards from "../../components/SortCards/SortCards";
+import Logo from "../../components/UI/Logo/Logo";
 
 
 const Cards = props => {
@@ -64,7 +65,7 @@ const Cards = props => {
 
   const isMobile = useMediaQuery({query: '(max-width: 800px)'})
   return (
-    <section className={'Cards' + (!isMobile ? ' wrapper' : '')}>
+    <section className={'Cards' + (!isMobile ? ' wrapper' : '') + (!touchedSearch ? ' Cards__notTouch' : '')}>
       {error
         ? <Error/>
         : <ErrorBoundary>
@@ -72,9 +73,10 @@ const Cards = props => {
             isMobile &&
             <>
               <div
-                className={'indexMobile__logoPanel Cards__logoPanel' + (!touchedSearch ? ' Cards__center' : '')}>
-                <img src={logo} className='indexMobile__logo' alt='logo'/>
-                <p>Поиск по каталогу: </p>
+                className={'Cards__logoPanel' + (!touchedSearch ? ' Cards__center' : '')}>
+                {/*<img src={logo} className='indexMobile__logo' alt='logo'/>*/}
+                <Logo/>
+                {/*<p>Поиск по каталогу: </p>*/}
               </div>
               <div className={'Cards__searchPanel' + (touchedSearch ? '' : ' Cards__searchPanel_center')}>
                 <SearchPanel
@@ -83,9 +85,9 @@ const Cards = props => {
                     setTouchedSearch(true)
                   }}/>
               </div>
-              {!touchedSearch && <p className='Cards__searchPanel_text'>
-                Поиск по названию, действующему веществу, производителю ...
-              </p>}
+              {/*{!touchedSearch && <p className='Cards__searchPanel_text'>*/}
+              {/*  Поиск по названию, действующему веществу, производителю ...*/}
+              {/*</p>}*/}
 
             </>
           }
@@ -93,12 +95,11 @@ const Cards = props => {
           <h1 className='Cards__title'>Результаты поиска «{props.productSearch.toLowerCase()}»</h1>}
 
           {
-            productsFromSearch.length > 0
-            &&
+            ((touchedSearch || !isMobile) && (productsFromSearch.length > 0)) &&
             <div className='Cards__topPanel'>
               <p>Найдено {countProductsSearch} препаратов</p>
               <div className='Cards__topPanel-right'>
-                <p>Сортировать: </p>
+                <p className='Cards__sortText'>Сортировать: </p>
                 <SortCards selectItem={(idMethod) => sortCards(idMethod)}
                            methodSort={methodSort}
                            items={[
@@ -162,7 +163,7 @@ const Cards = props => {
           </div>
 
           {
-            productsFromSearch.length > 0 &&
+            ((touchedSearch || !isMobile) && (productsFromSearch.length > 0)) &&
             <div style={{paddingTop: 15}}>
               <Pagination totalRecords={countProductsSearch}
                           page={currentPage}
