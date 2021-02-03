@@ -3,8 +3,8 @@ import './Favorites.scss'
 import {useMediaQuery} from "react-responsive";
 import BlockWrapper from "../../../components/BlockWrapper";
 import FavoriteItem from "../../../components/FavoriteItem";
-// import CardItemMobile from "../../../components/CardItemMobile";
 import apiService from "../../../service/ApiService";
+import FavoriteItemMobile from "../../../components/FavoriteItemMobile";
 
 const Favorites = (props) => {
   const isMobile = useMediaQuery({query: '(max-width: 800px)'})
@@ -31,35 +31,27 @@ const Favorites = (props) => {
     <BlockWrapper classStyle='Favorites'>
       <h4>Избранное</h4>
       <div className='Favorites__container'>
-        {!isMobile &&
-        props.favoritesProductInfo.map((item) => {
-          const minPrice = item?.retails.sort((a, b) => a.priceRetail > b.priceRetail ? 1 : -1)[0].priceRetail.toFixed(2)
-          return <FavoriteItem key={item.guid + Math.random()}
-                               item={item}
-                               minPrice={minPrice}
-                               functions={{addedToCart, itemRemovedFromCart, cart, handlerToCards, delFavorites}}/>
-        })
+        {
+          !isMobile &&
+          props.favoritesProductInfo.map((item) => {
+            const minPrice = item?.retails.sort((a, b) => a.priceRetail > b.priceRetail ? 1 : -1)[0].priceRetail.toFixed(2)
+            return <FavoriteItem key={item.guid + Math.random()}
+                                 item={item}
+                                 minPrice={minPrice}
+                                 functions={{addedToCart, itemRemovedFromCart, cart, handlerToCards, delFavorites}}/>
+          })
         }
 
-        {/*{isMobile && favorites.map((item) => {*/}
-        {/*  const itemIndex = cart.findIndex((item) => +item.itemId === +itemId);*/}
-        {/*  const isActive = itemIndex >= 0;*/}
-        {/*  const {img, title, maker, minPrice, id} = item;*/}
-        {/*  return <CardItemMobile onItemSelected={handlerToCards}*/}
-        {/*                         updateToCart={() => {*/}
-        {/*                           !isActive ? addedToCart(id) : itemRemovedFromCart(id);*/}
-        {/*                         }}*/}
-        {/*                         active={isActive}*/}
-        {/*                         key={item.guid}*/}
-        {/*                         id={item.guid}*/}
-        {/*                         title={title}*/}
-        {/*                         maker={maker}*/}
-        {/*                         img={img}*/}
-        {/*                         minPrice={minPrice}*/}
-        {/*                         favoriteButton={true}*/}
-
-        {/*  />*/}
-        {/*})}*/}
+        {
+          isMobile &&
+          props.favoritesProductInfo.map((item) => {
+            const minPrice = item?.retails.sort((a, b) => a.priceRetail > b.priceRetail ? 1 : -1)[0].priceRetail.toFixed(2)
+            return <FavoriteItemMobile key={item.guid + Math.random()}
+                                 item={item}
+                                 minPrice={minPrice}
+                                 functions={{addedToCart, itemRemovedFromCart, cart, handlerToCards, delFavorites}}/>
+          })
+        }
       </div>
     </BlockWrapper>
   )
