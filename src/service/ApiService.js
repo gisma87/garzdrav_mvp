@@ -3,7 +3,8 @@ import axios from "axios";
 class ApiService {
 
   constructor() {
-    this.URL = 'http://172.16.17.7:5000'
+    // this.URL = 'http://172.16.17.7:5000'
+    this.URL = 'http://195.19.102.178:2872'
   }
 
   //подробная информация по товару - нужен id товара и id города

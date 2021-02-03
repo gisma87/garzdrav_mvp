@@ -20,6 +20,7 @@ const SetToFavorites = props => {
 
   useEffect(() => {
     setIsLike(isFavorites)
+    // eslint-disable-next-line
   }, [props.favorites])
 
   function setFavorites() {
