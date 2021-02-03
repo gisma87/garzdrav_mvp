@@ -9,6 +9,10 @@
     animation-duration: 1s;
     animation-fill-mode: both;
 
+    @media (max-width: 900px) {
+      position: relative;
+    }
+
 
     &:hover, &:hover .OrderInternetContent__content {
       background-color: #FFF9E5;
@@ -26,9 +30,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    @media(max-width: 550px) {
-      flex-direction: column;
-      align-items: flex-end;
+
+    @media (max-width: 900px) {
+      flex-direction: row;
+      font-size: .75rem;
+      padding: 10px;
     }
   }
 
@@ -38,6 +44,12 @@
     align-items: center;
     flex: 1 1;
     text-align: right;
+
+    @media(max-width: 900px) {
+      align-items: flex-end;
+      font-size: .75rem;
+      flex-direction: column;
+    }
   }
 
   &__iconContainer {
@@ -46,6 +58,12 @@
 
     &:hover .OrderInternetContent__arrowIcon {
       color: #fc8507;
+    }
+
+    @media(max-width: 900px) {
+      position: absolute;
+      right: 0;
+      top: 0;
     }
   }
 
@@ -62,14 +80,18 @@
   &__arrowIcon {
     font-size: 26px;
     color: #8c8c8c;
+    @media(max-width: 900px) {
+      font-size: 16px;
+    }
   }
 
   &__title {
     color: #333;
     font-size: 16px;
-    @media(max-width: 550px) {
+    @media(max-width: 900px) {
       align-self: flex-start;
-      font-size: 14px;
+      font-size: .75rem;
+      flex: 0 0 40%;
     }
   }
 
@@ -81,6 +103,11 @@
     transition: height .3s, transform .3s;
     height: 0;
     overflow: hidden;
+
+    @media (max-width: 900px) {
+      font-size: .8rem;
+      line-height: 1rem;
+    }
   }
 
   &__contentDisabled {
@@ -119,11 +146,21 @@
       cursor: pointer;
       color: blue;
     }
+    @media (max-width: 900px) {
+      font-size: .75rem;
+      line-height: .95rem;
+    }
+
   }
 
   &__info {
     color: #000;
     font-size: 16px;
+    @media (max-width: 900px) {
+      font-size: .75rem;
+      line-height: 1rem;
+      white-space: nowrap;
+    }
   }
 
   &__infoContainer {
@@ -131,26 +168,58 @@
     justify-content: space-between;
     align-items: flex-end;
     padding-bottom: 10px;
+
+    @media (max-width: 900px) {
+     position: relative;
+    }
   }
 
   &__infoContent {
     font-size: 18px;
     padding: 10px 0 0 10px;
-    @media(max-width: 450px) {
-      font-size: 16px;
+    @media(max-width: 900px) {
+      font-size: .8rem;
+      width: 100%;
     }
   }
 
   &__infoItem {
     margin: 3px;
+    @media (max-width: 900px) {
+      display: flex;
+      flex-direction: column;
+      font-size: .8rem;
+      line-height: 1.2rem;
+    }
+  }
+
+  &__status {
+    @media (max-width: 900px) {
+      display: flex;
+      flex-direction: row;
+      margin-bottom: 0;
+    }
+  }
+
+  &__address {
+    margin-left: 10px;
+    @media (max-width: 900px) {
+      margin-left: 0;
+    }
   }
 
   &__positive {
     color: green;
+    @media (max-width: 900px) {
+      margin-left: 7px;
+    }
   }
 
   .negative {
     color: red;
+    @media (max-width: 900px) {
+      margin-left: 7px;
+    }
   }
 
   &__cancel {
@@ -163,6 +232,12 @@
     &:hover {
       color: blue;
     }
+
+    @media (max-width: 900px) {
+      font-size: .75rem;
+      padding: 5px 5px 0;
+      white-space: nowrap;
+    }
   }
 
   &__infoHeader {
@@ -174,10 +249,12 @@
     white-space: nowrap;
     animation: bounceInLeft .8s both;
 
-    @media(max-width: 450px) {
+    @media(max-width: 900px) {
+      width: auto;
       display: flex;
       flex-wrap: wrap;
-      font-size: 16px;
+      font-size: .85rem;
+      margin-right: 30px;
     }
   }
 

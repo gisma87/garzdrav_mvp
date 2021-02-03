@@ -5,6 +5,10 @@
   margin-right: 10px;
   cursor: default;
 
+  @media (max-width: 900px) {
+    margin-right: 0;
+  }
+
   h2 {
     padding: 0 10px 15px 20px;
   }

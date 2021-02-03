@@ -1,3 +1,5 @@
+@import "../../variables";
+
 .MobileBottomNavbar {
   display: flex;
   position: fixed;
@@ -20,10 +22,11 @@
     width: 19%;
     position: relative;
     background: transparent;
+    outline: none;
 
     &-active {
       .MobileBottomNavbar__icon {
-        color: #fc8507;
+        color: $primary-color;
       }
       .MobileBottomNavbar__iconProfile {
         color: #44944A;

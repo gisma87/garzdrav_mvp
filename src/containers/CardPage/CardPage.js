@@ -15,7 +15,7 @@ import {connect} from "react-redux";
 import {NavLink, withRouter} from "react-router-dom";
 import {useMediaQuery} from 'react-responsive'
 import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
-import SetToFavorites from "../../hoc/SetToFavorites/SetToFavorites";
+import SetToFavorites from "../../components/SetToFavorites/SetToFavorites";
 import CardItem from "../../components/CardItem";
 
 const CardPage = (props) => {

@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from "react";
 import {addToFavorites, delToFavorites, refreshAuthentication} from "../../actions";
 import {connect} from "react-redux";
-import PopupLogin from "../../components/PopupLogin/PopupLogin";
+import PopupLogin from "../PopupLogin/PopupLogin";
 import service from "../../service/service";
-import ButtonHeart from "../../components/UI/ButtonHeart/ButtonHeart";
-import LoaderCircle from "../../components/UI/LoaderCircle/LoaderCircle";
+import ButtonHeart from "../UI/ButtonHeart/ButtonHeart";
+import LoaderCircle from "../UI/LoaderCircle/LoaderCircle";
 
 const SetToFavorites = props => {
 

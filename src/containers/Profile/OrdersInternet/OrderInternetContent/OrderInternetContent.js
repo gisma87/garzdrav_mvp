@@ -102,10 +102,9 @@ const OrderInternetContent = props => {
             <div className="OrderInternetContent__infoContent">
               <p className='OrderInternetContent__infoItem'>
                 <span>{item.retail.brand}:</span>
-                <span
-                  style={{marginLeft: 10}}> {item.retail.city}. {item.retail.street} {item.retail.buildNumber}</span>
+                <span className='OrderInternetContent__address'> {item.retail.city}. {item.retail.street} {item.retail.buildNumber}</span>
               </p>
-              <p className='OrderInternetContent__infoItem'>Статус: <span
+              <p className='OrderInternetContent__infoItem OrderInternetContent__status'>Статус: <span
                 className='OrderInternetContent__positive'>{item.status}</span></p>
             </div>
             <ButtonRepeatOrder item={item}/>
