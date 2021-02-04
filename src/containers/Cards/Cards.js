@@ -16,7 +16,7 @@ import SearchPanel from "../../components/SearchPanel";
 import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
 import Error from "../../components/Error/Error";
 import Pagination from "../../components/Pagination/Pagination";
-import SortCards from "../../components/SortCards/SortCards";
+import SortCards, {sortItems} from "../../components/SortCards/SortCards";
 import Logo from "../../components/UI/Logo/Logo";
 
 
@@ -64,7 +64,8 @@ const Cards = props => {
 
   const isMobile = useMediaQuery({query: '(max-width: 800px)'})
   return (
-    <section className={'Cards' + (!isMobile ? ' wrapper' : '') + (!touchedSearch ? ' Cards__notTouch' : '')}>
+    <section
+      className={'Cards' + (!isMobile ? ' wrapper' : '') + ((!touchedSearch && isMobile) ? ' Cards__notTouch' : '')}>
       {error
         ? <Error/>
         : <ErrorBoundary>
@@ -101,13 +102,7 @@ const Cards = props => {
                 <p className='Cards__sortText'>Сортировать: </p>
                 <SortCards selectItem={(idMethod) => sortCards(idMethod)}
                            methodSort={methodSort}
-                           items={[
-                             {id: 0, text: 'По популярности'},
-                             {id: 'TitleAscending', text: '🠗 По наименованию А - Я'},
-                             {id: 'TitleDescending', text: '🠕 По наименованию Я - А'},
-                             {id: 'PriceAscending', text: '🠗 Сначала дешевые'},
-                             {id: 'PriceDescending', text: '🠕 Сначала дорогие'}
-                           ]}
+                           items={sortItems}
                 />
               </div>
             </div>

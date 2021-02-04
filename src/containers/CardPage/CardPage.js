@@ -128,27 +128,26 @@ const CardPage = (props) => {
               <p style={{fontWeight: 'bold'}}>Попробуйте повторить поиск.</p>
             </div>
             : <>
+              {/*===    ПУТЬ К ТОВАРУ ПО КАТАЛОГУ   ===============================*/}
+              {props.activeCategory && <div style={{paddingBottom: 15}}>
+                {props.activeCategory.historyGuid.map((item, i) => {
+                  return (
+                    <p key={item} className='CardPage__pathname'>
+                      <NavLink to='/catalog/' className='CardPage__pathItem'
+                               onClick={() => props.setActiveCategory(thisCategoryPath(i).activeItem)}
+                      >
+                        {thisCategoryPath(i).title}
+                      </NavLink>
+                      <span className='CardPage__pathArrow'> > </span>
+                    </p>
+                  )
+                })}
+              </div>}
+              {/*===================================================================*/}
+
               {/* ДЛЯ DESKTOP ВЕРСИИ */}
-              {!isMobile && <>
-
-                {/*===    ПУТЬ К ТОВАРУ ПО КАТАЛОГУ   ===============================*/}
-                {props.activeCategory && <div style={{paddingBottom: 15}}>
-                  {props.activeCategory.historyGuid.map((item, i) => {
-                    return (
-                      <p key={item} className='CardPage__pathname'>
-                        <NavLink to='/catalog/' className='CardPage__pathItem'
-                                 onClick={() => props.setActiveCategory(thisCategoryPath(i).activeItem)}
-                        >
-                          {thisCategoryPath(i).title}
-                        </NavLink>
-                        <span className='CardPage__pathArrow'> > </span>
-                      </p>
-
-                    )
-                  })}
-                </div>}
-                {/*===================================================================*/}
-
+              {
+                !isMobile &&
                 <div className='CardPage__topBlock'>
                   <BlockWrapper classStyle='CardPage__cardProduct'>
                     <div className='CardPage__titleContainer'>
@@ -219,12 +218,11 @@ const CardPage = (props) => {
                   }
 
                 </div>
-
-              </>}
+              }
 
 
               {/* ДЛЯ MOBILE ВЕРСИИ */}
-              {isMobile && <BlockWrapper classStyle='CardPage__mobile'>
+              {isMobile && <section className='CardPage__mobile'>
 
                 <div className='CardPage__imageContainer'>
                   {img
@@ -248,17 +246,7 @@ const CardPage = (props) => {
                       <p className='CardPage__priceText'>Цена в наших аптеках: </p>
                       <p className='CardPage__price'>от {minPriceRetail()} ₽</p>
                     </div>
-                    <div className='CardPage__amount'>
-                      <div className='CardPage__amountBlock CardPage__activePrice'>
-                        <span className='CardPage__amountText'>10 мл</span>
-                        <span className='CardPage__amountText'>22,5 мкг/доза</span>
-                        <span className='CardPage__amountPrice'>от {minPriceRetail()} ₽</span>
-                      </div>
-                      <div className='CardPage__amountBlock'>
-                        <span className='CardPage__amountText'>10 мл</span>
-                        <span className='CardPage__amountPrice'>от {minPriceRetail()} ₽</span>
-                      </div>
-                    </div>
+
                     <div className='CardPage__buttons'>
                       <button className='CardPage__button CardPage__buttonToCart' onClick={() => {
                         !isActive ? addedToCart(productInfo.guid) : itemRemovedFromCart(productInfo.guid)
@@ -266,8 +254,6 @@ const CardPage = (props) => {
                         {isActive ? <SvgCheck style={{color: 'white'}}/> : 'Добавить в корзину'}
                       </button>
                     </div>
-                    <p className='CardPage__priceText CardPage__priceCaption'>Цена зависит от выбранной
-                      аптеки</p>
                   </div>
 
                   <div className='CardPage__descriptionContainer'>
@@ -281,7 +267,7 @@ const CardPage = (props) => {
                     </p>
                     <p className='CardPage__characteristic CardPage__description'>
                       <span>Общее описание:</span>
-                      <span className='CardPage__textCharacteristic'>Сосудосуживающий препарат для местного применения. При нанесении на воспаленную слизистую оболочку полости носа уменьшает ее отечность и выделения из носа. Восстанавливает носовое дыхание. Устранение отека слизистой оболочки полости носа способствует восстановлению аэрации придаточных пазух полости носа, полости среднего уха, что уменьшает вероятность возникновения бактериальных осложнений (гайморита, синусита, среднего отита). При местном интраназальном применении в терапевтических концентрациях не раздражает и не вызывает гиперемию слизистой оболочки полости носа. При местном интраназальном применении оксиметазолин не обладает системным действием. Оксиметазолин начинает действовать быстро, в течение нескольких минут. Продолжительность действия препарата Називин Сенситив - до 12 ч.</span>
+                      {/*<span className='CardPage__textCharacteristic'>Сосудосуживающий препарат для местного применения. При нанесении на воспаленную слизистую оболочку полости носа уменьшает ее отечность и выделения из носа. Восстанавливает носовое дыхание. Устранение отека слизистой оболочки полости носа способствует восстановлению аэрации придаточных пазух полости носа, полости среднего уха, что уменьшает вероятность возникновения бактериальных осложнений (гайморита, синусита, среднего отита). При местном интраназальном применении в терапевтических концентрациях не раздражает и не вызывает гиперемию слизистой оболочки полости носа. При местном интраназальном применении оксиметазолин не обладает системным действием. Оксиметазолин начинает действовать быстро, в течение нескольких минут. Продолжительность действия препарата Називин Сенситив - до 12 ч.</span>*/}
                       <Link to="anchor"
                             smooth={true}
                             offset={-150}
@@ -292,7 +278,7 @@ const CardPage = (props) => {
 
                   </div>
                 </div>
-              </BlockWrapper>}
+              </section>}
 
               <BlockWrapper classStyle='CardPage__moreInfo'>
                 <div className='CardPage__instruction'>
@@ -443,18 +429,20 @@ const CardPage = (props) => {
 }
 
 
-const mapStateToProps = ({
-                           cart,
-                           favorites,
-                           productInfo,
-                           error,
-                           catalog,
-                           activeCategory,
-                           TOKEN,
-                           isCity,
-                           promoItems,
-                           loadingFavorites
-                         }) => {
+const mapStateToProps = (
+  {
+    cart,
+    favorites,
+    productInfo,
+    error,
+    catalog,
+    activeCategory,
+    TOKEN,
+    isCity,
+    promoItems,
+    loadingFavorites
+  }
+) => {
   return {cart, favorites, productInfo, error, catalog, activeCategory, TOKEN, isCity, promoItems, loadingFavorites}
 }
 

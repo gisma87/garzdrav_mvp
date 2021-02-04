@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import './SortCards.scss'
 import SvgAngleUpSolid from "../../img/SVGcomponents/SvgAngleUpSolid";
+import SvgArrowLongRight from "../UI/icons/SvgArrowLongRight";
 
 const SortCards = props => {
 
@@ -25,7 +26,7 @@ const SortCards = props => {
       <button className="SortCards__button"
               onClick={() => setDropdownShow(!dropdownShow)}
       >{props.items.find(el => el.id.toString() === props.methodSort.toString()).text}
-      <SvgAngleUpSolid className='SortCards__arrowIcon'/>
+        <SvgAngleUpSolid className='SortCards__arrowIcon'/>
       </button>
       <div className="SortCards__dropdown">
 
@@ -47,5 +48,29 @@ const SortCards = props => {
     </div>
   )
 }
+
+
+export const sortItems = [
+  {
+    id: 0,
+    text: <span style={{paddingLeft: 15}}> По популярности</span>
+  },
+  {
+    id: 'TitleAscending',
+    text: <span className='sortItems'><SvgArrowLongRight className='sortItems__down'/> По наименованию А - Я</span>
+  },
+  {
+    id: 'TitleDescending',
+    text: <span className='sortItems'><SvgArrowLongRight className='sortItems__up'/> По наименованию Я - А</span>
+  },
+  {
+    id: 'PriceAscending',
+    text: <span className='sortItems'><SvgArrowLongRight className='sortItems__down'/> Сначала дешевые</span>
+  },
+  {
+    id: 'PriceDescending',
+    text: <span className='sortItems'><SvgArrowLongRight className='sortItems__up'/> Сначала дорогие</span>
+  }
+];
 
 export default SortCards

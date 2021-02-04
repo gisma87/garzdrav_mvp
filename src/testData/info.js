@@ -2,6 +2,7 @@ import React from "react";
 import DG from "2gis-maps";
 import iconLoc from "../img/test/map-pin.svg";
 import LayoutDesktop from "../oldComponent/LayoutDesktop";
+import {NavLink} from "react-router-dom";
 
 
 // запрос, отправленный бэкендерами:
@@ -114,3 +115,21 @@ class GisMap extends React.Component {
     )
   }
 }
+
+{/*===    ПУТЬ К ТОВАРУ ПО КАТАЛОГУ   ===============================*/}
+{props.activeCategory && <div style={{paddingBottom: 15}}>
+  {props.activeCategory.historyGuid.map((item, i) => {
+    return (
+      <p key={item} className='CardPage__pathname'>
+        <NavLink to='/catalog/' className='CardPage__pathItem'
+                 onClick={() => props.setActiveCategory(thisCategoryPath(i).activeItem)}
+        >
+          {thisCategoryPath(i).title}
+        </NavLink>
+        <span className='CardPage__pathArrow'> > </span>
+      </p>
+
+    )
+  })}
+</div>}
+{/*===================================================================*/}

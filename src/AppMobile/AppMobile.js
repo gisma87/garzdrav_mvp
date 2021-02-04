@@ -19,6 +19,7 @@ import MobileBottomNavbar from "../components/MobileBottomNavbar";
 import indexMobile from "../containers/IndexMobile";
 import CitiesMobile from "../containers/CitiesMobile/CitiesMobile";
 import Faq from "../containers/Faq/Faq";
+import CatalogPage from "../containers/CatalogPage/CatalogPage";
 
 function AppMobile(props) {
 
@@ -52,7 +53,7 @@ function AppMobile(props) {
         <Route path="/Cards/" exact component={Cards}/>
         <Route path="/Cards/:id"
                render={({match}) => <CardPage itemId={match.params.id}/>}/>
-        {/*<Route component={IndexDesktop}/>*/}
+        <Route path="/catalog/" component={CatalogPage}/>/>
         <Redirect to={'/'}/>
       </Switch>
       <MobileBottomNavbar/>

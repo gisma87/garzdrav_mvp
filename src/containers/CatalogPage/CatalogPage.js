@@ -7,7 +7,7 @@ import CardItem from "../../components/CardItem";
 import {useMediaQuery} from "react-responsive";
 import {withRouter} from 'react-router-dom'
 import Pagination from "../../components/Pagination/Pagination";
-import SortCards from "../../components/SortCards/SortCards";
+import SortCards, {sortItems} from "../../components/SortCards/SortCards";
 
 const CatalogPage = props => {
 
@@ -100,13 +100,7 @@ const CatalogPage = props => {
           <p>Сортировать: </p>
           <SortCards selectItem={(idMethod) => sortCards(idMethod)}
                      methodSort={methodSort}
-                     items={[
-                       {id: 0, text: 'По популярности'},
-                       {id: 'TitleAscending', text: '🠗 По наименованию А - Я'},
-                       {id: 'TitleDescending', text: '🠕 По наименованию Я - А'},
-                       {id: 'PriceAscending', text: '🠗 Сначала дешевые'},
-                       {id: 'PriceDescending', text: '🠕 Сначала дорогие'}
-                     ]}
+                     items={sortItems}
           />
         </div>
       </div>
@@ -195,61 +189,3 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(CatalogPage))
-
-// const onPageChanged = (data, arrSortPrevState) => {
-//   const allCards = arrSortPrevState ? arrSortPrevState : (arraySort ? arraySort : props.productsToCategory) // массив всех карточек
-//   const {currentPage, pageLimitItems} = data;
-//   const offset = (currentPage - 1) * pageLimitItems;
-//   const currentCardsData = allCards.slice(offset, offset + pageLimitItems);
-//
-//   setCurrentCards(currentCardsData)
-// }
-
-// const sortCards = (method) => {
-//   const arr = [...props.productsToCategory]
-//
-//   const minToMax = () => arr.sort((a, b) => a.minPrice > b.minPrice ? 1 : -1)
-//   const maxToMin = () => arr.sort((a, b) => a.minPrice < b.minPrice ? 1 : -1)
-//
-//   switch (method) {
-//     case 2:
-//       minToMax()
-//       setArraySort(arr)
-//       goToPage(1, arr)
-//       return arr
-//
-//     case 3:
-//       maxToMin()
-//       setArraySort(arr)
-//       goToPage(1, arr)
-//       return arr
-//
-//     case 4:
-//       arr.sort()
-//       setArraySort(arr)
-//       goToPage(1, arr)
-//       return arr
-//
-//     default:
-//       setArraySort(arr)
-//       goToPage(1, arr)
-//       return arr
-//   }
-// }
-
-// function goToPage(page = 1, arrSortPrevState) {
-//   const pageLimitItems = 32 // количество карточек на странице
-//   const totalRecords = props.productsToCategory?.length
-//   const totalPages = Math.ceil(totalRecords / pageLimitItems); // общее количество страниц
-//   const curPage = Math.max(0, Math.min(page, totalPages)); // текущая страница
-//
-//   const paginationData = {
-//     currentPage: curPage, // текущая страница
-//     totalPages, // общее количество страниц
-//     pageLimitItems, // количество карточек на странице
-//     totalRecords
-//   }
-//
-//   setCurrentPage(curPage)
-//   onPageChanged(paginationData, arrSortPrevState)
-// }

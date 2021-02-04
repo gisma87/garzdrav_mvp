@@ -1,4 +1,5 @@
 @import "../../variables";
+
 @keyframes bounceInRightPromoItem {
   0% {
     opacity: 0;
@@ -20,9 +21,11 @@
 
 .CardPage {
   font-family: $primary-font;
-  padding-bottom: 30px;
+  padding: 10px 0 30px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.16);
+  border: solid 1px $primary-color;
 
-  @media(max-width: 800px) {
+  @media(max-width: 900px) {
     padding-bottom: 60px;
   }
 
@@ -47,11 +50,13 @@
     flex-direction: column;
     margin: 0 0 24px;
 
-    @media(max-width: 800px) {
+    @media(max-width: 900px) {
       max-width: 450px;
       width: 100%;
       align-self: center;
       text-align: left;
+      padding: 15px 0;
+      margin: 0;
     }
 
     p {
@@ -62,7 +67,7 @@
       color: #333;
       margin: 0;
       @media(max-width: 800px) {
-        font-size: 16px;
+        font-size: .8rem;
       }
     }
   }
@@ -84,8 +89,9 @@
       line-height: 1.2rem;
     }
     @media(max-width: 800px) {
-      font-size: 22px;
-      line-height: 24px;
+      font-size: 1rem;
+      line-height: 1.1rem;
+      margin-bottom: 5px;
     }
   }
 
@@ -138,7 +144,7 @@
     display: flex;
     justify-content: space-between;
     @media(max-width: 800px) {
-      flex-direction: column;
+      flex-direction: column-reverse;
       align-items: center;
     }
   }
@@ -155,13 +161,14 @@
       margin-right: 15px;
       max-width: 200px;
     }
-    @media(max-width: 800px) {
+    @media(max-width: 900px) {
       position: relative;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       max-width: 100%;
+      margin: 0;
     }
   }
 
@@ -178,9 +185,9 @@
       min-width: 200px;
       max-height: 200px;
     }
-    @media(max-width: 800px) {
-      min-width: 250px;
-      max-height: 250px;
+    @media(max-width: 900px) {
+      min-width: 100px;
+      max-height: 100px;
     }
   }
 
@@ -188,10 +195,12 @@
     color: #999;
     font-size: 13px;
     max-width: 320px;
-    @media(max-width: 800px) {
+    @media(max-width: 900px) {
       width: 100%;
       max-width: 450px;
+      font-size: .7rem;
       text-align: left;
+      margin-top: 10px;
     }
   }
 
@@ -203,9 +212,9 @@
     justify-content: space-between;
 
     @media (max-width: 850px) {
-      margin: 0 0 15px 0;
       text-align: right;
       max-width: 450px;
+      flex-direction: row;
     }
   }
 
@@ -235,9 +244,7 @@
     }
     @media(max-width: 1050px) {
       font-size: 1.4rem;
-    }
-    @media (max-width: 800px) {
-      font-size: 26px;
+      line-height: 1.5rem;
     }
   }
 
@@ -264,6 +271,9 @@
     }
     @media (max-width: 850px) {
       flex-direction: column;
+      max-width: 140px;
+      max-height: 50px;
+      padding: 0;
     }
   }
 
@@ -289,6 +299,11 @@
     @media(max-width: 1050px) {
       font-size: .9rem;
     }
+    @media(max-width: 900px) {
+      font-size: .75rem;
+      min-width: 135px;
+      padding: 12px 7px;
+    }
   }
 
   &__priceCaption {
@@ -301,8 +316,9 @@
     cursor: pointer;
     margin-left: 10px;
 
-    @media (max-width: 970px) {
-      font-size: 1rem;
+    @media (max-width: 900px) {
+      font-size: .75rem;
+      margin-left: 0;
     };
 
     &:hover {
@@ -410,6 +426,27 @@
       font-size: 17px;
       line-height: 24px;
     }
+
+    @media (max-width: 900px) {
+      font-family: $secondary-font;
+      margin-top: 0;
+      h3 {
+        font-size: 1.35rem;
+        line-height: 1.5rem;
+        margin-bottom: -10px;
+      }
+
+      h4 {
+        font-size: 1.15rem;
+        line-height: 1.3rem;
+        margin-bottom: 6px;
+      }
+
+      p {
+        font-size: 1rem;
+        line-height: 1.2rem;
+      }
+    }
   }
 
   &__instructionBlock {
@@ -432,6 +469,11 @@
     &:hover {
       color: blue;
     }
+
+    @media (max-width: 900px) {
+      font-size: .7rem;
+      padding: 0 10px;
+    }
   }
 
   &__titlePanel {
@@ -446,6 +488,10 @@
     color: gray;
     cursor: default;
     margin: 0 5px;
+
+    @media (max-width: 900px) {
+      font-size: .7rem;
+    }
   }
 
   &__topBlock {
