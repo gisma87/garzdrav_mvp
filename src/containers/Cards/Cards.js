@@ -13,7 +13,6 @@ import {
 } from "../../actions";
 import CardItemMobile from "../../components/CardItemMobile";
 import SearchPanel from "../../components/SearchPanel";
-import logo from "../../img/evalar.png";
 import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
 import Error from "../../components/Error/Error";
 import Pagination from "../../components/Pagination/Pagination";

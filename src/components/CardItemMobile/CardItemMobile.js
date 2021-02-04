@@ -25,11 +25,8 @@ const CardItemMobile = ({
           : <img className='CardItem__image' src={notPhoto} alt="notPhoto"/>}
         <div className='CardItemMobile__price'>
           <p>от <span className='CardItemMobile__priceNumber'>{minPrice}</span> р.</p>
-          <button className='CardItemMobile__cart buttonActive'
-                  onClick={() => {
-                    updateToCart()
-                  }}>
-            {active ? <SvgCheck style={{color: 'green'}}/> : 'Купить'}
+          <button className='CardItemMobile__cart buttonActive' onClick={updateToCart}>
+            {active ? <SvgCheck className='CardItemMobile__check_active' /> : 'Купить'}
           </button>
         </div>
       </div>
@@ -41,7 +38,9 @@ const CardItemMobile = ({
           <h4 className='CardItemMobile__maker'>{maker}</h4>
         </div>
       </div>
-      {favoriteButton && <p className='CardItemMobile__buttonDel'>Удалить из избранного</p>}
+      {
+        favoriteButton && <p className='CardItemMobile__buttonDel'>Удалить из избранного</p>
+      }
     </div>
   )
 }
