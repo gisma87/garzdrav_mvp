@@ -65,7 +65,7 @@ const Cards = props => {
   const isMobile = useMediaQuery({query: '(max-width: 800px)'})
   return (
     <section
-      className={'Cards' + (!isMobile ? ' wrapper' : '') + ((!touchedSearch && isMobile) ? ' Cards__notTouch' : '')}>
+      className={'Cards' + (!isMobile ? ' wrapper' : '') + ((!(touchedSearch || props.productSearch) && isMobile) ? ' Cards__notTouch' : '')}>
       {error
         ? <Error/>
         : <ErrorBoundary>
@@ -73,12 +73,12 @@ const Cards = props => {
             isMobile &&
             <>
               <div
-                className={'Cards__logoPanel' + (!touchedSearch ? ' Cards__center' : '')}>
+                className={'Cards__logoPanel' + (!(touchedSearch || props.productSearch) ? ' Cards__center' : '')}>
                 {/*<img src={logo} className='indexMobile__logo' alt='logo'/>*/}
                 <Logo/>
                 {/*<p>Поиск по каталогу: </p>*/}
               </div>
-              <div className={'Cards__searchPanel' + (touchedSearch ? '' : ' Cards__searchPanel_center')}>
+              <div className={'Cards__searchPanel' + ((touchedSearch || props.productSearch) ? '' : ' Cards__searchPanel_center')}>
                 <SearchPanel
                   touched={touchedSearch}
                   onTouched={() => {
@@ -91,11 +91,11 @@ const Cards = props => {
 
             </>
           }
-          {(touchedSearch || !isMobile) && props.productSearch &&
+          {((touchedSearch || props.productSearch) || !isMobile) && props.productSearch &&
           <h1 className='Cards__title'>Результаты поиска «{props.productSearch.toLowerCase()}»</h1>}
 
           {
-            ((touchedSearch || !isMobile) && (productsFromSearch.length > 0)) &&
+            (((touchedSearch || props.productSearch) || !isMobile) && (productsFromSearch.length > 0)) &&
             <div className='Cards__topPanel'>
               <p>Найдено {countProductsSearch} препаратов</p>
               <div className='Cards__topPanel-right'>
@@ -111,7 +111,7 @@ const Cards = props => {
           <div className='Cards__mainContainer'>
 
             <div className='Cards__cardList'>
-              {(touchedSearch || !isMobile) &&
+              {((touchedSearch || props.productSearch) || !isMobile) &&
               productsFromSearch.length
                 ? productsFromSearch.map((item) => {
                   const {guid, product, manufacturer, img = null, minPrice, countLast} = item;
@@ -145,7 +145,7 @@ const Cards = props => {
                                   minPrice={minPrice}/>
                   )
                 })
-                : <>{(touchedSearch || !isMobile) &&
+                : <>{((touchedSearch || props.productSearch) || !isMobile) &&
                 <div style={{fontSize: '1.3rem'}}>
                   <p>По вашему запросу ничего не найдено.</p>
                   <p>Попробуйте изменить запрос.</p>
@@ -157,7 +157,7 @@ const Cards = props => {
           </div>
 
           {
-            ((touchedSearch || !isMobile) && (productsFromSearch.length > 0)) &&
+            (((touchedSearch || props.productSearch) || !isMobile) && (productsFromSearch.length > 0)) &&
             <div style={{paddingTop: 15}}>
               <Pagination totalRecords={countProductsSearch}
                           page={currentPage}
