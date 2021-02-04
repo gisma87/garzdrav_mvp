@@ -1,3 +1,5 @@
+@import "../../variables";
+
 .CitiesMobile {
   font-family: PTSans-Regular, Helvetica, Arial, sans-serif;
   display: flex;
@@ -7,7 +9,10 @@
   padding: 10px 0;
 
   header {
-    padding: 0 0 0 15px;
+    padding: 0 15px 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
   }
 
   h1 {
@@ -16,6 +21,17 @@
     font-size: 24px;
     font-weight: 700;
     color: #4e4e4e;
+  }
+
+  &__dropdownCities {
+    color: $primary-color;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+
+    & > p {
+      margin-right: 10px;
+    }
   }
 
   &__mainContainer {
@@ -33,9 +49,14 @@
   }
 
   &__itemAddress {
+    display: flex;
+    justify-content: flex-start;
     white-space: nowrap;
     font-size: 14px;
     color: #4e4e4e;
+    span {
+      border-bottom: 1px dashed blue;
+    }
   }
 
   &__itemTitle {
@@ -74,12 +95,12 @@
     cursor: pointer;
 
     &_active {
-      background-color: #eee;
+      background-color: $primary-color;
       padding: 9px 12px;
       border-radius: 8px;
       font-weight: bold;
       text-decoration: none;
-      color: #333;
+      color: #fff;
     }
   }
 
@@ -110,7 +131,7 @@
     }
 
     &:nth-child(2n) {
-      border-bottom: 1px solid #E26C2D;
+      border-bottom: 2px solid $primary-color;
     }
 
     @media (max-width: 950px) {

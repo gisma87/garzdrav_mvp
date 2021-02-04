@@ -22,11 +22,11 @@
 .CardPage {
   font-family: $primary-font;
   padding: 10px 0 30px;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.16);
-  border: solid 1px $primary-color;
 
   @media(max-width: 900px) {
     padding-bottom: 60px;
+    //box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.16);
+    //border: solid 1px $primary-color;
   }
 
   a {

@@ -43,6 +43,11 @@
     border-radius: 8px;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.16);
     z-index: 3;
+
+    @media (max-width: 900px) {
+      max-height: 300px;
+      overflow-y: auto;
+    }
   }
 
   &_active {
@@ -59,6 +64,11 @@
       transform: scaleY(1);
       transform-origin: top;
       transition: transform .25s, visibility .25s;
+      @media (max-width: 900px) {
+        justify-content: flex-start;
+        max-height: 300px;
+        overflow-y: auto;
+      }
     }
   }
 
