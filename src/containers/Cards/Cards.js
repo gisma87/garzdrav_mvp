@@ -72,11 +72,8 @@ const Cards = props => {
           {
             isMobile &&
             <>
-              <div
-                className={'Cards__logoPanel' + (!(touchedSearch || props.productSearch) ? ' Cards__center' : '')}>
-                {/*<img src={logo} className='indexMobile__logo' alt='logo'/>*/}
+              <div className={'Cards__logoPanel' + (!(touchedSearch || props.productSearch) ? ' Cards__center' : '')}>
                 <Logo/>
-                {/*<p>Поиск по каталогу: </p>*/}
               </div>
               <div className={'Cards__searchPanel' + ((touchedSearch || props.productSearch) ? '' : ' Cards__searchPanel_center')}>
                 <SearchPanel

@@ -90,6 +90,10 @@
     justify-content: space-between;
     align-items: center;
     padding-bottom: 10px;
+    @media (max-width: 900px) {
+      padding: 0 30px 10px;
+    }
+
     @media (max-width: 630px) {
       padding: 0 10px 10px;
       flex-direction: column;

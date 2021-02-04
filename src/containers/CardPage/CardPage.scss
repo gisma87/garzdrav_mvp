@@ -51,7 +51,7 @@
     margin: 0 0 24px;
 
     @media(max-width: 900px) {
-      max-width: 450px;
+      //max-width: 450px;
       width: 100%;
       align-self: center;
       text-align: left;
@@ -215,6 +215,7 @@
       text-align: right;
       max-width: 450px;
       flex-direction: row;
+      align-self: flex-end;
     }
   }
 
@@ -377,7 +378,7 @@
       line-height: 1.1rem;
     }
     @media(max-width: 800px) {
-      max-width: 450px;
+      //max-width: 450px;
       width: 100%;
     }
   }

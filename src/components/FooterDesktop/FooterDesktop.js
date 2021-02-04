@@ -9,7 +9,7 @@ const FooterDesktop = () => {
 
   return (
     <>
-      <div className='SubscriptionPanel'>
+      <section className='SubscriptionPanel'>
         <div className='SubscriptionPanel__content'>
           <div className='SubscriptionPanel__text'>
             <p>Подпишитесь и получайте</p>
@@ -29,7 +29,7 @@ const FooterDesktop = () => {
           </div>
 
         </div>
-      </div>
+      </section>
       <footer className='FooterDesktop'>
         <div className='FooterDesktop__row'>
           <div className='wrapper FooterDesktop__wrapperTop'>

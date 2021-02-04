@@ -37,7 +37,7 @@ const ArticlesBlock = props => {
   SwiperCore.use([Navigation, Pagination])
 
   return (
-    <div className="ArticlesBlock">
+    <section className="ArticlesBlock">
       <div className='wrapper'>
         <div className="prev slideButton">
           <SvgArrowLightRight/>
@@ -88,7 +88,7 @@ const ArticlesBlock = props => {
           </button>
         </div>
       </div>
-    </div>
+    </section>
 
   )
 }

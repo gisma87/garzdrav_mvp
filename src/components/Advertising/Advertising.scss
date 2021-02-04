@@ -10,7 +10,11 @@
   &__slider {
     max-width: 690px;
     @media (max-width: 1030px) {
-      max-width: 600px;
+      max-width: 675px;
+    }
+    @media (max-width: 900px) {
+      max-width: 100%;
+      width: 100%;
     }
   }
 
@@ -37,9 +41,14 @@
       min-height: 190px;
     }
     @media (max-width: 1030px) {
+      max-height: 185px;
+      min-height: 184px;
+      max-width: 675px;
+    }
+    @media (max-width: 900px) {
       max-height: 181px;
       min-height: 180px;
-      max-width: 600px;
+      max-width: 100%;
     }
 
     .swiper-container {
@@ -72,7 +81,7 @@
       max-height: 190px;
     }
     @media (max-width: 1030px) {
-      max-height: 180px;
+      max-height: 185px;
     }
 
     img {
@@ -89,7 +98,7 @@
         max-height: 190px;
       }
       @media (max-width: 1030px) {
-        max-height: 180px;
+        max-height: 185px;
       }
     }
   }

@@ -18,13 +18,13 @@ const imgData = [
 ]
 
 const Advertising = () => {
-  const isMobile = useMediaQuery({query: '(max-width: 800px)'})
+  const isMobile = useMediaQuery({query: '(max-width: 900px)'})
   SwiperCore.use([Navigation, Pagination, Autoplay])
   return (
-    <div className='Advertising wrapper'>
+    <section className='Advertising wrapper'>
       <div className='Advertising__slider'>
         <Swiper
-          spaceBetween={0}
+          spaceBetween={isMobile ? 5 : 0}
           slidesPerView={1}
           tag="section" wrapperTag="ul"
           // navigation
@@ -43,10 +43,13 @@ const Advertising = () => {
         </Swiper>
       </div>
 
-      <div className='Advertising__promo'>
-        <img src={testPromo} alt="testPromo"/>
-      </div>
-    </div>
+      {
+        !isMobile &&
+        <div className='Advertising__promo'>
+          <img src={testPromo} alt="testPromo"/>
+        </div>
+      }
+    </section>
 
   )
 }

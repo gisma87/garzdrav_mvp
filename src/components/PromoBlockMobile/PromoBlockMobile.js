@@ -26,7 +26,7 @@ class PromoBlockMobile extends React.Component {
   render() {
     SwiperCore.use([Navigation, Pagination, Autoplay])
     return (
-      <div className="PromoBlockMobile">
+      <section className="PromoBlockMobile">
 
         <div>
           <TitleSection size={this.props.sizeTitle} title='Акции' link='/promotions/'/>
@@ -64,7 +64,7 @@ class PromoBlockMobile extends React.Component {
 
           </Swiper>
         </div>
-      </div>
+      </section>
     )
   }
 }
