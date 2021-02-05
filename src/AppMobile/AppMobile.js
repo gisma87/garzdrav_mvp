@@ -37,14 +37,11 @@ function AppMobile(props) {
       <Switch>
         <Route exact path="/" component={indexMobile}/>
         <Route exact path="/cities/" component={CitiesMobile}/>
-        {/*<Route path="/address/" component={Cities}/>*/}
-        {/*<Route path="/cities/" component={Cities}/>*/}
         <Route path="/cart/" component={Cart}/>
         <Route path="/ask-question/" component={AskQuestion}/>
         <Route path="/faq/" component={Faq}/>
         <Route path="/confidentiality/" component={PrivacyPolicy}/>
         <Route path="/company/" component={Company}/>
-        {/*<Route path="/news/" component={News}/>*/}
         <Route path="/articles/" component={Articles}/>
         <Route path="/profile/" component={Profile}/>
         <Route path="/promotions/" exact component={PromoPage}/>

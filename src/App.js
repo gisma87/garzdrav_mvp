@@ -51,7 +51,6 @@ function App(props) {
         <Route path="/Cards/" exact component={Cards}/>
         <Route path="/Cards/:id"
                render={({match}) => <CardPage itemId={match.params.id}/>}/>
-        {/*<Route component={IndexDesktop}/>*/}
         <Route path="/catalog/" component={CatalogPage}/>/>
         <Redirect to={'/'}/>
       </Switch>

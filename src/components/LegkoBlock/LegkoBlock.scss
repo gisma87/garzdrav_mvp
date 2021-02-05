@@ -6,6 +6,10 @@
   min-height: 340px;
   background: $primary-color;
 
+  @media (max-width: 900px) {
+    min-height: 100px;
+  }
+
   &__wrapper {
     display: flex;
     align-items: center;
@@ -25,6 +29,10 @@
       transform: rotate(-10deg);
       transition: transform .3s;
     }
+
+    @media (max-width: 900px) {
+      max-height: 100px;
+    }
   }
 
   &__rightBlock {
@@ -40,6 +48,11 @@
     font-size: 3.3rem;
     line-height: 4.1rem;
     font-weight: bold;
+    @media (max-width: 900px) {
+      font-size: 1rem;
+      line-height: 1.1rem;
+      text-align: left;
+    }
   }
 
   &__linkLegko {
@@ -48,6 +61,11 @@
 
     &:hover {
       border-style: dashed;
+    }
+    @media (max-width: 900px) {
+      font-size: 1rem;
+      line-height: 1.1rem;
+      border-bottom: 1px solid $secondary-color;
     }
   }
 }

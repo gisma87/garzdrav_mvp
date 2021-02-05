@@ -8,6 +8,7 @@ import FooterDesktop from "../../components/FooterDesktop";
 import Logo from "../../components/UI/Logo/Logo";
 import Burger from "../../components/UI/Burger/Burger";
 import {Link} from "react-router-dom";
+import LegkoBlock from "../../components/LegkoBlock/LegkoBlock";
 
 const indexMobile = () => {
   return (
@@ -23,6 +24,7 @@ const indexMobile = () => {
       </section>
       <Advertising/>
       <PromoBlockMobile sizeTitle='16px'/>
+      <LegkoBlock/>
       <ArticlesBlock sizeTitle='16px'/>
       <FooterDesktop/>
     </div>
