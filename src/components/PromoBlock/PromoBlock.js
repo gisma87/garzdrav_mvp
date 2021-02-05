@@ -10,7 +10,7 @@ import SvgAngleLeftSolid from "../../img/SVGcomponents/SvgAngleLeftSolid";
 import './PromoBlock.scss'
 import CardItem from "../CardItem";
 import dataCatds from "../../testData/dataCards";
-import {withRouter} from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
 import {connect} from "react-redux";
 import {addedToCart, allItemRemovedFromCart, itemRemovedFromCart} from "../../actions";
 import ButtonSectionForSlider from "./ButtonSectionForSlider/ButtonSectionForSlider";
@@ -93,9 +93,9 @@ class PromoBlock extends React.Component {
             width: '100%',
             padding: '0 0 15px'
           }}>
-            <button className='PromoBlock__button'>
+            <Link to='/promotions/' className='PromoBlock__button'>
               все акционные товары
-            </button>
+            </Link>
           </div>
         </div>
       </div>

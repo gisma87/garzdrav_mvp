@@ -8,6 +8,7 @@ import 'swiper/components/pagination/pagination.scss'
 import ArticleCard from "../ArticleCard";
 import SvgArrowLightRight from "../../img/SVGcomponents/SvgArrowLightRight";
 import {useMediaQuery} from "react-responsive";
+import {Link} from "react-router-dom";
 
 
 const articleCardData = [
@@ -89,9 +90,9 @@ const ArticlesBlock = props => {
             width: '100%',
             padding: '0 0 15px'
           }}>
-            <button className='ArticlesBlock__button'>
+            <Link to='/articles/' className='ArticlesBlock__button'>
               все полезные советы
-            </button>
+            </Link>
           </div>
         }
       </div>
