@@ -20,15 +20,9 @@ import indexMobile from "../containers/IndexMobile";
 import CitiesMobile from "../containers/CitiesMobile/CitiesMobile";
 import Faq from "../containers/Faq/Faq";
 import CatalogPage from "../containers/CatalogPage/CatalogPage";
+import Development from "../components/Development/Development";
 
 function AppMobile(props) {
-
-  // useEffect(() => {
-  //   props.fetchCities();
-  //   if (localStorage.getItem("cart")) {
-  //     props.rewriteCart(JSON.parse(localStorage.getItem("cart")))
-  //   }
-  // }, [])// eslint-disable-line
 
   return (
     <div className="App">
@@ -50,7 +44,9 @@ function AppMobile(props) {
         <Route path="/Cards/" exact component={Cards}/>
         <Route path="/Cards/:id"
                render={({match}) => <CardPage itemId={match.params.id}/>}/>
-        <Route path="/catalog/" component={CatalogPage}/>/>
+        <Route path="/catalog/" component={CatalogPage}/>
+        <Route path="/contacts/" component={Development}/>
+        <Route path="/in-development/" component={Development}/>
         <Redirect to={'/'}/>
       </Switch>
       <MobileBottomNavbar/>

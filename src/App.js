@@ -22,6 +22,7 @@ import ScrollToTop from "./utils/ScrollToTop";
 import Loader from "./components/UI/Loader";
 import Faq from "./containers/Faq/Faq";
 import CatalogPage from "./containers/CatalogPage/CatalogPage";
+import Development from "./components/Development/Development";
 
 function App(props) {
 
@@ -42,7 +43,6 @@ function App(props) {
         <Route path="/faq/" component={Faq}/>
         <Route path="/confidentiality/" component={PrivacyPolicy}/>
         <Route path="/company/" component={Company}/>
-        {/*<Route path="/news/" component={News}/>*/}
         <Route path="/articles/" component={Articles}/>
         <Route path="/profile/" component={Profile}/>
         <Route path="/promotions/" exact component={PromoPage}/>
@@ -51,7 +51,9 @@ function App(props) {
         <Route path="/Cards/" exact component={Cards}/>
         <Route path="/Cards/:id"
                render={({match}) => <CardPage itemId={match.params.id}/>}/>
-        <Route path="/catalog/" component={CatalogPage}/>/>
+        <Route path="/catalog/" component={CatalogPage}/>
+        <Route path="/contacts/" component={Development}/>
+        <Route path="/in-development/" component={Development}/>
         <Redirect to={'/'}/>
       </Switch>
       <FooterDesktop/>

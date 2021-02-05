@@ -35,6 +35,8 @@ const articleCardData = [
 
 const ArticlesBlock = props => {
   const isMobile = useMediaQuery({query: '(max-width: 650px)'})
+  const isTablet = useMediaQuery({query: '(max-width: 800px)'})
+
 
   SwiperCore.use([Navigation, Pagination])
 
@@ -54,7 +56,7 @@ const ArticlesBlock = props => {
           <Swiper
             style={{padding: '10px 0'}}
             spaceBetween={5}
-            slidesPerView={isMobile ? 1 : 'auto'}
+            slidesPerView={isMobile ? 1 : (isTablet ? 2 : 'auto')}
             tag="section" wrapperTag="ul"
             loop={'false'}
             navigation={
