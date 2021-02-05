@@ -50,6 +50,9 @@
       min-height: 180px;
       max-width: 100%;
     }
+    @media (max-width: 400px) {
+      border-radius: 0;
+    }
 
     .swiper-container {
       width: 100%;

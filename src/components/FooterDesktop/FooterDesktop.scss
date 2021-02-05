@@ -39,6 +39,10 @@
   &__listItem {
     margin-bottom: 3px;
     font-size: 1.1rem;
+    @media (max-width: 900px) {
+      font-size: .9rem;
+      line-height: 1rem;
+    }
   }
 
 
@@ -78,6 +82,9 @@
       font-size: 1rem;
       line-height: 1.2rem;
       color: #6c8ea6;
+      @media (max-width: 900px) {
+        font-size: .8rem;
+      }
     }
   }
 
@@ -132,18 +139,42 @@
 
   &__wrapperTop {
     padding: 0 45px;
-    @media (max-width: 800px) {
+    @media (max-width: 900px) {
       text-align: left;
+      padding: 0 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      width: 100%;
+    }
+  }
 
-      div {
-        margin-top: 15px;
-      }
+  &__infoCol {
+    @media (max-width: 900px) {
+      flex: 0 1 30%
+    }
+    @media (max-width: 666px) {
+      flex: 0 1 45%
+    }
+  }
+
+  &__socialCol {
+    @media (max-width: 900px) {
+      flex: 0 1 30%;
+      padding-top: 0;
+    }
+    @media (max-width: 666px) {
+      margin-top: 15px;
+      flex: 0 1 90%;
     }
   }
 
   &__wrapperBottom {
     border: none;
     padding: 0 45px;
+    @media (max-width: 666px) {
+     padding: 0 20px;
+    }
   }
 
 
@@ -158,6 +189,11 @@
     font-size: 1.3rem;
     margin-bottom: 8px;
     cursor: default;
+    @media (max-width: 900px) {
+      font-size: 1rem;
+      line-height: 1.1rem;
+      margin-bottom: 5px;
+    }
   }
 
   ul {
@@ -167,6 +203,10 @@
   ul li a {
     font-size: 16px;
     color: #fff;
+    @media (max-width: 900px) {
+      font-size: .8rem;
+      line-height: 1rem;
+    }
   }
 }
 
@@ -188,11 +228,28 @@
     padding: 15px 45px;
     max-width: 1240px;
     margin: 0 auto;
+    @media (max-width: 900px) {
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      padding: 10px;
+    }
   }
 
   &__text {
     display: flex;
     flex-direction: column;
+    @media (max-width: 900px) {
+      font-size: 1.1rem;
+      text-align: left;
+      margin-bottom: 7px;
+      flex-direction: row;
+      flex-wrap: wrap;
+      width: 100%;
+      p {
+        margin-right: 5px;
+      }
+    }
   }
 
   &__formContainer {
@@ -200,6 +257,9 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    @media (max-width: 900px) {
+      width: 100%;
+    }
   }
 
   &__form {
@@ -254,7 +314,7 @@
     }
   }
 
-  &__icon{
+  &__icon {
     color: #fff;
     font-size: 22px;
   }

@@ -14,6 +14,13 @@
     font-size: 2rem;
     margin-bottom: 15px;
     cursor: default;
+
+    @media (max-width: 900px) {
+      font-size: 1.35rem;
+      text-align: left;
+      margin-bottom: 0;
+      padding-left: 15px;
+    }
   }
 
   &__button {
@@ -60,15 +67,33 @@
       color: $secondary-color;
       transition: color .3s;
     }
+
+    @media (max-width: 650px) {
+      font-size: 18px;
+      top: 15px;
+      border: 1px solid $primary-color;
+      padding: 3px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
 
   & .next {
     right: 0;
     transform: rotate(180deg);
+    @media (max-width: 650px) {
+      right: 28px;
+    }
   }
 
   & .prev {
     left: 0;
+    @media (max-width: 650px) {
+      left: auto;
+      right: 65px;
+    }
   }
 
   & .swiper-container {

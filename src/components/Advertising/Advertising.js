@@ -21,7 +21,7 @@ const Advertising = () => {
   const isMobile = useMediaQuery({query: '(max-width: 900px)'})
   SwiperCore.use([Navigation, Pagination, Autoplay])
   return (
-    <section className='Advertising wrapper'>
+    <section className={'Advertising' + (isMobile ? '' : ' wrapper')}>
       <div className='Advertising__slider'>
         <Swiper
           spaceBetween={isMobile ? 5 : 0}

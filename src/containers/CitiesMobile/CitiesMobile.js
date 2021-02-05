@@ -108,7 +108,10 @@ const CitiesMobile = props => {
                 >
                   <span className='CitiesMobile__itemTitle'>{item.brand}</span>
                   <span className='CitiesMobile__itemAddress'>
-                    <span onClick={() => setView(true)}>{item.street} {item.buildNumber}</span>
+                    <span onClick={() => {
+                      setZoom(15)
+                      setView(true)
+                    }}>{item.street} {item.buildNumber}</span>
                   </span>
                   <span className='CitiesMobile__textClock'>Часы работы:&nbsp;{clock}</span>
                   <span className='CitiesMobile__textClock'>Тел.:&nbsp;{item.phone}</span>
@@ -119,7 +122,7 @@ const CitiesMobile = props => {
         </BlockWrapper>}
 
         {
-          <div style={view ? {visibility: 'visible'} : {visibility: 'hidden'}}>
+          <div className='CitiesMobile__mapWrapper' style={view ? {visibility: 'visible'} : {}}>
             <YMaps>
               <Map className='CitiesMobile__mapContainer'
                    state={mapState}

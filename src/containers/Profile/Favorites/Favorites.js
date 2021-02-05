@@ -6,7 +6,7 @@ import FavoriteItem from "../../../components/FavoriteItem";
 import FavoriteItemMobile from "../../../components/FavoriteItemMobile";
 
 const Favorites = (props) => {
-  const isMobile = useMediaQuery({query: '(max-width: 800px)'})
+  const isMobile = useMediaQuery({query: '(max-width: 900px)'})
   const {addedToCart, itemRemovedFromCart, cart, history, favorites, delFavorites} = props.data;
   const handlerToCards = (itemId) => {
     history.push(`/Cards/${itemId}`)

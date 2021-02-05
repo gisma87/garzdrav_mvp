@@ -7,6 +7,7 @@ import 'swiper/components/navigation/navigation.scss'
 import 'swiper/components/pagination/pagination.scss'
 import ArticleCard from "../ArticleCard";
 import SvgArrowLightRight from "../../img/SVGcomponents/SvgArrowLightRight";
+import {useMediaQuery} from "react-responsive";
 
 
 const articleCardData = [
@@ -33,12 +34,13 @@ const articleCardData = [
 ]
 
 const ArticlesBlock = props => {
+  const isMobile = useMediaQuery({query: '(max-width: 650px)'})
 
   SwiperCore.use([Navigation, Pagination])
 
   return (
     <section className="ArticlesBlock">
-      <div className='wrapper'>
+      <div className={isMobile ? '' : 'wrapper'}>
         <div className="prev slideButton">
           <SvgArrowLightRight/>
         </div>
@@ -48,11 +50,11 @@ const ArticlesBlock = props => {
         </div>
 
         <h3 className='ArticlesBlock__title'>Быть здоровым легко</h3>
-        <div style={{padding: '0 30px'}}>
+        <div style={!isMobile ? {padding: '0 30px'} : {}}>
           <Swiper
             style={{padding: '10px 0'}}
             spaceBetween={5}
-            slidesPerView={'auto'}
+            slidesPerView={isMobile ? 1 : 'auto'}
             tag="section" wrapperTag="ul"
             loop={'false'}
             navigation={
@@ -76,17 +78,20 @@ const ArticlesBlock = props => {
 
           </Swiper>
         </div>
-        <div style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          width: '100%',
-          padding: '0 0 15px'
-        }}>
-          <button className='ArticlesBlock__button'>
-            все полезные советы
-          </button>
-        </div>
+        {
+          !isMobile &&
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: '100%',
+            padding: '0 0 15px'
+          }}>
+            <button className='ArticlesBlock__button'>
+              все полезные советы
+            </button>
+          </div>
+        }
       </div>
     </section>
 

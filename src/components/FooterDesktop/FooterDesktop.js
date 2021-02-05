@@ -4,8 +4,11 @@ import {NavLink} from "react-router-dom";
 import SvgVkIcon from "../../img/SVGcomponents/SvgVkIcon";
 import SvgInstaIcon from "../../img/SVGcomponents/SvgInstaIcon";
 import SvgEmail from "../../img/SVGcomponents/SvgEmail";
+import {useMediaQuery} from "react-responsive";
 
 const FooterDesktop = () => {
+
+  const isMobile = useMediaQuery({query: '(max-width: 900px)'})
 
   return (
     <>
@@ -32,8 +35,8 @@ const FooterDesktop = () => {
       </section>
       <footer className='FooterDesktop'>
         <div className='FooterDesktop__row'>
-          <div className='wrapper FooterDesktop__wrapperTop'>
-            <div>
+          <div className={'FooterDesktop__wrapperTop' + (isMobile ? '' : ' wrapper')}>
+            <div className='FooterDesktop__infoCol'>
               <h6>О нас</h6>
               <ul>
                 <li className='FooterDesktop__listItem'><NavLink to="/company/">о компании</NavLink></li>
@@ -42,7 +45,7 @@ const FooterDesktop = () => {
                 <li className='FooterDesktop__listItem'><NavLink to="/">Размещение рекламы</NavLink></li>
               </ul>
             </div>
-            <div>
+            <div className='FooterDesktop__infoCol'>
               <h6>Помощь</h6>
               <ul>
                 <li className='FooterDesktop__listItem'><NavLink to="/">Оформление заказа</NavLink></li>
@@ -51,7 +54,7 @@ const FooterDesktop = () => {
                 <li className='FooterDesktop__listItem'><NavLink to="/faq/">Популярные вопросы</NavLink></li>
               </ul>
             </div>
-            <div>
+            <div className='FooterDesktop__socialCol'>
               <ul>
                 <li className='FooterDesktop__iconContainer'>
                   <div className='FooterDesktop__icon'><SvgVkIcon className='FooterDesktop__iconVK'/></div>
@@ -59,7 +62,8 @@ const FooterDesktop = () => {
                 </li>
                 <li className='FooterDesktop__iconContainer'>
                   <div className='FooterDesktop__icon'><SvgInstaIcon className='FooterDesktop__iconVK'/></div>
-                  <a href='https://www.instagram.com/garzdrav/?hl=ru' target="_blank" rel="noopener noreferrer">Мы Инстаграм</a>
+                  <a href='https://www.instagram.com/garzdrav/?hl=ru' target="_blank" rel="noopener noreferrer">Мы
+                    Инстаграм</a>
                 </li>
               </ul>
             </div>

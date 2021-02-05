@@ -3,12 +3,8 @@ import * as React from "react";
 function SvgArrowLightRight(props) {
   return (
     <svg
-      aria-hidden="true"
-      data-prefix="fal"
-      data-icon="chevron-left"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 256 512"
-      className="arrowLightRight_svg__svg-inline--fa arrowLightRight_svg__fa-chevron-left arrowLightRight_svg__fa-w-8 arrowLightRight_svg__fa-9x"
       width="1em"
       height="1em"
       {...props}
