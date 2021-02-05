@@ -33,13 +33,13 @@ const HeaderTop = (props) => {
             <Link className='HeaderTop__link' to="/address/">Аптеки</Link>
           </li>
           <li>
-            <Link className='HeaderTop__link' to='/'>Оформление заказа</Link>
+            <Link className='HeaderTop__link HeaderTop__development' to='/in-development/'>Оформление заказа</Link>
           </li>
           <li>
-            <Link className='HeaderTop__link' to="/promotions/">Статус заказа</Link>
+            <Link className='HeaderTop__link HeaderTop__development' to="/in-development/">Статус заказа</Link>
           </li>
           <li>
-            <Link className='HeaderTop__link' to="/promotions/">Бонусная карта</Link>
+            <Link className='HeaderTop__link HeaderTop__development' to="/in-development/">Бонусная карта</Link>
           </li>
           <li>
             <Link className='HeaderTop__link' to="/ask-question/">Помощь</Link>

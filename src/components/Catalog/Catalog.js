@@ -33,7 +33,7 @@ const Catalog = props => {
             </ul>
           </div>
           <div className="Catalog__rightPanel">
-            <ul>
+            <ul className="Catalog__mainList">
               {props.data[activeItem].child.map((item, id) => {
                 return <li key={Math.random() + id}
                            className="Catalog__rightPanelItem">

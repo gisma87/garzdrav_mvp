@@ -28,6 +28,13 @@
     }
   }
 
+  &__development {
+    &:hover {
+      color: red;
+      text-decoration: line-through;
+    }
+  }
+
   &__headItems {
     flex: 1 1;
     list-style-type: none;

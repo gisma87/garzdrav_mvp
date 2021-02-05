@@ -76,21 +76,21 @@
     overflow-x: auto;
     padding: 15px;
     height: calc(100% - 10px);
+  }
 
-    ul {
-      list-style-type: none;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: flex-start;
-      flex-wrap: wrap;
-      max-height: 120%;
+  &__mainList {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    max-height: 120%;
 
-      //display: grid;
-      //grid-auto-flow: row dense;
-      //grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      //grid-gap: 1px;
-    }
+    //display: grid;
+    //grid-auto-flow: row dense;
+    //grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    //grid-gap: 1px;
   }
 
   &__rightPanelItem {
