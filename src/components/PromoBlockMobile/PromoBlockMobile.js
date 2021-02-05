@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import SwiperCore, {Navigation, Pagination, Autoplay} from "swiper";
 import {Swiper, SwiperSlide} from 'swiper/react';
 import 'swiper/swiper.scss'
@@ -12,61 +12,61 @@ import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
 import {addedToCart, allItemRemovedFromCart, itemRemovedFromCart} from "../../actions";
 import CardItemMobile from "../CardItemMobile";
+import {useMediaQuery} from "react-responsive";
 
-class PromoBlockMobile extends React.Component {
+const PromoBlockMobile = props => {
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    localStorage.setItem('cart', JSON.stringify(this.props.cart))
-  }
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(props.cart))
+  })
 
-  onItemSelected = (itemId, event) => {
+  const onItemSelected = (itemId, event) => {
     if (!event.target.closest('button')) this.props.history.push(`Cards/${itemId}`);
   }
 
-  render() {
-    SwiperCore.use([Navigation, Pagination, Autoplay])
-    return (
-      <section className="PromoBlockMobile">
+  const isMobile = useMediaQuery({query: '(max-width: 650px)'})
+  SwiperCore.use([Navigation, Pagination, Autoplay])
 
-        <div>
-          <TitleSection size={this.props.sizeTitle} title='Акции' link='/promotions/'/>
-          <Swiper
-            style={{padding: '5px 0 10px'}}
-            spaceBetween={5}
-            slidesPerView={'auto'}
-            tag="section" wrapperTag="ul"
-            loop={'false'}
-          >
-            {
-              dataCatds.map((item) => {
-                const {id, title, maker, img, minPrice} = item;
-                const itemIndex = this.props.cart.findIndex((item) => item.itemId === id);
-                const isActive = itemIndex >= 0;
-                return <CardItemMobile onItemSelected={this.onItemSelected}
-                                       updateToCart={() => {
-                                         !isActive ? this.props.addedToCart(id) : this.props.itemRemovedFromCart(id)
-                                       }}
-                                       active={isActive}
-                                       key={id}
-                                       id={id}
-                                       title={title}
-                                       maker={maker}
-                                       img={img}
-                                       minPrice={minPrice}/>
-              }).map((item, index) => {
-                return (
-                  <SwiperSlide tag="li" key={index} style={{listStyleType: 'none'}}>
-                    {item}
-                  </SwiperSlide>
-                )
-              })
-            }
+  return (
+    <section className="PromoBlockMobile">
+      <div>
+        <TitleSection size={props.sizeTitle} title='Акции' link='/promotions/'/>
+        <Swiper
+          style={{padding: '5px 0 10px'}}
+          spaceBetween={5}
+          slidesPerView={isMobile ? 1 : 2}
+          tag="section" wrapperTag="ul"
+          loop={'false'}
+        >
+          {
+            dataCatds.map((item) => {
+              const {id, title, maker, img, minPrice} = item;
+              const itemIndex = props.cart.findIndex((item) => item.itemId === id);
+              const isActive = itemIndex >= 0;
+              return <CardItemMobile onItemSelected={onItemSelected}
+                                     updateToCart={() => {
+                                       !isActive ? props.addedToCart(id) : props.itemRemovedFromCart(id)
+                                     }}
+                                     active={isActive}
+                                     key={id}
+                                     id={id}
+                                     title={title}
+                                     maker={maker}
+                                     img={img}
+                                     minPrice={minPrice}/>
+            }).map((item, index) => {
+              return (
+                <SwiperSlide tag="li" key={index} style={{listStyleType: 'none'}}>
+                  {item}
+                </SwiperSlide>
+              )
+            })
+          }
 
-          </Swiper>
-        </div>
-      </section>
-    )
-  }
+        </Swiper>
+      </div>
+    </section>
+  )
 }
 
 const mapStateToProps = ({cart}) => {

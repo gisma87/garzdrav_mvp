@@ -4,7 +4,7 @@ import SvgSearchIcon from "../../../img/SVGcomponents/SvgSearchIcon";
 
 const SearchForm = (props) => {
   return (
-    <form className={'SearchForm ' + props.formClass} onSubmit={props.onSubmit}>
+    <form className='SearchForm' onSubmit={props.onSubmit}>
       <input
         id={props.idInput}
         style={props.isMobile ? {'font-size': 14} : {}}

@@ -1,5 +1,4 @@
 import React, {useState} from "react"
-import './SearchPanel.scss'
 import {withRouter} from 'react-router-dom'
 import {
   getProductsFromSearchLimit,
@@ -12,7 +11,6 @@ const SearchPanel = (props) => {
 
   const {
     isMobile = false,
-    touched = true,
     onTouched = () => {
     }
   } = props;
@@ -40,8 +38,7 @@ const SearchPanel = (props) => {
   }
 
   return (
-    <SearchForm formClass={touched ? '' : ' SearchPanel-mobile'}
-                onSubmit={handleSubmit}
+    <SearchForm onSubmit={handleSubmit}
                 idInput="searchPanel"
                 isMobile={isMobile}
                 placeholder={window.innerWidth > 1000 ? "Поиск по названию, действующему веществу, производителю" : "Поиск по названию"}

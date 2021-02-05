@@ -1,12 +1,16 @@
 @import "../../variables";
 
 .CardItemMobile {
+  color: #1f5377;
+  border: 1px solid #bbcbd6;
+  border-radius: 15px;
+
   position: relative;
-  outline: 1px solid #e0e1f3;
+  outline: none;
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 320px;
+  max-width: 375px;
   width: 100%;
   margin: 0 auto;
   cursor: pointer;
@@ -16,7 +20,7 @@
   &:hover {
     outline: none;
     box-shadow: 0 4px 20px 0 rgba(0, 0, 0, .16);
-    transform: translate(0, -8px);
+    transform: translate(0, -2px);
     transition: all .2s;
 
   }

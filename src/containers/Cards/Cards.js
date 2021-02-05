@@ -25,7 +25,6 @@ const Cards = props => {
   const {history, cart, addedToCart, itemRemovedFromCart, productsFromSearch, countProductsSearch, error} = props;
   const [methodSort, setMethodSort] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
-  const [touchedSearch, setTouchedSearch] = useState(false)
 
   useEffect(() => {
     if (props.requestFromSearchPanelThisTime) {
@@ -62,37 +61,31 @@ const Cards = props => {
     if (!event.target.closest('button')) history.push(`${itemId}`);
   }
 
-  const isMobile = useMediaQuery({query: '(max-width: 800px)'})
+  const isMobile = useMediaQuery({query: '(max-width: 900px)'})
   return (
     <section
-      className={'Cards' + (!isMobile ? ' wrapper' : '') + ((!(touchedSearch || props.productSearch) && isMobile) ? ' Cards__notTouch' : '')}>
+      className={'Cards' + (!isMobile ? ' wrapper' : '') + ((!(props.productsFromSearch.length || props.productSearch) && isMobile) ? ' Cards__notTouch' : '')}>
       {error
         ? <Error/>
         : <ErrorBoundary>
           {
             isMobile &&
             <>
-              <div className={'Cards__logoPanel' + (!(touchedSearch || props.productSearch) ? ' Cards__center' : '')}>
+              <div
+                className={'Cards__logoPanel' + (!(props.productsFromSearch.length || props.productSearch) ? ' Cards__center' : '')}>
                 <Logo/>
               </div>
-              <div className={'Cards__searchPanel' + ((touchedSearch || props.productSearch) ? '' : ' Cards__searchPanel_center')}>
-                <SearchPanel
-                  touched={touchedSearch}
-                  onTouched={() => {
-                    setTouchedSearch(true)
-                  }}/>
+              <div
+                className={'Cards__searchPanel' + ((props.productsFromSearch.length || props.productSearch) ? '' : ' Cards__searchPanel_center')}>
+                <SearchPanel/>
               </div>
-              {/*{!touchedSearch && <p className='Cards__searchPanel_text'>*/}
-              {/*  Поиск по названию, действующему веществу, производителю ...*/}
-              {/*</p>}*/}
-
             </>
           }
-          {((touchedSearch || props.productSearch) || !isMobile) && props.productSearch &&
+          {((props.productsFromSearch.length || props.productSearch) || !isMobile) &&
           <h1 className='Cards__title'>Результаты поиска «{props.productSearch.toLowerCase()}»</h1>}
 
           {
-            (((touchedSearch || props.productSearch) || !isMobile) && (productsFromSearch.length > 0)) &&
+            ((props.productsFromSearch.length || props.productSearch) || !isMobile) &&
             <div className='Cards__topPanel'>
               <p>Найдено {countProductsSearch} препаратов</p>
               <div className='Cards__topPanel-right'>
@@ -108,53 +101,56 @@ const Cards = props => {
           <div className='Cards__mainContainer'>
 
             <div className='Cards__cardList'>
-              {((touchedSearch || props.productSearch) || !isMobile) &&
-              productsFromSearch.length
-                ? productsFromSearch.map((item) => {
-                  const {guid, product, manufacturer, img = null, minPrice, countLast} = item;
-                  const itemIndex = cart.findIndex((item) => item.itemId === guid);
-                  const isBuy = itemIndex >= 0;
-                  const count = isBuy ? props.cart[itemIndex].count : 0
-                  return (
-                    isMobile
-                      ? <CardItemMobile onItemSelected={onItemSelected}
-                                        updateToCart={() => {
-                                          !isBuy ? addedToCart(guid) : itemRemovedFromCart(guid);
-                                        }}
-                                        active={isBuy}
-                                        key={guid}
-                                        id={guid}
-                                        title={product}
-                                        maker={manufacturer}
-                                        img={img}
-                                        minPrice={minPrice}/>
-                      : <CardItem onItemSelected={onItemSelected}
-                                  onIncrement={() => addedToCart(guid)}
-                                  onDecrement={() => itemRemovedFromCart(guid)}
-                                  isBuy={isBuy}
-                                  count={count}
-                                  countLast={countLast}
-                                  key={guid}
-                                  id={guid}
-                                  title={product}
-                                  maker={manufacturer}
-                                  img={img}
-                                  minPrice={minPrice}/>
-                  )
-                })
-                : <>{((touchedSearch || props.productSearch) || !isMobile) &&
-                <div style={{fontSize: '1.3rem'}}>
-                  <p>По вашему запросу ничего не найдено.</p>
-                  <p>Попробуйте изменить запрос.</p>
-                </div>
-                }</>
+              {
+                productsFromSearch.length
+                  ? productsFromSearch.map((item) => {
+                    const {guid, product, manufacturer, img = null, minPrice, countLast} = item;
+                    const itemIndex = cart.findIndex((item) => item.itemId === guid);
+                    const isBuy = itemIndex >= 0;
+                    const count = isBuy ? props.cart[itemIndex].count : 0
+                    return (
+                      isMobile
+                        ? <CardItemMobile onItemSelected={onItemSelected}
+                                          updateToCart={() => {
+                                            !isBuy ? addedToCart(guid) : itemRemovedFromCart(guid);
+                                          }}
+                                          active={isBuy}
+                                          key={guid}
+                                          id={guid}
+                                          title={product}
+                                          maker={manufacturer}
+                                          img={img}
+                                          minPrice={minPrice}/>
+                        : <CardItem onItemSelected={onItemSelected}
+                                    onIncrement={() => addedToCart(guid)}
+                                    onDecrement={() => itemRemovedFromCart(guid)}
+                                    isBuy={isBuy}
+                                    count={count}
+                                    countLast={countLast}
+                                    key={guid}
+                                    id={guid}
+                                    title={product}
+                                    maker={manufacturer}
+                                    img={img}
+                                    minPrice={minPrice}/>
+                    )
+                  })
+                  : <>
+                    {
+                      (props.productSearch || !isMobile) &&
+                      <div style={{fontSize: '1.3rem'}}>
+                        <p>По вашему запросу ничего не найдено.</p>
+                        <p>Попробуйте изменить запрос.</p>
+                      </div>
+                    }
+                  </>
               }
             </div>
 
           </div>
 
           {
-            (((touchedSearch || props.productSearch) || !isMobile) && (productsFromSearch.length > 0)) &&
+            ((props.productSearch || !isMobile) && (productsFromSearch.length > 0)) &&
             <div style={{paddingTop: 15}}>
               <Pagination totalRecords={countProductsSearch}
                           page={currentPage}
