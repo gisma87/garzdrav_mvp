@@ -4,9 +4,9 @@ import calendarIcon from "../../img/calendar-alt-regular.svg";
 
 
 const ArticleCard = (props) => {
-  const {image, title, description} = props.item
+  const {image, title, description, id} = props.item
   return (
-    <div className='ArticleCard'>
+    <div className='ArticleCard' onClick={(event) => props.onItemSelected(id, event)}>
       <img src={image} className="ArticleCard__image" alt={title}/>
       <div className="ArticleCard__content">
         <h3 className="ArticleCard__title">{title}</h3>

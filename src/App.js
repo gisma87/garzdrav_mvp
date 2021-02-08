@@ -43,7 +43,10 @@ function App(props) {
         <Route path="/faq/" component={Faq}/>
         <Route path="/confidentiality/" component={PrivacyPolicy}/>
         <Route path="/company/" component={Company}/>
-        <Route path="/articles/" component={Articles}/>
+        <Route path="/articles/" exact component={Articles}/>
+        <Route path="/articles/:id"
+               render={({match}) => <Promotion itemId={match.params.id}/>}/>
+
         <Route path="/profile/" component={Profile}/>
         <Route path="/promotions/" exact component={PromoPage}/>
         <Route path="/promotions/:id"
