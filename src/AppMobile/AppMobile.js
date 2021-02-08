@@ -13,7 +13,6 @@ import PromoPage from "../containers/PromoPage";
 import Promotion from "../containers/Promotion";
 import Cards from "../containers/Cards";
 import CardPage from "../containers/CardPage";
-import {fetchCities, rewriteCart} from "../actions";
 import {connect} from "react-redux";
 import MobileBottomNavbar from "../components/MobileBottomNavbar";
 import indexMobile from "../containers/IndexMobile";
@@ -21,7 +20,6 @@ import CitiesMobile from "../containers/CitiesMobile/CitiesMobile";
 import Faq from "../containers/Faq/Faq";
 import CatalogPage from "../containers/CatalogPage/CatalogPage";
 import Development from "../components/Development/Development";
-import Cities from "../containers/Cities";
 
 function AppMobile(props) {
 
@@ -37,7 +35,9 @@ function AppMobile(props) {
         <Route path="/faq/" component={Faq}/>
         <Route path="/confidentiality/" component={PrivacyPolicy}/>
         <Route path="/company/" component={Company}/>
-        <Route path="/articles/" component={Articles}/>
+        <Route path="/articles/" exact component={Articles}/>
+        <Route path="/articles/:id"
+               render={({match}) => <Promotion itemId={match.params.id}/>}/>
         <Route path="/profile/" component={Profile}/>
         <Route path="/promotions/" exact component={PromoPage}/>
         <Route path="/promotions/:id"
@@ -55,15 +55,8 @@ function AppMobile(props) {
   );
 }
 
-const mapStateToProps = ({cart, loading, TOKEN}) => {
-  return {cart, loading, TOKEN}
+const mapStateToProps = ({loading}) => {
+  return {loading}
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchCities: () => dispatch(fetchCities()),
-    rewriteCart: (item) => dispatch(rewriteCart(item))
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(AppMobile)
+export default connect(mapStateToProps, null)(AppMobile)
