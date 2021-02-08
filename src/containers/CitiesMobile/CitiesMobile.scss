@@ -1,5 +1,44 @@
 @import "../../variables";
 
+.contactsMobile {
+  color: $primary-color;
+  padding: 0 10px 20px;
+
+  &__title {
+    margin-bottom: 15px;
+    font-size: 1.55rem;
+    line-height: 1.6em;
+  }
+
+  &__block {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__location {
+    margin-bottom: 25px;
+  }
+
+  &__contactBlock {
+    display: flex;
+    align-items: center;
+  }
+
+  &__logo {
+    margin-right: 20px;
+    object-fit: contain;
+    width: 45px;
+  }
+
+  &__address, .contactsMobile__contact {
+    p {
+      font-weight: bold;
+      font-size: 1rem;
+      line-height: 1.2rem;
+    }
+  }
+}
+
 .CitiesMobile {
   font-family: PTSans-Regular, Helvetica, Arial, sans-serif;
   display: flex;

@@ -6,6 +6,8 @@ import {connect} from "react-redux";
 import BlockWrapper from "../../components/BlockWrapper";
 import iconLegko from "../../img/icon/legkoIconSmall.png";
 import SelectDropdown from "../../components/UI/SelectDropdown/SelectDropdown";
+import contactsLogo1 from "../../img/icon/contactsLocation.png";
+import contactsLogo2 from "../../img/icon/contactsMail.png";
 
 const CitiesMobile = props => {
 
@@ -60,6 +62,30 @@ const CitiesMobile = props => {
 
   return (
     <div className='CitiesMobile wrapper'>
+
+      {
+        (props.contacts && !view) &&
+        <div className='contactsMobile'>
+          <h2 className='contactsMobile__title'>Головной офис</h2>
+          <div className='contactsMobile__block'>
+            <div className="contactsMobile__location contactsMobile__contactBlock">
+              <img className='contactsMobile__logo' src={contactsLogo1} alt="логотип локации"/>
+              <div className="contactsMobile__address">
+                <p className='contactsMobile__city'>г. Красноярск</p>
+                <p className='contactsMobile__street'>ул. Вавилова 1 стр. 39</p>
+                <p className='contactsMobile__build'>ТК "Атмосфера дома"</p>
+              </div>
+            </div>
+            <div className="contactsMobile__mail contactsMobile__contactBlock">
+              <img className='contactsMobile__logo' src={contactsLogo2} alt="логотип email"/>
+              <div className="contactsMobile__contact">
+                <p className='contactsMobile__text-contact'>info@aptekalegko.ru</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+
       <header>
         <h1>Аптеки</h1>
         <div className='CitiesMobile__dropdownCities'>

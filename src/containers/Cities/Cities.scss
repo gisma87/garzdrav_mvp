@@ -34,6 +34,41 @@
   }
 }
 
+.contacts {
+  color: $primary-color;
+  padding-bottom: 40px;
+
+  &__title {
+    margin-bottom: 15px;
+    font-size: 1.55rem;
+    line-height: 1.6em;
+  }
+
+  &__block {
+    display: flex;
+  }
+
+  &__contactBlock {
+    margin-right: 70px;
+    display: flex;
+    align-items: center;
+  }
+
+  &__logo {
+    margin-right: 25px;
+    object-fit: contain;
+    width: 55px;
+  }
+
+  &__address, .contacts__contact {
+    p {
+      font-weight: bold;
+      font-size: 1.1rem;
+      line-height: 1.4rem;
+    }
+  }
+}
+
 .Cities {
   font-family: $primary-font;
   display: flex;

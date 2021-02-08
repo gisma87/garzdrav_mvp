@@ -21,6 +21,7 @@ import CitiesMobile from "../containers/CitiesMobile/CitiesMobile";
 import Faq from "../containers/Faq/Faq";
 import CatalogPage from "../containers/CatalogPage/CatalogPage";
 import Development from "../components/Development/Development";
+import Cities from "../containers/Cities";
 
 function AppMobile(props) {
 
@@ -45,7 +46,7 @@ function AppMobile(props) {
         <Route path="/Cards/:id"
                render={({match}) => <CardPage itemId={match.params.id}/>}/>
         <Route path="/catalog/" component={CatalogPage}/>
-        <Route path="/contacts/" component={Development}/>
+        <Route path="/contacts/" render={() => <CitiesMobile contacts={true}/>}/>
         <Route path="/in-development/" component={Development}/>
         <Redirect to={'/'}/>
       </Switch>

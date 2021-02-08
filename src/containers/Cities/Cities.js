@@ -5,6 +5,9 @@ import './Cities.scss'
 import {fetchRetailsCity, setIsCity} from "../../actions";
 import {connect} from "react-redux";
 import SelectDropdown from "../../components/UI/SelectDropdown/SelectDropdown";
+import contactsLogo1 from '../../img/icon/contactsLocation.png'
+import contactsLogo2 from '../../img/icon/contactsMail.png'
+
 
 const Cities = props => {
 
@@ -81,6 +84,28 @@ const Cities = props => {
 
   return (
     <div className='Cities wrapper'>
+      {
+        props.contacts &&
+        <div className='contacts'>
+          <h2 className='contacts__title'>Головной офис</h2>
+          <div className='contacts__block'>
+            <div className="contacts__location contacts__contactBlock">
+              <img className='contacts__logo' src={contactsLogo1} alt="логотип локации"/>
+              <div className="contacts__address">
+                <p className='contacts__city'>г. Красноярск</p>
+                <p className='contacts__street'>ул. Вавилова 1 стр. 39</p>
+                <p className='contacts__build'>ТК "Атмосфера дома"</p>
+              </div>
+            </div>
+            <div className="contacts__mail contacts__contactBlock">
+              <img className='contacts__logo' src={contactsLogo2} alt="логотип email"/>
+              <div className="contacts__contact">
+                <p className='contacts__text-contact'>info@aptekalegko.ru</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
       <h1>Аптеки в городе {isCity.title}</h1>
       {
         retailsCity.length === 0
@@ -246,16 +271,14 @@ const Cities = props => {
 }
 
 const mapStateToProps = (
-{
-  cities, isCity, retailsCity
-}
-) =>
-{
+  {
+    cities, isCity, retailsCity
+  }
+) => {
   return {cities, isCity, retailsCity}
 }
 
-const mapDispatchToProps = (dispatch) =>
-{
+const mapDispatchToProps = (dispatch) => {
   return {
     fetchRetailsCity: () => dispatch(fetchRetailsCity()),
     setIsCity: (item) => dispatch(setIsCity(item)),

@@ -52,7 +52,7 @@ function App(props) {
         <Route path="/Cards/:id"
                render={({match}) => <CardPage itemId={match.params.id}/>}/>
         <Route path="/catalog/" component={CatalogPage}/>
-        <Route path="/contacts/" component={Development}/>
+        <Route path="/contacts/" render={() => <Cities contacts={true}/>}/>
         <Route path="/in-development/" component={Development}/>
         <Redirect to={'/'}/>
       </Switch>
