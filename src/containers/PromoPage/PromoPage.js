@@ -38,8 +38,10 @@ const PromoPage = (props) => {
       </div>
       <div style={{paddingTop: 15}}>
         <Pagination totalRecords={totalCards}
-                    pageLimitItems={20}
-                    onPageChanged={onPageChanged}/>
+                    pageLimitItems={8}
+                    onPageChanged={onPageChanged}
+                    setStartPage={true}
+        />
       </div>
     </div>
   )
