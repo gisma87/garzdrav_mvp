@@ -11,7 +11,7 @@
   transition: transform .5s ease-out;
   z-index: 5;
   background: #fff;
-  width: 80%;
+  //width: 80%;
   color: #333;
   box-sizing: border-box;
   padding-bottom: 40px;
@@ -70,8 +70,8 @@
   }
 
   &__rightPanel {
-    flex: 1 1;
-    display: flex;
+    //flex: 1 1;
+    //display: flex;
     overflow-y: auto;
     overflow-x: auto;
     padding: 15px;
@@ -79,13 +79,14 @@
   }
 
   &__mainList {
+    column-count: 2;
     list-style-type: none;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
+    //display: flex;
+    //flex-direction: column;
+    //justify-content: flex-start;
+    //align-items: flex-start;
     flex-wrap: wrap;
-    max-height: 120%;
+    //max-height: 120%;
 
     //display: grid;
     //grid-auto-flow: row dense;
@@ -95,6 +96,7 @@
 
   &__rightPanelItem {
     //border: 1px dotted black;
+    break-inside: avoid;
     padding: 5px 10px;
     max-width: 300px;
     width: 100%;
