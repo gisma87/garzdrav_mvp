@@ -32,6 +32,14 @@ const HeaderFixed = (props) => {
     return () => window.removeEventListener('scroll', handleScroll);
   })
 
+  useEffect(() => {
+    if (burgerActive) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'auto'
+    }
+  }, [burgerActive])
+
   return (
 
     <div className='HeaderFixed'>

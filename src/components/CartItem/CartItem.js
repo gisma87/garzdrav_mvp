@@ -20,7 +20,7 @@ const CartItem = (props) => {
 
   const stopCount = props.retails.sort((a, b) => a.countLast < b.countLast ? 1 : -1)[0].countLast
   const isLastCount = !(stopCount > count)
-  const listRetails = props.retails.filter(retail => retail.countLast >= count)
+  const listRetails = props.retails.filter(retail => retail.countLast >= count).sort((a, b) => a.priceRetail > b.priceRetail ? 1 : -1)
 
   return (
     <div className='CartItem'>

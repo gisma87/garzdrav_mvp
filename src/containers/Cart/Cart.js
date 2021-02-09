@@ -71,7 +71,6 @@ class Cart extends React.Component {
     error: <Error/>,
     loadingText: <Loader classStyle='Loader_is-opened'/>,
     OrderNumber: '',
-    promoItem: null,
     isShowTimer: false,
     seconds: 60,
     thisTime: {date: Date.now(), iteration: 0}
@@ -84,14 +83,6 @@ class Cart extends React.Component {
   componentDidUpdate(prevProps, prevState, snapshot) {
 
     // запрашиваем данные для promoItem.
-    // if (!this.state.promoItem && this.props.cartItems.length) {
-    //   apiService.getProductInfo(this.props.cartItems[0].guid, this.props.isCity.guid)
-    //     .then(response => {
-    //       const minPrice = response.retails.sort((a, b) => a.priceRetail > b.priceRetail ? 1 : -1)[0].priceRetail
-    //       this.setState({promoItem: {...response, minPrice}})
-    //     })
-    // }
-
     if (this.props.cart.length && !this.props.promoItems) {
       const time = Date.now();
       if (((time - 8000) > this.state.thisTime.date) || this.state.thisTime.iteration < 1) {
@@ -126,27 +117,6 @@ class Cart extends React.Component {
   componentWillUnmount() {
     if (this.timer) this.clearTimer();
   }
-
-  // getDataForPromoItem() {
-  //   if (this.state.promoItem) {
-  //     const result = {}
-  //     const itemIndex = this.props.cart.findIndex((item) => item.itemId === this.state.promoItem.guid);
-  //     result.isBuy = itemIndex >= 0;
-  //     result.count = result.isBuy ? this.props.cart[itemIndex].count : 0
-  //     result.countLast = this.state.promoItem.retails.sort((a, b) => a.countLast < b.countLast ? 1 : -1)[0].countLast
-  //     result.key = this.state.promoItem.guid
-  //     result.id = this.state.promoItem.guid
-  //     result.title = this.state.promoItem.product
-  //     result.maker = this.state.promoItem.manufacturer
-  //     result.img = this.state.promoItem.img
-  //     result.minPrice = this.state.promoItem.minPrice
-  //     result.onIncrement = () => this.props.addedToCart(this.state.promoItem.guid)
-  //     result.onDecrement = () => this.props.itemRemovedFromCart(this.state.promoItem.guid)
-  //
-  //     return result
-  //   }
-  //   return null
-  // }
 
   getDataForPromoItem() {
     if (this.props.promoItems instanceof Object && (this.props.promoItems?.promoItems.length > 0)) {
@@ -411,25 +381,6 @@ class Cart extends React.Component {
 
                               <div className='Cart__rightPanel'>
                                 <div className='Cart__promoContainer'>
-                                  {/*{*/}
-                                  {/*  this.state.promoItem*/}
-                                  {/*  && <CardItem onItemSelected={(itemId, event) => {*/}
-                                  {/*    if (!event.target.closest('button')) this.props.history.push(`/Cards/${itemId}`);*/}
-                                  {/*  }}*/}
-                                  {/*               classStyle='Cart__promoBlock'*/}
-                                  {/*               onIncrement={dataForPromoItem.onIncrement}*/}
-                                  {/*               onDecrement={dataForPromoItem.onDecrement}*/}
-                                  {/*               isBuy={dataForPromoItem.isBuy}*/}
-                                  {/*               count={dataForPromoItem.count}*/}
-                                  {/*               countLast={dataForPromoItem.countLast}*/}
-                                  {/*               key={dataForPromoItem.key}*/}
-                                  {/*               id={dataForPromoItem.id}*/}
-                                  {/*               title={dataForPromoItem.title}*/}
-                                  {/*               maker={dataForPromoItem.maker}*/}
-                                  {/*               img={dataForPromoItem.img}*/}
-                                  {/*               minPrice={dataForPromoItem.minPrice}*/}
-                                  {/*  />*/}
-                                  {/*}*/}
 
                                   {/*================== Рекламный блок ===================================*/}
                                   {
@@ -476,24 +427,6 @@ class Cart extends React.Component {
                                   </div>
                                 </div>
                                 <div className='Cart__promoContainer'>
-                                  {/*{this.state.promoItem*/}
-                                  {/*&& <CardItem onItemSelected={(itemId, event) => {*/}
-                                  {/*  if (!event.target.closest('button')) this.props.history.push(`/Cards/${itemId}`);*/}
-                                  {/*}}*/}
-                                  {/*             classStyle='Cart__promoBlock'*/}
-                                  {/*             onIncrement={dataForPromoItem.onIncrement}*/}
-                                  {/*             onDecrement={dataForPromoItem.onDecrement}*/}
-                                  {/*             isBuy={dataForPromoItem.isBuy}*/}
-                                  {/*             count={dataForPromoItem.count}*/}
-                                  {/*             countLast={dataForPromoItem.countLast}*/}
-                                  {/*             key={dataForPromoItem.key}*/}
-                                  {/*             id={dataForPromoItem.id}*/}
-                                  {/*             title={dataForPromoItem.title}*/}
-                                  {/*             maker={dataForPromoItem.maker}*/}
-                                  {/*             img={dataForPromoItem.img}*/}
-                                  {/*             minPrice={dataForPromoItem.minPrice}*/}
-                                  {/*/>*/}
-                                  {/*}*/}
 
                                   {/*================== Рекламный блок ===================================*/}
                                   {
