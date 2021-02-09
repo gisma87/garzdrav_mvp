@@ -7,16 +7,25 @@ import ArticlesBlock from "../../components/ArticlesBlock";
 import FooterDesktop from "../../components/FooterDesktop";
 import Logo from "../../components/UI/Logo/Logo";
 import Burger from "../../components/UI/Burger/Burger";
-import {Link} from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
 import LegkoBlock from "../../components/LegkoBlock/LegkoBlock";
+import PopupLocation from "../../components/PopupLocation/PopupLocation";
+import {onPopupLocation} from "../../actions";
+import {connect} from "react-redux";
 
-const indexMobile = () => {
+const indexMobile = (props) => {
+
   return (
     <div className='indexMobile'>
 
       <div className='indexMobile__logoPanel'>
         <Logo/>
         <Link to={'/catalog'}>Каталог <Burger/></Link>
+        {props.isPopupLocation && <PopupLocation active={props.isPopupLocation}
+                                                 city={props.isCity.title}
+                                                 openPopupCities={() => props.history.push('/cities/')}
+                                                 closeThisPopup={props.onPopupLocation}
+        />}
       </div>
 
       <section className='indexMobile__searchPanel'>
@@ -31,4 +40,14 @@ const indexMobile = () => {
   )
 }
 
-export default indexMobile
+const mapStateToProps = ({isCity, isPopupLocation}) => {
+  return {isCity, isPopupLocation}
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onPopupLocation: () => dispatch(onPopupLocation(false))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(indexMobile))
