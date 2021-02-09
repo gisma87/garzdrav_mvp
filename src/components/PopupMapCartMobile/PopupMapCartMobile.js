@@ -21,6 +21,13 @@ const PopupMapCartMobile = props => {
 // eslint-disable-next-line
   }, [props.active])
 
+  useEffect(() => {
+    if (props.retails.length) {
+      setZoom(11)
+      setPoint(props.retails[0].coordinates)
+    }
+  }, [props.retails])
+
   const placeMark = (price, popupInfo, flag = false) => {
     return {
       properties: {
@@ -43,7 +50,7 @@ const PopupMapCartMobile = props => {
   return (
 
     <PopupWrapper onClick={props.onClick} active={props.active} classStyle='PopupMapCartMobile'>
-      <h1>Аптеки в г. Красноярск</h1>
+      <h1>Аптеки в г. {props.city}</h1>
       <div className='PopupMapCartMobile__mainContainer'>
 
         <YMaps>

@@ -25,6 +25,14 @@ const PopupMapCart = props => {
     // eslint-disable-next-line
   }, [props.active])
 
+  useEffect(() => {
+    if (props.retails.length) {
+      setZoom(11)
+      setPoint(props.retails[0].coordinates)
+    }
+  }, [props.retails])
+
+
   const popup = ({title, address, clock, tel}) => `
   <div class="mapBalloon">
     <p class="mapBalloon__title"><strong>${title}</strong><br></p>
@@ -63,7 +71,7 @@ const PopupMapCart = props => {
 
   return (
     <PopupWrapper onClick={props.onClick} active={props.active} classStyle='PopupMapCart'>
-      <h1>Аптеки в г. Красноярск</h1>
+      <h1>Аптеки в г. {props.city}</h1>
       <div className='PopupMapCart__mainContainer'>
 
         <BlockWrapper classStyle='PopupMapCart__retails'>

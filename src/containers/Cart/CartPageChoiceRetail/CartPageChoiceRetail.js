@@ -179,6 +179,7 @@ const CartPageChoiceRetail = props => {
     }
   </>
   const isDesktopMap = <PopupMapCart active={showMap}
+                                     city={props.data.city}
                                      retails={retailsForMap()}
                                      activeRetail={selectedRetail}
                                      cartLength={cart.length}
@@ -189,6 +190,7 @@ const CartPageChoiceRetail = props => {
                                      }}
   />
   const isMobileMap = <PopupMapCartMobile active={showMap}
+                                          city={props.data.city}
                                           retails={retailsForMap()}
                                           activeRetail={selectedRetail}
                                           cartLength={cart.length}

@@ -351,7 +351,7 @@ class Cart extends React.Component {
                                 this.props.cartItems.map((product, index) => {
                                   const minPriceRetail = product.retails.sort((a, b) => a.priceRetail > b.priceRetail ? 1 : -1)[0];
                                   return <div className='Cart__infoBlock-minPriceProducts'
-                                              key={product.guid + index +31}>
+                                              key={product.guid + index + 31}>
                                     <div>
                                       <p className='Cart__infoBlock-productTitle'>{product.product}</p>
                                       <div className='Cart__infoBlock-streetRetail'>
@@ -470,7 +470,8 @@ class Cart extends React.Component {
                       cart: this.props.cart,
                       onSelectRetail: (retailGuid) => this.props.onSelectRetail(retailGuid),
                       retailsForMap,
-                      selectedRetail: this.props.selectedRetail
+                      selectedRetail: this.props.selectedRetail,
+                      city: this.props.isCity.title
                     }}/>
                   }
 
@@ -513,7 +514,7 @@ const mapStateToProps = (state) => {
     retailsArr: state.retailsArr,
     loading: state.loading,
     selectedRetail: state.selectedRetail,
-    TOKEN: state.TOKEN
+    TOKEN: state.TOKEN,
   }
 }
 
