@@ -83,7 +83,7 @@ class Cart extends React.Component {
   componentDidUpdate(prevProps, prevState, snapshot) {
 
     // запрашиваем данные для promoItem.
-    if (this.props.cart.length && !this.props.promoItems) {
+    if (this.props.cart.length && ((prevProps.cart.length !== this.props.cart.length) || (this.state.thisTime.iteration < 1))) {
       const time = Date.now();
       if (((time - 8000) > this.state.thisTime.date) || this.state.thisTime.iteration < 1) {
         this.props.getPromoItem(this.props.cart[0]?.itemId)
