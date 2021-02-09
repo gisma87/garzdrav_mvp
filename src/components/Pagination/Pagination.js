@@ -33,10 +33,6 @@ const Pagination = props => {
   const totalPages = Math.ceil(totalRecords / pageLimitItems); // общее количество страниц
 
   const calcPageNumbers = () => {
-    console.log('totalRecords: ', totalRecords)
-    console.log('pageLimitItems: ', pageLimitItems)
-    console.log('pageNeighbours: ', pageNeighbours)
-    console.log('currentPageState: ', currentPageState)
     const startPage = Math.max(1, currentPageState - pageNeighbours);
     const endPage = startPage === 1
       ? Math.min(totalPages, (pageNeighbours * 2 + 1))
@@ -44,12 +40,9 @@ const Pagination = props => {
 
     if (endPage === totalPages) {
       let start = Math.max(1, (totalPages - (pageNeighbours * 2)));
-      console.log('start: ', start)
-      console.log('totalPages: ', totalPages)
       return range(start, totalPages)
     }
-    console.log('startPage: ', startPage)
-    console.log('endPage: ', endPage)
+
     return range(startPage, endPage)
   }
 
