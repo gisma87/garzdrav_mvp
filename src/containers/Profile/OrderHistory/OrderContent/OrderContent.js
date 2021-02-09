@@ -76,7 +76,7 @@ const OrderContent = props => {
                                                              key={index + Math.random()}>
                 <p className='OrderContent__productTitle' onClick={() => {
                   apiService.getProductInfo(product.product, props.isCity.guid)
-                    .then(res => props.history.push(`/Cards/${product.product}`))
+                    .then(res => props.history.push(`/Card/${product.product}`))
                     .catch(e => props.setRepeatInfo('failure'))
 
                 }}>{product.productTitle}</p>

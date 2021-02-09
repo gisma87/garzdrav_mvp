@@ -21,7 +21,7 @@ const PromoBlockMobile = props => {
   })
 
   const onItemSelected = (itemId, event) => {
-    if (!event.target.closest('button')) this.props.history.push(`Cards/${itemId}`);
+    if (!event.target.closest('button')) this.props.history.push(`Card/${itemId}`);
   }
 
   const isMobile = useMediaQuery({query: '(max-width: 650px)'})

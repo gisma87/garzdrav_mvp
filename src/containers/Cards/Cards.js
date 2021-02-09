@@ -58,7 +58,7 @@ const Cards = props => {
   }
 
   const onItemSelected = (itemId, event) => {
-    if (!event.target.closest('button')) history.push(`${itemId}`);
+    if (!event.target.closest('button')) history.push(`/Card/${itemId}`);
   }
 
   const isMobile = useMediaQuery({query: '(max-width: 900px)'})

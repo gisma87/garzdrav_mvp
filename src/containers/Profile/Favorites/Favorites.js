@@ -9,7 +9,7 @@ const Favorites = (props) => {
   const isMobile = useMediaQuery({query: '(max-width: 900px)'})
   const {addedToCart, itemRemovedFromCart, cart, history, favorites, delFavorites} = props.data;
   const handlerToCards = (itemId) => {
-    history.push(`/Cards/${itemId}`)
+    history.push(`/Card/${itemId}`)
     window.scroll(0, 0)
   }
 

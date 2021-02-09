@@ -208,7 +208,7 @@ const CardPage = (props) => {
                       ? <div className='CardPage__promoContainer'>
                         <p className="CardPage__titlePanel">Вам пригодится</p>
                         <CardItem onItemSelected={(itemId, event) => {
-                          if (!event.target.closest('button')) props.history.push(`/Cards/${itemId}`);
+                          if (!event.target.closest('button')) props.history.push(`/Card/${itemId}`);
                         }}
                                   classStyle='Cart__promoBlock'
                                   itemProps={getDataForPromoItem()}

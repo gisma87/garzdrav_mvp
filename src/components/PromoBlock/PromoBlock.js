@@ -22,7 +22,7 @@ class PromoBlock extends React.Component {
   }
 
   onItemSelected = (itemId, event) => {
-    if (!event.target.closest('.CardItem__button')) this.props.history.push(`Cards/${itemId}`);
+    if (!event.target.closest('.CardItem__button')) this.props.history.push(`Card/${itemId}`);
   }
 
 

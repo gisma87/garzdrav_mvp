@@ -90,7 +90,7 @@ const OrderInternetContent = props => {
               <p className='OrderInternetContent__productTitle'
                  onClick={() => {
                    apiService.getProductInfo(product.productGuid, props.isCity.guid)
-                     .then(res => props.history.push(`/Cards/${product.productGuid}`))
+                     .then(res => props.history.push(`/Card/${product.productGuid}`))
                      .catch(e => props.setRepeatInfo('failure'))
 
                  }}

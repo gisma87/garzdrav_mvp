@@ -28,7 +28,7 @@ const CatalogPage = props => {
   const isMobile = useMediaQuery({query: '(max-width: 800px)'})
 
   const onItemSelected = (itemId, event) => {
-    if (!event.target.closest('button')) props.history.push(`/Cards/${itemId}`)
+    if (!event.target.closest('button')) props.history.push(`/Card/${itemId}`)
   }
 
   const getActiveItem = (index) => {
