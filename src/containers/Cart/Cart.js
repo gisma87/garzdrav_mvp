@@ -13,7 +13,7 @@ import {
   addedToCart,
   allItemRemovedFromCart, authorizedByPassOrSMS, authorizedBySMSorPassword,
   clearCart,
-  fetchCartItems,
+  fetchCartItems, getPromoItem,
   itemRemovedFromCart,
   loadingFalse,
   loadingTrue,
@@ -73,7 +73,8 @@ class Cart extends React.Component {
     OrderNumber: '',
     promoItem: null,
     isShowTimer: false,
-    seconds: 60
+    seconds: 60,
+    thisTime: {date: Date.now(), iteration: 0}
   }
 
   componentDidMount() {
@@ -83,13 +84,22 @@ class Cart extends React.Component {
   componentDidUpdate(prevProps, prevState, snapshot) {
 
     // запрашиваем данные для promoItem.
-    if (!this.state.promoItem && this.props.cartItems.length) {
-      apiService.getProductInfo(this.props.cartItems[0].guid, this.props.isCity.guid)
-        .then(response => {
-          const minPrice = response.retails.sort((a, b) => a.priceRetail > b.priceRetail ? 1 : -1)[0].priceRetail
-          this.setState({promoItem: {...response, minPrice}})
-        })
+    // if (!this.state.promoItem && this.props.cartItems.length) {
+    //   apiService.getProductInfo(this.props.cartItems[0].guid, this.props.isCity.guid)
+    //     .then(response => {
+    //       const minPrice = response.retails.sort((a, b) => a.priceRetail > b.priceRetail ? 1 : -1)[0].priceRetail
+    //       this.setState({promoItem: {...response, minPrice}})
+    //     })
+    // }
+
+    if (this.props.cart.length && !this.props.promoItems) {
+      const time = Date.now();
+      if (((time - 8000) > this.state.thisTime.date) || this.state.thisTime.iteration < 1) {
+        this.props.getPromoItem(this.props.cart[0]?.itemId)
+        this.setState({thisTime: {date: time, iteration: this.state.thisTime.iteration + 1}})
+      }
     }
+
 
     // Если корзина изменилась, берём её данные с LocalStorage и на основании этих данных пересобираем массивы cartItems и retailsArr
     if (prevProps.cart !== this.props.cart) {
@@ -117,21 +127,45 @@ class Cart extends React.Component {
     if (this.timer) this.clearTimer();
   }
 
+  // getDataForPromoItem() {
+  //   if (this.state.promoItem) {
+  //     const result = {}
+  //     const itemIndex = this.props.cart.findIndex((item) => item.itemId === this.state.promoItem.guid);
+  //     result.isBuy = itemIndex >= 0;
+  //     result.count = result.isBuy ? this.props.cart[itemIndex].count : 0
+  //     result.countLast = this.state.promoItem.retails.sort((a, b) => a.countLast < b.countLast ? 1 : -1)[0].countLast
+  //     result.key = this.state.promoItem.guid
+  //     result.id = this.state.promoItem.guid
+  //     result.title = this.state.promoItem.product
+  //     result.maker = this.state.promoItem.manufacturer
+  //     result.img = this.state.promoItem.img
+  //     result.minPrice = this.state.promoItem.minPrice
+  //     result.onIncrement = () => this.props.addedToCart(this.state.promoItem.guid)
+  //     result.onDecrement = () => this.props.itemRemovedFromCart(this.state.promoItem.guid)
+  //
+  //     return result
+  //   }
+  //   return null
+  // }
+
   getDataForPromoItem() {
-    if (this.state.promoItem) {
+    if (this.props.promoItems instanceof Object && (this.props.promoItems?.promoItems.length > 0)) {
+      const promoItem = this.props.promoItems?.promoItems[0]
       const result = {}
-      const itemIndex = this.props.cart.findIndex((item) => item.itemId === this.state.promoItem.guid);
+      const itemIndex = this.props.cart.findIndex((item) => item.itemId === promoItem.guid);
       result.isBuy = itemIndex >= 0;
       result.count = result.isBuy ? this.props.cart[itemIndex].count : 0
-      result.countLast = this.state.promoItem.retails.sort((a, b) => a.countLast < b.countLast ? 1 : -1)[0].countLast
-      result.key = this.state.promoItem.guid
-      result.id = this.state.promoItem.guid
-      result.title = this.state.promoItem.product
-      result.maker = this.state.promoItem.manufacturer
-      result.img = this.state.promoItem.img
-      result.minPrice = this.state.promoItem.minPrice
-      result.onIncrement = () => this.props.addedToCart(this.state.promoItem.guid)
-      result.onDecrement = () => this.props.itemRemovedFromCart(this.state.promoItem.guid)
+      // countLast не возвращает данный запрос - решили ограничить кол. одной штукой - чтобы можно было в корзину добавить
+      // result.countLast = promoItem.retails.sort((a, b) => a.countLast < b.countLast ? 1 : -1)[0].countLast
+      result.countLast = 1
+      result.key = promoItem.guid
+      result.id = promoItem.guid
+      result.title = promoItem.product
+      result.maker = promoItem.manufacturer
+      result.img = promoItem.img
+      result.minPrice = promoItem.minPrice
+      result.onIncrement = () => this.props.addedToCart(promoItem.guid)
+      result.onDecrement = () => this.props.itemRemovedFromCart(promoItem.guid)
 
       return result
     }
@@ -184,7 +218,7 @@ class Cart extends React.Component {
 
   render() {
     const stopCount = (product) => product.retails.sort((a, b) => a.countLast < b.countLast ? 1 : -1)[0].countLast
-    const dataForPromoItem = this.getDataForPromoItem();
+    // const dataForPromoItem = this.getDataForPromoItem();
     const getMinSum = () => {
       const minPrice = (product) => product.retails.sort((a, b) => a.priceRetail > b.priceRetail ? 1 : -1)[0].priceRetail
       const count = (product) => this.props.cart.find(item => item.itemId === product.guid)?.count
@@ -377,25 +411,40 @@ class Cart extends React.Component {
 
                               <div className='Cart__rightPanel'>
                                 <div className='Cart__promoContainer'>
-                                  <p className="Cart__titlePanel">Вам пригодится</p>
-                                  {this.state.promoItem
-                                  && <CardItem onItemSelected={(itemId, event) => {
-                                    if (!event.target.closest('button')) this.props.history.push(`/Cards/${itemId}`);
-                                  }}
-                                               classStyle='Cart__promoBlock'
-                                               onIncrement={dataForPromoItem.onIncrement}
-                                               onDecrement={dataForPromoItem.onDecrement}
-                                               isBuy={dataForPromoItem.isBuy}
-                                               count={dataForPromoItem.count}
-                                               countLast={dataForPromoItem.countLast}
-                                               key={dataForPromoItem.key}
-                                               id={dataForPromoItem.id}
-                                               title={dataForPromoItem.title}
-                                               maker={dataForPromoItem.maker}
-                                               img={dataForPromoItem.img}
-                                               minPrice={dataForPromoItem.minPrice}
-                                  />
+                                  {/*{*/}
+                                  {/*  this.state.promoItem*/}
+                                  {/*  && <CardItem onItemSelected={(itemId, event) => {*/}
+                                  {/*    if (!event.target.closest('button')) this.props.history.push(`/Cards/${itemId}`);*/}
+                                  {/*  }}*/}
+                                  {/*               classStyle='Cart__promoBlock'*/}
+                                  {/*               onIncrement={dataForPromoItem.onIncrement}*/}
+                                  {/*               onDecrement={dataForPromoItem.onDecrement}*/}
+                                  {/*               isBuy={dataForPromoItem.isBuy}*/}
+                                  {/*               count={dataForPromoItem.count}*/}
+                                  {/*               countLast={dataForPromoItem.countLast}*/}
+                                  {/*               key={dataForPromoItem.key}*/}
+                                  {/*               id={dataForPromoItem.id}*/}
+                                  {/*               title={dataForPromoItem.title}*/}
+                                  {/*               maker={dataForPromoItem.maker}*/}
+                                  {/*               img={dataForPromoItem.img}*/}
+                                  {/*               minPrice={dataForPromoItem.minPrice}*/}
+                                  {/*  />*/}
+                                  {/*}*/}
+
+                                  {/*================== Рекламный блок ===================================*/}
+                                  {
+                                    this.getDataForPromoItem() !== null
+                                    && <div>
+                                      <p className="Cart__titlePanel">Вам пригодится</p>
+                                      <CardItem onItemSelected={(itemId, event) => {
+                                        if (!event.target.closest('button')) this.props.history.push(`/Cards/${itemId}`);
+                                      }}
+                                                classStyle='Cart__promoBlock'
+                                                itemProps={this.getDataForPromoItem()}
+                                      />
+                                    </div>
                                   }
+
                                 </div>
                                 <div>
                                   <p className="Cart__titlePanel">Ваш заказ</p>
@@ -427,25 +476,41 @@ class Cart extends React.Component {
                                   </div>
                                 </div>
                                 <div className='Cart__promoContainer'>
-                                  <p className="Cart__titlePanel">Вам пригодится</p>
-                                  {this.state.promoItem
-                                  && <CardItem onItemSelected={(itemId, event) => {
-                                    if (!event.target.closest('button')) this.props.history.push(`/Cards/${itemId}`);
-                                  }}
-                                               classStyle='Cart__promoBlock'
-                                               onIncrement={dataForPromoItem.onIncrement}
-                                               onDecrement={dataForPromoItem.onDecrement}
-                                               isBuy={dataForPromoItem.isBuy}
-                                               count={dataForPromoItem.count}
-                                               countLast={dataForPromoItem.countLast}
-                                               key={dataForPromoItem.key}
-                                               id={dataForPromoItem.id}
-                                               title={dataForPromoItem.title}
-                                               maker={dataForPromoItem.maker}
-                                               img={dataForPromoItem.img}
-                                               minPrice={dataForPromoItem.minPrice}
-                                  />
+                                  {/*{this.state.promoItem*/}
+                                  {/*&& <CardItem onItemSelected={(itemId, event) => {*/}
+                                  {/*  if (!event.target.closest('button')) this.props.history.push(`/Cards/${itemId}`);*/}
+                                  {/*}}*/}
+                                  {/*             classStyle='Cart__promoBlock'*/}
+                                  {/*             onIncrement={dataForPromoItem.onIncrement}*/}
+                                  {/*             onDecrement={dataForPromoItem.onDecrement}*/}
+                                  {/*             isBuy={dataForPromoItem.isBuy}*/}
+                                  {/*             count={dataForPromoItem.count}*/}
+                                  {/*             countLast={dataForPromoItem.countLast}*/}
+                                  {/*             key={dataForPromoItem.key}*/}
+                                  {/*             id={dataForPromoItem.id}*/}
+                                  {/*             title={dataForPromoItem.title}*/}
+                                  {/*             maker={dataForPromoItem.maker}*/}
+                                  {/*             img={dataForPromoItem.img}*/}
+                                  {/*             minPrice={dataForPromoItem.minPrice}*/}
+                                  {/*/>*/}
+                                  {/*}*/}
+
+                                  {/*================== Рекламный блок ===================================*/}
+                                  {
+                                    (this.getDataForPromoItem() !== null)
+                                    &&
+                                    <div>
+                                      <p className="Cart__titlePanel">Вам пригодится</p>
+                                      <CardItem onItemSelected={(itemId, event) => {
+                                        if (!event.target.closest('button')) this.props.history.push(`/Cards/${itemId}`);
+                                      }}
+                                                classStyle='Cart__promoBlock'
+                                                itemProps={this.getDataForPromoItem()}
+                                      />
+                                    </div>
+
                                   }
+
                                 </div>
                               </div>
                             </MediaQuery>
@@ -515,11 +580,13 @@ const mapStateToProps = (state) => {
     loading: state.loading,
     selectedRetail: state.selectedRetail,
     TOKEN: state.TOKEN,
+    promoItems: state.promoItems
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    getPromoItem: (productGuid) => dispatch(getPromoItem(productGuid)),
     refreshAuthentication: () => dispatch(refreshAuthentication()),
     authorizedByPassOrSMS: (phone, smsOrPass, callback) => dispatch(authorizedByPassOrSMS(phone, smsOrPass, callback)),
     authorizedBySMSorPassword: (phone, smsOrPass, callback) => dispatch(authorizedBySMSorPassword(phone, smsOrPass, callback)),
