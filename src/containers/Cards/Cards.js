@@ -26,6 +26,13 @@ const Cards = props => {
   const [methodSort, setMethodSort] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
 
+
+  // TODO TEST
+  useEffect(() => {
+    const page = Number(props.match.params.page)
+    onPageChanged({currentPage: page ? page : 1})
+  }, [props.match.params.page])
+
   useEffect(() => {
     if (props.requestFromSearchPanelThisTime) {
       setCurrentPage(1)
@@ -157,7 +164,7 @@ const Cards = props => {
                 // setPage={(page) => {
                 //   props.getProductsFromSearchLimit(props.productSearch, 32, page)
                 // }}
-                          setCurrentPage={(page) => setCurrentPage(page)}
+                //           setCurrentPage={(page) => setCurrentPage(page)}
                           pageLimitItems={32}
                           onPageChanged={onPageChanged}
               />

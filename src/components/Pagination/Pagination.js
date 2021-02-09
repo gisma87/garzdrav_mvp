@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import './Pagination.scss'
 import SvgArrowLightRight from "../../img/SVGcomponents/SvgArrowLightRight";
 import {useMediaQuery} from "react-responsive";
+import {withRouter} from "react-router-dom";
 
 const range = (from, to, step = 1) => {
   let i = from;
@@ -27,13 +28,15 @@ const Pagination = props => {
     onPageChanged // принимает на вход currentPage(текущая страница), totalPages(общее кол.стр.)
   } = props
 
-  const DECOR = typeof props.setPage === 'function'
-
   const [currentPageState, setCurrentPage] = useState(1) // текущая страница
 
   const totalPages = Math.ceil(totalRecords / pageLimitItems); // общее количество страниц
 
   const calcPageNumbers = () => {
+    console.log('totalRecords: ', totalRecords)
+    console.log('pageLimitItems: ', pageLimitItems)
+    console.log('pageNeighbours: ', pageNeighbours)
+    console.log('currentPageState: ', currentPageState)
     const startPage = Math.max(1, currentPageState - pageNeighbours);
     const endPage = startPage === 1
       ? Math.min(totalPages, (pageNeighbours * 2 + 1))
@@ -41,14 +44,17 @@ const Pagination = props => {
 
     if (endPage === totalPages) {
       let start = Math.max(1, (totalPages - (pageNeighbours * 2)));
-
+      console.log('start: ', start)
+      console.log('totalPages: ', totalPages)
       return range(start, totalPages)
     }
-
+    console.log('startPage: ', startPage)
+    console.log('endPage: ', endPage)
     return range(startPage, endPage)
   }
 
   const goToPage = (page = 1) => {
+    props.history.push(`${page}` + (props.match.params.sort ? `/${props.match.params.sort}` : ''))
     const currentPage = Math.max(0, Math.min(page, totalPages));
     const paginationData = {
       currentPage,// текущая страница
@@ -56,17 +62,11 @@ const Pagination = props => {
       pageLimitItems, // количество карточек на странице
       totalRecords
     }
-    if (DECOR) {
-      props.setPage(page)
-      onPageChanged(paginationData)
-      setCurrentPage(currentPage)
-    } else {
-      setCurrentPage(currentPage)
-      onPageChanged(paginationData)
-    }
+
+    setCurrentPage(currentPage)
+    // onPageChanged(paginationData)
   }
-  // eslint-disable-next-line
-  // useEffect(() => props.setCurrentPage(1), [])
+
   useEffect(() => {
     if (props.setStartPage) goToPage(1);
   }, [])
@@ -95,7 +95,7 @@ const Pagination = props => {
         {
           pages.map(page => <li key={page}
                                 onClick={() => goToPage(page)}
-                                className={`Pagination__item${DECOR ? (props.page === page ? ' active' : '') : (currentPageState === page ? ' active' : '')}`}
+                                className={`Pagination__item${+props.page === +page ? ' active' : ''}`}
           >
             {page}
           </li>)
@@ -110,13 +110,14 @@ const Pagination = props => {
         <p className='Pagination__item Pagination__itemText Pagination__lastItem'
            onClick={() => goToPage(totalPages)}>Последняя</p>
       </ul>
-      {currentPageState &&
-      <div className="Pagination__currentPage">
-        <p><span>{currentPageState}</span> из <span>{totalPages}</span></p>
-      </div>
+      {
+        currentPageState &&
+        <div className="Pagination__currentPage">
+          <p><span>{currentPageState}</span> из <span>{totalPages}</span></p>
+        </div>
       }
     </div>
   )
 }
 
-export default Pagination
+export default withRouter(Pagination)

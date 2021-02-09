@@ -54,7 +54,7 @@ function App(props) {
         <Route path="/Card/:id"
                render={({match}) => <CardPage itemId={match.params.id}/>}/>
         <Route path="/Cards/" exact component={Cards}/>
-        <Route path="/Cards/:id" component={Cards}/>
+        <Route path="/Cards/:page/:sort?" render={({match}) => <Cards params={match.params}/>}/>
         <Route path="/catalog/" component={CatalogPage}/>
         <Route path="/contacts/" render={() => <Cities contacts={true}/>}/>
         <Route path="/in-development/" component={Development}/>
