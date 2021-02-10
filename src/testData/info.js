@@ -133,3 +133,72 @@ class GisMap extends React.Component {
   })}
 </div>}
 {/*===================================================================*/}
+
+
+// ищет категорию по ID категории
+const getActiveCategory = (categoryID) => {
+  let result = null
+
+  function searchElement(element) {
+    if (result) return result
+    if (element.guid === categoryID) {
+      result = element;
+      return result
+    }
+
+    for (let i = 0; i < element.child.length; i++) {
+      const item = element.child[i]
+
+      const isElement = item.guid === categoryID
+      if (isElement) {
+        result = item
+        return result
+      }
+
+      if (item.child.length) {
+        searchElement(item) // спускаемся на самое дно
+      } else {
+        const isElement = item.guid === categoryID
+        if (isElement) {
+          result = item
+        }
+      }
+    }
+
+    if (result) {
+      return result
+    } else return 'категория не найдена'
+  }
+
+  searchElement(props.catalog)
+  return result
+}
+
+// ищет категорию товара, по id категории данного товара.
+// Если указать категорию, в которой есть подкатегории вернёт null. т.к. у товара нет данной категории
+const getActiveItemCategory = (categoryID) => {
+  let result = null
+
+  function searchElement(element) {
+    if (result) return result
+
+    for (let i = 0; i < element.child.length; i++) {
+      const item = element.child[i]
+      if (item.child.length) {
+        searchElement(item) // спускаемся на самое дно
+      } else {
+        const isElement = item.guid === categoryID
+        if (isElement) {
+          result = item
+        }
+      }
+    }
+
+    if (result) {
+      return result
+    } else return 'категория не найдена'
+  }
+
+  searchElement(props.catalog)
+  return result
+}

@@ -133,8 +133,9 @@ const CardPage = (props) => {
                 {props.activeCategory.historyGuid.map((item, i) => {
                   return (
                     <p key={item} className='CardPage__pathname'>
-                      <NavLink to='/catalog/' className='CardPage__pathItem'
-                               onClick={() => props.setActiveCategory(thisCategoryPath(i).activeItem)}
+                      <NavLink to={'/catalog/' + thisCategoryPath(i).activeItem.guid + '/'}
+                               className='CardPage__pathItem'
+                        // onClick={() => props.setActiveCategory(thisCategoryPath(i).activeItem)}
                       >
                         {thisCategoryPath(i).title}
                       </NavLink>

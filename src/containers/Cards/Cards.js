@@ -26,8 +26,6 @@ const Cards = props => {
   const [methodSort, setMethodSort] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
 
-
-  // TODO TEST
   useEffect(() => {
     const page = Number(props.match.params.page)
     onPageChanged({currentPage: page ? page : 1})

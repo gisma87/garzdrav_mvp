@@ -14,43 +14,27 @@ const CatalogPage = props => {
   const [currentPage, setCurrentPage] = useState(1)
   const [methodSort, setMethodSort] = useState(0)
 
-
-// TODO дописать
   useEffect(() => {
-
     if (props.catalog) {
-      console.log('props.catalog: ', props.catalog)
       const categoryID = props.match.params.categoryId ? props.match.params.categoryId : props.catalog.guid;
-      console.log('categoryID: ', categoryID)
+      const page = props.match.params.page ? Number(props.match.params.page) : 1
       const activeCategory = getActiveCategory(categoryID)
-      console.log('activeCategory: ', activeCategory)
       props.setActiveCategory(activeCategory)
-      // props.history.push(`${props.activeCategory.guid}`)
-      setCurrentPage(1)
+      setCurrentPage(page)
       const parameters = {
+        page,
         order: methodSort,
         categoryId: activeCategory.guid
       }
+
       props.setProductsToCategory(parameters)
     }
-
-// TODO возможно удалить
-//     if (props.activeCategory) {
-//       props.history.push(`${props.activeCategory.guid}`)
-//       setCurrentPage(1)
-//       const parameters = {
-//         order: methodSort,
-//         categoryId: props.activeCategory.guid
-//       }
-//       props.setProductsToCategory(parameters)
-//     }
-    // eslint-disable-next-line
-  }, [props.match.params.categoryId, props.catalog])
+  }, [props.match.params.categoryId, props.match.params.page, props.catalog])
 
   const isMobile = useMediaQuery({query: '(max-width: 800px)'})
 
   const onItemSelected = (itemId, event) => {
-    if (!event.target.closest('button')) props.history.push(`/Card/${itemId}`)
+    if (!event.target.closest('button')) props.history.push(`/Card/${itemId}/`)
   }
 
   const getActiveItem = (index) => {
@@ -63,16 +47,6 @@ const CatalogPage = props => {
     return {title: title[index], activeItem: activeItem[index]}
   }
 
-  const onPageChanged = ({currentPage}) => {
-    setCurrentPage(currentPage)
-    const parameters = {
-      page: currentPage,
-      order: methodSort,
-      categoryId: props.activeCategory.guid
-    }
-    props.setProductsToCategory(parameters)
-  }
-
   const sortCards = (methodSort) => {
     const parameters = {
       page: 1,
@@ -80,37 +54,10 @@ const CatalogPage = props => {
       categoryId: props.activeCategory.guid
     }
     setMethodSort(methodSort)
-    setCurrentPage(1)
-    props.setProductsToCategory(parameters)
-  }
+    props.history.push(`/catalog/${props.activeCategory.guid}/1`)
 
-  // ищет категорию товара, по id категории данного товара.
-  // Если указать категорию, в которой есть подкатегории вернёт null. т.к. у товара нет данной категории
-  const getActiveItemCategory = (categoryID) => {
-    let result = null
-
-    function searchElement(element) {
-      if (result) return result
-
-      for (let i = 0; i < element.child.length; i++) {
-        const item = element.child[i]
-        if (item.child.length) {
-          searchElement(item) // спускаемся на самое дно
-        } else {
-          const isElement = item.guid === categoryID
-          if (isElement) {
-            result = item
-          }
-        }
-      }
-
-      if (result) {
-        return result
-      } else return 'категория не найдена'
-    }
-
-    searchElement(props.catalog)
-    return result
+    // setCurrentPage(1)
+    // props.setProductsToCategory(parameters)
   }
 
   // ищет категорию по ID категории
@@ -161,8 +108,7 @@ const CatalogPage = props => {
             return (
               <p key={item} className='CatalogPage__pathname'>
               <span className='CatalogPage__pathItem'
-                // onClick={() => props.setActiveCategory(getActiveItem(i).activeItem)}
-                    onClick={() => props.history.push(`${getActiveItem(i).activeItem.guid}`)}
+                    onClick={() => props.history.push(`/catalog/${getActiveItem(i).activeItem.guid}/`)}
               >
                 {getActiveItem(i).title}
               </span>
@@ -177,11 +123,10 @@ const CatalogPage = props => {
           {props.activeCategory.child.length > 0
           && props.activeCategory.child.map((item, i) => {
             return (<li key={i + item}
-              // onClick={() => props.setActiveCategory(item)}
                         onClick={() => {
                           console.log(item)
                           console.log(item.guid)
-                          props.history.push(`/catalog/${item.guid}`)
+                          props.history.push(`/catalog/${item.guid}/`)
                         }}
                         className='CatalogPage__item'>{item.title}</li>)
           })
@@ -189,18 +134,18 @@ const CatalogPage = props => {
         </ul>
       </>}
 
-      {props.productsToCategory.length > 0 &&
-      <div className='CatalogPage__topPanel'>
-        <p>В категории {props.countProductsCategory} препаратов</p>
-        <div className='CatalogPage__topPanel-right'>
-          <p>Сортировать: </p>
-          <SortCards selectItem={(idMethod) => sortCards(idMethod)}
-                     methodSort={methodSort}
-                     items={sortItems}
-          />
+      {
+        props.productsToCategory.length > 0 &&
+        <div className='CatalogPage__topPanel'>
+          <p>В категории {props.countProductsCategory} препаратов</p>
+          <div className='CatalogPage__topPanel-right'>
+            <p>Сортировать: </p>
+            <SortCards selectItem={(idMethod) => sortCards(idMethod)}
+                       methodSort={methodSort}
+                       items={sortItems}
+            />
+          </div>
         </div>
-      </div>
-
       }
 
       <div className="CatalogPage__cardList">
@@ -246,13 +191,9 @@ const CatalogPage = props => {
         <div style={{paddingTop: 15}}>
           <Pagination totalRecords={props.countProductsCategory}
                       page={currentPage}
-            // setPage={(page) => goToPage(page)}
-                      pageLimitItems={32}
-                      onPageChanged={onPageChanged}/>
+                      pageLimitItems={32}/>
         </div>
       }
-
-
     </div>
   )
 }
