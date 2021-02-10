@@ -16,20 +16,29 @@ const CatalogPage = props => {
 
   useEffect(() => {
     if (props.catalog) {
-      const categoryID = props.match.params.categoryId ? props.match.params.categoryId : props.catalog.guid;
-      const page = props.match.params.page ? Number(props.match.params.page) : 1
-      const activeCategory = getActiveCategory(categoryID)
-      props.setActiveCategory(activeCategory)
-      setCurrentPage(page)
-      const parameters = {
-        page,
-        order: methodSort,
-        categoryId: activeCategory.guid
-      }
+      if (!props.match.params.categoryId) {
+        props.history.push(`/catalog/${props.catalog.guid}/`)
+      } else {
+        const categoryID = props.match.params.categoryId ? props.match.params.categoryId : props.catalog.guid;
+        const page = props.match.params.page ? Number(props.match.params.page) : 1
+        const activeCategory = getActiveCategory(categoryID)
 
-      props.setProductsToCategory(parameters)
+        if (!activeCategory) {
+          props.history.push(`/catalog/${props.catalog.guid}/`)
+        } else {
+          props.setActiveCategory(activeCategory)
+          setCurrentPage(page)
+          const parameters = {
+            page,
+            order: methodSort,
+            categoryId: activeCategory.guid
+          }
+
+          props.setProductsToCategory(parameters)
+        }
+      }
     }
-  }, [props.match.params.categoryId, props.match.params.page, props.catalog])
+  }, [props.match.params.categoryId, props.match.params.page, methodSort, props.catalog])
 
   const isMobile = useMediaQuery({query: '(max-width: 800px)'})
 
@@ -48,16 +57,8 @@ const CatalogPage = props => {
   }
 
   const sortCards = (methodSort) => {
-    const parameters = {
-      page: 1,
-      order: methodSort,
-      categoryId: props.activeCategory.guid
-    }
     setMethodSort(methodSort)
     props.history.push(`/catalog/${props.activeCategory.guid}/1`)
-
-    // setCurrentPage(1)
-    // props.setProductsToCategory(parameters)
   }
 
   // ищет категорию по ID категории

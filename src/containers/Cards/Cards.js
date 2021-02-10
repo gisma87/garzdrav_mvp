@@ -164,7 +164,7 @@ const Cards = props => {
                 // }}
                 //           setCurrentPage={(page) => setCurrentPage(page)}
                           pageLimitItems={32}
-                          onPageChanged={onPageChanged}
+                          // onPageChanged={onPageChanged}
               />
             </div>
           }
