@@ -18,7 +18,7 @@ const imgData = [
 ]
 
 const Advertising = () => {
-  const isMobile = useMediaQuery({query: '(max-width: 900px)'})
+  const isMobile = useMediaQuery({query: '(max-width: 685px)'})
   SwiperCore.use([Navigation, Pagination, Autoplay])
   return (
     <section className={'Advertising' + (isMobile ? '' : ' wrapper')}>
