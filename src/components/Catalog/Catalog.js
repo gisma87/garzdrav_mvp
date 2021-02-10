@@ -14,7 +14,7 @@ const Catalog = props => {
     <>
       <div className={'Catalog' + (props.isActive ? ' Catalog__active' : '')}>
         <div className="Catalog__header">
-          <p> </p>
+          <p></p>
           <Burger isActive={props.isActive} onClick={props.onClick} theme='dark'/>
         </div>
 
@@ -37,7 +37,7 @@ const Catalog = props => {
               {props.data[activeItem].child.map((item, id) => {
                 return <li key={Math.random() + id}
                            className="Catalog__rightPanelItem">
-                  <Link to='/catalog/'
+                  <Link to={'/catalog/' + item.guid}
                         onClick={() => {
                           props.setActiveCategory(item)
                           props.onClick()
@@ -52,7 +52,7 @@ const Catalog = props => {
                                    props.onClick()
                                  }}
                       >
-                        <NavLink to='/catalog/' className='Catalog__link Catalog__hoverLink'>
+                        <NavLink to={'/catalog/' + item.guid} className='Catalog__link Catalog__hoverLink'>
                           <span>{itemChild.title}</span>
                         </NavLink>
                       </li>
