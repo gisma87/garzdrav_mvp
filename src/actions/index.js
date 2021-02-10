@@ -526,7 +526,7 @@ const setCatalog = () => async (dispatch, getState, apiService) => {
       type: 'SET_CATALOG',
       payload: response
     })
-    dispatch(setActiveCategory(response))
+    if (!getState().activeCategory) dispatch(setActiveCategory(response));
   } catch (e) {
     dispatch(setError(e))
   }

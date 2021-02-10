@@ -14,16 +14,38 @@ const CatalogPage = props => {
   const [currentPage, setCurrentPage] = useState(1)
   const [methodSort, setMethodSort] = useState(0)
 
+
+// TODO дописать
   useEffect(() => {
-    if (props.activeCategory) {
+
+    if (props.catalog) {
+      console.log('props.catalog: ', props.catalog)
+      const categoryID = props.match.params.categoryId ? props.match.params.categoryId : props.catalog.guid;
+      console.log('categoryID: ', categoryID)
+      const activeCategory = getActiveCategory(categoryID)
+      console.log('activeCategory: ', activeCategory)
+      props.setActiveCategory(activeCategory)
+      // props.history.push(`${props.activeCategory.guid}`)
       setCurrentPage(1)
       const parameters = {
         order: methodSort,
-        categoryId: props.activeCategory.guid
+        categoryId: activeCategory.guid
       }
       props.setProductsToCategory(parameters)
-    }// eslint-disable-next-line
-  }, [props.activeCategory])
+    }
+
+// TODO возможно удалить
+//     if (props.activeCategory) {
+//       props.history.push(`${props.activeCategory.guid}`)
+//       setCurrentPage(1)
+//       const parameters = {
+//         order: methodSort,
+//         categoryId: props.activeCategory.guid
+//       }
+//       props.setProductsToCategory(parameters)
+//     }
+    // eslint-disable-next-line
+  }, [props.match.params.categoryId, props.catalog])
 
   const isMobile = useMediaQuery({query: '(max-width: 800px)'})
 
@@ -62,6 +84,74 @@ const CatalogPage = props => {
     props.setProductsToCategory(parameters)
   }
 
+  // ищет категорию товара, по id категории данного товара.
+  // Если указать категорию, в которой есть подкатегории вернёт null. т.к. у товара нет данной категории
+  const getActiveItemCategory = (categoryID) => {
+    let result = null
+
+    function searchElement(element) {
+      if (result) return result
+
+      for (let i = 0; i < element.child.length; i++) {
+        const item = element.child[i]
+        if (item.child.length) {
+          searchElement(item) // спускаемся на самое дно
+        } else {
+          const isElement = item.guid === categoryID
+          if (isElement) {
+            result = item
+          }
+        }
+      }
+
+      if (result) {
+        return result
+      } else return 'категория не найдена'
+    }
+
+    searchElement(props.catalog)
+    return result
+  }
+
+  // ищет категорию по ID категории
+  const getActiveCategory = (categoryID) => {
+    let result = null
+
+    function searchElement(element) {
+      if (result) return result
+      if (element.guid === categoryID) {
+        result = element;
+        return result
+      }
+
+      for (let i = 0; i < element.child.length; i++) {
+        const item = element.child[i]
+
+        const isElement = item.guid === categoryID
+        if (isElement) {
+          result = item
+          return result
+        }
+
+        if (item.child.length) {
+          searchElement(item) // спускаемся на самое дно
+        } else {
+          const isElement = item.guid === categoryID
+          if (isElement) {
+            result = item
+          }
+        }
+      }
+
+      if (result) {
+        return result
+      } else return 'категория не найдена'
+    }
+
+    searchElement(props.catalog)
+    return result
+  }
+
   return (
     <div className='CatalogPage'>
       {props.activeCategory &&
@@ -71,7 +161,8 @@ const CatalogPage = props => {
             return (
               <p key={item} className='CatalogPage__pathname'>
               <span className='CatalogPage__pathItem'
-                    onClick={() => props.setActiveCategory(getActiveItem(i).activeItem)}
+                // onClick={() => props.setActiveCategory(getActiveItem(i).activeItem)}
+                    onClick={() => props.history.push(`${getActiveItem(i).activeItem.guid}`)}
               >
                 {getActiveItem(i).title}
               </span>
@@ -86,7 +177,12 @@ const CatalogPage = props => {
           {props.activeCategory.child.length > 0
           && props.activeCategory.child.map((item, i) => {
             return (<li key={i + item}
-                        onClick={() => props.setActiveCategory(item)}
+              // onClick={() => props.setActiveCategory(item)}
+                        onClick={() => {
+                          console.log(item)
+                          console.log(item.guid)
+                          props.history.push(`/catalog/${item.guid}`)
+                        }}
                         className='CatalogPage__item'>{item.title}</li>)
           })
           }
