@@ -25,17 +25,28 @@ const Cards = props => {
   const {history, cart, addedToCart, itemRemovedFromCart, productsFromSearch, countProductsSearch, error} = props;
   const [methodSort, setMethodSort] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
+  const [isFirstFetch, setIsFirstFetch] = useState(true)
 
   useEffect(() => {
     const page = Number(props.match.params.page)
-    onPageChanged({currentPage: page ? page : 1})
+    if (isFirstFetch) {
+      setIsFirstFetch(false)
+    } else {
+      if (!props.requestFromSearchPanelThisTime) {
+        onPageChanged({currentPage: page ? page : 1})
+      }
+    }
   }, [props.match.params.page])
 
   useEffect(() => {
+    let timer = null;
     if (props.requestFromSearchPanelThisTime) {
       setCurrentPage(1)
       setMethodSort(0);
-      props.offRequestFromSearchPanel()
+      timer = setTimeout(props.offRequestFromSearchPanel, 2000)
+    }
+    return () => {
+      if (!timer) clearTimeout(timer);
     }
     // eslint-disable-next-line
   }, [props.requestFromSearchPanelThisTime])
@@ -164,7 +175,7 @@ const Cards = props => {
                 // }}
                 //           setCurrentPage={(page) => setCurrentPage(page)}
                           pageLimitItems={32}
-                          // onPageChanged={onPageChanged}
+                // onPageChanged={onPageChanged}
               />
             </div>
           }

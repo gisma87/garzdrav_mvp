@@ -488,39 +488,3 @@ const reducer = (state = initialState, action) => {
 }
 
 export default reducer;
-
-// case 'ITEM_ADDED_TO_CART':
-//   const itemId = action.payload;
-//   const itemIndex = state.cart.findIndex((item) => item.itemId === itemId);
-//   const item = state.cart[itemIndex];
-//   let newItem;
-//   if (item) {
-//     newItem = {
-//       ...item,
-//       count: item.count + 1
-//     }
-//   } else {
-//     newItem = {
-//       itemId,
-//       count: 1
-//     }
-//   }
-//
-//   if (itemIndex < 0) {
-//     return {
-//       ...state,
-//       cart: [
-//         ...state.cart,
-//         newItem
-//       ]
-//     };
-//   } else {
-//     return {
-//       ...state,
-//       cart: [
-//         ...state.cart.slice(0, itemIndex),
-//         newItem,
-//         ...state.cart.slice(itemIndex + 1)
-//       ]
-//     };
-//   }
