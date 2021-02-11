@@ -4,18 +4,14 @@ import SwiperCore, {Navigation, Pagination, Autoplay} from "swiper";
 import 'swiper/swiper-bundle.css';
 import './Advertising.scss'
 import {useMediaQuery} from 'react-responsive'
-import test1 from '../../img/slider/test1.jpg'
-import test2 from '../../img/slider/test2.jpg'
-import test3 from '../../img/slider/test3.jpg'
-import test4 from '../../img/slider/test4.jpg'
 import testPromo from '../../img/test/testPromojpg.jpg'
+import img1 from '../../img/forMainSlidr/gifts.jpg'
+import img2 from '../../img/forMainSlidr/reducePrice.jpg'
+import img3 from '../../img/forMainSlidr/seasonalProducts.jpg'
 
-const imgData = [
-  {src: test1, color: '#f1adba'},
-  {src: test2, color: '#0068b9'},
-  {src: test3, color: '#fbdad5'},
-  {src: test4, color: '#a2ddfb'}
-]
+
+const imgData = [img1, img2, img3]
+
 
 const Advertising = () => {
   const isMobile = useMediaQuery({query: '(max-width: 685px)'})
@@ -36,7 +32,7 @@ const Advertising = () => {
           {imgData.map((item, index) => {
             return (
               <SwiperSlide tag="li" key={index} style={{display: 'flex', justifyContent: 'center'}}>
-                <img className='Advertising__slide' src={item.src} alt={index + ' slide'}/>
+                <img className='Advertising__slide' src={item} alt={index + ' slide'}/>
               </SwiperSlide>
             )
           })}
