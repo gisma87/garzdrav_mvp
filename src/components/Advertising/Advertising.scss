@@ -9,6 +9,8 @@
 
   &__slider {
     max-width: 690px;
+    border-radius: 15px;
+    overflow: hidden;
     @media (max-width: 1220px) {
       max-width: 645px;
     }
