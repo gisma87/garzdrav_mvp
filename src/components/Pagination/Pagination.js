@@ -25,7 +25,6 @@ const Pagination = props => {
     totalRecords = 0, // length массива всех карточек
     pageLimitItems = 30, // количество карточек на странице
     pageNeighbours = isMobile ? 1 : 2, // количество соседей у текущей страницы, если 1 - то слева и справа будет по 1 соседу.
-    onPageChanged // принимает на вход currentPage(текущая страница), totalPages(общее кол.стр.)
   } = props
 
   const [currentPageState, setCurrentPage] = useState(1) // текущая страница
@@ -49,19 +48,12 @@ const Pagination = props => {
   const goToPage = (page = 1) => {
     props.history.push(`${page}` + (props.match.params.sort ? `/${props.match.params.sort}` : ''))
     const currentPage = Math.max(0, Math.min(page, totalPages));
-    const paginationData = {
-      currentPage,// текущая страница
-      totalPages, // общее количество страниц
-      pageLimitItems, // количество карточек на странице
-      totalRecords
-    }
-
     setCurrentPage(currentPage)
-    // onPageChanged(paginationData)
   }
 
   useEffect(() => {
     if (props.setStartPage) goToPage(1);
+    // eslint-disable-next-line
   }, [])
 
   useEffect(() => {

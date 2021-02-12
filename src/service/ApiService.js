@@ -31,27 +31,27 @@ class ApiService {
       }
     })
     return {...product, retails}
-    // нужный ФОРМАТ ДАННЫХ - response должен быть:
-    // {
-    //    guid: string,
-    //    product: string,
-    //    manufacturer: string,
-    //    categoryGuid: string,
-    //    categoryTitle: string,
-    //    retails: [{
-    //      countLast: number,
-    //      priceRetail: number,
-    //      brand: string,
-    //      buildNumber: string,
-    //      city: string,
-    //      coordinates: [56.034496, 92.884345],
-    //      guid: string,
-    //      phone: string,
-    //      street: string,
-    //      title: string,
-    //      weekDayTime: "09:00:00 - 18:00:00",
-    //    }]
-    // }
+    /* нужный ФОРМАТ ДАННЫХ - response должен быть:
+    {
+       guid: string,
+       product: string,
+       manufacturer: string,
+       categoryGuid: string,
+       categoryTitle: string,
+       retails: [{
+         countLast: number,
+         priceRetail: number,
+         brand: string,
+         buildNumber: string,
+         city: string,
+         coordinates: [56.034496, 92.884345],
+         guid: string,
+         phone: string,
+         street: string,
+         title: string,
+         weekDayTime: "09:00:00 - 18:00:00",
+       }]
+     } */
   }
 
   // запрос списка городов

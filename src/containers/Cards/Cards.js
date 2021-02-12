@@ -35,7 +35,7 @@ const Cards = props => {
       if (!props.requestFromSearchPanelThisTime) {
         onPageChanged({currentPage: page ? page : 1})
       }
-    }
+    }// eslint-disable-next-line
   }, [props.match.params.page])
 
   useEffect(() => {

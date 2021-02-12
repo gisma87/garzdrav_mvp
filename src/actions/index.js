@@ -157,11 +157,17 @@ const fetchCities = () => async (dispatch, getState, apiService) => {
     } else {
 
       // иначе определяем город по IP, устанавливаем его и открываем popup подтверждения выбранного города
-      const {city, ip} = await apiService.getUserCity()
-      console.log(city, ip);
-      const cityItem = response.find(item => city === item.title)
-      dispatch(setIsCity(cityItem))
-      dispatch(onPopupLocation(true))
+      apiService.getUserCity()
+        .then(res => {
+          const {city} = res;
+          const cityItem = response.find(item => city === item.title)
+          dispatch(setIsCity(cityItem))
+          dispatch(onPopupLocation(true))
+        })
+        .catch(e => {
+          // если что-то не получилось, всё равно открываем popup выбора города.
+          dispatch(onPopupLocation(true))
+        })
     }
   } catch (e) {
     dispatch(setError(e))

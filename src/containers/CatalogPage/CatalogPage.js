@@ -37,7 +37,7 @@ const CatalogPage = props => {
           props.setProductsToCategory(parameters)
         }
       }
-    }
+    }// eslint-disable-next-line
   }, [props.match.params.categoryId, props.match.params.page, methodSort, props.catalog])
 
   const isMobile = useMediaQuery({query: '(max-width: 800px)'})

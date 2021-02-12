@@ -34,7 +34,7 @@ const initialState = {
   promoItems: null
 }
 
-const upgradeRetailItems = (array, cart) => {
+const upgradeRetailItems = (array) => {
   const retailItems = array.map((item) => {
     const sum = item.product.reduce((accumulator, currentValue) => {
       // const count = cart.find(item => item.itemId === currentValue.guid).count
@@ -357,7 +357,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         cartItems: newCardItems,
-        retailsArr: [...upgradeRetailItems(retailsArr, state.cart)],
+        retailsArr: [...upgradeRetailItems(retailsArr)],
         // selectedRetail: state.selectedRetail ? state.selectedRetail : selectedRetail,
         // selectedRetail: null,
         // isRetailAllProduct,
