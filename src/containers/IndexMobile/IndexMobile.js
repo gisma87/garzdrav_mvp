@@ -20,6 +20,7 @@ const indexMobile = (props) => {
 
       <div className='indexMobile__logoPanel'>
         <Logo/>
+        <p className='test'>Тестирование</p>
         <Link to={'/catalog'}>Каталог <Burger/></Link>
         {props.isPopupLocation && <PopupLocation active={props.isPopupLocation}
                                                  city={props.isCity.title}

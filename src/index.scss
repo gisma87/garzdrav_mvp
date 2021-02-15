@@ -2,143 +2,172 @@
 @import url('https://fonts.googleapis.com/css2?family=Numans&display=swap');
 
 @keyframes bounceInLeft {
-    0% {
-        opacity: 0;
+  0% {
+    opacity: 0;
 
-        transform: translateX(-400px);
-    }
-    60% {
+    transform: translateX(-400px);
+  }
+  60% {
 
-        transform: translateX(30px);
-    }
-    80% {
-        transform: translateX(-10px);
-    }
-    100% {
-        opacity: 1;
+    transform: translateX(30px);
+  }
+  80% {
+    transform: translateX(-10px);
+  }
+  100% {
+    opacity: 1;
 
-        transform: translateX(0);
-    }
+    transform: translateX(0);
+  }
 }
 
 
 @keyframes scaleOn {
-    0% {
-        opacity: 0;
-        transform: scale(0);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 body {
-    margin: 0;
-    font-family: $primary-font;
+  margin: 0;
+  font-family: $primary-font;
 }
 
 @font-face {
-    font-family: 'PTSans-Regular';
-    src: url('./fonts/PTSans-Regular.ttf') format('truetype');
-    font-weight: 400;
-    font-style: normal;
+  font-family: 'PTSans-Regular';
+  src: url('./fonts/PTSans-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'PTSans-Bold';
-    src: url('./fonts/PTSans-Bold.ttf') format('truetype');
-    font-weight: 700;
-    font-style: normal;
+  font-family: 'PTSans-Bold';
+  src: url('./fonts/PTSans-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'regular';
-    src: url('./fonts/Evolventa.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'regular';
+  src: url('./fonts/Evolventa.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'bold';
-    src: url('./fonts/Evolventa Bold.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'bold';
+  src: url('./fonts/Evolventa Bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'Evolventa';
-    src: url('./fonts/Evolventa.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'Evolventa';
+  src: url('./fonts/Evolventa.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'Evolventa';
-    src: url('./fonts/Evolventa Bold.ttf') format('truetype');
-    font-weight: bold;
-    font-style: normal;
+  font-family: 'Evolventa';
+  src: url('./fonts/Evolventa Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'obliq';
-    src: url('./fonts/Evolventa Oblique.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'obliq';
+  src: url('./fonts/Evolventa Oblique.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'obliqblack';
-    src: url('./fonts/Evolventa Oblique Bold.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'obliqblack';
+  src: url('./fonts/Evolventa Oblique Bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 
 
 /* полоса прокрутки (скроллбар) */
 ::-webkit-scrollbar {
-    width: 10px; /* ширина для вертикального скролла */
-    height: 8px; /* высота для горизонтального скролла */
-    background-color: #fff;
+  width: 10px; /* ширина для вертикального скролла */
+  height: 8px; /* высота для горизонтального скролла */
+  background-color: #fff;
 }
 
 /* ползунок скроллбара */
 ::-webkit-scrollbar-thumb {
-    background-color: rgba(0,0,0,0.3);
-    border-radius: 9em;
-    box-shadow: inset 1px 1px 10px #f3faf7;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 9em;
+  box-shadow: inset 1px 1px 10px #f3faf7;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(0,0,0,0.8);
+  background-color: rgba(0, 0, 0, 0.8);
 }
 
 /* Стрелки */
 
 ::-webkit-scrollbar-button:vertical:start:decrement {
-    background: linear-gradient(120deg, #999 40%, rgba(0, 0, 0, 0) 41%),
-    linear-gradient(240deg, #999 40%, rgba(0, 0, 0, 0) 41%),
-    linear-gradient(0deg, #999 30%, rgba(0, 0, 0, 0) 31%);
-    background-color: #fff;
+  background: linear-gradient(120deg, #999 40%, rgba(0, 0, 0, 0) 41%),
+  linear-gradient(240deg, #999 40%, rgba(0, 0, 0, 0) 41%),
+  linear-gradient(0deg, #999 30%, rgba(0, 0, 0, 0) 31%);
+  background-color: #fff;
 }
 
 ::-webkit-scrollbar-button:vertical:end:increment {
-    background: linear-gradient(300deg, #999 40%, rgba(0, 0, 0, 0) 41%),
-    linear-gradient(60deg, #999 40%, rgba(0, 0, 0, 0) 41%),
-    linear-gradient(180deg, #999 30%, rgba(0, 0, 0, 0) 31%);
-    background-color: #fff;
+  background: linear-gradient(300deg, #999 40%, rgba(0, 0, 0, 0) 41%),
+  linear-gradient(60deg, #999 40%, rgba(0, 0, 0, 0) 41%),
+  linear-gradient(180deg, #999 30%, rgba(0, 0, 0, 0) 31%);
+  background-color: #fff;
 }
 
 ::-webkit-scrollbar-button:horizontal:start:decrement {
-    background: linear-gradient(30deg, #999 40%, rgba(0, 0, 0, 0) 41%),
-    linear-gradient(150deg, #999 40%, rgba(0, 0, 0, 0) 41%),
-    linear-gradient(270deg, #999 30%, rgba(0, 0, 0, 0) 31%);
-    background-color: #fff;
+  background: linear-gradient(30deg, #999 40%, rgba(0, 0, 0, 0) 41%),
+  linear-gradient(150deg, #999 40%, rgba(0, 0, 0, 0) 41%),
+  linear-gradient(270deg, #999 30%, rgba(0, 0, 0, 0) 31%);
+  background-color: #fff;
 }
 
 ::-webkit-scrollbar-button:horizontal:end:increment {
-    background: linear-gradient(210deg, #999 40%, rgba(0, 0, 0, 0) 41%),
-    linear-gradient(330deg, #999 40%, rgba(0, 0, 0, 0) 41%),
-    linear-gradient(90deg, #999 30%, rgba(0, 0, 0, 0) 31%);
-    background-color: #fff;
+  background: linear-gradient(210deg, #999 40%, rgba(0, 0, 0, 0) 41%),
+  linear-gradient(330deg, #999 40%, rgba(0, 0, 0, 0) 41%),
+  linear-gradient(90deg, #999 30%, rgba(0, 0, 0, 0) 31%);
+  background-color: #fff;
+}
+
+.test {
+  color: #95c11f;
+  font-size: 24px;
+  font-style: italic;
+  letter-spacing: 10px;
+  margin-left: 15px;
+  @media (max-width: 600px) {
+    font-size: 14px;
+    font-style: italic;
+    letter-spacing: 5px;
+    margin-left: 5px;
+  }
+  @media (max-width: 475px) {
+    font-size: 12px;
+    font-style: italic;
+    letter-spacing: 0;
+    margin-left: 5px;
+  }
+  @media (max-width: 410px) {
+    position: absolute;
+    top: 0;
+    left: 60%;
+    font-size: 12px;
+    font-style: italic;
+    letter-spacing: 0;
+    margin-left: 5px;
+  }
 }

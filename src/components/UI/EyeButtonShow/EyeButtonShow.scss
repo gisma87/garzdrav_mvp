@@ -1,6 +1,9 @@
 .EyeButtonShow {
   object-fit: contain;
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

@@ -55,7 +55,7 @@ const HeaderFixed = (props) => {
           <Logo/>
         </div>
 
-        {/*<SearchPanel/>*/}
+        <p className='test'>Тестирование</p>
 
         <div className='HeaderFixed__rightblock'>
 
