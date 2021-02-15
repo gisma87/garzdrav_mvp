@@ -327,6 +327,13 @@
     transition: transform .3s, font-size .3s;
   }
 
+  &__eyeShowButton {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-10%);
+  }
+
   &__input {
     max-width: 300px;
     outline: none;

@@ -5,12 +5,14 @@ import InputMask from 'react-input-mask'
 import {connect} from "react-redux";
 import {authorizedByPassOrSMS} from "../../actions";
 import apiService from "../../service/ApiService";
+import EyeButtonShow from "../UI/EyeButtonShow/EyeButtonShow";
 
 const PopupLogin = props => {
 
   const [formValid, setFormValid] = useState(false)
   const [phone, setPhone] = useState('')
   const [smsCodeOrPassword, setSmsCodeOrPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
 
   function validate(event) {
     const value = event.target.value.trim()
@@ -47,17 +49,21 @@ const PopupLogin = props => {
                    id="PopupLogin-contact"
         />
 
-        <input
-          type="text"
-          name="PopupLogin-pwd"
-          className="PopupLogin__input PopupLogin__input_type_link-url"
-          placeholder="Код или пароль"
-          id="PopupLogin-pwd"
-          onChange={(event) => {
-            const input = event.target;
-            setSmsCodeOrPassword(input.value.trim())
-          }}
-        />
+        <div className='PopupLogin__inputPasswordContainer'>
+          <input
+            type={showPassword ? "text" : "password"}
+            name="PopupLogin-pwd"
+            className="PopupLogin__input PopupLogin__input_type_link-url"
+            placeholder="Код или пароль"
+            id="PopupLogin-pwd"
+            onChange={(event) => {
+              const input = event.target;
+              setSmsCodeOrPassword(input.value.trim())
+            }}
+          />
+          <div className='PopupLogin__eyeShowButton' onClick={() => setShowPassword(!showPassword)}><EyeButtonShow
+            show={showPassword}/></div>
+        </div>
         <span id="error-linkPlace" className="popup__error-message"/>
 
         <div className='PopupLogin__buttonContainer'>

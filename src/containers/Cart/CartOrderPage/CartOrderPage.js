@@ -10,6 +10,7 @@ import service from "../../../service/service";
 import Loader from "../../../components/UI/Loader";
 import {NavLink} from "react-router-dom";
 import LoaderTimer from "../../../components/UI/LoaderTimer/LoaderTimer";
+import EyeButtonShow from "../../../components/UI/EyeButtonShow/EyeButtonShow";
 
 const CartOrderPage = props => {
 
@@ -20,6 +21,7 @@ const CartOrderPage = props => {
   const [errorMessageCode, setErrorMessageCode] = useState('')
   const [loading, setLoading] = useState(false)
   const [order, setOrder] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
 
   useEffect(() => {
     if (props.OrderNumber.length) setLoading(false);
@@ -110,7 +112,7 @@ const CartOrderPage = props => {
           <div className="CartOrderPage__listOrder">
             {
               order.product.map((product, index) => {
-                return <div className='CartOrderPage__productContainer' key={product.guid + index+3}>
+                return <div className='CartOrderPage__productContainer' key={product.guid + index + 3}>
                   <p className='CartOrderPage__productTitle'>{product.product}</p>
                   <p className='CartOrderPage__productCount'>{product.count}шт. * {product.priceRetail} ₽/шт.</p>
                   <p className='CartOrderPage__price'>{product.priceRetail * product.count} ₽</p>
@@ -160,13 +162,16 @@ const CartOrderPage = props => {
                              setErrorMessageCode('')
                            }}
                            required
-                           type="text"
+                           type={showPassword ? "text" : "password"}
                            name="CartOrderPage-smsCode"
                            id="CartOrderPage-smsCode"
                     />
                     <p className="CartOrderPage__label">Код из СМС</p>
                     <span
                       className={'CartOrderPage__errorMessage' + (errorMessageCode.length ? ' CartOrderPage__errorMessage_visible' : '')}>{errorMessageCode}</span>
+                    <div className='CartOrderPage__eyeShowButton' onClick={() => setShowPassword(!showPassword)}>
+                      <EyeButtonShow show={showPassword}/>
+                    </div>
                   </label>
                 </div>
 
