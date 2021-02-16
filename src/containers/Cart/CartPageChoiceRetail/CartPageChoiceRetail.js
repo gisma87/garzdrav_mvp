@@ -33,7 +33,7 @@ const CartPageChoiceRetail = props => {
          className={'CitiesMobile__btn ' + (showMap ? 'CitiesMobile__btn_active' : '')}>Карта</p>
     </div>
     {
-      cartItems.length < cart.length &&
+      (cartItems.length < cart.length) &&
       <p className='Cart__alert'>
         Некоторых товаров нет в вашем городе. Чтобы искать более результативно
         очистите корзину и осуществите ПОИСК заново по Вашему городу
@@ -104,7 +104,7 @@ const CartPageChoiceRetail = props => {
     </div>
 
     {
-      cartItems.length < cart.length &&
+      (cartItems.length < cart.length) &&
       <p className='Cart__alert'>
         Некоторых товаров нет в вашем городе. Чтобы искать более результативно
         очистите корзину и осуществите ПОИСК заново по Вашему городу
