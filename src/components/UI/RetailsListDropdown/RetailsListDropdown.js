@@ -19,6 +19,8 @@ const RetailsListDropdown = props => {
       : setStyleContent({height: 0})
   }
 
+  const random = Math.random()
+
   return (
     <div ref={content}
          style={styleContent}
@@ -26,9 +28,9 @@ const RetailsListDropdown = props => {
       <div ref={contentWrapper} className='RetailsListDropdown__contentDropdown'>
         <h3 className='RetailsListDropdown__title'>В наличии в аптеке:</h3>
         {
-          props.list.map((item) => {
+          props.list.map((item, index) => {
             return (
-              <div className='RetailsListDropdown__item' key={item.guid}>
+              <div className='RetailsListDropdown__item' key={item.guid + index + random}>
                 <p className='RetailsListDropdown__titleItem'>ул. {item.street} {item.buildNumber}</p>
                 <div className='RetailsListDropdown__priceContainer'>
                   {/*<p className='RetailsListDropdown__count'><span>{props.count}</span> шт:</p>*/}

@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import React, {useState} from "react";
 import './RetailItem.scss'
 import {useMediaQuery} from 'react-responsive'
 import ProductListDropdown from "../UI/ProductListDropdown/ProductListDropdown";
@@ -15,7 +15,6 @@ const RetailItem = (props) => {
   } = props;
 
   const [showDescription, setShowDescription] = useState(false)
-  const refDescription = useRef(null)
 
   const isMobile = useMediaQuery({query: '(max-width: 900px)'})
 
@@ -36,38 +35,19 @@ const RetailItem = (props) => {
 
         <div className='RetailItem__priceContainer'>
           <p>{retailItem.sum} ₽</p>
-          <div ref={refDescription} onClick={() => setShowDescription(!showDescription)}
-               className='RetailItem__descriptionContainer'
+          {isMobile && <div onClick={() => setShowDescription(!showDescription)}
+                            className='RetailItem__descriptionContainer'
           >
             <span>{props.quantity && props.quantity}</span>
             <div className={'RetailItem__iconContainer' + (showDescription ? ' RetailItem__rotate' : '')}>
               <SvgAngleUpSolid className='RetailItem__arrowIcon'/>
             </div>
-          </div>
+          </div>}
 
-
-          <button
-            // className={'RetailItem__button ' + ((active && isMobile) ? 'RetailItem__buttonActive' : '')}
-            className='RetailItem__button'
-            onClick={onSelectItem}>
-            {/*{(active && isMobile) ? 'Выбран' : 'Выбрать'}*/}
-            Выбрать
-          </button>
+          <button className='RetailItem__button' onClick={onSelectItem}>Выбрать</button>
         </div>
       </div>
       {notFullItems && <p className='colorRed'>не все позиции в наличии</p>}
-      {/*{*/}
-      {/*  showDescription && isMobile &&*/}
-      {/*  retailItem.product.map((item) => {*/}
-      {/*    return (*/}
-      {/*      <div className='RetailItem__incomplete' key={item.guid}>*/}
-      {/*        <p className='RetailItem__incomplete-title'>{item.product}</p>*/}
-      {/*        <p className='RetailCheckPanelIncomplete__count'><span>{item.count}</span> шт:</p>*/}
-      {/*        <p className='RetailItem__incomplete-price'>{(item.priceRetail * item.count).toFixed(2)} ₽</p>*/}
-      {/*      </div>*/}
-      {/*    )*/}
-      {/*  })*/}
-      {/*}*/}
 
       {
         isMobile &&

@@ -75,14 +75,15 @@ const fetchCartItems = (city = null) => (dispatch, getState, apiService) => {
     const arrFetch = cart.map(product => {
       return apiService.getProductInfo(product.itemId, cityId)
     })
-    Promise.all([...arrFetch])
+    Promise.allSettled([...arrFetch])
       .then(allResponses => {
-        const responseArray = allResponses.filter(item => Boolean(item.length !== 0))
+        const fulfilledArray = allResponses.filter(item => item.status === 'fulfilled').map(item => item.value)
+        const responseArray = fulfilledArray.filter(item => Boolean(item.length !== 0))
         if (responseArray.length) {
           dispatch(setCartItems(responseArray))
         }
       })
-      .catch(allError => dispatch(setError(allError)))
+      .catch(error => dispatch(setError(error)))
   }
 }
 

@@ -186,17 +186,17 @@ class Cart extends React.Component {
     this.setState({seconds: 60})
   }
 
+  getMinSum = () => {
+    const minPrice = (product) => product.retails.sort((a, b) => a.priceRetail > b.priceRetail ? 1 : -1)[0].priceRetail
+    const count = (product) => this.props.cart.find(item => item.itemId === product.guid)?.count
+    return this.props.cartItems.reduce((acc, product) => {
+      return acc = acc + (minPrice(product) * count(product))
+    }, 0)
+  }
+
   render() {
     const stopCount = (product) => product.retails.sort((a, b) => a.countLast < b.countLast ? 1 : -1)[0].countLast
-    // const dataForPromoItem = this.getDataForPromoItem();
-    const getMinSum = () => {
-      const minPrice = (product) => product.retails.sort((a, b) => a.priceRetail > b.priceRetail ? 1 : -1)[0].priceRetail
-      const count = (product) => this.props.cart.find(item => item.itemId === product.guid)?.count
-      return this.props.cartItems.reduce((acc, product) => {
-        return acc = acc + (minPrice(product) * count(product))
-      }, 0)
-    }
-    const minSum = getMinSum()
+    const minSum = this.getMinSum()
 
     // список аптек с неполным наличием товара
     let incompleteRetailItemState = this.props.retailsArr
