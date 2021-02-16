@@ -2,7 +2,6 @@ import React, {useEffect, useRef, useState} from "react";
 import './RetailsListDropdown.scss'
 
 const RetailsListDropdown = props => {
-  // props: acitve - showStatus, list - items, count
 
   const [styleContent, setStyleContent] = useState({})
   const content = useRef(null)
@@ -33,22 +32,11 @@ const RetailsListDropdown = props => {
               <div className='RetailsListDropdown__item' key={item.guid + index + random}>
                 <p className='RetailsListDropdown__titleItem'>ул. {item.street} {item.buildNumber}</p>
                 <div className='RetailsListDropdown__priceContainer'>
-                  {/*<p className='RetailsListDropdown__count'><span>{props.count}</span> шт:</p>*/}
                   <p className='RetailsListDropdown__count'>{props.count}шт. * {item.priceRetail} ₽/шт.</p>
                   <p
                     className='RetailsListDropdown__price'>{(item.priceRetail * props.count).toFixed(2)} ₽</p>
                 </div>
               </div>
-
-              // <div className='CartItem__dropdownItem' key={item.guid}>
-              //   <p className='CartItem__titleDropdownItem'>ул. {item.street} {item.buildNumber}</p>
-              //   <div className='CartItem__dropdownPriceContainer'>
-              //     <p className='CartItem__dropdownCount'><span>{count}</span> шт:</p>
-              //     <p className='CartItem__dropdownPrice'>{(item.priceRetail * count).toFixed(2)} ₽</p>
-              //   </div>
-              // </div>
-
-
             )
           })}
       </div>

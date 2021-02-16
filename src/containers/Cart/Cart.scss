@@ -172,7 +172,7 @@
     font-weight: 500;
     @media (max-width: 900px) {
       line-height: 1rem;
-      font-size: .8rem;
+      font-size: .78rem;
       overflow: hidden;
       white-space: normal;
       text-overflow: ellipsis;
@@ -188,7 +188,7 @@
     font-weight: 500;
     font-size: 1rem;
     @media (max-width: 900px) {
-      font-size: .85rem;
+      font-size: .8rem;
     }
   }
 
@@ -198,7 +198,7 @@
   }
 
   &__infoBlock-streetText {
-
+    white-space: nowrap;
     margin-right: 7px;
     color: #000;
   }

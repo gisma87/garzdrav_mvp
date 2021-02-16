@@ -85,13 +85,13 @@ const OrderInternetContent = props => {
         style={styleContent}
       >
         <div className='OrderInternetContent__contentWrapperForAnimation' ref={contentWrapper}>
-          {item.items.map((product, index) => <BlockWrapper classStyle='OrderInternetContent__product'
-                                                            key={product.productGuid}>
+          {item.items.map(product => <BlockWrapper classStyle='OrderInternetContent__product'
+                                                   key={product.productGuid}>
               <p className='OrderInternetContent__productTitle'
                  onClick={() => {
                    apiService.getProductInfo(product.productGuid, props.isCity.guid)
-                     .then(res => props.history.push(`/Card/${product.productGuid}`))
-                     .catch(e => props.setRepeatInfo('failure'))
+                     .then(_ => props.history.push(`/Card/${product.productGuid}`))
+                     .catch(_ => props.setRepeatInfo('failure'))
 
                  }}
               >{product.productTitle}</p>
@@ -102,7 +102,8 @@ const OrderInternetContent = props => {
             <div className="OrderInternetContent__infoContent">
               <p className='OrderInternetContent__infoItem'>
                 <span>{item.retail.brand}:</span>
-                <span className='OrderInternetContent__address'> {item.retail.city}. {item.retail.street} {item.retail.buildNumber}</span>
+                <span
+                  className='OrderInternetContent__address'> {item.retail.city}. {item.retail.street} {item.retail.buildNumber}</span>
               </p>
               <p className='OrderInternetContent__infoItem OrderInternetContent__status'>Статус: <span
                 className='OrderInternetContent__positive'>{item.status}</span></p>

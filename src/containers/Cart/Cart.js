@@ -296,9 +296,9 @@ class Cart extends React.Component {
                                 const priceIndex = item.retails.findIndex(retail => retail.guid === this.props.selectedRetail)
                                 const price = priceIndex >= 0 ? item.retails[priceIndex].priceRetail : null
                                 return this.props.cart[index] !== undefined
-                                  && <>
+                                  && <div key={(item.guid + i + 134).toString()}>
                                     <MediaQuery minWidth={901}>
-                                      <CartItem key={item.guid + i + 30}
+                                      <CartItem key={(item.guid + i + 30).toString()}
                                                 item={{
                                                   id: item.guid,
                                                   img: null,
@@ -318,8 +318,7 @@ class Cart extends React.Component {
                                       />
                                     </MediaQuery>
                                     <MediaQuery maxWidth={900}>
-                                      <CartItemMobile key={item.guid + i + 1}
-                                                      item={{
+                                      <CartItemMobile   item={{
                                                         id: item.guid,
                                                         img: null,
                                                         title: item.product,
@@ -337,7 +336,7 @@ class Cart extends React.Component {
                                                       allItemRemovedFromCart={() => this.props.allItemRemovedFromCart(item.guid)}
                                       />
                                     </MediaQuery>
-                                  </>
+                                  </div>
                               })
                             }
                           </div>
@@ -355,13 +354,12 @@ class Cart extends React.Component {
                                 this.props.cartItems.map((product, index) => {
                                   const minPriceRetail = product.retails.sort((a, b) => a.priceRetail > b.priceRetail ? 1 : -1)[0];
                                   return <div className='Cart__infoBlock-minPriceProducts'
-                                              key={product.guid + index + 31}>
+                                              key={(product.guid + index + 31).toString()}>
                                     <div>
                                       <p className='Cart__infoBlock-productTitle'>{product.product}</p>
                                       <div className='Cart__infoBlock-streetRetail'>
                                         <p className='Cart__infoBlock-brand'>{minPriceRetail.brand}</p>
-                                        <p className='Cart__infoBlock-streetText'>ул. {minPriceRetail.street}</p>
-                                        <p className='Cart__infoBlock-streetText'>{minPriceRetail.buildNumber}</p>
+                                        <p className='Cart__infoBlock-streetText'>ул. {minPriceRetail.street} {minPriceRetail.buildNumber}</p>
                                       </div>
 
                                     </div>
