@@ -15,7 +15,7 @@ const PopupCancelOrder = props => {
         <div className="PopupCancelOrder__buttonContainer">
           <button type='button'
                   className={"PopupCancelOrder__button PopupCancelOrder__button_active"}
-                  onClick={props.onCancel}
+                  onClick={props.onConfirm}
           >
             Да
           </button>

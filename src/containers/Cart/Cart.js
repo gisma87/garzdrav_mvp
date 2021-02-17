@@ -197,7 +197,7 @@ class Cart extends React.Component {
 
   render() {
     const stopCount = (product) => product.retails.sort((a, b) => a.countLast < b.countLast ? 1 : -1)[0].countLast
-    const minSum = this.getMinSum()
+    const minSum = this.getMinSum().toFixed(2)
 
     // список аптек с неполным наличием товара
     let incompleteRetailItemState = this.props.retailsArr

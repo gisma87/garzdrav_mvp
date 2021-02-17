@@ -62,7 +62,7 @@ const OrdersInternet = props => {
 
       </BlockWrapper>
       <PopupCancelOrder show={showPopupCancel}
-                        onCancel={onCancel}
+                        onConfirm={onCancel}
                         onClose={() => setShowPopupCancel(false)}/>
 
       <Alert show={alertShow} onClose={() => setAlertShow(false)} title='Информируем: '>
