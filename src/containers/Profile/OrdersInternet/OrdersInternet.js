@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import './OrdersInternet.scss'
 import apiService from "../../../service/ApiService";
 import BlockWrapper from "../../../components/BlockWrapper";
-import PopupCancelOrder from "../../../components/PopupCancelOrder/PopupCancelOrder";
+import PopupConfirm from "../../../components/PopupConfirm/PopupConfirm";
 import OrderInternetContent from "./OrderInternetContent/OrderInternetContent";
 import {connect} from "react-redux";
 import {getInternetSales, loadingFalse, loadingTrue, refreshAuthentication, setError} from "../../../actions";
@@ -61,9 +61,9 @@ const OrdersInternet = props => {
         }
 
       </BlockWrapper>
-      <PopupCancelOrder show={showPopupCancel}
-                        onConfirm={onCancel}
-                        onClose={() => setShowPopupCancel(false)}/>
+      <PopupConfirm show={showPopupCancel}
+                    onConfirm={onCancel}
+                    onClose={() => setShowPopupCancel(false)}/>
 
       <Alert show={alertShow} onClose={() => setAlertShow(false)} title='Информируем: '>
         {

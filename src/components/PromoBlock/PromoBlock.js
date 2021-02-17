@@ -93,7 +93,7 @@ class PromoBlock extends React.Component {
             width: '100%',
             padding: '0 0 15px'
           }}>
-            <Link to='/promotions/' className='PromoBlock__button'>
+            <Link to='/articles/' className='PromoBlock__button'>
               все акционные товары
             </Link>
           </div>

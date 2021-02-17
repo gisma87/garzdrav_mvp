@@ -8,26 +8,30 @@ import 'swiper/components/pagination/pagination.scss'
 import ArticleCard from "../ArticleCard";
 import SvgArrowLightRight from "../../img/SVGcomponents/SvgArrowLightRight";
 import {useMediaQuery} from "react-responsive";
-import {Link} from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
 
 
 const articleCardData = [
   {
+    id: 1,
     title: 'Вегетарианство: польза или вред?',
     description: 'Более миллиарда людей по всему миру выбирают для себя путь вегетарианства, и с каждым днём таких людей становится всё больше.',
     image: 'https://xn--n1aalg.xn--80ae2aeeogi5fxc.xn--p1ai/article/2efae72b6523169bca5c91d237363e3a.jpg'
   },
   {
+    id: 2,
     title: 'Как правильно ухаживать за кожей лица?',
     description: 'Пришло время позаботиться о коже!',
     image: 'https://xn--n1aalg.xn--80ae2aeeogi5fxc.xn--p1ai/article/b0855ca6f18d9187a5567aad203f4c45.jpg'
   },
   {
+    id: 3,
     title: 'Приятный запах в доме: 8 советов',
     description: 'Мы собрали для вас несколько советов, которые помогут вам устранить возможные источники неприятных запахов и добавить свежести в свой дом.',
     image: 'https://xn--n1aalg.xn--80ae2aeeogi5fxc.xn--p1ai/article/4554b91c015f4ee8c439ceee307e034f.jpg'
   },
   {
+    id: 4,
     title: 'Очки с поляризацией: кому и зачем нужны?',
     description: 'Чем поляризационные очки отличаются от других и действительно ли они необходимы?',
     image: 'https://xn--n1aalg.xn--80ae2aeeogi5fxc.xn--p1ai/article/84fa33cede7d34e0567978778f8aa0b6.jpg'
@@ -37,6 +41,10 @@ const articleCardData = [
 const ArticlesBlock = props => {
   const isMobile = useMediaQuery({query: '(max-width: 650px)'})
   const isTablet = useMediaQuery({query: '(max-width: 800px)'})
+
+  const onItemSelected = (itemId, event) => {
+    props.history.push(`/articles/${itemId}`);
+  }
 
 
   SwiperCore.use([Navigation, Pagination])
@@ -69,7 +77,7 @@ const ArticlesBlock = props => {
           >
             {
               articleCardData.map((card, index) => {
-                return <ArticleCard key={index} item={card}/>
+                return <ArticleCard key={index} item={card} onItemSelected={onItemSelected}/>
               }).map((item, index) => {
                 return (
                   <SwiperSlide tag="li" key={index} style={{listStyleType: 'none'}}>
@@ -101,4 +109,4 @@ const ArticlesBlock = props => {
   )
 }
 
-export default ArticlesBlock
+export default withRouter(ArticlesBlock)
