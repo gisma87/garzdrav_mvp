@@ -3,12 +3,14 @@ import './PopupCities.scss'
 import PopupWrapper from "../UI/PopupWrapper/PopupWrapper";
 import Error from "../Error/Error";
 import SearchForm from "../UI/SearchForm/SearchForm";
+import PopupConfirm from "../PopupConfirm/PopupConfirm";
 
 const PopupCities = props => {
 
   const [value, setValue] = useState('')
   const [filterCity, setFilterCity] = useState([])
-
+  const [popupConfirmActive, setPopupConfirmActive] = useState(false)
+  const [itemGuid, setItemGuid] = useState(null)
 
   const {isCity, regions, cities} = props
 
@@ -32,7 +34,10 @@ const PopupCities = props => {
   const renderItems = (arr) => {
     return arr.map((item) => {
       return <li key={item.guid}
-                 onClick={() => props.onSelectCity(item.guid)}
+                 onClick={() => {
+                   setItemGuid(item.guid)
+                   setPopupConfirmActive(true)
+                 }}
                  className={item.guid === isCity.guid ? 'PopupCities__itemActive' : ''}
       >{item.title}</li>
     })
@@ -57,6 +62,9 @@ const PopupCities = props => {
     }
     return null
   }
+
+  const confirmMessage = <><p>При смене города корзина будет очищена.</p>
+    <p>Желаете сменить город?</p></>
 
   return (
     <PopupWrapper onClick={props.onClick} active={props.active} classStyle='PopupCities'>
@@ -92,6 +100,17 @@ const PopupCities = props => {
             </>}
         </div>
       }
+      <PopupConfirm show={popupConfirmActive}
+                    title={'Внимание!'}
+                    message={confirmMessage}
+                    onConfirm={() => {
+                      props.clearCart()
+                      props.onSelectCity(itemGuid)
+                    }}
+                    onClose={() => {
+                      setPopupConfirmActive(false)
+                      props.onClick()
+                    }}/>
     </PopupWrapper>
   )
 }

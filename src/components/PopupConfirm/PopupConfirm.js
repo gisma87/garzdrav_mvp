@@ -3,14 +3,17 @@ import './PopupConfirm.scss'
 import PopupWrapper from "../UI/PopupWrapper/PopupWrapper";
 
 const PopupConfirm = props => {
+
+  const message = props.message || <><p>Вы действительно желаете отменить заказ?</p>
+    <p>Наши фармацевты почти собрали его.</p></>
+  const title = props.title || 'Отмена заказа'
   return (
     <PopupWrapper onClick={props.onClose} active={props.show} classStyle='PopupConfirm'>
-      <h3>Отмена заказа</h3>
+      <h3>{title}</h3>
       <div className='PopupConfirm__buyTrue'>
 
         <div className='PopupConfirm__buyTrueContent'>
-          <p>Вы действительно желаете отменить заказ?</p>
-          <p>Наши фармацевты почти собрали его.</p>
+          {message}
         </div>
         <div className="PopupConfirm__buttonContainer">
           <button type='button'

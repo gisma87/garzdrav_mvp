@@ -2,7 +2,7 @@ import React, {useState} from "react"
 import './HeaderTop.scss'
 import {Link, withRouter} from "react-router-dom";
 import PopupCities from "../PopupCities";
-import {fetchCartItems, onPopupLocation, setIsCity} from "../../actions";
+import {clearCart, fetchCartItems, onPopupLocation, setIsCity} from "../../actions";
 import {connect} from "react-redux";
 import PopupLocation from "../PopupLocation/PopupLocation";
 
@@ -56,6 +56,7 @@ const HeaderTop = (props) => {
                      document.body.style.overflow = 'auto'
                      setPopup(false)
                    }}
+                   clearCart={props.clearCart}
                    onSelectCity={(idCity) => {
                      document.body.style.overflow = 'auto'
                      const item = cities.find(cityItem => cityItem.guid === idCity)
@@ -77,7 +78,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setIsCity: (item) => dispatch(setIsCity(item)),
     fetchCartItems: () => dispatch(fetchCartItems()),
-    onPopupLocation: () => dispatch(onPopupLocation(false))
+    onPopupLocation: () => dispatch(onPopupLocation(false)),
+    clearCart: () => dispatch(clearCart())
   }
 }
 
