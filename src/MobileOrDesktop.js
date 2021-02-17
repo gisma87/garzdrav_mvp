@@ -2,10 +2,30 @@ import React, {useEffect} from "react";
 import {useMediaQuery} from 'react-responsive'
 import App from "./App";
 import AppMobile from "./AppMobile/AppMobile";
-import {fetchCartItems, fetchCities, refreshAuthentication, rewriteCart, setCatalog} from "./actions";
+import {fetchCartItems, fetchCities, loadingReset, refreshAuthentication, rewriteCart, setCatalog} from "./actions";
 import {connect} from "react-redux";
 
 const MobileOrDesktop = (props) => {
+
+  // если Лоадер висит больше 15сек - удаляем его.
+  useEffect(() => {
+    let timer = null;
+    if (props.loading) {
+      const fn = () => {
+        if (props.loading) {
+          props.loadingReset()
+        }
+        timer = null;
+      }
+      timer = setTimeout(fn, 15000)
+    }
+    return () => {
+      if (timer) {
+        clearTimeout(timer)
+      }
+    }
+    // eslint-disable-next-line
+  }, [props.loading])
 
   useEffect(() => {
     props.fetchCities();
@@ -45,7 +65,8 @@ const mapDispatchToProps = (dispatch) => {
     rewriteCart: (item) => dispatch(rewriteCart(item)),
     fetchCartItems: () => dispatch(fetchCartItems()),
     refreshAuthentication: () => dispatch(refreshAuthentication()),
-    setCatalog: () => dispatch(setCatalog())
+    setCatalog: () => dispatch(setCatalog()),
+    loadingReset: () => dispatch(loadingReset())
   }
 }
 

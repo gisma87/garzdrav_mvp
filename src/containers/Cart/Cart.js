@@ -36,6 +36,7 @@ import apiService from "../../service/ApiService";
 import CartOrderPage from "./CartOrderPage/CartOrderPage";
 import CartItemMobile from "../../components/CartItemMobile/CartItemMobile";
 import CartPageChoiceRetail from "./CartPageChoiceRetail/CartPageChoiceRetail";
+import FnComponentCurrentQuantity from "./FnComponentCurrentQuantity";
 
 class Cart extends React.Component {
   constructor(props) {
@@ -92,7 +93,7 @@ class Cart extends React.Component {
     }
 
 
-    // Если корзина изменилась, берём её данные с LocalStorage и на основании этих данных пересобираем массивы cartItems и retailsArr
+    // Если cart изменилась, берём её данные с LocalStorage и на основании этих данных пересобираем массивы cartItems и retailsArr
     if (prevProps.cart !== this.props.cart) {
       let oldCart = [...this.props.cart]
 
@@ -260,6 +261,16 @@ class Cart extends React.Component {
 
           </div>
         </MediaQuery>
+        {
+          // компонент удаляет элементы из cart, который нет в cartItems после запроса.
+          (this.props.cartItems.length && (this.props.cartItems.length < this.props.cart.length))
+            ? <FnComponentCurrentQuantity cart={this.props.cart}
+                                          cartItems={this.props.cartItems}
+                                          allItemRemovedFromCart={this.props.allItemRemovedFromCart}
+            />
+            : <></>
+        }
+
 
         <ErrorBoundary>
           {this.props.error ? this.clearCartError()
@@ -318,14 +329,14 @@ class Cart extends React.Component {
                                       />
                                     </MediaQuery>
                                     <MediaQuery maxWidth={900}>
-                                      <CartItemMobile   item={{
-                                                        id: item.guid,
-                                                        img: null,
-                                                        title: item.product,
-                                                        maker: item.manufacturer,
-                                                        minPrice: item.retails.sort((a, b) => a.priceRetail > b.priceRetail ? 1 : -1)[0].priceRetail,
-                                                        price
-                                                      }}
+                                      <CartItemMobile item={{
+                                        id: item.guid,
+                                        img: null,
+                                        title: item.product,
+                                        maker: item.manufacturer,
+                                        minPrice: item.retails.sort((a, b) => a.priceRetail > b.priceRetail ? 1 : -1)[0].priceRetail,
+                                        price
+                                      }}
                                                       retails={item.retails}
                                                       classStyle={'Cart__item'}
                                                       count={count}
@@ -359,7 +370,8 @@ class Cart extends React.Component {
                                       <p className='Cart__infoBlock-productTitle'>{product.product}</p>
                                       <div className='Cart__infoBlock-streetRetail'>
                                         <p className='Cart__infoBlock-brand'>{minPriceRetail.brand}</p>
-                                        <p className='Cart__infoBlock-streetText'>ул. {minPriceRetail.street} {minPriceRetail.buildNumber}</p>
+                                        <p
+                                          className='Cart__infoBlock-streetText'>ул. {minPriceRetail.street} {minPriceRetail.buildNumber}</p>
                                       </div>
 
                                     </div>

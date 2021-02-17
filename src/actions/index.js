@@ -36,6 +36,12 @@ const loadingFalse = (info) => {
   }
 }
 
+const loadingReset = () => {
+  return {
+    type: 'LOADING_RESET'
+  }
+}
+
 // очищаем массив CartItems
 const delCartItems = () => {
   return {
@@ -194,6 +200,7 @@ const addedToCart = (ItemId) => {
   }
 }
 
+// уменьшает count объекта с ItemId на 1.
 const itemRemovedFromCart = (ItemId) => {
   return {
     type: 'ITEM_REMOVED_FROM_CART',
@@ -201,6 +208,7 @@ const itemRemovedFromCart = (ItemId) => {
   }
 }
 
+// уменьшает count объекта с ItemId на count - т.е. обнуляет, и объект удаляется из cart.
 const allItemRemovedFromCart = (ItemId) => {
   return {
     type: 'ALL_ITEM_REMOVED_FROM_CART',
@@ -750,6 +758,7 @@ const cancelOrder = (orderGuid) => async (dispatch, getState, apiService) => {
 }
 
 export {
+  loadingReset,
   getPromoItem,
   setUserData,
   setToken,

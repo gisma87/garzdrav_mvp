@@ -10,7 +10,6 @@ import Cards from "./containers/Cards";
 import PromoPage from "./containers/PromoPage";
 import CardPage from "./containers/CardPage";
 import Promotion from "./containers/Promotion";
-import {fetchCartItems, fetchCities, rewriteCart} from "./actions";
 import {connect} from "react-redux";
 import Profile from "./containers/Profile";
 import HeaderDesktop from "./components/HeaderDesktop";
@@ -55,7 +54,6 @@ function App(props) {
                render={({match}) => <CardPage itemId={match.params.id}/>}/>
         <Route path="/Cards/" exact component={Cards}/>
         <Route path="/Cards/:page/:sort?" render={({match}) => <Cards params={match.params}/>}/>
-        {/*<Route path="/catalog/" exact component={CatalogPage}/>*/}
         <Route path="/catalog/:categoryId?/:page?/:sort?" render={({match}) => <CatalogPage params={match.params}/>}/>
         <Route path="/contacts/" render={() => <Cities contacts={true}/>}/>
         <Route path="/in-development/" component={Development}/>
@@ -66,16 +64,8 @@ function App(props) {
   );
 }
 
-const mapStateToProps = ({cart, loading}) => {
-  return {cart, loading}
+const mapStateToProps = ({loading}) => {
+  return {loading}
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchCities: () => dispatch(fetchCities()),
-    rewriteCart: (item) => dispatch(rewriteCart(item)),
-    fetchCartItems: () => dispatch(fetchCartItems()),
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(mapStateToProps, null)(App)

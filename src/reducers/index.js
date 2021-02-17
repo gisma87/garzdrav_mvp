@@ -258,6 +258,12 @@ const reducer = (state = initialState, action) => {
         error: null
       }
 
+    case 'LOADING_RESET':
+      return {
+        ...state,
+        loading: 0
+      }
+
     // подробная информация о товаре
     case 'LOADING_PRODUCT_INFO':
       return {
