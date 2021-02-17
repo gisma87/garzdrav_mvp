@@ -90,6 +90,12 @@ class ApiService {
     return response.data
   }
 
+  // запрос одноразового Email кода для авторизации
+  async getEmailCode(email) {
+    const response = await axios.get(`${this.URL}/TOTP/email?email=${email}`)
+    return response.data
+  }
+
   // ввод СМС кода для авторизации
   async postSmsCode(phone, smsCode) {
     const response = await axios.post(`${this.URL}/Authentication/sms`,
@@ -118,6 +124,15 @@ class ApiService {
     const result = await axios.post(
       `${this.URL}/Authentication/password`,
       {phone: phone, password: password},
+      {headers: {'Content-Type': 'application/json'}}
+    )
+    return result.data
+  }
+
+  async authenticationByEmail(email, code) {
+    const result = await axios.post(
+      `${this.URL}/Authentication/email`,
+      {email: email, code: code},
       {headers: {'Content-Type': 'application/json'}}
     )
     return result.data

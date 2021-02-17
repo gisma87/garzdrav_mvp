@@ -3,7 +3,7 @@ import './PopupLogin.scss'
 import PopupWrapper from "../UI/PopupWrapper/PopupWrapper";
 import InputMask from 'react-input-mask'
 import {connect} from "react-redux";
-import {authorizedByPassOrSMS} from "../../actions";
+import {authorizedByEmail, authorizedByPassOrSMS} from "../../actions";
 import apiService from "../../service/ApiService";
 import EyeButtonShow from "../UI/EyeButtonShow/EyeButtonShow";
 
@@ -11,10 +11,13 @@ const PopupLogin = props => {
 
   const [formValid, setFormValid] = useState(false)
   const [phone, setPhone] = useState('')
+  const [errorPhone, setErrorPhone] = useState(true)
+  const [email, setEmail] = useState('')
+  const [errorEmail, setErrorEmail] = useState(true)
   const [smsCodeOrPassword, setSmsCodeOrPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
 
-  function validate(event) {
+  function validatePhone(event) {
     const value = event.target.value.trim()
     const regexp = value.match(/\d+/g)
     let data = ''
@@ -26,8 +29,24 @@ const PopupLogin = props => {
     }
 
     const result = Number.isInteger(+data) && String(data).length === 10
-    setFormValid(result)
-    return result
+    setErrorPhone(!result)
+    setFormValid((result && !errorEmail))
+    return (result && !errorEmail)
+  }
+
+  function emailIsValid(email) {
+    return /\S+@\S+\.\S+/.test(email)
+  }
+
+  function validEmail(event) {
+    const value = event.target.value.trim()
+    if (emailIsValid(value)) {
+      setEmail(value)
+      setErrorEmail(false)
+    } else {
+      setErrorEmail(true)
+    }
+    setFormValid((!errorPhone && !errorEmail))
   }
 
 
@@ -40,13 +59,22 @@ const PopupLogin = props => {
         <InputMask mask="+7\ (999)\ 999\ 99\ 99"
                    maskChar=" "
                    value={phone}
-                   onChange={validate}
+                   onChange={validatePhone}
                    className="PopupLogin__input PopupLogin__input_type_name"
                    placeholder="Телефон"
                    required
                    type="tel"
                    name="PopupLogin-contact"
                    id="PopupLogin-contact"
+        />
+
+        <input
+          type='email'
+          name="PopupLogin-email"
+          className="PopupLogin__input PopupLogin__input_type_link-url"
+          placeholder="E-mail"
+          id="PopupLogin-email"
+          onChange={validEmail}
         />
 
         <div className='PopupLogin__inputPasswordContainer'>
@@ -71,14 +99,16 @@ const PopupLogin = props => {
                   disabled={!formValid}
                   className={"PopupLogin__button " + (formValid ? "PopupLogin__button_active" : '')}
                   onClick={() => {
-                    props.authorizedByPassOrSMS(phone, smsCodeOrPassword)
+                    // props.authorizedByPassOrSMS(phone, smsCodeOrPassword)
+                    props.authorizedByEmail(email, smsCodeOrPassword)
                     props.onClick()
                   }}
           >
             Войти
           </button>
           <button disabled={!formValid}
-                  onClick={() => apiService.getSmsCode(phone)}
+            // onClick={() => apiService.getSmsCode(phone)}
+                  onClick={() => apiService.getEmailCode(email)}
                   className={"PopupLogin__button " + (formValid ? "PopupLogin__button_active" : '')}>
             Получить код
           </button>
@@ -90,7 +120,8 @@ const PopupLogin = props => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    authorizedByPassOrSMS: (phone, smsOrPass) => dispatch(authorizedByPassOrSMS(phone, smsOrPass))
+    authorizedByPassOrSMS: (phone, smsOrPass) => dispatch(authorizedByPassOrSMS(phone, smsOrPass)),
+    authorizedByEmail: (email, code) => dispatch(authorizedByEmail(email, code))
   }
 }
 

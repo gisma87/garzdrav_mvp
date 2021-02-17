@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import {useEffect} from "react";
 
 const FnComponentCurrentQuantity = (props) => {
   const {cart, cartItems, allItemRemovedFromCart} = props;
@@ -13,7 +13,7 @@ const FnComponentCurrentQuantity = (props) => {
     }
   })
 
-  return <div>1</div>
+  return null
 }
 
 export default FnComponentCurrentQuantity

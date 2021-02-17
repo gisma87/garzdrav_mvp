@@ -455,6 +455,20 @@ const authorizedBySMSorPassword = (phone, passOrSms, callback = null) => async (
   dispatch(loadingFalse('authorizedBySMSorPassword - вручную'))
 }
 
+const authorizedByEmail = (email, code, callback = null) => async (dispatch, getState, apiService) => {
+  dispatch(loadingTrue('authorizedByEmail'))
+  try {
+    const response = await apiService.authenticationByEmail(email, code)
+    dispatch(setToken(response))
+    dispatch(getToFavorites())
+    // запускаю callback для которого нужна авторизация.
+    if (callback) callback();
+  } catch (e) {
+    console.log(e)
+    dispatch(setError(e))
+  }
+}
+
 // записываем избранное в store
 const setFavoritesToStore = (favoritesObject) => {
   return {
@@ -800,5 +814,6 @@ export {
   fetchRetailsCity,
   getProductsFromSearchLimit,
   repeatOrder,
-  getDataProfile
+  getDataProfile,
+  authorizedByEmail
 }

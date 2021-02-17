@@ -11,6 +11,9 @@ import Loader from "../../../components/UI/Loader";
 import {NavLink} from "react-router-dom";
 import LoaderTimer from "../../../components/UI/LoaderTimer/LoaderTimer";
 import EyeButtonShow from "../../../components/UI/EyeButtonShow/EyeButtonShow";
+// eslint-disable-next-line
+import {authorizedByEmail, authorizedByPassOrSMS} from "../../../actions";
+import {connect} from "react-redux";
 
 const CartOrderPage = props => {
 
@@ -22,6 +25,11 @@ const CartOrderPage = props => {
   const [loading, setLoading] = useState(false)
   const [order, setOrder] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
+
+// для теста добавили email - он не нужен в будущем
+  const [errorPhone, setErrorPhone] = useState(true)
+  const [errorEmail, setErrorEmail] = useState(true)
+  const [email, setEmail] = useState('')
 
   useEffect(() => {
     if (props.OrderNumber.length) setLoading(false);
@@ -45,7 +53,25 @@ const CartOrderPage = props => {
     }
   }, [props.errorAuth])
 
-  function validate(event) {
+  // function validate(event) {
+  //   setErrorMessage('')
+  //   const value = event.target.value.trim()
+  //   const regexp = value.match(/\d+/g)
+  //   let data = ''
+  //   if (regexp instanceof Object) {
+  //     data = regexp.length > 1 ? regexp.slice(1).join('') : regexp.join('')
+  //   }
+  //   if (data.length) {
+  //     setPhone(data)
+  //   }
+  //
+  //   const result = Number.isInteger(+data) && String(data).length === 10
+  //   setFormValid(result)
+  //   return result
+  // }
+
+  // для тестирования добавили поле email:
+  function validatePhone(event) {
     setErrorMessage('')
     const value = event.target.value.trim()
     const regexp = value.match(/\d+/g)
@@ -58,8 +84,25 @@ const CartOrderPage = props => {
     }
 
     const result = Number.isInteger(+data) && String(data).length === 10
-    setFormValid(result)
-    return result
+    setErrorPhone(!result)
+    setFormValid((result && !errorEmail))
+    return (result && !errorEmail)
+  }
+
+  function emailIsValid(email) {
+    return /\S+@\S+\.\S+/.test(email)
+  }
+
+  function validEmail(event) {
+    setErrorMessage('')
+    const value = event.target.value.trim()
+    setEmail(value)
+    if (emailIsValid(value)) {
+      setErrorEmail(false)
+    } else {
+      setErrorEmail(true)
+    }
+    setFormValid((!errorPhone && !errorEmail))
   }
 
   function submitOrder(event) {
@@ -80,7 +123,8 @@ const CartOrderPage = props => {
     }
 
     if (formValid && !props.isAuth && smsCode) {
-      props.authorizedBySMSorPassword(phone, smsCode, props.onSubmit)
+      // props.authorizedBySMSorPassword(phone, smsCode, props.onSubmit)
+      props.authorizedByEmail(email, smsCode, props.onSubmit)
     }
   }
 
@@ -141,7 +185,7 @@ const CartOrderPage = props => {
                     <InputMask mask="+7\ (999)\ 999\ 99\ 99"
                                maskChar=" "
                                value={phone}
-                               onChange={validate}
+                               onChange={validatePhone}
                                className="CartOrderPage__input"
                                placeholder=""
                                required
@@ -150,6 +194,20 @@ const CartOrderPage = props => {
                                id="CartOrderPage-phone"
                     />
                     <p className="CartOrderPage__label">Введите телефон</p>
+                    <span
+                      className={'CartOrderPage__errorMessage' + (errorMessage.length ? ' CartOrderPage__errorMessage_visible' : '')}>{errorMessage}</span>
+                  </label>
+                  <label className="CartOrderPage__element">
+                    <input
+                      type='email'
+                      value={email}
+                      name="CartOrderPage-email"
+                      id="CartOrderPage-email"
+                      className="CartOrderPage__input"
+                      onChange={validEmail}
+                      required
+                    />
+                    <p className="CartOrderPage__label">Введите Email</p>
                     <span
                       className={'CartOrderPage__errorMessage' + (errorMessage.length ? ' CartOrderPage__errorMessage_visible' : '')}>{errorMessage}</span>
                   </label>
@@ -180,7 +238,8 @@ const CartOrderPage = props => {
                     className={'CartOrderPage__buttonSMS' + ((formValid && !props.timer.isShowTimer) ? ' CartOrderPage__buttonSMS_enabled' : '')}
                     disabled={!formValid || props.timer.isShowTimer}
                     onClick={() => {
-                      apiService.getSmsCode(phone);
+                      // apiService.getSmsCode(phone);
+                      apiService.getEmailCode(email);
                       props.timer.startTimer();
                     }}
                   >получить код
@@ -213,4 +272,10 @@ const CartOrderPage = props => {
   )
 }
 
-export default CartOrderPage
+const mapDispatchToProps = (dispatch) => {
+  return {
+    authorizedByEmail: (email, code, callback) => dispatch(authorizedByEmail(email, code, callback))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(CartOrderPage)
