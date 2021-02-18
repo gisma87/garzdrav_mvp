@@ -7,7 +7,7 @@ import 'swiper/components/pagination/pagination.scss'
 import 'swiper/components/autoplay'
 import TitleSection from "../UI/TitleSection";
 import './PromoBlockMobile.scss'
-import dataCatds from "../../testData/dataCards";
+import {dataCards0} from "../../testData/dataCards";
 import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
 import {addedToCart, allItemRemovedFromCart, itemRemovedFromCart} from "../../actions";
@@ -39,7 +39,7 @@ const PromoBlockMobile = props => {
           loop={'false'}
         >
           {
-            dataCatds.map((item) => {
+            dataCards0.map((item) => {
               const {id, title, maker, img, minPrice} = item;
               const itemIndex = props.cart.findIndex((item) => item.itemId === id);
               const isActive = itemIndex >= 0;

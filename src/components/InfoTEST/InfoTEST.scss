@@ -9,18 +9,34 @@
   width: 100%;
   justify-self: center;
   align-self: center;
-  padding: 20px;
+  padding: 20px 20px 60px;
 
   h2 {
     margin-bottom: 15px;
   }
+  h3 {
+    margin: 25px 0 15px;
+  }
 
-  p {
+  ul {
+    li:not(:first-child) {
+      margin: 18px 0;
+    }
+  }
+
+  &__instruction {
+    border: 1px solid $primary-color;
+    padding: 15px 10px;
+    margin: 10px 0;
+  }
+
+  &__paragraph {
     margin: 5px 0;
     font-size: 1.2rem;
   }
 
   &__message {
+    margin-top: 20px;
     color: $primary-color;
     font-size: 1.1rem;
     font-family: $secondary-font;

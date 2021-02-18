@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, {useEffect, useRef, useState} from "react"
 import './PopupLogin.scss'
 import PopupWrapper from "../UI/PopupWrapper/PopupWrapper";
 import InputMask from 'react-input-mask'
@@ -10,16 +10,87 @@ import EyeButtonShow from "../UI/EyeButtonShow/EyeButtonShow";
 const PopupLogin = props => {
 
   const [formValid, setFormValid] = useState(false)
+  // eslint-disable-next-line
   const [phone, setPhone] = useState('')
-  const [errorPhone, setErrorPhone] = useState(true)
   const [email, setEmail] = useState('')
-  const [errorEmail, setErrorEmail] = useState(true)
   const [smsCodeOrPassword, setSmsCodeOrPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
+  const [valueInputs, setValueInputs] = useState(null)
+  const inputPhone = useRef()
+  const inputEmail = useRef()
 
-  function validatePhone(event) {
-    const value = event.target.value.trim()
-    const regexp = value.match(/\d+/g)
+  useEffect(() => {
+    if (props.TOKEN) props.onClick();
+    // eslint-disable-next-line
+  }, [props.TOKEN])
+
+  function printValue(event) {
+    const target = event.target;
+    setValueInputs((prev) => ({...prev, [target.id]: target.value}))
+  }
+
+  function resetErrorMessage(event) {
+    const errorElement = event.target.closest('form').querySelector(`#error-${event.target.id}`)
+    errorElement.textContent = ''
+  }
+
+  function showErrorMessage(event) {
+    const target = event.target;
+    const errorElement = target.closest('form').querySelector(`#error-${target.id}`)
+
+    if (target.type === 'tel') {
+      if (!validatePhone(target.value)) {
+        errorElement.textContent = 'Некорректный телефон'
+      } else {
+        errorElement.textContent = ''
+      }
+    }
+
+    if (target.type === 'email') {
+      if (!emailIsValid(target.value)) {
+        errorElement.textContent = 'Некорректный email'
+      } else {
+        errorElement.textContent = ''
+      }
+    }
+  }
+
+  function validateForm(event) {
+    const form = event.target.closest('form');
+    const inputs = Array.from(form.getElementsByTagName('input'));
+    inputs.forEach(target => {
+      const errorElement = target.closest('form').querySelector(`#error-${target.id}`)
+      if (target.type === 'tel') {
+        if (!validatePhone(target.value)) {
+          errorElement.textContent = 'Некорректный телефон'
+        } else {
+          errorElement.textContent = ''
+        }
+      }
+
+      if (target.type === 'email') {
+        if (!emailIsValid(target.value)) {
+          errorElement.textContent = 'Некорректный email'
+        } else {
+          errorElement.textContent = ''
+        }
+      }
+    })
+  }
+
+  function validate(event) {
+    printValue(event)
+    const valPhone = inputPhone.current.value.trim();
+    const valEmail = inputEmail.current.value.trim();
+    const validPhone = validatePhone(valPhone)
+    const validEmail = emailIsValid(valEmail)
+    if (validEmail) setEmail(valEmail);
+    setFormValid((validPhone && validEmail))
+    return (validPhone && validEmail)
+  }
+
+  function validatePhone(valPhone) {
+    const regexp = valPhone.match(/\d+/g)
     let data = ''
     if (regexp instanceof Object) {
       data = regexp.length > 1 ? regexp.slice(1).join('') : regexp.join('')
@@ -28,27 +99,12 @@ const PopupLogin = props => {
       setPhone(data)
     }
 
-    const result = Number.isInteger(+data) && String(data).length === 10
-    setErrorPhone(!result)
-    setFormValid((result && !errorEmail))
-    return (result && !errorEmail)
+    return Number.isInteger(+data) && String(data).length === 10
   }
 
-  function emailIsValid(email) {
-    return /\S+@\S+\.\S+/.test(email)
+  function emailIsValid(valEmail) {
+    return /\S+@\S+\.\S+/.test(valEmail)
   }
-
-  function validEmail(event) {
-    const value = event.target.value.trim()
-    if (emailIsValid(value)) {
-      setEmail(value)
-      setErrorEmail(false)
-    } else {
-      setErrorEmail(true)
-    }
-    setFormValid((!errorPhone && !errorEmail))
-  }
-
 
   return (
     <PopupWrapper onClick={props.onClick} active={props.active} classStyle='PopupLogin'>
@@ -58,24 +114,33 @@ const PopupLogin = props => {
       >
         <InputMask mask="+7\ (999)\ 999\ 99\ 99"
                    maskChar=" "
-                   value={phone}
-                   onChange={validatePhone}
+                   value={valueInputs?.['PopupLogin-contact'] ? valueInputs['PopupLogin-contact'] : ''}
+                   onChange={validate}
+                   onBlur={showErrorMessage}
+                   onFocus={resetErrorMessage}
                    className="PopupLogin__input PopupLogin__input_type_name"
                    placeholder="Телефон"
                    required
                    type="tel"
                    name="PopupLogin-contact"
                    id="PopupLogin-contact"
+                   ref={inputPhone}
         />
+        <span id="error-PopupLogin-contact" className="PopupLogin__error-message"> </span>
 
         <input
+          id="PopupLogin-email"
           type='email'
           name="PopupLogin-email"
+          value={valueInputs?.['PopupLogin-email'] ? valueInputs['PopupLogin-email'] : ''}
           className="PopupLogin__input PopupLogin__input_type_link-url"
           placeholder="E-mail"
-          id="PopupLogin-email"
-          onChange={validEmail}
+          onChange={validate}
+          onBlur={showErrorMessage}
+          onFocus={resetErrorMessage}
+          ref={inputEmail}
         />
+        <span id="error-PopupLogin-email" className="PopupLogin__error-message"> </span>
 
         <div className='PopupLogin__inputPasswordContainer'>
           <input
@@ -92,30 +157,41 @@ const PopupLogin = props => {
           <div className='PopupLogin__eyeShowButton' onClick={() => setShowPassword(!showPassword)}><EyeButtonShow
             show={showPassword}/></div>
         </div>
-        <span id="error-linkPlace" className="popup__error-message"/>
-
+        {props.error &&
+        <span id="error-PopupLogin-pwd" className="PopupLogin__error-message">Неверный логин или пароль</span>}
         <div className='PopupLogin__buttonContainer'>
           <button type='submit'
-                  disabled={!formValid}
-                  className={"PopupLogin__button " + (formValid ? "PopupLogin__button_active" : '')}
+            // disabled={!formValid && !smsCodeOrPassword}
+                  className={"PopupLogin__button " + ((formValid && smsCodeOrPassword) ? "PopupLogin__button_active" : '')}
                   onClick={() => {
                     // props.authorizedByPassOrSMS(phone, smsCodeOrPassword)
-                    props.authorizedByEmail(email, smsCodeOrPassword)
-                    props.onClick()
+                    if ((formValid && smsCodeOrPassword)) {
+                      props.authorizedByEmail(email, smsCodeOrPassword)
+                    }
                   }}
           >
             Войти
           </button>
-          <button disabled={!formValid}
+          <button
+            // disabled={!formValid}
             // onClick={() => apiService.getSmsCode(phone)}
-                  onClick={() => apiService.getEmailCode(email)}
-                  className={"PopupLogin__button " + (formValid ? "PopupLogin__button_active" : '')}>
+            onClick={(event) => {
+              validateForm(event)
+              if (formValid) {
+                apiService.getEmailCode(email)
+              }
+            }}
+            className={"PopupLogin__button " + (formValid ? "PopupLogin__button_active" : '')}>
             Получить код
           </button>
         </div>
       </form>
     </PopupWrapper>
   )
+}
+
+const mapStateToProps = ({TOKEN, error}) => {
+  return {TOKEN, error}
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -125,4 +201,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(null, mapDispatchToProps)(PopupLogin)
+export default connect(mapStateToProps, mapDispatchToProps)(PopupLogin)

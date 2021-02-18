@@ -9,13 +9,20 @@ import SvgAngleRightSolid from '../../img/SVGcomponents/SvgAngleRightSolid'
 import SvgAngleLeftSolid from "../../img/SVGcomponents/SvgAngleLeftSolid";
 import './PromoBlock.scss'
 import CardItem from "../CardItem";
-import dataCatds from "../../testData/dataCards";
+import {dataCards0, dataCards1, dataCards2} from "../../testData/dataCards";
 import {Link, withRouter} from "react-router-dom";
 import {connect} from "react-redux";
 import {addedToCart, allItemRemovedFromCart, itemRemovedFromCart} from "../../actions";
 import ButtonSectionForSlider from "./ButtonSectionForSlider/ButtonSectionForSlider";
 
 class PromoBlock extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {activeButton: 0}
+    this.data = [dataCards0, dataCards1, dataCards2]
+  }
+
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     localStorage.setItem('cart', JSON.stringify(this.props.cart));
@@ -25,6 +32,9 @@ class PromoBlock extends React.Component {
     if (!event.target.closest('.CardItem__button')) this.props.history.push(`Card/${itemId}`);
   }
 
+  onButtonSelected = (num) => {
+    this.setState({activeButton: num})
+  }
 
   render() {
     SwiperCore.use([Navigation, Pagination, Autoplay])
@@ -42,6 +52,7 @@ class PromoBlock extends React.Component {
         <div className='wrapper'>
           <ButtonSectionForSlider
             items={[{title: 'Акции'}, {title: 'Сезонное предложение'}, {title: 'Популярные товары'}]}
+            onButtonSelected={this.onButtonSelected}
           />
           <Swiper
             style={{padding: '10px 0'}}
@@ -58,7 +69,7 @@ class PromoBlock extends React.Component {
             }
           >
             {
-              dataCatds.map((item) => {
+              this.data[this.state.activeButton].map((item) => {
                 const {id, title, maker, img, minPrice, countLast} = item;
                 const itemIndex = this.props.cart.findIndex((item) => item.itemId === id);
                 const isBuy = itemIndex >= 0;

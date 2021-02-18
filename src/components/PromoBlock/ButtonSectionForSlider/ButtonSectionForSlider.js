@@ -12,7 +12,10 @@ const ButtonSectionForSlider = props => {
             <ButtonForButtonSection key={index + Math.random()}
                                     title={item.title}
                                     isActive={acitveButton === index}
-                                    onClick={() => setActiveButton(index)}
+                                    onClick={() => {
+                                      setActiveButton(index)
+                                      props.onButtonSelected(index)
+                                    }}
             />
           )
         })
