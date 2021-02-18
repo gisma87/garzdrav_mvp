@@ -292,7 +292,7 @@ const reducer = (state = initialState, action) => {
               productItem.countLast = retail.countLast
 
               // добавляем количество товара из корзины в продукт - если количество больше, чем макс.кол в аптеке, то ставим макс. в аптеке
-              const countProductInCart = state.cart.find(cartItem => cartItem.itemId === item.guid).count
+              const countProductInCart = state.cart.find(cartItem => cartItem.itemId === item.guid)?.count
               productItem.count = countProductInCart <= retail.countLast ? countProductInCart : retail.countLast
 
               // копируем аптеку

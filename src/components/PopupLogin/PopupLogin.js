@@ -76,10 +76,11 @@ const PopupLogin = props => {
         }
       }
     })
+    validate()
   }
 
   function validate(event) {
-    printValue(event)
+    if (event) printValue(event);
     const valPhone = inputPhone.current.value.trim();
     const valEmail = inputEmail.current.value.trim();
     const validPhone = validatePhone(valPhone)

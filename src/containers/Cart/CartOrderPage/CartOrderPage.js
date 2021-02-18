@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import './CartOrderPage.scss'
 import BlockWrapper from "../../../components/BlockWrapper";
 import iconLocation from "../../../img/icon/location.svg";
@@ -25,6 +25,7 @@ const CartOrderPage = props => {
   const [loading, setLoading] = useState(false)
   const [order, setOrder] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
+  const emailRef = useRef()
 
 // для теста добавили email - он не нужен в будущем
   const [errorPhone, setErrorPhone] = useState(true)
@@ -95,14 +96,18 @@ const CartOrderPage = props => {
 
   function validEmail(event) {
     setErrorMessage('')
-    const value = event.target.value.trim()
+    const value = emailRef.current.value.trim()
+    // const value = event.target.value.trim()
+
     setEmail(value)
-    if (emailIsValid(value)) {
+    const isValid = emailIsValid(value)
+    if (isValid) {
       setErrorEmail(false)
     } else {
       setErrorEmail(true)
     }
-    setFormValid((!errorPhone && !errorEmail))
+    setFormValid((!errorPhone && isValid))
+    return (!errorPhone && isValid)
   }
 
   function submitOrder(event) {
@@ -199,12 +204,13 @@ const CartOrderPage = props => {
                   </label>
                   <label className="CartOrderPage__element">
                     <input
-                      type='email'
+                      type='text'
                       value={email}
                       name="CartOrderPage-email"
                       id="CartOrderPage-email"
                       className="CartOrderPage__input"
                       onChange={validEmail}
+                      ref={emailRef}
                       required
                     />
                     <p className="CartOrderPage__label">Введите Email</p>
