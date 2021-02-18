@@ -36,7 +36,7 @@ const HeaderTop = (props) => {
             <Link className='HeaderTop__link HeaderTop__development' to='/in-development/'>Оформление заказа</Link>
           </li>
           <li>
-            <Link className='HeaderTop__link HeaderTop__development' to="/in-development/">Статус заказа</Link>
+            <Link className='HeaderTop__link' to="/test/">Инфо ТЕСТ</Link>
           </li>
           <li>
             <a rel="noopener noreferrer" className='HeaderTop__link' target='_blank' href='http://kartalegko.ru/'>Бонусная

@@ -22,6 +22,7 @@ import Loader from "./components/UI/Loader";
 import Faq from "./containers/Faq/Faq";
 import CatalogPage from "./containers/CatalogPage/CatalogPage";
 import Development from "./components/Development/Development";
+import InfoTEST from "./components/InfoTEST/InfoTEST";
 
 function App(props) {
 
@@ -57,6 +58,7 @@ function App(props) {
         <Route path="/catalog/:categoryId?/:page?/:sort?" render={({match}) => <CatalogPage params={match.params}/>}/>
         <Route path="/contacts/" render={() => <Cities contacts={true}/>}/>
         <Route path="/in-development/" component={Development}/>
+        <Route path="/test/" component={InfoTEST}/>
         <Redirect to={'/'}/>
       </Switch>
       <FooterDesktop/>

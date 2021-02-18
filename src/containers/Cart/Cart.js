@@ -545,7 +545,6 @@ const mapDispatchToProps = (dispatch) => {
     loadingFalse: (info) => dispatch(loadingFalse(info)),
     setError: (e) => dispatch(setError(e)),
     setCountItemCart: (idProduct, delta) => dispatch(setCountItemCart(idProduct, delta))
-
   }
 }
 
