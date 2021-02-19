@@ -190,6 +190,7 @@ class Cart extends React.Component {
       result.minPrice = promoItem.minPrice
       result.onIncrement = () => this.props.addedToCart(promoItem.guid)
       result.onDecrement = () => this.props.itemRemovedFromCart(promoItem.guid)
+      result.promo = true;
 
       return result
     }

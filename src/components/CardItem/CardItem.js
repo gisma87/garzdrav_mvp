@@ -3,10 +3,12 @@ import './CardItem.scss'
 import SvgCartIcon from "../../img/SVGcomponents/SvgCartIcon";
 import CountButton from "../UI/CountButton/CountButton";
 import SvgPillsIcon from "../../img/SVGcomponents/SvgPillsIcon";
+import SvgCheck from "../UI/icons/SvgCheck";
 
 const CardItem = props => {
 
   const {
+    promo = null,
     isBuy,
     id,
     title,
@@ -49,16 +51,34 @@ const CardItem = props => {
 
           <div className='CardItem__button'>
             {
-              isBuy
-                ? <CountButton
-                  count={count}
-                  isLastCount={isLastCount}
-                  onIncrement={onIncrement}
-                  onDecrement={onDecrement}
-                />
-                : <button className='CardItem__cart' onClick={onIncrement}>
-                  <SvgCartIcon style={{fontSize: 28, color: '#fff'}}/>
-                </button>
+              promo
+                ? <>{
+                  isBuy
+                    ? <button className='CardItem__cart' onClick={onDecrement} style={{
+                      minHeight: 34,
+                      width: 78,
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center'
+                    }}>
+                      <SvgCheck style={{fontSize: 18, color: '#fff'}}/>
+                    </button>
+                    : <button className='CardItem__cart' onClick={onIncrement}>
+                      <SvgCartIcon style={{fontSize: 28, color: '#fff'}}/>
+                    </button>
+                }</>
+                : <>{
+                  isBuy
+                    ? <CountButton
+                      count={count}
+                      isLastCount={isLastCount}
+                      onIncrement={onIncrement}
+                      onDecrement={onDecrement}
+                    />
+                    : <button className='CardItem__cart' onClick={onIncrement}>
+                      <SvgCartIcon style={{fontSize: 28, color: '#fff'}}/>
+                    </button>
+                }</>
             }
           </div>
 
