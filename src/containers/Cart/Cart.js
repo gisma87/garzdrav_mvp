@@ -3,7 +3,6 @@ import './Cart.scss'
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
 import MediaQuery from 'react-responsive'
-import CartItem from "../../components/CartItem";
 import BlockWrapper from "../../components/BlockWrapper";
 import Error from "../../components/Error/Error";
 import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
@@ -34,7 +33,6 @@ import SvgArrowLongRight from "../../components/UI/icons/SvgArrowLongRight";
 import CardItem from "../../components/CardItem";
 import apiService from "../../service/ApiService";
 import CartOrderPage from "./CartOrderPage/CartOrderPage";
-import CartItemMobile from "../../components/CartItemMobile/CartItemMobile";
 import CartPageChoiceRetail from "./CartPageChoiceRetail/CartPageChoiceRetail";
 import CartItems from "./CartItems";
 
@@ -57,6 +55,7 @@ class Cart extends React.Component {
     this.isChecked = isChecked.bind(this)
     this.indexActiveRetail = indexActiveRetail.bind(this)
     this.getFullCountProductsRetails = getFullCountProductsRetails.bind(this)
+    this.delItemCart = this.delItemCart.bind(this)
 
     this.startTimer = this.startTimer.bind(this)
     this.clearTimer = this.clearTimer.bind(this)
@@ -74,7 +73,7 @@ class Cart extends React.Component {
     OrderNumber: '',
     isShowTimer: false,
     seconds: 60,
-    thisTime: {date: Date.now(), iteration: 0}
+    thisTime: {date: Date.now(), iteration: 0},
   }
 
   componentDidMount() {
@@ -94,6 +93,7 @@ class Cart extends React.Component {
 
 
     // Если cart изменилась, берём её данные с LocalStorage и на основании этих данных пересобираем массивы cartItems и retailsArr
+
     if (prevProps.cart !== this.props.cart) {
       let oldCart = [...this.props.cart]
 
@@ -109,9 +109,15 @@ class Cart extends React.Component {
             this.props.loadingTrue('подгружаем новые карточки, добавленные в корзину - getProductInfo в cart componentDidUpdate')
             apiService.getProductInfo(productId, this.props.isCity.guid)
               .then(response => {
-                const newCartItems = [...this.props.cartItems]
-                newCartItems.push(response)
-                this.props.setCartItems(newCartItems)
+                if (this.isEmpty(response)) {
+                  if (!this.props.loading && (this.props.cartItems.length < this.props.cart.length)) {
+                    this.delItemCart()
+                  }
+                } else {
+                  const newCartItems = [...this.props.cartItems]
+                  newCartItems.push(response)
+                  this.props.setCartItems(newCartItems)
+                }
               })
           })
           this.props.loadingFalse('getProductInfo в cart componentDidUpdate - внешний loader - ВЫКЛ')
@@ -121,29 +127,23 @@ class Cart extends React.Component {
           this.props.loadingTrue('подгружаем новые карточки, добавленные в корзину - getProductInfo в cart componentDidUpdate')
           apiService.getProductInfo(productId, this.props.isCity.guid)
             .then(response => {
-              const newCartItems = [...this.props.cartItems]
-              newCartItems.push(response)
-              this.props.setCartItems(newCartItems)
+              if (this.isEmpty(response)) {
+                if (!this.props.loading && (this.props.cartItems.length < this.props.cart.length)) {
+                  this.delItemCart()
+                }
+              } else {
+                const newCartItems = [...this.props.cartItems]
+                newCartItems.push(response)
+                this.props.setCartItems(newCartItems)
+              }
             })
         }
 
-      } else {
+      } else if (!this.props.loading && (this.props.cartItems.length > this.props.cart.length)) {
         // товар удалили из корзины, удаляем его из cartItems и пересобираем cartItems и retailsArr
-        const newCartItems = this.props.cartItems.filter(item => oldCart.some(i => i.itemId === item.guid))
-        this.props.setCartItems(newCartItems)
-      }
-    }
-
-    if (prevProps.cart === this.props.cart) {
-      // если в cart товаров больше, чем пришло с сервера(в cartItems), то удаляем лишние, значит их вообще нет в городе.
-      if (this.props.cartItems.length > 0) {
-        if (!this.props.loading && (this.props.cartItems.length < this.props.cart.length)) {
-          const delItems = this.props.cart.filter(item => !this.props.cartItems.some((element => element.guid === item.itemId)))
-          // тут нужно добавить вывод сообщения пользователю, чтобы кол.тов. просто не исчезало - а то было 8, перешёл в корзину - стало 5.
-          console.log('По этим товарам сервер ответил ошибкой, они удалены из корзины: ', delItems)
-          delItems.forEach(item => {
-            this.props.allItemRemovedFromCart(item.itemId)
-          })
+        if (!this.props.loading) {
+          const newCartItems = this.props.cartItems.filter(item => oldCart.some(i => i.itemId === item.guid))
+          this.props.setCartItems(newCartItems)
         }
       }
     }
@@ -151,6 +151,25 @@ class Cart extends React.Component {
 
   componentWillUnmount() {
     if (this.timer) this.clearTimer();
+  }
+
+  isEmpty(obj) {
+    for (let key in obj) {
+      return false;
+    }
+    return true;
+  }
+
+
+  delItemCart() {
+    if (!this.props.loading && (this.props.cartItems.length < this.props.cart.length)) {
+      const delItems = this.props.cart.filter(item => !this.props.cartItems.some((element => element.guid === item.itemId)))
+      // тут нужно добавить вывод сообщения пользователю, чтобы кол.тов. просто не исчезало - а то было 8, перешёл в корзину - стало 5.
+      console.log('По этим товарам сервер ответил ошибкой, они удалены из корзины: ', delItems)
+      delItems.forEach(item => {
+        this.props.allItemRemovedFromCart(item.itemId)
+      })
+    }
   }
 
   getDataForPromoItem() {

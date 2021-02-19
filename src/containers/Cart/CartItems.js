@@ -63,6 +63,7 @@ const CartItems = props => {
               />)
             }
           }
+          return null
         })
       }
     </div>

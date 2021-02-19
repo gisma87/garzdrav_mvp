@@ -348,6 +348,8 @@ const reducer = (state = initialState, action) => {
         }
       }
 
+      const cartNow = state.cart.filter(item => newCardItems.some((element => element.guid === item.itemId)))
+
       return {
         ...state,
         cartItems: newCardItems,
@@ -355,6 +357,7 @@ const reducer = (state = initialState, action) => {
         // selectedRetail: state.selectedRetail ? state.selectedRetail : selectedRetail,
         // selectedRetail: null,
         // isRetailAllProduct,
+        cart: cartNow,
         loading: (state.loading > 0) ? (state.loading - 1) : 0,
         error: null
       }
