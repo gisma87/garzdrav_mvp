@@ -123,7 +123,7 @@ const CartOrderPage = props => {
     }
 
     if (formValid && !props.isAuth && !smsCode) {
-      setErrorMessageCode('Введите СМС код')
+      setErrorMessageCode('Введите Email код')
       return
     }
 
@@ -182,9 +182,7 @@ const CartOrderPage = props => {
               <p className='CartOrderPage__authTitle'>Авторизуйтесь или подтвердите номер телефона:</p>
               <form className='CartOrderPage__form'
                     noValidate
-                    onSubmit={(event) => {
-                      event.preventDefault()
-                    }}>
+                    onSubmit={submitOrder}>
                 <div>
                   <label className="CartOrderPage__element">
                     <InputMask mask="+7\ (999)\ 999\ 99\ 99"
