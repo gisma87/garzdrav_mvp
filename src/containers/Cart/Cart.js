@@ -36,6 +36,7 @@ import apiService from "../../service/ApiService";
 import CartOrderPage from "./CartOrderPage/CartOrderPage";
 import CartItemMobile from "../../components/CartItemMobile/CartItemMobile";
 import CartPageChoiceRetail from "./CartPageChoiceRetail/CartPageChoiceRetail";
+import CartItems from "./CartItems";
 
 class Cart extends React.Component {
   constructor(props) {
@@ -97,15 +98,35 @@ class Cart extends React.Component {
       let oldCart = [...this.props.cart]
 
       // если в корзину добавился новый товар - делаем по нему запрос и обновляем cartItems и retailsArr
-      if (this.props.cartItems.length < this.props.cart.length) {
-        const productId = this.props.cart[this.props.cart.length - 1].itemId
-        this.props.loadingTrue('getProductInfo for promoBlock in Cart')
-        apiService.getProductInfo(productId, this.props.isCity.guid)
-          .then(response => {
-            const newCartItems = [...this.props.cartItems]
-            newCartItems.push(response)
-            this.props.setCartItems(newCartItems)
+      if (!this.props.loading && (this.props.cartItems.length < this.props.cart.length)) {
+        // ищем недостающие элементы
+        const productIdArr = this.props.cart.filter(itemCart => !this.props.cartItems.some(item => item.guid === itemCart.itemId));
+        // если из много, то проходим по массиву, и запрашиваем каждый
+        if (productIdArr.length > 1) {
+          this.props.loadingTrue('getProductInfo в cart componentDidUpdate - внешний loader - ВКЛ')
+          productIdArr.forEach(product => {
+            const productId = product.itemId
+            this.props.loadingTrue('подгружаем новые карточки, добавленные в корзину - getProductInfo в cart componentDidUpdate')
+            apiService.getProductInfo(productId, this.props.isCity.guid)
+              .then(response => {
+                const newCartItems = [...this.props.cartItems]
+                newCartItems.push(response)
+                this.props.setCartItems(newCartItems)
+              })
           })
+          this.props.loadingFalse('getProductInfo в cart componentDidUpdate - внешний loader - ВЫКЛ')
+        } else if (productIdArr.length === 1) {
+          // если новый элемент один - запрашиваем его
+          const productId = productIdArr[0].itemId
+          this.props.loadingTrue('подгружаем новые карточки, добавленные в корзину - getProductInfo в cart componentDidUpdate')
+          apiService.getProductInfo(productId, this.props.isCity.guid)
+            .then(response => {
+              const newCartItems = [...this.props.cartItems]
+              newCartItems.push(response)
+              this.props.setCartItems(newCartItems)
+            })
+        }
+
       } else {
         // товар удалили из корзины, удаляем его из cartItems и пересобираем cartItems и retailsArr
         const newCartItems = this.props.cartItems.filter(item => oldCart.some(i => i.itemId === item.guid))
@@ -113,13 +134,17 @@ class Cart extends React.Component {
       }
     }
 
-    if (this.props.cartItems.length > 0) {
-      if (this.props.cartItems.length < this.props.cart.length) {
-        const delItems = this.props.cart.filter(item => !this.props.cartItems.some((element => element.guid === item.itemId)))
-        console.log('По этим товарам сервер ответил ошибкой, они удалены из корзины: ', delItems)
-        delItems.forEach(item => {
-          this.props.allItemRemovedFromCart(item.itemId)
-        })
+    if (prevProps.cart === this.props.cart) {
+      // если в cart товаров больше, чем пришло с сервера(в cartItems), то удаляем лишние, значит их вообще нет в городе.
+      if (this.props.cartItems.length > 0) {
+        if (!this.props.loading && (this.props.cartItems.length < this.props.cart.length)) {
+          const delItems = this.props.cart.filter(item => !this.props.cartItems.some((element => element.guid === item.itemId)))
+          // тут нужно добавить вывод сообщения пользователю, чтобы кол.тов. просто не исчезало - а то было 8, перешёл в корзину - стало 5.
+          console.log('По этим товарам сервер ответил ошибкой, они удалены из корзины: ', delItems)
+          delItems.forEach(item => {
+            this.props.allItemRemovedFromCart(item.itemId)
+          })
+        }
       }
     }
   }
@@ -291,63 +316,16 @@ class Cart extends React.Component {
                           <p className="Cart__titlePanel">
                             В корзине {countProducts} {num_word(countProducts, ['товар', 'товара', 'товаров'])}
                           </p>
-                          <div className='Cart__itemContainer'>
-                            {this.props.cart.length === 0
-                              ? <p style={{padding: 40, fontSize: '2rem'}}>Корзина пуста</p>
-                              : this.props.cartItems.map((item, i) => {
-                                const index = this.props.cart.findIndex((cartItem) => cartItem.itemId === item.guid);
-                                const count = index > -1 ? this.props.cart[index].count : null
-                                const maxCountProduct = stopCount(item)
-                                if (maxCountProduct && count && count > maxCountProduct) {
-                                  const delta = count - maxCountProduct
-                                  // ставим в cart[index].count значение maxCountProduct
-                                  this.props.setCountItemCart(item.guid, delta)
-                                }
-                                const priceIndex = item.retails.findIndex(retail => retail.guid === this.props.selectedRetail)
-                                const price = priceIndex >= 0 ? item.retails[priceIndex].priceRetail : null
-                                if (this.props.cart[index] !== undefined) return <div key={item.guid}>
-                                  <MediaQuery minWidth={901}>
-                                    <CartItem item={{
-                                      id: item.guid,
-                                      img: null,
-                                      title: item.product,
-                                      maker: item.manufacturer,
-                                      minPrice: item.retails.sort((a, b) => a.priceRetail > b.priceRetail ? 1 : -1)[0].priceRetail,
-                                      price,
-                                    }}
-                                              retails={item.retails}
-                                              classStyle={'Cart__item'}
-                                              count={count}
-                                              addedToCart={() => this.props.addedToCart(item.guid)}
-                                              itemRemovedFromCart={() => {
-                                                if (count > 1) this.props.itemRemovedFromCart(item.guid);
-                                              }}
-                                              allItemRemovedFromCart={() => this.props.allItemRemovedFromCart(item.guid)}
-                                    />
-                                  </MediaQuery>
-                                  <MediaQuery maxWidth={900}>
-                                    <CartItemMobile item={{
-                                      id: item.guid,
-                                      img: null,
-                                      title: item.product,
-                                      maker: item.manufacturer,
-                                      minPrice: item.retails.sort((a, b) => a.priceRetail > b.priceRetail ? 1 : -1)[0].priceRetail,
-                                      price
-                                    }}
-                                                    retails={item.retails}
-                                                    classStyle={'Cart__item'}
-                                                    count={count}
-                                                    addedToCart={() => this.props.addedToCart(item.guid)}
-                                                    itemRemovedFromCart={() => {
-                                                      if (count > 1) this.props.itemRemovedFromCart(item.guid);
-                                                    }}
-                                                    allItemRemovedFromCart={() => this.props.allItemRemovedFromCart(item.guid)}
-                                    />
-                                  </MediaQuery>
-                                </div>
-                              })
-                            }
-                          </div>
+
+                          <CartItems cart={this.props.cart}
+                                     cartItems={this.props.cartItems}
+                                     stopCount={stopCount}
+                                     setCountItemCart={this.props.setCountItemCart}
+                                     selectedRetail={this.props.selectedRetail}
+                                     addedToCart={this.props.addedToCart}
+                                     itemRemovedFromCart={this.props.itemRemovedFromCart}
+                                     allItemRemovedFromCart={this.props.allItemRemovedFromCart}
+                          />
                           {
                             this.props.cart.length > 0 &&
                             <BlockWrapper classStyle='Cart__containerInfo'>

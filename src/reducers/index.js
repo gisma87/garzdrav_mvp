@@ -347,18 +347,6 @@ const reducer = (state = initialState, action) => {
           error: null
         }
       }
-      // const fullProductArr = retailsArr.filter(item => item.product.length === state.cart.length)
-      // let selectedRetail = null
-      // if (fullProductArr.length > 0) {
-      //   selectedRetail = fullProductArr[0].guid
-      // }
-      // let isRetailAllProduct = selectedRetail !== null;
-      // if (retailsArr.length) {
-      //   if (retailsArr.length > 1) {
-      //     const retailsByNumberOfProducts = [...retailsArr].sort((a, b) => a.product.length < b.product.length ? 1 : -1)
-      //     selectedRetail = retailsByNumberOfProducts[0].guid
-      //   } else selectedRetail = retailsArr[0].guid
-      // }
 
       return {
         ...state,

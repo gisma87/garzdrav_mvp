@@ -230,7 +230,7 @@ const CartOrderPage = props => {
                            name="CartOrderPage-smsCode"
                            id="CartOrderPage-smsCode"
                     />
-                    <p className="CartOrderPage__label">Код из СМС</p>
+                    <p className="CartOrderPage__label">Код из Email</p>
                     <span
                       className={'CartOrderPage__errorMessage' + (errorMessageCode.length ? ' CartOrderPage__errorMessage_visible' : '')}>{errorMessageCode}</span>
                     <div className='CartOrderPage__eyeShowButton' onClick={() => setShowPassword(!showPassword)}>
