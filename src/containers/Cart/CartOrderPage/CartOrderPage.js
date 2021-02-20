@@ -123,7 +123,7 @@ const CartOrderPage = props => {
     }
 
     if (formValid && !props.isAuth && !smsCode) {
-      setErrorMessageCode('Введите Email код')
+      setErrorMessageCode('Проверьте почту и введите код из Email')
       return
     }
 
@@ -230,7 +230,7 @@ const CartOrderPage = props => {
                     />
                     <p className="CartOrderPage__label">Код из Email</p>
                     <span
-                      className={'CartOrderPage__errorMessage' + (errorMessageCode.length ? ' CartOrderPage__errorMessage_visible' : '')}>{errorMessageCode}</span>
+                      className={'CartOrderPage__errorMessage CartOrderPage__errorMessage_code' + (errorMessageCode.length ? ' CartOrderPage__errorMessage_visible' : '')}>{errorMessageCode}</span>
                     <div className='CartOrderPage__eyeShowButton' onClick={() => setShowPassword(!showPassword)}>
                       <EyeButtonShow show={showPassword}/>
                     </div>
@@ -261,7 +261,8 @@ const CartOrderPage = props => {
               <div className='CartOrderPage__authBlock'>
                 <div className='CartOrderPage__form CartOrderPage__form_message'>
                   <p className='CartOrderPage__AfterBuy'>Ваш заказ N-{props.OrderNumber} принят к исполнению.</p>
-                  <p className='CartOrderPage__AfterBuy'>Об изменении статуса заказа будет сообщено по СМС</p>
+                  <p className='CartOrderPage__AfterBuy'>Об изменении статуса заказа будет сообщено по Email.</p>
+                  <p className='CartOrderPage__AfterBuy'>Статус заказа можно посмотреть в личном кабинете во вкладке "Интернет заказы"</p>
                 </div>
               </div>
               <NavLink className='CartOrderPage__buttonToBuy' style={{transform: 'scale(1)'}} to='/'>ОК</NavLink>

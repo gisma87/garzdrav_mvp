@@ -60,6 +60,7 @@
     }
 
     p {
+      opacity: 0;
       font-family: inherit;
       font-size: 17px;
       font-weight: 400;
@@ -70,6 +71,10 @@
         font-size: .8rem;
       }
     }
+  }
+
+  &__substance {
+    opacity: 0;
   }
 
   &__title {

@@ -202,12 +202,12 @@
 
   &__form {
     display: flex;
-    max-width: 600px;
+    max-width: 590px;
     width: 100%;
     justify-content: space-between;
     align-items: center;
     background-color: $bg-color-light;
-    padding: 10px 30px 25px;
+    padding: 10px 30px 38px;
     border-radius: 8px;
 
     @media (max-width: 900px) {
@@ -373,6 +373,10 @@
     font-size: .7rem;
     font-weight: 500;
     opacity: 0;
+
+    &_code {
+      bottom: -30px;
+    }
   }
 
   &__errorMessage_visible {

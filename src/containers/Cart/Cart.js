@@ -87,10 +87,7 @@ class Cart extends React.Component {
       const time = Date.now();
       if (((time - 8000) > this.state.thisTime.date) || this.state.thisTime.iteration < 1) {
         const arrItemId = this.props.cart.map(item => item.itemId)
-        console.log('arrItemId: ', arrItemId)
         this.props.getPromoItem(arrItemId)
-        // this.props.getPromoItem(this.props.cart[0]?.itemId)
-        // 'NOT_FOUND'
         this.setState({thisTime: {date: time, iteration: this.state.thisTime.iteration + 1}})
       }
     }
