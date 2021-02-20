@@ -131,10 +131,11 @@
       max-height: 165px;
     }
 
-    img {
+    &-img {
       object-fit: contain;
       max-height: 300px;
       border-radius: 15px;
+
       @media (max-width: 1220px) {
         max-height: 280px;
       }

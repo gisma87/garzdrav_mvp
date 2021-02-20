@@ -28,7 +28,7 @@ const IndexDesktop = props => {
       <PromoBlock2/>
       <BrandsBlock/>
       <LegkoBlock/>
-      <ArticlesBlock/>
+      {/*<ArticlesBlock/>*/}
     </div>
   )
 }

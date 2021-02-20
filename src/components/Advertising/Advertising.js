@@ -4,7 +4,7 @@ import SwiperCore, {Navigation, Pagination, Autoplay} from "swiper";
 import 'swiper/swiper-bundle.css';
 import './Advertising.scss'
 import {useMediaQuery} from 'react-responsive'
-import testPromo from '../../img/test/testPromojpg.jpg'
+import testPromo from '../../img/test/promoPingy1.jpg'
 import img1 from '../../img/forMainSlidr/gifts.jpg'
 import img2 from '../../img/forMainSlidr/reducePrice.jpg'
 import img3 from '../../img/forMainSlidr/seasonalProducts.jpg'
@@ -42,7 +42,7 @@ const Advertising = () => {
       {
         !isMobile &&
         <div className='Advertising__promo'>
-          <img src={testPromo} alt="testPromo"/>
+          <img className='Advertising__promo-img' src={testPromo} alt="testPromo"/>
         </div>
       }
     </section>

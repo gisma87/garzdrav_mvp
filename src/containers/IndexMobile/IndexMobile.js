@@ -35,7 +35,7 @@ const indexMobile = (props) => {
       <Advertising/>
       <PromoBlockMobile sizeTitle='16px'/>
       <LegkoBlock/>
-      <ArticlesBlock sizeTitle='16px'/>
+      {/*<ArticlesBlock sizeTitle='16px'/>*/}
       <FooterDesktop/>
     </div>
   )

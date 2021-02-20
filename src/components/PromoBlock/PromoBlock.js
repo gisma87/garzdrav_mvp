@@ -51,7 +51,8 @@ class PromoBlock extends React.Component {
 
         <div className='wrapper'>
           <ButtonSectionForSlider
-            items={[{title: 'Акции'}, {title: 'Сезонное предложение'}, {title: 'Популярные товары'}]}
+            // items={[{title: 'Акции'}, {title: 'Сезонное предложение'}, {title: 'Популярные товары'}]}
+            items={[{title: 'Акции'}]}
             onButtonSelected={this.onButtonSelected}
           />
           <Swiper
