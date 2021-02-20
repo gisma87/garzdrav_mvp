@@ -666,13 +666,137 @@ function getDataProfile() {
 const getPromoItem = (productGuid) => async (dispatch, getState, apiService) => {
   const cityGuid = getState().isCity.guid
 // сначала запрашиваем комплексные товары
-  apiService.getComplexes(productGuid, cityGuid)
-    .then(response => {
-      // если в ответе не пустой массив - круто - записываем в state.promoItems
-      if (response.promoItems.length > 0) {
-        dispatch({type: 'GET_PROMO_ITEMS', payload: response})
-      } else {
-        // если массив пустой, то запрашиваем аналоги
+  if (productGuid instanceof Array) {
+    const len = productGuid.length;
+    let count = len;
+
+    function getPromoItemIteration(productID) {
+      apiService.getComplexes(productID, cityGuid)
+        .then(response => {
+          // если в ответе не пустой массив - круто - записываем в state.promoItems
+          if (response.promoItems.length > 0) {
+            dispatch({type: 'GET_PROMO_ITEMS', payload: response})
+          } else {
+            // если массив пустой, то запрашиваем аналоги
+            apiService.getAnalogues(productID)
+              .then(response => {
+                // если в ответе не пустой массив - круто - записываем в state.promoItems
+                if (response.promoItems.length) {
+                  dispatch({type: 'GET_PROMO_ITEMS', payload: response})
+                } else {
+                  // если массив пустой - у нас ничего нет - записываем это для дальнейших действий
+                  dispatch({type: 'GET_PROMO_ITEMS', payload: 'NOT_FOUND'})
+                  if (count > 1) {
+                    --count
+                    getPromoItemIteration(productGuid[len - count])
+                  }
+                }
+              })
+              .catch(e => {
+                // если ошибка, тоже записываем, для дальнейшей работы
+                dispatch({type: 'GET_PROMO_ITEMS', payload: 'ERROR'})
+                if (e.response) {
+                  // client received an error response (5xx, 4xx)
+                  console.log('err.response: ', e.response)
+                  dispatch(setError(e.response))
+                } else if (e.request) {
+                  // client never received a response, or request never left
+                  console.log('err.request ', e.request)
+                  dispatch(setError(e.request))
+                } else {
+                  // anything else
+                  dispatch(setError(e))
+                  console.log('ошибка запроса')
+                }
+              })
+          }
+
+        })
+        .catch(err => {
+          apiService.getAnalogues(productID)
+            .then(response => {
+              // если в ответе не пустой массив - круто - записываем в state.promoItems
+              if (response.promoItems.length) {
+                dispatch({type: 'GET_PROMO_ITEMS', payload: response})
+              } else {
+                // если массив пустой - у нас ничего нет - записываем это для дальнейших действий
+                dispatch({type: 'GET_PROMO_ITEMS', payload: 'NOT_FOUND'})
+              }
+            })
+            .catch(e => {
+              // если ошибка, тоже записываем, для дальнейшей работы
+              dispatch({type: 'GET_PROMO_ITEMS', payload: 'ERROR'})
+              if (e.response) {
+                // client received an error response (5xx, 4xx)
+                console.log('err.response: ', e.response)
+                dispatch(setError(e.response))
+              } else if (e.request) {
+                // client never received a response, or request never left
+                console.log('err.request ', e.request)
+                dispatch(setError(e.request))
+              } else {
+                // anything else
+                dispatch(setError(e))
+                console.log('ошибка запроса')
+              }
+              return Promise.reject('failed getPromoItem')
+            })
+
+          if (err.response) {
+            // client received an error response (5xx, 4xx)
+            console.log('err.response: ', err.response)
+          } else if (err.request) {
+            // client never received a response, or request never left
+            console.log('err.request ', err.request)
+            dispatch(setError(err.request))
+          } else {
+            // anything else
+            dispatch(setError(err))
+            console.log('ошибка запроса')
+          }
+        })
+    }
+
+    getPromoItemIteration(productGuid[len - count])
+  } else {
+    apiService.getComplexes(productGuid, cityGuid)
+      .then(response => {
+        // если в ответе не пустой массив - круто - записываем в state.promoItems
+        if (response.promoItems.length > 0) {
+          dispatch({type: 'GET_PROMO_ITEMS', payload: response})
+        } else {
+          // если массив пустой, то запрашиваем аналоги
+          apiService.getAnalogues(productGuid)
+            .then(response => {
+              // если в ответе не пустой массив - круто - записываем в state.promoItems
+              if (response.promoItems.length) {
+                dispatch({type: 'GET_PROMO_ITEMS', payload: response})
+              } else {
+                // если массив пустой - у нас ничего нет - записываем это для дальнейших действий
+                dispatch({type: 'GET_PROMO_ITEMS', payload: 'NOT_FOUND'})
+              }
+            })
+            .catch(e => {
+              // если ошибка, тоже записываем, для дальнейшей работы
+              dispatch({type: 'GET_PROMO_ITEMS', payload: 'ERROR'})
+              if (e.response) {
+                // client received an error response (5xx, 4xx)
+                console.log('err.response: ', e.response)
+                dispatch(setError(e.response))
+              } else if (e.request) {
+                // client never received a response, or request never left
+                console.log('err.request ', e.request)
+                dispatch(setError(e.request))
+              } else {
+                // anything else
+                dispatch(setError(e))
+                console.log('ошибка запроса')
+              }
+            })
+        }
+
+      })
+      .catch(err => {
         apiService.getAnalogues(productGuid)
           .then(response => {
             // если в ответе не пустой массив - круто - записываем в state.promoItems
@@ -699,53 +823,23 @@ const getPromoItem = (productGuid) => async (dispatch, getState, apiService) => 
               dispatch(setError(e))
               console.log('ошибка запроса')
             }
+            return Promise.reject('failed getPromoItem')
           })
-      }
 
-    })
-    .catch(err => {
-      apiService.getAnalogues(productGuid)
-        .then(response => {
-          // если в ответе не пустой массив - круто - записываем в state.promoItems
-          if (response.promoItems.length) {
-            dispatch({type: 'GET_PROMO_ITEMS', payload: response})
-          } else {
-            // если массив пустой - у нас ничего нет - записываем это для дальнейших действий
-            dispatch({type: 'GET_PROMO_ITEMS', payload: 'NOT_FOUND'})
-          }
-        })
-        .catch(e => {
-          // если ошибка, тоже записываем, для дальнейшей работы
-          dispatch({type: 'GET_PROMO_ITEMS', payload: 'ERROR'})
-          if (e.response) {
-            // client received an error response (5xx, 4xx)
-            console.log('err.response: ', e.response)
-            dispatch(setError(e.response))
-          } else if (e.request) {
-            // client never received a response, or request never left
-            console.log('err.request ', e.request)
-            dispatch(setError(e.request))
-          } else {
-            // anything else
-            dispatch(setError(e))
-            console.log('ошибка запроса')
-          }
-          return Promise.reject('failed getPromoItem')
-        })
-
-      if (err.response) {
-        // client received an error response (5xx, 4xx)
-        console.log('err.response: ', err.response)
-      } else if (err.request) {
-        // client never received a response, or request never left
-        console.log('err.request ', err.request)
-        dispatch(setError(err.request))
-      } else {
-        // anything else
-        dispatch(setError(err))
-        console.log('ошибка запроса')
-      }
-    })
+        if (err.response) {
+          // client received an error response (5xx, 4xx)
+          console.log('err.response: ', err.response)
+        } else if (err.request) {
+          // client never received a response, or request never left
+          console.log('err.request ', err.request)
+          dispatch(setError(err.request))
+        } else {
+          // anything else
+          dispatch(setError(err))
+          console.log('ошибка запроса')
+        }
+      })
+  }
 }
 
 // true, когда происходит запрос от панели поиска - для сброса страниц на первую в Cards
@@ -771,7 +865,13 @@ const cancelOrder = (orderGuid) => async (dispatch, getState, apiService) => {
   }
 }
 
+const setFalseIsDelCartItems = () => {
+  return {
+    type: 'FALSE_IS_DELETE_CART_ITEMS'
+  }
+}
 export {
+  setFalseIsDelCartItems,
   loadingReset,
   getPromoItem,
   setUserData,

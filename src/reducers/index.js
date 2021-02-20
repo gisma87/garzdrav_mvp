@@ -31,7 +31,8 @@ const initialState = {
   requestFromSearchPanelThisTime: false, // true, если запрос сделан из searchPanel
   internetSales: [], // интернет заказы
   statusRequestRepeatOrder: '',
-  promoItems: null
+  promoItems: null,
+  isDelCartItem: false, // ставиться в true, если удалены item's из cart из-за того, что сервер по ним не ответил.
 }
 
 const upgradeRetailItems = (array) => {
@@ -349,6 +350,7 @@ const reducer = (state = initialState, action) => {
       }
 
       const cartNow = state.cart.filter(item => newCardItems.some((element => element.guid === item.itemId)))
+      const isDelCartItem = cartNow < state.cart;
 
       return {
         ...state,
@@ -358,8 +360,15 @@ const reducer = (state = initialState, action) => {
         // selectedRetail: null,
         // isRetailAllProduct,
         cart: cartNow,
+        isDelCartItem,
         loading: (state.loading > 0) ? (state.loading - 1) : 0,
         error: null
+      }
+
+    case 'FALSE_IS_DELETE_CART_ITEMS':
+      return {
+        ...state,
+        isDelCartItem: false
       }
 
     case 'ON_SELECT_RETAIL':
