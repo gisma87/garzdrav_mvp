@@ -9,18 +9,19 @@ import SvgAngleRightSolid from '../../img/SVGcomponents/SvgAngleRightSolid'
 import SvgAngleLeftSolid from "../../img/SVGcomponents/SvgAngleLeftSolid";
 import './PromoBlock.scss'
 import CardItem from "../CardItem";
-import {dataCards0, dataCards1, dataCards2} from "../../testData/dataCards";
+import {dataCards1, dataCards2} from "../../testData/dataCards";
 import {Link, withRouter} from "react-router-dom";
 import {connect} from "react-redux";
 import {addedToCart, allItemRemovedFromCart, itemRemovedFromCart} from "../../actions";
 import ButtonSectionForSlider from "./ButtonSectionForSlider/ButtonSectionForSlider";
+import {promoItemsData} from "../../testData/promoItemsData";
 
 class PromoBlock extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {activeButton: 0}
-    this.data = [dataCards0, dataCards1, dataCards2]
+    this.data = [promoItemsData, dataCards1, dataCards2]
   }
 
 
