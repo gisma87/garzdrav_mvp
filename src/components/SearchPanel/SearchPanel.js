@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, {useEffect, useState} from "react"
 import {withRouter} from 'react-router-dom'
 import {
   getProductsFromSearchLimit,
@@ -6,16 +6,23 @@ import {
 } from "../../actions";
 import {connect} from "react-redux";
 import SearchForm from "../UI/SearchForm/SearchForm";
+import apiService from "../../service/ApiService";
 
 const SearchPanel = (props) => {
+
+  const [value, setValue] = useState('')
+
+  // useEffect(() => {
+  //   if (value.length) {
+  //     apiService.yandexPredictor(value)
+  //   }
+  // }, [value])
 
   const {
     isMobile = false,
     onTouched = () => {
     }
   } = props;
-
-  const [value, setValue] = useState('')
 
   const handleInputChange = (e) => {
     const input = e.target

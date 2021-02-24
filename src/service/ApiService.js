@@ -457,6 +457,25 @@ class ApiService {
  */
   }
 
+  yandexPredictor(value) {
+    const urlPredictor = 'https://predictor.yandex.net/api/v1/predict.json/complete'
+    const apiKey = 'pdct.1.1.20210129T022947Z.b1d820d8cd8f7beb.a013cd30b08386d5dfd91cf65ce835de05009496'
+
+    fetch(`${urlPredictor}?key=${apiKey}&q=${value}&limit=5&lang=ru`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then((data) => {
+        console.log('=================================================')
+        console.log('ответ от Яндекс.Предиктор: ', data);
+        console.log('=================================================')
+      })
+      .catch((e) => console.log('ERROR_PREDICTOR: ', e))
+  }
+
 }
 
 const apiService = new ApiService()
