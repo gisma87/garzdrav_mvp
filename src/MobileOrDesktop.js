@@ -9,7 +9,8 @@ import {
   refreshAuthentication,
   rewriteCart,
   setCatalog,
-  setFalseIsDelCartItems
+  setFalseIsDelCartItems,
+  setItemsForPromoBlock1
 } from "./actions";
 import {connect} from "react-redux";
 import Alert from "./components/UI/Alert/Alert";
@@ -39,6 +40,7 @@ const MobileOrDesktop = (props) => {
   useEffect(() => {
     props.fetchCities();
     props.setCatalog()
+    props.setItemsForPromoBlock1()
 
     if (localStorage.getItem("TOKEN")) {
       props.refreshAuthentication()
@@ -94,7 +96,8 @@ const mapDispatchToProps = (dispatch) => {
     refreshAuthentication: () => dispatch(refreshAuthentication()),
     setCatalog: () => dispatch(setCatalog()),
     loadingReset: () => dispatch(loadingReset()),
-    setFalseIsDelCartItems: () => dispatch(setFalseIsDelCartItems())
+    setFalseIsDelCartItems: () => dispatch(setFalseIsDelCartItems()),
+    setItemsForPromoBlock1: () => dispatch(setItemsForPromoBlock1())
   }
 }
 

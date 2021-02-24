@@ -24,9 +24,12 @@ class PromoBlock extends React.Component {
     this.data = [promoItemsData, dataCards1, dataCards2]
   }
 
-
   componentDidUpdate(prevProps, prevState, snapshot) {
     localStorage.setItem('cart', JSON.stringify(this.props.cart));
+    if (this.props.itemsForPromoBlock1) {
+      console.log('this.props.itemsForPromoBlock1: ', this.props.itemsForPromoBlock1)
+    }
+
   }
 
   onItemSelected = (itemId, event) => {
@@ -35,6 +38,7 @@ class PromoBlock extends React.Component {
 
   onButtonSelected = (num) => {
     this.setState({activeButton: num})
+    this.props.history.push('/articles/')
   }
 
   render() {
@@ -56,48 +60,50 @@ class PromoBlock extends React.Component {
             items={[{title: 'Акции'}]}
             onButtonSelected={this.onButtonSelected}
           />
-          <Swiper
-            style={{padding: '10px 0'}}
-            spaceBetween={5}
-            slidesPerView={'auto'}
-            tag="section" wrapperTag="ul"
-            loop={'false'}
-            // autoplay={{delay: 5000}}
-            navigation={
-              {
-                nextEl: '.next',
-                prevEl: '.prev'
+          {
+            this.props.itemsForPromoBlock1 &&
+            <Swiper
+              style={{padding: '10px 0'}}
+              spaceBetween={5}
+              slidesPerView={'auto'}
+              tag="section" wrapperTag="ul"
+              loop={'false'}
+              // autoplay={{delay: 5000}}
+              navigation={
+                {
+                  nextEl: '.next',
+                  prevEl: '.prev'
+                }
               }
-            }
-          >
-            {
-              this.data[this.state.activeButton].map((item) => {
-                const {id, title, maker, img, minPrice, countLast} = item;
-                const itemIndex = this.props.cart.findIndex((item) => item.itemId === id);
-                const isBuy = itemIndex >= 0;
-                const count = isBuy ? this.props.cart[itemIndex].count : 0
-                return <CardItem onItemSelected={this.onItemSelected}
-                                 onIncrement={() => this.props.addedToCart(id)}
-                                 onDecrement={() => this.props.itemRemovedFromCart(id)}
-                                 isBuy={isBuy}
-                                 count={count}
-                                 countLast={countLast}
-                                 key={id}
-                                 id={id}
-                                 title={title}
-                                 maker={maker}
-                                 img={img}
-                                 minPrice={minPrice}/>
-              }).map((item, index) => {
-                return (
-                  <SwiperSlide tag="li" key={index} style={{listStyleType: 'none'}}>
-                    {item}
-                  </SwiperSlide>
-                )
-              })
-            }
+            >
+              {
+                this.props.itemsForPromoBlock1.map((item) => {
+                  const {guid, product, manufacturer, img, minPrice, countLast} = item;
+                  const itemIndex = this.props.cart.findIndex((item) => item.itemId === guid);
+                  const isBuy = itemIndex >= 0;
+                  const count = isBuy ? this.props.cart[itemIndex].count : 0
+                  return <CardItem onItemSelected={this.onItemSelected}
+                                   onIncrement={() => this.props.addedToCart(guid)}
+                                   onDecrement={() => this.props.itemRemovedFromCart(guid)}
+                                   isBuy={isBuy}
+                                   count={count}
+                                   countLast={countLast}
+                                   key={guid}
+                                   id={guid}
+                                   title={product}
+                                   maker={manufacturer}
+                                   img={img}
+                                   minPrice={minPrice}/>
+                }).map((item, index) => {
+                  return (
+                    <SwiperSlide tag="li" key={index} style={{listStyleType: 'none'}}>
+                      {item}
+                    </SwiperSlide>
+                  )
+                })
+              }
 
-          </Swiper>
+            </Swiper>}
 
           <div style={{
             display: 'flex',
@@ -116,8 +122,8 @@ class PromoBlock extends React.Component {
   }
 }
 
-const mapStateToProps = ({cart}) => {
-  return {cart}
+const mapStateToProps = ({cart, itemsForPromoBlock1}) => {
+  return {cart, itemsForPromoBlock1}
 }
 
 const mapDispatchToProps = (dispatch) => {

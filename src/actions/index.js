@@ -1,3 +1,5 @@
+import {promoItemsData} from "../testData/promoItemsData";
+
 const setError = (error) => {
   return {
     type: 'FETCH_FAILURE',
@@ -870,7 +872,45 @@ const setFalseIsDelCartItems = () => {
     type: 'FALSE_IS_DELETE_CART_ITEMS'
   }
 }
+
+
+// Запрос по списку из promoItemsData = запрашиваются недостающие данные, и собирается массив и общих данных.
+const setItemsForPromoBlock1 = () => (dispatch, getState, apiService) => {
+  const arrIdItems = promoItemsData.map(item => item.guid)
+  const {isCity} = getState()
+  const cityId = isCity.guid
+  dispatch(clearError())
+
+  dispatch(loadingTrue('setItemsForPromoBlock1'))
+  const arrFetch = arrIdItems.map(product => {
+    return apiService.getProductInfo(product, cityId)
+  })
+  Promise.allSettled([...arrFetch])
+    .then(allResponses => {
+      const fulfilledArray = allResponses.filter(item => item.status === 'fulfilled').map(item => item.value)
+      if (fulfilledArray.length) {
+        const resultArr = fulfilledArray.filter(item => promoItemsData.some(itemData => itemData.guid === item.guid))
+        if (resultArr.length) {
+          resultArr.forEach(resultItem => {
+            const arrCountLast = resultItem.retails.map(retail => retail.countLast);
+            const arrMinPrice = resultItem.retails.map(retail => retail.priceRetail);
+            const countLast = Math.max(...arrCountLast)
+            const minPrice = Math.min(...arrMinPrice)
+            const img = promoItemsData.find(dataEl => dataEl.guid === resultItem.guid).img;
+            resultItem.img = img;
+            resultItem.countLast = countLast;
+            resultItem.minPrice = minPrice
+          })
+        }
+        dispatch({type: 'SET_ITEMS_FOR_PROMOBLOCK_1', payload: resultArr})
+      }
+    })
+    .catch(error => dispatch(setError(error)))
+  dispatch(loadingFalse('setItemsForPromoBlock1 - выкл'))
+}
+
 export {
+  setItemsForPromoBlock1,
   setFalseIsDelCartItems,
   loadingReset,
   getPromoItem,
