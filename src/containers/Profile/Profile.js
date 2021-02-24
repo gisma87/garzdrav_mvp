@@ -19,7 +19,7 @@ import OrderHistory from "./OrderHistory/OrderHistory";
 import ProfileSetting from "./ProfileSetting/ProfileSetting";
 import Bonus from "./Bonus/Bonus";
 import Favorites from "./Favorites/Favorites";
-import service from "../../service/service";
+import {service} from "../../service/service";
 
 const Profile = (props) => {
 

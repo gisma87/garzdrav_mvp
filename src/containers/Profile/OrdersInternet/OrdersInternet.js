@@ -7,7 +7,7 @@ import OrderInternetContent from "./OrderInternetContent/OrderInternetContent";
 import {connect} from "react-redux";
 import {getInternetSales, loadingFalse, loadingTrue, refreshAuthentication, setError} from "../../../actions";
 import Alert from "../../../components/UI/Alert/Alert";
-import service from "../../../service/service";
+import {service} from "../../../service/service";
 
 const OrdersInternet = props => {
   const [showPopupCancel, setShowPopupCancel] = useState(false)

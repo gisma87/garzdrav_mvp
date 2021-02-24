@@ -17,5 +17,5 @@ class Service {
 }
 
 const service = new Service()
-
+export {service}
 export default service

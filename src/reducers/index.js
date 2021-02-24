@@ -33,7 +33,8 @@ const initialState = {
   statusRequestRepeatOrder: '',
   promoItems: null,
   isDelCartItem: false, // ставиться в true, если удалены item's из cart из-за того, что сервер по ним не ответил.
-  itemsForPromoBlock1: null
+  itemsForPromoBlock1: null, // собранный массив, из наших картинок и данных с базы - акционные товары
+  predictor: null
 }
 
 const upgradeRetailItems = (array) => {
@@ -121,6 +122,12 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         itemsForPromoBlock1: action.payload
+      }
+
+    case 'SET_PREDICTOR':
+      return {
+        ...state,
+        predictor: action.payload
       }
 
     case 'REQUEST_INTERNET_SALES':

@@ -1,8 +1,15 @@
-import React from "react";
+import React, {useEffect, useRef} from "react";
 import './SearchForm.scss'
 import SvgSearchIcon from "../../../img/SVGcomponents/SvgSearchIcon";
 
 const SearchForm = (props) => {
+  const input = useRef()
+  useEffect(() => {
+    if (props.focus) {
+      input.focus()
+      props.setFocus(false)
+    }
+  }, [props.focus])
   return (
     <form className='SearchForm' onSubmit={props.onSubmit}>
       <input
@@ -12,9 +19,10 @@ const SearchForm = (props) => {
         placeholder={props.placeholder}
         onChange={props.onChange}
         value={props.value}
+        ref={input}
       />
       <button className='SearchForm__button'>
-        <SvgSearchIcon className='SearchForm__icon' />
+        <SvgSearchIcon className='SearchForm__icon'/>
       </button>
     </form>
   )

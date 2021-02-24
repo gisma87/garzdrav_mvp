@@ -909,7 +909,15 @@ const setItemsForPromoBlock1 = () => (dispatch, getState, apiService) => {
   dispatch(loadingFalse('setItemsForPromoBlock1 - выкл'))
 }
 
+const setPredictor = (value) => {
+  return {
+    type: 'SET_PREDICTOR',
+    payload: value
+  }
+}
+
 export {
+  setPredictor,
   setItemsForPromoBlock1,
   setFalseIsDelCartItems,
   loadingReset,

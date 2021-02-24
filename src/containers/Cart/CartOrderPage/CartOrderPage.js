@@ -6,7 +6,7 @@ import iconClock from "../../../img/icon/clock.svg";
 import iconPhone from "../../../img/icon/phone.svg";
 import InputMask from "react-input-mask";
 import apiService from "../../../service/ApiService";
-import service from "../../../service/service";
+import {service} from "../../../service/service";
 import Loader from "../../../components/UI/Loader";
 import {NavLink} from "react-router-dom";
 import LoaderTimer from "../../../components/UI/LoaderTimer/LoaderTimer";

@@ -50,8 +50,32 @@
     }
   }
 
-  &__icon{
+  &__icon {
     color: #fff;
     font-size: 22px;
+  }
+
+  &__dropdown {
+    position: absolute;
+    bottom: -115px;
+    left: 60px;
+    list-style-type: none;
+    color: #000;
+    background-color: #fff;
+    padding: 5px 0;
+    border: 1px solid $primary-color;
+    cursor: pointer;
+    visibility: hidden;
+
+    &_visible {
+      visibility: visible;
+    }
+  }
+
+  &__dropdownItem {
+    padding: 2px 7px;
+    &:hover {
+      background-color: $secondary-color;
+    }
   }
 }
