@@ -38,6 +38,15 @@ import img37 from './promoIMG/МЕДИКА СОНИК ПУЛЬСАР ЗУБ.ЩЕ
 import img38 from './promoIMG/НО-ШПА ФОРТЕ 80МГ. №24 ТАБ. ХИНОИН.png'
 import img39 from './promoIMG/ОМРОН ТОНОМЕТР RS1 АВТОМАТ АРТ.HEM-6120-RU[OMRON].jpg'
 import img40 from './promoIMG/ОТИПАКС 15МЛ16Г. КАПЛИ УШНЫЕ ФЛ.КАП..jpg'
+import img41 from './promoIMG/РИНЗА №10 ТАБ..jpg'
+import img42 from './promoIMG/СИНЕКОД 1,5МГМЛ. 200МЛ. СИРОП.jpg'
+import img43 from './promoIMG/СИНЕКОД 100МЛ. СИРОП.jpg'
+import img44 from './promoIMG/СМЕКТА 3Г. №8 КАРАМЕЛЬ-КАКАО СУСП. ДПРИЕМА ВНУТРЬ.png'
+import img45 from './promoIMG/ТИЗИН КЛАССИК.jpeg'
+import img46 from './promoIMG/ТОНОМЕТР UA-777 АДАПТЕР [AND].jpg'
+import img47 from './promoIMG/ТОНОМЕТР UA-888 АВТОМАТ (ЭКОНОМ)+АДАПТЕР МАНЖЕТА 22-32СМ. [AND].jpg'
+import img48 from './promoIMG/ФЕСТАЛ №40 ДРАЖЕ.jpg'
+import img49 from './promoIMG/ЭРГОФЕРОН.jpeg'
 
 const promoItemsData = [
   {
@@ -199,6 +208,42 @@ const promoItemsData = [
   {
     guid: "32204f64-f387-4245-aa0c-1539233d83ca",
     img: img40
+  },
+  {
+    guid: "f03947e9-bbc7-4efd-b7fc-d77368c931c2",
+    img: img41
+  },
+  {
+    guid: "cfc90dd8-19e8-4d08-979f-c995b3f6d11a",
+    img: img42
+  },
+  {
+    guid: "6d1f6090-569b-411e-85c6-947a9d260fac",
+    img: img43
+  },
+  {
+    guid: "df301622-6654-4d48-9dd8-e89041eaa2dc",
+    img: img44
+  },
+  {
+    guid: "ccbb3d5c-4498-436d-9f2f-0eba55a05271",
+    img: img45
+  },
+  {
+    guid: "3c952603-d140-4eaf-83ae-4649547849ae",
+    img: img46
+  },
+  {
+    guid: "6e867ef5-44b1-4e39-b475-9b18259b3b30",
+    img: img47
+  },
+  {
+    guid: "0bfec562-b996-44a6-8921-0df55666aa98",
+    img: img48
+  },
+  {
+    guid: "bb672151-fb5a-46b1-be3e-da8b7e21601a",
+    img: img49
   },
 ]
 
