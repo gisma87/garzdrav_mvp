@@ -23,6 +23,7 @@ import Faq from "./containers/Faq/Faq";
 import CatalogPage from "./containers/CatalogPage/CatalogPage";
 import Development from "./components/Development/Development";
 import InfoTEST from "./components/InfoTEST/InfoTEST";
+import HowToBuyPage from "./containers/HowToBuyPage/HowToBuyPage";
 
 function App(props) {
 
@@ -40,6 +41,7 @@ function App(props) {
         <Route path="/cities/" component={Cities}/>
         <Route path="/cart/" component={Cart}/>
         <Route path="/ask-question/" component={AskQuestion}/>
+        <Route path="/how-to-buy/" component={HowToBuyPage}/>
         <Route path="/faq/" component={Faq}/>
         <Route path="/confidentiality/" component={PrivacyPolicy}/>
         <Route path="/company/" component={Company}/>

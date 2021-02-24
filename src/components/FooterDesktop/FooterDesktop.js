@@ -48,7 +48,7 @@ const FooterDesktop = () => {
             <div className='FooterDesktop__infoCol'>
               <h6>Помощь</h6>
               <ul>
-                <li className='FooterDesktop__listItem'><NavLink to="/in-development/">Оформление заказа</NavLink></li>
+                <li className='FooterDesktop__listItem'><NavLink to="/how-to-buy/">Оформление заказа</NavLink></li>
                 <li className='FooterDesktop__listItem'><NavLink to="/in-development/">Статус заказа</NavLink></li>
                 <li className='FooterDesktop__listItem'><NavLink to="/cities/">Адреса аптек</NavLink></li>
                 <li className='FooterDesktop__listItem'><NavLink to="/faq/">Популярные вопросы</NavLink></li>

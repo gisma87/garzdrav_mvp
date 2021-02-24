@@ -33,7 +33,7 @@ const HeaderTop = (props) => {
             <Link className='HeaderTop__link' to="/address/">Аптеки</Link>
           </li>
           <li>
-            <Link className='HeaderTop__link' to='/in-development/'>Оформление заказа</Link>
+            <Link className='HeaderTop__link' to='/how-to-buy/'>Оформление заказа</Link>
           </li>
           <li>
             <Link className='HeaderTop__link' to="/test/">Информация</Link>

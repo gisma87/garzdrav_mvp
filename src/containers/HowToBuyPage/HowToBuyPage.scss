@@ -1,0 +1,60 @@
+@import "../../variables";
+
+.HowToBuyPage {
+  flex: 1 1;
+  font-family: $primary-font;
+  color: $primary-color;
+  padding-bottom: 20px;
+
+  &__titleBlock {
+    margin: 10px 0 40px;
+    font-size: 1.2rem;
+    line-height: 1.5rem;
+  }
+
+  &__title {
+    display: inline;
+    font-weight: bold;
+    margin: 0 0 20px;
+    font-size: 1.6rem;
+    line-height: 1.7rem;
+    padding: 5px 0;
+    border-bottom: 2px solid #1f5377;
+  }
+
+  &__item {
+    padding-bottom: 30px;
+  }
+
+  &__itemTitleBlock {
+    display: flex;
+    align-items: center;
+  }
+
+  &__number {
+    margin-right: 10px;
+    height: 40px;
+    width: 40px;
+    background-color: $primary-color;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-family: $secondary-font;
+    font-size: 1.3rem;
+    font-weight: bold;
+  }
+
+  &__textTitle {
+    font-size: 1.4rem;
+  }
+
+  &__itemDescription {
+    padding-left: 50px;
+  }
+
+  &__itemDescription {
+    font-size: 1.2rem;
+  }
+}
