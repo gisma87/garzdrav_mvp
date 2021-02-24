@@ -25,7 +25,7 @@
 
   &__imageContainer {
     min-width: 150px;
-    min-height: 150px;
+    min-height: 185px;
     max-width: 185px;
     max-height: 185px;
     display: flex;
@@ -61,6 +61,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
   }
 
   &__containerInfo {
