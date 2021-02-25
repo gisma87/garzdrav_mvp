@@ -26,10 +26,6 @@ class PromoBlock extends React.Component {
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     localStorage.setItem('cart', JSON.stringify(this.props.cart));
-    if (this.props.itemsForPromoBlock1) {
-      console.log('this.props.itemsForPromoBlock1: ', this.props.itemsForPromoBlock1)
-    }
-
   }
 
   onItemSelected = (itemId, event) => {

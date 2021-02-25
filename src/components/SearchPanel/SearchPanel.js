@@ -40,12 +40,23 @@ const SearchPanel = (props) => {
     }
   }, [showDropDown])
 
+  const task = useRef(0)
+
 
   function changeSearchValue(value) {
     if (value?.length) {
+      task.current = task.current + 1
       apiService.yandexPredictor(value)
         .then(res => {
           props.setPredictor(res)
+        })
+        .finally(() => {
+          if (task.current <= 0) {
+            setTimeout(() => setShowDropDown(false), 500)
+            task.current = 0
+          } else {
+            task.current = task.current - 1
+          }
         })
     }
   }
@@ -93,6 +104,7 @@ const SearchPanel = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setShowDropDown(false)
+    task.current = -1
     onTouched()
 
     props.getProductsFromSearchLimit({productName: value}) // запрос
@@ -106,13 +118,7 @@ const SearchPanel = (props) => {
   }
 
   function keyPress(event) {
-    // console.log('event: ', event)
-    // console.log('target: ', event.target)
-    console.log('keyCode: ', event.keyCode)
-    // console.log('currTarget', event.currentTarget)
     if (event.keyCode === 40) {
-      console.log(dropdownItem.current);
-      console.log(dropdownItem);
       dropdownItem.current.focus()
     }
     if (event.keyCode === 9) {
@@ -128,6 +134,15 @@ const SearchPanel = (props) => {
     const keyCode = event.keyCode;
     switch (keyCode) {
       case 9:
+        if (props.predictor && props.predictor.text.length) {
+          pastePredictorValue(props.predictor.text[activeItemDropDown])
+          setShowDropDown(false)
+          setActiveItemDropDown(0)
+          setFocusInput(true)
+        }
+        break;
+
+      case 13:
         if (props.predictor && props.predictor.text.length) {
           pastePredictorValue(props.predictor.text[activeItemDropDown])
           setShowDropDown(false)
