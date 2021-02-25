@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react"
+import React, {useEffect, useRef, useState} from "react"
 import {withRouter} from 'react-router-dom'
 import {
   getProductsFromSearchLimit,
@@ -13,16 +13,32 @@ const SearchPanel = (props) => {
   const [value, setValue] = useState('')
   const [previousCall, setpreviousCall] = useState(null)
   const [lastCallTimer, setlastCallTimer] = useState(null)
-  const [timerDebounce] = useState(2000)
-  const [text, setText] = useState('')
+  const [timerDebounce] = useState(500)
   const [showDropDown, setShowDropDown] = useState(false)
   const [focusInput, setFocusInput] = useState(false)
+  const [activeItemDropDown, setActiveItemDropDown] = useState(0)
+  const [focusDropDown, setFocusDropDown] = useState(false)
+
+  const dropdownItem = useRef(null)
 
   useEffect(() => {
     if (props.predictor) {
       setShowDropDown(true)
     }
   }, [props.predictor])
+  useEffect(() => {
+    const headerDesktop = document.querySelector('.HeaderDesktop');
+    if (showDropDown) {
+      document.body.style.overflow = 'hidden';
+      document.body.style.paddingRight = '10px';
+      if (headerDesktop) headerDesktop.style.paddingRight = '10px';
+    }
+    if (!showDropDown) {
+      document.body.style.overflow = 'auto';
+      document.body.style.paddingRight = '0';
+      if (headerDesktop) headerDesktop.style.paddingRight = '0';
+    }
+  }, [showDropDown])
 
 
   function changeSearchValue(value) {
@@ -53,10 +69,13 @@ const SearchPanel = (props) => {
       const result = arrVal.join(' ').trim();
       setValue(result)
     }
+
+    if (props.predictor?.pos >= 0) {
+      arrVal.push(checkText)
+      const result = arrVal.join(' ');
+      setValue(result)
+    }
   }
-
-
-  // const changeValue = debounce(changeSearchValue, 2000)
 
   const {
     isMobile = false,
@@ -73,6 +92,7 @@ const SearchPanel = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setShowDropDown(false)
     onTouched()
 
     props.getProductsFromSearchLimit({productName: value}) // запрос
@@ -85,6 +105,64 @@ const SearchPanel = (props) => {
     window.scroll(0, 0)
   }
 
+  function keyPress(event) {
+    // console.log('event: ', event)
+    // console.log('target: ', event.target)
+    console.log('keyCode: ', event.keyCode)
+    // console.log('currTarget', event.currentTarget)
+    if (event.keyCode === 40) {
+      console.log(dropdownItem.current);
+      console.log(dropdownItem);
+      dropdownItem.current.focus()
+    }
+    if (event.keyCode === 9) {
+      if (props.predictor && props.predictor.text.length) {
+        pastePredictorValue(props.predictor.text[0])
+        setShowDropDown(false)
+        setFocusInput(true)
+      }
+    }
+  }
+
+  function navigationDropDown(event) {
+    const keyCode = event.keyCode;
+    switch (keyCode) {
+      case 9:
+        if (props.predictor && props.predictor.text.length) {
+          pastePredictorValue(props.predictor.text[activeItemDropDown])
+          setShowDropDown(false)
+          setActiveItemDropDown(0)
+          setFocusInput(true)
+        }
+        break;
+
+      case 40:
+        if (props.predictor && props.predictor.text.length) {
+          const len = props.predictor.text.length;
+          if (activeItemDropDown < (len - 1)) {
+            setActiveItemDropDown((prev) => prev + 1)
+          } else {
+            setActiveItemDropDown(0)
+          }
+        }
+        break;
+
+      case 38:
+        if (props.predictor && props.predictor.text.length) {
+          // const len = props.predictor.text.length;
+          if (activeItemDropDown > 0) {
+            setActiveItemDropDown((prev) => prev - 1)
+          } else {
+            // setActiveItemDropDown(len - 1)
+            setFocusInput(true)
+          }
+        }
+        break;
+      default:
+        return;
+    }
+  }
+
   return (
     <div style={{position: 'relative', width: '100%'}}>
       <SearchForm onSubmit={handleSubmit}
@@ -95,15 +173,25 @@ const SearchPanel = (props) => {
                   value={value}
                   focus={focusInput}
                   setFocus={setFocusInput}
+                  keyPress={keyPress}
       />
-      <ul className={'SearchForm__dropdown' + (showDropDown ? ' SearchForm__dropdown_visible' : '')}>
+      <ul tabIndex="0"
+          onKeyDown={navigationDropDown}
+          onFocus={() => setFocusDropDown(true)}
+          onBlur={() => {
+            setFocusDropDown(false)
+            setShowDropDown(false)
+          }}
+          className={'SearchForm__dropdown' + (showDropDown ? ' SearchForm__dropdown_visible' : '')}
+          ref={dropdownItem}>
         {
           props.predictor &&
           props.predictor?.text.map((item, index) => {
             return <li key={item + index}
-                       className='SearchForm__dropdownItem'
+                       tabIndex="-1"
+                       className={'SearchForm__dropdownItem' + ((focusDropDown && (activeItemDropDown === index)) ? ' SearchForm__dropdownItem_focus' : '')}
+                       style={(index === 0) && !focusDropDown ? {background: '#d9d9d9'} : {}}
                        onClick={() => {
-                         setText(item);
                          pastePredictorValue(item)
                          setShowDropDown(false)
                          setFocusInput(true)
@@ -112,6 +200,10 @@ const SearchPanel = (props) => {
           })
         }
       </ul>
+      {
+        showDropDown &&
+        <div className='SearchForm__backdrop' onClick={() => setShowDropDown(false)}/>
+      }
     </div>
 
   )

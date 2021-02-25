@@ -78,6 +78,10 @@ const FooterDesktop = () => {
             <p className='FooterDesktop__infoItem'>
               <NavLink to="/confidentiality/">Пользовательское соглашение</NavLink>
             </p>
+            <p className='FooterDesktop__infoItem'>
+              На сайте использован сервис
+              <a rel="noopener noreferrer" target='_blank' href='https://yandex.ru/dev/predictor/'> «Яндекс.Предиктор»</a>
+            </p>
           </div>
         </div>
       </footer>

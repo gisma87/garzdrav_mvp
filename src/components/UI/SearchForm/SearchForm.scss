@@ -56,16 +56,24 @@
   }
 
   &__dropdown {
+    font-family: $secondary-font;
+    font-size: 1.1rem;
+    z-index: 3;
+    min-width: 320px;
     position: absolute;
-    bottom: -115px;
-    left: 60px;
+    //bottom: -123px;
+    //left: 60px;
+    bottom: -130px;
+    left: 35px;
     list-style-type: none;
     color: #000;
     background-color: #fff;
-    padding: 5px 0;
     border: 1px solid $primary-color;
+    border-top: none;
     cursor: pointer;
     visibility: hidden;
+    box-shadow: 0 10px 10px 0 rgba(0, 0, 0, .5);
+    border-radius: 10px;
 
     &_visible {
       visibility: visible;
@@ -73,9 +81,29 @@
   }
 
   &__dropdownItem {
-    padding: 2px 7px;
-    &:hover {
+
+    padding: 3px 10px 3px 20px;
+
+    &:hover, &:active, &:target {
       background-color: $secondary-color;
     }
+
+    &_focus {
+      background-color: $secondary-color;
+    }
+
+    &_darkbg {
+      background-color: #d9d9d9;
+    }
+  }
+
+  &__backdrop {
+    z-index: 2;
+    background: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
   }
 }
