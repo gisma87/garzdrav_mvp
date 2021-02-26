@@ -41,13 +41,13 @@ const CartItem = (props) => {
 
         <div className="CartItem__priceBlock">
           {count > 1 && <p className='CartItem__priceOne'>от {minPrice} ₽/шт.</p>}
+          {isLastCount && <p className='CartItem__lastCount'>максимальное количество</p>}
 
           <CountButton
             count={count}
             isLastCount={isLastCount}
             onDecrement={itemRemovedFromCart}
             onIncrement={() => {
-              console.log('count: ', count, ' countLast: ', props.item.countLast, ' isLastCount: ', isLastCount)
               if (!isLastCount) {
                 addedToCart()
               }
