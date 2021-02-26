@@ -64,6 +64,10 @@
     }
   }
 
+  &__titleLink {
+    cursor: pointer;
+  }
+
   &__descriptionContainer {
     display: flex;
     flex-direction: column;

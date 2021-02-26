@@ -15,6 +15,8 @@ const CartItemMobile = (props) => {
     itemRemovedFromCart,
     addedToCart,
     count,
+    itemSelect = () => {
+    }
   } = props;
   const {img, title, maker, minPrice} = props.item;
 
@@ -44,7 +46,7 @@ const CartItemMobile = (props) => {
       <p className='CartItemMobile__caption'>Внешний вид товара может отличаться</p>
 
       <div className='CartItemMobile__descriptionContainer'>
-        <h3>{title}</h3>
+        <h3 onClick={itemSelect}>{title}</h3>
         <p className='CartItemMobile__maker'>{maker}</p>
       </div>
 

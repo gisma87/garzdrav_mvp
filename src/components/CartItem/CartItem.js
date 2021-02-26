@@ -15,6 +15,8 @@ const CartItem = (props) => {
     itemRemovedFromCart,
     addedToCart,
     count,
+    itemSelect = () => {
+    }
   } = props;
   const {img, title, maker, minPrice} = props.item;
 
@@ -35,7 +37,7 @@ const CartItem = (props) => {
         </div>
 
         <div className='CartItem__descriptionContainer'>
-          <h3>{title}</h3>
+          <h3 onClick={itemSelect} className='CartItem__titleLink'>{title}</h3>
           <p className='CartItem__maker'>{maker}</p>
         </div>
 

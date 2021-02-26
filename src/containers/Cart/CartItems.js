@@ -2,11 +2,15 @@ import React from "react";
 import {useMediaQuery} from "react-responsive";
 import CartItem from "../../components/CartItem";
 import CartItemMobile from "../../components/CartItemMobile/CartItemMobile";
+import {withRouter} from "react-router-dom";
 
 
 const CartItems = props => {
 
   const isMobile = useMediaQuery({query: '(max-width: 900px)'})
+  const itemSelect = (itemId) => {
+    props.history.push(`/Card/${itemId}`)
+  }
   return (
     <div className='Cart__itemContainer'>
       {props.cart.length === 0
@@ -33,6 +37,7 @@ const CartItems = props => {
                                         minPrice: item.retails.sort((a, b) => a.priceRetail > b.priceRetail ? 1 : -1)[0].priceRetail,
                                         price
                                       }}
+                                      itemSelect={() => itemSelect(item.guid)}
                                       retails={item.retails}
                                       classStyle={'Cart__item'}
                                       count={count}
@@ -52,6 +57,7 @@ const CartItems = props => {
                                   minPrice: item.retails.sort((a, b) => a.priceRetail > b.priceRetail ? 1 : -1)[0].priceRetail,
                                   price,
                                 }}
+                                itemSelect={() => itemSelect(item.guid)}
                                 retails={item.retails}
                                 classStyle={'Cart__item'}
                                 count={count}
@@ -70,4 +76,4 @@ const CartItems = props => {
   )
 }
 
-export default CartItems
+export default withRouter(CartItems)
