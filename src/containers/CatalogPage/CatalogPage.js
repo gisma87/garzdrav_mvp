@@ -125,8 +125,6 @@ const CatalogPage = props => {
           && props.activeCategory.child.map((item, i) => {
             return (<li key={i + item}
                         onClick={() => {
-                          console.log(item)
-                          console.log(item.guid)
                           props.history.push(`/catalog/${item.guid}/`)
                         }}
                         className='CatalogPage__item'>{item.title}</li>)

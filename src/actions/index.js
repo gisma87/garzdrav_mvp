@@ -141,7 +141,6 @@ const onPopupLocation = (boolean) => {
 const setIsCity = (isCity) => (dispatch) => {
   dispatch(loadingTrue('setIsCity'))
   const item = [isCity]
-  console.log('Город: ', item);
   localStorage.setItem("city", JSON.stringify(item))
   // устанавливаем город
   dispatch({
@@ -322,12 +321,9 @@ const refreshAuthentication = () => async (dispatch, getState, apiService) => {
   try {
     const response = await apiService.refreshToken(TOKEN)
     dispatch(setToken(response))
-    // localStorage.setItem('TOKEN', JSON.stringify(response))
-    console.log('refresh_TOKEN')
     dispatch(getToFavorites())
     return Promise.resolve(response)
   } catch (e) {
-    // dispatch(setError(e))
     console.log(e)
     dispatch(logout())
   }

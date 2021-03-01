@@ -19,10 +19,6 @@ const HeaderFixed = (props) => {
   const [lastScrollY, setLastScrollY] = useState(0)
   const [popup, setPopup] = useState(false)
   const [burgerActive, setBurgerActive] = useState(false)
-  // const isLogin = () => {
-  //   console.log('JSON.parse(localStorage.getItem("TOKEN")', JSON.parse(localStorage.getItem("TOKEN")))
-  //   return localStorage.getItem('isLogin') === 'true'
-  // }
 
   useEffect(() => {
     const handleScroll = () => {
