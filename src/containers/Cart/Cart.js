@@ -92,9 +92,7 @@ class Cart extends React.Component {
       }
     }
 
-
     // Если cart изменилась, берём её данные с LocalStorage и на основании этих данных пересобираем массивы cartItems и retailsArr
-
     if (prevProps.cart !== this.props.cart) {
       let oldCart = [...this.props.cart]
 
@@ -102,7 +100,7 @@ class Cart extends React.Component {
       if (!this.props.loading && (this.props.cartItems.length < this.props.cart.length)) {
         // ищем недостающие элементы
         const productIdArr = this.props.cart.filter(itemCart => !this.props.cartItems.some(item => item.guid === itemCart.itemId));
-        // если из много, то проходим по массиву, и запрашиваем каждый
+        // если их много, то проходим по массиву, и запрашиваем каждый
         if (productIdArr.length > 1) {
           this.props.loadingTrue('getProductInfo в cart componentDidUpdate - внешний loader - ВКЛ')
           productIdArr.forEach(product => {
@@ -175,7 +173,16 @@ class Cart extends React.Component {
 
   getDataForPromoItem() {
     if (this.props.promoItems instanceof Object && (this.props.promoItems?.promoItems.length > 0)) {
-      const promoItem = this.props.promoItems?.promoItems[0]
+      const arrPromoItems = this.props.promoItems?.promoItems
+      let index = 0
+      let promoItem = arrPromoItems[index]
+      const isEqualString = () => this.props.cartItems.some(item => item.product.slice(0, 5) === arrPromoItems[index].product.slice(0, 5))
+
+      while (isEqualString() && index < arrPromoItems.length) {
+        console.log('index: ', index)
+        promoItem = arrPromoItems[Math.min(arrPromoItems.length - 1, index)]
+        index++
+      }
       const result = {}
       const itemIndex = this.props.cart.findIndex((item) => item.itemId === promoItem.guid);
       result.isBuy = itemIndex >= 0;

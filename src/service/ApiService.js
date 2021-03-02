@@ -10,12 +10,11 @@ class ApiService {
   //подробная информация по товару - нужен id товара и id города
   async getProductInfo(productId, cityId) {
     const result = await axios.get(`${this.URL}/Products/byGuid?productGuid=${productId}&cityGuid=${cityId}`)
-
     return this._transformProductInfo(result.data)
   }
 
   _transformProductInfo(product) {
-    const retails = product.retails.map(retailItem => {
+    const retails = product?.retails.map(retailItem => {
       return {
         countLast: retailItem.countLast,
         priceRetail: retailItem.priceRetail,

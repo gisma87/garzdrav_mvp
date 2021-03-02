@@ -686,7 +686,7 @@ const getPromoItem = (productGuid) => async (dispatch, getState, apiService) => 
                   dispatch({type: 'GET_PROMO_ITEMS', payload: 'NOT_FOUND'})
                   if (count > 1) {
                     --count
-                    getPromoItemIteration(productGuid[len - count])
+                    getPromoItemIteration(productGuid[Math.min(len - count, len - 1)])
                   }
                 }
               })
@@ -755,7 +755,7 @@ const getPromoItem = (productGuid) => async (dispatch, getState, apiService) => 
         })
     }
 
-    getPromoItemIteration(productGuid[len - count])
+    getPromoItemIteration(productGuid[Math.min(len - count, len - 1)])
   } else {
     apiService.getComplexes(productGuid, cityGuid)
       .then(response => {
