@@ -170,12 +170,7 @@ const Cards = props => {
             <div style={{paddingTop: 15}}>
               <Pagination totalRecords={countProductsSearch}
                           page={currentPage}
-                // setPage={(page) => {
-                //   props.getProductsFromSearchLimit(props.productSearch, 32, page)
-                // }}
-                //           setCurrentPage={(page) => setCurrentPage(page)}
                           pageLimitItems={32}
-                // onPageChanged={onPageChanged}
               />
             </div>
           }

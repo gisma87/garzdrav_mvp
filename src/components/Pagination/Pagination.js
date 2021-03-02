@@ -18,7 +18,6 @@ const range = (from, to, step = 1) => {
 
 const Pagination = props => {
 
-
   const isMobile = useMediaQuery({query: '(max-width: 800px)'})
 
   const {
