@@ -85,6 +85,7 @@ class Cart extends React.Component {
     // запрашиваем данные для promoItem.
     if (this.props.cart.length && ((prevProps.cart.length !== this.props.cart.length) || (this.state.thisTime.iteration < 1))) {
       const time = Date.now();
+      // если с предыдущего изменения прошло меньше 8сек - не будем плодить запросы.
       if (((time - 8000) > this.state.thisTime.date) || this.state.thisTime.iteration < 1) {
         const arrItemId = this.props.cart.map(item => item.itemId)
         this.props.getPromoItem(arrItemId)
@@ -176,10 +177,10 @@ class Cart extends React.Component {
       const arrPromoItems = this.props.promoItems?.promoItems
       let index = 0
       let promoItem = arrPromoItems[index]
+      // если первые 5 символов в названии схожи с названием карточек корзины, то в while берём следующий элемент массива
       const isEqualString = () => this.props.cartItems.some(item => item.product.slice(0, 5) === arrPromoItems[index].product.slice(0, 5))
 
       while (isEqualString() && index < arrPromoItems.length) {
-        console.log('index: ', index)
         promoItem = arrPromoItems[Math.min(arrPromoItems.length - 1, index)]
         index++
       }
