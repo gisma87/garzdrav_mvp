@@ -1,0 +1,70 @@
+@import "../../../variables";
+
+.Article3 {
+  font-family: $primary-font;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0 0 50px;
+  line-height: 1.5rem;
+  @media(max-width: 800px) {
+    padding: 0 0 60px;
+  }
+
+  &__mainTitle {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+  }
+
+  &__description {
+    font-size: 1rem;
+    //font-style: italic;
+    margin-bottom: 15px;
+  }
+
+  &__secondaryTitle {
+    font-size: 1rem;
+    margin-bottom: 5px;
+  }
+
+  &__linkBlock {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 25px;
+
+    a {
+      margin: 3px 0;
+      color: $primary-color;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    p {
+      margin: 5px 0;
+    }
+  }
+
+  &__itemTitle {
+    margin-bottom: 10px;
+    font-size: 1.05rem;
+  }
+
+  img {
+    margin: 0;
+  }
+
+  &__itemParagraph {
+
+  }
+
+  &__titleImg {
+    font-weight: bold;
+    margin: 10px 0 5px;
+  }
+
+  &__item {
+    margin-top: 20px;
+  }
+}
