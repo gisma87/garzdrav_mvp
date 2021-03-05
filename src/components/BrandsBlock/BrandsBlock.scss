@@ -32,5 +32,14 @@
     background: #d2dde4;
     border-radius: 15px;
     margin: 0 auto;
+    overflow: hidden;
+  }
+
+  &img {
+    width: 288.75px;
+    height: 150px;
+    border-radius: 15px;
+    object-fit: cover;
+    overflow: hidden;
   }
 }

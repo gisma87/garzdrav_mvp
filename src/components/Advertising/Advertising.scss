@@ -108,6 +108,7 @@
     max-height: 300px;
     background: $primary-color;
     border-radius: 15px;
+    overflow: hidden;
 
     @media (max-width: 1220px) {
       max-height: 280px;
@@ -132,7 +133,7 @@
     }
 
     &-img {
-      object-fit: contain;
+      object-fit: cover;
       max-height: 300px;
       border-radius: 15px;
 

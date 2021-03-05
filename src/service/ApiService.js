@@ -158,6 +158,11 @@ class ApiService {
   async buildCatalog() {
     const Categories = await this.getCategories()
 
+    //убираем категорию "Товары и Услуги"
+    const delcategory = Categories.find(item => item.guid === 'f32e1087-ba7a-4eaa-8f2c-a31e15259838')
+    delcategory.guid = ''
+    delcategory.parent = ''
+
     class NodeCategories {
       constructor(guid, title, parent = null, historyGuid = []) {
         this.guid = guid

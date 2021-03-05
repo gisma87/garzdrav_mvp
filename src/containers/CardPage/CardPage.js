@@ -28,7 +28,7 @@ const CardPage = (props) => {
     error,
   } = props;
 
-  const img = null
+  const img = props.itemsForPromoBlock1?.find(elem => elem.guid === itemId)?.img || null
   const itemIndex = cart.findIndex((item) => item.itemId === itemId);
   const isActive = itemIndex >= 0;
   const isMobile = useMediaQuery({query: '(max-width: 900px)'})
@@ -171,11 +171,11 @@ const CardPage = (props) => {
                         <div className='CardPage__descriptionContainer'>
                           <p className='CardPage__maker CardPage__description'>
                             <span>Производитель</span>
-                            <NavLink to={props.history.location}>{productInfo.manufacturer}</NavLink>
+                            <NavLink className='CardPage__link' to={props.history.location}>{productInfo.manufacturer}</NavLink>
                           </p>
                           <p className='CardPage__substance CardPage__description'>
                             <span>Действующее вещество:</span>
-                            <NavLink to={props.history.location}>Оксиметазолин</NavLink>
+                            <NavLink className='CardPage__link' to={props.history.location}>Оксиметазолин</NavLink>
                           </p>
                           <div style={{textAlign: 'right', opacity: 0}}><Link to="anchor" smooth={true} offset={-150}
                                                                               duration={500}>Инструкция</Link></div>
@@ -260,11 +260,11 @@ const CardPage = (props) => {
                   <div className='CardPage__descriptionContainer'>
                     <p className='CardPage__maker CardPage__description'>
                       <span>Производитель</span>
-                      <NavLink to={props.history.location}>{productInfo.manufacturer}</NavLink>
+                      <NavLink className='CardPage__link' to={props.history.location}>{productInfo.manufacturer}</NavLink>
                     </p>
                     <p className='CardPage__substance CardPage__description'>
                       <span>Действующее вещество:</span>
-                      <NavLink to={props.history.location}>Оксиметазолин</NavLink>
+                      <NavLink className='CardPage__link' to={props.history.location}>Оксиметазолин</NavLink>
                     </p>
                     <p className='CardPage__characteristic CardPage__description'>
                       <span>Общее описание:</span>
@@ -448,10 +448,14 @@ const mapStateToProps = (
     TOKEN,
     isCity,
     promoItems,
-    loadingFavorites
+    loadingFavorites,
+    itemsForPromoBlock1
   }
 ) => {
-  return {cart, favorites, productInfo, error, catalog, activeCategory, TOKEN, isCity, promoItems, loadingFavorites}
+  return {
+    cart, favorites, productInfo, error, catalog, activeCategory,
+    TOKEN, isCity, promoItems, loadingFavorites, itemsForPromoBlock1
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {

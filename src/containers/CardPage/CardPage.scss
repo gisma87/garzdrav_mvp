@@ -30,7 +30,7 @@
   }
 
   a {
-    color: blue;
+    color: $secondary-color;
     cursor: pointer;
   }
 
@@ -106,7 +106,7 @@
     align-items: center;
     cursor: pointer;
     white-space: nowrap;
-    color: red;
+    color: $secondary-color;
     margin-left: 15px;
     font-size: 26px;
     @media(max-width: 1200px) {
@@ -400,6 +400,10 @@
 
   &__maker {
 
+  }
+
+  &_link {
+    color: $secondary-color;
   }
 
   &__textCharacteristic {

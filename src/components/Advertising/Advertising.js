@@ -5,12 +5,15 @@ import 'swiper/swiper-bundle.css';
 import './Advertising.scss'
 import {useMediaQuery} from 'react-responsive'
 import testPromo from '../../img/test/promoPingy1.jpg'
+import smallBaner from '../../img/baners/smallBaner.jpg'
 import img1 from '../../img/forMainSlidr/gifts.jpg'
-import img2 from '../../img/forMainSlidr/reducePrice.jpg'
-import img3 from '../../img/forMainSlidr/seasonalProducts.jpg'
+import img2 from '../../img/forMainSlidr/seasonalProducts.jpg'
+import img3 from '../../img/forMainSlidr/march1.png'
+import img4 from '../../img/forMainSlidr/march2.png'
+import img5 from '../../img/forMainSlidr/march3.png'
 
 
-const imgData = [img1, img2, img3]
+const imgData = [img1, img2, img3, img4, img5]
 
 
 const Advertising = () => {
@@ -42,7 +45,7 @@ const Advertising = () => {
       {
         !isMobile &&
         <div className='Advertising__promo'>
-          <img className='Advertising__promo-img' src={testPromo} alt="testPromo"/>
+          <img className='Advertising__promo-img' src={smallBaner} alt="promo"/>
         </div>
       }
     </section>
