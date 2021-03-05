@@ -1,11 +1,12 @@
-@import "../../variables";
+@import "../../../variables";
 
-.Promotion {
+.Article1 {
   font-family: $primary-font;
-  padding: 0;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  padding: 0 0 50px;
+  line-height: 1.5rem;
   @media(max-width: 800px) {
     padding: 0 0 60px;
   }
@@ -38,11 +39,19 @@
         text-decoration: underline;
       }
     }
+
+    p {
+      margin: 5px 0;
+    }
   }
 
   &__itemTitle {
     margin-bottom: 10px;
     font-size: 1.05rem;
+  }
+
+  img {
+    margin: 15px 0;
   }
 
   &__itemParagraph {

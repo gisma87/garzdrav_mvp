@@ -4,7 +4,7 @@ import calendarIcon from "../../img/calendar-alt-regular.svg";
 
 
 const ArticleCard = (props) => {
-  const {image, title, description, id} = props.item
+  const {image, title, description, id, date} = props.item
   return (
     <div className='ArticleCard' onClick={(event) => props.onItemSelected(id, event)}>
       <img src={image} className="ArticleCard__image" alt={title}/>
@@ -17,7 +17,7 @@ const ArticleCard = (props) => {
       </div>
       <div className="ArticleCard__date">
         <img src={calendarIcon} alt="calendar icon"/>
-        <span>8 октября 2020 г.</span>
+        <span>{date}</span>
       </div>
     </div>
   )

@@ -9,32 +9,43 @@ import ArticleCard from "../ArticleCard";
 import SvgArrowLightRight from "../../img/SVGcomponents/SvgArrowLightRight";
 import {useMediaQuery} from "react-responsive";
 import {Link, withRouter} from "react-router-dom";
+import img1 from '../../img/img_articles/Image_1.jpg'
+import img2 from '../../img/img_articles/Image_2.jpg'
+import img3 from '../../img/img_articles/Image_3.jpg'
+import img4 from '../../img/img_articles/Image_4.jpg'
 
 
 const articleCardData = [
   {
     id: 1,
-    title: 'Вегетарианство: польза или вред?',
-    description: 'Более миллиарда людей по всему миру выбирают для себя путь вегетарианства, и с каждым днём таких людей становится всё больше.',
-    image: 'https://xn--n1aalg.xn--80ae2aeeogi5fxc.xn--p1ai/article/2efae72b6523169bca5c91d237363e3a.jpg'
+    title: 'За подарками – в аптеку!',
+    description: 'ТОП 10 полезных подарков на 8 марта для прекрасных дам. ',
+    image: img1,
+    date: '09 марта 2021'
   },
   {
     id: 2,
-    title: 'Как правильно ухаживать за кожей лица?',
-    description: 'Пришло время позаботиться о коже!',
-    image: 'https://xn--n1aalg.xn--80ae2aeeogi5fxc.xn--p1ai/article/b0855ca6f18d9187a5567aad203f4c45.jpg'
+    title: 'Держим курс на весну!',
+    description: 'Календарная весна уже наступила, а значит, совсем скоро природа начнет просыпаться от зимней спячки и придет долгожданное тепло. ',
+    image: img2,
+    date: '09 марта 2021'
   },
   {
     id: 3,
-    title: 'Приятный запах в доме: 8 советов',
-    description: 'Мы собрали для вас несколько советов, которые помогут вам устранить возможные источники неприятных запахов и добавить свежести в свой дом.',
-    image: 'https://xn--n1aalg.xn--80ae2aeeogi5fxc.xn--p1ai/article/4554b91c015f4ee8c439ceee307e034f.jpg'
+    title: 'Простуда: что делать и какие препараты добавить в аптечку?',
+    description: 'Чаще всего простуда настигает нас в самый неподходящий момент. \n' +
+      'Мы собрали для вас 5 простых шагов, что делать при первых симптомах простуды, а также список необходимых препаратов от простуды и гриппа.',
+    image: img3,
+    date: '09 марта 2021'
   },
   {
     id: 4,
-    title: 'Очки с поляризацией: кому и зачем нужны?',
-    description: 'Чем поляризационные очки отличаются от других и действительно ли они необходимы?',
-    image: 'https://xn--n1aalg.xn--80ae2aeeogi5fxc.xn--p1ai/article/84fa33cede7d34e0567978778f8aa0b6.jpg'
+    title: 'Получить выгоду – Легко!',
+    description: 'И это не просто слоган!\n' +
+      'Легко – это единая бонусная карта. \n' +
+      'Отличительной особенностью данной карты является её универсальность',
+    image: img4,
+    date: '09 марта 2021'
   }
 ]
 

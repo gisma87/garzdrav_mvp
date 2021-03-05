@@ -4,7 +4,6 @@ import baner from '../../img/baners/bigBaner.jpg'
 
 const PromoBlock2 = props => {
 
-  const {classStyle = '', style = {}} = props;
   return (
     <div className='PromoBlock2'>
       {/*<div className={'PromoBlock2__wrapper' + classStyle} style={style}></div>*/}

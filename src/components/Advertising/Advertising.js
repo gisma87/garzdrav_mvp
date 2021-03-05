@@ -4,7 +4,6 @@ import SwiperCore, {Navigation, Pagination, Autoplay} from "swiper";
 import 'swiper/swiper-bundle.css';
 import './Advertising.scss'
 import {useMediaQuery} from 'react-responsive'
-import testPromo from '../../img/test/promoPingy1.jpg'
 import smallBaner from '../../img/baners/smallBaner.jpg'
 import img1 from '../../img/forMainSlidr/gifts.jpg'
 import img2 from '../../img/forMainSlidr/seasonalProducts.jpg'
