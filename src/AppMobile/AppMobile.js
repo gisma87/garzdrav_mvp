@@ -29,6 +29,7 @@ function AppMobile(props) {
       <Loader classStyle={props.loading ? 'Loader_is-opened' : ''}/>
       <Switch>
         <Route exact path="/" component={indexMobile}/>
+        <Route exact path="/address/" component={CitiesMobile}/>
         <Route exact path="/cities/" component={CitiesMobile}/>
         <Route path="/cart/" component={Cart}/>
         <Route path="/ask-question/" component={AskQuestion}/>
