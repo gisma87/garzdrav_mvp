@@ -266,9 +266,11 @@
     padding: 10px 0;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
     max-width: 250px;
     width: 100%;
+    min-height: 70px;
     @media (max-width: 1140px) {
       max-width: 220px;
     }
@@ -278,6 +280,7 @@
     @media (max-width: 850px) {
       flex-direction: column;
       max-width: 140px;
+      min-height: 50px;
       max-height: 50px;
       padding: 0;
     }

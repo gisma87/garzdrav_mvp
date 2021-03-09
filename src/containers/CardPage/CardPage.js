@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import './CardPage.scss'
 import SvgCheck from "../../components/UI/icons/SvgCheck";
 import notPhoto from "../../img/notPhoto.svg"
@@ -17,6 +17,7 @@ import {useMediaQuery} from 'react-responsive'
 import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
 import SetToFavorites from "../../components/SetToFavorites/SetToFavorites";
 import CardItem from "../../components/CardItem";
+import CountButton from "../../components/UI/CountButton/CountButton";
 
 const CardPage = (props) => {
   const {
@@ -34,6 +35,9 @@ const CardPage = (props) => {
   const isActive = itemIndex >= 0;
   const isMobile = useMediaQuery({query: '(max-width: 900px)'})
 
+  const [count, setCount] = useState(0)
+  const [countLast, setCountLast] = useState(1)
+
   useEffect(() => {
     props.fetchProductInfo(itemId)
     props.getPromoItem(itemId)
@@ -45,6 +49,15 @@ const CardPage = (props) => {
     }
     // eslint-disable-next-line
   }, [props.catalog, props.productInfo])
+
+  useEffect(() => {
+    const thisCount = props.cart.find(itemCart => itemCart.itemId === itemId)?.count
+    if (thisCount > 0) {
+      setCount(thisCount)
+      const thisCountLast = props.productInfo.retails?.sort((a, b) => a.countLast > b.countLast ? -1 : 1)?.[0]?.countLast;
+      if (thisCountLast) setCountLast(thisCountLast);
+    }
+  }, [props.productInfo, itemId, props.cart])
 
   function getDataForPromoItem() {
     if (props.promoItems instanceof Object && (props.promoItems?.promoItems.length > 0)) {
@@ -191,14 +204,21 @@ const CardPage = (props) => {
                           </div>
 
                           <div className='CardPage__buttons'>
-                            <button
-                              className={'CardPage__button CardPage__buttonToCart' + (isActive ? ' CardPage__buttonToCart_active' : '')}
-                              onClick={() => {
-                                !isActive ? addedToCart(itemId) : itemRemovedFromCart(itemId)
-                              }}>
-                              {isActive ? <><SvgCheck style={{color: 'white', marginRight: 15}}/> В
-                                корзине</> : 'Добавить в корзину'}
-                            </button>
+                            {
+                              isActive
+                                ? <CountButton
+                                  count={count}
+                                  isLastCount={!(countLast > count)}
+                                  onIncrement={() => props.addedToCart(itemId)}
+                                  onDecrement={() => props.itemRemovedFromCart(itemId)}
+                                />
+                                : <button
+                                  className={'CardPage__button CardPage__buttonToCart' + (isActive ? ' CardPage__buttonToCart_active' : '')}
+                                  onClick={() => props.addedToCart(itemId)}>
+                                  {isActive ? <><SvgCheck style={{color: 'white', marginRight: 15}}/> В
+                                    корзине</> : 'Добавить в корзину'}
+                                </button>
+                            }
                           </div>
                         </div>
                       </div>
@@ -458,8 +478,19 @@ const mapStateToProps = (
   }
 ) => {
   return {
-    cart, favorites, productInfo, error, catalog, activeCategory,
-    TOKEN, isCity, promoItems, loadingFavorites, itemsForPromoBlock1, seasonItemsForPromoBlock2, popularItemsForPromoBlock3
+    cart,
+    favorites,
+    productInfo,
+    error,
+    catalog,
+    activeCategory,
+    TOKEN,
+    isCity,
+    promoItems,
+    loadingFavorites,
+    itemsForPromoBlock1,
+    seasonItemsForPromoBlock2,
+    popularItemsForPromoBlock3
   }
 }
 
