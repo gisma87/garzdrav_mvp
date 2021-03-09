@@ -1,5 +1,6 @@
 import React from "react";
 import './Faq.scss'
+import {Link} from "react-router-dom";
 
 const Faq = () => {
 
@@ -62,7 +63,7 @@ const Faq = () => {
         <p className='Faq__question'>Как связаться с аптекой?</p>
         <p className='Faq__answer'>Телефон аптеки будет отправлен вам в письме на электронную почту и смс по мере
           готовности заказа.
-          Также найти контактные данные аптек, вы можете по ссылке http://aptekalegko.ru/address/
+          Также найти контактные данные аптек, вы можете по ссылке <Link to='/address/'>aptekalegko.ru/address/</Link>
         </p>
       </fieldset>
     </div>
