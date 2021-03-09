@@ -10,7 +10,7 @@ import {
   rewriteCart,
   setCatalog,
   setFalseIsDelCartItems,
-  setItemsForPromoBlock1
+  setItemsForPromoBlock1, setPopularItemsForPromoBlock3, setSeasonItemsForPromoBlock2
 } from "./actions";
 import {connect} from "react-redux";
 import Alert from "./components/UI/Alert/Alert";
@@ -41,6 +41,8 @@ const MobileOrDesktop = (props) => {
     props.fetchCities();
     props.setCatalog()
     props.setItemsForPromoBlock1()
+    props.setSeasonItemsForPromoBlock2()
+    props.setPopularItemsForPromoBlock3()
 
     if (localStorage.getItem("TOKEN")) {
       props.refreshAuthentication()
@@ -97,7 +99,9 @@ const mapDispatchToProps = (dispatch) => {
     setCatalog: () => dispatch(setCatalog()),
     loadingReset: () => dispatch(loadingReset()),
     setFalseIsDelCartItems: () => dispatch(setFalseIsDelCartItems()),
-    setItemsForPromoBlock1: () => dispatch(setItemsForPromoBlock1())
+    setItemsForPromoBlock1: () => dispatch(setItemsForPromoBlock1()),
+    setSeasonItemsForPromoBlock2: () => dispatch(setSeasonItemsForPromoBlock2()),
+    setPopularItemsForPromoBlock3: () => dispatch(setPopularItemsForPromoBlock3())
   }
 }
 

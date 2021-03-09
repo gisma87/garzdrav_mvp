@@ -28,7 +28,8 @@ const CardPage = (props) => {
     error,
   } = props;
 
-  const img = props.itemsForPromoBlock1?.find(elem => elem.guid === itemId)?.img || null
+  const imgData = () => [...props.itemsForPromoBlock1, ...props.seasonItemsForPromoBlock2, ...props.popularItemsForPromoBlock3]
+  const img = imgData()?.find(elem => elem.guid === itemId)?.img || null
   const itemIndex = cart.findIndex((item) => item.itemId === itemId);
   const isActive = itemIndex >= 0;
   const isMobile = useMediaQuery({query: '(max-width: 900px)'})
@@ -171,7 +172,8 @@ const CardPage = (props) => {
                         <div className='CardPage__descriptionContainer'>
                           <p className='CardPage__maker CardPage__description'>
                             <span>Производитель</span>
-                            <NavLink className='CardPage__link' to={props.history.location}>{productInfo.manufacturer}</NavLink>
+                            <NavLink className='CardPage__link'
+                                     to={props.history.location}>{productInfo.manufacturer}</NavLink>
                           </p>
                           <p className='CardPage__substance CardPage__description'>
                             <span>Действующее вещество:</span>
@@ -260,7 +262,8 @@ const CardPage = (props) => {
                   <div className='CardPage__descriptionContainer'>
                     <p className='CardPage__maker CardPage__description'>
                       <span>Производитель</span>
-                      <NavLink className='CardPage__link' to={props.history.location}>{productInfo.manufacturer}</NavLink>
+                      <NavLink className='CardPage__link'
+                               to={props.history.location}>{productInfo.manufacturer}</NavLink>
                     </p>
                     <p className='CardPage__substance CardPage__description'>
                       <span>Действующее вещество:</span>
@@ -449,12 +452,14 @@ const mapStateToProps = (
     isCity,
     promoItems,
     loadingFavorites,
-    itemsForPromoBlock1
+    itemsForPromoBlock1,
+    seasonItemsForPromoBlock2,
+    popularItemsForPromoBlock3
   }
 ) => {
   return {
     cart, favorites, productInfo, error, catalog, activeCategory,
-    TOKEN, isCity, promoItems, loadingFavorites, itemsForPromoBlock1
+    TOKEN, isCity, promoItems, loadingFavorites, itemsForPromoBlock1, seasonItemsForPromoBlock2, popularItemsForPromoBlock3
   }
 }
 

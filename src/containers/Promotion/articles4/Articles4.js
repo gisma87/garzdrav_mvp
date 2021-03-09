@@ -18,7 +18,7 @@ const Article4 = () => {
         А также только для держателей карты «Легко» в аптеках действуют специальные акции и бонусы.
       </p>
       <p className='Article4__description'>Присоединяйтесь к владельцам
-        <a target="_blank" href='http://kartalegko.ru/'> карты Легко </a> и получайте 50 приветственных бонусов в подарок!</p>
+        <a target="_blank" rel="noopener noreferrer" href='http://kartalegko.ru/'> карты Легко </a> и получайте 50 приветственных бонусов в подарок!</p>
     </section>
   )
 }

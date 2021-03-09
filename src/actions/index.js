@@ -1,4 +1,6 @@
 import {promoItemsData} from "../testData/promoItemsData";
+import {seasonPromoItems} from "../testData/seasonPromoItems";
+import {popularPromoItems} from "../testData/popularPromoItems";
 
 const setError = (error) => {
   return {
@@ -905,6 +907,74 @@ const setItemsForPromoBlock1 = () => (dispatch, getState, apiService) => {
   dispatch(loadingFalse('setItemsForPromoBlock1 - выкл'))
 }
 
+const setSeasonItemsForPromoBlock2 = () => (dispatch, getState, apiService) => {
+  const arrIdItems = seasonPromoItems.map(item => item.guid)
+  const {isCity} = getState()
+  const cityId = isCity.guid
+  dispatch(clearError())
+
+  dispatch(loadingTrue('setSeasonItemsForPromoBlock2'))
+  const arrFetch = arrIdItems.map(product => {
+    return apiService.getProductInfo(product, cityId)
+  })
+  Promise.allSettled([...arrFetch])
+    .then(allResponses => {
+      const fulfilledArray = allResponses.filter(item => item.status === 'fulfilled').map(item => item.value)
+      if (fulfilledArray.length) {
+        const resultArr = fulfilledArray.filter(item => seasonPromoItems.some(itemData => itemData.guid === item.guid))
+        if (resultArr.length) {
+          resultArr.forEach(resultItem => {
+            const arrCountLast = resultItem.retails.map(retail => retail.countLast);
+            const arrMinPrice = resultItem.retails.map(retail => retail.priceRetail);
+            const countLast = Math.max(...arrCountLast)
+            const minPrice = Math.min(...arrMinPrice)
+            const img = seasonPromoItems.find(dataEl => dataEl.guid === resultItem.guid).img;
+            resultItem.img = img;
+            resultItem.countLast = countLast;
+            resultItem.minPrice = minPrice
+          })
+        }
+        dispatch({type: 'SET_SEASON_ITEMS_FOR_PROMOBLOCK_2', payload: resultArr})
+      }
+    })
+    .catch(error => dispatch(setError(error)))
+  dispatch(loadingFalse('setSeasonItemsForPromoBlock2 - выкл'))
+}
+
+const setPopularItemsForPromoBlock3 = () => (dispatch, getState, apiService) => {
+  const arrIdItems = popularPromoItems.map(item => item.guid)
+  const {isCity} = getState()
+  const cityId = isCity.guid
+  dispatch(clearError())
+
+  dispatch(loadingTrue('setSeasonItemsForPromoBlock2'))
+  const arrFetch = arrIdItems.map(product => {
+    return apiService.getProductInfo(product, cityId)
+  })
+  Promise.allSettled([...arrFetch])
+    .then(allResponses => {
+      const fulfilledArray = allResponses.filter(item => item.status === 'fulfilled').map(item => item.value)
+      if (fulfilledArray.length) {
+        const resultArr = fulfilledArray.filter(item => popularPromoItems.some(itemData => itemData.guid === item.guid))
+        if (resultArr.length) {
+          resultArr.forEach(resultItem => {
+            const arrCountLast = resultItem.retails.map(retail => retail.countLast);
+            const arrMinPrice = resultItem.retails.map(retail => retail.priceRetail);
+            const countLast = Math.max(...arrCountLast)
+            const minPrice = Math.min(...arrMinPrice)
+            const img = popularPromoItems.find(dataEl => dataEl.guid === resultItem.guid).img;
+            resultItem.img = img;
+            resultItem.countLast = countLast;
+            resultItem.minPrice = minPrice
+          })
+        }
+        dispatch({type: 'SET_POPULAR_ITEMS_FOR_PROMOBLOCK_3', payload: resultArr})
+      }
+    })
+    .catch(error => dispatch(setError(error)))
+  dispatch(loadingFalse('setPopularItemsForPromoBlock3 - выкл'))
+}
+
 const setPredictor = (value) => {
   return {
     type: 'SET_PREDICTOR',
@@ -915,6 +985,8 @@ const setPredictor = (value) => {
 export {
   setPredictor,
   setItemsForPromoBlock1,
+  setSeasonItemsForPromoBlock2,
+  setPopularItemsForPromoBlock3,
   setFalseIsDelCartItems,
   loadingReset,
   getPromoItem,

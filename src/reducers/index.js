@@ -33,7 +33,9 @@ const initialState = {
   statusRequestRepeatOrder: '',
   promoItems: null,
   isDelCartItem: false, // ставиться в true, если удалены item's из cart из-за того, что сервер по ним не ответил.
-  itemsForPromoBlock1: null, // собранный массив, из наших картинок и данных с базы - акционные товары
+  itemsForPromoBlock1: [], // собранный массив, из наших картинок и данных с базы - акционные товары
+  seasonItemsForPromoBlock2: [], // собранный массив, из наших картинок и данных с базы - сезонные товары
+  popularItemsForPromoBlock3: [],
   predictor: null
 }
 
@@ -122,6 +124,18 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         itemsForPromoBlock1: action.payload
+      }
+
+    case 'SET_SEASON_ITEMS_FOR_PROMOBLOCK_2':
+      return {
+        ...state,
+        seasonItemsForPromoBlock2: action.payload
+      }
+
+    case 'SET_POPULAR_ITEMS_FOR_PROMOBLOCK_3':
+      return {
+        ...state,
+        popularItemsForPromoBlock3: action.payload
       }
 
     case 'SET_PREDICTOR':

@@ -9,19 +9,17 @@ import SvgAngleRightSolid from '../../img/SVGcomponents/SvgAngleRightSolid'
 import SvgAngleLeftSolid from "../../img/SVGcomponents/SvgAngleLeftSolid";
 import './PromoBlock.scss'
 import CardItem from "../CardItem";
-import {dataCards1, dataCards2} from "../../testData/dataCards";
 import {Link, withRouter} from "react-router-dom";
 import {connect} from "react-redux";
 import {addedToCart, allItemRemovedFromCart, itemRemovedFromCart} from "../../actions";
 import ButtonSectionForSlider from "./ButtonSectionForSlider/ButtonSectionForSlider";
-import {promoItemsData} from "../../testData/promoItemsData";
 
 class PromoBlock extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {activeButton: 0}
-    this.data = [promoItemsData, dataCards1, dataCards2]
+    this.data = () => [this.props.itemsForPromoBlock1, this.props.seasonItemsForPromoBlock2, this.props.popularItemsForPromoBlock3]
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -33,31 +31,33 @@ class PromoBlock extends React.Component {
   }
 
   onButtonSelected = (num) => {
-    this.setState({activeButton: num})
-    this.props.history.push('/articles/')
+    const data = this.data()
+    if (num < data.length && data[num]?.length > 0) {
+      this.setState({activeButton: num})
+    }
+    // this.props.history.push('/articles/')
   }
 
   render() {
     SwiperCore.use([Navigation, Pagination, Autoplay])
-    return (
-      <div className="PromoBlock">
 
-        <div className="prev slideButton">
-          <SvgAngleLeftSolid/>
-        </div>
+    if (this.props.itemsForPromoBlock1) {
+      return (
+        <div className="PromoBlock">
 
-        <div className="next slideButton">
-          <SvgAngleRightSolid/>
-        </div>
+          <div className="prev slideButton">
+            <SvgAngleLeftSolid/>
+          </div>
 
-        <div className='wrapper'>
-          <ButtonSectionForSlider
-            // items={[{title: 'Акции'}, {title: 'Сезонное предложение'}, {title: 'Популярные товары'}]}
-            items={[{title: 'Акции'}]}
-            onButtonSelected={this.onButtonSelected}
-          />
-          {
-            this.props.itemsForPromoBlock1 &&
+          <div className="next slideButton">
+            <SvgAngleRightSolid/>
+          </div>
+
+          <div className='wrapper'>
+            <ButtonSectionForSlider
+              items={[{title: 'Акции'}, {title: 'Сезонное предложение'}, {title: 'Популярные товары'}]}
+              onButtonSelected={this.onButtonSelected}
+            />
             <Swiper
               style={{padding: '10px 0'}}
               spaceBetween={5}
@@ -73,7 +73,7 @@ class PromoBlock extends React.Component {
               }
             >
               {
-                this.props.itemsForPromoBlock1.map((item) => {
+                this.data()?.[this.state.activeButton].map((item) => {
                   const {guid, product, manufacturer, img, minPrice, countLast} = item;
                   const itemIndex = this.props.cart.findIndex((item) => item.itemId === guid);
                   const isBuy = itemIndex >= 0;
@@ -99,27 +99,30 @@ class PromoBlock extends React.Component {
                 })
               }
 
-            </Swiper>}
+            </Swiper>
 
-          <div style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            width: '100%',
-            padding: '0 0 15px'
-          }}>
-            <Link to='/articles/' className='PromoBlock__button'>
-              все акционные товары
-            </Link>
+            <div style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              width: '100%',
+              padding: '0 0 15px'
+            }}>
+              <Link to='/articles/' className='PromoBlock__button'>
+                все акционные товары
+              </Link>
+            </div>
           </div>
         </div>
-      </div>
-    )
+      )
+    } else {
+      return null
+    }
   }
 }
 
-const mapStateToProps = ({cart, itemsForPromoBlock1}) => {
-  return {cart, itemsForPromoBlock1}
+const mapStateToProps = ({cart, itemsForPromoBlock1, seasonItemsForPromoBlock2, popularItemsForPromoBlock3}) => {
+  return {cart, itemsForPromoBlock1, seasonItemsForPromoBlock2, popularItemsForPromoBlock3}
 }
 
 const mapDispatchToProps = (dispatch) => {
