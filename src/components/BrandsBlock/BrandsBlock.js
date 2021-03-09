@@ -17,11 +17,9 @@ const BrandsBlock = props => {
       <h3 className='BrandsBlock__title'>Бренды</h3>
       <div className='BrandsBlock__content'>
         {
-          brands.map(brand => {
-            return (<div className='BrandsBlock__item'>
-              <img className='BrandsBlock__img' src={brand} alt="brand"/>
-            </div>)
-          })
+          brands.map((brand, index) => <div key={index} className='BrandsBlock__item'>
+            <img className='BrandsBlock__img' src={brand} alt="brand"/>
+          </div>)
         }
       </div>
     </div>
