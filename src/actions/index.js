@@ -982,7 +982,15 @@ const setPredictor = (value) => {
   }
 }
 
+const setActivePromoGroup = (promo) => {
+  return {
+    type: 'SET_ACTIVE_PROMO_GROUP',
+    payload: promo
+  }
+}
+
 export {
+  setActivePromoGroup,
   setPredictor,
   setItemsForPromoBlock1,
   setSeasonItemsForPromoBlock2,

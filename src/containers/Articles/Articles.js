@@ -1,7 +1,5 @@
 import React, {useState} from "react"
 import './Articles.scss'
-// import ArticleCard from "../../components/ArticleCard";
-// import data from "../../testData/articlesANDpromo";
 import {useMediaQuery} from 'react-responsive'
 import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
@@ -32,13 +30,13 @@ const Articles = props => {
   const onPageChanged = data => {
     const {currentPage, pageLimitItems} = data;
     const offset = (currentPage - 1) * pageLimitItems;
-    const currentArr = props.itemsForPromoBlock1.slice(offset, offset + pageLimitItems);
+    const currentArr = props.activePromoGroup.arrPromo.slice(offset, offset + pageLimitItems);
     setCurrentArrItems(currentArr)
   }
 
   return (
     <div className='Articles wrapper'>
-      <h1 className='Articles__title'>Акционные товары</h1>
+      <h1 className='Articles__title'>{props.activePromoGroup.name}</h1>
       <div className='Articles__container'>
         {/*{*/}
         {/*  data.map((item, id) => {*/}
@@ -83,9 +81,9 @@ const Articles = props => {
 
       </div>
       {
-        (props.itemsForPromoBlock1?.length > 0) &&
+        (props.activePromoGroup.arrPromo?.length > 0) &&
         <div style={{paddingTop: 15}}>
-          <PaginationFront totalRecords={props.itemsForPromoBlock1.length}
+          <PaginationFront totalRecords={props.activePromoGroup.arrPromo.length}
                            pageLimitItems={20}
                            onPageChanged={onPageChanged}
           />
@@ -95,8 +93,8 @@ const Articles = props => {
   )
 }
 
-const mapStateToProps = ({itemsForPromoBlock1, cart}) => {
-  return {itemsForPromoBlock1, cart}
+const mapStateToProps = ({activePromoGroup, cart}) => {
+  return {activePromoGroup, cart}
 }
 
 const mapDispatchToProps = (dispatch) => {

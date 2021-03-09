@@ -36,7 +36,8 @@ const initialState = {
   itemsForPromoBlock1: [], // собранный массив, из наших картинок и данных с базы - акционные товары
   seasonItemsForPromoBlock2: [], // собранный массив, из наших картинок и данных с базы - сезонные товары
   popularItemsForPromoBlock3: [],
-  predictor: null
+  predictor: null,
+  activePromoGroup: {name: 'Акционные товары', arrPromo: []}
 }
 
 const upgradeRetailItems = (array) => {
@@ -136,6 +137,12 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         popularItemsForPromoBlock3: action.payload
+      }
+
+    case 'SET_ACTIVE_PROMO_GROUP':
+      return {
+        ...state,
+        activePromoGroup: {name: action.payload.name, arrPromo: action.payload.arrPromo}
       }
 
     case 'SET_PREDICTOR':

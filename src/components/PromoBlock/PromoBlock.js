@@ -9,10 +9,13 @@ import SvgAngleRightSolid from '../../img/SVGcomponents/SvgAngleRightSolid'
 import SvgAngleLeftSolid from "../../img/SVGcomponents/SvgAngleLeftSolid";
 import './PromoBlock.scss'
 import CardItem from "../CardItem";
-import {Link, withRouter} from "react-router-dom";
+import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
-import {addedToCart, allItemRemovedFromCart, itemRemovedFromCart} from "../../actions";
+import {addedToCart, allItemRemovedFromCart, itemRemovedFromCart, setActivePromoGroup} from "../../actions";
 import ButtonSectionForSlider from "./ButtonSectionForSlider/ButtonSectionForSlider";
+
+const arrButtonPromoGroup = ['все акционные товары', 'все сезонные товары', 'все популярные товары']
+const arrNameGroup = ['Акционные товары', 'Сезонные товары', 'Популярные товары']
 
 class PromoBlock extends React.Component {
 
@@ -41,7 +44,7 @@ class PromoBlock extends React.Component {
   render() {
     SwiperCore.use([Navigation, Pagination, Autoplay])
 
-    if (this.props.itemsForPromoBlock1) {
+    if (this.props.itemsForPromoBlock1.length) {
       return (
         <div className="PromoBlock">
 
@@ -108,15 +111,25 @@ class PromoBlock extends React.Component {
               width: '100%',
               padding: '0 0 15px'
             }}>
-              <Link to='/articles/' className='PromoBlock__button'>
-                все акционные товары
-              </Link>
+              {/*<Link to='/articles/' className='PromoBlock__button'>*/}
+              {/*  все акционные товары*/}
+              {/*</Link>*/}
+              {
+                <button onClick={() => {
+                  this.props.setActivePromoGroup({
+                    name: arrNameGroup[this.state.activeButton],
+                    arrPromo: this.data()?.[this.state.activeButton]
+                  })
+                  this.props.history.push('/articles/')
+                }}
+                        className='PromoBlock__button'>{arrButtonPromoGroup[this.state.activeButton]}</button>
+              }
             </div>
           </div>
         </div>
       )
     } else {
-      return null
+      return <div style={{padding: 50}}/>
     }
   }
 }
@@ -129,7 +142,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     addedToCart: (item) => dispatch(addedToCart(item)),
     itemRemovedFromCart: (item) => dispatch(itemRemovedFromCart(item)),
-    allItemRemovedFromCart: (item) => dispatch(allItemRemovedFromCart(item))
+    allItemRemovedFromCart: (item) => dispatch(allItemRemovedFromCart(item)),
+    setActivePromoGroup: (promo) => dispatch(setActivePromoGroup(promo))
   }
 }
 
