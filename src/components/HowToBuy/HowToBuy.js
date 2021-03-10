@@ -29,8 +29,8 @@ const HowToBuy = () => {
           <p className='HowToBuy__number'>3</p>
           <div className='HowToBuy__text'>
             <p>Заберите</p>
-            <p>ваш заказ</p>
-            <p>через 30 минут</p>
+            <p>ваш заказ в</p>
+            <p>выбранной аптеке</p>
           </div>
         </div>
       </div>

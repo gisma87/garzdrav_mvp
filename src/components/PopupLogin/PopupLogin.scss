@@ -26,7 +26,7 @@
   &__form {
     display: flex;
     flex-direction: column;
-    margin-top: 60px;
+    margin-top: 20px;
   }
 
   &__input {
@@ -99,7 +99,7 @@
     border: 2px solid #fff;
 
     &:hover {
-      border: 2px solid #fc8507;
+      border: 2px solid $primary-color;
       border-radius: 8px;
     }
   }

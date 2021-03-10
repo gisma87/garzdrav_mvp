@@ -28,6 +28,13 @@ const PaginationFront = props => {
 
   const [currentPageState, setCurrentPage] = useState(1) // текущая страница
 
+  useEffect(() => {
+    if (props.reset.status) {
+      gotoPage(1)
+      props.reset.off()
+    }// eslint-disable-next-line
+  }, [props.reset])
+
   const calcPageNumbers = () => {
     const startPage = Math.max(1, currentPageState - pageNeighbours);
     const endPage = startPage === 1

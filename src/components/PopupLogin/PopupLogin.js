@@ -148,7 +148,7 @@ const PopupLogin = props => {
             type={showPassword ? "text" : "password"}
             name="PopupLogin-pwd"
             className="PopupLogin__input PopupLogin__input_type_link-url"
-            placeholder="Код или пароль"
+            placeholder="Код из email-сообщения"
             id="PopupLogin-pwd"
             onChange={(event) => {
               const input = event.target;
@@ -161,6 +161,19 @@ const PopupLogin = props => {
         {props.error &&
         <span id="error-PopupLogin-pwd" className="PopupLogin__error-message">Неверный логин или пароль</span>}
         <div className='PopupLogin__buttonContainer'>
+          <button
+            type='button'
+            // disabled={!formValid}
+            // onClick={() => apiService.getSmsCode(phone)}
+            onClick={(event) => {
+              validateForm(event)
+              if (formValid) {
+                apiService.getEmailCode(email)
+              }
+            }}
+            className={"PopupLogin__button " + (formValid ? "PopupLogin__button_active" : '')}>
+            Получить код
+          </button>
           <button type='submit'
             // disabled={!formValid && !smsCodeOrPassword}
                   className={"PopupLogin__button " + ((formValid && smsCodeOrPassword) ? "PopupLogin__button_active" : '')}
@@ -172,18 +185,6 @@ const PopupLogin = props => {
                   }}
           >
             Войти
-          </button>
-          <button
-            // disabled={!formValid}
-            // onClick={() => apiService.getSmsCode(phone)}
-            onClick={(event) => {
-              validateForm(event)
-              if (formValid) {
-                apiService.getEmailCode(email)
-              }
-            }}
-            className={"PopupLogin__button " + (formValid ? "PopupLogin__button_active" : '')}>
-            Получить код
           </button>
         </div>
       </form>
