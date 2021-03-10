@@ -20,7 +20,10 @@
     line-height: 28px;
     margin-top: 20px;
     a {
-      color: blue;
+      color: $primary-color;
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 
@@ -90,12 +93,12 @@
     width: 24px;
     height: 24px;
 
-    border: 2px solid #E26C2D;
+    border: 2px solid $secondary-color;
     transition: 0.2s all linear;
     outline: none;
 
     &:checked {
-      background-color: #E26C2D;
+      background-color: $secondary-color;
       background-image: url('../../img/vector.png');
       background-position: center;
       background-repeat: no-repeat;

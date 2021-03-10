@@ -56,8 +56,8 @@
     margin: 5px 0;
     padding: 10px 10px;
     font-size: 18px;
-    color: blue;
     cursor: pointer;
+    color: $primary-color;
 
     &:hover {
       color: $secondary-color;
@@ -113,13 +113,13 @@
     width: 24px;
     height: 24px;
 
-    border: 2px solid #E26C2D;
+    border: 2px solid $secondary-color;
     transition: 0.2s all linear;
     outline: none;
   }
 
   &__inputRadio:checked {
-    background-color: #E26C2D;
+    background-color: $secondary-color;
     background-image: url('../../../img/vector.png');
     background-position: center;
     background-repeat: no-repeat;
