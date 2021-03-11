@@ -157,7 +157,6 @@ const CartOrderPage = props => {
             <p className="CartOrderPage__sum">{order.sum} ₽</p>
           </div>
 
-
           <div className="CartOrderPage__listOrder">
             {
               order.product.map((product, index) => {
@@ -262,7 +261,8 @@ const CartOrderPage = props => {
                 <div className='CartOrderPage__form CartOrderPage__form_message'>
                   <p className='CartOrderPage__AfterBuy'>Ваш заказ N-{props.OrderNumber} принят к исполнению.</p>
                   <p className='CartOrderPage__AfterBuy'>Об изменении статуса заказа будет сообщено по Email.</p>
-                  <p className='CartOrderPage__AfterBuy'>Статус заказа можно посмотреть в личном кабинете во вкладке "Интернет заказы"</p>
+                  <p className='CartOrderPage__AfterBuy'>Статус заказа можно посмотреть в личном кабинете во вкладке
+                    "Интернет заказы"</p>
                 </div>
               </div>
               <NavLink className='CartOrderPage__buttonToBuy' style={{transform: 'scale(1)'}} to='/'>ОК</NavLink>
@@ -273,8 +273,23 @@ const CartOrderPage = props => {
             >оформить заказ</button>
         }
       </div>
+      {
+        (props.userData && order && props.userData?.barcode && props.userData?.currentBalance) &&
+        <p className='CartOrderPage__messageBonus'>
+          На карте вашей карте&nbsp;<span className='CartOrderPage__bold'>№{props.userData?.barcode}</span>
+          &nbsp;при оплате покупки доступно для списания &nbsp;
+          <span
+            className='CartOrderPage__bold'>{Math.min((Math.floor(((order.product.reduce((acc, product) => (product.priceRetail * product.count), 0)) / 2) * 100) / 100), (props.userData.currentBalance).toFixed(2))} Б.</span>
+        </p>
+      }
+      <p className='CartOrderPage__messageBonus'>Не забудьте взять с собой Бонусную карту&nbsp;
+        <a href="http://kartalegko.ru/" rel="noopener noreferrer" target='_blank'>Легко</a></p>
     </div>
   )
+}
+
+const mapStateToProps = ({userData}) => {
+  return {userData}
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -283,4 +298,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(null, mapDispatchToProps)(CartOrderPage)
+export default connect(mapStateToProps, mapDispatchToProps)(CartOrderPage)

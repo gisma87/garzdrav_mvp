@@ -323,6 +323,7 @@ const refreshAuthentication = () => async (dispatch, getState, apiService) => {
   try {
     const response = await apiService.refreshToken(TOKEN)
     dispatch(setToken(response))
+    dispatch(getDataProfile())
     dispatch(getToFavorites())
     return Promise.resolve(response)
   } catch (e) {
@@ -338,7 +339,6 @@ const authentication = (phone, password) => async (dispatch, getState, apiServic
     const response = await apiService.authentication(phone, password)
     dispatch(setToken(response))
     console.log('access_TOKEN')
-    dispatch(getToFavorites())
   } catch (e) {
     console.log(e)
     dispatch(setError(e))
@@ -354,6 +354,7 @@ const authorizedByPassOrSMS = (phone, passOrSms, callback = null) => async (disp
       localStorage.setItem('TOKEN', JSON.stringify(response))
       console.log('access_TOKEN')
       dispatch(getToFavorites())
+      dispatch(getDataProfile())
       dispatch(setErrorAuth(null))
       // запускаю callback для которого нужна авторизация.
       if (callback) callback();
@@ -368,6 +369,7 @@ const authorizedByPassOrSMS = (phone, passOrSms, callback = null) => async (disp
             localStorage.setItem('TOKEN', JSON.stringify(response))
             console.log('access_TOKEN')
             dispatch(getToFavorites())
+            dispatch(getDataProfile())
             dispatch(setErrorAuth(null))
             // запускаю callback для которого нужна авторизация.
             if (callback) callback();
@@ -409,6 +411,7 @@ const authorizedBySMSorPassword = (phone, passOrSms, callback = null) => async (
       localStorage.setItem('TOKEN', JSON.stringify(response))
       console.log('access_TOKEN')
       dispatch(getToFavorites())
+      dispatch(getDataProfile())
       dispatch(setErrorAuth(null))
       // запускаю callback для которого нужна авторизация.
       if (callback) callback();
@@ -423,6 +426,7 @@ const authorizedBySMSorPassword = (phone, passOrSms, callback = null) => async (
             localStorage.setItem('TOKEN', JSON.stringify(response))
             console.log('access_TOKEN')
             dispatch(getToFavorites())
+            dispatch(getDataProfile())
             dispatch(setErrorAuth(null))
             // запускаю callback для которого нужна авторизация.
             if (callback) callback();
@@ -460,6 +464,7 @@ const authorizedByEmail = (email, code, callback = null) => async (dispatch, get
   try {
     const response = await apiService.authenticationByEmail(email, code)
     dispatch(setToken(response))
+    dispatch(getDataProfile())
     dispatch(getToFavorites())
     // запускаю callback для которого нужна авторизация.
     if (callback) callback();

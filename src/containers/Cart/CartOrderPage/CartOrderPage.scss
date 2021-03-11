@@ -290,6 +290,17 @@
     }
   }
 
+  &__messageBonus {
+    transform: translateY(30px);
+    line-height: 1.5rem;
+    font-size: 1.05rem;
+  }
+
+  &__bold {
+    font-weight: bold;
+    white-space: nowrap;
+  }
+
   &__AfterBuy {
     font-size: 1.1rem;
     color: black;
