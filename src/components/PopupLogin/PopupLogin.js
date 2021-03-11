@@ -45,8 +45,8 @@ const PopupLogin = props => {
         errorElement.textContent = ''
       }
     }
-
-    if (target.type === 'email') {
+    console.log(target.dataset.type)
+    if (target.dataset.type === 'email') {
       if (!emailIsValid(target.value)) {
         errorElement.textContent = 'Некорректный email'
       } else {
@@ -68,7 +68,7 @@ const PopupLogin = props => {
         }
       }
 
-      if (target.type === 'email') {
+      if (target.dataset.type === 'email') {
         if (!emailIsValid(target.value)) {
           errorElement.textContent = 'Некорректный email'
         } else {
@@ -110,51 +110,59 @@ const PopupLogin = props => {
   return (
     <PopupWrapper onClick={props.onClick} active={props.active} classStyle='PopupLogin'>
       <h3 className="PopupLogin__title">Войти или зарегистрироваться</h3>
-      <form className="PopupLogin__form" name="new"
+      <form className="PopupLogin__form" name="new" noValidate
             onSubmit={(event) => event.preventDefault()}
       >
-        <InputMask mask="+7\ (999)\ 999\ 99\ 99"
-                   maskChar=" "
-                   value={valueInputs?.['PopupLogin-contact'] ? valueInputs['PopupLogin-contact'] : ''}
-                   onChange={validate}
-                   onBlur={showErrorMessage}
-                   onFocus={resetErrorMessage}
-                   className="PopupLogin__input PopupLogin__input_type_name"
-                   placeholder="Телефон"
-                   required
-                   type="tel"
-                   name="PopupLogin-contact"
-                   id="PopupLogin-contact"
-                   ref={inputPhone}
-        />
-        <span id="error-PopupLogin-contact" className="PopupLogin__error-message"> </span>
-
-        <input
-          id="PopupLogin-email"
-          type='email'
-          name="PopupLogin-email"
-          value={valueInputs?.['PopupLogin-email'] ? valueInputs['PopupLogin-email'] : ''}
-          className="PopupLogin__input PopupLogin__input_type_link-url"
-          placeholder="E-mail"
-          onChange={validate}
-          onBlur={showErrorMessage}
-          onFocus={resetErrorMessage}
-          ref={inputEmail}
-        />
-        <span id="error-PopupLogin-email" className="PopupLogin__error-message"> </span>
+        <label className="PopupLogin__element">
+          <InputMask mask="+7\ (999)\ 999\ 99\ 99"
+                     maskChar=" "
+                     value={valueInputs?.['PopupLogin-contact'] ? valueInputs['PopupLogin-contact'] : ''}
+                     onChange={validate}
+                     onBlur={showErrorMessage}
+                     onFocus={resetErrorMessage}
+                     className="PopupLogin__input PopupLogin__input_type_name"
+                     required
+                     type="tel"
+                     name="PopupLogin-contact"
+                     id="PopupLogin-contact"
+                     ref={inputPhone}
+          />
+          <p className="PopupLogin__label">Телефон</p>
+          <span id="error-PopupLogin-contact" className="PopupLogin__error-message"> </span>
+        </label>
+        <label className="PopupLogin__element">
+          <input
+            id="PopupLogin-email"
+            type='text'
+            data-type="email"
+            name="PopupLogin-email"
+            required
+            value={valueInputs?.['PopupLogin-email'] ? valueInputs['PopupLogin-email'] : ''}
+            className="PopupLogin__input PopupLogin__input_type_link-url"
+            onChange={validate}
+            onBlur={showErrorMessage}
+            onFocus={resetErrorMessage}
+            ref={inputEmail}
+          />
+          <p className="PopupLogin__label">E-mail</p>
+          <span id="error-PopupLogin-email" className="PopupLogin__error-message"> </span>
+        </label>
 
         <div className='PopupLogin__inputPasswordContainer'>
-          <input
-            type={showPassword ? "text" : "password"}
-            name="PopupLogin-pwd"
-            className="PopupLogin__input PopupLogin__input_type_link-url"
-            placeholder="Код из email-сообщения"
-            id="PopupLogin-pwd"
-            onChange={(event) => {
-              const input = event.target;
-              setSmsCodeOrPassword(input.value.trim())
-            }}
-          />
+          <label className="PopupLogin__element">
+            <input
+              type={showPassword ? "text" : "password"}
+              name="PopupLogin-pwd"
+              required
+              className="PopupLogin__input PopupLogin__input_type_link-url"
+              id="PopupLogin-pwd"
+              onChange={(event) => {
+                const input = event.target;
+                setSmsCodeOrPassword(input.value.trim())
+              }}
+            />
+            <p className="PopupLogin__label">Код из email-сообщения</p>
+          </label>
           <div className='PopupLogin__eyeShowButton' onClick={() => setShowPassword(!showPassword)}><EyeButtonShow
             show={showPassword}/></div>
         </div>

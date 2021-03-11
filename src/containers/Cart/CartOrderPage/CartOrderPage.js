@@ -276,14 +276,13 @@ const CartOrderPage = props => {
       {
         (props.userData && order && props.userData?.barcode && props.userData?.currentBalance) &&
         <p className='CartOrderPage__messageBonus'>
-          На карте вашей карте&nbsp;<span className='CartOrderPage__bold'>№{props.userData?.barcode}</span>
+          На вашей карте&nbsp;<span className='CartOrderPage__bold'>№{props.userData?.barcode}</span>
           &nbsp;при оплате покупки доступно для списания &nbsp;
           <span
             className='CartOrderPage__bold'>{Math.min((Math.floor(((order.product.reduce((acc, product) => (product.priceRetail * product.count), 0)) / 2) * 100) / 100), (props.userData.currentBalance).toFixed(2))} Б.</span>
         </p>
       }
-      <p className='CartOrderPage__messageBonus'>Не забудьте взять с собой Бонусную карту&nbsp;
-        <a href="http://kartalegko.ru/" rel="noopener noreferrer" target='_blank'>Легко</a></p>
+      <p className='CartOrderPage__messageBonus'>Не забудьте взять с собой &nbsp;<a href="http://kartalegko.ru/" rel="noopener noreferrer" target='_blank'>Бонусную карту Легко</a></p>
     </div>
   )
 }
