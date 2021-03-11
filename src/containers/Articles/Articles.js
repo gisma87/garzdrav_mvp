@@ -14,6 +14,7 @@ import {
 } from "../../actions";
 import PaginationFront from "../../components/PaginationFront/PaginationFront";
 import SortCards, {sortItems} from "../../components/SortCards/SortCards";
+import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
 
 
 const Articles = props => {
@@ -75,75 +76,77 @@ const Articles = props => {
   }
 
   return (
-    <div className='Articles wrapper'>
-      <h1 className='Articles__title'>{props.activePromoGroup.name}</h1>
-      {
-        (activePromoGroup.length > 0) &&
-        <div className='Cards__topPanel'>
-          <p>Найдено {activePromoGroup.length} препаратов</p>
-          <div className='Cards__topPanel-right'>
-            <p className='Cards__sortText'>Сортировать: </p>
-            <SortCards selectItem={(idMethod) => sortCards(idMethod)}
-                       methodSort={methodSort}
-                       items={sortItems}
+    <ErrorBoundary>
+      <div className='Articles wrapper'>
+        <h1 className='Articles__title'>{props.activePromoGroup.name}</h1>
+        {
+          (activePromoGroup.length > 0) &&
+          <div className='Cards__topPanel'>
+            <p>Найдено {activePromoGroup.length} препаратов</p>
+            <div className='Cards__topPanel-right'>
+              <p className='Cards__sortText'>Сортировать: </p>
+              <SortCards selectItem={(idMethod) => sortCards(idMethod)}
+                         methodSort={methodSort}
+                         items={sortItems}
+              />
+            </div>
+          </div>
+        }
+        <div className='Articles__container'>
+          {/*{*/}
+          {/*  data.map((item, id) => {*/}
+          {/*    return <ArticleCard key={id} item={item} onItemSelected={onItemSelected}/>*/}
+          {/*  })*/}
+          {/*}*/}
+          {
+            currentArrItems &&
+            currentArrItems.map(item => {
+              const {guid, product, manufacturer, img = null, minPrice, countLast} = item;
+              const itemIndex = props.cart.findIndex((item) => item.itemId === guid);
+              const isBuy = itemIndex >= 0;
+              const count = isBuy ? props.cart[itemIndex].count : 0
+              return (
+                isMobile
+                  ? <CardItemMobile onItemSelected={onItemSelected}
+                                    updateToCart={() => {
+                                      !isBuy ? props.addedToCart(guid) : props.itemRemovedFromCart(guid);
+                                    }}
+                                    active={isBuy}
+                                    key={guid}
+                                    id={guid}
+                                    title={product}
+                                    maker={manufacturer}
+                                    img={img}
+                                    minPrice={minPrice}/>
+                  : <CardItem onItemSelected={onItemSelected}
+                              onIncrement={() => props.addedToCart(guid)}
+                              onDecrement={() => props.itemRemovedFromCart(guid)}
+                              isBuy={isBuy}
+                              count={count}
+                              countLast={countLast}
+                              key={guid}
+                              id={guid}
+                              title={product}
+                              maker={manufacturer}
+                              img={img}
+                              minPrice={minPrice}/>
+              )
+            })
+          }
+
+        </div>
+        {
+          (activePromoGroup.length > 0) &&
+          <div style={{paddingTop: 15}}>
+            <PaginationFront totalRecords={activePromoGroup.length}
+                             pageLimitItems={20}
+                             onPageChanged={onPageChanged}
+                             reset={{status: resetPagination, off: () => setResetPagination(false)}}
             />
           </div>
-        </div>
-      }
-      <div className='Articles__container'>
-        {/*{*/}
-        {/*  data.map((item, id) => {*/}
-        {/*    return <ArticleCard key={id} item={item} onItemSelected={onItemSelected}/>*/}
-        {/*  })*/}
-        {/*}*/}
-        {
-          currentArrItems &&
-          currentArrItems.map(item => {
-            const {guid, product, manufacturer, img = null, minPrice, countLast} = item;
-            const itemIndex = props.cart.findIndex((item) => item.itemId === guid);
-            const isBuy = itemIndex >= 0;
-            const count = isBuy ? props.cart[itemIndex].count : 0
-            return (
-              isMobile
-                ? <CardItemMobile onItemSelected={onItemSelected}
-                                  updateToCart={() => {
-                                    !isBuy ? props.addedToCart(guid) : props.itemRemovedFromCart(guid);
-                                  }}
-                                  active={isBuy}
-                                  key={guid}
-                                  id={guid}
-                                  title={product}
-                                  maker={manufacturer}
-                                  img={img}
-                                  minPrice={minPrice}/>
-                : <CardItem onItemSelected={onItemSelected}
-                            onIncrement={() => props.addedToCart(guid)}
-                            onDecrement={() => props.itemRemovedFromCart(guid)}
-                            isBuy={isBuy}
-                            count={count}
-                            countLast={countLast}
-                            key={guid}
-                            id={guid}
-                            title={product}
-                            maker={manufacturer}
-                            img={img}
-                            minPrice={minPrice}/>
-            )
-          })
         }
-
       </div>
-      {
-        (activePromoGroup.length > 0) &&
-        <div style={{paddingTop: 15}}>
-          <PaginationFront totalRecords={activePromoGroup.length}
-                           pageLimitItems={20}
-                           onPageChanged={onPageChanged}
-                           reset={{status: resetPagination, off: () => setResetPagination(false)}}
-          />
-        </div>
-      }
-    </div>
+    </ErrorBoundary>
   )
 }
 

@@ -93,7 +93,10 @@ const fetchCartItems = (city = null) => (dispatch, getState, apiService) => {
           dispatch(setCartItems(responseArray))
         }
       })
-      .catch(error => dispatch(setError(error)))
+      .catch(error => {
+        dispatch(setError(error))
+      })
+      .finally(() => dispatch(loadingFalse('fetchCartItems - выкл')))
   }
 }
 

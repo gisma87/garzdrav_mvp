@@ -8,6 +8,7 @@ import {useMediaQuery} from "react-responsive";
 import {withRouter} from 'react-router-dom'
 import Pagination from "../../components/Pagination/Pagination";
 import SortCards, {sortItems} from "../../components/SortCards/SortCards";
+import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
 
 const CatalogPage = props => {
 
@@ -102,97 +103,99 @@ const CatalogPage = props => {
 
   return (
     <div className='CatalogPage'>
-      {props.activeCategory &&
-      <>
-        <div>
-          {props.activeCategory.historyGuid.map((item, i) => {
-            return (
-              <p key={item} className='CatalogPage__pathname'>
+      <ErrorBoundary>
+        {props.activeCategory &&
+        <>
+          <div>
+            {props.activeCategory.historyGuid.map((item, i) => {
+              return (
+                <p key={item} className='CatalogPage__pathname'>
               <span className='CatalogPage__pathItem'
                     onClick={() => props.history.push(`/catalog/${getActiveItem(i).activeItem.guid}/`)}
               >
                 {getActiveItem(i).title}
               </span>
-                <span className='CatalogPage__pathArrow'> > </span>
-              </p>
+                  <span className='CatalogPage__pathArrow'> > </span>
+                </p>
 
-            )
-          })}
-        </div>
-
-        <ul className='CatalogPage__list'>
-          {props.activeCategory.child.length > 0
-          && props.activeCategory.child.map((item, i) => {
-            return (<li key={i + item}
-                        onClick={() => {
-                          props.history.push(`/catalog/${item.guid}/`)
-                        }}
-                        className='CatalogPage__item'>{item.title}</li>)
-          })
-          }
-        </ul>
-      </>}
-
-      {
-        props.productsToCategory.length > 0 &&
-        <div className='CatalogPage__topPanel'>
-          <p>В категории {props.countProductsCategory} препаратов</p>
-          <div className='CatalogPage__topPanel-right'>
-            <p>Сортировать: </p>
-            <SortCards selectItem={(idMethod) => sortCards(idMethod)}
-                       methodSort={methodSort}
-                       items={sortItems}
-            />
+              )
+            })}
           </div>
-        </div>
-      }
 
-      <div className="CatalogPage__cardList">
+          <ul className='CatalogPage__list'>
+            {props.activeCategory.child.length > 0
+            && props.activeCategory.child.map((item, i) => {
+              return (<li key={i + item}
+                          onClick={() => {
+                            props.history.push(`/catalog/${item.guid}/`)
+                          }}
+                          className='CatalogPage__item'>{item.title}</li>)
+            })
+            }
+          </ul>
+        </>}
+
         {
-          props.productsToCategory.length > 0
-          && props.productsToCategory.map((item) => {
-            const {guid, product, manufacturer, img = null, minPrice, countLast} = item;
-            const itemIndex = props.cart.findIndex((item) => item.itemId === guid);
-            const isBuy = itemIndex >= 0;
-            const count = isBuy ? props.cart[itemIndex].count : 0
-            return (
-              isMobile
-                ? <CardItemMobile onItemSelected={onItemSelected}
-                                  updateToCart={() => {
-                                    !isBuy ? props.addedToCart(guid) : props.itemRemovedFromCart(guid);
-                                  }}
-                                  active={isBuy}
-                                  key={guid}
-                                  id={guid}
-                                  title={product}
-                                  maker={manufacturer}
-                                  img={img}
-                                  minPrice={minPrice}/>
-                : <CardItem onItemSelected={onItemSelected}
-                            onIncrement={() => props.addedToCart(guid)}
-                            onDecrement={() => props.itemRemovedFromCart(guid)}
-                            isBuy={isBuy}
-                            count={count}
-                            countLast={countLast}
-                            key={guid}
-                            id={guid}
-                            title={product}
-                            maker={manufacturer}
-                            img={img}
-                            minPrice={minPrice}/>
-            )
-          })
+          props.productsToCategory.length > 0 &&
+          <div className='CatalogPage__topPanel'>
+            <p>В категории {props.countProductsCategory} препаратов</p>
+            <div className='CatalogPage__topPanel-right'>
+              <p>Сортировать: </p>
+              <SortCards selectItem={(idMethod) => sortCards(idMethod)}
+                         methodSort={methodSort}
+                         items={sortItems}
+              />
+            </div>
+          </div>
         }
-      </div>
 
-      {
-        props.productsToCategory.length > 0 &&
-        <div style={{paddingTop: 15}}>
-          <Pagination totalRecords={props.countProductsCategory}
-                      page={currentPage}
-                      pageLimitItems={32}/>
+        <div className="CatalogPage__cardList">
+          {
+            props.productsToCategory.length > 0
+            && props.productsToCategory.map((item) => {
+              const {guid, product, manufacturer, img = null, minPrice, countLast} = item;
+              const itemIndex = props.cart.findIndex((item) => item.itemId === guid);
+              const isBuy = itemIndex >= 0;
+              const count = isBuy ? props.cart[itemIndex].count : 0
+              return (
+                isMobile
+                  ? <CardItemMobile onItemSelected={onItemSelected}
+                                    updateToCart={() => {
+                                      !isBuy ? props.addedToCart(guid) : props.itemRemovedFromCart(guid);
+                                    }}
+                                    active={isBuy}
+                                    key={guid}
+                                    id={guid}
+                                    title={product}
+                                    maker={manufacturer}
+                                    img={img}
+                                    minPrice={minPrice}/>
+                  : <CardItem onItemSelected={onItemSelected}
+                              onIncrement={() => props.addedToCart(guid)}
+                              onDecrement={() => props.itemRemovedFromCart(guid)}
+                              isBuy={isBuy}
+                              count={count}
+                              countLast={countLast}
+                              key={guid}
+                              id={guid}
+                              title={product}
+                              maker={manufacturer}
+                              img={img}
+                              minPrice={minPrice}/>
+              )
+            })
+          }
         </div>
-      }
+
+        {
+          props.productsToCategory.length > 0 &&
+          <div style={{paddingTop: 15}}>
+            <Pagination totalRecords={props.countProductsCategory}
+                        page={currentPage}
+                        pageLimitItems={32}/>
+          </div>
+        }
+      </ErrorBoundary>
     </div>
   )
 }

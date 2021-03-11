@@ -9,7 +9,6 @@ import SvgAngleUpSolid from "../../../img/SVGcomponents/SvgAngleUpSolid";
 const SelectDropdown = props => {
 
   const [dropdownShow, setDropdownShow] = useState(false)
-  const [activeElement, setActiveElement] = useState(props.activeElement)
 
   useEffect(() => {
     function close(e) {
@@ -27,7 +26,7 @@ const SelectDropdown = props => {
   return (
     <div className={"SortCards " + (dropdownShow ? 'SortCards_active' : '')}>
       <button className="SortCards__button" onClick={() => setDropdownShow(!dropdownShow)}>
-        {activeElement?.value}<SvgAngleUpSolid className='SortCards__arrowIcon'/></button>
+        {props.activeElement?.value}<SvgAngleUpSolid className='SortCards__arrowIcon'/></button>
       <div className="SortCards__dropdown">
 
         {
@@ -38,7 +37,6 @@ const SelectDropdown = props => {
                            onClick={() => {
                              props.selectItem(item.id)
                              console.log('НАЗВАНИЕ: ', item.value)
-                             setActiveElement(item)
                              setDropdownShow(false)
                            }}>
               {item.value}
