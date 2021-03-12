@@ -10,7 +10,7 @@ import img9 from "./seasonPromoImages/ДЕТРИМАКС 1000 230МГ. №60 Т�
 import img10 from "./seasonPromoImages/ВИЗИН 15МЛ. №1 ГЛ.КАПЛИ.jpg";
 import img11 from "./seasonPromoImages/СИНАФЛАН 0,025 15Г. МАЗЬ.jpg";
 import img12 from "./seasonPromoImages/ЭЗЛОР 5МГ. №10 ТАБ..jpg";
-import img13 from "./seasonPromoImages/ЛИСТАТА 120МГ. №80 ТАБ..jpg";
+import img13 from "./seasonPromoImages/listata.png";
 
 const seasonPromoItems = [
   {
@@ -62,7 +62,7 @@ const seasonPromoItems = [
     img: img12
   },
   {
-    guid: "085ba842-7a59-4b74-b2f6-e72ac11537b8",
+    guid: "eefdb030-dfe0-4416-9521-b03ae0198bfd",
     img: img13
   },
 ]
