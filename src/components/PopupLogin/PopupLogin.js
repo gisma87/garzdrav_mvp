@@ -6,6 +6,7 @@ import {connect} from "react-redux";
 import {authorizedByEmail, authorizedByPassOrSMS} from "../../actions";
 import apiService from "../../service/ApiService";
 import EyeButtonShow from "../UI/EyeButtonShow/EyeButtonShow";
+import LoaderTimer from "../UI/LoaderTimer/LoaderTimer";
 
 const PopupLogin = props => {
 
@@ -16,6 +17,9 @@ const PopupLogin = props => {
   const [smsCodeOrPassword, setSmsCodeOrPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [valueInputs, setValueInputs] = useState(null)
+  const [isSendCode, setIsSendCode] = useState(false)
+  const [isShowTimer, setIsShowTimer] = useState(false)
+
   const inputPhone = useRef()
   const inputEmail = useRef()
 
@@ -174,13 +178,23 @@ const PopupLogin = props => {
             // disabled={!formValid}
             // onClick={() => apiService.getSmsCode(phone)}
             onClick={(event) => {
-              validateForm(event)
-              if (formValid) {
-                apiService.getEmailCode(email)
+              if (!isShowTimer) {
+                validateForm(event)
+                if (formValid) {
+                  apiService.getEmailCode(email)
+                    .then(_ => {
+                      setIsSendCode(true)
+                      setIsShowTimer(true)
+                    })
+                }
               }
             }}
-            className={"PopupLogin__button " + (formValid ? "PopupLogin__button_active" : '')}>
-            Получить код
+            className={"PopupLogin__button " + ((formValid && !isShowTimer) ? "PopupLogin__button_active" : '')}>
+            {isSendCode ? <div><span className='PopupLogin__textMessage'>Отправить повторно</span>
+              <div className='PopupLogin__timerContainer'>
+                <LoaderTimer active={isShowTimer} seconds={60} hideTimer={() => setIsShowTimer(false)}/>
+              </div>
+            </div> : 'Получить код'}
           </button>
           <button type='submit'
             // disabled={!formValid && !smsCodeOrPassword}

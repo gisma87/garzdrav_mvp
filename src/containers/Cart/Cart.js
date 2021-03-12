@@ -56,10 +56,6 @@ class Cart extends React.Component {
     this.indexActiveRetail = indexActiveRetail.bind(this)
     this.getFullCountProductsRetails = getFullCountProductsRetails.bind(this)
     this.delItemCart = this.delItemCart.bind(this)
-
-    this.startTimer = this.startTimer.bind(this)
-    this.clearTimer = this.clearTimer.bind(this)
-
   }
 
   state = {
@@ -147,10 +143,6 @@ class Cart extends React.Component {
         }
       }
     }
-  }
-
-  componentWillUnmount() {
-    if (this.timer) this.clearTimer();
   }
 
   isEmpty(obj) {
@@ -498,11 +490,6 @@ class Cart extends React.Component {
                                       delOrderNumber={() => this.setState({OrderNumber: ''})}
                                       offSelectRetail={() => this.props.onSelectRetail(null)}
                                       refreshToken={this.props.refreshAuthentication}
-                                      timer={{
-                                        isShowTimer: this.state.isShowTimer,
-                                        seconds: this.state.seconds,
-                                        startTimer: this.startTimer
-                                      }}
                     />
                   }
                 </>

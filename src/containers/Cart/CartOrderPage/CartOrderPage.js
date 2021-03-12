@@ -25,6 +25,7 @@ const CartOrderPage = props => {
   const [loading, setLoading] = useState(false)
   const [order, setOrder] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
+  const [isShowTimer, setIsShowTimer] = useState(false)
   const emailRef = useRef()
 
 // для теста добавили email - он не нужен в будущем
@@ -238,16 +239,16 @@ const CartOrderPage = props => {
 
                 <div className='CartOrderPage__buttonContainer'>
                   <button
-                    className={'CartOrderPage__buttonSMS' + ((formValid && !props.timer.isShowTimer) ? ' CartOrderPage__buttonSMS_enabled' : '')}
-                    disabled={!formValid || props.timer.isShowTimer}
+                    className={'CartOrderPage__buttonSMS' + ((formValid && !isShowTimer) ? ' CartOrderPage__buttonSMS_enabled' : '')}
+                    disabled={!formValid || isShowTimer}
                     onClick={() => {
                       // apiService.getSmsCode(phone);
                       apiService.getEmailCode(email);
-                      props.timer.startTimer();
+                      setIsShowTimer(true);
                     }}
                   >получить код
                   </button>
-                  <LoaderTimer active={props.timer.isShowTimer} seconds={props.timer.seconds}/>
+                  <LoaderTimer active={isShowTimer} seconds={60} hideTimer={() => setIsShowTimer(false)}/>
                 </div>
               </form>
             </div>
@@ -282,7 +283,10 @@ const CartOrderPage = props => {
             className='CartOrderPage__bold'>{Math.min((Math.floor(((order.product.reduce((acc, product) => (product.priceRetail * product.count), 0)) / 2) * 100) / 100), (props.userData.currentBalance).toFixed(2))} Б.</span>
         </p>
       }
-      <p className='CartOrderPage__messageBonus'>Не забудьте взять с собой &nbsp;<a href="http://kartalegko.ru/" rel="noopener noreferrer" target='_blank'>Бонусную карту Легко</a></p>
+      <p className='CartOrderPage__messageBonus'>Не забудьте взять с собой &nbsp;<a href="http://kartalegko.ru/"
+                                                                                    rel="noopener noreferrer"
+                                                                                    target='_blank'>Бонусную карту
+        Легко</a></p>
     </div>
   )
 }
