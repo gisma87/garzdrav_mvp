@@ -1,6 +1,16 @@
 @import "../../variables";
 
 .PopupLogin {
+  @keyframes boostTextIsCode {
+    0% {
+      transform: scale(0) translateX(-50%);
+    }
+    100% {
+      transform: scale(1) translateX(-50%);
+    }
+  }
+
+
   font-family: $primary-font;
   width: 430px;
   min-height: 330px;
@@ -127,6 +137,19 @@
 
   &__textMessage {
     font-size: .9rem;
+  }
+
+  &__isFetchCode {
+    font-size: .9rem;
+    color: $secondary-color;
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    animation: boostTextIsCode .8s;
+    display: inline-block !important;
+    opacity: 1 !important;
   }
 
 

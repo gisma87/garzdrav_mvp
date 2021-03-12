@@ -19,6 +19,7 @@ const PopupLogin = props => {
   const [valueInputs, setValueInputs] = useState(null)
   const [isSendCode, setIsSendCode] = useState(false)
   const [isShowTimer, setIsShowTimer] = useState(false)
+  const [isFetchCode, setIsFetchCode] = useState(false)
 
   const inputPhone = useRef()
   const inputEmail = useRef()
@@ -178,18 +179,20 @@ const PopupLogin = props => {
             // disabled={!formValid}
             // onClick={() => apiService.getSmsCode(phone)}
             onClick={(event) => {
-              if (!isShowTimer) {
+              if (!isShowTimer && !isFetchCode) {
                 validateForm(event)
                 if (formValid) {
+                  setIsFetchCode(true)
                   apiService.getEmailCode(email)
                     .then(_ => {
                       setIsSendCode(true)
                       setIsShowTimer(true)
                     })
+                    .finally(() => setIsFetchCode(false))
                 }
               }
             }}
-            className={"PopupLogin__button " + ((formValid && !isShowTimer) ? "PopupLogin__button_active" : '')}>
+            className={"PopupLogin__button " + ((formValid && !isShowTimer && !isFetchCode) ? "PopupLogin__button_active" : '')}>
             {isSendCode ? <div><span className='PopupLogin__textMessage'>Отправить повторно</span>
               <div className='PopupLogin__timerContainer'>
                 <LoaderTimer active={isShowTimer} seconds={60} hideTimer={() => setIsShowTimer(false)}/>
@@ -210,6 +213,7 @@ const PopupLogin = props => {
           </button>
         </div>
       </form>
+      {isShowTimer && <p className='PopupLogin__isFetchCode'>КОД ОТПРАВЛЕН</p>}
     </PopupWrapper>
   )
 }
