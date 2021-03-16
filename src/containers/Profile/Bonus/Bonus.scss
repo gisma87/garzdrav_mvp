@@ -1,3 +1,5 @@
+@import "../../../variables";
+
 .Bonus {
   flex: 1 1;
   margin-right: 30px;
@@ -33,6 +35,10 @@
 
   &__info {
     font-weight: 500;
+  }
+
+  &__balance {
+    color: $secondary-color;
   }
 
   &__signature {

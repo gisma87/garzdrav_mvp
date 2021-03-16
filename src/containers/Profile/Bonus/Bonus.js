@@ -13,30 +13,29 @@ const Bonus = props => {
         props.userData?.cards?.length
           ? <>
             <BlockWrapper classStyle='Bonus__item'>
-              <p className='Bonus__itemTitle' style={props.activeCard ? {} : noCard}>Бонусная карта</p>
+              <p className='Bonus__itemTitle' style={props.activeCard ? noCard : {}}>Бонусная карта</p>
               <p className='Bonus__info'
-                 style={props.activeCard ? {} : noCard}>№ {props.userData.cards[props.activeCard]?.barcode}</p>
+                 style={props.activeCard ? noCard : {}}>№ {props.userData.cards[props.activeCard]?.barcode}</p>
             </BlockWrapper>
             <BlockWrapper classStyle='Bonus__item'>
-              <p className='Bonus__itemTitle' style={props.activeCard ? {} : noCard}>Накоплено бонусов за всё время</p>
+              <p className='Bonus__itemTitle' style={props.activeCard ? noCard : {}}>Уровень карты</p>
               <div className='Bonus__itemContent'>
-                <p className='Bonus__info'>{props.userData.cards[props.activeCard]?.accumulationBalance}</p>
+                <p className='Bonus__info'>{props.userData.cards[props.activeCard]?.level}</p>
               </div>
             </BlockWrapper>
             <BlockWrapper classStyle='Bonus__item'>
-              <p className='Bonus__itemTitle' style={props.activeCard ? {} : noCard}>Текущий
+              <p className='Bonus__itemTitle' style={props.activeCard ? noCard : {}}>Текущий
                 баланс</p>
               <div className='Bonus__itemContent'>
-                <p className='Bonus__info'>
+                <p className='Bonus__info Bonus__balance'>
                   {props.userData.cards[props.activeCard]?.currentBalance}
                 </p>
               </div>
             </BlockWrapper>
             <BlockWrapper classStyle='Bonus__item'>
-              <p className='Bonus__itemTitle' style={props.activeCard ? {} : noCard}>Вместе с
-                картой
-                вы
-                совершили покупок на общую сумму:</p>
+              <p className='Bonus__itemTitle' style={props.activeCard ? noCard : {}}>
+                Вместе с картой вы совершили покупок на общую сумму:
+              </p>
               {
                 props.userData.cards[props.activeCard]?.saleBalance &&
                 <p className='Bonus__info'> {props.userData.cards[props.activeCard]?.saleBalance} ₽</p>
