@@ -602,7 +602,7 @@ const fetchUserData = () => async (dispatch, getState, apiService) => {
   dispatch(loadingTrue('fetchUserData'))
   try {
     const response = await apiService.getUserData(accessToken)
-    dispatch({type: 'USER_DATA', payload: response})
+    dispatch(setUserData(response))
   } catch (e) {
     dispatch(setError(e))
   }
@@ -641,7 +641,7 @@ function getDataProfile() {
   return async (dispatch, getState, apiService) => {
     const TOKEN = getState().TOKEN || JSON.parse(localStorage.getItem('TOKEN'))
     const accessToken = TOKEN.accessToken
-    dispatch(loadingTrue('fetchUserData'))
+    dispatch(loadingTrue('getDataProfile'))
     try {
       // запрашиваем userData
       const response = await apiService.getUserData(accessToken)

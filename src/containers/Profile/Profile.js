@@ -4,8 +4,7 @@ import BlockWrapper from "../../components/BlockWrapper";
 import {Link, Redirect, withRouter} from "react-router-dom";
 import {
   addedToCart,
-  allItemRemovedFromCart, delToFavorites,
-  fetchUserData, getDataProfile,
+  allItemRemovedFromCart, delToFavorites, getDataProfile,
   getInternetSales,
   itemRemovedFromCart, loadingFalse, loadingTrue,
   logout, refreshAuthentication,
@@ -25,8 +24,15 @@ const Profile = (props) => {
 
   const {addedToCart, itemRemovedFromCart, cart, history, favorites} = props;
   const [changeSetting, setChangeSetting] = useState('setting')
-
   const [block, setBlock] = useState('main');
+
+  const [activeCard, setActiveCard] = useState(null)
+
+  useEffect(() => {
+    if (props.userData?.cards?.length === 1) {
+      setActiveCard(0)
+    }
+  }, [props.userData])
 
   const delFavorites = (guid) => {
     console.log('delFavorites: ', guid)
@@ -57,13 +63,15 @@ const Profile = (props) => {
             <div className='Profile__mainContainer'>
 
               {/*раздел Бонусы*/}
-              {block === 'main' && <Bonus userData={props.userData}/>}
+              {block === 'main' &&
+              <Bonus userData={props.userData} activeCard={activeCard} setActiveCard={setActiveCard}/>}
 
               {/*раздел Интернет Заказы*/}
               {block === 'order' &&
               <OrdersInternet getInternetSales={props.getInternetSales}
                               internetSales={props.internetSales}
                               cancelOrder={props.cancelOrder}
+                              activeCard={activeCard}
               />}
 
               {/*раздел История заказов*/}
@@ -82,7 +90,6 @@ const Profile = (props) => {
                 block === 'profileSettings' && <ProfileSetting
                   userData={props.userData}
                   TOKEN={props.TOKEN}
-                  fetchUserData={props.fetchUserData}
                   changeSetting={changeSetting}
                   setChangeSetting={setChangeSetting}
                   refreshAuthentication={props.refreshAuthentication}
@@ -140,7 +147,7 @@ const mapDispatchToProps = (dispatch) => {
     refreshAuthentication: () => dispatch(refreshAuthentication()),
     getDataProfile: () => dispatch(getDataProfile()),
     delToFavorites: (productGuid) => dispatch(delToFavorites(productGuid)), // удаляет из избранного
-    fetchUserData: () => dispatch(fetchUserData()), // данные пользователя
+    // fetchUserData: () => dispatch(fetchUserData()), // данные пользователя
     getInternetSales: () => dispatch(getInternetSales()), // интернет заказы
     setSales: () => dispatch(setSales()), // история покупок
     addedToCart: (item) => dispatch(addedToCart(item)), // добавить idProduct в корзину
