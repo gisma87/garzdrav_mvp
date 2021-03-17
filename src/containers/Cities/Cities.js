@@ -83,12 +83,13 @@ const Cities = props => {
       const activeRetail = props.retailsCity.find(el => el.guid === activeMarker)
       const clockArr = activeRetail?.weekDayTime.match(/\d\d:\d\d/g) || []
       const hours = new Date().getHours()
-      const minutes = new Date().getMinutes()
-      const timeNow = `${hours}:${minutes}`
+      // const minutes = new Date().getMinutes()
+      // const timeNow = `${hours}:${minutes}`
       // const timeNow = '18:01'
 
       if (clockArr.length) {
-        return ((clockArr[0] < timeNow) && (timeNow < clockArr[1]))
+        const hoursArr = clockArr.map(item => item.match(/^\d+/g))
+        return ((+hoursArr[0] <= +hours) && (+hours < +hoursArr[1]))
       }
     }
     return null
