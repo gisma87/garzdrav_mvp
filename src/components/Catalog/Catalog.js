@@ -52,7 +52,7 @@ const Catalog = props => {
                                    props.onClick()
                                  }}
                       >
-                        <NavLink to={'/catalog/' + item.guid + '/'} className='Catalog__link Catalog__hoverLink'>
+                        <NavLink to={'/catalog/' + itemChild.guid + '/'} className='Catalog__link Catalog__hoverLink'>
                           <span>{itemChild.title}</span>
                         </NavLink>
                       </li>
