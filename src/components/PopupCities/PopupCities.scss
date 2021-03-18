@@ -81,7 +81,7 @@
       }
 
       &:active, &:target {
-        background: #E26C2D;
+        background: $secondary-color;
         color: white;
         font-weight: bold;
       }

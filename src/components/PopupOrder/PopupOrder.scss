@@ -1,3 +1,5 @@
+@import "../../variables";
+
 .PopupOrder {
   font-family: PTSans-Regular, Helvetica, Arial, sans-serif;
   width: 375px;
@@ -71,7 +73,7 @@
 
   &__sum {
     margin-left: 15px;
-    color: #E26C2D;
+    color: $secondary-color;
     font-weight: bold;
     font-size: 18px;
   }

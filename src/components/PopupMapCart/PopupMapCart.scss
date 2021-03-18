@@ -60,7 +60,7 @@
   &__activeItem {
     background-color: #FFF9E5;
     //transform: scale(1.05);
-    border: 1px solid #E26C2D;
+    border: 1px solid $secondary-color;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
   }
 
@@ -97,7 +97,7 @@
 
   &__buttonActive {
     background-image: linear-gradient(to top, #fc8507, #ffa218);
-    background-color: #E26C2D;
+    background-color: $secondary-color;
     color: #fff;
     border: none;
     font-weight: bold;
@@ -156,7 +156,7 @@
     }
 
     &:nth-child(2n) {
-      border-bottom: 1px solid #E26C2D;
+      border-bottom: 1px solid $secondary-color;
     }
 
     @media (max-width: 950px) {

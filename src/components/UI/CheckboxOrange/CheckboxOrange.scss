@@ -1,3 +1,5 @@
+@import "../../../variables";
+
 .CheckboxOrange {
   display: block;
   font-weight: 500;
@@ -15,7 +17,7 @@
     font-family: inherit;
 
     &:checked + .CheckboxOrange__span {
-      background-color: #E26C2D;
+      background-color: $secondary-color;
       background-image: url('../../../img/vector.png');
       background-position: center;
       background-repeat: no-repeat;
@@ -29,6 +31,6 @@
     height: 24px;
     border-radius: 50%;
     margin-right: 8px;
-    border: 1px solid #E26C2D;
+    border: 1px solid $secondary-color;
   }
 }
