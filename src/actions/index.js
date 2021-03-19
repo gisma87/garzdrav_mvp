@@ -706,14 +706,11 @@ const getPromoItem = (productGuid) => async (dispatch, getState, apiService) => 
                 if (e.response) {
                   // client received an error response (5xx, 4xx)
                   console.log('err.response: ', e.response)
-                  dispatch(setError(e.response))
                 } else if (e.request) {
                   // client never received a response, or request never left
                   console.log('err.request ', e.request)
-                  dispatch(setError(e.request))
                 } else {
                   // anything else
-                  dispatch(setError(e))
                   console.log('ошибка запроса')
                 }
               })
@@ -737,14 +734,11 @@ const getPromoItem = (productGuid) => async (dispatch, getState, apiService) => 
               if (e.response) {
                 // client received an error response (5xx, 4xx)
                 console.log('err.response: ', e.response)
-                dispatch(setError(e.response))
               } else if (e.request) {
                 // client never received a response, or request never left
                 console.log('err.request ', e.request)
-                dispatch(setError(e.request))
               } else {
                 // anything else
-                dispatch(setError(e))
                 console.log('ошибка запроса')
               }
               return Promise.reject('failed getPromoItem')
@@ -756,10 +750,8 @@ const getPromoItem = (productGuid) => async (dispatch, getState, apiService) => 
           } else if (err.request) {
             // client never received a response, or request never left
             console.log('err.request ', err.request)
-            dispatch(setError(err.request))
           } else {
             // anything else
-            dispatch(setError(err))
             console.log('ошибка запроса')
           }
         })
