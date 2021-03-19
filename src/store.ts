@@ -3,10 +3,13 @@ import reducer from "./reducers";
 import thunk from 'redux-thunk';
 import apiService from "./service/ApiService";
 
+type ReducerType = typeof reducer;
+export type StateType = ReturnType<ReducerType>
+
 // это нужно в dev версии для плагина браузера React Developer Tools
 const composeEnhancers =
-  typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
+  typeof window === 'object' && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    ? (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
     : compose;
 
 // третьим параметром thunk в actions будет отдавать apiService
