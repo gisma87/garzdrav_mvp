@@ -7,7 +7,7 @@ import {
   fetchCities,
   loadingReset,
   refreshAuthentication,
-  rewriteCart,
+  rewriteCart, setActivePromoGroup,
   setCatalog,
   setFalseIsDelCartItems,
   setItemsForPromoBlock1, setPopularItemsForPromoBlock3, setSeasonItemsForPromoBlock2
@@ -57,6 +57,15 @@ const MobileOrDesktop = (props) => {
   }, [])// eslint-disable-line
 
   useEffect(() => {
+    if (props.itemsForPromoBlock1.length) {
+      props.setActivePromoGroup({
+        name: 'все акционные товары',
+        arrPromo: props.itemsForPromoBlock1
+      })
+    }// eslint-disable-next-line
+  }, [props.itemsForPromoBlock1])
+
+  useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(props.cart));
   }, [props.cart])
 
@@ -82,12 +91,8 @@ const MobileOrDesktop = (props) => {
 
 }
 
-const mapStateToProps = (
-  {
-    cart, loading, isDelCartItem
-  }
-) => {
-  return {cart, loading, isDelCartItem}
+const mapStateToProps = ({cart, loading, isDelCartItem, itemsForPromoBlock1}) => {
+  return {cart, loading, isDelCartItem, itemsForPromoBlock1}
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -101,7 +106,8 @@ const mapDispatchToProps = (dispatch) => {
     setFalseIsDelCartItems: () => dispatch(setFalseIsDelCartItems()),
     setItemsForPromoBlock1: () => dispatch(setItemsForPromoBlock1()),
     setSeasonItemsForPromoBlock2: () => dispatch(setSeasonItemsForPromoBlock2()),
-    setPopularItemsForPromoBlock3: () => dispatch(setPopularItemsForPromoBlock3())
+    setPopularItemsForPromoBlock3: () => dispatch(setPopularItemsForPromoBlock3()),
+    setActivePromoGroup: (promo) => dispatch(setActivePromoGroup(promo))
   }
 }
 

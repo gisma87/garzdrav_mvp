@@ -10,12 +10,25 @@ import img2 from '../../img/forMainSlidr/seasonalProducts.jpg'
 import img3 from '../../img/forMainSlidr/march1.png'
 import img4 from '../../img/forMainSlidr/march2.png'
 import img5 from '../../img/forMainSlidr/march3.png'
+import {useHistory} from "react-router-dom";
 
 
-const imgData = [img1, img2, img3, img4, img5]
+const imgData = [
+  {img: img1, link: '/articles/1'},
+  {img: img2, link: '/articles/3'},
+  {img: img3, link: '/articles/'},
+  {img: img4, link: '/articles/'},
+  {img: img5, link: '/articles/'}
+]
 
 
 const Advertising = () => {
+  let history = useHistory();
+
+  function handleClick(path) {
+    history.push(path);
+  }
+
   const isMobile = useMediaQuery({query: '(max-width: 685px)'})
   SwiperCore.use([Navigation, Pagination, Autoplay])
   return (
@@ -34,7 +47,8 @@ const Advertising = () => {
           {imgData.map((item, index) => {
             return (
               <SwiperSlide tag="li" key={index} style={{display: 'flex', justifyContent: 'center'}}>
-                <img className='Advertising__slide' src={item} alt={index + ' slide'}/>
+                <img onClick={() => handleClick(item.link)} className='Advertising__slide' src={item.img}
+                     alt={index + ' slide'}/>
               </SwiperSlide>
             )
           })}
