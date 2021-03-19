@@ -115,7 +115,7 @@ const CatalogPage = props => {
               >
                 {getActiveItem(i).title}
               </span>
-                  <span className='CatalogPage__pathArrow'> > </span>
+                  <span className='CatalogPage__pathArrow'> &gt; </span>
                 </p>
 
               )

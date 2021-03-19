@@ -153,7 +153,7 @@ const CardPage = (props) => {
                       >
                         {thisCategoryPath(i).title}
                       </NavLink>
-                      <span className='CardPage__pathArrow'> > </span>
+                      <span className='CardPage__pathArrow'> &gt; </span>
                     </p>
                   )
                 })}
