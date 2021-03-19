@@ -5,7 +5,6 @@ function SvgMinus(props) {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 384 512"
-      className="minus_svg__svg-inline--fa minus_svg__fa-minus minus_svg__fa-w-12 minus_svg__fa-9x"
       width="1em"
       height="1em"
       {...props}

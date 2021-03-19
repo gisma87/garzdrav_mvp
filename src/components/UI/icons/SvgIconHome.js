@@ -3,11 +3,7 @@ import * as React from "react";
 function SvgIconHome(props) {
   return (
     <svg
-      aria-hidden="true"
-      data-prefix="fas"
-      data-icon="home-lg-alt"
       viewBox="0 0 576 512"
-      className="iconHome_svg__svg-inline--fa iconHome_svg__fa-home-lg-alt iconHome_svg__fa-w-18 iconHome_svg__fa-9x"
       width="1em"
       height="1em"
       {...props}

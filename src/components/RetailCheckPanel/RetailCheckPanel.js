@@ -17,7 +17,7 @@ const RetailCheckPanel = (props) => {
     weekDayTime = '',
     phone = '',
     sum = '',
-    product = ''
+    product = []
   } = props.item
 
   const {onCheck, openPopupMap} = props;

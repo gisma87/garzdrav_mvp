@@ -3,11 +3,7 @@ import * as React from "react";
 function SvgIconCart(props) {
   return (
     <svg
-      aria-hidden="true"
-      data-prefix="far"
-      data-icon="shopping-cart"
       viewBox="0 0 576 512"
-      className="iconCart_svg__svg-inline--fa iconCart_svg__fa-shopping-cart iconCart_svg__fa-w-18 iconCart_svg__fa-9x"
       width="1em"
       height="1em"
       {...props}

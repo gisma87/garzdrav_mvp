@@ -25,7 +25,7 @@ const CartItems = props => {
             props.setCountItemCart(item.guid, delta)
           }
           const priceIndex = item.retails.findIndex(retail => retail.guid === props.selectedRetail)
-          const price = priceIndex >= 0 ? item.retails[priceIndex].priceRetail : null
+          const price = priceIndex >= 0 ? item.retails[priceIndex].priceRetail : 0
           if (props.cart[index] !== undefined) {
             if (isMobile) {
               return (<CartItemMobile key={item.guid + i + 'mobile'}

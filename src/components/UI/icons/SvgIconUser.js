@@ -3,11 +3,7 @@ import * as React from "react";
 function SvgIconUser(props) {
   return (
     <svg
-      aria-hidden="true"
-      data-prefix="fal"
-      data-icon="user-circle"
       viewBox="0 0 496 512"
-      className="iconUser_svg__svg-inline--fa iconUser_svg__fa-user-circle iconUser_svg__fa-w-16 iconUser_svg__fa-9x"
       width="1em"
       height="1em"
       {...props}

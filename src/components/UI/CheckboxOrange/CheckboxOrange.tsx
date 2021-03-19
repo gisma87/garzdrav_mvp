@@ -1,7 +1,14 @@
 import React from "react";
 import './CheckboxOrange.scss'
 
-const CheckboxOrange = ({check, onCheck, type, name}) => {
+type Props = {
+    type: string,
+    name :string,
+    check: boolean,
+    onCheck(): void
+}
+
+const CheckboxOrange: React.FC<Props> = ({check, onCheck, type, name}) => {
   return (
     <div
       // htmlFor="orange"

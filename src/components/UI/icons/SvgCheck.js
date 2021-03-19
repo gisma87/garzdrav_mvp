@@ -3,10 +3,6 @@ import * as React from "react";
 function SvgCheck(props) {
   return (
     <svg
-      aria-hidden="true"
-      data-prefix="fas"
-      data-icon="check"
-      className="check-solid_svg__svg-inline--fa check-solid_svg__fa-check check-solid_svg__fa-w-16"
       viewBox="0 0 512 512"
       width="1em"
       height="1em"

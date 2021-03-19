@@ -5,7 +5,6 @@ function SvgArrowLongRight(props) {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 448 512"
-      className="arrowLongRight_svg__svg-inline--fa arrowLongRight_svg__fa-long-arrow-alt-right arrowLongRight_svg__fa-w-14 arrowLongRight_svg__fa-9x"
       width="1em"
       height="1em"
       {...props}

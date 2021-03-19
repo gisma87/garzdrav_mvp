@@ -3,11 +3,7 @@ import React from "react";
 function SvgClose(props) {
   return (
     <svg
-      aria-hidden="true"
-      data-prefix="far"
-      data-icon="times"
       viewBox="0 0 320 512"
-      className="svgClose_svg__svg-inline--fa svgClose_svg__fa-times svgClose_svg__fa-w-10 svgClose_svg__fa-9x"
       width="1em"
       height="1em"
       {...props}

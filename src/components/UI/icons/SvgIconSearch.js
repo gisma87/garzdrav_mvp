@@ -3,11 +3,7 @@ import * as React from "react";
 function SvgIconSearch(props) {
   return (
     <svg
-      aria-hidden="true"
-      data-prefix="far"
-      data-icon="search"
       viewBox="0 0 512 512"
-      className="iconSearch_svg__svg-inline--fa iconSearch_svg__fa-search iconSearch_svg__fa-w-16 iconSearch_svg__fa-9x"
       width="1em"
       height="1em"
       {...props}

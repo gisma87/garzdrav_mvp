@@ -3,10 +3,6 @@ import * as React from "react";
 function SvgIconLocation(props) {
   return (
     <svg
-      aria-hidden="true"
-      data-prefix="fas"
-      data-icon="map-marker-alt"
-      className="iconLocation_svg__svg-inline--fa iconLocation_svg__fa-map-marker-alt iconLocation_svg__fa-w-12"
       viewBox="0 0 384 512"
       width="1em"
       height="1em"

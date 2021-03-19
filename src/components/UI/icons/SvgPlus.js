@@ -5,7 +5,6 @@ function SvgPlus(props) {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 384 512"
-      className="plus_svg__svg-inline--fa plus_svg__fa-plus plus_svg__fa-w-12 plus_svg__fa-9x"
       width="1em"
       height="1em"
       {...props}
