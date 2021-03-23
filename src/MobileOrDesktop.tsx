@@ -11,12 +11,12 @@ import {
     rewriteCart, setActivePromoGroup,
     setCatalog,
     setFalseIsDelCartItems,
-    setItemsForPromoBlock1, setPopularItemsForPromoBlock3, setSeasonItemsForPromoBlock2
+    setItemsForPromoBlock1, setPopularItemsForPromoBlock3, setSeasonItemsForPromoBlock2,
 } from "./actions";
 import {connect} from "react-redux";
 import Alert from "./components/UI/Alert/Alert";
 import {StateType} from "./store";
-import {Dispatch} from "redux";
+import {ThunkDispatch} from "redux-thunk";
 
 type MapStatePropsType = {
     loading: number,
@@ -124,18 +124,18 @@ const mapStateToProps = ({cart, loading, isDelCartItem, itemsForPromoBlock1}: St
     return {cart, loading, isDelCartItem, itemsForPromoBlock1}
 }
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
+const mapDispatchToProps = (dispatch: ThunkDispatch<{}, {}, any>) => {
     return {
         loadingReset: () => dispatch(loadingReset()),
         setFalseIsDelCartItems: () => dispatch(setFalseIsDelCartItems()),
-        fetchCities,
+        fetchCities: () => dispatch(fetchCities()),
         rewriteCart: (cart: CartItemType[]) => dispatch(rewriteCart(cart)),
-        fetchCartItems,
-        refreshAuthentication,
-        setCatalog,
-        setItemsForPromoBlock1,
-        setSeasonItemsForPromoBlock2,
-        setPopularItemsForPromoBlock3,
+        fetchCartItems: () => dispatch(fetchCartItems()),
+        refreshAuthentication: () => dispatch(refreshAuthentication()),
+        setCatalog: () => dispatch(setCatalog()),
+        setItemsForPromoBlock1: () => dispatch(setItemsForPromoBlock1()),
+        setSeasonItemsForPromoBlock2: () => dispatch(setSeasonItemsForPromoBlock2()),
+        setPopularItemsForPromoBlock3: () => dispatch(setPopularItemsForPromoBlock3()),
         setActivePromoGroup: (promo: { name: string, arrPromo: { [key: string]: any }[] }) => dispatch(setActivePromoGroup(promo))
     }
 }

@@ -1,7 +1,7 @@
 import {
     ActionTypes,
     CartItemType, internetSale, ObjType,
-    productInfo,
+    TypeProductInfo,
     retailCity,
     tCatalog,
     TypeItemsForPromoBlock,
@@ -15,7 +15,7 @@ export interface ActionItemsForPromoBlock {
 
 export interface ActionStatusRequestRepeatOrder {
     type: ActionTypes.SET_STATUS_REQUEST_REPEAT_ORDER,
-    payload: string
+    payload: 'executed' | 'failure' | ''
 }
 
 export interface ActionResetLoading {
@@ -80,7 +80,7 @@ export interface ActionItemRemovedFromCart {
 }
 
 export interface ActionAllItemRemovedFromCart {
-    type: ActionTypes.ITEM_REMOVED_FROM_CART,
+    type: ActionTypes.ALL_ITEM_REMOVED_FROM_CART,
     payload: string
 }
 
@@ -105,7 +105,7 @@ export interface ActionProductsFromSearchLoaded {
 
 export interface ActionLoadingProductInfo {
     type: ActionTypes.LOADING_PRODUCT_INFO,
-    payload: productInfo
+    payload: TypeProductInfo
 }
 
 export interface ActionOnSelectRetail {
@@ -200,6 +200,21 @@ export interface ActionSetActivePromoGroup{
     payload: { name: string, arrPromo: { [key: string]: any }[] }
 }
 
+export interface Action_setCatalog{
+    type: ActionTypes.SET_CATALOG,
+    payload: tCatalog
+}
+
+export interface Action_fetchCities{
+    type: ActionTypes.FETCH_CITIES_SUCCESS,
+    payload: {
+        regionGuid: string;
+        regionTitle: string;
+        guid: string;
+        title: string;
+    }[]
+}
+
 export type ActionType = (
     ActionItemsForPromoBlock
     | ActionStatusRequestRepeatOrder
@@ -239,4 +254,7 @@ export type ActionType = (
     | ActionSetFalseIsDelCartItems
     | ActionSetPredictor
     | ActionSetActivePromoGroup
+    | Action_setCatalog
+    | Action_fetchCities
+    | ActionSetError
     )

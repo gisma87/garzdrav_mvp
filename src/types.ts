@@ -46,7 +46,9 @@ export enum ActionTypes {
     OFF_REQUEST_FROM_SEARCH_PANEL = 'OFF_REQUEST_FROM_SEARCH_PANEL',
     FALSE_IS_DELETE_CART_ITEMS = 'FALSE_IS_DELETE_CART_ITEMS',
     SET_PREDICTOR = 'SET_PREDICTOR',
-    SET_ACTIVE_PROMO_GROUP = 'SET_ACTIVE_PROMO_GROUP'
+    SET_ACTIVE_PROMO_GROUP = 'SET_ACTIVE_PROMO_GROUP',
+    SET_CATALOG = 'SET_CATALOG',
+    FETCH_CITIES_SUCCESS = 'FETCH_CITIES_SUCCESS'
 }
 
 export type tCatalog = {
@@ -84,6 +86,29 @@ export type productInfo = {
     categoryGuid: string,
     [key: string]: string | ObjType[]
 }
+
+// подробная информация по товару - для записи в store
+export type TypeProductInfo = {
+    guid: string,
+    product: string,
+    manufacturer: string
+    categoryGuid: string,
+    retails: {
+        guid: string,
+        countLast: number,
+        priceRetail: number,
+        brand: string,
+        buildNumber: string,
+        city: string,
+        coordinates: (number | string)[]
+        phone: string,
+        street: string,
+        title: string,
+        weekDayTime: string
+    }[],
+    [key: string]: string | number | ObjType | (number | string | ObjType)[],
+}
+
 export type internetSale = {
     orderGuid: string,
     sum: number,
@@ -95,22 +120,43 @@ export type internetSale = {
     [key: string]: string | number | null | ObjType | (string | number | ObjType)[]
 }
 
-export type TypeItemsForPromoBlock = { guid: string, product: string, manufacturer: string, categoryGuid: string, countLast: number, minPrice: number, img: string, [key: string]: any }[]
+export type TypeItemsForPromoBlock = {
+    guid: string,
+    product: string,
+    manufacturer: string,
+    categoryGuid: string,
+    countLast: number,
+    minPrice: number,
+    img: string,
+    [key: string]: string | number | null | ObjType | (string | number | ObjType)[]
+}[]
 
 export interface StateTypes {
-    cities: { guid: string, title: string, [key: string]: any }[],
-    regions: any[],
+    cities: {
+        guid: string,
+        title: string,
+        [key: string]: string | number | null | ObjType | (string | number | ObjType)[]
+    }[],
+    regions: {
+        regionGuid: string,
+        regionTitle: string,
+        cities: { guid: string, title: string }[]
+    }[],
     loading: number,
     loadingFavorites: number,
     error: null | string,
     errorAuth: null | string,
-    isCity: { guid: string, title: string, [key: string]: any },
+    isCity: {
+        guid: string,
+        title: string,
+        [key: string]: string | number | null | ObjType | (string | number | ObjType)[]
+    },
     retailsCity: retailCity[],
-    cart: CartItemType[] | [],
+    cart: CartItemType[],
     favorites: { guid: string, [key: string]: string | number | null }[],
     productsFromSearch: { guid: string, product: string, [key: string]: string | number }[],
     countProductsSearch: null | number,
-    productInfo: string | productInfo,
+    productInfo: string | TypeProductInfo,
     cartItems: {
         guid: string,
         product: string,
@@ -175,28 +221,6 @@ interface ActionResetLoading {
 }
 
 export type ActionType = ActionItemsForPromoBlock | ActionStatusRequestRepeatOrder | ActionResetLoading;
-
-// подробная информация по товару - для записи в store
-export type TypeProductInfo = {
-    guid: string,
-    product: string,
-    manufacturer: string
-    categoryGuid: string,
-    retails: {
-        guid: string,
-        countLast: number,
-        priceRetail: number,
-        brand: string,
-        buildNumber: string,
-        city: string,
-        coordinates: (number | string)[]
-        phone: string,
-        street: string,
-        title: string,
-        weekDayTime: string
-    }[],
-    [key: string]: string | number | ObjType | any[],
-}
 
 // подробная информация по товару - ответ сервера
 export type TypeResponseProductInfo = {

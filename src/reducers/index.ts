@@ -1,4 +1,4 @@
-import {ObjType, StateTypes, CartItemType, TypeSetCartItem} from "../types";
+import {ObjType, StateTypes, CartItemType, TypeSetCartItem, ActionTypes} from "../types";
 import {ActionType} from "../actions/actionType";
 
 type RetailItem = {
@@ -13,7 +13,7 @@ type RetailItem = {
 let cityLocalStorage = null
 
 if (localStorage.getItem("city")) {
-    const result = JSON.parse(<string>localStorage.getItem("city"))
+    const result = JSON.parse(localStorage.getItem("city") as string)
     if (result.length) {
         cityLocalStorage = result[0]
     }
@@ -76,7 +76,7 @@ const upgradeRetailItems = (array: RetailItem[]): RetailItem[] => {
 }
 
 const updateCartItems = (cart: CartItemType[], item: CartItemType, idx: number) => {
-    if (item.count === 0) {
+    if (item.count < 1) {
         return [
             ...cart.slice(0, idx),
             ...cart.slice(idx + 1)
@@ -110,11 +110,11 @@ const updateOrder = (state: StateTypes, itemId: string, quantity: number) => {
     // таким образом у нас всегда при всех изменениях в localStorage актуальные значения, на которые можно опираться.
     let oldCart = [...state.cart]
     if (localStorage.getItem("cart")) {
-        oldCart = JSON.parse(<string>localStorage.getItem("cart"))
+        oldCart = JSON.parse(localStorage.getItem("cart") as string)
     }
 
     const itemIndex = oldCart.findIndex((item) => item.itemId === itemId);
-    const item = itemIndex ? oldCart[itemIndex] : null;
+    const item = oldCart[itemIndex] ?? null;
     const newItem = updateCartItem(itemId, item, quantity);
     const cartOrder = updateCartItems(oldCart, newItem, itemIndex)
     localStorage.setItem('cart', JSON.stringify(cartOrder))
@@ -131,48 +131,48 @@ function isEmpty(obj: Object) {
     return true;
 }
 
-const reducer = (state = initialState, action: any): StateTypes => {
+const reducer = (state = initialState, action: ActionType): StateTypes => {
 
-    console.log(action.type, action.payload);
+    console.log(action.type, (action as any).payload);
     switch (action.type) {
 
-        case 'SET_STATUS_REQUEST_REPEAT_ORDER':
+        case ActionTypes.SET_STATUS_REQUEST_REPEAT_ORDER:
             return {
                 ...state,
                 statusRequestRepeatOrder: action.payload
             }
 
-        case 'SET_ITEMS_FOR_PROMOBLOCK_1':
+        case ActionTypes.SET_ITEMS_FOR_PROMOBLOCK_1:
             return {
                 ...state,
                 itemsForPromoBlock1: action.payload
             }
 
-        case 'SET_SEASON_ITEMS_FOR_PROMOBLOCK_2':
+        case ActionTypes.SET_SEASON_ITEMS_FOR_PROMOBLOCK_2:
             return {
                 ...state,
                 seasonItemsForPromoBlock2: action.payload
             }
 
-        case 'SET_POPULAR_ITEMS_FOR_PROMOBLOCK_3':
+        case ActionTypes.SET_POPULAR_ITEMS_FOR_PROMOBLOCK_3:
             return {
                 ...state,
                 popularItemsForPromoBlock3: action.payload
             }
 
-        case 'SET_ACTIVE_PROMO_GROUP':
+        case ActionTypes.SET_ACTIVE_PROMO_GROUP:
             return {
                 ...state,
                 activePromoGroup: {name: action.payload.name, arrPromo: action.payload.arrPromo}
             }
 
-        case 'SET_PREDICTOR':
+        case ActionTypes.SET_PREDICTOR:
             return {
                 ...state,
                 predictor: action.payload
             }
 
-        case 'REQUEST_INTERNET_SALES':
+        case ActionTypes.REQUEST_INTERNET_SALES:
             return {
                 ...state,
                 internetSales: action.payload,
@@ -180,19 +180,19 @@ const reducer = (state = initialState, action: any): StateTypes => {
                 error: null
             }
 
-        case 'ON_REQUEST_FROM_SEARCH_PANEL':
+        case ActionTypes.ON_REQUEST_FROM_SEARCH_PANEL:
             return {
                 ...state,
                 requestFromSearchPanelThisTime: true
             }
 
-        case 'OFF_REQUEST_FROM_SEARCH_PANEL':
+        case ActionTypes.OFF_REQUEST_FROM_SEARCH_PANEL:
             return {
                 ...state,
                 requestFromSearchPanelThisTime: false
             }
 
-        case 'SET_CATALOG':
+        case ActionTypes.SET_CATALOG:
             return {
                 ...state,
                 catalog: action.payload,
@@ -200,13 +200,13 @@ const reducer = (state = initialState, action: any): StateTypes => {
                 error: null
             }
 
-        case 'SET_FAVORITES_TO_STORE':
+        case ActionTypes.SET_FAVORITES_TO_STORE:
             return {
                 ...state,
                 favorites: action.payload
             };
 
-        case 'ADD_FAVORITES_TO_STORE':
+        case ActionTypes.ADD_FAVORITES_TO_STORE:
             const copyFavorites = [...state.favorites]
             copyFavorites.push(action.payload)
             return {
@@ -215,13 +215,13 @@ const reducer = (state = initialState, action: any): StateTypes => {
                 loadingFavorites: 0
             };
 
-        case 'SET_PROMO_ITEMS':
+        case ActionTypes.SET_PROMO_ITEMS:
             return {
                 ...state,
                 promoItems: action.payload
             };
 
-        case 'DELETE_FAVORITES_TO_STORE':
+        case ActionTypes.DELETE_FAVORITES_TO_STORE:
             const copyFavoritesFromDelete = [...state.favorites]
             const delIndex = copyFavoritesFromDelete.findIndex(item => item.guid === action.payload)
             copyFavoritesFromDelete.splice(delIndex, 1)
@@ -231,7 +231,7 @@ const reducer = (state = initialState, action: any): StateTypes => {
                 loadingFavorites: 0,
             };
 
-        case 'FETCH_RETAILS_CITY_SUCCESS':
+        case ActionTypes.FETCH_RETAILS_CITY_SUCCESS:
             return {
                 ...state,
                 retailsCity: action.payload,
@@ -239,7 +239,7 @@ const reducer = (state = initialState, action: any): StateTypes => {
                 error: null
             };
 
-        case 'SET_PRODUCTS_TO_CATEGORY':
+        case ActionTypes.SET_PRODUCTS_TO_CATEGORY:
             return {
                 ...state,
                 productsToCategory: action.payload.products,
@@ -248,7 +248,7 @@ const reducer = (state = initialState, action: any): StateTypes => {
                 error: null
             }
 
-        case 'SET_SALES':
+        case ActionTypes.SET_SALES:
             return {
                 ...state,
                 sales: action.payload,
@@ -256,7 +256,7 @@ const reducer = (state = initialState, action: any): StateTypes => {
                 error: null
             }
 
-        case 'SET_CITY':
+        case ActionTypes.SET_CITY:
             return {
                 ...state,
                 isCity: action.payload,
@@ -264,72 +264,72 @@ const reducer = (state = initialState, action: any): StateTypes => {
                 error: null
             };
 
-        case 'ON_POPUP_LOCATION':
+        case ActionTypes.ON_POPUP_LOCATION:
             return {
                 ...state,
                 isPopupLocation: action.payload
             }
 
-        case 'SET_ACTIVE_CATEGORY':
+        case ActionTypes.SET_ACTIVE_CATEGORY:
             return {
                 ...state,
                 activeCategory: action.payload
             }
 
-        case 'ITEM_ADDED_TO_CART':
+        case ActionTypes.ITEM_ADDED_TO_CART:
             return updateOrder(state, action.payload, 1);
 
-        case 'ITEM_REMOVED_FROM_CART':
+        case ActionTypes.ITEM_REMOVED_FROM_CART:
             return updateOrder(state, action.payload, -1);
 
-        case 'ALL_ITEM_REMOVED_FROM_CART':
+        case ActionTypes.ALL_ITEM_REMOVED_FROM_CART:
             const item = state.cart.find(({itemId}) => itemId === action.payload);
             return item ? updateOrder(state, action.payload, -item.count) : state;
 
-        case 'SET_COUNT_ITEM_CART':
+        case ActionTypes.SET_COUNT_ITEM_CART:
             return updateOrder(state, action.payload.idProduct, -action.payload.delta);
 
-        case 'REWRITE_CART':
+        case ActionTypes.REWRITE_CART:
             return {
                 ...state,
                 cart: action.payload
             };
 
-        case 'LOADING_FAVORITES' :
+        case ActionTypes.LOADING_FAVORITES :
             return {
                 ...state,
                 loadingFavorites: state.loadingFavorites + 1
             };
 
-        case 'LOADING' :
+        case ActionTypes.LOADING :
             return {
                 ...state,
                 loading: state.loading + 1,
                 error: null
             };
 
-        case 'LOADING_OFF':
+        case ActionTypes.LOADING_OFF:
             return {
                 ...state,
                 loading: (state.loading > 0) ? (state.loading - 1) : 0,
                 error: null
             }
 
-        case 'LOADING_RESET':
+        case ActionTypes.LOADING_RESET:
             return {
                 ...state,
                 loading: 0
             }
 
         // подробная информация о товаре
-        case 'LOADING_PRODUCT_INFO':
+        case ActionTypes.LOADING_PRODUCT_INFO:
             return {
                 ...state,
                 productInfo: action.payload,
                 loading: (state.loading > 0) ? (state.loading - 1) : 0
             };
 
-        case 'SET_CART_ITEMS':
+        case ActionTypes.SET_CART_ITEMS:
             const newCardItems: TypeSetCartItem[] = action.payload
             const retailsArr: RetailItem[] = []
             if (newCardItems.length) {
@@ -431,13 +431,13 @@ const reducer = (state = initialState, action: any): StateTypes => {
                 error: null
             }
 
-        case 'FALSE_IS_DELETE_CART_ITEMS':
+        case ActionTypes.FALSE_IS_DELETE_CART_ITEMS:
             return {
                 ...state,
                 isDelCartItem: false
             }
 
-        case 'ON_SELECT_RETAIL':
+        case ActionTypes.ON_SELECT_RETAIL:
             return {
                 ...state,
                 selectedRetail: action.payload,
@@ -445,7 +445,7 @@ const reducer = (state = initialState, action: any): StateTypes => {
                 error: null
             }
 
-        case 'DEL_CART_ITEM':
+        case ActionTypes.DEL_CART_ITEM:
             return {
                 ...state,
                 cartItems: [],
@@ -454,7 +454,7 @@ const reducer = (state = initialState, action: any): StateTypes => {
             }
 
         //запрос списка продуктов из поисковой строки
-        case 'FETCH_PRODUCTS_FROM_SEARCH_SUCCESS':
+        case ActionTypes.FETCH_PRODUCTS_FROM_SEARCH_SUCCESS:
             return {
                 ...state,
                 productsFromSearch: action.payload.products,
@@ -465,9 +465,14 @@ const reducer = (state = initialState, action: any): StateTypes => {
             };
 
         //запрос списка городов
-        case 'FETCH_CITIES_SUCCESS':
+        case ActionTypes.FETCH_CITIES_SUCCESS:
             const regions = [...state.regions]
-            action.payload.forEach((itemCity: { regionGuid: string; regionTitle: string; guid: string; title: string; }) => {
+            action.payload.forEach((itemCity: {
+                regionGuid: string;
+                regionTitle: string;
+                guid: string;
+                title: string;
+            }) => {
                 const region = {
                     regionGuid: itemCity.regionGuid,
                     regionTitle: itemCity.regionTitle,
@@ -505,33 +510,33 @@ const reducer = (state = initialState, action: any): StateTypes => {
                 error: null
             };
 
-        case 'FETCH_FAILURE' :
+        case ActionTypes.FETCH_FAILURE :
             return {
                 ...state,
                 loading: (state.loading > 0) ? (state.loading - 1) : 0,
                 error: action.payload
             };
 
-        case 'AUTH_FAILURE' :
+        case ActionTypes.AUTH_FAILURE :
             return {
                 ...state,
                 loading: (state.loading > 0) ? (state.loading - 1) : 0,
                 errorAuth: action.payload
             };
 
-        case 'CLEAR_ERROR' :
+        case ActionTypes.CLEAR_ERROR :
             return {
                 ...state,
                 error: null
             }
 
-        case 'CLEAR_CART':
+        case ActionTypes.CLEAR_CART:
             return {
                 ...state,
                 cart: []
             }
 
-        case 'TOKEN':
+        case ActionTypes.TOKEN:
             return {
                 ...state,
                 TOKEN: action.payload,
@@ -539,7 +544,7 @@ const reducer = (state = initialState, action: any): StateTypes => {
                 error: null
             }
 
-        case 'USER_DATA':
+        case ActionTypes.USER_DATA:
             return {
                 ...state,
                 userData: action.payload,
@@ -547,7 +552,7 @@ const reducer = (state = initialState, action: any): StateTypes => {
                 error: null
             }
 
-        case 'LOGOUT':
+        case ActionTypes.LOGOUT:
             return {
                 ...state,
                 TOKEN: null,

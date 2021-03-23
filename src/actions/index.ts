@@ -3,7 +3,9 @@ import {seasonPromoItems} from "../testData/seasonPromoItems";
 import {popularPromoItems} from "../testData/popularPromoItems";
 
 import {
+    Action_fetchCities,
     Action_fetchRetailsCity,
+    Action_setCatalog,
     Action_setProductsToCategory,
     Action_setSales,
     ActionAddedToCart,
@@ -45,17 +47,17 @@ import {
     CartItemType,
     internetSale,
     ObjType,
-    productInfo,
     retailCity,
     tCatalog,
     TypeApiService,
+    TypeProductInfo,
     TypeSetCartItem,
 } from "../types";
 import {AnyAction} from "redux";
 import {StateType} from "../store";
 import {ThunkAction} from "redux-thunk";
 
-type ThunkType = ThunkAction<any, StateType, TypeApiService, AnyAction>
+export type ThunkType = ThunkAction<any, StateType, TypeApiService, AnyAction>
 
 const setError = (error: any): ActionSetError => {
     return {
@@ -210,16 +212,25 @@ const setIsCity = (isCity: { guid: string, title: string, [key: string]: any }):
     dispatch(fetchCartItems(isCity.guid))
 }
 
+const _fetchCities = (cities: {
+    regionGuid: string;
+    regionTitle: string;
+    guid: string;
+    title: string;
+}[]): Action_fetchCities => {
+    return {type: ActionTypes.FETCH_CITIES_SUCCESS, payload: cities}
+}
+
 // запрос списка городов
 const fetchCities = (): ThunkType => async (dispatch, getState, apiService) => {
     try {
         dispatch(loadingTrue())
         const response = await apiService.getCities()
-        dispatch({type: 'FETCH_CITIES_SUCCESS', payload: response})
+        dispatch(_fetchCities(response))
 
         // если в localStorage есть город - устанавливаем его
         if (localStorage.getItem("city")) {
-            const cityItem = JSON.parse(<string>localStorage.getItem("city"))[0]
+            const cityItem = JSON.parse(localStorage.getItem("city") as string)[0]
             dispatch(setIsCity(cityItem))
         } else {
 
@@ -277,7 +288,7 @@ const itemRemovedFromCart = (ItemId: string): ActionItemRemovedFromCart => {
 // уменьшает count объекта с ItemId на count - т.е. обнуляет, и объект удаляется из cart.
 const allItemRemovedFromCart = (ItemId: string): ActionAllItemRemovedFromCart => {
     return {
-        type: ActionTypes.ITEM_REMOVED_FROM_CART,
+        type: ActionTypes.ALL_ITEM_REMOVED_FROM_CART,
         payload: ItemId
     }
 }
@@ -338,7 +349,7 @@ function getProductsFromSearchLimit(options: {
 }
 
 // устанавливаем доп.инфу о товаре - который смотрим на страницу CardPage
-const loadingProductInfo = (product: productInfo): ActionLoadingProductInfo => {
+const loadingProductInfo = (product: TypeProductInfo): ActionLoadingProductInfo => {
     return {
         type: ActionTypes.LOADING_PRODUCT_INFO,
         payload: product
@@ -382,7 +393,7 @@ const setToken = (token: { accessToken: string, refreshToken: string }): ActionS
 
 // POST запрос refreshTOKEN
 const refreshAuthentication = (): ThunkType => async (dispatch, getState, apiService) => {
-    const TOKEN = getState().TOKEN || JSON.parse(<string>localStorage.getItem('TOKEN'))
+    const TOKEN = getState().TOKEN || JSON.parse(localStorage.getItem('TOKEN') as string)
     dispatch(loadingTrue())
     try {
         const response = await apiService.refreshToken(TOKEN)
@@ -618,14 +629,18 @@ function setActiveCategory(categoryItem: tCatalog): ActionSetActiveCategory {
     }
 }
 
+const _setCatalog = (catalog: tCatalog): Action_setCatalog => {
+    return {
+        type: ActionTypes.SET_CATALOG,
+        payload: catalog
+    }
+}
+
 const setCatalog = (): ThunkType => async (dispatch, getState, apiService) => {
     dispatch(loadingTrue())
     try {
         const response = await apiService.buildCatalog()
-        dispatch({
-            type: 'SET_CATALOG',
-            payload: response
-        })
+        dispatch(_setCatalog(response))
         if (!getState().activeCategory) dispatch(setActiveCategory(response));
     } catch (e) {
         dispatch(setError(e))
@@ -674,7 +689,7 @@ const setUserData = (data: { [key: string]: string | number | boolean | null | O
 
 // запрос информации о пользователе по TOKEN из LocalStorage
 const fetchUserData = (): ThunkType => async (dispatch, getState, apiService) => {
-    const accessToken = getState().TOKEN?.accessToken || JSON.parse(<string>localStorage.getItem('TOKEN')).accessToken
+    const accessToken = getState().TOKEN?.accessToken || JSON.parse(localStorage.getItem('TOKEN') as string).accessToken
     dispatch(loadingTrue())
     try {
         const response = await apiService.getUserData(accessToken)
@@ -723,7 +738,7 @@ const getInternetSales = (): ThunkType => async (dispatch, getState, apiService)
 // получить данные необходимы для личного кабинета
 function getDataProfile(): ThunkType {
     return async (dispatch, getState, apiService) => {
-        const TOKEN = getState().TOKEN || JSON.parse(<string>localStorage.getItem('TOKEN'))
+        const TOKEN = getState().TOKEN || JSON.parse(localStorage.getItem('TOKEN') as string)
         const accessToken = TOKEN.accessToken
         dispatch(loadingTrue())
         try {
