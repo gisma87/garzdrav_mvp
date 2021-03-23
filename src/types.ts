@@ -120,16 +120,22 @@ export type internetSale = {
     [key: string]: string | number | null | ObjType | (string | number | ObjType)[]
 }
 
-export type TypeItemsForPromoBlock = {
+export type TypeItemForPromoBlock = {
     guid: string,
     product: string,
     manufacturer: string,
     categoryGuid: string,
     countLast: number,
     minPrice: number,
-    img: string,
+    img: string | null,
+    retails: {
+        countLast: number,
+        priceRetail: number
+    }[],
     [key: string]: string | number | null | ObjType | (string | number | ObjType)[]
-}[]
+}
+
+export type TypeItemsForPromoBlock = TypeItemForPromoBlock[]
 
 export interface StateTypes {
     cities: {

@@ -6,6 +6,8 @@ import {
     Action_fetchCities,
     Action_fetchRetailsCity,
     Action_setCatalog,
+    Action_setCity,
+    Action_setInternetSales,
     Action_setProductsToCategory,
     Action_setSales,
     ActionAddedToCart,
@@ -15,7 +17,8 @@ import {
     ActionClearError,
     ActionDelCartItems,
     ActionDelFavoritesToStore,
-    ActionItemRemovedFromCart,
+    ActionItemRemovedFromCart, ActionItemsForPromoBlock,
+    ActionLoadingFalse,
     ActionLoadingFavorites,
     ActionLoadingProductInfo,
     ActionLoadingTrue,
@@ -39,7 +42,8 @@ import {
     ActionSetToken,
     ActionSetUserData,
     ActionsSetErrorAuth,
-    ActionStatusRequestRepeatOrder
+    ActionStatusRequestRepeatOrder,
+    ActionType
 } from "./actionType";
 
 import {
@@ -49,15 +53,14 @@ import {
     ObjType,
     retailCity,
     tCatalog,
-    TypeApiService,
+    TypeApiService, TypeItemForPromoBlock, TypeItemsForPromoBlock,
     TypeProductInfo,
     TypeSetCartItem,
 } from "../types";
-import {AnyAction} from "redux";
 import {StateType} from "../store";
 import {ThunkAction} from "redux-thunk";
 
-export type ThunkType = ThunkAction<any, StateType, TypeApiService, AnyAction>
+export type ThunkType = ThunkAction<any, StateType, TypeApiService, ActionType>
 
 const setError = (error: any): ActionSetError => {
     return {
@@ -87,7 +90,7 @@ const loadingTrue = (): ActionLoadingTrue => {
     }
 }
 
-const loadingFalse = () => {
+const loadingFalse = (): ActionLoadingFalse => {
     return {
         type: ActionTypes.LOADING_OFF
     }
@@ -126,7 +129,7 @@ const setStatusRequestOrder = (status: 'executed' | 'failure' | ''): ActionStatu
 // серия запросов подробной информации о товаре из списка корзины - по IDproduct и IDcity.
 // Формируется массив cartItems - список товаров со списком аптек в нём, где этот товар есть.
 // Из массива cartItems формируется массив retailsArr - список аптек, со списком товаров из корзины имеющихся в этой аптеке.
-const fetchCartItems = (city: string | null = null): ThunkType => (dispatch, getState, apiService) => {
+const fetchCartItems = (city: string | null = null): ThunkAction<Promise<void>, StateType, TypeApiService, ActionType> => (dispatch, getState, apiService) => {
     const {cart, isCity} = getState()
     const cityId = city || isCity.guid
     dispatch(clearError())
@@ -137,7 +140,7 @@ const fetchCartItems = (city: string | null = null): ThunkType => (dispatch, get
         const arrFetch = cart.map((product: CartItemType) => {
             return apiService.getProductInfo(product.itemId, cityId)
         })
-        Promise.allSettled([...arrFetch])
+        return Promise.allSettled([...arrFetch])
             .then(allResponses => {
                 const fulfilledArray = allResponses.filter(item => item.status === 'fulfilled').map(item => (item as { value: TypeSetCartItem }).value)
                 const responseArray = fulfilledArray.filter(item => Boolean(item.length !== 0))
@@ -149,7 +152,10 @@ const fetchCartItems = (city: string | null = null): ThunkType => (dispatch, get
                 dispatch(setError(error))
             })
             .finally(() => dispatch(loadingFalse()))
+    } else {
+        return Promise.reject(new Error('В корзине нет товаров'))
     }
+
 }
 
 // повторить заказ - серия запросов подробной инф. о товаре, если res.ok тогда добавляем в корзину
@@ -193,7 +199,7 @@ const onPopupLocation = (boolean: boolean): ActionOnPopupLocation => {
     }
 }
 
-const _setCity = (isCity: { guid: string, title: string, [key: string]: any }) => {
+const _setCity = (isCity: { guid: string, title: string, [key: string]: any }): Action_setCity => {
     return {
         type: ActionTypes.SET_CITY,
         payload: isCity
@@ -425,7 +431,7 @@ const authorizedByPassOrSMS = (phone: string, passOrSms: string, callback: null 
     dispatch(loadingTrue())
     apiService.authentication(phone, passOrSms)
         .then(response => {
-            dispatch({type: 'TOKEN', payload: response})
+            dispatch(setToken(response))
             localStorage.setItem('TOKEN', JSON.stringify(response))
             console.log('access_TOKEN')
             dispatch(getToFavorites())
@@ -440,7 +446,7 @@ const authorizedByPassOrSMS = (phone: string, passOrSms: string, callback: null 
                 console.log('err.response: ', err.response)
                 apiService.postSmsCode(phone, passOrSms)
                     .then(response => {
-                        dispatch({type: 'TOKEN', payload: response})
+                        dispatch(setToken(response))
                         localStorage.setItem('TOKEN', JSON.stringify(response))
                         console.log('access_TOKEN')
                         dispatch(getToFavorites())
@@ -482,7 +488,7 @@ const authorizedBySMSorPassword = (phone: string, passOrSms: string, callback: n
     dispatch(loadingTrue())
     apiService.postSmsCode(phone, passOrSms)
         .then(response => {
-            dispatch({type: 'TOKEN', payload: response})
+            dispatch(setToken(response))
             localStorage.setItem('TOKEN', JSON.stringify(response))
             console.log('access_TOKEN')
             dispatch(getToFavorites())
@@ -497,7 +503,7 @@ const authorizedBySMSorPassword = (phone: string, passOrSms: string, callback: n
                 console.log('err.response: ', err.response)
                 apiService.authentication(phone, passOrSms)
                     .then(response => {
-                        dispatch({type: 'TOKEN', payload: response})
+                        dispatch(setToken(response))
                         localStorage.setItem('TOKEN', JSON.stringify(response))
                         console.log('access_TOKEN')
                         dispatch(getToFavorites())
@@ -717,9 +723,9 @@ const setSales = (): ThunkType => async (dispatch, getState, apiService) => {
     }
 }
 
-function _setInternetSales(internetSales: internetSale[]) {
+function _setInternetSales(internetSales: internetSale[]): Action_setInternetSales {
     return {
-        type: 'REQUEST_INTERNET_SALES',
+        type: ActionTypes.REQUEST_INTERNET_SALES,
         payload: internetSales
     }
 }
@@ -745,7 +751,7 @@ function getDataProfile(): ThunkType {
             // запрашиваем userData
             const response = await apiService.getUserData(accessToken)
             //если всё хорошо, то записываем данные в store и запрашиваем интернет заказы и историю покупок
-            dispatch({type: 'USER_DATA', payload: response})
+            dispatch(setUserData(response))
             dispatch(getInternetSales())
             dispatch(setSales())
         } catch (e) {
@@ -967,6 +973,27 @@ const setFalseIsDelCartItems = (): ActionSetFalseIsDelCartItems => {
     }
 }
 
+const _setItemsForPromoBlock1 = (itemsForPromoBlock: TypeItemsForPromoBlock): ActionItemsForPromoBlock => {
+    return {
+        type: ActionTypes.SET_ITEMS_FOR_PROMOBLOCK_1,
+        payload: itemsForPromoBlock
+    }
+}
+
+const _setItemsForPromoBlock2 = (itemsForPromoBlock: TypeItemsForPromoBlock): ActionItemsForPromoBlock => {
+    return {
+        type: ActionTypes.SET_SEASON_ITEMS_FOR_PROMOBLOCK_2,
+        payload: itemsForPromoBlock
+    }
+}
+
+const _setItemsForPromoBlock3 = (itemsForPromoBlock: TypeItemsForPromoBlock): ActionItemsForPromoBlock => {
+    return {
+        type: ActionTypes.SET_POPULAR_ITEMS_FOR_PROMOBLOCK_3,
+        payload: itemsForPromoBlock
+    }
+}
+
 
 // Запрос по списку из promoItemsData(акции на главной стр.) - запрашиваются недостающие данные, и собирается массив из общих данных.
 const setItemsForPromoBlock1 = (): ThunkType => (dispatch, getState, apiService) => {
@@ -980,7 +1007,7 @@ const setItemsForPromoBlock1 = (): ThunkType => (dispatch, getState, apiService)
     })
     Promise.allSettled([...arrFetch])
         .then(allResponses => {
-            const fulfilledArray = allResponses.filter(item => item.status === 'fulfilled').map(item => (item as { value: TypeSetCartItem }).value)
+            const fulfilledArray = allResponses.filter(item => item.status === 'fulfilled').map(item => (item as { value: TypeItemForPromoBlock }).value)
             if (fulfilledArray.length) {
                 const resultArr = fulfilledArray.filter(item => promoItemsData.some(itemData => itemData.guid === item.guid))
                 if (resultArr.length) {
@@ -993,7 +1020,7 @@ const setItemsForPromoBlock1 = (): ThunkType => (dispatch, getState, apiService)
                         resultItem.minPrice = Math.min(...arrMinPrice)
                     })
                 }
-                dispatch({type: ActionTypes.SET_ITEMS_FOR_PROMOBLOCK_1, payload: resultArr})
+                dispatch(_setItemsForPromoBlock1(resultArr))
             }
         })
         .catch(error => dispatch(setError(error)))
@@ -1012,7 +1039,7 @@ const setSeasonItemsForPromoBlock2 = (): ThunkType => (dispatch, getState, apiSe
     })
     Promise.allSettled([...arrFetch])
         .then(allResponses => {
-            const fulfilledArray = allResponses.filter(item => item.status === 'fulfilled').map(item => (item as { value: TypeSetCartItem }).value)
+            const fulfilledArray = allResponses.filter(item => item.status === 'fulfilled').map(item => (item as { value: TypeItemForPromoBlock }).value)
             if (fulfilledArray.length) {
                 const resultArr = fulfilledArray.filter(item => seasonPromoItems.some(itemData => itemData.guid === item.guid))
                 if (resultArr.length) {
@@ -1027,7 +1054,7 @@ const setSeasonItemsForPromoBlock2 = (): ThunkType => (dispatch, getState, apiSe
                         resultItem.minPrice = minPrice
                     })
                 }
-                dispatch({type: ActionTypes.SET_SEASON_ITEMS_FOR_PROMOBLOCK_2, payload: resultArr})
+                dispatch(_setItemsForPromoBlock2(resultArr))
             }
         })
         .catch(error => dispatch(setError(error)))
@@ -1046,7 +1073,7 @@ const setPopularItemsForPromoBlock3 = (): ThunkType => (dispatch, getState, apiS
     })
     Promise.allSettled([...arrFetch])
         .then(allResponses => {
-            const fulfilledArray = allResponses.filter(item => item.status === 'fulfilled').map(item => (item as { value: TypeSetCartItem }).value)
+            const fulfilledArray = allResponses.filter(item => item.status === 'fulfilled').map(item => (item as { value: TypeItemForPromoBlock }).value)
             if (fulfilledArray.length) {
                 const resultArr = fulfilledArray.filter(item => popularPromoItems.some(itemData => itemData.guid === item.guid))
                 if (resultArr.length) {
@@ -1061,7 +1088,7 @@ const setPopularItemsForPromoBlock3 = (): ThunkType => (dispatch, getState, apiS
                         resultItem.minPrice = minPrice
                     })
                 }
-                dispatch({type: ActionTypes.SET_POPULAR_ITEMS_FOR_PROMOBLOCK_3, payload: resultArr})
+                dispatch(_setItemsForPromoBlock3(resultArr))
             }
         })
         .catch(error => dispatch(setError(error)))
