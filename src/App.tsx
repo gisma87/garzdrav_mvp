@@ -24,8 +24,13 @@ import CatalogPage from "./containers/CatalogPage/CatalogPage";
 import Development from "./components/Development/Development";
 import InfoTEST from "./components/InfoTEST/InfoTEST";
 import HowToBuyPage from "./containers/HowToBuyPage/HowToBuyPage";
+import {StateType} from "./store";
 
-function App(props) {
+type Props = {
+  loading?: number
+}
+
+const App: React.FC<Props> = (props) => {
 
   const [howToBuyScroll, setHowToBuyScroll] = useState(false)
 
@@ -68,7 +73,7 @@ function App(props) {
   );
 }
 
-const mapStateToProps = ({loading}) => {
+const mapStateToProps = ({loading}: StateType): Props  => {
   return {loading}
 }
 

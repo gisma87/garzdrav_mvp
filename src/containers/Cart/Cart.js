@@ -170,9 +170,9 @@ class Cart extends React.Component {
       let index = 0
       let promoItem = arrPromoItems[index]
       // если первые 5 символов в названии схожи с названием карточек корзины, то в while берём следующий элемент массива
-      const isEqualString = () => this.props.cartItems.some(item => item.product.slice(0, 5) === arrPromoItems[index].product.slice(0, 5))
+      const isEqualString = () => this.props.cartItems?.some(item => item.product?.slice(0, 5) === arrPromoItems[index]?.product?.slice(0, 5))
 
-      while (isEqualString() && index < arrPromoItems.length) {
+      while ((isEqualString() && index < arrPromoItems.length) && (this.props.promoItems instanceof Object)) {
         promoItem = arrPromoItems[Math.min(arrPromoItems.length - 1, index)]
         index++
       }

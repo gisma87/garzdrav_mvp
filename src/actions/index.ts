@@ -965,21 +965,6 @@ const offRequestFromSearchPanel = (): ActionOffRequestFromSearchPanel => {
     return {type: ActionTypes.OFF_REQUEST_FROM_SEARCH_PANEL}
 }
 
-// отмена заказа
-// const cancelOrder = (orderGuid: string): ThunkType => async (dispatch, getState, apiService) => {
-//     dispatch(loadingTrue())
-//     try {
-//         const response = await apiService.cancelOrder(orderGuid, getState().TOKEN?.accessToken)
-//         dispatch({
-//             type: 'CANCEL_ORDER',
-//             payload: response
-//         })
-//     } catch (e) {
-//         dispatch(setError(e))
-//         return Promise.reject('failed cancelOrder')
-//     }
-// }
-
 const setFalseIsDelCartItems = (): ActionSetFalseIsDelCartItems => {
     return {
         type: ActionTypes.FALSE_IS_DELETE_CART_ITEMS

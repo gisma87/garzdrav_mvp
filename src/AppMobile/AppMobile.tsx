@@ -20,8 +20,13 @@ import CitiesMobile from "../containers/CitiesMobile/CitiesMobile";
 import Faq from "../containers/Faq/Faq";
 import CatalogPage from "../containers/CatalogPage/CatalogPage";
 import Development from "../components/Development/Development";
+import {StateType} from "../store";
 
-function AppMobile(props) {
+type Props = {
+  loading?: number
+}
+
+const AppMobile: React.FC<Props> = (props) => {
 
   return (
     <div className="App">
@@ -57,7 +62,7 @@ function AppMobile(props) {
   );
 }
 
-const mapStateToProps = ({loading}) => {
+const mapStateToProps = ({loading}: StateType): Props  => {
   return {loading}
 }
 
