@@ -26,9 +26,12 @@ import {
     ActionResetLoading,
     ActionRewriteCart,
     ActionSetActiveCategory,
+    ActionSetActivePromoGroup,
     ActionSetCountItemCart,
     ActionSetError,
+    ActionSetFalseIsDelCartItems,
     ActionSetFavoritesToStore,
+    ActionSetPredictor,
     ActionSetPromoItems,
     ActionSetStatusRequestOrder,
     ActionSetToken,
@@ -928,58 +931,51 @@ const offRequestFromSearchPanel = (): ActionOffRequestFromSearchPanel => {
     return {type: ActionTypes.OFF_REQUEST_FROM_SEARCH_PANEL}
 }
 
-function _cancelOrder() {
-
-}
-
 // отмена заказа
-const cancelOrder = (orderGuid: string): ThunkType => async (dispatch, getState, apiService) => {
-    dispatch(loadingTrue())
-    try {
-        const response = await apiService.cancelOrder(orderGuid, getState().TOKEN?.accessToken)
-        dispatch({
-            type: 'CANCEL_ORDER',
-            payload: response
-        })
-    } catch (e) {
-        dispatch(setError(e))
-        return Promise.reject('failed cancelOrder')
-    }
-}
+// const cancelOrder = (orderGuid: string): ThunkType => async (dispatch, getState, apiService) => {
+//     dispatch(loadingTrue())
+//     try {
+//         const response = await apiService.cancelOrder(orderGuid, getState().TOKEN?.accessToken)
+//         dispatch({
+//             type: 'CANCEL_ORDER',
+//             payload: response
+//         })
+//     } catch (e) {
+//         dispatch(setError(e))
+//         return Promise.reject('failed cancelOrder')
+//     }
+// }
 
-const setFalseIsDelCartItems = () => {
+const setFalseIsDelCartItems = (): ActionSetFalseIsDelCartItems => {
     return {
-        type: 'FALSE_IS_DELETE_CART_ITEMS'
+        type: ActionTypes.FALSE_IS_DELETE_CART_ITEMS
     }
 }
 
 
-// Запрос по списку из promoItemsData = запрашиваются недостающие данные, и собирается массив и общих данных.
+// Запрос по списку из promoItemsData(акции на главной стр.) - запрашиваются недостающие данные, и собирается массив из общих данных.
 const setItemsForPromoBlock1 = (): ThunkType => (dispatch, getState, apiService) => {
     const arrIdItems = promoItemsData.map(item => item.guid)
-    const {isCity} = getState()
-    const cityId = isCity.guid
+    const cityId = getState().isCity.guid
     dispatch(clearError())
 
     dispatch(loadingTrue())
-    const arrFetch = arrIdItems.map(product => {
-        return apiService.getProductInfo(product, cityId)
+    const arrFetch = arrIdItems.map(productID => {
+        return apiService.getProductInfo(productID, cityId)
     })
     Promise.allSettled([...arrFetch])
         .then(allResponses => {
-            const fulfilledArray = allResponses.filter(item => item.status === 'fulfilled').map(item => item.value)
+            const fulfilledArray = allResponses.filter(item => item.status === 'fulfilled').map(item => (item as { value: TypeSetCartItem }).value)
             if (fulfilledArray.length) {
                 const resultArr = fulfilledArray.filter(item => promoItemsData.some(itemData => itemData.guid === item.guid))
                 if (resultArr.length) {
                     resultArr.forEach(resultItem => {
                         const arrCountLast = resultItem.retails.map(retail => retail.countLast);
                         const arrMinPrice = resultItem.retails.map(retail => retail.priceRetail);
-                        const countLast = Math.max(...arrCountLast)
-                        const minPrice = Math.min(...arrMinPrice)
-                        const img = promoItemsData.find(dataEl => dataEl.guid === resultItem.guid).img;
-                        resultItem.img = img;
-                        resultItem.countLast = countLast;
-                        resultItem.minPrice = minPrice
+                        const img = promoItemsData.find(dataEl => dataEl.guid === resultItem.guid)?.img;
+                        resultItem.img = img ? img : null;
+                        resultItem.countLast = Math.max(...arrCountLast)
+                        resultItem.minPrice = Math.min(...arrMinPrice)
                     })
                 }
                 dispatch({type: ActionTypes.SET_ITEMS_FOR_PROMOBLOCK_1, payload: resultArr})
@@ -989,7 +985,7 @@ const setItemsForPromoBlock1 = (): ThunkType => (dispatch, getState, apiService)
     dispatch(loadingFalse())
 }
 
-const setSeasonItemsForPromoBlock2 = () => (dispatch, getState, apiService) => {
+const setSeasonItemsForPromoBlock2 = (): ThunkType => (dispatch, getState, apiService) => {
     const arrIdItems = seasonPromoItems.map(item => item.guid)
     const {isCity} = getState()
     const cityId = isCity.guid
@@ -1001,7 +997,7 @@ const setSeasonItemsForPromoBlock2 = () => (dispatch, getState, apiService) => {
     })
     Promise.allSettled([...arrFetch])
         .then(allResponses => {
-            const fulfilledArray = allResponses.filter(item => item.status === 'fulfilled').map(item => item.value)
+            const fulfilledArray = allResponses.filter(item => item.status === 'fulfilled').map(item => (item as { value: TypeSetCartItem }).value)
             if (fulfilledArray.length) {
                 const resultArr = fulfilledArray.filter(item => seasonPromoItems.some(itemData => itemData.guid === item.guid))
                 if (resultArr.length) {
@@ -1010,8 +1006,8 @@ const setSeasonItemsForPromoBlock2 = () => (dispatch, getState, apiService) => {
                         const arrMinPrice = resultItem.retails.map(retail => retail.priceRetail);
                         const countLast = Math.max(...arrCountLast)
                         const minPrice = Math.min(...arrMinPrice)
-                        const img = seasonPromoItems.find(dataEl => dataEl.guid === resultItem.guid).img;
-                        resultItem.img = img;
+                        const img = seasonPromoItems.find(dataEl => dataEl.guid === resultItem.guid)?.img;
+                        resultItem.img = img ? img : null;
                         resultItem.countLast = countLast;
                         resultItem.minPrice = minPrice
                     })
@@ -1035,7 +1031,7 @@ const setPopularItemsForPromoBlock3 = (): ThunkType => (dispatch, getState, apiS
     })
     Promise.allSettled([...arrFetch])
         .then(allResponses => {
-            const fulfilledArray = allResponses.filter(item => item.status === 'fulfilled').map(item => item.value)
+            const fulfilledArray = allResponses.filter(item => item.status === 'fulfilled').map(item => (item as { value: TypeSetCartItem }).value)
             if (fulfilledArray.length) {
                 const resultArr = fulfilledArray.filter(item => popularPromoItems.some(itemData => itemData.guid === item.guid))
                 if (resultArr.length) {
@@ -1044,8 +1040,8 @@ const setPopularItemsForPromoBlock3 = (): ThunkType => (dispatch, getState, apiS
                         const arrMinPrice = resultItem.retails.map(retail => retail.priceRetail);
                         const countLast = Math.max(...arrCountLast)
                         const minPrice = Math.min(...arrMinPrice)
-                        const img = popularPromoItems.find(dataEl => dataEl.guid === resultItem.guid).img;
-                        resultItem.img = img;
+                        const img = popularPromoItems.find(dataEl => dataEl.guid === resultItem.guid)?.img;
+                        resultItem.img = img ? img : null;
                         resultItem.countLast = countLast;
                         resultItem.minPrice = minPrice
                     })
@@ -1057,16 +1053,16 @@ const setPopularItemsForPromoBlock3 = (): ThunkType => (dispatch, getState, apiS
     dispatch(loadingFalse())
 }
 
-const setPredictor = (value) => {
+const setPredictor = (value: { endOfWord: boolean | string, pos: number | string, text: string[] }): ActionSetPredictor => {
     return {
-        type: 'SET_PREDICTOR',
+        type: ActionTypes.SET_PREDICTOR,
         payload: value
     }
 }
 
-const setActivePromoGroup = (promo: { name: string, arrPromo: { [key: string]: any }[] }) => {
+const setActivePromoGroup = (promo: { name: string, arrPromo: { [key: string]: any }[] }): ActionSetActivePromoGroup => {
     return {
-        type: 'SET_ACTIVE_PROMO_GROUP',
+        type: ActionTypes.SET_ACTIVE_PROMO_GROUP,
         payload: promo
     }
 }
@@ -1088,7 +1084,7 @@ export {
     authorizedBySMSorPassword,
     setStatusRequestOrder,
     setCountItemCart,
-    cancelOrder,
+    // cancelOrder,
     getInternetSales,
     onRequestFromSearchPanel,
     offRequestFromSearchPanel,
@@ -1106,7 +1102,7 @@ export {
     setError,
     fetchCities,
     setIsCity,
-    retailsCityLoaded,
+    // retailsCityLoaded,
     addedToCart,
     itemRemovedFromCart,
     allItemRemovedFromCart,

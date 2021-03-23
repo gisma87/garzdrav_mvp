@@ -186,6 +186,20 @@ export interface ActionOffRequestFromSearchPanel{
     type: ActionTypes.OFF_REQUEST_FROM_SEARCH_PANEL,
 }
 
+export interface ActionSetFalseIsDelCartItems{
+    type: ActionTypes.FALSE_IS_DELETE_CART_ITEMS,
+}
+
+export interface ActionSetPredictor{
+    type: ActionTypes.SET_PREDICTOR,
+    payload: { endOfWord: boolean | string, pos: number | string, text: string[] }
+}
+
+export interface ActionSetActivePromoGroup{
+    type: ActionTypes.SET_ACTIVE_PROMO_GROUP,
+    payload: { name: string, arrPromo: { [key: string]: any }[] }
+}
+
 export type ActionType = (
     ActionItemsForPromoBlock
     | ActionStatusRequestRepeatOrder
@@ -222,4 +236,7 @@ export type ActionType = (
     | ActionSetPromoItems
     | ActionOnRequestFromSearchPanel
     | ActionOffRequestFromSearchPanel
+    | ActionSetFalseIsDelCartItems
+    | ActionSetPredictor
+    | ActionSetActivePromoGroup
     )

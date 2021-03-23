@@ -1,4 +1,5 @@
 import {ObjType, StateTypes, CartItemType, TypeSetCartItem} from "../types";
+import {ActionType} from "../actions/actionType";
 
 type RetailItem = {
     guid: string,
