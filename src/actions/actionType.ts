@@ -3,9 +3,9 @@ import {
     CartItemType, internetSale, ObjType,
     TypeProductInfo,
     retailCity,
-    tCatalog,
     TypeItemsForPromoBlock,
-    TypeSetCartItem
+    TypeSetCartItem,
+    CategoryElement
 } from "../types";
 
 export interface ActionItemsForPromoBlock {
@@ -147,7 +147,7 @@ export interface ActionLogout {
 
 export interface ActionSetActiveCategory {
     type: ActionTypes.SET_ACTIVE_CATEGORY,
-    payload: tCatalog
+    payload: CategoryElement
 }
 
 export interface Action_setProductsToCategory {
@@ -202,7 +202,7 @@ export interface ActionSetActivePromoGroup{
 
 export interface Action_setCatalog{
     type: ActionTypes.SET_CATALOG,
-    payload: tCatalog
+    payload: CategoryElement
 }
 
 export interface Action_fetchCities{

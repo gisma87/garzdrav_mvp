@@ -48,11 +48,10 @@ import {
 
 import {
     ActionTypes,
-    CartItemType,
+    CartItemType, CategoryElement,
     internetSale,
-    ObjType,
+    ObjType, Predictor,
     retailCity,
-    tCatalog,
     TypeApiService, TypeItemForPromoBlock, TypeItemsForPromoBlock,
     TypeProductInfo,
     TypeSetCartItem,
@@ -581,9 +580,12 @@ function delFavoritesToStore(IDfavoritesElement: string): ActionDelFavoritesToSt
 function getToFavorites(): ThunkType {
     return async (dispatch, getState, apiService) => {
         try {
+            const accessToken = getState().TOKEN?.accessToken
             const cityId = getState().isCity.guid;
-            const response = await apiService.getToFavorites(getState().TOKEN?.accessToken, cityId)
-            dispatch(setFavoritesToStore(response))
+            if (accessToken) {
+                const response = await apiService.getToFavorites(accessToken, cityId)
+                dispatch(setFavoritesToStore(response))
+            }
         } catch (e) {
             dispatch(setError(e))
         }
@@ -597,9 +599,12 @@ function loadingFavorites(): ActionLoadingFavorites {
 function addToFavorites(productGuid: string): ThunkType {
     return async (dispatch, getState, apiService) => {
         try {
-            dispatch(loadingFavorites())
-            const response = await apiService.addToFavorites(getState().TOKEN?.accessToken, productGuid)
-            dispatch(addFavoritesToStore(response))
+            const accessToken = getState().TOKEN?.accessToken
+            if (accessToken) {
+                dispatch(loadingFavorites())
+                const response = await apiService.addToFavorites(accessToken, productGuid)
+                dispatch(addFavoritesToStore(response))
+            }
         } catch (e) {
             dispatch(setError(e))
             return Promise.reject('failed addToFavorites')
@@ -610,10 +615,13 @@ function addToFavorites(productGuid: string): ThunkType {
 function delToFavorites(productGuid: string): ThunkType {
     return async (dispatch, getState, apiService) => {
         try {
-            dispatch(loadingFavorites())
-            const response = await apiService.delToFavorites(getState().TOKEN?.accessToken, productGuid)
-            if (response === 200) {
-                dispatch(delFavoritesToStore(productGuid))
+            const accessToken = getState().TOKEN?.accessToken
+            if (accessToken) {
+                dispatch(loadingFavorites())
+                const response = await apiService.delToFavorites(accessToken, productGuid)
+                if (response === 200) {
+                    dispatch(delFavoritesToStore(productGuid))
+                }
             }
         } catch (e) {
             dispatch(setError(e))
@@ -627,14 +635,14 @@ function logout(): ActionLogout {
     return {type: ActionTypes.LOGOUT}
 }
 
-function setActiveCategory(categoryItem: tCatalog): ActionSetActiveCategory {
+function setActiveCategory(categoryItem: CategoryElement): ActionSetActiveCategory {
     return {
         type: ActionTypes.SET_ACTIVE_CATEGORY,
         payload: categoryItem
     }
 }
 
-const _setCatalog = (catalog: tCatalog): Action_setCatalog => {
+const _setCatalog = (catalog: CategoryElement): Action_setCatalog => {
     return {
         type: ActionTypes.SET_CATALOG,
         payload: catalog
@@ -715,8 +723,11 @@ function _setSales(sales: any[]): Action_setSales {
 const setSales = (): ThunkType => async (dispatch, getState, apiService) => {
     dispatch(loadingTrue())
     try {
-        const response = await apiService.getSales(getState().TOKEN?.accessToken)
-        dispatch(_setSales(response))
+        const accessToken = getState().TOKEN?.accessToken
+        if (accessToken) {
+            const response = await apiService.getSales(accessToken)
+            dispatch(_setSales(response))
+        }
     } catch (e) {
         dispatch(setError(e))
     }
@@ -733,8 +744,11 @@ function _setInternetSales(internetSales: internetSale[]): Action_setInternetSal
 const getInternetSales = (): ThunkType => async (dispatch, getState, apiService) => {
     dispatch(loadingTrue())
     try {
-        const response = await apiService.getOrder(getState().TOKEN?.accessToken)
-        dispatch(_setInternetSales(response))
+        const accessToken = getState().TOKEN?.accessToken
+        if (accessToken) {
+            const response = await apiService.getOrder(accessToken)
+            dispatch(_setInternetSales(response))
+        }
     } catch (e) {
         dispatch(setError(e))
     }
@@ -1006,7 +1020,7 @@ const setItemsForPromoBlock1 = (): ThunkType => (dispatch, getState, apiService)
     })
     return Promise.allSettled([...arrFetch])
         .then(allResponses => {
-            const fulfilledArray = allResponses.filter(item => item.status === 'fulfilled').map(item => (item as { value: TypeItemForPromoBlock }).value)
+            const fulfilledArray = allResponses.filter(item => item.status === 'fulfilled').map(item => (item as unknown as { value: TypeItemForPromoBlock }).value)
             if (fulfilledArray.length) {
                 const resultArr = fulfilledArray.filter(item => promoItemsData.some(itemData => itemData.guid === item.guid))
                 if (resultArr.length) {
@@ -1038,7 +1052,7 @@ const setSeasonItemsForPromoBlock2 = (): ThunkType => (dispatch, getState, apiSe
     })
     return Promise.allSettled([...arrFetch])
         .then(allResponses => {
-            const fulfilledArray = allResponses.filter(item => item.status === 'fulfilled').map(item => (item as { value: TypeItemForPromoBlock }).value)
+            const fulfilledArray = allResponses.filter(item => item.status === 'fulfilled').map(item => (item as unknown as { value: TypeItemForPromoBlock }).value)
             if (fulfilledArray.length) {
                 const resultArr = fulfilledArray.filter(item => seasonPromoItems.some(itemData => itemData.guid === item.guid))
                 if (resultArr.length) {
@@ -1072,7 +1086,7 @@ const setPopularItemsForPromoBlock3 = (): ThunkType => (dispatch, getState, apiS
     })
     return Promise.allSettled([...arrFetch])
         .then(allResponses => {
-            const fulfilledArray = allResponses.filter(item => item.status === 'fulfilled').map(item => (item as { value: TypeItemForPromoBlock }).value)
+            const fulfilledArray = allResponses.filter(item => item.status === 'fulfilled').map(item => (item as unknown as { value: TypeItemForPromoBlock }).value)
             if (fulfilledArray.length) {
                 const resultArr = fulfilledArray.filter(item => popularPromoItems.some(itemData => itemData.guid === item.guid))
                 if (resultArr.length) {
@@ -1094,7 +1108,7 @@ const setPopularItemsForPromoBlock3 = (): ThunkType => (dispatch, getState, apiS
         .finally(() => dispatch(loadingFalse()))
 }
 
-const setPredictor = (value: { endOfWord: boolean | string, pos: number | string, text: string[] }): ActionSetPredictor => {
+const setPredictor = (value: Predictor): ActionSetPredictor => {
     return {
         type: ActionTypes.SET_PREDICTOR,
         payload: value

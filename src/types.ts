@@ -51,13 +51,6 @@ export enum ActionTypes {
     FETCH_CITIES_SUCCESS = 'FETCH_CITIES_SUCCESS'
 }
 
-export type tCatalog = {
-    guid: string,
-    title: string,
-    parent: null | string,
-    child: tCatalog[],
-    historyGuid: string[]
-}
 export type TypeSetCartItem = {
     guid: string,
     product: string,
@@ -119,6 +112,37 @@ export type internetSale = {
     items: { [key: string]: string | number }[],
     [key: string]: string | number | null | ObjType | (string | number | ObjType)[]
 }
+
+export type TypeSale = {
+    sumDocument: string | number,
+    accumulationBonus: string | number
+    spendBonus: string | number,
+    cash: string | number,
+    cashless: string | number,
+    dateDocument: string | number,
+    retail: {
+        guid: string,
+        brand: string,
+        buildNumber: string,
+        city: string,
+        coordinates: (number | string)[]
+        phone: string,
+        street: string,
+        title: string,
+        weekDayTime: string
+    }
+    products: {
+        productTitle: string,
+        productGuid: string,
+        priceRetail: number,
+        quantity: string | number,
+        spendBonus: string | number,
+        accumulationBonus: string | number,
+        discount: string | number
+    }[]
+}
+
+export type Predictor = { endOfWord: boolean | string, pos: number | string, text: string[] }
 
 export type TypeItemForPromoBlock = {
     guid: string,
@@ -193,18 +217,18 @@ export interface StateTypes {
     isPopupLocation: boolean,
     TOKEN: null | { accessToken: string, refreshToken: string },
     userData: { [key: string]: string | number | boolean | null | ObjType[] } | null,
-    catalog: null | tCatalog,
-    activeCategory: null | tCatalog,
+    catalog: null | CategoryElement,
+    activeCategory: null | CategoryElement,
     productsToCategory: { guid: string, product: string, [key: string]: string | number | null }[],
     countProductsCategory: null | number,
-    sales: any[],
+    sales: TypeSale[],
     productSearch: string,
     requestFromSearchPanelThisTime: boolean,
     internetSales: internetSale[],
     statusRequestRepeatOrder: 'executed' | 'failure' | '',
     promoItems: null | string | any,
     isDelCartItem: boolean,
-    predictor: null | { [key: string]: any },
+    predictor: null | Predictor,
     activePromoGroup: { name: string, arrPromo: { [key: string]: any }[] }
 
     itemsForPromoBlock1: TypeItemsForPromoBlock,
@@ -239,7 +263,40 @@ export type TypeResponseProductInfo = {
     [key: string]: string | number | ObjType | (number | string | ObjType)[],
 }
 
-export type TypeResponseCategories = { guid: string, parent: string | null, title: string }[]
+export type TypeResponseCategoriesElement = { guid: string, parent: string | null, title: string }
+
+export type TypeResponseSale = {
+    sumDocument: string | number,
+    accumulationBonus: string | number
+    spendBonus: string | number,
+    cash: string | number,
+    cashless: string | number,
+    dateDocument: string | number,
+
+    items: {
+        productTitle: string,
+        productGuid: string,
+        priceRetail: number,
+        quantity: string | number,
+        spendBonus: string | number,
+        accumulationBonus: string | number,
+        discount: string | number
+    }[]
+    retail: {
+        guid: string,
+        brand: string,
+        buildNumber: string,
+        city: string,
+        coordinates: (number | string)[]
+        phone: string,
+        street: string,
+        title: string,
+        weekDayTime: string
+    },
+
+    [key: string]: string | number | ObjType | (number | string | ObjType)[]
+}
+
 
 export type TypeOrder = {
     retailGuid: string,
@@ -283,5 +340,5 @@ export interface CategoryElement {
     title: string,
     parent: string | null,
 
-    getChildrens(): void
+    _getChildrens(): void
 }
