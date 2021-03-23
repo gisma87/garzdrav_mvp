@@ -133,7 +133,6 @@ function isEmpty(obj: Object) {
 
 const reducer = (state = initialState, action: ActionType): StateTypes => {
 
-    console.log(action.type, (action as any).payload);
     switch (action.type) {
 
         case ActionTypes.SET_STATUS_REQUEST_REPEAT_ORDER:

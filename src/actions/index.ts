@@ -60,7 +60,7 @@ import {
 import {StateType} from "../store";
 import {ThunkAction} from "redux-thunk";
 
-export type ThunkType = ThunkAction<any, StateType, TypeApiService, ActionType>
+export type ThunkType = ThunkAction<void | Promise<any>, StateType, TypeApiService, ActionType>
 
 const setError = (error: any): ActionSetError => {
     return {
@@ -129,7 +129,7 @@ const setStatusRequestOrder = (status: 'executed' | 'failure' | ''): ActionStatu
 // серия запросов подробной информации о товаре из списка корзины - по IDproduct и IDcity.
 // Формируется массив cartItems - список товаров со списком аптек в нём, где этот товар есть.
 // Из массива cartItems формируется массив retailsArr - список аптек, со списком товаров из корзины имеющихся в этой аптеке.
-const fetchCartItems = (city: string | null = null): ThunkAction<Promise<void>, StateType, TypeApiService, ActionType> => (dispatch, getState, apiService) => {
+const fetchCartItems = (city: string | null = null): ThunkType => (dispatch, getState, apiService) => {
     const {cart, isCity} = getState()
     const cityId = city || isCity.guid
     dispatch(clearError())
@@ -152,8 +152,6 @@ const fetchCartItems = (city: string | null = null): ThunkAction<Promise<void>, 
                 dispatch(setError(error))
             })
             .finally(() => dispatch(loadingFalse()))
-    } else {
-        return Promise.reject(new Error('В корзине нет товаров'))
     }
 
 }
@@ -169,7 +167,7 @@ const repeatOrder = (arrayProducts: { idProduct: string, count: number }[]): Thu
         const arrFetch = arrayProducts.map(product => {
             return apiService.getProductInfo(product.idProduct, isCity.guid)
         })
-        Promise.all([...arrFetch])
+        return Promise.all([...arrFetch])
             .then(allResponses => {
                 const responseArray = allResponses.filter(item => Boolean(item.length !== 0))
                 if (responseArray.length) {
@@ -187,7 +185,8 @@ const repeatOrder = (arrayProducts: { idProduct: string, count: number }[]): Thu
                 } else dispatch(setStatusRequestOrder('failure'))
             })
             .catch(allError => dispatch(setError(allError)))
-        dispatch(loadingFalse())
+            .finally(() => dispatch(loadingFalse()))
+
     }
 }
 
@@ -215,7 +214,7 @@ const setIsCity = (isCity: { guid: string, title: string, [key: string]: any }):
     // устанавливаем город
     dispatch(_setCity(isCity))
     // запрашиваем инф. о товарах в корзине по новому городу
-    dispatch(fetchCartItems(isCity.guid))
+    return dispatch(fetchCartItems(isCity.guid))
 }
 
 const _fetchCities = (cities: {
@@ -1005,7 +1004,7 @@ const setItemsForPromoBlock1 = (): ThunkType => (dispatch, getState, apiService)
     const arrFetch = arrIdItems.map(productID => {
         return apiService.getProductInfo(productID, cityId)
     })
-    Promise.allSettled([...arrFetch])
+    return Promise.allSettled([...arrFetch])
         .then(allResponses => {
             const fulfilledArray = allResponses.filter(item => item.status === 'fulfilled').map(item => (item as { value: TypeItemForPromoBlock }).value)
             if (fulfilledArray.length) {
@@ -1024,7 +1023,7 @@ const setItemsForPromoBlock1 = (): ThunkType => (dispatch, getState, apiService)
             }
         })
         .catch(error => dispatch(setError(error)))
-    dispatch(loadingFalse())
+        .finally(() => dispatch(loadingFalse()))
 }
 
 const setSeasonItemsForPromoBlock2 = (): ThunkType => (dispatch, getState, apiService) => {
@@ -1037,7 +1036,7 @@ const setSeasonItemsForPromoBlock2 = (): ThunkType => (dispatch, getState, apiSe
     const arrFetch = arrIdItems.map(product => {
         return apiService.getProductInfo(product, cityId)
     })
-    Promise.allSettled([...arrFetch])
+    return Promise.allSettled([...arrFetch])
         .then(allResponses => {
             const fulfilledArray = allResponses.filter(item => item.status === 'fulfilled').map(item => (item as { value: TypeItemForPromoBlock }).value)
             if (fulfilledArray.length) {
@@ -1058,7 +1057,7 @@ const setSeasonItemsForPromoBlock2 = (): ThunkType => (dispatch, getState, apiSe
             }
         })
         .catch(error => dispatch(setError(error)))
-    dispatch(loadingFalse())
+        .finally(() => dispatch(loadingFalse()))
 }
 
 const setPopularItemsForPromoBlock3 = (): ThunkType => (dispatch, getState, apiService) => {
@@ -1071,7 +1070,7 @@ const setPopularItemsForPromoBlock3 = (): ThunkType => (dispatch, getState, apiS
     const arrFetch = arrIdItems.map(product => {
         return apiService.getProductInfo(product, cityId)
     })
-    Promise.allSettled([...arrFetch])
+    return Promise.allSettled([...arrFetch])
         .then(allResponses => {
             const fulfilledArray = allResponses.filter(item => item.status === 'fulfilled').map(item => (item as { value: TypeItemForPromoBlock }).value)
             if (fulfilledArray.length) {
@@ -1092,7 +1091,7 @@ const setPopularItemsForPromoBlock3 = (): ThunkType => (dispatch, getState, apiS
             }
         })
         .catch(error => dispatch(setError(error)))
-    dispatch(loadingFalse())
+        .finally(() => dispatch(loadingFalse()))
 }
 
 const setPredictor = (value: { endOfWord: boolean | string, pos: number | string, text: string[] }): ActionSetPredictor => {
@@ -1126,7 +1125,6 @@ export {
     authorizedBySMSorPassword,
     setStatusRequestOrder,
     setCountItemCart,
-    // cancelOrder,
     getInternetSales,
     onRequestFromSearchPanel,
     offRequestFromSearchPanel,
@@ -1144,7 +1142,6 @@ export {
     setError,
     fetchCities,
     setIsCity,
-    // retailsCityLoaded,
     addedToCart,
     itemRemovedFromCart,
     allItemRemovedFromCart,

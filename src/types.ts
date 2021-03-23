@@ -212,22 +212,6 @@ export interface StateTypes {
     popularItemsForPromoBlock3: TypeItemsForPromoBlock,
 }
 
-interface ActionItemsForPromoBlock {
-    type: ActionTypes.SET_ITEMS_FOR_PROMOBLOCK_1 | ActionTypes.SET_SEASON_ITEMS_FOR_PROMOBLOCK_2 | ActionTypes.SET_POPULAR_ITEMS_FOR_PROMOBLOCK_3,
-    payload: TypeItemsForPromoBlock
-}
-
-interface ActionStatusRequestRepeatOrder {
-    type: ActionTypes.SET_STATUS_REQUEST_REPEAT_ORDER,
-    payload: string
-}
-
-interface ActionResetLoading {
-    type: ActionTypes.LOADING_RESET
-}
-
-export type ActionType = ActionItemsForPromoBlock | ActionStatusRequestRepeatOrder | ActionResetLoading;
-
 // подробная информация по товару - ответ сервера
 export type TypeResponseProductInfo = {
     guid: string,
@@ -256,32 +240,6 @@ export type TypeResponseProductInfo = {
 }
 
 export type TypeResponseCategories = { guid: string, parent: string | null, title: string }[]
-
-export type TypeResponseSale = {
-    items: {
-        productTitle: string,
-        productGuid: string,
-        priceRetail: number,
-        quantity: string | number,
-        spendBonus: string | number,
-        accumulationBonus: string | number,
-        discount: string | number
-    }[]
-    retail: {
-        guid: string,
-        brand: string,
-        buildNumber: string,
-        city: string,
-        coordinates: (number | string)[]
-        phone: string,
-        street: string,
-        title: string,
-        weekDayTime: string
-    },
-
-    [key: string]: string | number | ObjType | (number | string | ObjType)[]
-}
-
 
 export type TypeOrder = {
     retailGuid: string,

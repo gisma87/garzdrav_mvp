@@ -124,7 +124,7 @@ const mapStateToProps = ({cart, loading, isDelCartItem, itemsForPromoBlock1}: St
     return {cart, loading, isDelCartItem, itemsForPromoBlock1}
 }
 
-const mapDispatchToProps = (dispatch: ThunkDispatch<{}, {}, any>) => {
+const mapDispatchToProps = (dispatch: ThunkDispatch<StateType, {}, any>) => {
     return {
         loadingReset: () => dispatch(loadingReset()),
         setFalseIsDelCartItems: () => dispatch(setFalseIsDelCartItems()),
