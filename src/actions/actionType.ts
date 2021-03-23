@@ -3,14 +3,13 @@ import {
     CartItemType, internetSale, ObjType,
     TypeProductInfo,
     retailCity,
-    TypeItemsForPromoBlock,
     TypeSetCartItem,
     CategoryElement
 } from "../types";
 
 export interface ActionItemsForPromoBlock {
     type: ActionTypes.SET_ITEMS_FOR_PROMOBLOCK_1 | ActionTypes.SET_SEASON_ITEMS_FOR_PROMOBLOCK_2 | ActionTypes.SET_POPULAR_ITEMS_FOR_PROMOBLOCK_3,
-    payload: TypeItemsForPromoBlock
+    payload: TypeProductInfo[]
 }
 
 export interface ActionStatusRequestRepeatOrder {

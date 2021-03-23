@@ -82,6 +82,7 @@ export type productInfo = {
 
 // подробная информация по товару - для записи в store
 export type TypeProductInfo = {
+    img?: string | null | undefined
     guid: string,
     product: string,
     manufacturer: string
@@ -99,7 +100,7 @@ export type TypeProductInfo = {
         title: string,
         weekDayTime: string
     }[],
-    [key: string]: string | number | ObjType | (number | string | ObjType)[],
+    [key: string]: string | number | ObjType | (number | string | ObjType)[] | null | undefined,
 }
 
 export type internetSale = {
@@ -143,23 +144,6 @@ export type TypeSale = {
 }
 
 export type Predictor = { endOfWord: boolean | string, pos: number | string, text: string[] }
-
-export type TypeItemForPromoBlock = {
-    guid: string,
-    product: string,
-    manufacturer: string,
-    categoryGuid: string,
-    countLast: number,
-    minPrice: number,
-    img: string | null,
-    retails: {
-        countLast: number,
-        priceRetail: number
-    }[],
-    [key: string]: string | number | null | ObjType | (string | number | ObjType)[]
-}
-
-export type TypeItemsForPromoBlock = TypeItemForPromoBlock[]
 
 export interface StateTypes {
     cities: {
@@ -231,9 +215,9 @@ export interface StateTypes {
     predictor: null | Predictor,
     activePromoGroup: { name: string, arrPromo: { [key: string]: any }[] }
 
-    itemsForPromoBlock1: TypeItemsForPromoBlock,
-    seasonItemsForPromoBlock2: TypeItemsForPromoBlock,
-    popularItemsForPromoBlock3: TypeItemsForPromoBlock,
+    itemsForPromoBlock1: TypeProductInfo[],
+    seasonItemsForPromoBlock2: TypeProductInfo[],
+    popularItemsForPromoBlock3: TypeProductInfo[],
 }
 
 // подробная информация по товару - ответ сервера

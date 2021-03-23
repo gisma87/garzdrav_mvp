@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {useMediaQuery} from 'react-responsive'
 import App from "./App";
 import AppMobile from "./AppMobile/AppMobile";
-import {CartItemType, TypeItemsForPromoBlock} from "./types";
+import {CartItemType, TypeProductInfo} from "./types";
 import {
     fetchCartItems,
     fetchCities,
@@ -22,7 +22,7 @@ type MapStatePropsType = {
     loading: number,
     cart: CartItemType[],
     isDelCartItem: boolean,
-    itemsForPromoBlock1: TypeItemsForPromoBlock
+    itemsForPromoBlock1: TypeProductInfo[]
 }
 
 type MapDispatchPropsType = {

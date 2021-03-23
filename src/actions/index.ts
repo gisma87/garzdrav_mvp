@@ -52,7 +52,7 @@ import {
     internetSale,
     ObjType, Predictor,
     retailCity,
-    TypeApiService, TypeItemForPromoBlock, TypeItemsForPromoBlock,
+    TypeApiService,
     TypeProductInfo,
     TypeSetCartItem,
 } from "../types";
@@ -986,21 +986,21 @@ const setFalseIsDelCartItems = (): ActionSetFalseIsDelCartItems => {
     }
 }
 
-const _setItemsForPromoBlock1 = (itemsForPromoBlock: TypeItemsForPromoBlock): ActionItemsForPromoBlock => {
+const _setItemsForPromoBlock1 = (itemsForPromoBlock: TypeProductInfo[]): ActionItemsForPromoBlock => {
     return {
         type: ActionTypes.SET_ITEMS_FOR_PROMOBLOCK_1,
         payload: itemsForPromoBlock
     }
 }
 
-const _setItemsForPromoBlock2 = (itemsForPromoBlock: TypeItemsForPromoBlock): ActionItemsForPromoBlock => {
+const _setItemsForPromoBlock2 = (itemsForPromoBlock: TypeProductInfo[]): ActionItemsForPromoBlock => {
     return {
         type: ActionTypes.SET_SEASON_ITEMS_FOR_PROMOBLOCK_2,
         payload: itemsForPromoBlock
     }
 }
 
-const _setItemsForPromoBlock3 = (itemsForPromoBlock: TypeItemsForPromoBlock): ActionItemsForPromoBlock => {
+const _setItemsForPromoBlock3 = (itemsForPromoBlock: TypeProductInfo[]): ActionItemsForPromoBlock => {
     return {
         type: ActionTypes.SET_POPULAR_ITEMS_FOR_PROMOBLOCK_3,
         payload: itemsForPromoBlock
@@ -1020,7 +1020,7 @@ const setItemsForPromoBlock1 = (): ThunkType => (dispatch, getState, apiService)
     })
     return Promise.allSettled([...arrFetch])
         .then(allResponses => {
-            const fulfilledArray = allResponses.filter(item => item.status === 'fulfilled').map(item => (item as unknown as { value: TypeItemForPromoBlock }).value)
+            const fulfilledArray = allResponses.filter(item => item.status === 'fulfilled').map(item => (item as { value: TypeProductInfo }).value)
             if (fulfilledArray.length) {
                 const resultArr = fulfilledArray.filter(item => promoItemsData.some(itemData => itemData.guid === item.guid))
                 if (resultArr.length) {
@@ -1052,7 +1052,7 @@ const setSeasonItemsForPromoBlock2 = (): ThunkType => (dispatch, getState, apiSe
     })
     return Promise.allSettled([...arrFetch])
         .then(allResponses => {
-            const fulfilledArray = allResponses.filter(item => item.status === 'fulfilled').map(item => (item as unknown as { value: TypeItemForPromoBlock }).value)
+            const fulfilledArray = allResponses.filter(item => item.status === 'fulfilled').map(item => (item as { value: TypeProductInfo }).value)
             if (fulfilledArray.length) {
                 const resultArr = fulfilledArray.filter(item => seasonPromoItems.some(itemData => itemData.guid === item.guid))
                 if (resultArr.length) {
@@ -1086,7 +1086,7 @@ const setPopularItemsForPromoBlock3 = (): ThunkType => (dispatch, getState, apiS
     })
     return Promise.allSettled([...arrFetch])
         .then(allResponses => {
-            const fulfilledArray = allResponses.filter(item => item.status === 'fulfilled').map(item => (item as unknown as { value: TypeItemForPromoBlock }).value)
+            const fulfilledArray = allResponses.filter(item => item.status === 'fulfilled').map(item => (item as { value: TypeProductInfo }).value)
             if (fulfilledArray.length) {
                 const resultArr = fulfilledArray.filter(item => popularPromoItems.some(itemData => itemData.guid === item.guid))
                 if (resultArr.length) {
