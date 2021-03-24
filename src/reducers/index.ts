@@ -1,4 +1,4 @@
-import {ObjType, StateTypes, CartItemType, TypeSetCartItem, ActionTypes} from "../types";
+import {ObjType, StateTypes, CartItemType, TypeProductInfo, ActionTypes} from "../types";
 import {ActionType} from "../actions/actionType";
 
 type RetailItem = {
@@ -329,7 +329,7 @@ const reducer = (state = initialState, action: ActionType): StateTypes => {
             };
 
         case ActionTypes.SET_CART_ITEMS:
-            const newCardItems: TypeSetCartItem[] = action.payload
+            const newCardItems: TypeProductInfo[] = action.payload
             const retailsArr: RetailItem[] = []
             if (newCardItems.length) {
                 newCardItems.forEach((item, index) => {

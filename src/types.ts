@@ -51,25 +51,6 @@ export enum ActionTypes {
     FETCH_CITIES_SUCCESS = 'FETCH_CITIES_SUCCESS'
 }
 
-export type TypeSetCartItem = {
-    guid: string,
-    product: string,
-    retails: {
-        guid: string,
-        brand: string,
-        city: string,
-        street: string,
-        buildNumber: string,
-        countLast: number,
-        priceRetail: number,
-        coordinates: number[],
-        phone: string,
-        weekDayTime: string,
-        [key: string]: string | number | ObjType | (number | string | ObjType)[] | null
-    }[],
-    [key: string]: string | number | ObjType | (number | string | ObjType)[] | null
-}
-
 export type CartItemType = { itemId: string, count: number }
 export type retailCity = { [key: string]: string | number | number[] | null }
 export type productInfo = {
@@ -98,7 +79,8 @@ export type TypeProductInfo = {
         phone: string,
         street: string,
         title: string,
-        weekDayTime: string
+        weekDayTime: string,
+        [key: string]: string | number | ObjType | (number | string | ObjType)[] | null
     }[],
     [key: string]: string | number | ObjType | (number | string | ObjType)[] | null | undefined,
 }
@@ -143,6 +125,21 @@ export type TypeSale = {
     }[]
 }
 
+export type TypeRetailItem = {
+    guid: string,
+    product: { guid: string, priceRetail: number, count: number, [key: string]: string | number }[],
+    priceRetail?: number,
+    countLast?: number,
+    weekDayTime?: string | null | undefined,
+    [key: string]: string | number | number[] | ObjType | ObjType[] | undefined | null
+}
+
+export type TypeisCity = {
+    guid: string,
+    title: string,
+    [key: string]: string | number | null | ObjType | (string | number | ObjType)[]
+}
+
 export type Predictor = { endOfWord: boolean | string, pos: number | string, text: string[] }
 
 export interface StateTypes {
@@ -160,43 +157,15 @@ export interface StateTypes {
     loadingFavorites: number,
     error: null | string,
     errorAuth: null | string,
-    isCity: {
-        guid: string,
-        title: string,
-        [key: string]: string | number | null | ObjType | (string | number | ObjType)[]
-    },
+    isCity: TypeisCity,
     retailsCity: retailCity[],
     cart: CartItemType[],
     favorites: { guid: string, [key: string]: string | number | null }[],
     productsFromSearch: { guid: string, product: string, [key: string]: string | number }[],
     countProductsSearch: null | number,
     productInfo: string | TypeProductInfo,
-    cartItems: {
-        guid: string,
-        product: string,
-        retails: {
-            guid: string,
-            brand: string,
-            city: string,
-            street: string,
-            buildNumber: string,
-            countLast: number,
-            priceRetail: number,
-            coordinates: number[],
-            phone: string,
-            weekDayTime: string,
-            [key: string]: string | number | ObjType | (number | string | ObjType)[] | null
-        }[],
-        [key: string]: string | number | ObjType | (number | string | ObjType)[] | null
-    }[],
-    retailsArr: {
-        guid: string,
-        product: { guid: string, priceRetail: number, count: number, [key: string]: string | number }[],
-        priceRetail?: number,
-        countLast?: number,
-        weekDayTime?: string | null | undefined,
-        [key: string]: string | number | number[] | ObjType | ObjType[] | undefined | null
-    }[],
+    cartItems: TypeProductInfo[],
+    retailsArr: TypeRetailItem[],
     selectedRetail: null | string
     isPopupLocation: boolean,
     TOKEN: null | { accessToken: string, refreshToken: string },

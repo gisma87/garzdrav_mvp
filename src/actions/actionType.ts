@@ -3,7 +3,6 @@ import {
     CartItemType, internetSale, ObjType,
     TypeProductInfo,
     retailCity,
-    TypeSetCartItem,
     CategoryElement
 } from "../types";
 
@@ -49,7 +48,7 @@ export interface ActionDelCartItems {
 
 export interface ActionSetStatusRequestOrder {
     type: ActionTypes.SET_CART_ITEMS,
-    payload: TypeSetCartItem[]
+    payload: TypeProductInfo[]
 }
 
 export interface ActionOnPopupLocation {
@@ -109,7 +108,7 @@ export interface ActionLoadingProductInfo {
 
 export interface ActionOnSelectRetail {
     type: ActionTypes.ON_SELECT_RETAIL,
-    payload: string
+    payload: string | null
 }
 
 export interface ActionClearCart {

@@ -54,10 +54,10 @@ import {
     retailCity,
     TypeApiService,
     TypeProductInfo,
-    TypeSetCartItem,
 } from "../types";
 import {StateType} from "../store";
 import {ThunkAction} from "redux-thunk";
+import {Dispatch} from "redux";
 
 export type ThunkType = ThunkAction<void | Promise<any>, StateType, TypeApiService, ActionType>
 
@@ -110,7 +110,7 @@ const delCartItems = (): ActionDelCartItems => {
 
 
 // собираем массивы cartItems и retailsArr
-const setCartItems = (cartItems: TypeSetCartItem[]): ActionSetStatusRequestOrder => {
+const setCartItems = (cartItems: TypeProductInfo[]): ActionSetStatusRequestOrder => {
     return {
         type: ActionTypes.SET_CART_ITEMS,
         payload: cartItems
@@ -141,7 +141,7 @@ const fetchCartItems = (city: string | null = null): ThunkType => (dispatch, get
         })
         return Promise.allSettled([...arrFetch])
             .then(allResponses => {
-                const fulfilledArray = allResponses.filter(item => item.status === 'fulfilled').map(item => (item as { value: TypeSetCartItem }).value)
+                const fulfilledArray = allResponses.filter(item => item.status === 'fulfilled').map(item => (item as { value: TypeProductInfo }).value)
                 const responseArray = fulfilledArray.filter(item => Boolean(item.length !== 0))
                 if (responseArray.length) {
                     dispatch(setCartItems(responseArray))
@@ -152,7 +152,6 @@ const fetchCartItems = (city: string | null = null): ThunkType => (dispatch, get
             })
             .finally(() => dispatch(loadingFalse()))
     }
-
 }
 
 // повторить заказ - серия запросов подробной инф. о товаре, если res.ok тогда добавляем в корзину
@@ -166,16 +165,20 @@ const repeatOrder = (arrayProducts: { idProduct: string, count: number }[]): Thu
         const arrFetch = arrayProducts.map(product => {
             return apiService.getProductInfo(product.idProduct, isCity.guid)
         })
-        return Promise.all([...arrFetch])
+        return Promise.allSettled([...arrFetch])
             .then(allResponses => {
-                const responseArray = allResponses.filter(item => Boolean(item.length !== 0))
-                if (responseArray.length) {
-                    responseArray.forEach(item => {
-                        const index = arrayProducts.findIndex(el => el.idProduct === item.guid)
+                // собираем массив из успешно выполненных запросов
+                const fulfilledArray = allResponses
+                    .filter(item => item.status === 'fulfilled')
+                    .map(item => (item as { value: TypeProductInfo | null }).value)
+                    .filter(item => Boolean(item)) // сервер может вернуть null если ничего не нашёл
+                if (fulfilledArray.length) {
+                    fulfilledArray.forEach(item => {
+                        const index = arrayProducts.findIndex(el => el.idProduct === item!.guid)
                         if (index >= 0) {
                             const count = arrayProducts[index].count
                             for (let i = 0; i < count; i++) {
-                                dispatch(addedToCart(item.guid))
+                                dispatch(addedToCart(item!.guid))
                             }
                         }
                     })
@@ -183,7 +186,7 @@ const repeatOrder = (arrayProducts: { idProduct: string, count: number }[]): Thu
                     dispatch(setStatusRequestOrder('executed'))
                 } else dispatch(setStatusRequestOrder('failure'))
             })
-            .catch(allError => dispatch(setError(allError)))
+            .catch(_ => dispatch(setStatusRequestOrder('failure')))
             .finally(() => dispatch(loadingFalse()))
 
     }
@@ -360,20 +363,20 @@ const loadingProductInfo = (product: TypeProductInfo): ActionLoadingProductInfo 
     }
 }
 
-// дополнительная(подробная) информация о продукте
+// подробная информация о продукте
 const fetchProductInfo = (productId: string): ThunkType => {
     return async (dispatch, getState, apiService) => {
         dispatch(loadingTrue())
         try {
             const response = await apiService.getProductInfo(productId, getState().isCity.guid)
-            dispatch(loadingProductInfo(response))
+            if (response) dispatch(loadingProductInfo(response));
         } catch (e) {
             dispatch(setError(e))
         }
     }
 }
 
-const onSelectRetail = (id: string): ActionOnSelectRetail => {
+const onSelectRetail = (id: string | null): ActionOnSelectRetail => {
     return {
         type: ActionTypes.ON_SELECT_RETAIL,
         payload: id
@@ -587,7 +590,7 @@ function getToFavorites(): ThunkType {
                 dispatch(setFavoritesToStore(response))
             }
         } catch (e) {
-            dispatch(setError(e))
+            // dispatch(setError(e))
         }
     }
 }
@@ -606,7 +609,7 @@ function addToFavorites(productGuid: string): ThunkType {
                 dispatch(addFavoritesToStore(response))
             }
         } catch (e) {
-            dispatch(setError(e))
+            // dispatch(setError(e))
             return Promise.reject('failed addToFavorites')
         }
     }
@@ -992,6 +995,30 @@ const _setItemsForPromoBlock3 = (itemsForPromoBlock: TypeProductInfo[]): ActionI
     }
 }
 
+const getFullItemForPromoBlock = (allResponses: { status: string, value: TypeProductInfo | null }[],
+                                  promoItems: any[],
+                                  callback: (arr: TypeProductInfo[]) => ActionItemsForPromoBlock,
+                                  dispatch: Dispatch) => {
+    const fulfilledArray = allResponses
+        .filter(item => item.status === 'fulfilled')
+        .map(item => item.value)
+        .filter(item => Boolean(item))
+    if (fulfilledArray.length) {
+        const resultArr = fulfilledArray.filter(item => promoItems.some(itemData => itemData.guid === item!.guid))
+        if (resultArr.length) {
+            (resultArr as TypeProductInfo[]).forEach(resultItem => {
+                const arrCountLast = resultItem.retails.map(retail => retail.countLast);
+                const arrMinPrice = resultItem.retails.map(retail => retail.priceRetail);
+                const img = promoItems.find(dataEl => dataEl.guid === resultItem.guid)?.img;
+                resultItem.img = img ? img : null;
+                resultItem.countLast = Math.max(...arrCountLast)
+                resultItem.minPrice = Math.min(...arrMinPrice)
+            })
+        }
+        dispatch(callback((resultArr as TypeProductInfo[])))
+    }
+}
+
 
 // Запрос по списку из promoItemsData(акции на главной стр.) - запрашиваются недостающие данные, и собирается массив из общих данных.
 const setItemsForPromoBlock1 = (): ThunkType => (dispatch, getState, apiService) => {
@@ -1005,23 +1032,9 @@ const setItemsForPromoBlock1 = (): ThunkType => (dispatch, getState, apiService)
     })
     return Promise.allSettled([...arrFetch])
         .then(allResponses => {
-            const fulfilledArray = allResponses.filter(item => item.status === 'fulfilled').map(item => (item as { value: TypeProductInfo }).value)
-            if (fulfilledArray.length) {
-                const resultArr = fulfilledArray.filter(item => promoItemsData.some(itemData => itemData.guid === item.guid))
-                if (resultArr.length) {
-                    resultArr.forEach(resultItem => {
-                        const arrCountLast = resultItem.retails.map(retail => retail.countLast);
-                        const arrMinPrice = resultItem.retails.map(retail => retail.priceRetail);
-                        const img = promoItemsData.find(dataEl => dataEl.guid === resultItem.guid)?.img;
-                        resultItem.img = img ? img : null;
-                        resultItem.countLast = Math.max(...arrCountLast)
-                        resultItem.minPrice = Math.min(...arrMinPrice)
-                    })
-                }
-                dispatch(_setItemsForPromoBlock1(resultArr))
-            }
+            getFullItemForPromoBlock((allResponses as { status: string, value: TypeProductInfo | null }[]), promoItemsData, _setItemsForPromoBlock1, dispatch)
         })
-        .catch(error => dispatch(setError(error)))
+        .catch(error => console.log(error))
         .finally(() => dispatch(loadingFalse()))
 }
 
@@ -1037,25 +1050,9 @@ const setSeasonItemsForPromoBlock2 = (): ThunkType => (dispatch, getState, apiSe
     })
     return Promise.allSettled([...arrFetch])
         .then(allResponses => {
-            const fulfilledArray = allResponses.filter(item => item.status === 'fulfilled').map(item => (item as { value: TypeProductInfo }).value)
-            if (fulfilledArray.length) {
-                const resultArr = fulfilledArray.filter(item => seasonPromoItems.some(itemData => itemData.guid === item.guid))
-                if (resultArr.length) {
-                    resultArr.forEach(resultItem => {
-                        const arrCountLast = resultItem.retails.map(retail => retail.countLast);
-                        const arrMinPrice = resultItem.retails.map(retail => retail.priceRetail);
-                        const countLast = Math.max(...arrCountLast)
-                        const minPrice = Math.min(...arrMinPrice)
-                        const img = seasonPromoItems.find(dataEl => dataEl.guid === resultItem.guid)?.img;
-                        resultItem.img = img ? img : null;
-                        resultItem.countLast = countLast;
-                        resultItem.minPrice = minPrice
-                    })
-                }
-                dispatch(_setItemsForPromoBlock2(resultArr))
-            }
+            getFullItemForPromoBlock((allResponses as { status: string, value: TypeProductInfo | null }[]), seasonPromoItems, _setItemsForPromoBlock2, dispatch)
         })
-        .catch(error => dispatch(setError(error)))
+        .catch(error => console.log(error))
         .finally(() => dispatch(loadingFalse()))
 }
 
@@ -1071,25 +1068,9 @@ const setPopularItemsForPromoBlock3 = (): ThunkType => (dispatch, getState, apiS
     })
     return Promise.allSettled([...arrFetch])
         .then(allResponses => {
-            const fulfilledArray = allResponses.filter(item => item.status === 'fulfilled').map(item => (item as { value: TypeProductInfo }).value)
-            if (fulfilledArray.length) {
-                const resultArr = fulfilledArray.filter(item => popularPromoItems.some(itemData => itemData.guid === item.guid))
-                if (resultArr.length) {
-                    resultArr.forEach(resultItem => {
-                        const arrCountLast = resultItem.retails.map(retail => retail.countLast);
-                        const arrMinPrice = resultItem.retails.map(retail => retail.priceRetail);
-                        const countLast = Math.max(...arrCountLast)
-                        const minPrice = Math.min(...arrMinPrice)
-                        const img = popularPromoItems.find(dataEl => dataEl.guid === resultItem.guid)?.img;
-                        resultItem.img = img ? img : null;
-                        resultItem.countLast = countLast;
-                        resultItem.minPrice = minPrice
-                    })
-                }
-                dispatch(_setItemsForPromoBlock3(resultArr))
-            }
+            getFullItemForPromoBlock((allResponses as { status: string, value: TypeProductInfo | null }[]), popularPromoItems, _setItemsForPromoBlock3, dispatch)
         })
-        .catch(error => dispatch(setError(error)))
+        .catch(error => console.log(error))
         .finally(() => dispatch(loadingFalse()))
 }
 

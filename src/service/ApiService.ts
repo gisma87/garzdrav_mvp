@@ -16,9 +16,13 @@ class ApiService {
     }
 
     //подробная информация по товару - нужен id товара и id города
-    async getProductInfo(productId: string, cityId: string): Promise<TypeProductInfo> {
+    async getProductInfo(productId: string, cityId: string): Promise<TypeProductInfo | null> {
         const result = await axios.get(`${this.URL}/Products/byGuid?productGuid=${productId}&cityGuid=${cityId}`)
-        return this._transformProductInfo(result.data)
+        if (result.data) {
+            return this._transformProductInfo(result.data)
+        } else {
+            return Promise.resolve(null)
+        }
     }
 
     _transformProductInfo(product: TypeResponseProductInfo): TypeProductInfo {
