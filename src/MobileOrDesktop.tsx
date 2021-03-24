@@ -45,7 +45,7 @@ type Props = MapStatePropsType & MapDispatchPropsType & OwnProps;
 
 const MobileOrDesktop: React.FC<Props> = (props) => {
 
-    // если Лоадер висит больше 20сек - удаляем его.
+    // если Лоадер висит больше 30сек - удаляем его.
     useEffect(() => {
         let timer: number | null = null;
         if (props.loading) {
@@ -55,7 +55,7 @@ const MobileOrDesktop: React.FC<Props> = (props) => {
                 }
                 timer = null;
             }
-            timer = window.setTimeout(fn, 20000)
+            timer = window.setTimeout(fn, 30000)
         }
         return () => {
             if (timer) {
