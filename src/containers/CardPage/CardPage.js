@@ -11,6 +11,7 @@ import {
   itemRemovedFromCart,
   fetchProductInfo, setActiveCategory, getPromoItem
 } from "../../actions";
+import {getDataForPromoItem} from "../Cart/cartUtils";
 import {connect} from "react-redux";
 import {NavLink, withRouter} from "react-router-dom";
 import {useMediaQuery} from 'react-responsive'
@@ -58,30 +59,6 @@ const CardPage = (props) => {
       if (thisCountLast) setCountLast(thisCountLast);
     }
   }, [props.productInfo, itemId, props.cart])
-
-  function getDataForPromoItem() {
-    if (props.promoItems instanceof Object && (props.promoItems?.promoItems.length > 0)) {
-      const promoItem = props.promoItems?.promoItems[0]
-      const result = {}
-      const itemIndex = props.cart.findIndex((item) => item.itemId === promoItem.guid);
-      result.isBuy = itemIndex >= 0;
-      result.count = result.isBuy ? props.cart[itemIndex].count : 0
-      // countLast не возвращает данный запрос - решили ограничить кол. одной штукой - чтобы можно было в корзину добавить
-      // result.countLast = promoItem.retails.sort((a, b) => a.countLast < b.countLast ? 1 : -1)[0].countLast
-      result.countLast = 1
-      result.key = promoItem.guid
-      result.id = promoItem.guid
-      result.title = promoItem.product
-      result.maker = promoItem.manufacturer
-      result.img = promoItem.img
-      result.minPrice = promoItem.minPrice
-      result.onIncrement = () => props.addedToCart(promoItem.guid)
-      result.onDecrement = () => props.itemRemovedFromCart(promoItem.guid)
-
-      return result
-    }
-    return null
-  }
 
   const minPriceRetail = () => {
     if (typeof productInfo === 'string' || (typeof productInfo === 'object' && productInfo?.length === 0)) {
@@ -227,14 +204,14 @@ const CardPage = (props) => {
 
                   {/*================== Рекламный блок ===================================*/}
                   {
-                    getDataForPromoItem() !== null
+                    props.promoItems !== null
                       ? <div className='CardPage__promoContainer'>
                         <p className="CardPage__titlePanel">Вам пригодится</p>
                         <CardItem onItemSelected={(itemId, event) => {
                           if (!event.target.closest('button')) props.history.push(`/Card/${itemId}`);
                         }}
                                   classStyle='Cart__promoBlock'
-                                  itemProps={getDataForPromoItem()}
+                                  itemProps={getDataForPromoItem(props, [props.productInfo])}
                         />
                       </div>
                       : undefined

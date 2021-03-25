@@ -188,6 +188,45 @@ function indexActiveRetail() {
   return this.props.retailsArr.findIndex((item) => item.guid === this.state.checked);
 }
 
+// Если подгрузились доп.продажи, то возвращает объект для карточки доп.продаж.
+// 2-ой параметр - массив продуктов, с которым не должен быть похож возвращаемый объект
+export function getDataForPromoItem(props, arrProducts) {
+  if (props.promoItems && (props.promoItems?.promoItems?.length > 0)) {
+    const arrPromoItems = props.promoItems?.promoItems
+    let index = 0
+    let promoItem = arrPromoItems[index]
+    // если первые 5 символов в названии схожи с названием карточек корзины, то в while берём следующий элемент массива
+    const isEqualString = () => arrProducts?.some(item => item.product?.slice(0, 5) === arrPromoItems[index]?.product?.slice(0, 5))
+    while (isEqualString() && (index < arrPromoItems.length)) {
+      index++
+      promoItem = arrPromoItems[Math.min(arrPromoItems.length - 1, index)]
+    }
+    const result = {}
+    const itemIndex = props.cart.findIndex((item) => item.itemId === promoItem.guid);
+    result.isBuy = itemIndex >= 0;
+    result.count = result.isBuy ? props.cart[itemIndex].count : 0
+    result.countLast = 1
+    result.key = promoItem.guid
+    result.id = promoItem.guid
+    result.title = promoItem.product
+    result.maker = promoItem.manufacturer
+    result.img = null
+    result.minPrice = null
+    result.onIncrement = (event) => {
+      event.stopPropagation()
+      props.addedToCart(promoItem.guid)
+    }
+    result.onDecrement = (event) => {
+      event.stopPropagation()
+      props.itemRemovedFromCart(promoItem.guid)
+    }
+    result.promo = true;
+    return result
+  }
+  return null
+}
+
+
 export {
   calculateAmountArray, // возвращает массив id товара - сумма этого товара в выбранной аптеке
   getCountLast, // остаток товара в выбранной аптеке

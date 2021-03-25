@@ -24,7 +24,7 @@ import {
 import {
     calcQuantityProduct,
     calculateAmountArray, checkRetailItem, clearCartError,
-    getCountLast, getFullCountProductsRetails,
+    getCountLast, getDataForPromoItem, getFullCountProductsRetails,
     getFullRetailItemState, getSum, indexActiveRetail, isChecked, isFullActiveRetail, newCartItems, onLoading,
     postBuyOrder, sortProductThisRetail
 } from './cartUtils'
@@ -101,12 +101,12 @@ class Cart extends React.Component<Props, State> {
     newCartItems = newCartItems.bind(this)
     isChecked = isChecked.bind(this)
     indexActiveRetail = indexActiveRetail.bind(this)
-    getFullCountProductsRetails = getFullCountProductsRetails.bind(this);
+    getFullCountProductsRetails = getFullCountProductsRetails.bind(this)
+    getDataForPromoItem = () => getDataForPromoItem(this.props, this.props.cartItems)
 
     constructor(props: Props) {
         super(props);
         this.timer = null;
-        this.delItemCart = this.delItemCart.bind(this)
     }
 
     state = {
@@ -142,53 +142,6 @@ class Cart extends React.Component<Props, State> {
             const newCartItems = this.props.cartItems.filter(item => this.props.cart.some(i => i.itemId === item.guid))
             this.props.setCartItems(newCartItems)
         }
-    }
-
-    delItemCart() {
-        if (!this.props.loading && (this.props.cartItems.length < this.props.cart.length)) {
-            const delItems = this.props.cart.filter(item => !this.props.cartItems.some((element => element.guid === item.itemId)))
-            // тут нужно добавить вывод сообщения пользователю, чтобы кол.тов. просто не исчезало - а то было 8, перешёл в корзину - стало 5.
-            console.log('По этим товарам сервер ответил ошибкой, они удалены из корзины: ', delItems)
-            delItems.forEach(item => {
-                this.props.allItemRemovedFromCart(item.itemId)
-            })
-        }
-    }
-
-    getDataForPromoItem() {
-        if (this.props.promoItems && (this.props.promoItems?.promoItems?.length > 0)) {
-            const arrPromoItems = this.props.promoItems?.promoItems
-            let index = 0
-            let promoItem = arrPromoItems[index]
-            // если первые 5 символов в названии схожи с названием карточек корзины, то в while берём следующий элемент массива
-            const isEqualString = () => this.props.cartItems?.some(item => item.product?.slice(0, 5) === arrPromoItems[index]?.product?.slice(0, 5))
-            while (isEqualString() && (index < arrPromoItems.length)) {
-                index++
-                promoItem = arrPromoItems[Math.min(arrPromoItems.length - 1, index)]
-            }
-            const result: any = {}
-            const itemIndex = this.props.cart.findIndex((item) => item.itemId === promoItem.guid);
-            result.isBuy = itemIndex >= 0;
-            result.count = result.isBuy ? this.props.cart[itemIndex].count : 0
-            result.countLast = 1
-            result.key = promoItem.guid
-            result.id = promoItem.guid
-            result.title = promoItem.product
-            result.maker = promoItem.manufacturer
-            result.img = null
-            result.minPrice = null
-            result.onIncrement = (event: React.MouseEvent) => {
-                event.stopPropagation()
-                this.props.addedToCart(promoItem.guid)
-            }
-            result.onDecrement = (event: React.MouseEvent) => {
-                event.stopPropagation()
-                this.props.itemRemovedFromCart(promoItem.guid)
-            }
-            result.promo = true;
-            return result
-        }
-        return null
     }
 
     // роутинг по страницам Cart
