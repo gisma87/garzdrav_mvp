@@ -1,7 +1,7 @@
 import axios from "axios";
 import {
-    CategoryElement, ObjType, Predictor, Product, TypeAnalogues, TypeComplexes, TypeOrder,
-    TypeProductInfo,
+    CategoryElement, Predictor, Product, TypeAnalogues, TypeComplexes, TypeOrder,
+    TypeProductInfo, TypePromoItems,
     TypeResponseCategoriesElement,
     TypeResponseProductInfo,
     TypeResponseSale, TypeSale
@@ -385,7 +385,7 @@ class ApiService {
         return response.status
     }
 
-    async getComplexes(productGuid: string, cityGuid: string) {
+    async getComplexes(productGuid: string, cityGuid: string): Promise<TypePromoItems> {
         const response = await axios.get(`${this.URL}/Complexes?productGuid=${productGuid}&cityGuid=${cityGuid}`)
 
         const result = () => {
@@ -404,11 +404,11 @@ class ApiService {
         return result()
     }
 
-    async getAnalogues(productGuid: string) {
+    async getAnalogues(productGuid: string): Promise<TypePromoItems> {
         const response = await axios.get(`${this.URL}/Analogues?productsGuid=${productGuid}`)
 
         const result = () => {
-            const promoItems: ObjType[] = [];
+            const promoItems: Product[] = [];
             (response.data as TypeAnalogues[]).forEach(item => {
                 item.analogues.forEach(analog => promoItems.push(analog))
             })

@@ -3,7 +3,7 @@ import {
     CartItemType, internetSale, ObjType,
     TypeProductInfo,
     retailCity,
-    CategoryElement
+    CategoryElement, TypePromoItems
 } from "../types";
 
 export interface ActionItemsForPromoBlock {
@@ -173,7 +173,7 @@ export interface Action_setInternetSales{
 
 export interface ActionSetPromoItems{
     type: ActionTypes.SET_PROMO_ITEMS,
-    payload: any
+    payload: TypePromoItems
 }
 
 export interface ActionOnRequestFromSearchPanel{

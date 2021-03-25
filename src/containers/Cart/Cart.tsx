@@ -33,7 +33,7 @@ import CardItem from "../../components/CardItem";
 import CartOrderPage from "./CartOrderPage/CartOrderPage";
 import CartPageChoiceRetail from "./CartPageChoiceRetail/CartPageChoiceRetail";
 import CartItems from "./CartItems";
-import {CartItemType, TypeProductInfo, TypeisCity, TypeRetailItem} from "../../types";
+import {CartItemType, TypeProductInfo, TypeisCity, TypeRetailItem, TypePromoItems} from "../../types";
 import {StateType} from "../../store";
 import {ThunkDispatch} from "redux-thunk";
 
@@ -48,11 +48,11 @@ type MapStatePropsType = {
     loading: number,
     selectedRetail: null | string,
     TOKEN: null | { accessToken: string, refreshToken: string },
-    promoItems: null | string | any
+    promoItems: null | TypePromoItems
 }
 
 type MapDispatchPropsType = {
-    getPromoItem(productGuid: string | string[]): void,
+    getPromoItem(productGuid: string[]): void,
     refreshAuthentication(): void,
     authorizedByPassOrSMS(phone: string, smsOrPass: string, callback: null | (() => void)): void,
     authorizedBySMSorPassword(phone: string, smsOrPass: string, callback: null | (() => void)): void,
@@ -106,21 +106,6 @@ class Cart extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
         this.timer = null;
-        this.calculateAmountArray = calculateAmountArray.bind(this)
-        this.getCountLast = getCountLast.bind(this)
-        this.getFullRetailItemState = getFullRetailItemState.bind(this)
-        this.calcQuantityProduct = calcQuantityProduct.bind(this)
-        this.postBuyOrder = postBuyOrder.bind(this)
-        this.clearCartError = clearCartError.bind(this)
-        this.isFullActiveRetail = isFullActiveRetail.bind(this)
-        this.checkRetailItem = checkRetailItem.bind(this)
-        this.getSum = getSum.bind(this)
-        this.onLoading = onLoading.bind(this)
-        this.sortProductThisRetail = sortProductThisRetail.bind(this)
-        this.newCartItems = newCartItems.bind(this)
-        this.isChecked = isChecked.bind(this)
-        this.indexActiveRetail = indexActiveRetail.bind(this)
-        this.getFullCountProductsRetails = getFullCountProductsRetails.bind(this)
         this.delItemCart = this.delItemCart.bind(this)
     }
 
@@ -139,22 +124,16 @@ class Cart extends React.Component<Props, State> {
     }
 
     componentDidMount() {
+        // подгружаем все товары для корзины
         this.props.fetchCartItems()
+
+        // подгружаем доп.продажи - complexes
+        const cartFromLocalStorage: CartItemType[] = JSON.parse(localStorage.getItem("cart") as string)
+        const arrItemId = cartFromLocalStorage.map(item => item.itemId)
+        this.props.getPromoItem(arrItemId)
     }
 
     componentDidUpdate(prevProps: Props, prevState: any, snapshot: any) {
-        // запрашиваем данные для promoItem.
-        if (this.props.cart.length && ((prevProps.cart.length !== this.props.cart.length) || (this.state.thisTime.iteration < 1))) {
-            const time = Date.now();
-            // если с предыдущего изменения прошло меньше 8сек - не будем плодить запросы.
-            if (((time - 8000) > this.state.thisTime.date) || this.state.thisTime.iteration < 1) {
-                const arrItemId = this.props.cart.map(item => item.itemId)
-                this.props.getPromoItem(arrItemId)
-                this.setState({thisTime: {date: time, iteration: this.state.thisTime.iteration + 1}})
-            }
-        }
-
-
         // если в корзину добавился новый товар - пересобираем корзину
         if (!this.props.loading && (this.props.cartItems.length < this.props.cart.length)) {
             this.props.fetchCartItems()
@@ -177,30 +156,27 @@ class Cart extends React.Component<Props, State> {
     }
 
     getDataForPromoItem() {
-        if (this.props.promoItems instanceof Object && (this.props.promoItems?.promoItems.length > 0)) {
+        if (this.props.promoItems && (this.props.promoItems?.promoItems?.length > 0)) {
             const arrPromoItems = this.props.promoItems?.promoItems
             let index = 0
             let promoItem = arrPromoItems[index]
             // если первые 5 символов в названии схожи с названием карточек корзины, то в while берём следующий элемент массива
             const isEqualString = () => this.props.cartItems?.some(item => item.product?.slice(0, 5) === arrPromoItems[index]?.product?.slice(0, 5))
-
-            while ((isEqualString() && index < arrPromoItems.length) && (this.props.promoItems instanceof Object)) {
-                promoItem = arrPromoItems[Math.min(arrPromoItems.length - 1, index)]
+            while (isEqualString() && (index < arrPromoItems.length)) {
                 index++
+                promoItem = arrPromoItems[Math.min(arrPromoItems.length - 1, index)]
             }
             const result: any = {}
             const itemIndex = this.props.cart.findIndex((item) => item.itemId === promoItem.guid);
             result.isBuy = itemIndex >= 0;
             result.count = result.isBuy ? this.props.cart[itemIndex].count : 0
-            // countLast не возвращает данный запрос - решили ограничить кол. одной штукой - чтобы можно было в корзину добавить
-            // result.countLast = promoItem.retails.sort((a, b) => a.countLast < b.countLast ? 1 : -1)[0].countLast
             result.countLast = 1
             result.key = promoItem.guid
             result.id = promoItem.guid
             result.title = promoItem.product
             result.maker = promoItem.manufacturer
-            result.img = promoItem.img
-            result.minPrice = promoItem.minPrice
+            result.img = null
+            result.minPrice = null
             result.onIncrement = (event: React.MouseEvent) => {
                 event.stopPropagation()
                 this.props.addedToCart(promoItem.guid)
@@ -210,7 +186,6 @@ class Cart extends React.Component<Props, State> {
                 this.props.itemRemovedFromCart(promoItem.guid)
             }
             result.promo = true;
-
             return result
         }
         return null
@@ -262,7 +237,7 @@ class Cart extends React.Component<Props, State> {
         this.setState({seconds: 60})
     }
 
-    getMinSum = () => {
+    getMinSum() {
         const minPrice = (product: TypeProductInfo) => product.retails.sort((a, b) => a.priceRetail > b.priceRetail ? 1 : -1)[0].priceRetail
         const countInCart = (product: TypeProductInfo): number => this.props.cart.find(item => item.itemId === product.guid)!?.count
         return this.props.cartItems.reduce((acc, product) => {
@@ -417,7 +392,7 @@ class Cart extends React.Component<Props, State> {
 
                                                             {/*================== Рекламный блок ===================================*/}
                                                             {
-                                                                this.getDataForPromoItem() !== null
+                                                                this.props.promoItems !== null
                                                                 && <div>
                                                                   <p className="Cart__titlePanel">Вам пригодится</p>
                                                                   <CardItem
@@ -466,14 +441,12 @@ class Cart extends React.Component<Props, State> {
 
                                                             {/*================== Рекламный блок ===================================*/}
                                                             {
-                                                                (this.getDataForPromoItem() !== null)
+                                                                (this.props.promoItems !== null)
                                                                 &&
                                                                 <div>
                                                                   <p className="Cart__titlePanel">Вам пригодится</p>
                                                                   <CardItem
                                                                     onItemSelected={(itemId: string, event: React.MouseEvent) => {
-                                                                        console.log('event.currentTarget: ', event.currentTarget)
-                                                                        console.log('Boolean', event.currentTarget.closest('button'))
                                                                         if (!event.currentTarget.closest('button')) this.props.history.push(`/Card/${itemId}`);
                                                                     }}
                                                                     classStyle='Cart__promoBlock'
@@ -535,7 +508,7 @@ class Cart extends React.Component<Props, State> {
     }
 }
 
-const mapStateToProps = (state: StateType) => {
+const mapStateToProps = (state: StateType): MapStatePropsType => {
     return {
         errorAuth: state.errorAuth,
         error: state.error,
@@ -551,9 +524,9 @@ const mapStateToProps = (state: StateType) => {
     }
 }
 
-const mapDispatchToProps = (dispatch: ThunkDispatch<StateType, {}, any>) => {
+const mapDispatchToProps = (dispatch: ThunkDispatch<StateType, {}, any>): MapDispatchPropsType => {
     return {
-        getPromoItem: (productGuid: string | string[]) => dispatch(getPromoItem(productGuid)),
+        getPromoItem: (productGuid: string[]) => dispatch(getPromoItem(productGuid)),
         refreshAuthentication: () => dispatch(refreshAuthentication()),
         authorizedByPassOrSMS: (phone: string, smsOrPass: string, callback: null | (() => void)) => dispatch(authorizedByPassOrSMS(phone, smsOrPass, callback)),
         authorizedBySMSorPassword: (phone: string, smsOrPass: string, callback: null | (() => void)) => dispatch(authorizedBySMSorPassword(phone, smsOrPass, callback)),

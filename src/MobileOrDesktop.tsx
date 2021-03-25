@@ -78,7 +78,12 @@ const MobileOrDesktop: React.FC<Props> = (props) => {
 
         if (localStorage.getItem("cart")) {
             const cartFromLocalStorage: CartItemType[] = JSON.parse(localStorage.getItem("cart") as string)
-            props.rewriteCart(cartFromLocalStorage)
+            // проверяем cart на дубликаты и записываем из localStorage в Redux.store
+            const cartSetID = new Set()
+            cartFromLocalStorage.forEach(item => cartSetID.add(item.itemId))
+            const resultCart: CartItemType[] = []
+            cartSetID.forEach(itemID => resultCart.push(cartFromLocalStorage.find(itemCart => itemCart.itemId === itemID) as CartItemType))
+            props.rewriteCart(resultCart)
 
             // серия запросов - формируется массив элементов корзины
             props.fetchCartItems()

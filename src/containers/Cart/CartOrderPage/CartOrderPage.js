@@ -39,7 +39,6 @@ const CartOrderPage = props => {
 
   useEffect(() => {
     setOrder({...props.retail})
-    console.log('order: ', order)
     return () => props.delOrderNumber();
     // eslint-disable-next-line
   }, [])

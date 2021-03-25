@@ -40,7 +40,7 @@ const CardPage = (props) => {
 
   useEffect(() => {
     props.fetchProductInfo(itemId)
-    props.getPromoItem(itemId)
+    props.getPromoItem([itemId])
   }, [itemId])// eslint-disable-line
 
   useEffect(() => {

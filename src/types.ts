@@ -140,6 +140,8 @@ export type TypeisCity = {
     [key: string]: string | number | null | ObjType | (string | number | ObjType)[]
 }
 
+export type TypePromoItems = {type: string, courses?: any[], promoItems: Product[]}
+
 export type Predictor = { endOfWord: boolean | string, pos: number | string, text: string[] }
 
 export interface StateTypes {
@@ -179,7 +181,7 @@ export interface StateTypes {
     requestFromSearchPanelThisTime: boolean,
     internetSales: internetSale[],
     statusRequestRepeatOrder: 'executed' | 'failure' | '',
-    promoItems: null | string | any,
+    promoItems: null | TypePromoItems,
     isDelCartItem: boolean,
     predictor: null | Predictor,
     activePromoGroup: { name: string, arrPromo: { [key: string]: any }[] }
@@ -279,10 +281,7 @@ export type TypeComplexes = {
 
 export type TypeAnalogues = {
     productGuid: string,
-    analogues: {
-        products: Product[],
-        [key: string]: string | number | ObjType | ObjType[]
-    }[],
+    analogues: Product[],
     [key: string]: string | number | ObjType | ObjType[]
 }
 

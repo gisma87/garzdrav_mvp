@@ -53,7 +53,7 @@ import {
     ObjType, Predictor,
     retailCity,
     TypeApiService,
-    TypeProductInfo,
+    TypeProductInfo, TypePromoItems,
 } from "../types";
 import {StateType} from "../store";
 import {ThunkAction} from "redux-thunk";
@@ -791,161 +791,32 @@ function getDataProfile(): ThunkType {
     }
 }
 
-
-function setPromoItems(promoItems: any): ActionSetPromoItems {
+function setPromoItems(promoItems: TypePromoItems): ActionSetPromoItems {
     return {type: ActionTypes.SET_PROMO_ITEMS, payload: promoItems}
 }
 
-// для отображения в блоке "Вам пригодится"
-const getPromoItem = (productGuid: string | string[]): ThunkType => async (dispatch, getState, apiService) => {
+// доп.продажи complexes для отображения в блоке "Вам пригодится"
+const getPromoItem = (productGuid: string[]): ThunkType => async (dispatch, getState, apiService) => {
     const cityGuid = getState().isCity.guid
-// сначала запрашиваем комплексные товары
-    if (productGuid instanceof Array) {
-        const len = productGuid.length;
-        let count = len;
+    // сначала запрашиваем комплексные товары
+    const len = productGuid.length;
+    let count = len;
 
-        const getPromoItemIteration = (productID: string) => {
-            apiService.getComplexes(productID, cityGuid)
-                .then(response => {
-                    // если в ответе не пустой массив - круто - записываем в state.promoItems
-                    if (response.promoItems.length > 0) {
-                        dispatch(setPromoItems(response))
-                    } else {
-                        // если массив пустой, то запрашиваем аналоги
-                        apiService.getAnalogues(productID)
-                            .then(response => {
-                                // если в ответе не пустой массив - круто - записываем в state.promoItems
-                                if (response.promoItems.length) {
-                                    dispatch(setPromoItems(response))
-                                } else {
-                                    // если массив пустой - у нас ничего нет - записываем это для дальнейших действий
-                                    dispatch(setPromoItems('NOT_FOUND'))
-                                    if (count > 1) {
-                                        --count
-                                        getPromoItemIteration(productGuid[Math.min(len - count, len - 1)])
-                                    }
-                                }
-                            })
-                            .catch(e => {
-                                // если ошибка, тоже записываем, для дальнейшей работы
-                                dispatch(setPromoItems('ERROR'))
-                                if (e.response) {
-                                    // client received an error response (5xx, 4xx)
-                                    console.log('err.response: ', e.response)
-                                } else if (e.request) {
-                                    // client never received a response, or request never left
-                                    console.log('err.request ', e.request)
-                                } else {
-                                    // anything else
-                                    console.log('ошибка запроса')
-                                }
-                            })
-                    }
-
-                })
-                .catch(err => {
-                    apiService.getAnalogues(productID)
-                        .then(response => {
-                            // если в ответе не пустой массив - круто - записываем в state.promoItems
-                            if (response.promoItems.length) {
-                                dispatch(setPromoItems(response))
-                            } else {
-                                // если массив пустой - у нас ничего нет - записываем это для дальнейших действий
-                                dispatch(setPromoItems('NOT_FOUND'))
-                            }
-                        })
-                        .catch(e => {
-                            // если ошибка, тоже записываем, для дальнейшей работы
-                            dispatch(setPromoItems('ERROR'))
-                            if (e.response) {
-                                // client received an error response (5xx, 4xx)
-                                console.log('err.response: ', e.response)
-                            } else if (e.request) {
-                                // client never received a response, or request never left
-                                console.log('err.request ', e.request)
-                            } else {
-                                // anything else
-                                console.log('ошибка запроса')
-                            }
-                            return Promise.reject('failed getPromoItem')
-                        })
-
-                    if (err.response) {
-                        // client received an error response (5xx, 4xx)
-                        console.log('err.response: ', err.response)
-                    } else if (err.request) {
-                        // client never received a response, or request never left
-                        console.log('err.request ', err.request)
-                    } else {
-                        // anything else
-                        console.log('ошибка запроса')
-                    }
-                })
-        }
-
-        getPromoItemIteration(productGuid[Math.min(len - count, len - 1)])
-    } else {
-        apiService.getComplexes(productGuid, cityGuid)
+    // подтягиваем доп.продажи по id товаров, если нет, берём следующий товар из массива.
+    const getPromoItemIteration = (productID: string) => {
+        apiService.getComplexes(productID, cityGuid)
             .then(response => {
                 // если в ответе не пустой массив - круто - записываем в state.promoItems
                 if (response.promoItems.length > 0) {
                     dispatch(setPromoItems(response))
                 } else {
-                    // если массив пустой, то запрашиваем аналоги
-                    apiService.getAnalogues(productGuid)
-                        .then(response => {
-                            // если в ответе не пустой массив - круто - записываем в state.promoItems
-                            if (response.promoItems.length) {
-                                dispatch(setPromoItems(response))
-                            } else {
-                                // если массив пустой - у нас ничего нет - записываем это для дальнейших действий
-                                dispatch(setPromoItems('NOT_FOUND'))
-                            }
-                        })
-                        .catch(e => {
-                            // если ошибка, тоже записываем, для дальнейшей работы
-                            dispatch(setPromoItems('ERROR'))
-                            if (e.response) {
-                                // client received an error response (5xx, 4xx)
-                                console.log('err.response: ', e.response)
-                            } else if (e.request) {
-                                // client never received a response, or request never left
-                                console.log('err.request ', e.request)
-                            } else {
-                                // anything else
-                                console.log('ошибка запроса')
-                            }
-                        })
+                    if (count > 1) {
+                        --count
+                        getPromoItemIteration(productGuid[Math.min(len - count, len - 1)])
+                    }
                 }
-
             })
             .catch(err => {
-                apiService.getAnalogues(productGuid)
-                    .then(response => {
-                        // если в ответе не пустой массив - круто - записываем в state.promoItems
-                        if (response.promoItems.length) {
-                            dispatch(setPromoItems(response))
-                        } else {
-                            // если массив пустой - у нас ничего нет - записываем это для дальнейших действий
-                            dispatch(setPromoItems('NOT_FOUND'))
-                        }
-                    })
-                    .catch(e => {
-                        // если ошибка, тоже записываем, для дальнейшей работы
-                        dispatch(setPromoItems('ERROR'))
-                        if (e.response) {
-                            // client received an error response (5xx, 4xx)
-                            console.log('err.response: ', e.response)
-                        } else if (e.request) {
-                            // client never received a response, or request never left
-                            console.log('err.request ', e.request)
-                        } else {
-                            // anything else
-                            console.log('ошибка запроса')
-                        }
-                        return Promise.reject('failed getPromoItem')
-                    })
-
                 if (err.response) {
                     // client received an error response (5xx, 4xx)
                     console.log('err.response: ', err.response)
@@ -958,6 +829,8 @@ const getPromoItem = (productGuid: string | string[]): ThunkType => async (dispa
                 }
             })
     }
+
+    getPromoItemIteration(productGuid[Math.min(len - count, len - 1)])
 }
 
 // true, когда происходит запрос от панели поиска - для сброса страниц на первую в Cards
