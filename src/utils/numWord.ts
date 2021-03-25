@@ -1,4 +1,4 @@
-export default function num_word(value, words) {
+export default function num_word(value: number, words: string[]) {
   value = Math.abs(value) % 100;
   const num = value % 10;
   if (value > 10 && value < 20) return words[2];

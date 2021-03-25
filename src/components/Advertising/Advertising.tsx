@@ -22,10 +22,10 @@ const imgData = [
 ]
 
 
-const Advertising = () => {
+const Advertising: React.FC = () => {
   let history = useHistory();
 
-  function handleClick(path) {
+  function handleClick(path: string) {
     history.push(path);
   }
 

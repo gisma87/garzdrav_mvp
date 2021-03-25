@@ -1,7 +1,12 @@
 import React from "react";
 import './BlockWrapper.scss'
 
-const BlockWrapper = ({children, classStyle = '', onClick = () => {}}) => {
+type Props = {
+    classStyle?: string,
+    onClick?: () => void
+}
+
+const BlockWrapper: React.FC<Props> = ({children, classStyle = '', onClick = () => {}}) => {
     return (
         <div className={'BlockWrapper ' + classStyle} onClick={onClick}>
             {children}

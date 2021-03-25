@@ -8,14 +8,18 @@ import 'swiper/components/pagination/pagination.scss'
 import ArticleCard from "../ArticleCard";
 import SvgArrowLightRight from "../../img/SVGcomponents/SvgArrowLightRight";
 import {useMediaQuery} from "react-responsive";
-import {Link, withRouter} from "react-router-dom";
+import {Link, RouteComponentProps, withRouter} from "react-router-dom";
 import {articleCardData} from "../../data/articlesCardData";
 
-const ArticlesBlock = props => {
+type Props = {
+
+} & RouteComponentProps
+
+const ArticlesBlock: React.FC<Props> = props => {
   const isMobile = useMediaQuery({query: '(max-width: 650px)'})
   const isTablet = useMediaQuery({query: '(max-width: 800px)'})
 
-  const onItemSelected = (itemId, event) => {
+  const onItemSelected = (itemId: string | number, event: React.MouseEvent) => {
     props.history.push(`/articles/${itemId}`);
   }
 
@@ -40,7 +44,7 @@ const ArticlesBlock = props => {
             spaceBetween={5}
             slidesPerView={isMobile ? 1 : (isTablet ? 2 : 'auto')}
             tag="section" wrapperTag="ul"
-            loop={'false'}
+            loop={true}
             navigation={
               {
                 nextEl: '.next',

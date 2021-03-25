@@ -11,7 +11,7 @@ import brand8 from '../../img/brands/8.png'
 
 const brands = [brand1, brand2, brand3, brand4, brand5, brand6, brand7, brand8]
 
-const BrandsBlock = props => {
+const BrandsBlock = () => {
   return (
     <div className='BrandsBlock wrapper'>
       <h3 className='BrandsBlock__title'>Бренды</h3>
