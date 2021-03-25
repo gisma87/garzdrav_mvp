@@ -203,6 +203,11 @@ export interface Action_setCatalog{
     payload: CategoryElement
 }
 
+export interface Action_setIDfetchPromo{
+    type: ActionTypes.SET_ID_FETCH_PROMO,
+    payload: number
+}
+
 export interface Action_fetchCities{
     type: ActionTypes.FETCH_CITIES_SUCCESS,
     payload: {
@@ -255,4 +260,5 @@ export type ActionType = (
     | Action_setCatalog
     | Action_fetchCities
     | ActionSetError
+    | Action_setIDfetchPromo
     )

@@ -7,6 +7,7 @@ import {
     Action_fetchRetailsCity,
     Action_setCatalog,
     Action_setCity,
+    Action_setIDfetchPromo,
     Action_setInternetSales,
     Action_setProductsToCategory,
     Action_setSales,
@@ -17,7 +18,8 @@ import {
     ActionClearError,
     ActionDelCartItems,
     ActionDelFavoritesToStore,
-    ActionItemRemovedFromCart, ActionItemsForPromoBlock,
+    ActionItemRemovedFromCart,
+    ActionItemsForPromoBlock,
     ActionLoadingFalse,
     ActionLoadingFavorites,
     ActionLoadingProductInfo,
@@ -48,12 +50,15 @@ import {
 
 import {
     ActionTypes,
-    CartItemType, CategoryElement,
+    CartItemType,
+    CategoryElement,
     internetSale,
-    ObjType, Predictor,
+    ObjType,
+    Predictor,
     retailCity,
     TypeApiService,
-    TypeProductInfo, TypePromoItems,
+    TypeProductInfo,
+    TypePromoItems,
 } from "../types";
 import {StateType} from "../store";
 import {ThunkAction} from "redux-thunk";
@@ -777,7 +782,6 @@ function getDataProfile(): ThunkType {
                 // если запрос userData failed, то обновляем токен
                 const response = await apiService.refreshToken(TOKEN)
                 dispatch(setToken(response))
-                console.log('refresh_TOKEN')
                 // затем опять запрашиваем все данные для Profile
                 dispatch(getToFavorites())
                 dispatch(fetchUserData())
@@ -791,12 +795,18 @@ function getDataProfile(): ThunkType {
     }
 }
 
+function setIDfetchPromo(IDfetch: number): Action_setIDfetchPromo {
+    return {type: ActionTypes.SET_ID_FETCH_PROMO, payload: IDfetch}
+}
+
 function setPromoItems(promoItems: TypePromoItems): ActionSetPromoItems {
     return {type: ActionTypes.SET_PROMO_ITEMS, payload: promoItems}
 }
 
 // доп.продажи complexes для отображения в блоке "Вам пригодится"
 const getPromoItem = (productGuid: string[]): ThunkType => async (dispatch, getState, apiService) => {
+    const IDfetch = Math.random()
+    dispatch(setIDfetchPromo(IDfetch))
     const cityGuid = getState().isCity.guid
     // сначала запрашиваем комплексные товары
     const len = productGuid.length;
@@ -808,7 +818,9 @@ const getPromoItem = (productGuid: string[]): ThunkType => async (dispatch, getS
             .then(response => {
                 // если в ответе не пустой массив - круто - записываем в state.promoItems
                 if (response.promoItems.length > 0) {
-                    dispatch(setPromoItems(response))
+                    if (getState().idFetchPromo === IDfetch) {
+                        dispatch(setPromoItems(response))
+                    }
                 } else {
                     if (count > 1) {
                         --count

@@ -59,7 +59,8 @@ const initialState: StateTypes = {
     seasonItemsForPromoBlock2: [], // собранный массив, из наших картинок и данных с базы - сезонные товары
     popularItemsForPromoBlock3: [],
     predictor: null,
-    activePromoGroup: {name: 'Акционные товары', arrPromo: []}
+    activePromoGroup: {name: 'Акционные товары', arrPromo: []},
+    idFetchPromo: null
 }
 
 const upgradeRetailItems = (array: RetailItem[]): RetailItem[] => {
@@ -434,6 +435,12 @@ const reducer = (state = initialState, action: ActionType): StateTypes => {
             return {
                 ...state,
                 isDelCartItem: false
+            }
+
+        case ActionTypes.SET_ID_FETCH_PROMO:
+            return {
+                ...state,
+                idFetchPromo: action.payload
             }
 
         case ActionTypes.ON_SELECT_RETAIL:

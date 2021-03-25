@@ -48,7 +48,8 @@ export enum ActionTypes {
     SET_PREDICTOR = 'SET_PREDICTOR',
     SET_ACTIVE_PROMO_GROUP = 'SET_ACTIVE_PROMO_GROUP',
     SET_CATALOG = 'SET_CATALOG',
-    FETCH_CITIES_SUCCESS = 'FETCH_CITIES_SUCCESS'
+    FETCH_CITIES_SUCCESS = 'FETCH_CITIES_SUCCESS',
+    SET_ID_FETCH_PROMO = 'SET_ID_FETCH_PROMO'
 }
 
 export type CartItemType = { itemId: string, count: number }
@@ -189,6 +190,7 @@ export interface StateTypes {
     itemsForPromoBlock1: TypeProductInfo[],
     seasonItemsForPromoBlock2: TypeProductInfo[],
     popularItemsForPromoBlock3: TypeProductInfo[],
+    idFetchPromo: null | number
 }
 
 // подробная информация по товару - ответ сервера
