@@ -343,17 +343,16 @@ const reducer = (state = initialState, action: ActionType): StateTypes => {
                             delete copyItem.retails
 
                             const productItem: {
-                                [key: string]: string | number | ObjType | (number | string | ObjType)[] | null | undefined,
-                                retails?: any
+                                [key: string]: string | number | ObjType | (number | string | ObjType)[] | null | undefined
                             } = {...copyItem} // в итоге - это товар без списка аптек
 
                             // добавляем цену товара в текущей аптеке
                             productItem.priceRetail = retail.priceRetail
-                            productItem.countLast = retail.countLast
+                            productItem.countLast = retail.countLast || 0
 
                             // добавляем количество товара из корзины в продукт - если количество больше, чем макс.кол в аптеке, то ставим макс. в аптеке
                             const countProductInCart = state.cart.find(cartItem => cartItem.itemId === item.guid)?.count || 0;
-                            productItem.count = (countProductInCart <= (retail.countLast || 0)) ? countProductInCart : retail.countLast
+                            productItem.count = (countProductInCart <= productItem.countLast) ? countProductInCart : productItem.countLast
 
                             // копируем аптеку
                             const copyRetail: {
@@ -408,8 +407,6 @@ const reducer = (state = initialState, action: ActionType): StateTypes => {
                     ...state,
                     cartItems: [],
                     retailsArr: [],
-                    // selectedRetail: null,
-                    // isRetailAllProduct: true,
                     loading: (state.loading > 0) ? (state.loading - 1) : 0,
                     error: null
                 }
@@ -422,9 +419,6 @@ const reducer = (state = initialState, action: ActionType): StateTypes => {
                 ...state,
                 cartItems: newCardItems,
                 retailsArr: [...upgradeRetailItems(retailsArr)],
-                // selectedRetail: state.selectedRetail ? state.selectedRetail : selectedRetail,
-                // selectedRetail: null,
-                // isRetailAllProduct,
                 cart: cartNow,
                 isDelCartItem,
                 loading: (state.loading > 0) ? (state.loading - 1) : 0,
