@@ -3,7 +3,7 @@ import './PopupLogin.scss'
 import PopupWrapper from "../UI/PopupWrapper/PopupWrapper";
 import InputMask from 'react-input-mask'
 import {connect} from "react-redux";
-import {authorizedByEmail, authorizedByPassOrSMS} from "../../actions";
+import {authorizedByEmail, authorizedByPassOrSMS, closePopupLogin} from "../../actions";
 import apiService from "../../service/ApiService";
 import EyeButtonShow from "../UI/EyeButtonShow/EyeButtonShow";
 import LoaderTimer from "../UI/LoaderTimer/LoaderTimer";
@@ -25,7 +25,7 @@ const PopupLogin = props => {
   const inputEmail = useRef()
 
   useEffect(() => {
-    if (props.TOKEN) props.onClick();
+    if (props.TOKEN) props.closePopupLogin();
     // eslint-disable-next-line
   }, [props.TOKEN])
 
@@ -113,7 +113,7 @@ const PopupLogin = props => {
   }
 
   return (
-    <PopupWrapper onClick={props.onClick} active={props.active} classStyle='PopupLogin'>
+    <PopupWrapper onClick={props.closePopupLogin} active={props.isPopupLogin} classStyle='PopupLogin'>
       <h3 className="PopupLogin__title">Войти или зарегистрироваться</h3>
       <form className="PopupLogin__form" name="new" noValidate
             onSubmit={(event) => event.preventDefault()}
@@ -218,12 +218,13 @@ const PopupLogin = props => {
   )
 }
 
-const mapStateToProps = ({TOKEN, error}) => {
-  return {TOKEN, error}
+const mapStateToProps = ({TOKEN, error, isPopupLogin}) => {
+  return {TOKEN, error, isPopupLogin}
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    closePopupLogin: () => dispatch(closePopupLogin()),
     authorizedByPassOrSMS: (phone, smsOrPass) => dispatch(authorizedByPassOrSMS(phone, smsOrPass)),
     authorizedByEmail: (email, code) => dispatch(authorizedByEmail(email, code))
   }

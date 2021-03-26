@@ -49,7 +49,9 @@ export enum ActionTypes {
     SET_ACTIVE_PROMO_GROUP = 'SET_ACTIVE_PROMO_GROUP',
     SET_CATALOG = 'SET_CATALOG',
     FETCH_CITIES_SUCCESS = 'FETCH_CITIES_SUCCESS',
-    SET_ID_FETCH_PROMO = 'SET_ID_FETCH_PROMO'
+    SET_ID_FETCH_PROMO = 'SET_ID_FETCH_PROMO',
+    OPEN_POPOP_LOGIN = 'OPEN_POPOP_LOGIN',
+    CLOSE_POPOP_LOGIN = 'CLOSE_POPOP_LOGIN'
 }
 
 export type CartItemType = { itemId: string, count: number }
@@ -141,7 +143,7 @@ export type TypeisCity = {
     [key: string]: string | number | null | ObjType | (string | number | ObjType)[]
 }
 
-export type TypePromoItems = {type: string, courses?: any[], promoItems: Product[]}
+export type TypePromoItems = { type: string, courses?: any[], promoItems: Product[] }
 
 export type Predictor = { endOfWord: boolean | string, pos: number | string, text: string[] }
 
@@ -190,7 +192,8 @@ export interface StateTypes {
     itemsForPromoBlock1: TypeProductInfo[],
     seasonItemsForPromoBlock2: TypeProductInfo[],
     popularItemsForPromoBlock3: TypeProductInfo[],
-    idFetchPromo: null | number
+    idFetchPromo: null | number,
+    isPopupLogin: boolean
 }
 
 // подробная информация по товару - ответ сервера

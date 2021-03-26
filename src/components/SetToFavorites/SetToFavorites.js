@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
-import {addToFavorites, delToFavorites, refreshAuthentication} from "../../actions";
+import {addToFavorites, delToFavorites, openPopupLogin, refreshAuthentication} from "../../actions";
 import {connect} from "react-redux";
-import PopupLogin from "../PopupLogin/PopupLogin";
 import {service} from "../../service/service";
 import ButtonHeart from "../UI/ButtonHeart/ButtonHeart";
 import LoaderCircle from "../UI/LoaderCircle/LoaderCircle";
@@ -9,7 +8,6 @@ import LoaderCircle from "../UI/LoaderCircle/LoaderCircle";
 const SetToFavorites = props => {
 
   const [isLike, setIsLike] = useState(false)
-  const [showPopupLogin, setShowPopupLogin] = useState(false)
 
   const isFavorites = () => {
     if (props.favorites.length) {
@@ -34,7 +32,7 @@ const SetToFavorites = props => {
 
       }
     } else {
-      setShowPopupLogin(true)
+      props.openPopupLogin()
     }
   }
 
@@ -48,9 +46,6 @@ const SetToFavorites = props => {
         }
         <span>В избранное</span>
       </div>
-      <PopupLogin active={showPopupLogin}
-                  onClick={() => setShowPopupLogin(false)}
-      />
     </>
   )
 }
@@ -61,6 +56,7 @@ const mapStateToProps = ({favorites, TOKEN, loadingFavorites}) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    openPopupLogin: () => dispatch(openPopupLogin()),
     addToFavorites: (productGuid) => dispatch(addToFavorites(productGuid)),
     delToFavorites: (productGuid) => dispatch(delToFavorites(productGuid)),
     refreshAuthentication: () => dispatch(refreshAuthentication())

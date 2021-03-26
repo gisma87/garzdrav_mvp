@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import {NavLink, withRouter} from "react-router-dom";
 import './MobileBottomNavbar.scss'
 import SvgIconCart from "../UI/icons/SvgIconCart";
@@ -6,13 +6,11 @@ import SvgIconHome from "../UI/icons/SvgIconHome";
 import SvgIconLocation from "../UI/icons/SvgIconLocation";
 import SvgIconSearch from "../UI/icons/SvgIconSearch";
 import SvgIconUser from "../UI/icons/SvgIconUser";
-import {rewriteCart} from "../../actions";
+import {openPopupLogin, rewriteCart} from "../../actions";
 import {connect} from "react-redux";
 import PopupLogin from "../PopupLogin";
 
 const MobileBottomNavbar = (props) => {
-
-  const [popup, setPopup] = useState(false)
 
   const count = props.cart.reduce((sum, item) => {
     return item.count + sum
@@ -42,12 +40,10 @@ const MobileBottomNavbar = (props) => {
                 if (props.TOKEN) {
                   props.history.push('/profile/')
                   window.scroll(0, 0)
-                } else setPopup(true)
+                } else props.openPopupLogin()
               }}><SvgIconUser className='MobileBottomNavbar__icon MobileBottomNavbar__iconProfile'/></button>
 
-      <PopupLogin active={popup}
-                  onClick={() => setPopup(false)}
-      />
+      <PopupLogin />
 
     </div>
   )
@@ -59,6 +55,7 @@ const mapStateToProps = ({cart, TOKEN}) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    openPopupLogin: () => dispatch(openPopupLogin()),
     rewriteCart: (item) => dispatch(rewriteCart(item))
   }
 }

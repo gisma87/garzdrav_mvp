@@ -166,49 +166,49 @@ export interface Action_setSales {
     payload: any[]
 }
 
-export interface Action_setInternetSales{
+export interface Action_setInternetSales {
     type: ActionTypes.REQUEST_INTERNET_SALES,
     payload: internetSale[]
 }
 
-export interface ActionSetPromoItems{
+export interface ActionSetPromoItems {
     type: ActionTypes.SET_PROMO_ITEMS,
     payload: TypePromoItems
 }
 
-export interface ActionOnRequestFromSearchPanel{
+export interface ActionOnRequestFromSearchPanel {
     type: ActionTypes.ON_REQUEST_FROM_SEARCH_PANEL,
 }
 
-export interface ActionOffRequestFromSearchPanel{
+export interface ActionOffRequestFromSearchPanel {
     type: ActionTypes.OFF_REQUEST_FROM_SEARCH_PANEL,
 }
 
-export interface ActionSetFalseIsDelCartItems{
+export interface ActionSetFalseIsDelCartItems {
     type: ActionTypes.FALSE_IS_DELETE_CART_ITEMS,
 }
 
-export interface ActionSetPredictor{
+export interface ActionSetPredictor {
     type: ActionTypes.SET_PREDICTOR,
     payload: { endOfWord: boolean | string, pos: number | string, text: string[] }
 }
 
-export interface ActionSetActivePromoGroup{
+export interface ActionSetActivePromoGroup {
     type: ActionTypes.SET_ACTIVE_PROMO_GROUP,
     payload: { name: string, arrPromo: { [key: string]: any }[] }
 }
 
-export interface Action_setCatalog{
+export interface Action_setCatalog {
     type: ActionTypes.SET_CATALOG,
     payload: CategoryElement
 }
 
-export interface Action_setIDfetchPromo{
+export interface Action_setIDfetchPromo {
     type: ActionTypes.SET_ID_FETCH_PROMO,
     payload: number
 }
 
-export interface Action_fetchCities{
+export interface Action_fetchCities {
     type: ActionTypes.FETCH_CITIES_SUCCESS,
     payload: {
         regionGuid: string;
@@ -218,8 +218,18 @@ export interface Action_fetchCities{
     }[]
 }
 
+export interface Action_openPopupLogin {
+    type: ActionTypes.OPEN_POPOP_LOGIN
+}
+
+export interface Action_closePopupLogin {
+    type: ActionTypes.CLOSE_POPOP_LOGIN
+}
+
 export type ActionType = (
     ActionItemsForPromoBlock
+    | Action_closePopupLogin
+    | Action_openPopupLogin
     | ActionStatusRequestRepeatOrder
     | ActionResetLoading
     | ActionsSetErrorAuth

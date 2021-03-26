@@ -45,7 +45,9 @@ import {
     ActionSetUserData,
     ActionsSetErrorAuth,
     ActionStatusRequestRepeatOrder,
-    ActionType
+    ActionType,
+    Action_closePopupLogin,
+    Action_openPopupLogin
 } from "./actionType";
 
 import {
@@ -84,6 +86,18 @@ const setErrorAuth = (error: any): ActionsSetErrorAuth => {
 const clearError = (): ActionClearError => {
     return {
         type: ActionTypes.CLEAR_ERROR
+    }
+}
+
+export const openPopupLogin = (): Action_openPopupLogin => {
+    return {
+        type: ActionTypes.OPEN_POPOP_LOGIN
+    }
+}
+
+export const closePopupLogin = (): Action_closePopupLogin => {
+    return {
+        type: ActionTypes.CLOSE_POPOP_LOGIN
     }
 }
 

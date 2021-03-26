@@ -1,4 +1,4 @@
-import {ObjType, StateTypes, CartItemType, TypeProductInfo, ActionTypes} from "../types";
+import {ActionTypes, CartItemType, ObjType, StateTypes, TypeProductInfo} from "../types";
 import {ActionType} from "../actions/actionType";
 
 type RetailItem = {
@@ -60,7 +60,8 @@ const initialState: StateTypes = {
     popularItemsForPromoBlock3: [],
     predictor: null,
     activePromoGroup: {name: 'Акционные товары', arrPromo: []},
-    idFetchPromo: null
+    idFetchPromo: null,
+    isPopupLogin: false
 }
 
 const upgradeRetailItems = (array: RetailItem[]): RetailItem[] => {
@@ -135,6 +136,18 @@ function isEmpty(obj: Object) {
 const reducer = (state = initialState, action: ActionType): StateTypes => {
 
     switch (action.type) {
+
+        case ActionTypes.OPEN_POPOP_LOGIN:
+            return {
+                ...state,
+                isPopupLogin: true
+            }
+
+        case ActionTypes.CLOSE_POPOP_LOGIN:
+            return {
+                ...state,
+                isPopupLogin: false
+            }
 
         case ActionTypes.SET_STATUS_REQUEST_REPEAT_ORDER:
             return {
