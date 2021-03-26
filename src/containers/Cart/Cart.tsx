@@ -144,7 +144,7 @@ class Cart extends React.Component<Props, State> {
         }
     }
 
-    // роутинг по страницам Cart
+    // переход к 3 стр. если нет выбранной аптеки, то переходим на 2 стр.
     goToPageStageThree = (retailId = null) => {
         if (retailId) {
             this.props.onSelectRetail(retailId);
@@ -160,6 +160,7 @@ class Cart extends React.Component<Props, State> {
         });
     }
 
+    // роутинг по страницам Cart
     goToPage(n: number) {
         this.setState({pageStage: n})
         window.scrollTo({

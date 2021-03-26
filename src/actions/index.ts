@@ -151,7 +151,6 @@ const fetchCartItems = (city: string | null = null): ThunkType => (dispatch, get
     const {cart, isCity} = getState()
     const cityId = city || isCity.guid
     dispatch(clearError())
-    dispatch(delCartItems())
 
     if (cart.length > 0) {
         dispatch(loadingTrue())
