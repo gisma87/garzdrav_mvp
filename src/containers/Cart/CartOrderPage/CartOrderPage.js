@@ -133,7 +133,6 @@ const CartOrderPage = props => {
     }
   }
 
-  console.log('order.product: ', order.product)
   return (
     <div className='CartOrderPage'>
       {

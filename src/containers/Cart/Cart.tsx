@@ -137,8 +137,6 @@ class Cart extends React.Component<PropsCart, StateCart> {
         const countProducts = this.props.cart.reduce((sum, item) => {
             return item.count + sum
         }, 0)
-        console.log('countProducts: ', countProducts)
-        console.log('StatecountProducts: ', this.state.countProducts)
         if (countProducts !== this.state.countProducts) {
             this.setState({countProducts: countProducts})
             this.props.setCartItems(this.props.cartItems)
