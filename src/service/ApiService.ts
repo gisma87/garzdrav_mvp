@@ -240,7 +240,7 @@ class ApiService {
     }
 
     // POST запрос сформированный заказ (отправка заказа)
-    async sendOrder(order: TypeOrder, accessToken: string) {
+    async sendOrder(order: TypeOrder, accessToken: string | undefined) {
         const response = await axios({
             method: 'post',
             url: `${this.URL}/Orders`,

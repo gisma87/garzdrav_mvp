@@ -3,7 +3,20 @@ import './CardItemMobile.scss'
 import SvgCheck from "../UI/icons/SvgCheck";
 import notPhoto from "../../img/notPhoto.svg";
 
-const CardItemMobile = ({
+type Props = {
+    active: boolean,
+    id: string | number,
+    title: string,
+    maker: string,
+    img: any,
+    minPrice: number,
+    classStyle?: string,
+    favoriteButton?: boolean,
+    onItemSelected(id: string | number, event: React.MouseEvent): void,
+    updateToCart(): void
+}
+
+const CardItemMobile: React.FC<Props> = ({
                           active,
                           id,
                           title,

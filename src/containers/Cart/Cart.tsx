@@ -23,19 +23,19 @@ import {
 } from "../../actions";
 import {
     calcQuantityProduct,
-    calculateAmountArray, checkRetailItem, clearCartError,
-    getCountLast, getDataForPromoItem, getFullCountProductsRetails,
-    getFullRetailItemState, getSum, indexActiveRetail, isChecked, isFullActiveRetail, newCartItems, onLoading,
-    postBuyOrder, sortProductThisRetail
+    checkRetailItem, clearCartError,
+    getDataForPromoItem, getFullCountProductsRetails,
+    isChecked, onLoading,
 } from './cartUtils'
 import SvgArrowLongRight from "../../components/UI/icons/SvgArrowLongRight";
 import CardItem from "../../components/CardItem";
 import CartOrderPage from "./CartOrderPage/CartOrderPage";
 import CartPageChoiceRetail from "./CartPageChoiceRetail/CartPageChoiceRetail";
 import CartItems from "./CartItems";
-import {CartItemType, TypeProductInfo, TypeisCity, TypeRetailItem, TypePromoItems} from "../../types";
+import {CartItemType, TypeProductInfo, TypeisCity, TypeRetailItem, TypePromoItems, TypeOrder} from "../../types";
 import {StateType} from "../../store";
 import {ThunkDispatch} from "redux-thunk";
+import apiService from "../../service/ApiService";
 
 type MapStatePropsType = {
     errorAuth: null | string,
@@ -69,9 +69,9 @@ type MapDispatchPropsType = {
     setCountItemCart: (idProduct: string, delta: number) => void
 }
 
-type Props = RouteComponentProps & MapStatePropsType & MapDispatchPropsType;
+export type PropsCart = RouteComponentProps & MapStatePropsType & MapDispatchPropsType;
 
-type State = {
+export type StateCart = {
     pageStage: number,
     popupMap: boolean,
     view: boolean,
@@ -85,28 +85,18 @@ type State = {
     thisTime: { date: string | number, iteration: number },
 }
 
-class Cart extends React.Component<Props, State> {
+class Cart extends React.Component<PropsCart, StateCart> {
     timer: number | null;
-    calculateAmountArray = calculateAmountArray.bind(this)
-    getCountLast = getCountLast.bind(this)
-    getFullRetailItemState = getFullRetailItemState.bind(this)
     calcQuantityProduct = calcQuantityProduct.bind(this)
-    postBuyOrder = postBuyOrder.bind(this)
     clearCartError = clearCartError.bind(this)
-    isFullActiveRetail = isFullActiveRetail.bind(this)
     checkRetailItem = checkRetailItem.bind(this)
-    getSum = getSum.bind(this)
     onLoading = onLoading.bind(this)
-    sortProductThisRetail = sortProductThisRetail.bind(this)
-    newCartItems = newCartItems.bind(this)
-    isChecked = isChecked.bind(this)
-    indexActiveRetail = indexActiveRetail.bind(this)
-    getFullCountProductsRetails = getFullCountProductsRetails.bind(this)
     getDataForPromoItem = () => getDataForPromoItem(this.props, this.props.cartItems)
 
-    constructor(props: Props) {
+    constructor(props: PropsCart) {
         super(props);
         this.timer = null;
+        this.postBuyOrder = this.postBuyOrder.bind(this)
     }
 
     state = {
@@ -133,7 +123,7 @@ class Cart extends React.Component<Props, State> {
         this.props.getPromoItem(arrItemId)
     }
 
-    componentDidUpdate(prevProps: Props, prevState: any, snapshot: any) {
+    componentDidUpdate(prevProps: PropsCart, prevState: any, snapshot: any) {
         // если в корзину добавился новый товар - пересобираем корзину
         if (!this.props.loading && (this.props.cartItems.length < this.props.cart.length)) {
             this.props.fetchCartItems()
@@ -141,6 +131,35 @@ class Cart extends React.Component<Props, State> {
             // товар удалили из корзины, удаляем его из cartItems и пересобираем cartItems и retailsArr
             const newCartItems = this.props.cartItems.filter(item => this.props.cart.some(i => i.itemId === item.guid))
             this.props.setCartItems(newCartItems)
+        }
+    }
+
+    // отправка на сервер собранного интернет заказа
+    async postBuyOrder() {
+        this.props.loadingTrue()
+        const retailItem = this.props.retailsArr.find(item => item.guid === this.props.selectedRetail)
+        if (retailItem) {
+            const {guid, product, sum} = retailItem
+            const products = product.map(item => {
+                return {
+                    productGuid: item.guid,
+                    quantity: item.count,
+                    manufacturer: item.manufacturer,
+                    product: item.product,
+                    priceRetail: item.priceRetail
+                }
+            })
+            const send = {retailGuid: guid, telephone: this.state.telephone, products: products, sum}
+            const response = await apiService.sendOrder((send as TypeOrder), this.props.TOKEN?.accessToken)
+            console.log('Заказ отправлен: ', send);
+            console.log('Номер заказа: ', response)
+            this.setState({OrderNumber: response})
+            product.forEach(item => this.props.allItemRemovedFromCart(item.guid)) // удалить заказанные позиции из корзины
+            this.props.loadingFalse()
+            this.props.onSelectRetail(null)
+            return response
+        } else {
+            return Promise.reject('не выбрана аптека')
         }
     }
 
@@ -213,7 +232,7 @@ class Cart extends React.Component<Props, State> {
             return item.count + sum
         }, 0)
 
-        const {allCountFullProductRetails, notCompleteCountProductsRetails} = this.getFullCountProductsRetails()
+        const {allCountFullProductRetails, notCompleteCountProductsRetails} = getFullCountProductsRetails(this.props)
 
         const retailsForMap = () => [...this.props.retailsArr].sort((a, b) => {
             const aCount = a.product.reduce((acc, val) => {
@@ -267,14 +286,14 @@ class Cart extends React.Component<Props, State> {
                 </MediaQuery>
 
                 <ErrorBoundary>
-                    {this.props.error ? this.clearCartError()
+                    {this.props.error ? this.clearCartError(this.props, this.state, (error: any) => this.setState({error: error}))
                         : <>
                             {(this.props.retailsArr.length < 1) && (this.props.cart.length > 0)
                                 ? <>
                                     {
                                         this.props.loading
                                             ? <p>Загрузка ...</p>
-                                            : this.onLoading()
+                                            : this.onLoading(this.props, this.state, (text) => this.setState({loadingText: text}))
                                     }
                                 </>
                                 : <>
@@ -425,8 +444,8 @@ class Cart extends React.Component<Props, State> {
                                             allCountFullProductRetails,
                                             notCompleteCountProductsRetails,
                                             incompleteRetailItemState,
-                                            calcQuantityProduct: this.calcQuantityProduct,
-                                            isChecked: this.isChecked,
+                                            calcQuantityProduct: (product: { [key: string]: string | number }[]) => this.calcQuantityProduct(this.props, product),
+                                            isChecked: (id: string) => isChecked(this.props, id),
                                             goToPageStageThree: this.goToPageStageThree,
                                             showMap: this.state.popupMap,
                                             showDesktopPopupMap: (boolean: boolean) => this.setState({popupMap: boolean}),
@@ -441,7 +460,7 @@ class Cart extends React.Component<Props, State> {
 
                                     {
                                         this.state.pageStage === 3 && (this.props.selectedRetail || this.state.OrderNumber)
-                                        && <CartOrderPage retail={this.checkRetailItem()}
+                                        && <CartOrderPage retail={this.checkRetailItem(this.props)}
                                                           errorAuth={this.props.errorAuth}
                                                           isAuth={Boolean(this.props.TOKEN)}
                                                           authorizedBySMSorPassword={this.props.authorizedBySMSorPassword}

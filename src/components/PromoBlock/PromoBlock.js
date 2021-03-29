@@ -81,18 +81,23 @@ class PromoBlock extends React.Component {
                   const itemIndex = this.props.cart.findIndex((item) => item.itemId === guid);
                   const isBuy = itemIndex >= 0;
                   const count = isBuy ? this.props.cart[itemIndex].count : 0
-                  return <CardItem onItemSelected={this.onItemSelected}
-                                   onIncrement={() => this.props.addedToCart(guid)}
-                                   onDecrement={() => this.props.itemRemovedFromCart(guid)}
-                                   isBuy={isBuy}
-                                   count={count}
-                                   countLast={countLast}
-                                   key={guid}
-                                   id={guid}
-                                   title={product}
-                                   maker={manufacturer}
-                                   img={img}
-                                   minPrice={minPrice}/>
+                  return <CardItem itemProps={
+                    {
+                      onIncrement: () => this.props.addedToCart(guid),
+                      onDecrement: () => this.props.itemRemovedFromCart(guid),
+                      isBuy,
+                      count,
+                      countLast,
+                      key: guid,
+                      id: guid,
+                      title: product,
+                      maker: manufacturer,
+                      img,
+                      minPrice
+                    }
+                  }
+                                   onItemSelected={this.onItemSelected}
+                  />
                 }).map((item, index) => {
                   return (
                     <SwiperSlide tag="li" key={index} style={{listStyleType: 'none'}}>

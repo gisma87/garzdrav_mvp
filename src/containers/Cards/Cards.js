@@ -138,17 +138,19 @@ const Cards = props => {
                                           img={img}
                                           minPrice={minPrice}/>
                         : <CardItem onItemSelected={onItemSelected}
-                                    onIncrement={() => addedToCart(guid)}
-                                    onDecrement={() => itemRemovedFromCart(guid)}
-                                    isBuy={isBuy}
-                                    count={count}
-                                    countLast={countLast}
-                                    key={guid}
-                                    id={guid}
-                                    title={product}
-                                    maker={manufacturer}
-                                    img={img}
-                                    minPrice={minPrice}/>
+                                    itemProps={{
+                                      onIncrement: () => addedToCart(guid),
+                                      onDecrement: () => itemRemovedFromCart(guid),
+                                      isBuy,
+                                      count,
+                                      countLast,
+                                      key: guid,
+                                      id: guid,
+                                      title: product,
+                                      maker: manufacturer,
+                                      img,
+                                      minPrice,
+                                    }}/>
                     )
                   })
                   : <>
@@ -161,24 +163,24 @@ const Cards = props => {
                     }
                   </>
               }
-            </div>
+                </div>
 
-          </div>
+                </div>
 
-          {
-            ((props.productSearch || !isMobile) && (productsFromSearch.length > 0)) &&
-            <div style={{paddingTop: 15}}>
-              <Pagination totalRecords={countProductsSearch}
-                          page={currentPage}
-                          pageLimitItems={32}
-              />
-            </div>
-          }
-        </ErrorBoundary>
-      }
-    </section>
-  )
-}
+              {
+                ((props.productSearch || !isMobile) && (productsFromSearch.length > 0)) &&
+                <div style={{paddingTop: 15}}>
+                <Pagination totalRecords={countProductsSearch}
+                page={currentPage}
+                pageLimitItems={32}
+                />
+                </div>
+              }
+                </ErrorBoundary>
+              }
+                </section>
+                )
+              }
 
 const mapStateToProps = (
   {

@@ -1,4 +1,5 @@
 import apiService from "./service/ApiService";
+import React from "react";
 
 export type TypeApiService = typeof apiService
 
@@ -298,4 +299,20 @@ export interface CategoryElement {
     parent: string | null,
 
     _getChildrens(): void
+}
+
+export type PromoItemsForCart = {
+    isBuy: boolean,
+    count?: number,
+    countLast: number,
+    id: string | number,
+    title: string,
+    maker: string,
+    img: any,
+    minPrice: number | null,
+    classStyle?: string,
+
+    onIncrement(event?: React.MouseEvent): void,
+    onDecrement(event?: React.MouseEvent): void
+    promo: boolean,
 }
