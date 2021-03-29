@@ -8,9 +8,6 @@ import PopupMapCartMobile from "../../../components/PopupMapCartMobile/PopupMapC
 
 const CartPageChoiceRetail = props => {
   const {
-    allCountFullProductRetails, // - аптеки со всем товаром и количеством
-    notCompleteCountProductsRetails, // - аптеки со всем товаром но не полным количеством
-    incompleteRetailItemState, // - аптеки - не все товары в наличии
     calcQuantityProduct,
     isChecked, // (idRetail) => redux.store.selectedRetail === idRetail
     goToPageStageThree, // условный переход на 3-ю страницу
@@ -22,6 +19,12 @@ const CartPageChoiceRetail = props => {
     retailsForMap,
     selectedRetail, // - выбранная аптека из globalState
   } = props.data;
+  const {
+    allCountFullProductRetails, // - аптеки со всем товаром и количеством
+    notCompleteCountProductsRetails, // - аптеки со всем товаром но не полным количеством
+    incompleteRetailItemState, // - аптеки - не все товары в наличии
+  } = props.data.retails
+
 
   const isMobile = useMediaQuery({query: '(max-width: 900px)'})
 

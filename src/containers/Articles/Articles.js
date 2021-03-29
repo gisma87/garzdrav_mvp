@@ -119,36 +119,39 @@ const Articles = props => {
                                     img={img}
                                     minPrice={minPrice}/>
                   : <CardItem onItemSelected={onItemSelected}
-                              onIncrement={() => props.addedToCart(guid)}
-                              onDecrement={() => props.itemRemovedFromCart(guid)}
-                              isBuy={isBuy}
-                              count={count}
-                              countLast={countLast}
-                              key={guid}
-                              id={guid}
-                              title={product}
-                              maker={manufacturer}
-                              img={img}
-                              minPrice={minPrice}/>
+                              itemProps={{
+                                onIncrement: () => props.addedToCart(guid),
+                                onDecrement: () => props.itemRemovedFromCart(guid),
+                                isBuy,
+                                count,
+                                countLast,
+                                key: guid,
+                                id: guid,
+                                title: product,
+                                maker: manufacturer,
+                                img,
+                                minPrice,
+                              }}
+                  />
               )
             })
           }
 
-        </div>
-        {
-          (activePromoGroup.length > 0) &&
-          <div style={{paddingTop: 15}}>
+            </div>
+          {
+            (activePromoGroup.length > 0) &&
+            <div style={{paddingTop: 15}}>
             <PaginationFront totalRecords={activePromoGroup.length}
-                             pageLimitItems={20}
-                             onPageChanged={onPageChanged}
-                             reset={{status: resetPagination, off: () => setResetPagination(false)}}
+            pageLimitItems={20}
+            onPageChanged={onPageChanged}
+            reset={{status: resetPagination, off: () => setResetPagination(false)}}
             />
-          </div>
-        }
-      </div>
-    </ErrorBoundary>
-  )
-}
+            </div>
+          }
+            </div>
+            </ErrorBoundary>
+            )
+          }
 
 const mapStateToProps = ({activePromoGroup, cart}) => {
   return {activePromoGroup, cart}

@@ -23,7 +23,7 @@ import {
 } from "../../actions";
 import {
     calcQuantityProduct,
-    checkRetailItem, clearCartError,
+    clearCartError,
     getDataForPromoItem, getFullCountProductsRetails,
     isChecked, onLoading,
 } from './cartUtils'
@@ -83,13 +83,13 @@ export type StateCart = {
     isShowTimer: boolean,
     seconds: number | null,
     thisTime: { date: string | number, iteration: number },
+    countProducts: number
 }
 
 class Cart extends React.Component<PropsCart, StateCart> {
     timer: number | null;
     calcQuantityProduct = calcQuantityProduct.bind(this)
     clearCartError = clearCartError.bind(this)
-    checkRetailItem = checkRetailItem.bind(this)
     onLoading = onLoading.bind(this)
     getDataForPromoItem = () => getDataForPromoItem(this.props, this.props.cartItems)
 
@@ -111,6 +111,7 @@ class Cart extends React.Component<PropsCart, StateCart> {
         isShowTimer: false,
         seconds: 60,
         thisTime: {date: Date.now(), iteration: 0},
+        countProducts: 0
     }
 
     componentDidMount() {
@@ -131,6 +132,16 @@ class Cart extends React.Component<PropsCart, StateCart> {
             // товар удалили из корзины, удаляем его из cartItems и пересобираем cartItems и retailsArr
             const newCartItems = this.props.cartItems.filter(item => this.props.cart.some(i => i.itemId === item.guid))
             this.props.setCartItems(newCartItems)
+        }
+
+        const countProducts = this.props.cart.reduce((sum, item) => {
+            return item.count + sum
+        }, 0)
+        console.log('countProducts: ', countProducts)
+        console.log('StatecountProducts: ', this.state.countProducts)
+        if (countProducts !== this.state.countProducts) {
+            this.setState({countProducts: countProducts})
+            this.props.setCartItems(this.props.cartItems)
         }
     }
 
@@ -218,21 +229,30 @@ class Cart extends React.Component<PropsCart, StateCart> {
         }, 0)
     }
 
-    render() {
-        const stopCount = (product: TypeProductInfo) => product.retails.sort((a, b) => a.countLast < b.countLast ? 1 : -1)[0].countLast
-        const minSum = this.getMinSum().toFixed(2)
-
+    // возвращает аптеки для 2ой стр. корзины
+    getRetails() {
+        const {allCountFullProductRetails, notCompleteCountProductsRetails} = getFullCountProductsRetails(this.props)
         // список аптек с неполным наличием товара
         let incompleteRetailItemState = this.props.retailsArr
             .filter(item => item.product.length < this.props.cart.length)
             .sort((a, b) => ((a.product.length < b.product.length) || ((a.product.length === b.product.length) && ((a.sum ?? 0) > (b.sum ?? 0)))) ? 1 : -1)
+
+        return {
+            allCountFullProductRetails, // - аптеки со всем товаром и количеством
+            notCompleteCountProductsRetails, // - аптеки со всем товаром но не полным количеством
+            incompleteRetailItemState // - аптеки - не все товары в наличии
+        }
+    }
+
+    render() {
+        const stopCount = (product: TypeProductInfo) => product.retails.sort((a, b) => a.countLast < b.countLast ? 1 : -1)[0].countLast
+        const minSum = this.getMinSum().toFixed(2)
 
         // общее количество товаров в корзине
         const countProducts = this.props.cart.reduce((sum, item) => {
             return item.count + sum
         }, 0)
 
-        const {allCountFullProductRetails, notCompleteCountProductsRetails} = getFullCountProductsRetails(this.props)
 
         const retailsForMap = () => [...this.props.retailsArr].sort((a, b) => {
             const aCount = a.product.reduce((acc, val) => {
@@ -441,9 +461,7 @@ class Cart extends React.Component<PropsCart, StateCart> {
                                     {
                                         (this.state.pageStage === 2 && this.props.cart.length !== 0)
                                         && <CartPageChoiceRetail data={{
-                                            allCountFullProductRetails,
-                                            notCompleteCountProductsRetails,
-                                            incompleteRetailItemState,
+                                            retails: this.getRetails(),
                                             calcQuantityProduct: (product: { [key: string]: string | number }[]) => this.calcQuantityProduct(this.props, product),
                                             isChecked: (id: string) => isChecked(this.props, id),
                                             goToPageStageThree: this.goToPageStageThree,
@@ -460,15 +478,16 @@ class Cart extends React.Component<PropsCart, StateCart> {
 
                                     {
                                         this.state.pageStage === 3 && (this.props.selectedRetail || this.state.OrderNumber)
-                                        && <CartOrderPage retail={this.checkRetailItem(this.props)}
-                                                          errorAuth={this.props.errorAuth}
-                                                          isAuth={Boolean(this.props.TOKEN)}
-                                                          authorizedBySMSorPassword={this.props.authorizedBySMSorPassword}
-                                                          onSubmit={this.postBuyOrder}
-                                                          OrderNumber={this.state.OrderNumber}
-                                                          delOrderNumber={() => this.setState({OrderNumber: ''})}
-                                                          offSelectRetail={() => this.props.onSelectRetail(null)}
-                                                          refreshToken={this.props.refreshAuthentication}
+                                        && <CartOrderPage
+                                          retail={this.props.retailsArr.find(item => item.guid === this.props.selectedRetail)}
+                                          errorAuth={this.props.errorAuth}
+                                          isAuth={Boolean(this.props.TOKEN)}
+                                          authorizedBySMSorPassword={this.props.authorizedBySMSorPassword}
+                                          onSubmit={this.postBuyOrder}
+                                          OrderNumber={this.state.OrderNumber}
+                                          delOrderNumber={() => this.setState({OrderNumber: ''})}
+                                          offSelectRetail={() => this.props.onSelectRetail(null)}
+                                          refreshToken={this.props.refreshAuthentication}
                                         />
                                     }
                                 </>
