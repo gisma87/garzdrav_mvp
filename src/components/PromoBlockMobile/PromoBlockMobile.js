@@ -45,12 +45,12 @@ const PromoBlockMobile = props => {
               const {guid, product, manufacturer, img, minPrice} = item;
               const itemIndex = props.cart.findIndex((item) => item.itemId === guid);
               const isActive = itemIndex >= 0;
-              return <CardItemMobile onItemSelected={onItemSelected}
+              return <CardItemMobile key={guid}
+                                     onItemSelected={onItemSelected}
                                      updateToCart={() => {
                                        !isActive ? props.addedToCart(guid) : props.itemRemovedFromCart(guid)
                                      }}
                                      active={isActive}
-                                     key={guid}
                                      id={guid}
                                      title={product}
                                      maker={manufacturer}

@@ -10,6 +10,10 @@ import img2 from '../../img/forMainSlidr/seasonalProducts.jpg'
 import img3 from '../../img/forMainSlidr/march1.png'
 import img4 from '../../img/forMainSlidr/march2.png'
 import img5 from '../../img/forMainSlidr/march3.png'
+// import img3 from '../../img/forMainSlidr/april/april01.jpg'
+// import img4 from '../../img/forMainSlidr/april/april02.jpg'
+// import img5 from '../../img/forMainSlidr/april/april03.jpg'
+// import img6 from '../../img/forMainSlidr/april/april04.jpg'
 import {useHistory} from "react-router-dom";
 
 
@@ -18,7 +22,8 @@ const imgData = [
   {img: img2, link: '/articles/3'},
   {img: img3, link: '/articles/'},
   {img: img4, link: '/articles/'},
-  {img: img5, link: '/articles/'}
+  {img: img5, link: '/articles/'},
+  // {img: img6, link: '/articles/'}
 ]
 
 

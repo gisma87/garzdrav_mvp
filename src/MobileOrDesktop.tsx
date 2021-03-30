@@ -93,7 +93,7 @@ const MobileOrDesktop: React.FC<Props> = (props) => {
     useEffect(() => {
         if (props.itemsForPromoBlock1.length) {
             props.setActivePromoGroup({
-                name: 'все акционные товары',
+                name: 'Акционные товары',
                 arrPromo: props.itemsForPromoBlock1
             })
         }// eslint-disable-next-line

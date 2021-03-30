@@ -170,14 +170,14 @@ const CatalogPage = props => {
                                     maker={manufacturer}
                                     img={img}
                                     minPrice={minPrice}/>
-                  : <CardItem onItemSelected={onItemSelected}
+                  : <CardItem key={guid}
+                              onItemSelected={onItemSelected}
                               itemProps={{
                                 onIncrement: () => props.addedToCart(guid),
                                 onDecrement: () => props.itemRemovedFromCart(guid),
                                 isBuy,
                                 count,
                                 countLast,
-                                key: guid,
                                 id: guid,
                                 title: product,
                                 maker: manufacturer,
@@ -187,20 +187,20 @@ const CatalogPage = props => {
               )
             })
           }
-            </div>
+        </div>
 
-          {
-            props.productsToCategory.length > 0 &&
-            <div style={{paddingTop: 15}}>
+        {
+          props.productsToCategory.length > 0 &&
+          <div style={{paddingTop: 15}}>
             <Pagination totalRecords={props.countProductsCategory}
-            page={currentPage}
-            pageLimitItems={32}/>
-            </div>
-          }
-            </ErrorBoundary>
-            </div>
-            )
-          }
+                        page={currentPage}
+                        pageLimitItems={32}/>
+          </div>
+        }
+      </ErrorBoundary>
+    </div>
+  )
+}
 
 const mapStateToProps = (
   {
