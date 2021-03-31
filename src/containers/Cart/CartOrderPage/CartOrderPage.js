@@ -14,6 +14,7 @@ import EyeButtonShow from "../../../components/UI/EyeButtonShow/EyeButtonShow";
 // eslint-disable-next-line
 import {authorizedByEmail, authorizedByPassOrSMS} from "../../../actions";
 import {connect} from "react-redux";
+import ym from "react-yandex-metrika";
 
 const CartOrderPage = props => {
 
@@ -112,6 +113,8 @@ const CartOrderPage = props => {
 
   function submitOrder(event) {
     event.preventDefault()
+    // ym(74874832,'reachGoal','orderBuy')
+    ym('reachGoal', 'orderBuy')
     if (props.isAuth) {
       service.wrapperRefreshToken(props.onSubmit, props.refreshToken)
       return
