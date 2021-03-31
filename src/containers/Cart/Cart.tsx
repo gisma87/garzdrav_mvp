@@ -83,7 +83,6 @@ export type StateCart = {
     isShowTimer: boolean,
     seconds: number | null,
     thisTime: { date: string | number, iteration: number },
-    countProducts: number,
     errorFetchOrder: boolean
 }
 
@@ -93,11 +92,13 @@ class Cart extends React.Component<PropsCart, StateCart> {
     clearCartError = clearCartError.bind(this)
     onLoading = onLoading.bind(this)
     getDataForPromoItem = () => getDataForPromoItem(this.props, this.props.cartItems)
+    count: number
 
     constructor(props: PropsCart) {
         super(props);
         this.timer = null;
         this.postBuyOrder = this.postBuyOrder.bind(this)
+        this.count = 0;
     }
 
     state = {
@@ -112,7 +113,6 @@ class Cart extends React.Component<PropsCart, StateCart> {
         isShowTimer: false,
         seconds: 60,
         thisTime: {date: Date.now(), iteration: 0},
-        countProducts: 0,
         errorFetchOrder: false
     }
 
@@ -124,11 +124,10 @@ class Cart extends React.Component<PropsCart, StateCart> {
         const cartFromLocalStorage: CartItemType[] = JSON.parse(localStorage.getItem("cart") as string)
         const arrItemId = cartFromLocalStorage.map(item => item.itemId)
         this.props.getPromoItem(arrItemId)
-        this.setState({countProducts: this.countProducts()})
+        this.count = this.countProducts()
     }
 
-    componentDidUpdate(prevProps: PropsCart, prevState: any, snapshot: any) {
-        console.log('UDPATE')
+    componentDidUpdate(prevProps: PropsCart, prevState: StateCart, snapshot: any) {
         // если в корзину добавился новый товар - пересобираем корзину
         if (!this.props.loading && (prevProps.cart.length < this.props.cart.length)) {
             this.props.fetchCartItems()
@@ -141,8 +140,8 @@ class Cart extends React.Component<PropsCart, StateCart> {
         // если кол.товаров(не позиций) изменилось - записываем актуальное кол. для контроля
         // Если кол.позиций в корзине не изменилось, то запускаем setCartItems() для обновления инф. по аптекам. с тем же массивом позиций cartItems
         const countProducts = this.countProducts()
-        if (countProducts !== this.state.countProducts) {
-            this.setState({countProducts: countProducts})
+        if (countProducts !== this.count) {
+            this.count = countProducts
             if (prevProps.cart.length === this.props.cart.length) {
                 this.props.setCartItems(this.props.cartItems)
             }
