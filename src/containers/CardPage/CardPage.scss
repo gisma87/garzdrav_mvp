@@ -405,8 +405,9 @@
 
   }
 
-  &_link {
-    color: $secondary-color;
+  &__link {
+    color: $primary-color;
+    cursor: pointer;
   }
 
   &__textCharacteristic {

@@ -1,4 +1,4 @@
-import {promoItemsData} from "../testData/promoItemsData";
+import {promoItemsData} from "../testData/promoItemsData_04.21";
 import {seasonPromoItems} from "../testData/seasonPromoItems";
 import {popularPromoItems} from "../testData/popularPromoItems";
 

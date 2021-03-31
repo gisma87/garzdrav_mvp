@@ -9,7 +9,7 @@ import {
   addedToCart,
   allItemRemovedFromCart,
   itemRemovedFromCart,
-  fetchProductInfo, setActiveCategory, getPromoItem
+  fetchProductInfo, setActiveCategory, getPromoItem, getProductsFromSearchLimit
 } from "../../actions";
 import {getDataForPromoItem} from "../Cart/cartUtils";
 import {connect} from "react-redux";
@@ -107,6 +107,11 @@ const CardPage = (props) => {
     return {title: title[index], activeItem: activeItem[index]}
   }
 
+  const goToCardsPage = () => {
+    props.getProductsFromSearchLimit({productName: productInfo.manufacturer})
+    props.history.push('/Cards/')
+  }
+
   return (
     <section className='CardPage wrapper'>
       {error
@@ -162,8 +167,7 @@ const CardPage = (props) => {
                         <div className='CardPage__descriptionContainer'>
                           <p className='CardPage__maker CardPage__description'>
                             <span>Производитель</span>
-                            <NavLink className='CardPage__link'
-                                     to={props.history.location}>{productInfo.manufacturer}</NavLink>
+                            <span className='CardPage__link' onClick={goToCardsPage}>{productInfo.manufacturer}</span>
                           </p>
                           <p className='CardPage__substance CardPage__description'>
                             <span>Действующее вещество:</span>
@@ -259,8 +263,7 @@ const CardPage = (props) => {
                   <div className='CardPage__descriptionContainer'>
                     <p className='CardPage__maker CardPage__description'>
                       <span>Производитель</span>
-                      <NavLink className='CardPage__link'
-                               to={props.history.location}>{productInfo.manufacturer}</NavLink>
+                      <span className='CardPage__link' onClick={goToCardsPage}>{productInfo.manufacturer}</span>
                     </p>
                     <p className='CardPage__substance CardPage__description'>
                       <span>Действующее вещество:</span>
@@ -479,6 +482,7 @@ const mapDispatchToProps = (dispatch) => {
     allItemRemovedFromCart: (item) => dispatch(allItemRemovedFromCart(item)),
     fetchProductInfo: (productId) => dispatch(fetchProductInfo(productId)),
     setActiveCategory: (categoryItem) => dispatch(setActiveCategory(categoryItem)),
+    getProductsFromSearchLimit: (data) => dispatch(getProductsFromSearchLimit(data))
   }
 }
 
