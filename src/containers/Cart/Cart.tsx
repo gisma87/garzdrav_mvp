@@ -124,26 +124,34 @@ class Cart extends React.Component<PropsCart, StateCart> {
         const cartFromLocalStorage: CartItemType[] = JSON.parse(localStorage.getItem("cart") as string)
         const arrItemId = cartFromLocalStorage.map(item => item.itemId)
         this.props.getPromoItem(arrItemId)
+        this.setState({countProducts: this.countProducts()})
     }
 
     componentDidUpdate(prevProps: PropsCart, prevState: any, snapshot: any) {
+        console.log('UDPATE')
         // если в корзину добавился новый товар - пересобираем корзину
-        if (!this.props.loading && (this.props.cartItems.length < this.props.cart.length)) {
+        if (!this.props.loading && (prevProps.cart.length < this.props.cart.length)) {
             this.props.fetchCartItems()
-        } else if (this.props.cartItems.length > this.props.cart.length) {
+        } else if (prevProps.cart.length > this.props.cart.length) {
             // товар удалили из корзины, удаляем его из cartItems и пересобираем cartItems и retailsArr
             const newCartItems = this.props.cartItems.filter(item => this.props.cart.some(i => i.itemId === item.guid))
             this.props.setCartItems(newCartItems)
         }
 
-        const countProducts = this.props.cart.reduce((sum, item) => {
-            return item.count + sum
-        }, 0)
+        // если кол.товаров(не позиций) изменилось - записываем актуальное кол. для контроля
+        // Если кол.позиций в корзине не изменилось, то запускаем setCartItems() для обновления инф. по аптекам. с тем же массивом позиций cartItems
+        const countProducts = this.countProducts()
         if (countProducts !== this.state.countProducts) {
             this.setState({countProducts: countProducts})
-            this.props.setCartItems(this.props.cartItems)
+            if (prevProps.cart.length === this.props.cart.length) {
+                this.props.setCartItems(this.props.cartItems)
+            }
         }
     }
+
+    countProducts = () => this.props.cart.reduce((sum, item) => {
+        return item.count + sum
+    }, 0)
 
     // отправка на сервер собранного интернет заказа
     async postBuyOrder() {
@@ -278,9 +286,7 @@ class Cart extends React.Component<PropsCart, StateCart> {
         const minSum = this.getMinSum().toFixed(2)
 
         // общее количество товаров в корзине
-        const countProducts = this.props.cart.reduce((sum, item) => {
-            return item.count + sum
-        }, 0)
+        const countProducts = this.countProducts()
 
 
         const retailsForMap = () => [...this.props.retailsArr].sort((a, b) => {
