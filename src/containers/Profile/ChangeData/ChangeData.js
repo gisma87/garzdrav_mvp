@@ -76,21 +76,21 @@ const ChangeData = (props) => {
         event.preventDefault()
         changeData(event)
       }}>
-        <BlockWrapper classStyle='ProfileSetting__item'>
-          <label htmlFor="phone">
-            <p className='ProfileSetting__itemTitle'>Телефон</p>
-            <div className='ProfileSetting__itemContent'>
-              <input type="tel"
-                     id="phone"
-                     name="phone"
-                     placeholder={`+7${props.userData.phone}`}
-                     className='ProfileSetting__info ChangeData__input'
-                     value={valueForm.phone}
-                     onChange={onChangeHandler}
-              />
-            </div>
-          </label>
-        </BlockWrapper>
+        {/*<BlockWrapper classStyle='ProfileSetting__item'>*/}
+        {/*  <label htmlFor="phone">*/}
+        {/*    <p className='ProfileSetting__itemTitle'>Телефон</p>*/}
+        {/*    <div className='ProfileSetting__itemContent'>*/}
+        {/*      <input type="tel"*/}
+        {/*             id="phone"*/}
+        {/*             name="phone"*/}
+        {/*             placeholder={`+7${props.userData.phone}`}*/}
+        {/*             className='ProfileSetting__info ChangeData__input'*/}
+        {/*             value={valueForm.phone}*/}
+        {/*             onChange={onChangeHandler}*/}
+        {/*      />*/}
+        {/*    </div>*/}
+        {/*  </label>*/}
+        {/*</BlockWrapper>*/}
         <BlockWrapper classStyle='ProfileSetting__item'>
           <label htmlFor="email">
             <p className='ProfileSetting__itemTitle'>E-mail</p>

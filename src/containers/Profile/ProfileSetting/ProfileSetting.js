@@ -16,13 +16,13 @@ const ProfileSetting = (props) => {
       <BlockWrapper classStyle='ProfileSetting'>
         <h4>Настройки профиля</h4>
         <form>
-          <BlockWrapper classStyle='ProfileSetting__item'>
-            <p className='ProfileSetting__itemTitle'>Телефон</p>
-            <div className='ProfileSetting__itemContent'>
-              <p className='ProfileSetting__info'>+7{props.userData.phone}</p>
-              <div className='ProfileSetting__check'><SvgCheck style={{color: 'green'}}/></div>
-            </div>
-          </BlockWrapper>
+          {/*<BlockWrapper classStyle='ProfileSetting__item'>*/}
+          {/*  <p className='ProfileSetting__itemTitle'>Телефон</p>*/}
+          {/*  <div className='ProfileSetting__itemContent'>*/}
+          {/*    <p className='ProfileSetting__info'>+7{props.userData.phone}</p>*/}
+          {/*    <div className='ProfileSetting__check'><SvgCheck style={{color: 'green'}}/></div>*/}
+          {/*  </div>*/}
+          {/*</BlockWrapper>*/}
           <BlockWrapper classStyle='ProfileSetting__item'>
             <p className='ProfileSetting__itemTitle'>E-mail</p>
             <div className='ProfileSetting__itemContent'>

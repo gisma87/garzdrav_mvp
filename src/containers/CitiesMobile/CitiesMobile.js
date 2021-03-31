@@ -38,7 +38,7 @@ const CitiesMobile = props => {
     <ul>
       <li><strong>Адрес:&nbsp;</strong>${address}</li>
       <li><strong>Часы работы:&nbsp;</strong>${clock}</li>
-      <li><strong>Телефон:&nbsp;</strong>${tel}</li>
+      <li><strong>Телефон:&nbsp;</strong><a href="tel:${tel}">${tel}</a></li>
     </ul>
   </div>`
 
@@ -154,7 +154,7 @@ const CitiesMobile = props => {
                     }}>{item.street} {item.buildNumber}</span>
                   </span>
                     <span className='CitiesMobile__textClock'>Часы работы:&nbsp;{clock}</span>
-                    <span className='CitiesMobile__textClock'>Тел.:&nbsp;{item.phone}</span>
+                    <a className='CitiesMobile__textClock' href={`tel:${item.phone}`}>Тел.:&nbsp;{item.phone}</a>
                   </li>
                 })
               }

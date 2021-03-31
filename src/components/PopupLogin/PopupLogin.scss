@@ -152,6 +152,19 @@
     opacity: 1 !important;
   }
 
+  &__description {
+    margin-top: 15px;
+    color: #8c8c8c;
+    font-size: .7rem;
+    font-weight: normal;
+
+    a {
+      color: $primary-color;
+      font-size: .7rem;
+      font-weight: normal;
+    }
+  }
+
 
   &__element {
     position: relative;

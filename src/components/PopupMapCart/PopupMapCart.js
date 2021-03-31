@@ -40,7 +40,7 @@ const PopupMapCart = props => {
     <ul>
       <li><strong>Адрес:&nbsp;</strong>${address}</li>
       <li><strong>Часы работы:&nbsp;</strong>${clock}</li>
-      <li><strong>Телефон:&nbsp;</strong>${tel}</li>
+      <li><strong>Телефон:&nbsp;</strong><a href="tel:${tel}" >${tel}</a></li>
     </ul>
   </div>`
 

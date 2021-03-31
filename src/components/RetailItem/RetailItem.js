@@ -29,7 +29,8 @@ const RetailItem = (props) => {
           <span className='RetailItem__itemTitle'>{retailItem.brand}</span>
           <span className='RetailItem__itemAddress'>{retailItem.street} {retailItem.buildNumber}</span>
           <span className='RetailItem__textClock'>Часы работы:&nbsp;{retailItem.weekDayTime}</span>
-          <span className='RetailItem__textClock'>Телефон:&nbsp;{retailItem.phone}</span>
+          <span className='RetailItem__textClock'>Телефон:&nbsp;<a
+            href={`tel:${retailItem.phone}`}>{retailItem.phone}</a></span>
         </div>
 
 

@@ -83,7 +83,8 @@ export type StateCart = {
     isShowTimer: boolean,
     seconds: number | null,
     thisTime: { date: string | number, iteration: number },
-    countProducts: number
+    countProducts: number,
+    errorFetchOrder: boolean
 }
 
 class Cart extends React.Component<PropsCart, StateCart> {
@@ -111,7 +112,8 @@ class Cart extends React.Component<PropsCart, StateCart> {
         isShowTimer: false,
         seconds: 60,
         thisTime: {date: Date.now(), iteration: 0},
-        countProducts: 0
+        countProducts: 0,
+        errorFetchOrder: false
     }
 
     componentDidMount() {
@@ -159,14 +161,19 @@ class Cart extends React.Component<PropsCart, StateCart> {
                 }
             })
             const send = {retailGuid: guid, telephone: this.state.telephone, products: products, sum}
-            const response = await apiService.sendOrder((send as TypeOrder), this.props.TOKEN?.accessToken)
-            console.log('Заказ отправлен: ', send);
-            console.log('Номер заказа: ', response)
-            this.setState({OrderNumber: response})
-            product.forEach(item => this.props.allItemRemovedFromCart(item.guid)) // удалить заказанные позиции из корзины
-            this.props.loadingFalse()
-            this.props.onSelectRetail(null)
-            return response
+            try {
+                const response = await apiService.sendOrder((send as TypeOrder), this.props.TOKEN?.accessToken)
+                console.log('Заказ отправлен: ', send);
+                console.log('Номер заказа: ', response)
+                this.setState({OrderNumber: response})
+                product.forEach(item => this.props.allItemRemovedFromCart(item.guid)) // удалить заказанные позиции из корзины
+                this.props.loadingFalse()
+                this.props.onSelectRetail(null)
+                return response
+            } catch (err) {
+                console.log('Произошла ошибка при отправке заказа: ', err)
+                this.props.loadingFalse()
+            }
         } else {
             return Promise.reject('не выбрана аптека')
         }
@@ -242,6 +249,20 @@ class Cart extends React.Component<PropsCart, StateCart> {
         }
     }
 
+    setErrorMessage() {
+        if (this.props.error) {
+            return this.clearCartError(this.props, this.state, (error: any) => this.setState({error: error}))
+        } else if (this.state.errorFetchOrder) {
+            return <p>При отправке Заказа произошла ошибка. Попробуйте перезагрузить страницу и повторить отправку</p>
+        } else if ((this.props.retailsArr.length < 1) && (this.props.cart.length > 0)) {
+            if (this.props.loading) {
+                return <p>Загрузка ...</p>
+            } else {
+                return this.onLoading(this.props, this.state, (text) => this.setState({loadingText: text}))
+            }
+        }
+    }
+
     render() {
         const stopCount = (product: TypeProductInfo) => product.retails.sort((a, b) => a.countLast < b.countLast ? 1 : -1)[0].countLast
         const minSum = this.getMinSum().toFixed(2)
@@ -304,191 +325,181 @@ class Cart extends React.Component<PropsCart, StateCart> {
                 </MediaQuery>
 
                 <ErrorBoundary>
-                    {this.props.error ? this.clearCartError(this.props, this.state, (error: any) => this.setState({error: error}))
+                    {this.props.error || this.state.errorFetchOrder || (this.props.retailsArr.length < 1) && (this.props.cart.length > 0)
+                        ? this.setErrorMessage()
                         : <>
-                            {(this.props.retailsArr.length < 1) && (this.props.cart.length > 0)
-                                ? <>
-                                    {
-                                        this.props.loading
-                                            ? <p>Загрузка ...</p>
-                                            : this.onLoading(this.props, this.state, (text) => this.setState({loadingText: text}))
-                                    }
-                                </>
-                                : <>
-                                    {
-                                        this.state.pageStage === 1
-                                        && <section className='Cart__containerProductsPage'>
-                                          <div className='Cart__mainContainer'>
-                                            <div className="Cart__productsContainer"
-                                                 style={!this.props.cart.length ? {width: '100%'} : {}}>
-                                              <p className="Cart__titlePanel">
-                                                В
-                                                корзине {countProducts} {num_word(countProducts, ['товар', 'товара', 'товаров'])}
-                                              </p>
+                            {
+                                this.state.pageStage === 1
+                                && <section className='Cart__containerProductsPage'>
+                                  <div className='Cart__mainContainer'>
+                                    <div className="Cart__productsContainer"
+                                         style={!this.props.cart.length ? {width: '100%'} : {}}>
+                                      <p className="Cart__titlePanel">
+                                        В
+                                        корзине {countProducts} {num_word(countProducts, ['товар', 'товара', 'товаров'])}
+                                      </p>
 
-                                              <CartItems cart={this.props.cart}
-                                                         cartItems={this.props.cartItems}
-                                                         stopCount={stopCount}
-                                                         setCountItemCart={this.props.setCountItemCart}
-                                                         selectedRetail={this.props.selectedRetail}
-                                                         addedToCart={this.props.addedToCart}
-                                                         itemRemovedFromCart={this.props.itemRemovedFromCart}
-                                                         allItemRemovedFromCart={this.props.allItemRemovedFromCart}
-                                              />
+                                      <CartItems cart={this.props.cart}
+                                                 cartItems={this.props.cartItems}
+                                                 stopCount={stopCount}
+                                                 setCountItemCart={this.props.setCountItemCart}
+                                                 selectedRetail={this.props.selectedRetail}
+                                                 addedToCart={this.props.addedToCart}
+                                                 itemRemovedFromCart={this.props.itemRemovedFromCart}
+                                                 allItemRemovedFromCart={this.props.allItemRemovedFromCart}
+                                      />
+                                        {
+                                            this.props.cart.length > 0 &&
+                                            <BlockWrapper classStyle='Cart__containerInfo'>
+                                              <h3 className='Cart__infoBlock-title'>Почему указана цена "ОТ"
+                                                ?</h3>
+                                              <p className='Cart__infoBlock-text'>Цены в разных аптеках
+                                                отличаются.</p>
+                                              <p className='Cart__infoBlock-text'>Мы показываем минимальную
+                                                стоимость товара в вашем
+                                                городе.</p>
+                                              <p className='Cart__infoBlock-info'>Вот список товаров из вашей
+                                                корзины по минимальным
+                                                ценам:</p>
+
                                                 {
-                                                    this.props.cart.length > 0 &&
-                                                    <BlockWrapper classStyle='Cart__containerInfo'>
-                                                      <h3 className='Cart__infoBlock-title'>Почему указана цена "ОТ"
-                                                        ?</h3>
-                                                      <p className='Cart__infoBlock-text'>Цены в разных аптеках
-                                                        отличаются.</p>
-                                                      <p className='Cart__infoBlock-text'>Мы показываем минимальную
-                                                        стоимость товара в вашем
-                                                        городе.</p>
-                                                      <p className='Cart__infoBlock-info'>Вот список товаров из вашей
-                                                        корзины по минимальным
-                                                        ценам:</p>
-
-                                                        {
-                                                            this.props.cartItems.map((product, index) => {
-                                                                const minPriceRetail = product.retails.sort((a, b) => a.priceRetail > b.priceRetail ? 1 : -1)[0];
-                                                                return <div className='Cart__infoBlock-minPriceProducts'
-                                                                            key={(product.guid + index + 31).toString()}>
-                                                                    <div>
-                                                                        <p className='Cart__infoBlock-productTitle'>{product.product}</p>
-                                                                        <div className='Cart__infoBlock-streetRetail'>
-                                                                            <p className='Cart__infoBlock-brand'>{minPriceRetail.brand}</p>
-                                                                            <p
-                                                                                className='Cart__infoBlock-streetText'>ул. {minPriceRetail.street} {minPriceRetail.buildNumber}</p>
-                                                                        </div>
-
-                                                                    </div>
-                                                                    <p className='Cart__infoBlock-price'>
-                                                                        <b>{minPriceRetail.priceRetail} ₽</b></p>
+                                                    this.props.cartItems.map((product, index) => {
+                                                        const minPriceRetail = product.retails.sort((a, b) => a.priceRetail > b.priceRetail ? 1 : -1)[0];
+                                                        return <div className='Cart__infoBlock-minPriceProducts'
+                                                                    key={(product.guid + index + 31).toString()}>
+                                                            <div>
+                                                                <p className='Cart__infoBlock-productTitle'>{product.product}</p>
+                                                                <div className='Cart__infoBlock-streetRetail'>
+                                                                    <p className='Cart__infoBlock-brand'>{minPriceRetail.brand}</p>
+                                                                    <p
+                                                                        className='Cart__infoBlock-streetText'>ул. {minPriceRetail.street} {minPriceRetail.buildNumber}</p>
                                                                 </div>
-                                                            })
-                                                        }
 
-                                                    </BlockWrapper>
+                                                            </div>
+                                                            <p className='Cart__infoBlock-price'>
+                                                                <b>{minPriceRetail.priceRetail} ₽</b></p>
+                                                        </div>
+                                                    })
                                                 }
-                                            </div>
 
-                                              {
-                                                  this.props.cart.length > 0
-                                                  && <>
-                                                    <MediaQuery maxWidth={1200}>
+                                            </BlockWrapper>
+                                        }
+                                    </div>
 
-                                                      <div className='Cart__rightPanel'>
-                                                        <div className='Cart__promoContainer'>
+                                      {
+                                          this.props.cart.length > 0
+                                          && <>
+                                            <MediaQuery maxWidth={1200}>
 
-                                                            {/*================== Рекламный блок ===================================*/}
-                                                            {
-                                                                this.props.promoItems !== null
-                                                                && <div>
-                                                                  <p className="Cart__titlePanel">Вам пригодится</p>
-                                                                  <CardItem
-                                                                    onItemSelected={(itemId: string, event: React.MouseEvent<HTMLDivElement>) => {
-                                                                        if (!event.currentTarget.closest('button')) this.props.history.push(`/Card/${itemId}`);
-                                                                    }}
-                                                                    classStyle='Cart__promoBlock'
-                                                                    itemProps={this.getDataForPromoItem()}
-                                                                  />
-                                                                </div>
-                                                            }
+                                              <div className='Cart__rightPanel'>
+                                                <div className='Cart__promoContainer'>
 
+                                                    {/*================== Рекламный блок ===================================*/}
+                                                    {
+                                                        this.props.promoItems !== null
+                                                        && <div>
+                                                          <p className="Cart__titlePanel">Вам пригодится</p>
+                                                          <CardItem
+                                                            onItemSelected={(itemId: string, event: React.MouseEvent<HTMLDivElement>) => {
+                                                                if (!event.currentTarget.closest('button')) this.props.history.push(`/Card/${itemId}`);
+                                                            }}
+                                                            classStyle='Cart__promoBlock'
+                                                            itemProps={this.getDataForPromoItem()}
+                                                          />
                                                         </div>
+                                                    }
+
+                                                </div>
+                                                <div>
+                                                  <p className="Cart__titlePanel">Ваш заказ</p>
+                                                  <div className='Cart__pricePanel'>
+                                                    <div className="Cart__pricePanelContent">
+                                                      <div className='Cart__resultPrice'>
+                                                        <span>{countProducts} {num_word(countProducts, ['товар', 'товара', 'товаров'])} на сумму от {minSum} ₽</span>
+                                                      </div>
+                                                      <button className='Cart__buttonToCart'
+                                                              onClick={() => this.goToPage(2)}>
+                                                        выбрать аптеку
+                                                      </button>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </MediaQuery>
+
+                                            <MediaQuery minWidth={1201}>
+                                              <div className='Cart__rightPanel'>
+                                                <p className="Cart__titlePanel">Ваш заказ</p>
+                                                <div className='Cart__pricePanel'>
+                                                  <div className="Cart__pricePanelContent">
+                                                    <div className='Cart__resultPrice'>
+                                                      <span>{countProducts} {num_word(countProducts, ['товар', 'товара', 'товаров'])} на сумму от {minSum} ₽</span>
+                                                    </div>
+                                                    <button className='Cart__buttonToCart'
+                                                            onClick={() => this.goToPage(2)}>
+                                                      выбрать аптеку
+                                                    </button>
+                                                  </div>
+                                                </div>
+                                                <div className='Cart__promoContainer'>
+
+                                                    {/*================== Рекламный блок ===================================*/}
+                                                    {
+                                                        (this.props.promoItems !== null)
+                                                        &&
                                                         <div>
-                                                          <p className="Cart__titlePanel">Ваш заказ</p>
-                                                          <div className='Cart__pricePanel'>
-                                                            <div className="Cart__pricePanelContent">
-                                                              <div className='Cart__resultPrice'>
-                                                                <span>{countProducts} {num_word(countProducts, ['товар', 'товара', 'товаров'])} на сумму от {minSum} ₽</span>
-                                                              </div>
-                                                              <button className='Cart__buttonToCart'
-                                                                      onClick={() => this.goToPage(2)}>
-                                                                выбрать аптеку
-                                                              </button>
-                                                            </div>
-                                                          </div>
+                                                          <p className="Cart__titlePanel">Вам пригодится</p>
+                                                          <CardItem
+                                                            onItemSelected={(itemId: string, event: React.MouseEvent) => {
+                                                                if (!event.currentTarget.closest('button')) this.props.history.push(`/Card/${itemId}`);
+                                                            }}
+                                                            classStyle='Cart__promoBlock'
+                                                            itemProps={this.getDataForPromoItem()}
+                                                          />
                                                         </div>
-                                                      </div>
-                                                    </MediaQuery>
 
-                                                    <MediaQuery minWidth={1201}>
-                                                      <div className='Cart__rightPanel'>
-                                                        <p className="Cart__titlePanel">Ваш заказ</p>
-                                                        <div className='Cart__pricePanel'>
-                                                          <div className="Cart__pricePanelContent">
-                                                            <div className='Cart__resultPrice'>
-                                                              <span>{countProducts} {num_word(countProducts, ['товар', 'товара', 'товаров'])} на сумму от {minSum} ₽</span>
-                                                            </div>
-                                                            <button className='Cart__buttonToCart'
-                                                                    onClick={() => this.goToPage(2)}>
-                                                              выбрать аптеку
-                                                            </button>
-                                                          </div>
-                                                        </div>
-                                                        <div className='Cart__promoContainer'>
+                                                    }
 
-                                                            {/*================== Рекламный блок ===================================*/}
-                                                            {
-                                                                (this.props.promoItems !== null)
-                                                                &&
-                                                                <div>
-                                                                  <p className="Cart__titlePanel">Вам пригодится</p>
-                                                                  <CardItem
-                                                                    onItemSelected={(itemId: string, event: React.MouseEvent) => {
-                                                                        if (!event.currentTarget.closest('button')) this.props.history.push(`/Card/${itemId}`);
-                                                                    }}
-                                                                    classStyle='Cart__promoBlock'
-                                                                    itemProps={this.getDataForPromoItem()}
-                                                                  />
-                                                                </div>
+                                                </div>
+                                              </div>
+                                            </MediaQuery>
+                                          </>
+                                      }
+                                  </div>
+                                </section>
+                            }
 
-                                                            }
+                            {
+                                (this.state.pageStage === 2 && this.props.cart.length !== 0)
+                                && <CartPageChoiceRetail data={{
+                                    retails: this.getRetails(),
+                                    calcQuantityProduct: (product: { [key: string]: string | number }[]) => this.calcQuantityProduct(this.props, product),
+                                    isChecked: (id: string) => isChecked(this.props, id),
+                                    goToPageStageThree: this.goToPageStageThree,
+                                    showMap: this.state.popupMap,
+                                    showDesktopPopupMap: (boolean: boolean) => this.setState({popupMap: boolean}),
+                                    cartItems: this.props.cartItems,
+                                    cart: this.props.cart,
+                                    onSelectRetail: (retailGuid: string) => this.props.onSelectRetail(retailGuid),
+                                    retailsForMap,
+                                    selectedRetail: this.props.selectedRetail,
+                                    city: this.props.isCity.title
+                                }}/>
+                            }
 
-                                                        </div>
-                                                      </div>
-                                                    </MediaQuery>
-                                                  </>
-                                              }
-                                          </div>
-                                        </section>
-                                    }
-
-                                    {
-                                        (this.state.pageStage === 2 && this.props.cart.length !== 0)
-                                        && <CartPageChoiceRetail data={{
-                                            retails: this.getRetails(),
-                                            calcQuantityProduct: (product: { [key: string]: string | number }[]) => this.calcQuantityProduct(this.props, product),
-                                            isChecked: (id: string) => isChecked(this.props, id),
-                                            goToPageStageThree: this.goToPageStageThree,
-                                            showMap: this.state.popupMap,
-                                            showDesktopPopupMap: (boolean: boolean) => this.setState({popupMap: boolean}),
-                                            cartItems: this.props.cartItems,
-                                            cart: this.props.cart,
-                                            onSelectRetail: (retailGuid: string) => this.props.onSelectRetail(retailGuid),
-                                            retailsForMap,
-                                            selectedRetail: this.props.selectedRetail,
-                                            city: this.props.isCity.title
-                                        }}/>
-                                    }
-
-                                    {
-                                        this.state.pageStage === 3 && (this.props.selectedRetail || this.state.OrderNumber)
-                                        && <CartOrderPage
-                                          retail={this.props.retailsArr.find(item => item.guid === this.props.selectedRetail)}
-                                          errorAuth={this.props.errorAuth}
-                                          isAuth={Boolean(this.props.TOKEN)}
-                                          authorizedBySMSorPassword={this.props.authorizedBySMSorPassword}
-                                          onSubmit={this.postBuyOrder}
-                                          OrderNumber={this.state.OrderNumber}
-                                          delOrderNumber={() => this.setState({OrderNumber: ''})}
-                                          offSelectRetail={() => this.props.onSelectRetail(null)}
-                                          refreshToken={this.props.refreshAuthentication}
-                                        />
-                                    }
-                                </>
+                            {
+                                this.state.pageStage === 3 && (this.props.selectedRetail || this.state.OrderNumber)
+                                && <CartOrderPage
+                                  retail={this.props.retailsArr.find(item => item.guid === this.props.selectedRetail)}
+                                  errorAuth={this.props.errorAuth}
+                                  isAuth={Boolean(this.props.TOKEN)}
+                                  authorizedBySMSorPassword={this.props.authorizedBySMSorPassword}
+                                  onSubmit={this.postBuyOrder}
+                                  OrderNumber={this.state.OrderNumber}
+                                  delOrderNumber={() => this.setState({OrderNumber: ''})}
+                                  offSelectRetail={() => this.props.onSelectRetail(null)}
+                                  refreshToken={this.props.refreshAuthentication}
+                                />
                             }
                         </>
                     }

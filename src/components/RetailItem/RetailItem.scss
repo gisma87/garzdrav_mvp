@@ -109,6 +109,10 @@
     white-space: nowrap;
     font-size: .8rem;
     color: $primary-color;
+
+    a {
+      color: $primary-color;
+    }
   }
 
   &__itemAddress {

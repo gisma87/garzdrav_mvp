@@ -7,6 +7,7 @@ import {authorizedByEmail, authorizedByPassOrSMS, closePopupLogin} from "../../a
 import apiService from "../../service/ApiService";
 import EyeButtonShow from "../UI/EyeButtonShow/EyeButtonShow";
 import LoaderTimer from "../UI/LoaderTimer/LoaderTimer";
+import {NavLink} from "react-router-dom";
 
 const PopupLogin = props => {
 
@@ -214,6 +215,10 @@ const PopupLogin = props => {
         </div>
       </form>
       {isShowTimer && <p className='PopupLogin__isFetchCode'>КОД ОТПРАВЛЕН</p>}
+      <div className="PopupLogin__description">Нажимая кнопку "Получить код", Вы соглашаетесь
+        c условиями <NavLink to="/confidentiality/">политики конфиденциальности и обработки персональных
+          данных</NavLink></div>
+
     </PopupWrapper>
   )
 }

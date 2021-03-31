@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import { YMInitializer } from 'react-yandex-metrika';
 import {useMediaQuery} from 'react-responsive'
 import App from "./App";
 import AppMobile from "./AppMobile/AppMobile";
@@ -116,6 +117,7 @@ const MobileOrDesktop: React.FC<Props> = (props) => {
 
     return (
         <>
+            <YMInitializer accounts={[74874832]} options={{defer: true}} />
             {isMobile ? <AppMobile/> : <App/>}
             <Alert show={alertShow} onClose={() => setAlertShow(false)} title='Информируем: '>
                 <p>Часть товаров из корзины была удалена, т.к. их нет в наличии в вашем городе.</p>
