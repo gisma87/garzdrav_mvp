@@ -19,7 +19,7 @@ import {
     onSelectRetail, refreshAuthentication,
     rewriteCart,
     setCartItems,
-    setCountItemCart,
+    setCountItemCart, ThunkType,
 } from "../../actions";
 import {
     calcQuantityProduct,
@@ -53,7 +53,7 @@ type MapStatePropsType = {
 
 type MapDispatchPropsType = {
     getPromoItem(productGuid: string[]): void,
-    refreshAuthentication(): void,
+    refreshAuthentication(): Promise<any> | ThunkType,
     authorizedByPassOrSMS(phone: string, smsOrPass: string, callback: null | (() => void)): void,
     authorizedBySMSorPassword(phone: string, smsOrPass: string, callback: null | (() => void)): void,
     addedToCart(item: string): void,
@@ -160,20 +160,30 @@ class Cart extends React.Component<PropsCart, StateCart> {
                     priceRetail: item.priceRetail
                 }
             })
-            const send = {retailGuid: guid, telephone: this.state.telephone, products: products, sum}
-            try {
-                const response = await apiService.sendOrder((send as TypeOrder), this.props.TOKEN?.accessToken)
+            const postOrder = async (accessToken: string) => {
+                const response = await apiService.sendOrder((send as TypeOrder), accessToken)
                 console.log('Заказ отправлен: ', send);
                 console.log('Номер заказа: ', response)
                 this.setState({OrderNumber: response})
                 product.forEach(item => this.props.allItemRemovedFromCart(item.guid)) // удалить заказанные позиции из корзины
-                this.props.loadingFalse()
                 this.props.onSelectRetail(null)
-                return response
-            } catch (err) {
-                console.log('Произошла ошибка при отправке заказа: ', err)
+            }
+            const send = {retailGuid: guid, telephone: this.state.telephone, products: products, sum}
+
+            try {
+                await postOrder(this.props.TOKEN?.accessToken as string)
+            } catch (_) {
+                try {
+                    const TOKEN = await this.props.refreshAuthentication()
+                    await postOrder(TOKEN?.accessToken)
+                } catch (err) {
+                    console.log('Произошла ошибка при отправке заказа: ', err)
+                    this.setState({errorFetchOrder: true})
+                }
+            } finally {
                 this.props.loadingFalse()
             }
+
         } else {
             return Promise.reject('не выбрана аптека')
         }
@@ -325,7 +335,7 @@ class Cart extends React.Component<PropsCart, StateCart> {
                 </MediaQuery>
 
                 <ErrorBoundary>
-                    {this.props.error || this.state.errorFetchOrder || (this.props.retailsArr.length < 1) && (this.props.cart.length > 0)
+                    {(this.props.error || this.state.errorFetchOrder || ((this.props.retailsArr.length < 1) && (this.props.cart.length > 0)))
                         ? this.setErrorMessage()
                         : <>
                             {
@@ -528,7 +538,7 @@ const mapStateToProps = (state: StateType): MapStatePropsType => {
 const mapDispatchToProps = (dispatch: ThunkDispatch<StateType, {}, any>): MapDispatchPropsType => {
     return {
         getPromoItem: (productGuid: string[]) => dispatch(getPromoItem(productGuid)),
-        refreshAuthentication: () => dispatch(refreshAuthentication()),
+        refreshAuthentication: (): Promise<any> | ThunkType => dispatch(refreshAuthentication()),
         authorizedByPassOrSMS: (phone: string, smsOrPass: string, callback: null | (() => void)) => dispatch(authorizedByPassOrSMS(phone, smsOrPass, callback)),
         authorizedBySMSorPassword: (phone: string, smsOrPass: string, callback: null | (() => void)) => dispatch(authorizedBySMSorPassword(phone, smsOrPass, callback)),
         addedToCart: (item: string) => dispatch(addedToCart(item)),
