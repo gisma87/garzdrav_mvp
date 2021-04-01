@@ -21,7 +21,7 @@
 
     a {
       display: flex;
-      min-width: 110px;
+      min-width: 70px;
       justify-content: space-between;
       color: #fff;
       font-size: 1rem;
@@ -30,6 +30,12 @@
         color: $secondary-color
       }
     }
+  }
+
+  &__LogoPanelLeftBlock {
+    display: flex;
+    justify-content: space-between;
+    width: 210px;
   }
 
   &__logo {
@@ -51,5 +57,50 @@
     padding: 0 15px;
     box-shadow: 0 10px 10px 0 rgba(0, 0, 0, .2);
     margin-bottom: 12px;
+    @media (max-width: 400px) {
+      min-height: 50px;
+    }
+  }
+
+  &__rightblock {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  &__cartImgBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: $secondary-color;
+  }
+
+  &__cartImg {
+    transform: translateY(-1px);
+    max-width: 22px;
+    max-height: 18px;
+    object-fit: contain;
+    display: block;
+  }
+
+  &__cart {
+    background: #fff;
+    border-radius: 25px;
+    padding: 3px 13px 3px 3px;
+    display: flex;
+    align-items: center;
+  }
+
+  &__cartCount {
+    transform: translateY(1px);
+    font-family: $primary-font;
+    font-weight: bold;
+    color: $primary-color;
+    margin-left: 3px;
+    font-size: 1.4rem;
+    letter-spacing: -3px;
   }
 }

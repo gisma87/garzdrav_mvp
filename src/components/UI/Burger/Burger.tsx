@@ -2,7 +2,7 @@ import React from "react"
 import './Burger.scss'
 
 type Props = {
-    theme: string,
+    theme?: string,
     isActive: boolean,
     onClick(): void
 }

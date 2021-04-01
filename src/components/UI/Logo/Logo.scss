@@ -14,6 +14,10 @@
     max-height: 32px;
   }
 
+  @media (max-width: 390px) {
+    max-height: 28px;
+  }
+
   &:hover {
     .Logo__textContent {
       border-bottom: 4px solid $secondary-color;
@@ -38,7 +42,7 @@
 
   &__textContent {
     color: #fff;
-    border-bottom: 2px solid $secondary-color;
+    border-bottom: 4px solid $secondary-color;
     display: flex;
     align-items: center;
     padding-bottom: 5px;
@@ -51,6 +55,10 @@
     @media (max-width: 900px) {
       font-size: 2.25rem;
       line-height: 2.4rem;
+    }
+    @media (max-width: 390px) {
+      font-size: 2rem;
+      line-height: 2.2rem;
     }
   }
 
@@ -67,6 +75,11 @@
       font-size: 1.2rem;
       line-height: .85rem;
     }
+    @media (max-width: 390px) {
+      margin-left: 3px;
+      font-size: .85rem;
+      line-height: .75rem;
+    }
   }
 
   &__internet {
@@ -75,6 +88,10 @@
     @media (max-width: 900px) {
       font-size: .91rem;
       line-height: .85rem;
+    }
+    @media (max-width: 390px) {
+      font-size: .66rem;
+      line-height: .7rem;
     }
   }
 }

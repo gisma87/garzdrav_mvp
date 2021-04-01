@@ -11,21 +11,28 @@
 
   border-radius: 12px;
   padding: 10px 15px;
-
-  &:hover {
-    border: 1px solid $secondary-color;
-    transform: translateX(1px);
+  @media (max-width: 900px) {
+    padding: 5px 7px;
   }
 
-  &:active {
-    transform: scale(.95);
-    border: 1px solid $secondary-color;
+  @media (min-width: 900px) {
+    &:hover {
+      border: 1px solid $secondary-color;
+      transform: translateX(1px);
+    }
+    &:active {
+      transform: scale(.95);
+      border: 1px solid $secondary-color;
+    }
   }
 
   &__img {
     margin-right: 7px;
     object-fit: contain;
     max-height: 25px;
+    @media (max-width: 390px) {
+      max-height: 20px;
+    }
   }
 
   &__text {

@@ -15,7 +15,7 @@ import Cards from "../containers/Cards";
 import CardPage from "../containers/CardPage";
 import {connect} from "react-redux";
 import MobileBottomNavbar from "../components/MobileBottomNavbar";
-import indexMobile from "../containers/IndexMobile";
+import IndexMobile from "../containers/IndexMobile";
 import CitiesMobile from "../containers/CitiesMobile/CitiesMobile";
 import Faq from "../containers/Faq/Faq";
 import CatalogPage from "../containers/CatalogPage/CatalogPage";
@@ -33,7 +33,7 @@ const AppMobile: React.FC<Props> = (props) => {
       <ScrollToTop/>
       <Loader classStyle={props.loading ? 'Loader_is-opened' : ''}/>
       <Switch>
-        <Route exact path="/" component={indexMobile}/>
+        <Route exact path="/" component={IndexMobile}/>
         <Route exact path="/address/" component={CitiesMobile}/>
         <Route exact path="/cities/" component={CitiesMobile}/>
         <Route path="/cart/" component={Cart}/>

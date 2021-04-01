@@ -13,6 +13,10 @@
   box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.15);
   z-index: 3;
 
+  @media (max-width: 320px) {
+    max-width: 320px;
+  }
+
   &__btn {
     display: flex;
     justify-content: center;
@@ -28,6 +32,7 @@
       .MobileBottomNavbar__icon {
         color: $primary-color;
       }
+
       .MobileBottomNavbar__iconProfile {
         color: #44944A;
       }
