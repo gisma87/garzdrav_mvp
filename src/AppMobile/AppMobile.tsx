@@ -21,6 +21,7 @@ import Faq from "../containers/Faq/Faq";
 import CatalogPage from "../containers/CatalogPage/CatalogPage";
 import Development from "../components/Development/Development";
 import {StateType} from "../store";
+import HowToBuyPage from "../containers/HowToBuyPage/HowToBuyPage";
 
 type Props = {
   loading?: number
@@ -39,6 +40,7 @@ const AppMobile: React.FC<Props> = (props) => {
         <Route path="/cart/" component={Cart}/>
         <Route path="/ask-question/" component={AskQuestion}/>
         <Route path="/faq/" component={Faq}/>
+        <Route path="/how-to-buy/" component={HowToBuyPage}/>
         <Route path="/confidentiality/" component={PrivacyPolicy}/>
         <Route path="/company/" component={Company}/>
         <Route path="/articles/" exact component={Articles}/>

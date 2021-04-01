@@ -10,6 +10,10 @@
     margin: 10px 0 40px;
     font-size: 1.2rem;
     line-height: 1.5rem;
+
+    @media (max-width: 900px) {
+      line-height: 2.5rem;
+    }
   }
 
   &__title {
@@ -34,7 +38,7 @@
   &__number {
     margin-right: 10px;
     height: 40px;
-    width: 40px;
+    min-width: 40px;
     background-color: $primary-color;
     border-radius: 50%;
     display: flex;
@@ -48,13 +52,17 @@
 
   &__textTitle {
     font-size: 1.4rem;
+    @media (max-width: 900px) {
+      font-size: 1.1rem;
+    }
   }
 
   &__itemDescription {
     padding-left: 50px;
-  }
-
-  &__itemDescription {
     font-size: 1.2rem;
+    @media (max-width: 900px) {
+      font-size: 1rem;
+      margin-top: 10px;
+    }
   }
 }

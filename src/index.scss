@@ -162,12 +162,12 @@ body {
     margin-left: 5px;
   }
   @media (max-width: 410px) {
-    position: absolute;
-    top: 0;
-    left: 60%;
-    font-size: 12px;
+    text-align: center;
     font-style: italic;
     letter-spacing: 0;
     margin-left: 5px;
+    font-size: 20px;
+    font-weight: bold;
+    transform: translateY(-5px);
   }
 }

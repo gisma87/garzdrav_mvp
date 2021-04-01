@@ -23,6 +23,12 @@
       background-color: #fff;
       box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.2);
     }
+
+    @media (max-width: 400px) {
+      font-size: 14px;
+      min-height: 35px;
+      padding: 3px 10px 3px 46px;
+    }
   }
 
   &__button {
@@ -42,6 +48,11 @@
     display: flex;
     align-items: center;
 
+    @media (max-width: 400px) {
+      width: 30px;
+      height: 30px;
+    }
+
     img {
       border-style: none;
       width: 26px;
@@ -53,6 +64,9 @@
   &__icon {
     color: #fff;
     font-size: 22px;
+    @media (max-width: 400px) {
+      font-size: 18px;
+    }
   }
 
   &__dropdown {
@@ -73,9 +87,14 @@
     visibility: hidden;
     box-shadow: 0 10px 10px 0 rgba(0, 0, 0, .5);
     border-radius: 0 0 10px 10px;
+    text-align: left;
 
     &_visible {
       visibility: visible;
+    }
+
+    @media (max-width: 768px) {
+      left: 12px;
     }
   }
 

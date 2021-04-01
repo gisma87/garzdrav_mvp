@@ -1,115 +1,36 @@
+@import "../../variables";
+
 .DropDownMenu {
-  position: relative;
-  z-index: 2;
-  width: 18%;
-  max-height: 100%;
+  position: absolute;
+  top: -1000px;
+  opacity: 0;
+  left: 0;
+  right: 0;
+  background: $primary-color;
+  z-index: 9;
+  padding: 25px 20px;
+  box-shadow: 0 10px 10px 0 rgba(0, 0, 0, .2);
+  transition: top .3s, opacity .1s;
+  text-align: center;
 
-  &__dropList {
-    position: absolute;
-    top: 0;
-    left: 280px;
-    visibility: hidden;
-    min-width: 280px;
-    max-width: 840px;
-
-    display: grid;
-    grid-auto-flow: row dense;
-    grid-template-columns: repeat(auto-fill, minmax(276px, 1fr));
-    grid-gap: 1px;
-  }
-
-  &__menu a:link {
-    color: #fff;
-    text-decoration: none;
-  }
-
-  &__menu a:visited {
-    color: #fff;
-    text-decoration: none;
-  }
-
-  &__menu a:hover {
-    text-decoration: none;
-  }
-
-  &__menu a:active {
-    text-decoration: none;
-  }
-
-  //&__itemContainer {
-  //  text-align: left;
-  //  //display: inline;
-  //  margin: 0;
-  //  /*padding: 15px 4px 17px 0;*/
-  //  list-style: none;
-  //
-  //  display: grid;
-  //  grid-auto-flow: row dense;
-  //  grid-template-columns: repeat(auto-fill, minmax(276px, 1fr));
-  //  grid-gap: 1px;
-  //}
-
-  &__item {
-    font: bold 12px/18px sans-serif;
-    color: #fff;
-    display: flex;
-    position: relative;
-    padding: 10px 20px;
-    background: #747474;
-    cursor: pointer;
-    //transition: all 0.2s;
-
-    &:hover .DropDownMenu__dropList {
-      visibility: visible;
-    }
-  }
-
-  &__itemContainer {
-    padding: 0;
-    position: absolute;
-    //top: 48px;
-    top: 25px;
-    left: -15px;
-    min-width: 280px;
-    max-width: 840px;
-    box-shadow: none;
-    opacity: 0;
-    max-height: 0;
-    visibility: hidden;
-    transition: opacity 0.4s, visibility 0.5s;
-
-    // если в несколько столбцов
-    //display: grid;
-    //grid-auto-flow: row dense;
-    //grid-template-columns: repeat(auto-fill, minmax(276px, 1fr));
-    //grid-gap: 1px;
-
-    display: flex;
-    flex-direction: column;
-  }
-
-  &__item {
-    outline: 1px solid snow;
-  }
-
-  &__item:hover {
-    //margin-top: 3px;
-    //margin-bottom: 3px;
-    transform: scale(1.05);
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-    z-index: 2;
-    background-color: #000;
-    transition: all .25s;
-  }
-
-  &__itemContainer_active {
+  &__active {
     opacity: 1;
-    visibility: visible;
-    max-height: 100%;
-    transition: all .4s ease-out;
+    top: 50px;
+    transition: all .3s;
   }
 
-  &__item a {
+  &__item {
+    display: flex;
+    list-style-type: none;
+    padding: 10px 5px;
+    margin: 3px 0;
     color: #fff;
+
+    a {
+      width: 100%;
+      color: #fff;
+      font-size: 1.2rem;
+      line-height: 1.4rem;
+    }
   }
 }
