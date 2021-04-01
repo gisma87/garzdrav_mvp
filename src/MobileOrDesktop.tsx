@@ -18,6 +18,7 @@ import {connect} from "react-redux";
 import Alert from "./components/UI/Alert/Alert";
 import {StateType} from "./store";
 import {ThunkDispatch} from "redux-thunk";
+import PopupLogin from "./components/PopupLogin";
 
 type MapStatePropsType = {
     loading: number,
@@ -122,6 +123,7 @@ const MobileOrDesktop: React.FC<Props> = (props) => {
             <Alert show={alertShow} onClose={() => setAlertShow(false)} title='Информируем: '>
                 <p>Часть товаров из корзины была удалена, т.к. их нет в наличии в вашем городе.</p>
             </Alert>
+            <PopupLogin />
         </>
     )
 

@@ -5,7 +5,6 @@ import iconCart from '../../img/icon/cartIconSmall.png'
 import ButtonTopScroll from "../UI/ButtonTopScroll";
 import {openPopupLogin, rewriteCart} from "../../actions";
 import {connect} from "react-redux";
-import PopupLogin from "../PopupLogin";
 import Burger from "../UI/Burger/Burger";
 import Catalog from "../Catalog/Catalog";
 import Logo from "../UI/Logo/Logo";
@@ -73,7 +72,6 @@ const HeaderFixed = (props) => {
         </div>
       </div>
       {lastScrollY > 400 && <ButtonTopScroll/>}
-      <PopupLogin />
     </div>
 
   )

@@ -211,7 +211,6 @@ const CitiesMobile = props => {
               </YMaps>
             </div>
           }
-
         </div>
         <PopupConfirm show={popupConfirmActive}
                       title={'Внимание!'}

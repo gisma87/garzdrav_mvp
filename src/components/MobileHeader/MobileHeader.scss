@@ -5,6 +5,11 @@
   display: flex;
   flex-direction: column;
   font-size: 14px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
 
   &__logoPanel {
     position: relative;

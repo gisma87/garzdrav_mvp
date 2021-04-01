@@ -38,51 +38,59 @@ const MobileHeader: React.FC<Props> = props => {
         return item.count + sum
     }, 0)
 
+    function goToPath(path: string) {
+        setIsShowBurgerMenu(false)
+        history.push(path)
+    }
+
     return (
-        <header className='MobileHeader'>
-            {isShowBurgerMenu && <Backdrop onClick={() => setIsShowBurgerMenu(false)}/>}
-            <DropDownMenu isActive={isShowBurgerMenu} data={[
-                {title: props.isCity.title, path: '/cities/'},
-                {title: 'Каталог', path: '/catalog/'},
-                {title: 'Аптеки', path: '/cities/'},
-                {title: 'Оформление заказа', path: '/how-to-buy/'},
-                {title: 'Помощь', path: '/faq/'}
-            ]}/>
-            <section className='MobileHeader__logoPanel' style={isShowBurgerMenu ? {zIndex: 10} : {}}>
+        <>
+            <header className='MobileHeader'>
+                {isShowBurgerMenu && <Backdrop onClick={() => setIsShowBurgerMenu(false)}/>}
+                <DropDownMenu isActive={isShowBurgerMenu} data={[
+                    {title: props.isCity.title, callback: () => goToPath('/cities/')},
+                    {title: 'Каталог', callback: () => goToPath('/catalog/')},
+                    {title: 'Аптеки', callback: () => goToPath('/cities/')},
+                    {title: 'Оформление заказа', callback: () => goToPath('/how-to-buy/')},
+                    {title: 'Помощь', callback: () => goToPath('/faq/')}
+                ]}/>
+                <section className='MobileHeader__logoPanel' style={isShowBurgerMenu ? {zIndex: 10} : {}}>
 
-                <div className='MobileHeader__LogoPanelLeftBlock'>
-                    <Burger isActive={isShowBurgerMenu} onClick={() => setIsShowBurgerMenu((prev => !prev))}/>
-                    <Logo/>
-                </div>
+                    <div className='MobileHeader__LogoPanelLeftBlock'>
+                        <Burger isActive={isShowBurgerMenu} onClick={() => setIsShowBurgerMenu((prev => !prev))}/>
+                        <Logo/>
+                    </div>
 
-                <div className='MobileHeader__rightblock'>
+                    <div className='MobileHeader__rightblock'>
 
-                    <ButtonLogIn
-                        onClick={() => {
-                            setIsShowBurgerMenu(false)
-                            if (props.TOKEN) {
-                                history.push('/profile/')
-                                window.scroll(0, 0)
-                            } else props.openPopupLogin()
-                        }}
-                    />
+                        <ButtonLogIn
+                            onClick={() => {
+                                setIsShowBurgerMenu(false)
+                                if (props.TOKEN) {
+                                    history.push('/profile/')
+                                    window.scroll(0, 0)
+                                } else props.openPopupLogin()
+                            }}
+                        />
 
-                    <NavLink to="/cart/" className='MobileHeader__cart'>
-                        <div className='MobileHeader__cartImgBox'>
-                            <img src={iconCart} alt="корзина" className='MobileHeader__cartImg'/>
-                        </div>
-                        <span className='MobileHeader__cartCount'>{count}</span>
-                    </NavLink>
-                </div>
+                        <NavLink to="/cart/" className='MobileHeader__cart'>
+                            <div className='MobileHeader__cartImgBox'>
+                                <img src={iconCart} alt="корзина" className='MobileHeader__cartImg'/>
+                            </div>
+                            <span className='MobileHeader__cartCount'>{count}</span>
+                        </NavLink>
+                    </div>
 
-                {props.isPopupLocation && <PopupLocation active={props.isPopupLocation}
-                                                         city={props.isCity.title}
-                                                         openPopupCities={() => history.push('/cities/')}
-                                                         closeThisPopup={props.onPopupLocation}
-                />}
-            </section>
-            <section className='MobileHeader__searchPanel'><SearchPanel/></section>
-        </header>
+                    {props.isPopupLocation && <PopupLocation active={props.isPopupLocation}
+                                                             city={props.isCity.title}
+                                                             openPopupCities={() => history.push('/cities/')}
+                                                             closeThisPopup={props.onPopupLocation}
+                    />}
+                </section>
+                <section className='MobileHeader__searchPanel'><SearchPanel/></section>
+            </header>
+            <div style={{paddingTop: 107}}/>
+        </>
     )
 }
 

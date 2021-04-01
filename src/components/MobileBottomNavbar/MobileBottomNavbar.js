@@ -42,9 +42,6 @@ const MobileBottomNavbar = (props) => {
                   window.scroll(0, 0)
                 } else props.openPopupLogin()
               }}><SvgIconUser className='MobileBottomNavbar__icon MobileBottomNavbar__iconProfile'/></button>
-
-      <PopupLogin />
-
     </div>
   )
 }

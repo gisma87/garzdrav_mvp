@@ -20,17 +20,12 @@
   }
 
   &__item {
-    display: flex;
     list-style-type: none;
     padding: 10px 5px;
     margin: 3px 0;
     color: #fff;
-
-    a {
-      width: 100%;
-      color: #fff;
-      font-size: 1.2rem;
-      line-height: 1.4rem;
-    }
+    font-size: 1.2rem;
+    line-height: 1.4rem;
+    text-align: center;
   }
 }
