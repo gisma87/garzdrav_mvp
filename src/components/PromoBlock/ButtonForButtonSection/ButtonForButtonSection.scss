@@ -18,9 +18,10 @@
   cursor: pointer;
   margin-right: 20px;
 
-  @media (max-width: 800px) {
-    padding: 15px 20px 0 20px;
-    font-size: 18px;
+  @media (max-width: 900px) {
+    font-size: 11px;
+    height: 29px;
+    margin-right: 10px;
   }
 
   &:hover {

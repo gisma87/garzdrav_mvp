@@ -12,7 +12,7 @@ class ApiService {
     URL: string
 
     constructor() {
-        this.URL = 'http://195.19.102.178:2872'
+        this.URL = 'https://api.garzdrav.ru:2872'
     }
 
     //подробная информация по товару - нужен id товара и id города
