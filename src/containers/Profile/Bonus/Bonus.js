@@ -50,12 +50,25 @@ const Bonus = props => {
         props.userData.cards.length > 1 &&
         <div className='Bonus__cards'>
           <h4>Выберите бонусную карту: </h4>
-          {
-            props.userData.cards.map((card, index) => {
-              return <button onClick={() => props.setActiveCard(index)}
-                             className='Bonus__btnSelectCard'>№ {card.barcode} Баланс: {card.currentBalance}</button>
-            })
-          }
+          <ul className='Bonus__cardsContainer'>
+            {
+              props.userData.cards.map((card, index) => {
+                return (<li className='Bonus__cardItem'>
+                  <button key={index}
+                          onClick={() => {
+                            props.setActiveCard(index)
+                            window.scrollTo({
+                              top: 0,
+                              left: 0,
+                              behavior: 'smooth'
+                            });
+                          }}
+                          className='Bonus__btnSelectCard'><b>№ {card.barcode}</b> <span
+                    className="Bonus__balanceText">Баланс: {card.currentBalance} ₽</span></button>
+                </li>)
+              })
+            }
+          </ul>
         </div>
       }
     </BlockWrapper>

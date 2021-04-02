@@ -49,10 +49,30 @@
     margin-top: 20px;
   }
 
+  &__cardsContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  &__cardItem {
+   list-style-type: none;
+    margin: 3px 0;
+  }
+
   &__btnSelectCard {
     outline: none;
     background: none;
     padding: 7px 0;
+    cursor: pointer;
+
+    &:hover {
+      color: blue;
+    }
+  }
+
+  &__balanceText {
+    margin-left: 15px;
   }
 
 }
