@@ -1,0 +1,66 @@
+@import "../../variables";
+
+.PopupCitiesMobile {
+  font-family: PTSans-Regular, Helvetica, Arial, sans-serif;
+  color: #000;
+  font-size: 16px;
+  line-height: 26px;
+  min-width: 300px;
+  max-width: 90%;
+  height: 400px;
+  background-color: #fff;
+  border-radius: 10px;
+  position: relative;
+  box-sizing: border-box;
+  padding: 15px 15px 30px;
+
+  &__container {
+    display: flex;
+    height: 85%;
+    padding-top: 20px;
+  }
+
+  &__column {
+    flex: 1 1 45%;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 22px;
+    line-height: 24px;
+    color: #777;
+  }
+
+  &__searchForm-container {
+    display: flex;
+    width: 95%;
+  }
+
+  &__form {
+    margin-top: 20px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border-left: 1px solid #d8d8d8;
+    flex: 1 1 40%;
+    height: 100%;
+
+
+    li {
+      cursor: pointer;
+      padding: 5px 1em 5px 20px;
+      font-size: 18px;
+      list-style-type: none;
+
+      &:hover {
+        background: #eaeaea;
+        transition: background .2s;
+      }
+
+      &:active, &:target {
+        background: $secondary-color;
+        color: white;
+        font-weight: bold;
+      }
+    }
+  }
+}

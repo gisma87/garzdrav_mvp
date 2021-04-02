@@ -3,8 +3,8 @@ import './SearchForm.scss'
 import SvgSearchIcon from "../../../img/SVGcomponents/SvgSearchIcon";
 
 type Props = {
-    focus: boolean,
-    setFocus(type: boolean): void
+    focus?: boolean,
+    setFocus: (type: boolean) => void
     onSubmit(e: React.SyntheticEvent): void,
     keyPress(e: React.SyntheticEvent): void,
     onChange(e: React.SyntheticEvent): void,

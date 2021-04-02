@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react"
+ import React, {useEffect, useState} from "react"
 import './HeaderFixed.scss'
 import {NavLink, withRouter} from "react-router-dom";
 import iconCart from '../../img/icon/cartIconSmall.png'

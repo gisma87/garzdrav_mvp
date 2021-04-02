@@ -151,6 +151,11 @@ const CitiesMobile = props => {
                     <span onClick={() => {
                       setZoom(15)
                       setView(true)
+                      window.scrollTo({
+                        top: 0,
+                        left: 0,
+                        behavior: 'smooth'
+                      });
                     }}>{item.street} {item.buildNumber}</span>
                   </span>
                     <span className='CitiesMobile__textClock'>Часы работы:&nbsp;{clock}</span>

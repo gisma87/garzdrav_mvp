@@ -49,6 +49,7 @@
     opacity: 1;
     transition: opacity 0.3s;
     color: #fff;
+    z-index: 1;
 
     @media(max-width: 800px) {
       color: #000;

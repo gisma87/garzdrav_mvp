@@ -149,11 +149,7 @@ export type TypePromoItems = { type: string, courses?: any[], promoItems: Produc
 export type Predictor = { endOfWord: boolean | string, pos: number | string, text: string[] }
 
 export interface StateTypes {
-    cities: {
-        guid: string,
-        title: string,
-        [key: string]: string | number | null | ObjType | (string | number | ObjType)[]
-    }[],
+    cities: TypeisCity[],
     regions: {
         regionGuid: string,
         regionTitle: string,
