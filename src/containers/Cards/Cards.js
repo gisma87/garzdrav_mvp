@@ -128,15 +128,18 @@ const Cards = props => {
                       isMobile
                         ? <CardItemMobile key={guid}
                                           onItemSelected={onItemSelected}
-                                          updateToCart={() => {
-                                            !isBuy ? addedToCart(guid) : itemRemovedFromCart(guid);
-                                          }}
-                                          active={isBuy}
-                                          id={guid}
-                                          title={product}
-                                          maker={manufacturer}
-                                          img={img}
-                                          minPrice={minPrice}/>
+                                          itemProps={{
+                                            onIncrement: () => props.addedToCart(guid),
+                                            onDecrement: () => props.itemRemovedFromCart(guid),
+                                            isBuy,
+                                            count,
+                                            countLast,
+                                            id: guid,
+                                            title: product,
+                                            maker: manufacturer,
+                                            img,
+                                            minPrice,
+                                          }}/>
                         : <CardItem key={guid}
                                     onItemSelected={onItemSelected}
                                     itemProps={{

@@ -2,5 +2,10 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding: 15px 0 0;
+  padding: 15px 0 15px 10px;
+
+  @media (max-width: 450px) {
+    justify-content: space-around;
+    padding: 15px 0 0;
+  }
 }

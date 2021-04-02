@@ -4,7 +4,7 @@
   font-family: $primary-font;
   padding: 0 20px 20px;
   @media(max-width: 800px) {
-    padding: 15px 0 60px;
+    padding: 5px 0 60px;
   }
 
   &__title {
@@ -12,6 +12,7 @@
     font-weight: 700;
     @media(max-width: 800px) {
       padding: 0 15px;
+      margin: 0 0 10px;
     }
   }
 

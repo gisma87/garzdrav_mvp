@@ -1,3 +1,5 @@
+@import "../../variables";
+
 .PromoBlockMobile {
   display: flex;
   position: relative;
@@ -11,6 +13,34 @@
     span {
       width: 18px;
       height: 18px;
+    }
+  }
+
+  &__button {
+    font-family: $primary-font;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 0 10px;
+    height: 32px;
+    color: $primary-color;
+    outline: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    border: 1px solid $primary-color;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: color .2s, box-shadow .2s;
+
+    &:hover {
+      transition: all .1s;
+      color: $secondary-color;
+      box-shadow: 2px 5px 7px 0 rgba(0, 0, 0, 0.16);
+    }
+
+    &:active {
+      transform: scale(.97);
+      box-shadow: 1px 2px 2px 0 rgba(0, 0, 0, 0.16);
     }
   }
 

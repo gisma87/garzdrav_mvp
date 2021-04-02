@@ -20,14 +20,11 @@
   &:hover {
     outline: none;
     box-shadow: 0 4px 20px 0 rgba(0, 0, 0, .16);
-    transform: translate(0, -2px);
     transition: all .2s;
-
   }
 
-  &:hover .CardItem__cart {
+  &:hover .CardItemMobile__cart {
     visibility: visible;
-    background-color: #f6f6f6;
     box-shadow: 1px 1px 1px gray;
     transition: all .2s;
   }
@@ -130,12 +127,6 @@
     flex-direction: column;
     flex: 1 1;
     align-items: flex-end;
-
-    p {
-      font-size: 20px;
-      margin: 7px 0;
-      text-align: right;
-    }
   }
 
   &__priceNumber {
@@ -143,47 +134,32 @@
   }
 
   &__priceText {
-    color: grey;
-    font-size: .8em;
+    font-size: 20px;
+    margin: 7px 0 15px;
+    text-align: right;
   }
 
   &__cart {
-    margin-top: 10px;
     color: #333;
-    width: 75px;
-    font-size: 14px;
-    font-weight: bold;
-    background-color: #fff;
+    background-color: $primary-color;
     display: flex;
     align-items: center;
-    justify-content: center;
-    padding: 10px;
-    border: 1px solid #d9d9d9;
-    border-radius: 6px;
+    padding: 3px 25px;
+    border-radius: 20px;
     cursor: pointer;
     outline: none;
-    box-shadow: 3px 3px 6px 0 rgba(0, 0, 0, 0.2);
-    transition: all .2s;
+    box-shadow: 1px 1px 1px gray;
 
-    &:hover.buttonActive {
+    &:hover {
+      box-shadow: 2px 3px 4px 0 rgba(0, 0, 0, 0.6);
       transition: all .2s;
-      color: #fff;
-      background: $primary-color;
-      box-shadow: inset 0 -2px 0 0 rgba(0, 0, 0, 0.2);
     }
 
-    &:hover .CardItemMobile__check_active {
-      color: #fff;
-    }
-
-    &:active.buttonActive {
+    &:active {
       transform: translateY(2px);
       transition: all 0.1s ease 0s;
       box-shadow: 0 2px 0 0 gray;
     }
-  }
 
-  &__check_active {
-    color: green;
   }
 }

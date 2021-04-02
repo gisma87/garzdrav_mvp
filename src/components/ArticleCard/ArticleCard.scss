@@ -21,16 +21,14 @@
 
   @media (max-width: 800px) {
     flex-direction: row;
-    flex-wrap: wrap;
     max-width: 320px;
-    padding: 0;
     align-items: flex-start;
+    padding: 0 0 0 5px;
   }
 
   @media (max-width: 650px) {
     max-width: 370px;
     min-height: 160px;
-    padding: 0 5px;
   }
 
   &:hover {
@@ -45,11 +43,17 @@
     max-width: 100%;
     width: 100%;
     object-fit: cover;
+
     @media (max-width: 800px) {
       flex: 0 1 30%;
-      margin-top: 8px;
-      height: 80px;
-      max-width: 120px;
+      height: 100px;
+      max-width: 160px;
+      border-radius: 15px;
+      align-self: center;
+    }
+
+    @media (max-width: 600px) {
+      height: 130px;
     }
   }
 
@@ -103,6 +107,7 @@
     align-self: flex-start;
     padding: 0 10px;
     @media (max-width: 800px) {
+      display: none;
       padding: 0 0 5px 5px;
       flex-basis: 100%;
       text-align: left;

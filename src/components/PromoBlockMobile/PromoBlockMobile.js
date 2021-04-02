@@ -8,11 +8,10 @@ import 'swiper/components/autoplay'
 import './PromoBlockMobile.scss'
 import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
-import {addedToCart, allItemRemovedFromCart, itemRemovedFromCart} from "../../actions";
+import {addedToCart, allItemRemovedFromCart, itemRemovedFromCart, setActivePromoGroup} from "../../actions";
 import CardItemMobile from "../CardItemMobile";
 import {useMediaQuery} from "react-responsive";
 import ButtonSectionForSlider from "../PromoBlock/ButtonSectionForSlider/ButtonSectionForSlider";
-// import CardItem from "../CardItem";
 
 const PromoBlockMobile = props => {
 
@@ -25,6 +24,8 @@ const PromoBlockMobile = props => {
   const onItemSelected = (itemId, event) => {
     if (!event.target.closest('button')) props.history.push(`Card/${itemId}`);
   }
+  const arrNameGroup = ['Акционные товары', 'Сезонные товары', 'Популярные товары']
+  const arrButtonPromoGroup = ['все акционные товары', 'все сезонные товары', 'все популярные товары']
 
   const isMobile = useMediaQuery({query: '(max-width: 650px)'})
   SwiperCore.use([Navigation, Pagination, Autoplay])
@@ -67,20 +68,26 @@ const PromoBlockMobile = props => {
         >
           {data() &&
           data()?.[activeButton].map((item) => {
-            const {guid, product, manufacturer, img, minPrice} = item;
+            const {guid, product, manufacturer, img, minPrice, countLast} = item;
             const itemIndex = props.cart.findIndex((item) => item.itemId === guid);
-            const isActive = itemIndex >= 0;
+            const isBuy = itemIndex >= 0;
+            const count = isBuy ? props.cart[itemIndex].count : 0
+
             return <CardItemMobile key={guid}
                                    onItemSelected={onItemSelected}
-                                   updateToCart={() => {
-                                     !isActive ? props.addedToCart(guid) : props.itemRemovedFromCart(guid)
+                                   itemProps={{
+                                     onIncrement: () => props.addedToCart(guid),
+                                     onDecrement: () => props.itemRemovedFromCart(guid),
+                                     isBuy,
+                                     count,
+                                     countLast,
+                                     id: guid,
+                                     title: product,
+                                     maker: manufacturer,
+                                     img,
+                                     minPrice,
                                    }}
-                                   active={isActive}
-                                   id={guid}
-                                   title={product}
-                                   maker={manufacturer}
-                                   img={img}
-                                   minPrice={minPrice}/>
+            />
           }).map((item, index) => {
             return (
               <SwiperSlide tag="li" key={index} style={{listStyleType: 'none'}}>
@@ -91,6 +98,28 @@ const PromoBlockMobile = props => {
           }
 
         </Swiper>}
+      </div>
+
+
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+        padding: '0 0 15px'
+      }}>
+
+        {
+          <button onClick={() => {
+            props.setActivePromoGroup({
+              name: arrNameGroup[activeButton],
+              arrPromo: data()?.[activeButton]
+            })
+            props.history.push('/articles/')
+          }}
+                  className='PromoBlockMobile__button'>{arrButtonPromoGroup[activeButton]}</button>
+        }
+
       </div>
     </section>
   )
@@ -104,7 +133,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     addedToCart: (item) => dispatch(addedToCart(item)),
     itemRemovedFromCart: (item) => dispatch(itemRemovedFromCart(item)),
-    allItemRemovedFromCart: (item) => dispatch(allItemRemovedFromCart(item))
+    allItemRemovedFromCart: (item) => dispatch(allItemRemovedFromCart(item)),
+    setActivePromoGroup: (promo) => dispatch(setActivePromoGroup(promo))
   }
 }
 

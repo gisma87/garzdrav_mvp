@@ -21,6 +21,10 @@
     @media (min-width: 900px) {
       display: none;
     }
+
+    @media (max-width: 350px) {
+      font-size: 1rem !important;
+    }
   }
 
   &__title {
@@ -39,7 +43,7 @@
       font-size: 1.2rem;
     }
     @media (max-width: 350px) {
-      font-size: 1.2rem;
+      font-size: 1rem;
     }
   }
 
@@ -103,21 +107,14 @@
   & .next {
     right: 0;
     transform: rotate(180deg);
-    @media (max-width: 650px) {
-      right: 28px;
-    }
-    @media (max-width: 450px) {
+    @media (max-width: 655px) {
       display: none;
     }
   }
 
   & .prev {
     left: 0;
-    @media (max-width: 650px) {
-      left: auto;
-      right: 65px;
-    }
-    @media (max-width: 450px) {
+    @media (max-width: 655px) {
       display: none;
     }
   }

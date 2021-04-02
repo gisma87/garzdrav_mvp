@@ -160,16 +160,18 @@ const CatalogPage = props => {
               return (
                 isMobile
                   ? <CardItemMobile onItemSelected={onItemSelected}
-                                    updateToCart={() => {
-                                      !isBuy ? props.addedToCart(guid) : props.itemRemovedFromCart(guid);
-                                    }}
-                                    active={isBuy}
-                                    key={guid}
-                                    id={guid}
-                                    title={product}
-                                    maker={manufacturer}
-                                    img={img}
-                                    minPrice={minPrice}/>
+                                    itemProps={{
+                                      onIncrement: () => props.addedToCart(guid),
+                                      onDecrement: () => props.itemRemovedFromCart(guid),
+                                      isBuy,
+                                      count,
+                                      countLast,
+                                      id: guid,
+                                      title: product,
+                                      maker: manufacturer,
+                                      img,
+                                      minPrice,
+                                    }}/>
                   : <CardItem key={guid}
                               onItemSelected={onItemSelected}
                               itemProps={{
