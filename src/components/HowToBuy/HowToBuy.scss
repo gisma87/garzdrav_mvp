@@ -10,6 +10,10 @@
   color: $primary-color;
   overflow: hidden;
 
+  @media(max-width: 900px) {
+    height: 100%;
+  }
+
   &__wrapper {
     max-width: 1240px;
     width: 100%;
@@ -18,12 +22,21 @@
     align-items: center;
     justify-content: space-between;
     padding: 0 10px 0 0;
+
+    @media(max-width: 900px) {
+      flex-direction: column;
+      padding: 30px 0;
+    }
   }
 
   &__item {
     display: flex;
     align-items: flex-start;
     min-height: 126px;
+
+    @media (max-width: 900px) {
+      width: 320px;
+    }
 
 
     &:first-child {
@@ -40,6 +53,9 @@
       font-size: 8rem;
       line-height: 8rem;
     }
+    @media(max-width: 900px) {
+      font-size: 7rem;
+    }
   }
 
   &__text {
@@ -52,6 +68,10 @@
 
     @media (max-width: 1170px) {
       min-height: 100px;
+    }
+    @media (max-width: 900px) {
+      display: block;
+      padding-top: 15px;
     }
 
     p {
@@ -78,5 +98,10 @@
     color: #fff;
     transform: rotate(180deg) scale(.6, 2);
     font-size: 11rem;
+    @media(max-width: 900px) {
+      transform: rotate(270deg) scale(0.4, 1.5);
+      margin-top: -60px;
+      margin-bottom: -60px;
+    }
   }
 }

@@ -13,6 +13,7 @@
   position: relative;
   box-sizing: border-box;
   padding: 15px 15px 30px;
+  overflow: hidden;
 
   &__container {
     display: flex;
