@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import { YMInitializer } from 'react-yandex-metrika';
+import {YMInitializer} from 'react-yandex-metrika';
 import {useMediaQuery} from 'react-responsive'
 import App from "./App";
 import AppMobile from "./AppMobile/AppMobile";
@@ -19,6 +19,7 @@ import Alert from "./components/UI/Alert/Alert";
 import {StateType} from "./store";
 import {ThunkDispatch} from "redux-thunk";
 import PopupLogin from "./components/PopupLogin";
+import ReactGA from 'react-ga';
 
 type MapStatePropsType = {
     loading: number,
@@ -90,6 +91,9 @@ const MobileOrDesktop: React.FC<Props> = (props) => {
             // серия запросов - формируется массив элементов корзины
             props.fetchCartItems()
         }
+// включаем google analytics
+        ReactGA.initialize('UA-139848378-2');
+        ReactGA.pageview(window.location.pathname + window.location.search);
     }, [])// eslint-disable-line
 
     useEffect(() => {
@@ -118,12 +122,12 @@ const MobileOrDesktop: React.FC<Props> = (props) => {
 
     return (
         <>
-            <YMInitializer accounts={[74874832]} options={{defer: true}} />
+            <YMInitializer accounts={[74874832]} options={{defer: true}}/>
             {isMobile ? <AppMobile/> : <App/>}
             <Alert show={alertShow} onClose={() => setAlertShow(false)} title='Информируем: '>
                 <p>Часть товаров из корзины была удалена, т.к. их нет в наличии в вашем городе.</p>
             </Alert>
-            <PopupLogin />
+            <PopupLogin/>
         </>
     )
 
