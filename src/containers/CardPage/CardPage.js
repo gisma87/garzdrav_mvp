@@ -178,8 +178,9 @@ const CardPage = (props) => {
                             <span>Действующее вещество:</span>
                             <NavLink className='CardPage__link' to={props.history.location}>Оксиметазолин</NavLink>
                           </p>
-                          <div style={{textAlign: 'right', opacity: 0}}><Link to="anchor" smooth={true} offset={-150}
-                                                                              duration={500}>Инструкция</Link></div>
+                          <div style={{textAlign: 'right', opacity: 0}}>
+                            <Link to="anchor" smooth={true} offset={-150} duration={500}>Инструкция</Link>
+                          </div>
 
 
                         </div>
@@ -455,7 +456,9 @@ const CardPage = (props) => {
               </BlockWrapper>
               <div ref={mapRef}>
                 <RetailsBlock showCitiesList={showCitiesList}
-                              setShowCitiesList={(boolean) => setShowCitiesList(boolean)}/>
+                              setShowCitiesList={(boolean) => setShowCitiesList(boolean)}
+                              retails={props.productInfo.retails}
+                />
               </div>
 
             </>

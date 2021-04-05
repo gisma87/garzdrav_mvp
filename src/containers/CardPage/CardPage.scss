@@ -284,6 +284,7 @@
       min-height: 50px;
       max-height: 50px;
       padding: 0;
+      align-items: flex-end;
     }
   }
 
@@ -409,6 +410,7 @@
   &__link {
     color: $primary-color;
     cursor: pointer;
+    text-align: right;
   }
 
   &__textCharacteristic {

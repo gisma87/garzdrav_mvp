@@ -21,7 +21,8 @@ type MapDispatchPropsType = {
 
 type Props = MapStatePropsType & MapDispatchPropsType & {
     showCitiesList: boolean,
-    setShowCitiesList(val: boolean): void
+    setShowCitiesList(val: boolean): void,
+    retails?: retailCity[]
 }
 
 type popupDataType = { title: string, address: string, clock: string, tel: string }
@@ -30,9 +31,16 @@ const RetailsBlock: React.FC<Props> = props => {
     const [point, setPoint] = useState([56.010563, 92.852572])
     const [zoom, setZoom] = useState(11)
     const [activeMarker, setActiveMarker] = useState(null)
+    const [acitveRetailList, setActiveRetailList] = useState<retailCity[]>()
     const {isCity} = props;
 
     const mapRef = useRef<HTMLDivElement>(null)
+
+    useEffect(() => {
+        props.retails
+            ? setActiveRetailList(props.retails)
+            : setActiveRetailList(props.retailsCity)
+    }, [props.retails, props.retailsCity])
 
     useEffect(() => {
         props.fetchRetailsCity()
@@ -84,10 +92,10 @@ const RetailsBlock: React.FC<Props> = props => {
                 >Карта</p>
             </div>
 
-            {!props.showCitiesList && <BlockWrapper classStyle='CitiesMobile__retails'>
+            {!props.showCitiesList && acitveRetailList && <BlockWrapper classStyle='CitiesMobile__retails'>
               <ul>
                   {
-                      props.retailsCity.map((item) => {
+                      acitveRetailList.map((item) => {
                           const clockArr = item.weekDayTime.match(/\d\d:\d\d/g) || []
                           let clock = ''
                           if (clockArr.length > 1) {
@@ -123,58 +131,58 @@ const RetailsBlock: React.FC<Props> = props => {
               </ul>
             </BlockWrapper>}
 
-            {
-                <div id="anchor" className='CitiesMobile__mapWrapper'
-                     style={props.showCitiesList ? {visibility: 'visible'} : {}}>
+            {acitveRetailList &&
+            <div id="anchor" className='CitiesMobile__mapWrapper'
+                 style={props.showCitiesList ? {display: 'block'} : {}}>
 
-                    <YMaps>
-                        <Map className='CitiesMobile__mapContainer'
-                             state={mapState}
-                             modules={['control.ZoomControl', 'control.FullscreenControl', "templateLayoutFactory", "layout.ImageWithContent"]}
-                        >
-                            <Clusterer
-                                options={{
-                                    preset: 'islands#nightClusterIcons',
-                                    groupByCoordinates: false,
-                                }}
-                            >
-                                {
-                                    props.retailsCity.map((item) => {
-                                        const {coordinates, guid, brand, city, street, buildNumber, phone} = item
-                                        const clockArr = item.weekDayTime.match(/\d\d:\d\d/g) || []
-                                        let clock = ''
-                                        if (clockArr.length > 1) {
-                                            clock = clockArr.join(' - ')
-                                        }
-                                        const popup = {
-                                            title: brand,
-                                            address: `г. ${city},  ${street} ${buildNumber}`,
-                                            clock,
-                                            tel: phone
-                                        }
-                                        return <Placemark key={guid}
-                                            // onClick={() => onItemClick(guid)}
-                                                          {...placeMark(popup)}
-                                                          geometry={coordinates}
-                                                          options={{
-                                                              // iconLayout: 'default#imageWithContent',
-                                                              iconLayout: 'default#image',
-                                                              iconImageHref: iconLegko, // своя иконка
-                                                              iconImageSize: [45, 61], // размеры нашей иконки
-                                                              iconImageOffset: [-22, -61], // сдвиг иконки
-                                                              hideIconOnBalloonOpen: false, //запрет на скрытие метки по клику на балун
-                                                              balloonOffset: [3, -30] // сдвиг балуна
-                                                          }}
-                                        />
-                                    })
-                                }
-                            </Clusterer>
-                            <GeolocationControl options={{float: 'left'}}/>
-                            <SearchControl options={{float: 'right'}}/>
-                        </Map>
-                    </YMaps>
+              <YMaps>
+                <Map className='CitiesMobile__mapContainer'
+                     state={mapState}
+                     modules={['control.ZoomControl', 'control.FullscreenControl', "templateLayoutFactory", "layout.ImageWithContent"]}
+                >
+                  <Clusterer
+                    options={{
+                        preset: 'islands#nightClusterIcons',
+                        groupByCoordinates: false,
+                    }}
+                  >
+                      {
+                          acitveRetailList.map((item) => {
+                              const {coordinates, guid, brand, city, street, buildNumber, phone} = item
+                              const clockArr = item.weekDayTime.match(/\d\d:\d\d/g) || []
+                              let clock = ''
+                              if (clockArr.length > 1) {
+                                  clock = clockArr.join(' - ')
+                              }
+                              const popup = {
+                                  title: brand,
+                                  address: `г. ${city},  ${street} ${buildNumber}`,
+                                  clock,
+                                  tel: phone
+                              }
+                              return <Placemark key={guid}
+                                  // onClick={() => onItemClick(guid)}
+                                                {...placeMark(popup)}
+                                                geometry={coordinates}
+                                                options={{
+                                                    // iconLayout: 'default#imageWithContent',
+                                                    iconLayout: 'default#image',
+                                                    iconImageHref: iconLegko, // своя иконка
+                                                    iconImageSize: [45, 61], // размеры нашей иконки
+                                                    iconImageOffset: [-22, -61], // сдвиг иконки
+                                                    hideIconOnBalloonOpen: false, //запрет на скрытие метки по клику на балун
+                                                    balloonOffset: [3, -30] // сдвиг балуна
+                                                }}
+                              />
+                          })
+                      }
+                  </Clusterer>
+                  <GeolocationControl options={{float: 'left'}}/>
+                  <SearchControl options={{float: 'right'}}/>
+                </Map>
+              </YMaps>
 
-                </div>
+            </div>
             }
         </div>
     )
