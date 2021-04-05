@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import './CardPage.scss'
 import SvgCheck from "../../components/UI/icons/SvgCheck";
 import notPhoto from "../../img/notPhoto.svg"
@@ -19,12 +19,14 @@ import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
 import SetToFavorites from "../../components/SetToFavorites/SetToFavorites";
 import CardItem from "../../components/CardItem";
 import CountButton from "../../components/UI/CountButton/CountButton";
+import SvgCartIcon from "../../img/SVGcomponents/SvgCartIcon";
+import num_word from "../../utils/numWord";
+import RetailsBlock from "../../components/RetailsBlock/RetailsBlock";
+import {scrollToElement} from "../../utils/scrollToElement";
 
 const CardPage = (props) => {
   const {
     itemId,
-    addedToCart,
-    itemRemovedFromCart,
     cart,
     productInfo,
     error,
@@ -38,6 +40,9 @@ const CardPage = (props) => {
 
   const [count, setCount] = useState(0)
   const [countLast, setCountLast] = useState(1)
+  const [showCitiesList, setShowCitiesList] = useState(false)
+
+  const mapRef = useRef(null);
 
   useEffect(() => {
     props.fetchProductInfo(itemId)
@@ -125,7 +130,7 @@ const CardPage = (props) => {
             </div>
             : <>
               {/*===    ПУТЬ К ТОВАРУ ПО КАТАЛОГУ   ===============================*/}
-              {props.activeCategory && <div style={{paddingBottom: 15}}>
+              {props.activeCategory && <div style={isMobile ? {} : {paddingBottom: 15}}>
                 {props.activeCategory.historyGuid.map((item, i) => {
                   return (
                     <p key={item} className='CardPage__pathname'>
@@ -227,7 +232,10 @@ const CardPage = (props) => {
 
               {/* ДЛЯ MOBILE ВЕРСИИ */}
               {isMobile && <section className='CardPage__mobile'>
-
+                <div className='CardPage__titleContainer'>
+                  <h1 className='CardPage__title'>{productInfo.product}</h1>
+                  <p>Спрей, 10 мл, 22,5 мкг/доза</p>
+                </div>
                 <div className='CardPage__imageContainer'>
                   {img
                     ? <img className='CardPage__image' src={img} alt="фото лекарства"/>
@@ -235,11 +243,6 @@ const CardPage = (props) => {
                   <p className='CardPage__caption'>Внешний вид товара может отличаться от изображения на
                     сайте</p>
                   <SetToFavorites productGuid={productInfo.guid} classStyle='CardPage__like'/>
-                </div>
-
-                <div className='CardPage__titleContainer'>
-                  <h1 className='CardPage__title'>{productInfo.product}</h1>
-                  <p>Спрей, 10 мл, 22,5 мкг/доза</p>
                 </div>
 
                 <div className='CardPage__contentContainer'>
@@ -252,23 +255,41 @@ const CardPage = (props) => {
                     </div>
 
                     <div className='CardPage__buttons'>
-                      <button className='CardPage__button CardPage__buttonToCart' onClick={() => {
-                        !isActive ? addedToCart(productInfo.guid) : itemRemovedFromCart(productInfo.guid)
-                      }}>
-                        {isActive ? <SvgCheck style={{color: 'white'}}/> : 'Добавить в корзину'}
-                      </button>
+                      {
+                        isActive
+                          ? <CountButton
+                            count={count}
+                            isLastCount={!(countLast > count)}
+                            onIncrement={() => props.addedToCart(itemId)}
+                            onDecrement={() => props.itemRemovedFromCart(itemId)}
+                          />
+                          : <button className='CardItem__cart' onClick={() => props.addedToCart(itemId)}>
+                            <SvgCartIcon style={{fontSize: 28, color: '#fff'}}/>
+                          </button>
+                      }
                     </div>
                   </div>
 
                   <div className='CardPage__descriptionContainer'>
+                    <p className='CardPage__retails CardPage__description'>
+                      <span>В наличии: </span>
+                      <span className='CardPage__link' onClick={() => {
+                        if (mapRef && mapRef.current) {
+                          scrollToElement({element: mapRef.current, offset: -100, smooth: true})
+                        }
+                      }
+                      }>
+                        в {productInfo.retails.length} {num_word(productInfo.retails.length, ['аптеке', 'аптеках', 'аптеках'])}
+                      </span>
+                    </p>
                     <p className='CardPage__maker CardPage__description'>
                       <span>Производитель</span>
                       <span className='CardPage__link' onClick={goToCardsPage}>{productInfo.manufacturer}</span>
                     </p>
-                    <p className='CardPage__substance CardPage__description'>
-                      <span>Действующее вещество:</span>
-                      <NavLink className='CardPage__link' to={props.history.location}>Оксиметазолин</NavLink>
-                    </p>
+                    {/*<p className='CardPage__substance CardPage__description'>*/}
+                    {/*  <span>Действующее вещество:</span>*/}
+                    {/*  <NavLink className='CardPage__link' to={props.history.location}>Оксиметазолин</NavLink>*/}
+                    {/*</p>*/}
                     <p className='CardPage__characteristic CardPage__description'>
                       <span>Общее описание:</span>
                       {/*<span className='CardPage__textCharacteristic'>Сосудосуживающий препарат для местного применения. При нанесении на воспаленную слизистую оболочку полости носа уменьшает ее отечность и выделения из носа. Восстанавливает носовое дыхание. Устранение отека слизистой оболочки полости носа способствует восстановлению аэрации придаточных пазух полости носа, полости среднего уха, что уменьшает вероятность возникновения бактериальных осложнений (гайморита, синусита, среднего отита). При местном интраназальном применении в терапевтических концентрациях не раздражает и не вызывает гиперемию слизистой оболочки полости носа. При местном интраназальном применении оксиметазолин не обладает системным действием. Оксиметазолин начинает действовать быстро, в течение нескольких минут. Продолжительность действия препарата Називин Сенситив - до 12 ч.</span>*/}
@@ -432,6 +453,11 @@ const CardPage = (props) => {
                   }
                 </div>
               </BlockWrapper>
+              <div ref={mapRef}>
+                <RetailsBlock showCitiesList={showCitiesList}
+                              setShowCitiesList={(boolean) => setShowCitiesList(boolean)}/>
+              </div>
+
             </>
           }
         </ErrorBoundary>}

@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/react-scroll": "^1.8.2",
     "axios": "^0.21.0",
     "normalize.css": "^8.0.1",
     "react": "^16.14.0",

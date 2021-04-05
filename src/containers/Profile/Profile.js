@@ -26,7 +26,7 @@ const Profile = (props) => {
   const [changeSetting, setChangeSetting] = useState('setting')
   const [block, setBlock] = useState('main');
 
-  const [activeCard, setActiveCard] = useState(null)
+  const [activeCard, setActiveCard] = useState(0)
 
   useEffect(() => {
     if (props.userData?.cards?.length === 1) {
@@ -35,7 +35,6 @@ const Profile = (props) => {
   }, [props.userData])
 
   const delFavorites = (guid) => {
-    console.log('delFavorites: ', guid)
     service.wrapperRefreshToken(() => props.delToFavorites(guid), props.refreshAuthentication)
   }
 

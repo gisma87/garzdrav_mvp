@@ -83,8 +83,9 @@
 
   &__mapWrapper {
     visibility: hidden;
-    position: absolute;
-    top: 208px;
+    //position: absolute;
+    //top: 208px;
+    position: relative;
     right: 0;
     left: 0;
   }

@@ -56,7 +56,17 @@ export enum ActionTypes {
 }
 
 export type CartItemType = { itemId: string, count: number }
-export type retailCity = { [key: string]: string | number | number[] | null }
+export type retailCity = {
+    guid: string,
+    brand: string,
+    city: string,
+    street: string,
+    buildNumber: string,
+    phone: string,
+    weekDayTime: string,
+    coordinates: number[],
+    [key: string]: string | number | number[] | null
+}
 export type productInfo = {
     guid: string,
     product: string,

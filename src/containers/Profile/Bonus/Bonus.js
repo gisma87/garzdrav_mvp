@@ -6,21 +6,24 @@ const Bonus = props => {
 
   const noCard = {marginBottom: 0}
 
+  const cards = [...props.userData.cards]
+  cards.sort((a, b) => a.currentBalance < b.currentBalance ? 1 : -1)
+
   return (
     <BlockWrapper classStyle='Bonus'>
       <h4>Бонусы: </h4>
       {
-        props.userData?.cards?.length
+        cards?.length
           ? <>
             <BlockWrapper classStyle='Bonus__item'>
               <p className='Bonus__itemTitle' style={props.activeCard ? noCard : {}}>Бонусная карта</p>
               <p className='Bonus__info'
-                 style={props.activeCard ? noCard : {}}>№ {props.userData.cards[props.activeCard]?.barcode}</p>
+                 style={props.activeCard ? noCard : {}}>№ {cards[props.activeCard]?.barcode}</p>
             </BlockWrapper>
             <BlockWrapper classStyle='Bonus__item'>
               <p className='Bonus__itemTitle' style={props.activeCard ? noCard : {}}>Уровень карты</p>
               <div className='Bonus__itemContent'>
-                <p className='Bonus__info'>{props.userData.cards[props.activeCard]?.level}</p>
+                <p className='Bonus__info'>{cards[props.activeCard]?.level}</p>
               </div>
             </BlockWrapper>
             <BlockWrapper classStyle='Bonus__item'>
@@ -28,7 +31,7 @@ const Bonus = props => {
                 баланс</p>
               <div className='Bonus__itemContent'>
                 <p className='Bonus__info Bonus__balance'>
-                  {props.userData.cards[props.activeCard]?.currentBalance}
+                  {cards[props.activeCard]?.currentBalance.toFixed(2)}
                 </p>
               </div>
             </BlockWrapper>
@@ -37,8 +40,8 @@ const Bonus = props => {
                 Вместе с картой вы совершили покупок на общую сумму:
               </p>
               {
-                props.userData.cards[props.activeCard]?.saleBalance &&
-                <p className='Bonus__info'> {props.userData.cards[props.activeCard]?.saleBalance} ₽</p>
+                cards[props.activeCard]?.saleBalance &&
+                <p className='Bonus__info'> {cards[props.activeCard]?.saleBalance.toFixed(2)} ₽</p>
               }
             </BlockWrapper>
             <p className='Bonus__signature'>Подробную историю зачисления / списания бонусов можно посмотреть в
@@ -47,24 +50,23 @@ const Bonus = props => {
           : <p>У вас пока нет бонусной карты</p>
       }
       {
-        props.userData.cards.length > 1 &&
+        cards.length > 1 &&
         <div className='Bonus__cards'>
           <h4>Выберите бонусную карту: </h4>
           <ul className='Bonus__cardsContainer'>
             {
-              props.userData.cards.map((card, index) => {
-                return (<li className='Bonus__cardItem'>
-                  <button key={index}
-                          onClick={() => {
-                            props.setActiveCard(index)
-                            window.scrollTo({
-                              top: 0,
-                              left: 0,
-                              behavior: 'smooth'
-                            });
-                          }}
+              cards.map((card, index) => {
+                return (<li key={index} className='Bonus__cardItem'>
+                  <button onClick={() => {
+                    props.setActiveCard(index)
+                    window.scrollTo({
+                      top: 0,
+                      left: 0,
+                      behavior: 'smooth'
+                    });
+                  }}
                           className='Bonus__btnSelectCard'><b>№ {card.barcode}</b> <span
-                    className="Bonus__balanceText">Баланс: {card.currentBalance} ₽</span></button>
+                    className="Bonus__balanceText">Баланс: {card.currentBalance.toFixed(2)} ₽</span></button>
                 </li>)
               })
             }
