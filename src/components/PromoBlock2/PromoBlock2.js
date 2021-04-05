@@ -1,6 +1,6 @@
 import React from "react";
 import './PromoBlock2.scss'
-import baner from '../../img/baners/bigBaner.jpg'
+import baner from '../../img/baners/MiniDoctorEnergy_Banner_1210x250.jpg'
 
 const PromoBlock2 = props => {
 
