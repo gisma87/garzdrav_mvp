@@ -454,12 +454,15 @@ const CardPage = (props) => {
                   }
                 </div>
               </BlockWrapper>
-              <div ref={mapRef}>
-                <RetailsBlock showCitiesList={showCitiesList}
-                              setShowCitiesList={(boolean) => setShowCitiesList(boolean)}
-                              retails={props.productInfo.retails}
-                />
-              </div>
+              {
+                isMobile &&
+                <div ref={mapRef}>
+                  <RetailsBlock showCitiesList={showCitiesList}
+                                setShowCitiesList={(boolean) => setShowCitiesList(boolean)}
+                                retails={props.productInfo.retails}
+                  />
+                </div>
+              }
 
             </>
           }
