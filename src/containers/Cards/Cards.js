@@ -12,12 +12,11 @@ import {
   offRequestFromSearchPanel
 } from "../../actions";
 import CardItemMobile from "../../components/CardItemMobile";
-import SearchPanel from "../../components/SearchPanel";
 import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
 import Error from "../../components/Error/Error";
 import Pagination from "../../components/Pagination/Pagination";
 import SortCards, {sortItems} from "../../components/SortCards/SortCards";
-import Logo from "../../components/UI/Logo/Logo";
+// import Logo from "../../components/UI/Logo/Logo";
 
 
 const Cards = props => {
@@ -89,12 +88,12 @@ const Cards = props => {
             <>
               <div
                 className={'Cards__logoPanel' + (!(props.productsFromSearch.length || props.productSearch) ? ' Cards__center' : '')}>
-                <Logo/>
+                Введите в строку поиска выше, что требуется найти.
               </div>
-              <div
-                className={'Cards__searchPanel' + ((props.productsFromSearch.length || props.productSearch) ? '' : ' Cards__searchPanel_center')}>
-                <SearchPanel/>
-              </div>
+              {/*<div*/}
+              {/*  className={'Cards__searchPanel' + ((props.productsFromSearch.length || props.productSearch) ? '' : ' Cards__searchPanel_center')}>*/}
+              {/*  <SearchPanel/>*/}
+              {/*</div>*/}
             </>
           }
           {((props.productsFromSearch.length || props.productSearch) || !isMobile) &&

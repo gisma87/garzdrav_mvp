@@ -32,13 +32,14 @@ const RetailsBlock: React.FC<Props> = props => {
     const [zoom, setZoom] = useState(11)
     const [activeMarker, setActiveMarker] = useState(null)
     const [acitveRetailList, setActiveRetailList] = useState<retailCity[]>()
+    const [showRetails, setShowRetails] = useState(false)
     const {isCity} = props;
 
     const mapRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
         props.retails
-            ? setActiveRetailList(props.retails)
+            ? setActiveRetailList(props.retails.slice(0, 3))
             : setActiveRetailList(props.retailsCity)
     }, [props.retails, props.retailsCity])
 
@@ -147,7 +148,7 @@ const RetailsBlock: React.FC<Props> = props => {
                     }}
                   >
                       {
-                          acitveRetailList.map((item) => {
+                          (props.retails || acitveRetailList).map((item) => {
                               const {coordinates, guid, brand, city, street, buildNumber, phone} = item
                               const clockArr = item.weekDayTime.match(/\d\d:\d\d/g) || []
                               let clock = ''
@@ -183,6 +184,24 @@ const RetailsBlock: React.FC<Props> = props => {
               </YMaps>
 
             </div>
+            }
+            {
+                props.retails && !props.showCitiesList &&
+                <div className='CitiesMobile__showRetails'>
+                    {showRetails
+                        ? <p onClick={() => {
+                            setActiveRetailList(props.retails?.slice(0, 3))
+                            setShowRetails(false)
+                            if (mapRef && mapRef.current) {
+                                scrollToElement({element: mapRef.current, offset: -100, smooth: true})
+                            }
+                        }}>Свернуть аптеки</p>
+                        : <p onClick={() => {
+                            setActiveRetailList(props.retails)
+                            setShowRetails(true)
+                        }}>Показать весь список аптек</p>
+                    }
+                </div>
             }
         </div>
     )

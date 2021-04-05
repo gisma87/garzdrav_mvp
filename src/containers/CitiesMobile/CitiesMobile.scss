@@ -90,6 +90,19 @@
     left: 0;
   }
 
+  &__showRetails {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0;
+
+    p {
+      color: $primary-color;
+      border-bottom: 1px dotted $primary-color;
+    }
+  }
+
   &__textClock {
     white-space: nowrap;
     font-size: 14px;

@@ -6,7 +6,7 @@ import SvgInstaIcon from "../../img/SVGcomponents/SvgInstaIcon";
 import SvgEmail from "../../img/SVGcomponents/SvgEmail";
 import {useMediaQuery} from "react-responsive";
 
-const FooterDesktop = () => {
+const FooterDesktop: React.FC = () => {
 
   const isMobile = useMediaQuery({query: '(max-width: 900px)'})
 
@@ -22,7 +22,7 @@ const FooterDesktop = () => {
           <div className='SubscriptionPanel__formContainer'>
             <form className='SubscriptionPanel__form' onSubmit={(e) => {
               e.preventDefault()
-              console.log(e.target.elements.email.value)
+
             }}>
               <input name='email' type="email" placeholder='e-mail'/>
               <button className='SubscriptionPanel__button'>
