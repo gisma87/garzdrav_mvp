@@ -55,6 +55,21 @@ export enum ActionTypes {
     CLOSE_POPOP_LOGIN = 'CLOSE_POPOP_LOGIN'
 }
 
+export type retailType = {
+    guid: string,
+    countLast: number,
+    priceRetail: number,
+    brand: string,
+    buildNumber: string,
+    city: string,
+    coordinates: (number | string)[]
+    phone: string,
+    street: string,
+    title: string,
+    weekDayTime: string,
+    [key: string]: string | number | ObjType | (number | string | ObjType)[] | null
+}
+
 export type CartItemType = { itemId: string, count: number }
 export type retailCity = {
     guid: string,
@@ -82,20 +97,7 @@ export type TypeProductInfo = {
     product: string,
     manufacturer: string
     categoryGuid: string,
-    retails: {
-        guid: string,
-        countLast: number,
-        priceRetail: number,
-        brand: string,
-        buildNumber: string,
-        city: string,
-        coordinates: (number | string)[]
-        phone: string,
-        street: string,
-        title: string,
-        weekDayTime: string,
-        [key: string]: string | number | ObjType | (number | string | ObjType)[] | null
-    }[],
+    retails: retailType[],
     [key: string]: string | number | ObjType | (number | string | ObjType)[] | null | undefined,
 }
 

@@ -24,7 +24,8 @@ const BrandsBlock: React.FC<MapDispatchPropsType> = props => {
 
     const history = useHistory()
 
-    // автопоиск по слову // eslint-disable-next-line
+    // TODO автопоиск по слову - ждём ключевые слова от маркетологов
+    // eslint-disable-next-line
     const goToCardsPage = (wordSearch: string) => {
         props.getProductsFromSearchLimit({productName: wordSearch})
         history.push('/Cards/')
