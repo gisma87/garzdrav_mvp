@@ -294,6 +294,10 @@
     transform: translateY(30px);
     line-height: 1.5rem;
     font-size: 1.05rem;
+
+    @media (max-width: 900px) {
+      padding: 0 10px;
+    }
   }
 
   &__bold {
