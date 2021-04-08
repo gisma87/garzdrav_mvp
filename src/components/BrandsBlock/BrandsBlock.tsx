@@ -13,6 +13,7 @@ import {getProductsFromSearchLimit} from "../../actions";
 import {ThunkDispatch} from "redux-thunk";
 import {StateType} from "../../store";
 import {useHistory} from "react-router-dom";
+import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 
 const brands = [brand1, brand2, brand3, brand4, brand5, brand6, brand7, brand8]
 
@@ -32,16 +33,18 @@ const BrandsBlock: React.FC<MapDispatchPropsType> = props => {
     }
 
     return (
-        <div className='BrandsBlock wrapper'>
-            <h3 className='BrandsBlock__title'>Бренды</h3>
-            <div className='BrandsBlock__content'>
-                {
-                    brands.map((brand, index) => <div key={index} className='BrandsBlock__item'>
-                        <img className='BrandsBlock__img' src={brand} alt="brand"/>
-                    </div>)
-                }
+        <ErrorBoundary>
+            <div className='BrandsBlock wrapper'>
+                <h3 className='BrandsBlock__title'>Бренды</h3>
+                <div className='BrandsBlock__content'>
+                    {
+                        brands.map((brand, index) => <div key={index} className='BrandsBlock__item'>
+                            <img className='BrandsBlock__img' src={brand} alt="brand"/>
+                        </div>)
+                    }
+                </div>
             </div>
-        </div>
+        </ErrorBoundary>
     )
 }
 

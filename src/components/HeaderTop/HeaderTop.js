@@ -9,6 +9,7 @@ import PopupLocation from "../PopupLocation/PopupLocation";
 const HeaderTop = (props) => {
   const {regions, cities, isCity, setIsCity, isPopupLocation} = props;
   const [popup, setPopup] = useState(false)
+  console.log('isCity: ', isCity)
 
   return (
     <div className='HeaderTop'>
@@ -19,7 +20,7 @@ const HeaderTop = (props) => {
             setPopup(true)
           }}
           >
-            {isCity.title}</span>
+            {isCity?.title}</span>
 
           {isPopupLocation && <PopupLocation active={isPopupLocation}
                                              city={isCity.title}

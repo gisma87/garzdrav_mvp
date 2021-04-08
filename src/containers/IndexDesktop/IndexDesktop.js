@@ -7,6 +7,7 @@ import ArticlesBlock from "../../components/ArticlesBlock";
 import PromoBlock2 from "../../components/PromoBlock2/PromoBlock2";
 import BrandsBlock from "../../components/BrandsBlock/BrandsBlock";
 import LegkoBlock from "../../components/LegkoBlock/LegkoBlock";
+import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
 
 const IndexDesktop = props => {
   const howToBuyElement = useRef(null)
@@ -21,15 +22,17 @@ const IndexDesktop = props => {
     }
   })
   return (
-    <div className={classes.mainPage}>
-      <Advertising/>
-      <PromoBlock/>
-      <div ref={howToBuyElement} style={{width: '100%'}}><HowToBuy/></div>
-      <PromoBlock2/>
-      <BrandsBlock/>
-      <LegkoBlock/>
-      <ArticlesBlock/>
-    </div>
+    <ErrorBoundary>
+      <div className={classes.mainPage}>
+        <Advertising/>
+        <PromoBlock/>
+        <div ref={howToBuyElement} style={{width: '100%'}}><HowToBuy/></div>
+        <PromoBlock2/>
+        <BrandsBlock/>
+        <LegkoBlock/>
+        <ArticlesBlock/>
+      </div>
+    </ErrorBoundary>
   )
 }
 

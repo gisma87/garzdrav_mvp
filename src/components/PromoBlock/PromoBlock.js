@@ -13,6 +13,7 @@ import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
 import {addedToCart, allItemRemovedFromCart, itemRemovedFromCart, setActivePromoGroup} from "../../actions";
 import ButtonSectionForSlider from "./ButtonSectionForSlider/ButtonSectionForSlider";
+import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 
 const arrButtonPromoGroup = ['все акционные товары', 'все сезонные товары', 'все популярные товары']
 const arrNameGroup = ['Акционные товары', 'Сезонные товары', 'Популярные товары']
@@ -47,90 +48,91 @@ class PromoBlock extends React.Component {
     if (this.props.itemsForPromoBlock1.length) {
       return (
         <div className="PromoBlock">
-
-          <div className="prev slideButton">
-            <SvgAngleLeftSolid/>
-          </div>
-
-          <div className="next slideButton">
-            <SvgAngleRightSolid/>
-          </div>
-
-          <div className='wrapper'>
-            <ButtonSectionForSlider
-              items={[{title: 'Акции'}, {title: 'Сезонное предложение'}, {title: 'Популярные товары'}]}
-              onButtonSelected={this.onButtonSelected}
-            />
-            <Swiper
-              style={{padding: '10px 0'}}
-              spaceBetween={5}
-              slidesPerView={'auto'}
-              tag="section" wrapperTag="ul"
-              loop={'false'}
-              // autoplay={{delay: 5000}}
-              navigation={
-                {
-                  nextEl: '.next',
-                  prevEl: '.prev'
-                }
-              }
-            >
-              {
-                this.data()?.[this.state.activeButton].map((item) => {
-                  const {guid, product, manufacturer, img, minPrice, countLast} = item;
-                  const itemIndex = this.props.cart.findIndex((item) => item.itemId === guid);
-                  const isBuy = itemIndex >= 0;
-                  const count = isBuy ? this.props.cart[itemIndex].count : 0
-                  return <CardItem key={guid}
-                                   itemProps={
-                                     {
-                                       onIncrement: () => this.props.addedToCart(guid),
-                                       onDecrement: () => this.props.itemRemovedFromCart(guid),
-                                       isBuy,
-                                       count,
-                                       countLast,
-                                       id: guid,
-                                       title: product,
-                                       maker: manufacturer,
-                                       img,
-                                       minPrice
-                                     }
-                                   }
-                                   onItemSelected={this.onItemSelected}
-                  />
-                }).map((item, index) => {
-                  return (
-                    <SwiperSlide tag="li" key={index} style={{listStyleType: 'none'}}>
-                      {item}
-                    </SwiperSlide>
-                  )
-                })
-              }
-
-            </Swiper>
-
-            <div style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              width: '100%',
-              padding: '0 0 15px'
-            }}>
-              {/*<Link to='/articles/' className='PromoBlock__button'>*/}
-              {/*  все акционные товары*/}
-              {/*</Link>*/}
-              {
-                <button onClick={() => {
-                  this.props.setActivePromoGroup({
-                    name: arrNameGroup[this.state.activeButton],
-                    arrPromo: this.data()?.[this.state.activeButton]
-                  })
-                  this.props.history.push('/articles/')
-                }}
-                        className='PromoBlock__button'>{arrButtonPromoGroup[this.state.activeButton]}</button>
-              }
+          <ErrorBoundary>
+            <div className="prev slideButton">
+              <SvgAngleLeftSolid/>
             </div>
-          </div>
+
+            <div className="next slideButton">
+              <SvgAngleRightSolid/>
+            </div>
+
+            <div className='wrapper'>
+              <ButtonSectionForSlider
+                items={[{title: 'Акции'}, {title: 'Сезонное предложение'}, {title: 'Популярные товары'}]}
+                onButtonSelected={this.onButtonSelected}
+              />
+              <Swiper
+                style={{padding: '10px 0'}}
+                spaceBetween={5}
+                slidesPerView={'auto'}
+                tag="section" wrapperTag="ul"
+                loop={'false'}
+                // autoplay={{delay: 5000}}
+                navigation={
+                  {
+                    nextEl: '.next',
+                    prevEl: '.prev'
+                  }
+                }
+              >
+                {
+                  this.data()?.[this.state.activeButton].map((item) => {
+                    const {guid, product, manufacturer, img, minPrice, countLast} = item;
+                    const itemIndex = this.props.cart.findIndex((item) => item.itemId === guid);
+                    const isBuy = itemIndex >= 0;
+                    const count = isBuy ? this.props.cart[itemIndex].count : 0
+                    return <CardItem key={guid}
+                                     itemProps={
+                                       {
+                                         onIncrement: () => this.props.addedToCart(guid),
+                                         onDecrement: () => this.props.itemRemovedFromCart(guid),
+                                         isBuy,
+                                         count,
+                                         countLast,
+                                         id: guid,
+                                         title: product,
+                                         maker: manufacturer,
+                                         img,
+                                         minPrice
+                                       }
+                                     }
+                                     onItemSelected={this.onItemSelected}
+                    />
+                  }).map((item, index) => {
+                    return (
+                      <SwiperSlide tag="li" key={index} style={{listStyleType: 'none'}}>
+                        {item}
+                      </SwiperSlide>
+                    )
+                  })
+                }
+
+              </Swiper>
+
+              <div style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                width: '100%',
+                padding: '0 0 15px'
+              }}>
+                {/*<Link to='/articles/' className='PromoBlock__button'>*/}
+                {/*  все акционные товары*/}
+                {/*</Link>*/}
+                {
+                  <button onClick={() => {
+                    this.props.setActivePromoGroup({
+                      name: arrNameGroup[this.state.activeButton],
+                      arrPromo: this.data()?.[this.state.activeButton]
+                    })
+                    this.props.history.push('/articles/')
+                  }}
+                          className='PromoBlock__button'>{arrButtonPromoGroup[this.state.activeButton]}</button>
+                }
+              </div>
+            </div>
+          </ErrorBoundary>
         </div>
       )
     } else {

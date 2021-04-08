@@ -20,6 +20,7 @@ import {StateType} from "./store";
 import {ThunkDispatch} from "redux-thunk";
 import PopupLogin from "./components/PopupLogin";
 import ReactGA from 'react-ga';
+import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
 
 type MapStatePropsType = {
     loading: number,
@@ -121,14 +122,14 @@ const MobileOrDesktop: React.FC<Props> = (props) => {
     const isMobile = useMediaQuery({query: '(max-width: 900px)'})
 
     return (
-        <>
+        <ErrorBoundary>
             <YMInitializer accounts={[74874832]} options={{defer: true}}/>
             {isMobile ? <AppMobile/> : <App/>}
             <Alert show={alertShow} onClose={() => setAlertShow(false)} title='Информируем: '>
                 <p>Часть товаров из корзины была удалена, т.к. их нет в наличии в вашем городе.</p>
             </Alert>
             <PopupLogin/>
-        </>
+        </ErrorBoundary>
     )
 
 }

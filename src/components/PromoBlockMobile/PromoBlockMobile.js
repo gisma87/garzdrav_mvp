@@ -12,6 +12,7 @@ import {addedToCart, allItemRemovedFromCart, itemRemovedFromCart, setActivePromo
 import CardItemMobile from "../CardItemMobile";
 import {useMediaQuery} from "react-responsive";
 import ButtonSectionForSlider from "../PromoBlock/ButtonSectionForSlider/ButtonSectionForSlider";
+import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 
 const PromoBlockMobile = props => {
 
@@ -49,79 +50,81 @@ const PromoBlockMobile = props => {
   }
 
   return (
-    <section className="PromoBlockMobile">
-      <div>
-        {/*<TitleSection size={props.sizeTitle} title='Акции' link='/articles/'/>*/}
+    <ErrorBoundary>
+      <section className="PromoBlockMobile">
+        <div>
+          {/*<TitleSection size={props.sizeTitle} title='Акции' link='/articles/'/>*/}
 
-        <ButtonSectionForSlider
-          items={[{title: 'Акции'}, {title: 'Сезонное предложение'}, {title: 'Популярные товары'}]}
-          onButtonSelected={onButtonSelected}
-        />
+          <ButtonSectionForSlider
+            items={[{title: 'Акции'}, {title: 'Сезонное предложение'}, {title: 'Популярные товары'}]}
+            onButtonSelected={onButtonSelected}
+          />
 
-        {props.itemsForPromoBlock1 &&
-        <Swiper
-          style={{padding: '5px 0 10px'}}
-          spaceBetween={5}
-          slidesPerView={isMobile ? 1 : 2}
-          tag="section" wrapperTag="ul"
-          loop={'false'}
-        >
-          {data() &&
-          data()?.[activeButton].map((item) => {
-            const {guid, product, manufacturer, img, minPrice, countLast} = item;
-            const itemIndex = props.cart.findIndex((item) => item.itemId === guid);
-            const isBuy = itemIndex >= 0;
-            const count = isBuy ? props.cart[itemIndex].count : 0
+          {props.itemsForPromoBlock1 &&
+          <Swiper
+            style={{padding: '5px 0 10px'}}
+            spaceBetween={5}
+            slidesPerView={isMobile ? 1 : 2}
+            tag="section" wrapperTag="ul"
+            loop={'false'}
+          >
+            {data() &&
+            data()?.[activeButton].map((item) => {
+              const {guid, product, manufacturer, img, minPrice, countLast} = item;
+              const itemIndex = props.cart.findIndex((item) => item.itemId === guid);
+              const isBuy = itemIndex >= 0;
+              const count = isBuy ? props.cart[itemIndex].count : 0
 
-            return <CardItemMobile key={guid}
-                                   onItemSelected={onItemSelected}
-                                   itemProps={{
-                                     onIncrement: () => props.addedToCart(guid),
-                                     onDecrement: () => props.itemRemovedFromCart(guid),
-                                     isBuy,
-                                     count,
-                                     countLast,
-                                     id: guid,
-                                     title: product,
-                                     maker: manufacturer,
-                                     img,
-                                     minPrice,
-                                   }}
-            />
-          }).map((item, index) => {
-            return (
-              <SwiperSlide tag="li" key={index} style={{listStyleType: 'none'}}>
-                {item}
-              </SwiperSlide>
-            )
-          })
+              return <CardItemMobile key={guid}
+                                     onItemSelected={onItemSelected}
+                                     itemProps={{
+                                       onIncrement: () => props.addedToCart(guid),
+                                       onDecrement: () => props.itemRemovedFromCart(guid),
+                                       isBuy,
+                                       count,
+                                       countLast,
+                                       id: guid,
+                                       title: product,
+                                       maker: manufacturer,
+                                       img,
+                                       minPrice,
+                                     }}
+              />
+            }).map((item, index) => {
+              return (
+                <SwiperSlide tag="li" key={index} style={{listStyleType: 'none'}}>
+                  {item}
+                </SwiperSlide>
+              )
+            })
+            }
+
+          </Swiper>}
+        </div>
+
+
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          width: '100%',
+          padding: '0 0 15px'
+        }}>
+
+          {
+            <button onClick={() => {
+              props.setActivePromoGroup({
+                name: arrNameGroup[activeButton],
+                arrPromo: data()?.[activeButton]
+              })
+              props.history.push('/articles/')
+            }}
+                    className='PromoBlockMobile__button'>{arrButtonPromoGroup[activeButton]}</button>
           }
 
-        </Swiper>}
-      </div>
-
-
-      <div style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100%',
-        padding: '0 0 15px'
-      }}>
-
-        {
-          <button onClick={() => {
-            props.setActivePromoGroup({
-              name: arrNameGroup[activeButton],
-              arrPromo: data()?.[activeButton]
-            })
-            props.history.push('/articles/')
-          }}
-                  className='PromoBlockMobile__button'>{arrButtonPromoGroup[activeButton]}</button>
-        }
-
-      </div>
-    </section>
+        </div>
+      </section>
+    </ErrorBoundary>
   )
 }
 
