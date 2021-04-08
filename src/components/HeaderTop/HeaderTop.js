@@ -10,7 +10,6 @@ import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 const HeaderTop = (props) => {
   const {regions, cities, isCity, setIsCity, isPopupLocation} = props;
   const [popup, setPopup] = useState(false)
-  console.log('isCity: ', isCity)
 
   return (
     <ErrorBoundary>
