@@ -3,7 +3,7 @@ import {
     CartItemType, internetSale, ObjType,
     TypeProductInfo,
     retailCity,
-    CategoryElement, TypePromoItems
+    CategoryElement, TypePromoItems, UserBonusCardType, UserDataType
 } from "../types";
 
 export interface ActionItemsForPromoBlock {
@@ -158,7 +158,7 @@ export interface Action_setProductsToCategory {
 
 export interface ActionSetUserData {
     type: ActionTypes.USER_DATA,
-    payload: { [key: string]: string | number | boolean | null | ObjType[] }
+    payload: UserDataType
 }
 
 export interface Action_setSales {
@@ -226,6 +226,11 @@ export interface Action_closePopupLogin {
     type: ActionTypes.CLOSE_POPOP_LOGIN
 }
 
+export interface Action_setActiveBonusCard {
+    type: ActionTypes.SET_ACTIVE_BONUS_CARD,
+    payload: UserBonusCardType
+}
+
 export type ActionType = (
     ActionItemsForPromoBlock
     | Action_closePopupLogin
@@ -271,4 +276,5 @@ export type ActionType = (
     | Action_fetchCities
     | ActionSetError
     | Action_setIDfetchPromo
+    | Action_setActiveBonusCard
     )

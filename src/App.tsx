@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Redirect, Switch, Route} from 'react-router-dom';
 import './App.scss';
 import 'normalize.css';
@@ -33,8 +33,6 @@ type Props = {
 
 const App: React.FC<Props> = (props) => {
 
-    const [howToBuyScroll, setHowToBuyScroll] = useState(false)
-
     return (
         <ErrorBoundary>
             <div className="App">
@@ -42,9 +40,7 @@ const App: React.FC<Props> = (props) => {
                 <Loader classStyle={props.loading ? 'Loader_is-opened' : ''}/>
                 <HeaderDesktop/>
                 <Switch>
-                    <Route exact path="/"
-                           render={() => <IndexDesktop tag={howToBuyScroll}
-                                                       offScroll={() => setHowToBuyScroll(false)}/>}/>
+                    <Route exact path="/" component={IndexDesktop}/>
                     <Route path="/address/" component={Cities}/>
                     <Route path="/cities/" component={Cities}/>
                     <Route path="/cart/" component={Cart}/>

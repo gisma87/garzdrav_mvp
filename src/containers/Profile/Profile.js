@@ -7,7 +7,7 @@ import {
   allItemRemovedFromCart, delToFavorites, getDataProfile,
   getInternetSales,
   itemRemovedFromCart, loadingFalse, loadingTrue,
-  logout, refreshAuthentication,
+  logout, refreshAuthentication, setActiveBonusCard,
   setSales, setToken, setUserData
 } from "../../actions";
 import {connect} from "react-redux";
@@ -26,13 +26,18 @@ const Profile = (props) => {
   const [changeSetting, setChangeSetting] = useState('setting')
   const [block, setBlock] = useState('main');
 
-  const [activeCard, setActiveCard] = useState(0)
-
   useEffect(() => {
-    if (props.userData?.cards?.length === 1) {
-      setActiveCard(0)
-    }
+    getActiveBonusCard()
+    // eslint-disable-next-line
   }, [props.userData])
+
+  function getActiveBonusCard() {
+    if (!props.activeBonusCard && props.userData) {
+      const cards = [...props.userData.cards]
+      cards.sort((a, b) => a.currentBalance < b.currentBalance ? 1 : -1)
+      props.setActiveBonusCard(cards[0])
+    }
+  }
 
   const delFavorites = (guid) => {
     service.wrapperRefreshToken(() => props.delToFavorites(guid), props.refreshAuthentication)
@@ -63,14 +68,14 @@ const Profile = (props) => {
 
               {/*раздел Бонусы*/}
               {block === 'main' &&
-              <Bonus userData={props.userData} activeCard={activeCard} setActiveCard={setActiveCard}/>}
+              <Bonus/>}
 
               {/*раздел Интернет Заказы*/}
               {block === 'order' &&
               <OrdersInternet getInternetSales={props.getInternetSales}
                               internetSales={props.internetSales}
                               cancelOrder={props.cancelOrder}
-                              activeCard={activeCard}
+                              activeCard={props.activeBonusCard}
               />}
 
               {/*раздел История заказов*/}
@@ -132,8 +137,8 @@ const Profile = (props) => {
 }
 
 
-const mapStateToProps = ({TOKEN, cart, favorites, userData, sales, error, isCity}) => {
-  return {TOKEN, cart, favorites, userData, sales, error, isCity}
+const mapStateToProps = ({TOKEN, cart, favorites, userData, sales, error, isCity, activeBonusCard}) => {
+  return {TOKEN, cart, favorites, userData, sales, error, isCity, activeBonusCard}
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -152,6 +157,7 @@ const mapDispatchToProps = (dispatch) => {
     addedToCart: (item) => dispatch(addedToCart(item)), // добавить idProduct в корзину
     itemRemovedFromCart: (item) => dispatch(itemRemovedFromCart(item)), // удалить idProduct из корзины (count = count - 1)
     allItemRemovedFromCart: (item) => dispatch(allItemRemovedFromCart(item)), // удаляет idProduct из корзины (все экземпляры)
+    setActiveBonusCard: (bonusCard) => dispatch(setActiveBonusCard(bonusCard))
   }
 }
 

@@ -12,7 +12,7 @@ import {NavLink} from "react-router-dom";
 import LoaderTimer from "../../../components/UI/LoaderTimer/LoaderTimer";
 import EyeButtonShow from "../../../components/UI/EyeButtonShow/EyeButtonShow";
 // eslint-disable-next-line
-import {authorizedByEmail, authorizedByPassOrSMS} from "../../../actions";
+import {authorizedByEmail, authorizedByPassOrSMS, setActiveBonusCard} from "../../../actions";
 import {connect} from "react-redux";
 import ym from "react-yandex-metrika";
 import ErrorBoundary from "../../../components/ErrorBoundary/ErrorBoundary";
@@ -41,6 +41,7 @@ const CartOrderPage = props => {
 
   useEffect(() => {
     setOrder({...props.retail})
+    getActiveBonusCard()
     return () => props.delOrderNumber();
     // eslint-disable-next-line
   }, [])
@@ -55,6 +56,14 @@ const CartOrderPage = props => {
       }
     }
   }, [props.errorAuth])
+
+  function getActiveBonusCard() {
+    if (!props.activeBonusCard) {
+      const cards = [...props.userData.cards]
+      cards.sort((a, b) => a.currentBalance < b.currentBalance ? 1 : -1)
+      props.setActiveBonusCard(cards[0])
+    }
+  }
 
   // function validate(event) {
   //   setErrorMessage('')
@@ -279,12 +288,12 @@ const CartOrderPage = props => {
           }
         </div>
         {
-          (props.userData && order && props.userData?.barcode && props.userData?.currentBalance) &&
+          (props.activeBonusCard && order) &&
           <p className='CartOrderPage__messageBonus'>
-            На вашей карте&nbsp;<span className='CartOrderPage__bold'>№{props.userData?.barcode}</span>
+            На вашей карте&nbsp;<span className='CartOrderPage__bold'>№{props.activeBonusCard.barcode}</span>
             &nbsp;при оплате покупки доступно для списания &nbsp;
             <span
-              className='CartOrderPage__bold'>{Math.min((Math.floor(((order.product.reduce((acc, product) => (product.priceRetail * product.count), 0)) / 2) * 100) / 100), (props.userData.currentBalance).toFixed(2))} Б.</span>
+              className='CartOrderPage__bold'>{Math.min((Math.floor(((order.product.reduce((acc, product) => (product.priceRetail * product.count), 0)) / 2) * 100) / 100), +(props.activeBonusCard.currentBalance).toFixed(2))} Б.</span>
           </p>
         }
         <p className='CartOrderPage__messageBonus'>Не забудьте взять с собой &nbsp;<a href="http://kartalegko.ru/"
@@ -296,13 +305,14 @@ const CartOrderPage = props => {
   )
 }
 
-const mapStateToProps = ({userData}) => {
-  return {userData}
+const mapStateToProps = ({userData, activeBonusCard}) => {
+  return {userData, activeBonusCard}
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    authorizedByEmail: (email, code, callback) => dispatch(authorizedByEmail(email, code, callback))
+    authorizedByEmail: (email, code, callback) => dispatch(authorizedByEmail(email, code, callback)),
+    setActiveBonusCard: (bonusCard) => dispatch(setActiveBonusCard(bonusCard))
   }
 }
 

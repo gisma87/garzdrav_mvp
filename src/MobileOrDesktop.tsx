@@ -3,7 +3,7 @@ import {YMInitializer} from 'react-yandex-metrika';
 import {useMediaQuery} from 'react-responsive'
 import App from "./App";
 import AppMobile from "./AppMobile/AppMobile";
-import {CartItemType, TypeProductInfo} from "./types";
+import {CartItemType, TypeisCity, TypeProductInfo} from "./types";
 import {
     fetchCartItems,
     fetchCities,
@@ -26,7 +26,8 @@ type MapStatePropsType = {
     loading: number,
     cart: CartItemType[],
     isDelCartItem: boolean,
-    itemsForPromoBlock1: TypeProductInfo[]
+    itemsForPromoBlock1: TypeProductInfo[],
+    isCity: TypeisCity
 }
 
 type MapDispatchPropsType = {
@@ -72,9 +73,6 @@ const MobileOrDesktop: React.FC<Props> = (props) => {
     useEffect(() => {
         props.fetchCities();
         props.setCatalog()
-        props.setItemsForPromoBlock1()
-        props.setSeasonItemsForPromoBlock2()
-        props.setPopularItemsForPromoBlock3()
 
         if (localStorage.getItem("TOKEN")) {
             props.refreshAuthentication()
@@ -96,6 +94,13 @@ const MobileOrDesktop: React.FC<Props> = (props) => {
         ReactGA.initialize('UA-139848378-2');
         ReactGA.pageview(window.location.pathname + window.location.search);
     }, [])// eslint-disable-line
+
+    useEffect(() => {
+        props.setItemsForPromoBlock1()
+        props.setSeasonItemsForPromoBlock2()
+        props.setPopularItemsForPromoBlock3()
+        // eslint-disable-next-line
+    }, [props.isCity])
 
     useEffect(() => {
         if (props.itemsForPromoBlock1.length) {
@@ -134,8 +139,8 @@ const MobileOrDesktop: React.FC<Props> = (props) => {
 
 }
 
-const mapStateToProps = ({cart, loading, isDelCartItem, itemsForPromoBlock1}: StateType) => {
-    return {cart, loading, isDelCartItem, itemsForPromoBlock1}
+const mapStateToProps = ({cart, loading, isDelCartItem, itemsForPromoBlock1, isCity}: StateType) => {
+    return {cart, loading, isDelCartItem, itemsForPromoBlock1, isCity}
 }
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<StateType, {}, any>) => {

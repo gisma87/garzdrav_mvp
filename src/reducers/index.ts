@@ -44,6 +44,7 @@ const initialState: StateTypes = {
     isPopupLocation: false, // статус popup о подтверждении автовыбора города
     TOKEN: null,
     userData: null,
+    activeBonusCard: null,
     catalog: null,
     activeCategory: null, // текущая категория в каталоге
     productsToCategory: [], // товары из текущей категории каталога
@@ -141,6 +142,12 @@ const reducer = (state = initialState, action: ActionType): StateTypes => {
             return {
                 ...state,
                 isPopupLogin: true
+            }
+
+        case ActionTypes.SET_ACTIVE_BONUS_CARD:
+            return {
+                ...state,
+                activeBonusCard: action.payload
             }
 
         case ActionTypes.CLOSE_POPOP_LOGIN:

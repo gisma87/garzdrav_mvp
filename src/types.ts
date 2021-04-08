@@ -52,7 +52,8 @@ export enum ActionTypes {
     FETCH_CITIES_SUCCESS = 'FETCH_CITIES_SUCCESS',
     SET_ID_FETCH_PROMO = 'SET_ID_FETCH_PROMO',
     OPEN_POPOP_LOGIN = 'OPEN_POPOP_LOGIN',
-    CLOSE_POPOP_LOGIN = 'CLOSE_POPOP_LOGIN'
+    CLOSE_POPOP_LOGIN = 'CLOSE_POPOP_LOGIN',
+    SET_ACTIVE_BONUS_CARD = 'SET_ACTIVE_BONUS_CARD'
 }
 
 export type retailType = {
@@ -160,6 +161,26 @@ export type TypePromoItems = { type: string, courses?: any[], promoItems: Produc
 
 export type Predictor = { endOfWord: boolean | string, pos: number | string, text: string[] }
 
+export type UserBonusCardType = {
+    barcode: number,
+    accumulationBalance: number,
+    currentBalance: number,
+    saleBalance: number,
+    level: string,
+    [key: string]: string | number | null
+}
+
+export type UserDataType = {
+    email: string,
+    lastName: string,
+    firstName: string,
+    middleName: string,
+    birthDate: string,
+    gender: boolean,
+    cards: UserBonusCardType[],
+    [key: string]: string | number | boolean | null | UserBonusCardType[]
+}
+
 export interface StateTypes {
     cities: TypeisCity[],
     regions: {
@@ -183,7 +204,8 @@ export interface StateTypes {
     selectedRetail: null | string
     isPopupLocation: boolean,
     TOKEN: null | { accessToken: string, refreshToken: string },
-    userData: { [key: string]: string | number | boolean | null | ObjType[] } | null,
+    userData: UserDataType | null,
+    activeBonusCard: null | UserBonusCardType,
     catalog: null | CategoryElement,
     activeCategory: null | CategoryElement,
     productsToCategory: { guid: string, product: string, [key: string]: string | number | null }[],

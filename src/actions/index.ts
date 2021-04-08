@@ -3,8 +3,11 @@ import {seasonPromoItems} from "../testData/seasonPromoItems";
 import {popularPromoItems} from "../testData/popularPromoItems";
 
 import {
+    Action_closePopupLogin,
     Action_fetchCities,
     Action_fetchRetailsCity,
+    Action_openPopupLogin,
+    Action_setActiveBonusCard,
     Action_setCatalog,
     Action_setCity,
     Action_setIDfetchPromo,
@@ -45,9 +48,7 @@ import {
     ActionSetUserData,
     ActionsSetErrorAuth,
     ActionStatusRequestRepeatOrder,
-    ActionType,
-    Action_closePopupLogin,
-    Action_openPopupLogin
+    ActionType
 } from "./actionType";
 
 import {
@@ -55,12 +56,11 @@ import {
     CartItemType,
     CategoryElement,
     internetSale,
-    ObjType,
     Predictor,
     retailCity,
     TypeApiService,
     TypeProductInfo,
-    TypePromoItems,
+    TypePromoItems, UserBonusCardType, UserDataType,
 } from "../types";
 import {StateType} from "../store";
 import {ThunkAction} from "redux-thunk";
@@ -730,7 +730,7 @@ const setProductsToCategory = (options: {
     }
 }
 
-const setUserData = (data: { [key: string]: string | number | boolean | null | ObjType[] }): ActionSetUserData => {
+const setUserData = (data: UserDataType): ActionSetUserData => {
     return {type: ActionTypes.USER_DATA, payload: data}
 }
 
@@ -741,6 +741,14 @@ const fetchUserData = (): ThunkType => async (dispatch, getState, apiService) =>
     try {
         const response = await apiService.getUserData(accessToken)
         dispatch(setUserData(response))
+        // если бонусная карта по умолчания не выбрана - ставим ту, где больше баланс.
+        if (!getState().activeBonusCard) {
+            if (response.cards.length) {
+                const cards = [...response.cards]
+                cards.sort((a, b) => a.currentBalance < b.currentBalance ? 1 : -1)
+                dispatch(setActiveBonusCard(response.cards[0]))
+            }
+        }
     } catch (e) {
         dispatch(setError(e))
     }
@@ -996,6 +1004,13 @@ const setActivePromoGroup = (promo: { name: string, arrPromo: { [key: string]: a
     return {
         type: ActionTypes.SET_ACTIVE_PROMO_GROUP,
         payload: promo
+    }
+}
+
+export const setActiveBonusCard = (bonusCard: UserBonusCardType): Action_setActiveBonusCard => {
+    return {
+        type: ActionTypes.SET_ACTIVE_BONUS_CARD,
+        payload: bonusCard
     }
 }
 
