@@ -33,6 +33,12 @@
     border-radius: 15px;
     margin: 0 auto;
     overflow: hidden;
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(.99);
+      transition: transform .1s;
+    }
   }
 
   &img {

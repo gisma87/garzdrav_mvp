@@ -15,7 +15,17 @@ import {StateType} from "../../store";
 import {useHistory} from "react-router-dom";
 import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 
-const brands = [brand1, brand2, brand3, brand4, brand5, brand6, brand7, brand8]
+const brands = [
+    {img: brand1, title: 'вольтарен'},
+    {img: brand2, title: 'солгар'},
+    {img: brand3, title: 'мелаксен'},
+    {img: brand4, title: 'виагра'},
+    {img: brand5, title: 'аквалор'},
+    {img: brand6, title: 'линаква'},
+    {img: brand7, title: 'детримакс'},
+    {img: brand8, title: 'септолете'}
+]
+
 
 type MapDispatchPropsType = {
     getProductsFromSearchLimit(data: { productName: string }): void
@@ -25,8 +35,7 @@ const BrandsBlock: React.FC<MapDispatchPropsType> = props => {
 
     const history = useHistory()
 
-    // TODO автопоиск по слову - ждём ключевые слова от маркетологов
-    // eslint-disable-next-line
+    // автопоиск по слову
     const goToCardsPage = (wordSearch: string) => {
         props.getProductsFromSearchLimit({productName: wordSearch})
         history.push('/Cards/')
@@ -38,8 +47,9 @@ const BrandsBlock: React.FC<MapDispatchPropsType> = props => {
                 <h3 className='BrandsBlock__title'>Бренды</h3>
                 <div className='BrandsBlock__content'>
                     {
-                        brands.map((brand, index) => <div key={index} className='BrandsBlock__item'>
-                            <img className='BrandsBlock__img' src={brand} alt="brand"/>
+                        brands.map((brand, index) => <div key={index} className='BrandsBlock__item'
+                                                          onClick={() => goToCardsPage(brand.title)}>
+                            <img className='BrandsBlock__img' src={brand.img} alt="brand"/>
                         </div>)
                     }
                 </div>

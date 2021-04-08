@@ -13,7 +13,15 @@ import img5 from '../../img/forMainSlidr/april/april03.jpg'
 import img6 from '../../img/forMainSlidr/april/april04.jpg'
 import {useHistory} from "react-router-dom";
 import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
+import {ThunkDispatch} from "redux-thunk";
+import {StateType} from "../../store";
+import {getProductsFromSearchLimit} from "../../actions";
+import {connect} from "react-redux";
 
+
+type MapDispatchPropsType = {
+    getProductsFromSearchLimit(data: { productName: string }): void
+}
 
 const imgData = [
     {img: img1, link: '/articles/1'},
@@ -24,12 +32,23 @@ const imgData = [
     {img: img6, link: '/articles/'}
 ]
 
+const smallBanerObj = {
+    img: smallBaner,
+    title: 'Листата'
+}
 
-const Advertising: React.FC = () => {
+
+const Advertising: React.FC<MapDispatchPropsType> = props => {
     let history = useHistory();
 
     function handleClick(path: string) {
         history.push(path);
+    }
+
+    // автопоиск по слову
+    const goToCardsPage = (wordSearch: string) => {
+        props.getProductsFromSearchLimit({productName: wordSearch})
+        history.push('/Cards/')
     }
 
     const isMobile = useMediaQuery({query: '(max-width: 685px)'})
@@ -62,8 +81,8 @@ const Advertising: React.FC = () => {
 
                 {
                     !isMobile &&
-                    <div className='Advertising__promo'>
-                      <img className='Advertising__promo-img' src={smallBaner} alt="promo"/>
+                    <div className='Advertising__promo' onClick={() => goToCardsPage(smallBanerObj.title)}>
+                      <img className='Advertising__promo-img' src={smallBanerObj.img} alt="promo"/>
                     </div>
                 }
             </section>
@@ -71,4 +90,10 @@ const Advertising: React.FC = () => {
     )
 }
 
-export default Advertising
+const mapDispatchToProps = (dispatch: ThunkDispatch<StateType, {}, any>) => {
+    return {
+        getProductsFromSearchLimit: (data: { productName: string }) => dispatch(getProductsFromSearchLimit(data))
+    }
+}
+
+export default connect(null, mapDispatchToProps)(Advertising)

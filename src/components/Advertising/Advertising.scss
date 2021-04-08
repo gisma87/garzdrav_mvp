@@ -110,6 +110,7 @@
     background: $primary-color;
     border-radius: 15px;
     overflow: hidden;
+    cursor: pointer;
 
     @media (max-width: 1220px) {
       max-height: 280px;
