@@ -13,7 +13,7 @@ const PromoPage = (props) => {
 
   return (
     <div className='PromoPage wrapper'>
-      <h1 className='PromoPage__title'>Акции</h1>
+      <h1 className='PromoPage__title'>Советы</h1>
       <div className='PromoPage__container'>
         {
           articleCardData.map((card, index) => {
