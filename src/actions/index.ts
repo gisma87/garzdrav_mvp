@@ -253,9 +253,19 @@ const fetchCities = (): ThunkType => async (dispatch, getState, apiService) => {
         const response = await apiService.getCities()
         dispatch(_fetchCities(response))
 
+        const getCityLocalStorage = () => {
+            if (localStorage.getItem("city")) {
+                const cityItem = JSON.parse(localStorage.getItem("city") as string)[0]
+                if (cityItem && cityItem?.guid) {
+                    return cityItem
+                }
+                return null
+            }
+        }
+        const cityItem = getCityLocalStorage()
+
         // если в localStorage есть город - устанавливаем его
-        if (localStorage.getItem("city")) {
-            const cityItem = JSON.parse(localStorage.getItem("city") as string)[0]
+        if (cityItem) {
             dispatch(setIsCity(cityItem))
         } else {
 
@@ -263,8 +273,11 @@ const fetchCities = (): ThunkType => async (dispatch, getState, apiService) => {
             apiService.getUserCity()
                 .then(res => {
                     const {city} = res;
+                    console.log('response city: ', city)
                     const cityItem = response.find((item: { title: string; }) => city === item.title)
-                    dispatch(setIsCity(cityItem))
+                    if (cityItem && cityItem.guid) {
+                        dispatch(setIsCity(cityItem))
+                    }
                     dispatch(onPopupLocation(true))
                 })
                 .catch(e => {
