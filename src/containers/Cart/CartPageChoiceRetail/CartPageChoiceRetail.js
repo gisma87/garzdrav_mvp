@@ -5,6 +5,7 @@ import BlockWrapper from "../../../components/BlockWrapper";
 import RetailCheckPanel from "../../../components/RetailCheckPanel";
 import PopupMapCart from "../../../components/PopupMapCart";
 import PopupMapCartMobile from "../../../components/PopupMapCartMobile/PopupMapCartMobile";
+import ErrorBoundary from "../../../components/ErrorBoundary/ErrorBoundary";
 
 const CartPageChoiceRetail = props => {
   const {
@@ -207,11 +208,13 @@ const CartPageChoiceRetail = props => {
 
   return (
     <section className='Cart__choiceRetail'>
-      <h3 className='Cart__choiceRetailTitle'>Выберите аптеку, в которой хотите забрать заказ</h3>
-      {isMobile && isMobileList}
-      {isMobile && isMobileMap}
-      {!isMobile && isDesktopList}
-      {!isMobile && isDesktopMap}
+      <ErrorBoundary>
+        <h3 className='Cart__choiceRetailTitle'>Выберите аптеку, в которой хотите забрать заказ</h3>
+        {isMobile && isMobileList}
+        {isMobile && isMobileMap}
+        {!isMobile && isDesktopList}
+        {!isMobile && isDesktopMap}
+      </ErrorBoundary>
     </section>
   )
 }

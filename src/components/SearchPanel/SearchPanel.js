@@ -7,6 +7,7 @@ import {
 import {connect} from "react-redux";
 import SearchForm from "../UI/SearchForm/SearchForm";
 import apiService from "../../service/ApiService";
+import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 
 const SearchPanel = (props) => {
 
@@ -179,48 +180,49 @@ const SearchPanel = (props) => {
   }
 
   return (
-    <div style={{position: 'relative', width: '100%'}}>
-      <SearchForm onSubmit={handleSubmit}
-                  idInput="searchPanel"
-                  isMobile={isMobile}
-                  placeholder={window.innerWidth > 1000 ? "Поиск по названию, действующему веществу, производителю" : "Поиск по названию"}
-                  onChange={handleInputChange}
-                  value={value}
-                  focus={focusInput}
-                  setFocus={setFocusInput}
-                  keyPress={keyPress}
-      />
-      <ul tabIndex="0"
-          onKeyDown={navigationDropDown}
-          onFocus={() => setFocusDropDown(true)}
-          onBlur={() => {
-            setFocusDropDown(false)
-            setShowDropDown(false)
-          }}
-          className={'SearchForm__dropdown' + (showDropDown ? ' SearchForm__dropdown_visible' : '')}
-          ref={dropdownItem}>
+    <ErrorBoundary>
+      <div style={{position: 'relative', width: '100%'}}>
+        <SearchForm onSubmit={handleSubmit}
+                    idInput="searchPanel"
+                    isMobile={isMobile}
+                    placeholder={window.innerWidth > 1000 ? "Поиск по названию, действующему веществу, производителю" : "Поиск по названию"}
+                    onChange={handleInputChange}
+                    value={value}
+                    focus={focusInput}
+                    setFocus={setFocusInput}
+                    keyPress={keyPress}
+        />
+        <ul tabIndex="0"
+            onKeyDown={navigationDropDown}
+            onFocus={() => setFocusDropDown(true)}
+            onBlur={() => {
+              setFocusDropDown(false)
+              setShowDropDown(false)
+            }}
+            className={'SearchForm__dropdown' + (showDropDown ? ' SearchForm__dropdown_visible' : '')}
+            ref={dropdownItem}>
+          {
+            props.predictor &&
+            props.predictor?.text.map((item, index) => {
+              return <li key={item + index}
+                         tabIndex="-1"
+                         className={'SearchForm__dropdownItem' + ((focusDropDown && (activeItemDropDown === index)) ? ' SearchForm__dropdownItem_focus' : '')}
+                         style={(index === 0) && !focusDropDown ? {background: '#d9d9d9'} : {}}
+                         onClick={() => {
+                           pastePredictorValue(item)
+                           setShowDropDown(false)
+                           setFocusInput(true)
+                         }}
+              >{item}</li>
+            })
+          }
+        </ul>
         {
-          props.predictor &&
-          props.predictor?.text.map((item, index) => {
-            return <li key={item + index}
-                       tabIndex="-1"
-                       className={'SearchForm__dropdownItem' + ((focusDropDown && (activeItemDropDown === index)) ? ' SearchForm__dropdownItem_focus' : '')}
-                       style={(index === 0) && !focusDropDown ? {background: '#d9d9d9'} : {}}
-                       onClick={() => {
-                         pastePredictorValue(item)
-                         setShowDropDown(false)
-                         setFocusInput(true)
-                       }}
-            >{item}</li>
-          })
+          showDropDown &&
+          <div className='SearchForm__backdrop' onClick={() => setShowDropDown(false)}/>
         }
-      </ul>
-      {
-        showDropDown &&
-        <div className='SearchForm__backdrop' onClick={() => setShowDropDown(false)}/>
-      }
-    </div>
-
+      </div>
+    </ErrorBoundary>
   )
 }
 

@@ -3,11 +3,12 @@ import './HeaderDesktop.scss'
 import HeaderTop from "../HeaderTop";
 import HeaderFixed from "../HeaderFixed";
 import HeaderSearch from "../HeaderSearch/HeaderSearch";
+import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 
 const HeaderDesktop: React.FC = () => {
 
     return (
-        <>
+        <ErrorBoundary>
             <header className='HeaderDesktop'>
                 <HeaderTop/>
                 <HeaderFixed/>
@@ -22,7 +23,7 @@ const HeaderDesktop: React.FC = () => {
                     marginBottom: 15
                 }}>
             </div>
-        </>
+        </ErrorBoundary>
     )
 }
 

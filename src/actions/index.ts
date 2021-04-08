@@ -272,8 +272,8 @@ const fetchCities = (): ThunkType => async (dispatch, getState, apiService) => {
             // иначе определяем город по IP, устанавливаем его и открываем popup подтверждения выбранного города
             apiService.getUserCity()
                 .then(res => {
-                    const {city} = res;
-                    console.log('response city: ', city)
+                    let {city} = res;
+                    city = (city === 'Москва') ? 'Подольск' : city;
                     const cityItem = response.find((item: { title: string; }) => city === item.title)
                     if (cityItem && cityItem.guid) {
                         dispatch(setIsCity(cityItem))

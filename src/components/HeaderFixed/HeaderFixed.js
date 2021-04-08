@@ -1,4 +1,4 @@
- import React, {useEffect, useState} from "react"
+import React, {useEffect, useState} from "react"
 import './HeaderFixed.scss'
 import {NavLink, withRouter} from "react-router-dom";
 import iconCart from '../../img/icon/cartIconSmall.png'
@@ -9,6 +9,7 @@ import Burger from "../UI/Burger/Burger";
 import Catalog from "../Catalog/Catalog";
 import Logo from "../UI/Logo/Logo";
 import ButtonLogIn from "../UI/ButtonLogIn/ButtonLogIn";
+import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 
 const HeaderFixed = (props) => {
   const count = props.cart.reduce((sum, item) => {
@@ -35,45 +36,45 @@ const HeaderFixed = (props) => {
   }, [burgerActive])
 
   return (
-
-    <div className='HeaderFixed'>
-      <div className='wrapper HeaderFixed__wrapper'>
-        <div className='HeaderFixed__leftBlock'>
-          <div className='HeaderFixed__catalog'>
-            <Burger isActive={burgerActive} onClick={() => setBurgerActive(!burgerActive)}/>
-            {props.catalog && <Catalog isActive={burgerActive}
-                                       onClick={() => setBurgerActive(!burgerActive)}
-                                       data={props.catalog.child}
-            />}
-          </div>
-          <Logo/>
-        </div>
-
-        <p className='test'>Тестирование</p>
-
-        <div className='HeaderFixed__rightblock'>
-
-          <ButtonLogIn
-            onClick={() => {
-              if (props.TOKEN) {
-                props.history.push('/profile/')
-                window.scroll(0, 0)
-              } else props.openPopupLogin()
-            }}
-          >{props.TOKEN ? 'личный кабинет' : 'войти'}
-          </ButtonLogIn>
-
-          <NavLink to="/cart/" className='HeaderFixed__cart'>
-            <div className='HeaderFixed__cartImgBox'>
-              <img src={iconCart} alt="корзина" className='HeaderFixed__cartImg'/>
+    <ErrorBoundary>
+      <div className='HeaderFixed'>
+        <div className='wrapper HeaderFixed__wrapper'>
+          <div className='HeaderFixed__leftBlock'>
+            <div className='HeaderFixed__catalog'>
+              <Burger isActive={burgerActive} onClick={() => setBurgerActive(!burgerActive)}/>
+              {props.catalog && <Catalog isActive={burgerActive}
+                                         onClick={() => setBurgerActive(!burgerActive)}
+                                         data={props.catalog.child}
+              />}
             </div>
-            <span className='HeaderFixed__cartCount'>{count}</span>
-          </NavLink>
-        </div>
-      </div>
-      {lastScrollY > 400 && <ButtonTopScroll/>}
-    </div>
+            <Logo/>
+          </div>
 
+          <p className='test'>Тестирование</p>
+
+          <div className='HeaderFixed__rightblock'>
+
+            <ButtonLogIn
+              onClick={() => {
+                if (props.TOKEN) {
+                  props.history.push('/profile/')
+                  window.scroll(0, 0)
+                } else props.openPopupLogin()
+              }}
+            >{props.TOKEN ? 'личный кабинет' : 'войти'}
+            </ButtonLogIn>
+
+            <NavLink to="/cart/" className='HeaderFixed__cart'>
+              <div className='HeaderFixed__cartImgBox'>
+                <img src={iconCart} alt="корзина" className='HeaderFixed__cartImg'/>
+              </div>
+              <span className='HeaderFixed__cartCount'>{count}</span>
+            </NavLink>
+          </div>
+        </div>
+        {lastScrollY > 400 && <ButtonTopScroll/>}
+      </div>
+    </ErrorBoundary>
   )
 }
 

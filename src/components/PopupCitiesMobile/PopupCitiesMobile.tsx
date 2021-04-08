@@ -5,6 +5,7 @@ import Error from "../Error/Error";
 import SearchForm from "../UI/SearchForm/SearchForm";
 import PopupConfirm from "../PopupConfirm/PopupConfirm";
 import {TypeisCity} from "../../types";
+import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 
 type Props = {
     active: boolean,
@@ -62,51 +63,53 @@ const PopupCitiesMobile: React.FC<Props> = props => {
         <p>Желаете сменить город?</p></>
 
     return (
-        <PopupWrapper onClick={props.onClick} active={props.active} classStyle='PopupCitiesMobile'>
-            <div className='PopupCitiesMobile__searchForm-container'>
-                <SearchForm setFocus={() => {
-                }}
-                            keyPress={() => {
-                            }}
-                            isMobile={false}
-                            onSubmit={(e) => {
-                                e.preventDefault()
-                            }}
-                            idInput="searchCity"
-                            placeholder='Поиск по городу'
-                            onChange={onChangeHandler}
-                            value={value}
-                />
-            </div>
-
-
-            {!cities.length
-                ? <Error/>
-                : <div className='PopupCitiesMobile__container'>
-
-                    {value.trim().length ? renderSearchResult() :
-                        <div className='PopupCitiesMobile__column'>
-                            <h3 className="PopupCitiesMobile__title">Город</h3>
-                            <ul className="PopupCitiesMobile__form">
-                                {renderItems(cities)}
-                            </ul>
-                        </div>
-                    }
+        <ErrorBoundary>
+            <PopupWrapper onClick={props.onClick} active={props.active} classStyle='PopupCitiesMobile'>
+                <div className='PopupCitiesMobile__searchForm-container'>
+                    <SearchForm setFocus={() => {
+                    }}
+                                keyPress={() => {
+                                }}
+                                isMobile={false}
+                                onSubmit={(e) => {
+                                    e.preventDefault()
+                                }}
+                                idInput="searchCity"
+                                placeholder='Поиск по городу'
+                                onChange={onChangeHandler}
+                                value={value}
+                    />
                 </div>
-            }
-            <PopupConfirm show={popupConfirmActive}
-                          title={'Внимание!'}
-                          message={confirmMessage}
-                          onConfirm={() => {
-                              props.clearCart()
-                              props.onSelectCity(itemGuid)
-                              setPopupConfirmActive(false)
-                          }}
-                          onClose={() => {
-                              setPopupConfirmActive(false)
-                              props.onClick()
-                          }}/>
-        </PopupWrapper>
+
+
+                {!cities.length
+                    ? <Error/>
+                    : <div className='PopupCitiesMobile__container'>
+
+                        {value.trim().length ? renderSearchResult() :
+                            <div className='PopupCitiesMobile__column'>
+                                <h3 className="PopupCitiesMobile__title">Город</h3>
+                                <ul className="PopupCitiesMobile__form">
+                                    {renderItems(cities)}
+                                </ul>
+                            </div>
+                        }
+                    </div>
+                }
+                <PopupConfirm show={popupConfirmActive}
+                              title={'Внимание!'}
+                              message={confirmMessage}
+                              onConfirm={() => {
+                                  props.clearCart()
+                                  props.onSelectCity(itemGuid)
+                                  setPopupConfirmActive(false)
+                              }}
+                              onClose={() => {
+                                  setPopupConfirmActive(false)
+                                  props.onClick()
+                              }}/>
+            </PopupWrapper>
+        </ErrorBoundary>
     )
 }
 

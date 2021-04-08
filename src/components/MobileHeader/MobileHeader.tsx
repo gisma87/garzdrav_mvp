@@ -15,6 +15,7 @@ import {connect} from "react-redux";
 import {CartItemType, TypeisCity} from "../../types";
 import SearchPanel from "../SearchPanel";
 import PopupCitiesMobile from "../PopupCitiesMobile/PopupCitiesMobile";
+import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 
 type MapStatePropsType = {
     isCity: TypeisCity,
@@ -64,7 +65,7 @@ const MobileHeader: React.FC<Props> = props => {
     ]
 
     return (
-        <>
+        <ErrorBoundary>
             <header className='MobileHeader'>
                 {isShowBurgerMenu && <Backdrop onClick={() => setIsShowBurgerMenu(false)}/>}
                 <DropDownMenu isActive={isShowBurgerMenu} data={dropDownItems}/>
@@ -120,7 +121,7 @@ const MobileHeader: React.FC<Props> = props => {
             />
 
             <div style={{paddingTop: 107}}/>
-        </>
+        </ErrorBoundary>
     )
 }
 

@@ -15,6 +15,7 @@ import EyeButtonShow from "../../../components/UI/EyeButtonShow/EyeButtonShow";
 import {authorizedByEmail, authorizedByPassOrSMS} from "../../../actions";
 import {connect} from "react-redux";
 import ym from "react-yandex-metrika";
+import ErrorBoundary from "../../../components/ErrorBoundary/ErrorBoundary";
 
 const CartOrderPage = props => {
 
@@ -138,157 +139,159 @@ const CartOrderPage = props => {
 
   return (
     <div className='CartOrderPage'>
-      {
-        order &&
-        <BlockWrapper classStyle='CartOrderPage__container'>
-          <h3 className='CartOrderPage__title'>Ваш заказ:</h3>
-          <div className="CartOrderPage__addressAndPrice">
-            <div className='CartOrderPage__addressContainer'>
-              <p className='CartOrderPage__name'>
-                <img src={iconLocation} alt="Адрес"/>
-                Адрес:
-                <span
-                  className='CartOrderPage__address'>г. {order.city}, ул. {order.street}, {order.buildNumber}</span>
-              </p>
-              <p className='CartOrderPage__openHours'><img src={iconClock} alt="Часы работы"/>Часы
-                работы: <span>{order.weekDayTime}</span>
-              </p>
-              <p className='CartOrderPage__tel'><img src={iconPhone} alt="Телефон"/>Контактный
-                телефон: <span>{order.phone}</span>
-              </p>
-            </div>
-            <p className="CartOrderPage__sum">{order.sum} ₽</p>
-          </div>
-
-          <div className="CartOrderPage__listOrder">
-            {
-              order.product.map((product, index) => {
-                return <div className='CartOrderPage__productContainer' key={product.guid + index + 3}>
-                  <p className='CartOrderPage__productTitle'>{product.product}</p>
-                  <p className='CartOrderPage__productCount'>{product.count}шт. * {product.priceRetail} ₽/шт.</p>
-                  <p className='CartOrderPage__price'>{product.priceRetail * product.count} ₽</p>
-                </div>
-              })
-            }
-          </div>
-        </BlockWrapper>
-      }
-      <div className='CartOrderPage__buyPanel'
-           style={(props.isAuth && !props.OrderNumber.length) ? {justifyContent: 'flex-end'} : {}}>
-        <Loader classStyle={loading ? 'Loader_is-opened' : ''}/>
-
+      <ErrorBoundary>
         {
-          !props.isAuth &&
-          <>
-            <div className='CartOrderPage__authBlock'>
-              <p className='CartOrderPage__authTitle'>Авторизуйтесь или подтвердите номер телефона:</p>
-              <form className='CartOrderPage__form'
-                    noValidate
-                    onSubmit={submitOrder}>
-                <div>
-                  <label className="CartOrderPage__element">
-                    <InputMask mask="+7\ (999)\ 999\ 99\ 99"
-                               maskChar=" "
-                               value={phone}
-                               onChange={validatePhone}
-                               className="CartOrderPage__input"
-                               placeholder=""
-                               required
-                               type="tel"
-                               name="CartOrderPage-phone"
-                               id="CartOrderPage-phone"
-                    />
-                    <p className="CartOrderPage__label">Введите телефон</p>
-                    <span
-                      className={'CartOrderPage__errorMessage' + (errorMessage.length ? ' CartOrderPage__errorMessage_visible' : '')}>{errorMessage}</span>
-                  </label>
-                  <label className="CartOrderPage__element">
-                    <input
-                      type='text'
-                      value={email}
-                      name="CartOrderPage-email"
-                      id="CartOrderPage-email"
-                      className="CartOrderPage__input"
-                      onChange={validEmail}
-                      ref={emailRef}
-                      required
-                    />
-                    <p className="CartOrderPage__label">Введите Email</p>
-                    <span
-                      className={'CartOrderPage__errorMessage' + (errorMessage.length ? ' CartOrderPage__errorMessage_visible' : '')}>{errorMessage}</span>
-                  </label>
-                  <label className="CartOrderPage__element">
-                    <input className="CartOrderPage__input"
-                           value={smsCode}
-                           onChange={(event) => {
-                             const input = event.target
-                             setSmsCode(input.value.trim())
-                             setErrorMessageCode('')
-                           }}
-                           required
-                           type={showPassword ? "text" : "password"}
-                           name="CartOrderPage-smsCode"
-                           id="CartOrderPage-smsCode"
-                    />
-                    <p className="CartOrderPage__label">Код из Email</p>
-                    <span
-                      className={'CartOrderPage__errorMessage CartOrderPage__errorMessage_code' + (errorMessageCode.length ? ' CartOrderPage__errorMessage_visible' : '')}>{errorMessageCode}</span>
-                    <div className='CartOrderPage__eyeShowButton' onClick={() => setShowPassword(!showPassword)}>
-                      <EyeButtonShow show={showPassword}/>
-                    </div>
-                  </label>
-                </div>
-
-                <div className='CartOrderPage__buttonContainer'>
-                  <button
-                    className={'CartOrderPage__buttonSMS' + ((formValid && !isShowTimer) ? ' CartOrderPage__buttonSMS_enabled' : '')}
-                    disabled={!formValid || isShowTimer}
-                    onClick={() => {
-                      // apiService.getSmsCode(phone);
-                      apiService.getEmailCode(email);
-                      setIsShowTimer(true);
-                    }}
-                  >получить код
-                  </button>
-                  <LoaderTimer active={isShowTimer} seconds={60} hideTimer={() => setIsShowTimer(false)}/>
-                </div>
-              </form>
-            </div>
-          </>
-        }
-
-        {
-          props.OrderNumber.length > 0
-            ? <>
-              <div className='CartOrderPage__authBlock'>
-                <div className='CartOrderPage__form CartOrderPage__form_message'>
-                  <p className='CartOrderPage__AfterBuy'>Ваш заказ N-{props.OrderNumber} принят к исполнению.</p>
-                  <p className='CartOrderPage__AfterBuy'>Об изменении статуса заказа будет сообщено по Email.</p>
-                  <p className='CartOrderPage__AfterBuy'>Статус заказа можно посмотреть в личном кабинете во вкладке
-                    "Интернет заказы"</p>
-                </div>
+          order &&
+          <BlockWrapper classStyle='CartOrderPage__container'>
+            <h3 className='CartOrderPage__title'>Ваш заказ:</h3>
+            <div className="CartOrderPage__addressAndPrice">
+              <div className='CartOrderPage__addressContainer'>
+                <p className='CartOrderPage__name'>
+                  <img src={iconLocation} alt="Адрес"/>
+                  Адрес:
+                  <span
+                    className='CartOrderPage__address'>г. {order.city}, ул. {order.street}, {order.buildNumber}</span>
+                </p>
+                <p className='CartOrderPage__openHours'><img src={iconClock} alt="Часы работы"/>Часы
+                  работы: <span>{order.weekDayTime}</span>
+                </p>
+                <p className='CartOrderPage__tel'><img src={iconPhone} alt="Телефон"/>Контактный
+                  телефон: <span>{order.phone}</span>
+                </p>
               </div>
-              <NavLink className='CartOrderPage__buttonToBuy' style={{transform: 'scale(1)'}} to='/'>ОК</NavLink>
-            </>
-            : <button className='CartOrderPage__buttonToBuy'
-                      onClick={submitOrder}
-                      style={props.isAuth ? {transform: 'translateY(20px)'} : {}}
-            >оформить заказ</button>
+              <p className="CartOrderPage__sum">{order.sum} ₽</p>
+            </div>
+
+            <div className="CartOrderPage__listOrder">
+              {
+                order.product.map((product, index) => {
+                  return <div className='CartOrderPage__productContainer' key={product.guid + index + 3}>
+                    <p className='CartOrderPage__productTitle'>{product.product}</p>
+                    <p className='CartOrderPage__productCount'>{product.count}шт. * {product.priceRetail} ₽/шт.</p>
+                    <p className='CartOrderPage__price'>{product.priceRetail * product.count} ₽</p>
+                  </div>
+                })
+              }
+            </div>
+          </BlockWrapper>
         }
-      </div>
-      {
-        (props.userData && order && props.userData?.barcode && props.userData?.currentBalance) &&
-        <p className='CartOrderPage__messageBonus'>
-          На вашей карте&nbsp;<span className='CartOrderPage__bold'>№{props.userData?.barcode}</span>
-          &nbsp;при оплате покупки доступно для списания &nbsp;
-          <span
-            className='CartOrderPage__bold'>{Math.min((Math.floor(((order.product.reduce((acc, product) => (product.priceRetail * product.count), 0)) / 2) * 100) / 100), (props.userData.currentBalance).toFixed(2))} Б.</span>
-        </p>
-      }
-      <p className='CartOrderPage__messageBonus'>Не забудьте взять с собой &nbsp;<a href="http://kartalegko.ru/"
-                                                                                    rel="noopener noreferrer"
-                                                                                    target='_blank'>Бонусную карту
-        Легко</a></p>
+        <div className='CartOrderPage__buyPanel'
+             style={(props.isAuth && !props.OrderNumber.length) ? {justifyContent: 'flex-end'} : {}}>
+          <Loader classStyle={loading ? 'Loader_is-opened' : ''}/>
+
+          {
+            !props.isAuth &&
+            <>
+              <div className='CartOrderPage__authBlock'>
+                <p className='CartOrderPage__authTitle'>Авторизуйтесь или подтвердите номер телефона:</p>
+                <form className='CartOrderPage__form'
+                      noValidate
+                      onSubmit={submitOrder}>
+                  <div>
+                    <label className="CartOrderPage__element">
+                      <InputMask mask="+7\ (999)\ 999\ 99\ 99"
+                                 maskChar=" "
+                                 value={phone}
+                                 onChange={validatePhone}
+                                 className="CartOrderPage__input"
+                                 placeholder=""
+                                 required
+                                 type="tel"
+                                 name="CartOrderPage-phone"
+                                 id="CartOrderPage-phone"
+                      />
+                      <p className="CartOrderPage__label">Введите телефон</p>
+                      <span
+                        className={'CartOrderPage__errorMessage' + (errorMessage.length ? ' CartOrderPage__errorMessage_visible' : '')}>{errorMessage}</span>
+                    </label>
+                    <label className="CartOrderPage__element">
+                      <input
+                        type='text'
+                        value={email}
+                        name="CartOrderPage-email"
+                        id="CartOrderPage-email"
+                        className="CartOrderPage__input"
+                        onChange={validEmail}
+                        ref={emailRef}
+                        required
+                      />
+                      <p className="CartOrderPage__label">Введите Email</p>
+                      <span
+                        className={'CartOrderPage__errorMessage' + (errorMessage.length ? ' CartOrderPage__errorMessage_visible' : '')}>{errorMessage}</span>
+                    </label>
+                    <label className="CartOrderPage__element">
+                      <input className="CartOrderPage__input"
+                             value={smsCode}
+                             onChange={(event) => {
+                               const input = event.target
+                               setSmsCode(input.value.trim())
+                               setErrorMessageCode('')
+                             }}
+                             required
+                             type={showPassword ? "text" : "password"}
+                             name="CartOrderPage-smsCode"
+                             id="CartOrderPage-smsCode"
+                      />
+                      <p className="CartOrderPage__label">Код из Email</p>
+                      <span
+                        className={'CartOrderPage__errorMessage CartOrderPage__errorMessage_code' + (errorMessageCode.length ? ' CartOrderPage__errorMessage_visible' : '')}>{errorMessageCode}</span>
+                      <div className='CartOrderPage__eyeShowButton' onClick={() => setShowPassword(!showPassword)}>
+                        <EyeButtonShow show={showPassword}/>
+                      </div>
+                    </label>
+                  </div>
+
+                  <div className='CartOrderPage__buttonContainer'>
+                    <button
+                      className={'CartOrderPage__buttonSMS' + ((formValid && !isShowTimer) ? ' CartOrderPage__buttonSMS_enabled' : '')}
+                      disabled={!formValid || isShowTimer}
+                      onClick={() => {
+                        // apiService.getSmsCode(phone);
+                        apiService.getEmailCode(email);
+                        setIsShowTimer(true);
+                      }}
+                    >получить код
+                    </button>
+                    <LoaderTimer active={isShowTimer} seconds={60} hideTimer={() => setIsShowTimer(false)}/>
+                  </div>
+                </form>
+              </div>
+            </>
+          }
+
+          {
+            props.OrderNumber.length > 0
+              ? <>
+                <div className='CartOrderPage__authBlock'>
+                  <div className='CartOrderPage__form CartOrderPage__form_message'>
+                    <p className='CartOrderPage__AfterBuy'>Ваш заказ N-{props.OrderNumber} принят к исполнению.</p>
+                    <p className='CartOrderPage__AfterBuy'>Об изменении статуса заказа будет сообщено по Email.</p>
+                    <p className='CartOrderPage__AfterBuy'>Статус заказа можно посмотреть в личном кабинете во вкладке
+                      "Интернет заказы"</p>
+                  </div>
+                </div>
+                <NavLink className='CartOrderPage__buttonToBuy' style={{transform: 'scale(1)'}} to='/'>ОК</NavLink>
+              </>
+              : <button className='CartOrderPage__buttonToBuy'
+                        onClick={submitOrder}
+                        style={props.isAuth ? {transform: 'translateY(20px)'} : {}}
+              >оформить заказ</button>
+          }
+        </div>
+        {
+          (props.userData && order && props.userData?.barcode && props.userData?.currentBalance) &&
+          <p className='CartOrderPage__messageBonus'>
+            На вашей карте&nbsp;<span className='CartOrderPage__bold'>№{props.userData?.barcode}</span>
+            &nbsp;при оплате покупки доступно для списания &nbsp;
+            <span
+              className='CartOrderPage__bold'>{Math.min((Math.floor(((order.product.reduce((acc, product) => (product.priceRetail * product.count), 0)) / 2) * 100) / 100), (props.userData.currentBalance).toFixed(2))} Б.</span>
+          </p>
+        }
+        <p className='CartOrderPage__messageBonus'>Не забудьте взять с собой &nbsp;<a href="http://kartalegko.ru/"
+                                                                                      rel="noopener noreferrer"
+                                                                                      target='_blank'>Бонусную карту
+          Легко</a></p>
+      </ErrorBoundary>
     </div>
   )
 }

@@ -4,6 +4,7 @@ import BlockWrapper from "../BlockWrapper";
 import {Clusterer, GeolocationControl, Map, Placemark, SearchControl, YMaps} from "react-yandex-maps";
 import RetailItem from "../RetailItem";
 import PopupWrapper from "../UI/PopupWrapper/PopupWrapper";
+import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 
 const PopupMapCart = props => {
   const [point, setPoint] = useState([56.010563, 92.852572])
@@ -70,82 +71,95 @@ const PopupMapCart = props => {
   }
 
   return (
-    <PopupWrapper onClick={props.onClick} active={props.active} classStyle='PopupMapCart'>
-      <h1>Аптеки в г. {props.city}</h1>
-      <div className='PopupMapCart__mainContainer'>
+    <ErrorBoundary>
+      <PopupWrapper onClick={props.onClick} active={props.active} classStyle='PopupMapCart'>
+        <h1>Аптеки в г. {props.city}</h1>
+        <div className='PopupMapCart__mainContainer'>
 
-        <BlockWrapper classStyle='PopupMapCart__retails'>
-          <ul>
-            {
-              retails.map((retailItem, index) => {
-                const notFullItems = () => retailItem.product.length < props.cartLength
-                return (
-                  <RetailItem
-                    key={retailItem.guid + index + 27}
-                    retailItem={retailItem}
-                    notFullItems={notFullItems()}
-                    active={retailItem.guid === activeMarker}
-                    buttonActive={props.activeRetail === retailItem.guid}
-                    onSelectItem={() => onSelectItem(retailItem.guid)}
-                    setMapSetting={(id) => {
-                      setPoint(retailItem.coordinates)
-                      setZoom(18)
-                      setActiveMarker(id)
-                    }}
-                  />
-                )
-              })
-            }
-          </ul>
-        </BlockWrapper>
-        <YMaps>
-          <Map className='PopupMapCart__mapContainer'
-               state={mapState}
-               modules={['control.ZoomControl', 'control.FullscreenControl', "templateLayoutFactory", "layout.ImageWithContent"]}
-          >
-            <Clusterer
-              options={{
-                preset: 'islands#nightClusterIcons',
-                groupByCoordinates: false,
-              }}
-            >
+          <BlockWrapper classStyle='PopupMapCart__retails'>
+            <ul>
               {
-                retails.map((item, index) => {
-                  if ((typeof item.coordinates !== 'object') || item.coordinates.length < 1) return null;
-                  const {coordinates, guid, sum, brand, city, street, buildNumber, phone, weekDayTime, product} = item;
-                  const popup = {
-                    title: brand,
-                    address: `г. ${city},  ${street} ${buildNumber}`,
-                    clock: weekDayTime,
-                    tel: phone
-                  }
-                  const notFullItems = () => product.length < props.cartLength
+                retails.map((retailItem, index) => {
+                  const notFullItems = () => retailItem.product.length < props.cartLength
                   return (
-                    <Placemark key={guid + index + 28}
-                               onClick={() => onItemClick(guid)}
-                               {...placeMark(sum, popup, notFullItems())}
-                               geometry={coordinates}
-                               options={{
-                                 // iconLayout: 'default#imageWithContent',
-                                 // iconLayout: 'default#image',
-                                 // iconImageHref: setIcon(type),
-                                 // iconImageSize: [45, 61],
-                                 // iconImageOffset: [-22, -61],
-                                 preset: 'islands#nightStretchyIcon',
-                                 draggable: false, // передвигать маркеры
-                                 // iconColor: 'red'
-                               }}
+                    <RetailItem
+                      key={retailItem.guid + index + 27}
+                      retailItem={retailItem}
+                      notFullItems={notFullItems()}
+                      active={retailItem.guid === activeMarker}
+                      buttonActive={props.activeRetail === retailItem.guid}
+                      onSelectItem={() => onSelectItem(retailItem.guid)}
+                      setMapSetting={(id) => {
+                        setPoint(retailItem.coordinates)
+                        setZoom(18)
+                        setActiveMarker(id)
+                      }}
                     />
                   )
                 })
               }
-            </Clusterer>
-            <GeolocationControl options={{float: 'left'}}/>
-            <SearchControl options={{float: 'right'}}/>
-          </Map>
-        </YMaps>
-      </div>
-    </PopupWrapper>
+            </ul>
+          </BlockWrapper>
+          <YMaps>
+            <Map className='PopupMapCart__mapContainer'
+                 state={mapState}
+                 modules={['control.ZoomControl', 'control.FullscreenControl', "templateLayoutFactory", "layout.ImageWithContent"]}
+            >
+              <Clusterer
+                options={{
+                  preset: 'islands#nightClusterIcons',
+                  groupByCoordinates: false,
+                }}
+              >
+                {
+                  retails.map((item, index) => {
+                    if ((typeof item.coordinates !== 'object') || item.coordinates.length < 1) return null;
+                    const {
+                      coordinates,
+                      guid,
+                      sum,
+                      brand,
+                      city,
+                      street,
+                      buildNumber,
+                      phone,
+                      weekDayTime,
+                      product
+                    } = item;
+                    const popup = {
+                      title: brand,
+                      address: `г. ${city},  ${street} ${buildNumber}`,
+                      clock: weekDayTime,
+                      tel: phone
+                    }
+                    const notFullItems = () => product.length < props.cartLength
+                    return (
+                      <Placemark key={guid + index + 28}
+                                 onClick={() => onItemClick(guid)}
+                                 {...placeMark(sum, popup, notFullItems())}
+                                 geometry={coordinates}
+                                 options={{
+                                   // iconLayout: 'default#imageWithContent',
+                                   // iconLayout: 'default#image',
+                                   // iconImageHref: setIcon(type),
+                                   // iconImageSize: [45, 61],
+                                   // iconImageOffset: [-22, -61],
+                                   preset: 'islands#nightStretchyIcon',
+                                   draggable: false, // передвигать маркеры
+                                   // iconColor: 'red'
+                                 }}
+                      />
+                    )
+                  })
+                }
+              </Clusterer>
+              <GeolocationControl options={{float: 'left'}}/>
+              <SearchControl options={{float: 'right'}}/>
+            </Map>
+          </YMaps>
+        </div>
+      </PopupWrapper>
+    </ErrorBoundary>
   )
 }
 
