@@ -32,7 +32,7 @@ const Profile = (props) => {
   }, [props.userData])
 
   function getActiveBonusCard() {
-    if (!props.activeBonusCard && props.userData) {
+    if (!props.activeBonusCard && props.userData && props.userData.cards.length) {
       const cards = [...props.userData.cards]
       cards.sort((a, b) => a.currentBalance < b.currentBalance ? 1 : -1)
       props.setActiveBonusCard(cards[0])

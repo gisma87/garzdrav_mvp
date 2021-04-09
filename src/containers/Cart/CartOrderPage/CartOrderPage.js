@@ -62,7 +62,7 @@ const CartOrderPage = props => {
   }, [props.errorAuth])
 
   function getActiveBonusCard() {
-    if (!props.activeBonusCard && props.userData) {
+    if (!props.activeBonusCard && props.userData && props.userData.cards.length) {
       const cards = [...props.userData.cards]
       cards.sort((a, b) => a.currentBalance < b.currentBalance ? 1 : -1)
       props.setActiveBonusCard(cards[0])
@@ -292,7 +292,7 @@ const CartOrderPage = props => {
           }
         </div>
         {
-          (props.activeBonusCard && order) &&
+          (props.activeBonusCard && (props.activeBonusCard?.currentBalance > 0) && order) &&
           <p className='CartOrderPage__messageBonus'>
             На вашей карте&nbsp;<span className='CartOrderPage__bold'>№{props.activeBonusCard.barcode}</span>
             &nbsp;при оплате покупки доступно для списания &nbsp;

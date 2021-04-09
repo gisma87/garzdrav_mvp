@@ -51,7 +51,7 @@ const PopupLogin = props => {
         errorElement.textContent = ''
       }
     }
-    console.log(target.dataset.type)
+
     if (target.dataset.type === 'email') {
       if (!emailIsValid(target.value)) {
         errorElement.textContent = 'Некорректный email'
