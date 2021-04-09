@@ -41,6 +41,7 @@ const CardPage = (props) => {
   const [count, setCount] = useState(0)
   const [countLast, setCountLast] = useState(1)
   const [showCitiesList, setShowCitiesList] = useState(false)
+  const [minPrice, setMinPrice] = useState(0)
 
   const mapRef = useRef(null);
 
@@ -65,11 +66,26 @@ const CardPage = (props) => {
     }
   }, [props.productInfo, itemId, props.cart])
 
+  useEffect(() => {
+    setMinPrice(minPriceRetail())
+    // eslint-disable-next-line
+  }, [productInfo])
+
   const minPriceRetail = () => {
     if (typeof productInfo === 'string' || (typeof productInfo === 'object' && productInfo?.length === 0)) {
-      return null
+      return 0
     } else {
-      return productInfo?.retails.sort((a, b) => a.priceRetail > b.priceRetail ? 1 : -1)[0].priceRetail
+      const retails = [...productInfo?.retails]
+
+      let index = 0;
+      retails.sort((a, b) => a.priceRetail > b.priceRetail ? 1 : -1)
+
+      while ((index < (retails.length - 1)) && (retails[index].priceRetail === 0)) {
+        index++
+      }
+      const result = retails[index].priceRetail
+
+      return !isNaN(result) ? result : 0
     }
   }
 
@@ -122,7 +138,7 @@ const CardPage = (props) => {
       {error
         ? <Error/>
         : <ErrorBoundary>
-          {!minPriceRetail()
+          {!productInfo?.manufacturer
             ? <div style={{fontSize: 18, padding: 15,}}>
               <p>Подробная информация по данному товару отсутствует. </p>
               <p style={{padding: '10px 0'}}>Возможно произошла ошибка.</p>
@@ -186,8 +202,14 @@ const CardPage = (props) => {
                         </div>
                         <div className='CardPage__priceContainer'>
                           <div className='CardPage__priceContent'>
-                            <p className='CardPage__priceText'>Цена в наших аптеках: </p>
-                            <p className='CardPage__price'>от {minPriceRetail()} ₽</p>
+                            {
+                              !minPrice
+                                ? <p className='CardPage__priceText'>Временно нет в наличии</p>
+                                : <>
+                                  <p className='CardPage__priceText'>Цена в наших аптеках: </p>
+                                  <p className='CardPage__price'>от {minPrice} ₽</p>
+                                </>
+                            }
                           </div>
 
                           <div className='CardPage__buttons'>
@@ -251,8 +273,14 @@ const CardPage = (props) => {
 
                   <div className='CardPage__priceContainer'>
                     <div className='CardPage__priceContent'>
-                      <p className='CardPage__priceText'>Цена в наших аптеках: </p>
-                      <p className='CardPage__price'>от {minPriceRetail()} ₽</p>
+                      {
+                        !minPrice
+                          ? <p className='CardPage__priceText'>Временно нет в наличии</p>
+                          : <>
+                            <p className='CardPage__priceText'>Цена в наших аптеках: </p>
+                            <p className='CardPage__price'>от {minPrice} ₽</p>
+                          </>
+                      }
                     </div>
 
                     <div className='CardPage__buttons'>
@@ -473,8 +501,8 @@ const CardPage = (props) => {
 
 
 const mapStateToProps = (
-  {
-    cart,
+{
+  cart,
     favorites,
     productInfo,
     error,
@@ -487,8 +515,9 @@ const mapStateToProps = (
     itemsForPromoBlock1,
     seasonItemsForPromoBlock2,
     popularItemsForPromoBlock3
-  }
-) => {
+}
+) =>
+{
   return {
     cart,
     favorites,
@@ -506,7 +535,8 @@ const mapStateToProps = (
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) =>
+{
   return {
     getPromoItem: (productGuid) => dispatch(getPromoItem(productGuid)),
     addedToCart: (item) => dispatch(addedToCart(item)),

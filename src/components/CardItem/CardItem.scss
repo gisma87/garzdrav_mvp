@@ -110,19 +110,24 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
+  }
 
-    p {
-      font-size: 1rem;
-      margin: 7px 7px 7px 0;
-      text-align: right;
-    }
+  &__priceParagraph {
+    font-size: 1rem;
+    margin: 7px 7px 7px 0;
+    text-align: right;
   }
 
   &__priceNumber {
     font-weight: bold;
   }
+
   &__linkToProduct {
     padding-bottom: 1px;
+    font-size: 1rem;
+    margin: 7px 7px 7px 0;
+    text-align: right;
+
     &:hover {
       color: blue;
       border-bottom: 1px dashed blue;

@@ -67,7 +67,7 @@ const CardItem: React.FC<Props> = props => {
                     <div>
                         {
                             minPrice
-                                ? <p>от <span className='CardItem__priceNumber'>{minPrice} ₽</span></p>
+                                ? <p className='CardItem__priceParagraph'>от <span className='CardItem__priceNumber'>{minPrice} ₽</span></p>
                                 : <p className='CardItem__linkToProduct'
                                      onClick={(event) => props.onItemSelected(id, event)}>Подробнее...</p>
                         }

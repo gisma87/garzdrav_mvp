@@ -350,7 +350,14 @@ const reducer = (state = initialState, action: ActionType): StateTypes => {
             };
 
         case ActionTypes.SET_CART_ITEMS:
-            const newCardItems: TypeProductInfo[] = action.payload
+            // newCardItems - это список товаров без аптек, в которых priceRetail равен нулю. Не нужно показывать пользователю товар с нулевой ценой.
+            const newCardFullPrice: TypeProductInfo[] = action.payload.map(cardItem => {
+                return {
+                    ...cardItem,
+                    retails: cardItem.retails.filter(retail => retail.priceRetail > 0)
+                }
+            })
+            const newCardItems = newCardFullPrice.filter(card => card.retails.length)
             const retailsArr: RetailItem[] = []
             if (newCardItems.length) {
                 newCardItems.forEach((item, index) => {
