@@ -45,6 +45,19 @@ const CardItemMobile: React.FC<Props> = (props) => {
 
     const isLastCount = !(countLast > count)
 
+    const buttonComponent = () => {
+        return isBuy
+            ? <CountButton
+                count={count}
+                isLastCount={isLastCount}
+                onIncrement={onIncrement}
+                onDecrement={onDecrement}
+            />
+            : <button className='CardItemMobile__cart' onClick={onIncrement}>
+                <SvgCartIcon style={{fontSize: 28, color: '#fff'}}/>
+            </button>
+    }
+
     return (
         <div className={'CardItemMobile ' + classStyle}>
             <div className='CardItemMobile__imageContainer'>
@@ -53,22 +66,16 @@ const CardItemMobile: React.FC<Props> = (props) => {
                            onClick={(event) => props.onItemSelected(id, event)}/>
                     : <img className='CardItem__image' src={notPhoto} alt="notPhoto"/>}
                 <div className='CardItemMobile__price'>
-                    <p className='CardItemMobile__priceText'>от <span className='CardItemMobile__priceNumber'>{minPrice}</span> р.</p>
-                    {/*<button className='CardItemMobile__cart buttonActive' onClick={updateToCart}>*/}
-                    {/*    {active ? <SvgCheck className='CardItemMobile__check_active'/> : 'Купить'}*/}
-                    {/*</button>*/}
+
                     {
-                        isBuy
-                            ? <CountButton
-                                count={count}
-                                isLastCount={isLastCount}
-                                onIncrement={onIncrement}
-                                onDecrement={onDecrement}
-                            />
-                            : <button className='CardItemMobile__cart' onClick={onIncrement}>
-                                <SvgCartIcon style={{fontSize: 28, color: '#fff'}}/>
-                            </button>
+                        minPrice
+                            ? <p className='CardItemMobile__priceText'>от <span
+                                className='CardItemMobile__priceNumber'>{minPrice}</span> р.</p>
+                            : <p className='CardItemMobile__linkToProduct'
+                                 onClick={(event) => props.onItemSelected(id, event)}>Подробнее...</p>
                     }
+                    {minPrice ? buttonComponent() : null}
+
                 </div>
             </div>
             <div className='CardItemMobile__textContainer'>

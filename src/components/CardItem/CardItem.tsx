@@ -48,6 +48,41 @@ const CardItem: React.FC<Props> = props => {
 
     const isLastCount = !(countLast > count)
 
+    const buttonComponentForPromo = () => {
+        return isBuy
+            ? <button className='CardItem__cart' onClick={onDecrement} style={{
+                minHeight: 34,
+                width: 78,
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center'
+            }}>
+                <SvgCheck style={{fontSize: 18, color: '#fff'}}/>
+            </button>
+            : <button className='CardItem__cart' onClick={onIncrement}>
+                <SvgCartIcon style={{fontSize: 28, color: '#fff'}}/>
+            </button>
+    }
+
+    const buttonComponentForCard = () => {
+        return isBuy
+            ? <CountButton
+                count={count}
+                isLastCount={isLastCount}
+                onIncrement={onIncrement}
+                onDecrement={onDecrement}
+            />
+            : <button className='CardItem__cart' onClick={onIncrement}>
+                <SvgCartIcon style={{fontSize: 28, color: '#fff'}}/>
+            </button>
+    }
+
+    const buttonComponent = () => {
+        return promo
+            ? buttonComponentForPromo()
+            : buttonComponentForCard()
+    }
+
     return (
         <div className={'CardItem ' + classStyle}
              onClick={(event) => props.onItemSelected(id, event)}>
@@ -67,43 +102,15 @@ const CardItem: React.FC<Props> = props => {
                     <div>
                         {
                             minPrice
-                                ? <p className='CardItem__priceParagraph'>от <span className='CardItem__priceNumber'>{minPrice} ₽</span></p>
+                                ? <p className='CardItem__priceParagraph'>от <span
+                                    className='CardItem__priceNumber'>{minPrice} ₽</span></p>
                                 : <p className='CardItem__linkToProduct'
                                      onClick={(event) => props.onItemSelected(id, event)}>Подробнее...</p>
                         }
                     </div>
 
                     <div className='CardItem__button'>
-                        {
-                            promo
-                                ? <>{
-                                    isBuy
-                                        ? <button className='CardItem__cart' onClick={onDecrement} style={{
-                                            minHeight: 34,
-                                            width: 78,
-                                            display: 'flex',
-                                            justifyContent: 'center',
-                                            alignItems: 'center'
-                                        }}>
-                                            <SvgCheck style={{fontSize: 18, color: '#fff'}}/>
-                                        </button>
-                                        : <button className='CardItem__cart' onClick={onIncrement}>
-                                            <SvgCartIcon style={{fontSize: 28, color: '#fff'}}/>
-                                        </button>
-                                }</>
-                                : <>{
-                                    isBuy
-                                        ? <CountButton
-                                            count={count}
-                                            isLastCount={isLastCount}
-                                            onIncrement={onIncrement}
-                                            onDecrement={onDecrement}
-                                        />
-                                        : <button className='CardItem__cart' onClick={onIncrement}>
-                                            <SvgCartIcon style={{fontSize: 28, color: '#fff'}}/>
-                                        </button>
-                                }</>
-                        }
+                        {(minPrice || promo) ? buttonComponent() : null}
                     </div>
 
                 </div>

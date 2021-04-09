@@ -19,10 +19,10 @@ import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
 import SetToFavorites from "../../components/SetToFavorites/SetToFavorites";
 import CardItem from "../../components/CardItem";
 import CountButton from "../../components/UI/CountButton/CountButton";
-import SvgCartIcon from "../../img/SVGcomponents/SvgCartIcon";
 import num_word from "../../utils/numWord";
 import RetailsBlock from "../../components/RetailsBlock/RetailsBlock";
 import {scrollToElement} from "../../utils/scrollToElement";
+import SvgCartIcon from "../../img/SVGcomponents/SvgCartIcon";
 
 const CardPage = (props) => {
   const {
@@ -133,6 +133,28 @@ const CardPage = (props) => {
     props.history.push('/Cards/')
   }
 
+  const buttonComponent = () => {
+    const buttonMobile = <button className='CardItem__cart' onClick={() => props.addedToCart(itemId)}>
+      <SvgCartIcon style={{fontSize: 28, color: '#fff'}}/>
+    </button>
+
+    const buttonDesktop = <button
+        className={'CardPage__button CardPage__buttonToCart' + (isActive ? ' CardPage__buttonToCart_active' : '')}
+        onClick={() => props.addedToCart(itemId)}>
+        {isActive ? <><SvgCheck style={{color: 'white', marginRight: 15}}/> В
+          корзине</> : 'Добавить в корзину'}
+      </button>
+
+    return isActive
+      ? <CountButton
+        count={count}
+        isLastCount={!(countLast > count)}
+        onIncrement={() => props.addedToCart(itemId)}
+        onDecrement={() => props.itemRemovedFromCart(itemId)}
+      />
+      : isMobile ? buttonMobile : buttonDesktop
+  }
+
   return (
     <section className='CardPage wrapper'>
       {error
@@ -204,7 +226,8 @@ const CardPage = (props) => {
                           <div className='CardPage__priceContent'>
                             {
                               !minPrice
-                                ? <p className='CardPage__priceText'>Временно нет в наличии</p>
+                                ? <p className='CardPage__priceText' style={{fontWeight: 'bold'}}>Временно нет в
+                                  наличии</p>
                                 : <>
                                   <p className='CardPage__priceText'>Цена в наших аптеках: </p>
                                   <p className='CardPage__price'>от {minPrice} ₽</p>
@@ -213,21 +236,7 @@ const CardPage = (props) => {
                           </div>
 
                           <div className='CardPage__buttons'>
-                            {
-                              isActive
-                                ? <CountButton
-                                  count={count}
-                                  isLastCount={!(countLast > count)}
-                                  onIncrement={() => props.addedToCart(itemId)}
-                                  onDecrement={() => props.itemRemovedFromCart(itemId)}
-                                />
-                                : <button
-                                  className={'CardPage__button CardPage__buttonToCart' + (isActive ? ' CardPage__buttonToCart_active' : '')}
-                                  onClick={() => props.addedToCart(itemId)}>
-                                  {isActive ? <><SvgCheck style={{color: 'white', marginRight: 15}}/> В
-                                    корзине</> : 'Добавить в корзину'}
-                                </button>
-                            }
+                            {(minPrice > 0) && buttonComponent()}
                           </div>
                         </div>
                       </div>
@@ -275,7 +284,7 @@ const CardPage = (props) => {
                     <div className='CardPage__priceContent'>
                       {
                         !minPrice
-                          ? <p className='CardPage__priceText'>Временно нет в наличии</p>
+                          ? <p className='CardPage__priceText' style={{fontWeight: 'bold'}}>Временно нет в наличии</p>
                           : <>
                             <p className='CardPage__priceText'>Цена в наших аптеках: </p>
                             <p className='CardPage__price'>от {minPrice} ₽</p>
@@ -284,33 +293,24 @@ const CardPage = (props) => {
                     </div>
 
                     <div className='CardPage__buttons'>
-                      {
-                        isActive
-                          ? <CountButton
-                            count={count}
-                            isLastCount={!(countLast > count)}
-                            onIncrement={() => props.addedToCart(itemId)}
-                            onDecrement={() => props.itemRemovedFromCart(itemId)}
-                          />
-                          : <button className='CardItem__cart' onClick={() => props.addedToCart(itemId)}>
-                            <SvgCartIcon style={{fontSize: 28, color: '#fff'}}/>
-                          </button>
-                      }
+                      {(minPrice > 0) && buttonComponent()}
                     </div>
                   </div>
 
                   <div className='CardPage__descriptionContainer'>
-                    <p className='CardPage__retails CardPage__description'>
-                      <span>В наличии: </span>
-                      <span className='CardPage__link' onClick={() => {
-                        if (mapRef && mapRef.current) {
-                          scrollToElement({element: mapRef.current, offset: -100, smooth: true})
+                    {
+                      (minPrice > 0) && <p className='CardPage__retails CardPage__description'>
+                        <span>В наличии: </span>
+                        <span className='CardPage__link' onClick={() => {
+                          if (mapRef && mapRef.current) {
+                            scrollToElement({element: mapRef.current, offset: -100, smooth: true})
+                          }
                         }
-                      }
-                      }>
+                        }>
                         в {productInfo.retails.length} {num_word(productInfo.retails.length, ['аптеке', 'аптеках', 'аптеках'])}
                       </span>
-                    </p>
+                      </p>
+                    }
                     <p className='CardPage__maker CardPage__description'>
                       <span>Производитель</span>
                       <span className='CardPage__link' onClick={goToCardsPage}>{productInfo.manufacturer}</span>
@@ -483,8 +483,7 @@ const CardPage = (props) => {
                 </div>
               </BlockWrapper>
               {
-                isMobile &&
-                <div ref={mapRef}>
+                isMobile && (minPrice > 0) && <div ref={mapRef}>
                   <RetailsBlock showCitiesList={showCitiesList}
                                 setShowCitiesList={(boolean) => setShowCitiesList(boolean)}
                                 retails={props.productInfo.retails}
@@ -500,37 +499,21 @@ const CardPage = (props) => {
 }
 
 
-const mapStateToProps = (
-  {
-    cart,
-    favorites,
-    productInfo,
-    error,
-    catalog,
-    activeCategory,
-    TOKEN,
-    isCity,
-    promoItems,
-    loadingFavorites,
-    itemsForPromoBlock1,
-    seasonItemsForPromoBlock2,
-    popularItemsForPromoBlock3
-  }
-) => {
+const mapStateToProps = (store) => {
   return {
-    cart,
-    favorites,
-    productInfo,
-    error,
-    catalog,
-    activeCategory,
-    TOKEN,
-    isCity,
-    promoItems,
-    loadingFavorites,
-    itemsForPromoBlock1,
-    seasonItemsForPromoBlock2,
-    popularItemsForPromoBlock3
+    cart: store.cart,
+    favorites: store.favorites,
+    productInfo: store.productInfo,
+    error: store.error,
+    catalog: store.catalog,
+    activeCategory: store.activeCategory,
+    TOKEN: store.TOKEN,
+    isCity: store.isCity,
+    promoItems: store.promoItems,
+    loadingFavorites: store.favorites,
+    itemsForPromoBlock1: store.itemsForPromoBlock1,
+    seasonItemsForPromoBlock2: store.seasonItemsForPromoBlock2,
+    popularItemsForPromoBlock3: store.popularItemsForPromoBlock3
   }
 }
 
