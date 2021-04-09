@@ -138,7 +138,7 @@ const CardPage = (props) => {
       {error
         ? <Error/>
         : <ErrorBoundary>
-          {!productInfo?.manufacturer
+          {!productInfo?.product
             ? <div style={{fontSize: 18, padding: 15,}}>
               <p>Подробная информация по данному товару отсутствует. </p>
               <p style={{padding: '10px 0'}}>Возможно произошла ошибка.</p>
@@ -501,8 +501,8 @@ const CardPage = (props) => {
 
 
 const mapStateToProps = (
-{
-  cart,
+  {
+    cart,
     favorites,
     productInfo,
     error,
@@ -515,9 +515,8 @@ const mapStateToProps = (
     itemsForPromoBlock1,
     seasonItemsForPromoBlock2,
     popularItemsForPromoBlock3
-}
-) =>
-{
+  }
+) => {
   return {
     cart,
     favorites,
@@ -535,8 +534,7 @@ const mapStateToProps = (
   }
 }
 
-const mapDispatchToProps = (dispatch) =>
-{
+const mapDispatchToProps = (dispatch) => {
   return {
     getPromoItem: (productGuid) => dispatch(getPromoItem(productGuid)),
     addedToCart: (item) => dispatch(addedToCart(item)),
