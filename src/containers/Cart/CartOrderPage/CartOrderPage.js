@@ -58,7 +58,7 @@ const CartOrderPage = props => {
   }, [props.errorAuth])
 
   function getActiveBonusCard() {
-    if (!props.activeBonusCard) {
+    if (!props.activeBonusCard && props.userData) {
       const cards = [...props.userData.cards]
       cards.sort((a, b) => a.currentBalance < b.currentBalance ? 1 : -1)
       props.setActiveBonusCard(cards[0])
