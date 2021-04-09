@@ -41,10 +41,14 @@ const CartOrderPage = props => {
 
   useEffect(() => {
     setOrder({...props.retail})
-    getActiveBonusCard()
     return () => props.delOrderNumber();
     // eslint-disable-next-line
   }, [])
+
+  useEffect(() => {
+    getActiveBonusCard()
+    // eslint-disable-next-line
+  }, [props.userData])
 
   useEffect(() => {
     if (props.errorAuth) {
