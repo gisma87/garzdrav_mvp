@@ -43,11 +43,11 @@ function getFullCountProductsRetails(props: PropsCart) {
     const fullRetails = getFullRetailItemState(props) // аптеки, где все товары доступны, но не факт, что в нужном количестве.
     if (fullRetails) {
         fullRetails.forEach(retail => {
-            const complete = retail.product.every(productItem => {
+            const complete = retail.product.every(({countLast, guid}) => {
                 // элемент товара в корзине
-                const productInCart = props.cart.find(itemCart => itemCart.itemId === productItem.guid)
+                const productInCart = props.cart.find(itemCart => itemCart.itemId === guid)
                 // если макс.кол. товара в этой аптеке больше, чем выбрано в корзине, то оставляем эту аптеку
-                return productItem?.countLast >= (productInCart?.count || 0)
+                return countLast ? (countLast >= (productInCart?.count || 0)) : false;
             })
 
             if (complete) {

@@ -144,7 +144,7 @@ export type TypeSale = {
 
 export type TypeRetailItem = {
     guid: string,
-    product: { guid: string, priceRetail: number, count: number, [key: string]: string | number }[],
+    product: { guid: string, priceRetail: number, count: number, [key: string]: string | number | null }[],
     priceRetail?: number,
     countLast?: number,
     weekDayTime?: string | null | undefined,
