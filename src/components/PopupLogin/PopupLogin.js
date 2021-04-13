@@ -184,17 +184,17 @@ const PopupLogin = props => {
                 validateForm(event)
                 if (formValid) {
                   setIsFetchCode(true)
+                  setIsShowTimer(true)
                   apiService.getEmailCode(email)
                     .then(_ => {
                       setIsSendCode(true)
-                      setIsShowTimer(true)
                     })
                     .finally(() => setIsFetchCode(false))
                 }
               }
             }}
             className={"PopupLogin__button " + ((formValid && !isShowTimer && !isFetchCode) ? "PopupLogin__button_active" : '')}>
-            {isSendCode ? <div><span className='PopupLogin__textMessage'>Отправить повторно</span>
+            {isShowTimer ? <div><span className='PopupLogin__textMessage'>Отправить повторно</span>
               <div className='PopupLogin__timerContainer'>
                 <LoaderTimer active={isShowTimer} seconds={60} hideTimer={() => setIsShowTimer(false)}/>
               </div>
@@ -214,7 +214,7 @@ const PopupLogin = props => {
           </button>
         </div>
       </form>
-      {isShowTimer && <p className='PopupLogin__isFetchCode'>КОД ОТПРАВЛЕН</p>}
+      {isSendCode && <p className='PopupLogin__isFetchCode'>КОД ОТПРАВЛЕН</p>}
       <div className="PopupLogin__description">Нажимая кнопку "Получить код", Вы соглашаетесь
         c условиями <NavLink to="/confidentiality/">политики конфиденциальности и обработки персональных
           данных</NavLink></div>

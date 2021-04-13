@@ -226,13 +226,13 @@ const _setCity = (isCity: { guid: string, title: string, [key: string]: any }): 
 }
 
 
-// устанавливает объект текущего города и записывает его в LocalStorage
+// устанавливает объект текущего города и записывает его в LocalStorage / loadingFalse - ставится в reducer
 const setIsCity = (isCity: { guid: string, title: string, [key: string]: any }): ThunkType => (dispatch) => {
     dispatch(loadingTrue())
     const item = [isCity]
     localStorage.setItem("city", JSON.stringify(item))
     // устанавливаем город
-    dispatch(_setCity(isCity))
+    dispatch(_setCity(isCity)) // loadingFalse - ставится в reducer
     // запрашиваем инф. о товарах в корзине по новому городу
     return dispatch(fetchCartItems(isCity.guid))
 }
@@ -266,9 +266,8 @@ const fetchCities = (): ThunkType => async (dispatch, getState, apiService) => {
 
         // если в localStorage есть город - устанавливаем его
         if (cityItem) {
-            dispatch(setIsCity(cityItem))
+            dispatch(setIsCity(cityItem)) // loadingFalse - ставится в reducer
         } else {
-
             // иначе определяем город по IP, устанавливаем его и открываем popup подтверждения выбранного города
             apiService.getUserCity()
                 .then(res => {
@@ -276,7 +275,9 @@ const fetchCities = (): ThunkType => async (dispatch, getState, apiService) => {
                     city = (city === 'Москва') ? 'Подольск' : city;
                     const cityItem = response.find((item: { title: string; }) => city === item.title)
                     if (cityItem && cityItem.guid) {
-                        dispatch(setIsCity(cityItem))
+                        dispatch(setIsCity(cityItem)) // loadingFalse - ставится в reducer
+                    } else {
+                        dispatch(loadingFalse())
                     }
                     dispatch(onPopupLocation(true))
                 })
@@ -291,7 +292,7 @@ const fetchCities = (): ThunkType => async (dispatch, getState, apiService) => {
 }
 
 
-// записываем все аптеки города
+// записываем все аптеки города / loadingFalse - ставится в reducer
 const _fetchRetailsCity = (payload: retailCity[]): Action_fetchRetailsCity => {
     return {type: ActionTypes.FETCH_RETAILS_CITY_SUCCESS, payload}
 }
@@ -302,7 +303,7 @@ const fetchRetailsCity = (): ThunkType => async (dispatch, getState, apiService)
         const cityId = getState().isCity.guid
         dispatch(loadingTrue())
         const response = await apiService.getRetailsCity(cityId)
-        dispatch(_fetchRetailsCity(response))
+        dispatch(_fetchRetailsCity(response)) // loadingFalse - ставится в reducer
     } catch (e) {
         dispatch(setError(e))
     }
@@ -432,6 +433,10 @@ const setToken = (token: { accessToken: string, refreshToken: string }): ActionS
 // POST запрос refreshTOKEN
 const refreshAuthentication = (): ThunkType => async (dispatch, getState, apiService) => {
     const TOKEN = getState().TOKEN || JSON.parse(localStorage.getItem('TOKEN') as string)
+    if (!TOKEN) {
+        dispatch(logout())
+        return
+    }
     dispatch(loadingTrue())
     try {
         const response = await apiService.refreshToken(TOKEN)
@@ -442,133 +447,131 @@ const refreshAuthentication = (): ThunkType => async (dispatch, getState, apiSer
     } catch (e) {
         console.log(e)
         dispatch(logout())
+    } finally {
+        dispatch(loadingFalse())
     }
 }
 
 // POST запрос TOKEN
-const authentication = (phone: string, password: string): ThunkType => async (dispatch, getState, apiService) => {
+const authentication = (phone: string, password: string, callback: null | (() => void) = null): ThunkType => async (dispatch, getState, apiService) => {
     dispatch(loadingTrue())
     try {
         const response = await apiService.authentication(phone, password)
         dispatch(setToken(response))
-        console.log('access_TOKEN')
+        localStorage.setItem('TOKEN', JSON.stringify(response))
+        dispatch(getToFavorites())
+        dispatch(getDataProfile())
+        dispatch(setErrorAuth(null))
+        // запускаю callback для которого нужна авторизация.
+        if (callback) callback();
+
+
     } catch (e) {
-        console.log(e)
-        dispatch(setError(e))
+        if (e.response) {
+            // client received an error response (5xx, 4xx)
+            console.log('err.response: ', e.response)
+            dispatch(setErrorAuth(e.response))
+        } else if (e.request) {
+            // client never received a response, or request never left
+            console.log('err.request ', e.request)
+            dispatch(setErrorAuth(e.request))
+        } else {
+            // anything else
+            dispatch(setErrorAuth(e))
+            console.log('ошибка запроса')
+        }
+    } finally {
+        dispatch(loadingFalse())
     }
+}
+
+export const postSmsCode = (phone: string, passOrSms: string, callback: null | (() => void) = null): ThunkType => async (dispatch, getState, apiService) => {
+    dispatch(loadingTrue())
+    try {
+        const responseToken = await apiService.postSmsCode(phone, passOrSms)
+        dispatch(setToken(responseToken))
+        localStorage.setItem('TOKEN', JSON.stringify(responseToken))
+        dispatch(getToFavorites())
+        dispatch(getDataProfile())
+        dispatch(setErrorAuth(null))
+        // запускаю callback для которого нужна авторизация.
+        if (callback) callback();
+    } catch (e) {
+        if (e.response) {
+            // client received an error response (5xx, 4xx)
+            console.log('err.response: ', e.response)
+            dispatch(setErrorAuth(e.response))
+        } else if (e.request) {
+            // client never received a response, or request never left
+            console.log('err.request ', e.request)
+            dispatch(setErrorAuth(e.request))
+        } else {
+            // anything else
+            dispatch(setErrorAuth(e))
+            console.log('ошибка запроса')
+        }
+    }
+    dispatch(loadingFalse())
 }
 
 // авторизация по паролю или СМС
 const authorizedByPassOrSMS = (phone: string, passOrSms: string, callback: null | (() => void) = null): ThunkType => async (dispatch, getState, apiService) => {
     dispatch(loadingTrue())
-    apiService.authentication(phone, passOrSms)
-        .then(response => {
-            dispatch(setToken(response))
-            localStorage.setItem('TOKEN', JSON.stringify(response))
-            console.log('access_TOKEN')
-            dispatch(getToFavorites())
-            dispatch(getDataProfile())
-            dispatch(setErrorAuth(null))
-            // запускаю callback для которого нужна авторизация.
-            if (callback) callback();
-        })
-        .catch(err => {
-            if (err.response) {
-                // client received an error response (5xx, 4xx)
-                console.log('err.response: ', err.response)
-                apiService.postSmsCode(phone, passOrSms)
-                    .then(response => {
-                        dispatch(setToken(response))
-                        localStorage.setItem('TOKEN', JSON.stringify(response))
-                        console.log('access_TOKEN')
-                        dispatch(getToFavorites())
-                        dispatch(getDataProfile())
-                        dispatch(setErrorAuth(null))
-                        // запускаю callback для которого нужна авторизация.
-                        if (callback) callback();
-                    })
-                    .catch(e => {
-                        if (e.response) {
-                            // client received an error response (5xx, 4xx)
-                            console.log('err.response: ', e.response)
-                            dispatch(setErrorAuth(e.response))
-                        } else if (e.request) {
-                            // client never received a response, or request never left
-                            console.log('err.request ', e.request)
-                            dispatch(setErrorAuth(e.request))
-                        } else {
-                            // anything else
-                            dispatch(setErrorAuth(e))
-                            console.log('ошибка запроса')
-                        }
-                    })
-            } else if (err.request) {
-                // client never received a response, or request never left
-                console.log('err.request ', err.request)
-                dispatch(setErrorAuth(err.request))
-            } else {
-                // anything else
-                dispatch(setErrorAuth(err))
-                console.log('ошибка запроса')
-            }
-        })
+    try {
+        const authToken = await apiService.authentication(phone, passOrSms);
+        dispatch(setToken(authToken))
+        localStorage.setItem('TOKEN', JSON.stringify(authToken))
+        dispatch(getToFavorites())
+        dispatch(getDataProfile())
+        dispatch(setErrorAuth(null))
+        // запускаю callback для которого нужна авторизация.
+        if (callback) callback();
+    } catch (err) {
+        if (err.response) {
+            // client received an error response (5xx, 4xx)
+            console.log('err.response: ', err.response)
+            dispatch(postSmsCode(phone, passOrSms, callback))
+        } else if (err.request) {
+            // client never received a response, or request never left
+            console.log('err.request ', err.request)
+            dispatch(setErrorAuth(err.request))
+        } else {
+            // anything else
+            dispatch(setErrorAuth(err))
+            console.log('ошибка запроса')
+        }
+    }
     dispatch(loadingFalse())
 }
 
 // авторизация сначала по СМС, потом паролю
 const authorizedBySMSorPassword = (phone: string, passOrSms: string, callback: null | (() => void) = null): ThunkType => async (dispatch, getState, apiService) => {
     dispatch(loadingTrue())
-    apiService.postSmsCode(phone, passOrSms)
-        .then(response => {
-            dispatch(setToken(response))
-            localStorage.setItem('TOKEN', JSON.stringify(response))
-            console.log('access_TOKEN')
-            dispatch(getToFavorites())
-            dispatch(getDataProfile())
-            dispatch(setErrorAuth(null))
-            // запускаю callback для которого нужна авторизация.
-            if (callback) callback();
-        })
-        .catch(err => {
-            if (err.response) {
-                // client received an error response (5xx, 4xx)
-                console.log('err.response: ', err.response)
-                apiService.authentication(phone, passOrSms)
-                    .then(response => {
-                        dispatch(setToken(response))
-                        localStorage.setItem('TOKEN', JSON.stringify(response))
-                        console.log('access_TOKEN')
-                        dispatch(getToFavorites())
-                        dispatch(getDataProfile())
-                        dispatch(setErrorAuth(null))
-                        // запускаю callback для которого нужна авторизация.
-                        if (callback) callback();
-                    })
-                    .catch(e => {
-                        if (e.response) {
-                            // client received an error response (5xx, 4xx)
-                            console.log('err.response: ', e.response)
-                            dispatch(setErrorAuth(e.response))
-                        } else if (e.request) {
-                            // client never received a response, or request never left
-                            console.log('err.request ', e.request)
-                            dispatch(setErrorAuth(e.request))
-                        } else {
-                            // anything else
-                            dispatch(setErrorAuth(e))
-                            console.log('ошибка запроса')
-                        }
-                    })
-            } else if (err.request) {
-                // client never received a response, or request never left
-                console.log('err.request ', err.request)
-                dispatch(setErrorAuth(err.request))
-            } else {
-                // anything else
-                dispatch(setErrorAuth(err))
-                console.log('ошибка запроса')
-            }
-        })
+    try {
+        const response = await apiService.postSmsCode(phone, passOrSms)
+        dispatch(setToken(response))
+        localStorage.setItem('TOKEN', JSON.stringify(response))
+        dispatch(getToFavorites())
+        dispatch(getDataProfile())
+        dispatch(setErrorAuth(null))
+        // запускаю callback для которого нужна авторизация.
+        if (callback) callback();
+    } catch (err) {
+        if (err.response) {
+            // client received an error response (5xx, 4xx)
+            console.log('err.response: ', err.response)
+            dispatch(authentication(phone, passOrSms, callback))
+        } else if (err.request) {
+            // client never received a response, or request never left
+            console.log('err.request ', err.request)
+            dispatch(setErrorAuth(err.request))
+        } else {
+            // anything else
+            dispatch(setErrorAuth(err))
+            console.log('ошибка запроса')
+        }
+    }
+
     dispatch(loadingFalse())
 }
 
