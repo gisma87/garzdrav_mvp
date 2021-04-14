@@ -1,0 +1,576 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Cart Cart snapshot / increment / decrement 1`] = `
+<DocumentFragment>
+  <div
+    class="Cart wrapper"
+  >
+    <section
+      class="Cart__containerProductsPage"
+    >
+      <div
+        class="Cart__mainContainer"
+      >
+        <div
+          class="Cart__productsContainer"
+        >
+          <p
+            class="Cart__titlePanel"
+          >
+            В корзине 2 товара
+          </p>
+          <div
+            class="Cart__itemContainer"
+          >
+            <div
+              class="CartItem"
+            >
+              <svg
+                class="CartItem__closeIcon"
+                height="1em"
+                viewBox="0 0 320 512"
+                width="1em"
+              >
+                <path
+                  d="M207.6 256l107.72-107.72c6.23-6.23 6.23-16.34 0-22.58l-25.03-25.03c-6.23-6.23-16.34-6.23-22.58 0L160 208.4 52.28 100.68c-6.23-6.23-16.34-6.23-22.58 0L4.68 125.7c-6.23 6.23-6.23 16.34 0 22.58L112.4 256 4.68 363.72c-6.23 6.23-6.23 16.34 0 22.58l25.03 25.03c6.23 6.23 16.34 6.23 22.58 0L160 303.6l107.72 107.72c6.23 6.23 16.34 6.23 22.58 0l25.03-25.03c6.23-6.23 6.23-16.34 0-22.58L207.6 256z"
+                  fill="currentColor"
+                />
+              </svg>
+              <div
+                class="CartItem__container"
+              >
+                <div
+                  class="CartItem__imageContainer"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="CartItem__image"
+                    data-icon="pills"
+                    data-prefix="fas"
+                    height="1em"
+                    viewBox="0 0 576 512"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M112 32C50.1 32 0 82.1 0 144v224c0 61.9 50.1 112 112 112s112-50.1 112-112V144c0-61.9-50.1-112-112-112zm48 224H64V144c0-26.5 21.5-48 48-48s48 21.5 48 48v112zm139.7-29.7c-3.5-3.5-9.4-3.1-12.3.8-45.3 62.5-40.4 150.1 15.9 206.4 56.3 56.3 143.9 61.2 206.4 15.9 4-2.9 4.3-8.8.8-12.3L299.7 226.3zm229.8-19c-56.3-56.3-143.9-61.2-206.4-15.9-4 2.9-4.3 8.8-.8 12.3l210.8 210.8c3.5 3.5 9.4 3.1 12.3-.8 45.3-62.6 40.5-150.1-15.9-206.4z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="CartItem__descriptionContainer"
+                >
+                  <h3
+                    class="CartItem__titleLink"
+                  >
+                    ПИРАЦЕТАМ 200МГ. №60 ТАБ. П/П/О /ОБНОВЛЕНИЕ/
+                  </h3>
+                  <p
+                    class="CartItem__maker"
+                  >
+                    ОБНОВЛЕНИЕ ПФК
+                  </p>
+                </div>
+                <div
+                  class="CartItem__priceBlock"
+                >
+                  <div
+                    class="CountButton"
+                  >
+                    <button
+                      class="CountButton__decrement"
+                    >
+                      <svg
+                        height="1em"
+                        viewBox="0 0 384 512"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M368 224H16c-8.84 0-16 7.16-16 16v32c0 8.84 7.16 16 16 16h352c8.84 0 16-7.16 16-16v-32c0-8.84-7.16-16-16-16z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </button>
+                    <p
+                      class="CountButton__count"
+                    >
+                      1
+                    </p>
+                    <button
+                      class="CountButton__increment"
+                    >
+                      <svg
+                        height="1em"
+                        viewBox="0 0 384 512"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M368 224H224V80c0-8.84-7.16-16-16-16h-32c-8.84 0-16 7.16-16 16v144H16c-8.84 0-16 7.16-16 16v32c0 8.84 7.16 16 16 16h144v144c0 8.84 7.16 16 16 16h32c8.84 0 16-7.16 16-16V288h144c8.84 0 16-7.16 16-16v-32c0-8.84-7.16-16-16-16z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                  <p
+                    class="CartItem__price"
+                  >
+                    от 75.00 ₽
+                  </p>
+                </div>
+              </div>
+              <div
+                class="CartItem__description"
+              >
+                <p
+                  class="CartItem__caption"
+                >
+                  Внешний вид товара может отличаться от изображения на сайте
+                </p>
+                <div
+                  class="CartItem__dropdownBtn"
+                >
+                  <span>
+                    есть в аптеках
+                  </span>
+                  <div
+                    class="CartItem__iconContainer"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="CartItem__arrowIcon"
+                      data-icon="angle-up"
+                      data-prefix="fas"
+                      height="1em"
+                      viewBox="0 0 320 512"
+                      width="1em"
+                    >
+                      <path
+                        d="M177 159.7l136 136c9.4 9.4 9.4 24.6 0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9 0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9 0L7 329.7c-9.4-9.4-9.4-24.6 0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="RetailsListDropdown RetailsListDropdown_contentDisabled"
+                style="height: 0px;"
+              >
+                <div
+                  class="RetailsListDropdown__contentDropdown"
+                >
+                  <h3
+                    class="RetailsListDropdown__title"
+                  >
+                    В наличии в аптеке:
+                  </h3>
+                  <div
+                    class="RetailsListDropdown__item"
+                  >
+                    <p
+                      class="RetailsListDropdown__titleItem"
+                    >
+                      ул. Железнодорожников 14
+                    </p>
+                    <div
+                      class="RetailsListDropdown__priceContainer"
+                    >
+                      <p
+                        class="RetailsListDropdown__count"
+                      >
+                        1шт. * 75 ₽/шт.
+                      </p>
+                      <p
+                        class="RetailsListDropdown__price"
+                      >
+                        75.00 ₽
+                      </p>
+                    </div>
+                  </div>
+                  <div
+                    class="RetailsListDropdown__item"
+                  >
+                    <p
+                      class="RetailsListDropdown__titleItem"
+                    >
+                      ул. Металлургов 34
+                    </p>
+                    <div
+                      class="RetailsListDropdown__priceContainer"
+                    >
+                      <p
+                        class="RetailsListDropdown__count"
+                      >
+                        1шт. * 75 ₽/шт.
+                      </p>
+                      <p
+                        class="RetailsListDropdown__price"
+                      >
+                        75.00 ₽
+                      </p>
+                    </div>
+                  </div>
+                  <div
+                    class="RetailsListDropdown__item"
+                  >
+                    <p
+                      class="RetailsListDropdown__titleItem"
+                    >
+                      ул. Ястынская 19а
+                    </p>
+                    <div
+                      class="RetailsListDropdown__priceContainer"
+                    >
+                      <p
+                        class="RetailsListDropdown__count"
+                      >
+                        1шт. * 76 ₽/шт.
+                      </p>
+                      <p
+                        class="RetailsListDropdown__price"
+                      >
+                        76.00 ₽
+                      </p>
+                    </div>
+                  </div>
+                  <div
+                    class="RetailsListDropdown__item"
+                  >
+                    <p
+                      class="RetailsListDropdown__titleItem"
+                    >
+                      ул. Мартынова 24
+                    </p>
+                    <div
+                      class="RetailsListDropdown__priceContainer"
+                    >
+                      <p
+                        class="RetailsListDropdown__count"
+                      >
+                        1шт. * 77 ₽/шт.
+                      </p>
+                      <p
+                        class="RetailsListDropdown__price"
+                      >
+                        77.00 ₽
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="CartItem"
+            >
+              <svg
+                class="CartItem__closeIcon"
+                height="1em"
+                viewBox="0 0 320 512"
+                width="1em"
+              >
+                <path
+                  d="M207.6 256l107.72-107.72c6.23-6.23 6.23-16.34 0-22.58l-25.03-25.03c-6.23-6.23-16.34-6.23-22.58 0L160 208.4 52.28 100.68c-6.23-6.23-16.34-6.23-22.58 0L4.68 125.7c-6.23 6.23-6.23 16.34 0 22.58L112.4 256 4.68 363.72c-6.23 6.23-6.23 16.34 0 22.58l25.03 25.03c6.23 6.23 16.34 6.23 22.58 0L160 303.6l107.72 107.72c6.23 6.23 16.34 6.23 22.58 0l25.03-25.03c6.23-6.23 6.23-16.34 0-22.58L207.6 256z"
+                  fill="currentColor"
+                />
+              </svg>
+              <div
+                class="CartItem__container"
+              >
+                <div
+                  class="CartItem__imageContainer"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="CartItem__image"
+                    data-icon="pills"
+                    data-prefix="fas"
+                    height="1em"
+                    viewBox="0 0 576 512"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M112 32C50.1 32 0 82.1 0 144v224c0 61.9 50.1 112 112 112s112-50.1 112-112V144c0-61.9-50.1-112-112-112zm48 224H64V144c0-26.5 21.5-48 48-48s48 21.5 48 48v112zm139.7-29.7c-3.5-3.5-9.4-3.1-12.3.8-45.3 62.5-40.4 150.1 15.9 206.4 56.3 56.3 143.9 61.2 206.4 15.9 4-2.9 4.3-8.8.8-12.3L299.7 226.3zm229.8-19c-56.3-56.3-143.9-61.2-206.4-15.9-4 2.9-4.3 8.8-.8 12.3l210.8 210.8c3.5 3.5 9.4 3.1 12.3-.8 45.3-62.6 40.5-150.1-15.9-206.4z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="CartItem__descriptionContainer"
+                >
+                  <h3
+                    class="CartItem__titleLink"
+                  >
+                    НАЗИВИН 0,01% 5МЛ. №1 НАЗАЛ.КАПЛИ ФЛ./КАП.
+                  </h3>
+                  <p
+                    class="CartItem__maker"
+                  >
+                    Мерк КГаА для Никомед (NIKOMED )
+                  </p>
+                </div>
+                <div
+                  class="CartItem__priceBlock"
+                >
+                  <div
+                    class="CountButton"
+                  >
+                    <button
+                      class="CountButton__decrement"
+                    >
+                      <svg
+                        height="1em"
+                        viewBox="0 0 384 512"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M368 224H16c-8.84 0-16 7.16-16 16v32c0 8.84 7.16 16 16 16h352c8.84 0 16-7.16 16-16v-32c0-8.84-7.16-16-16-16z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </button>
+                    <p
+                      class="CountButton__count"
+                    >
+                      1
+                    </p>
+                    <button
+                      class="CountButton__increment"
+                    >
+                      <svg
+                        height="1em"
+                        viewBox="0 0 384 512"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M368 224H224V80c0-8.84-7.16-16-16-16h-32c-8.84 0-16 7.16-16 16v144H16c-8.84 0-16 7.16-16 16v32c0 8.84 7.16 16 16 16h144v144c0 8.84 7.16 16 16 16h32c8.84 0 16-7.16 16-16V288h144c8.84 0 16-7.16 16-16v-32c0-8.84-7.16-16-16-16z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                  <p
+                    class="CartItem__price"
+                  >
+                    от 185.00 ₽
+                  </p>
+                </div>
+              </div>
+              <div
+                class="CartItem__description"
+              >
+                <p
+                  class="CartItem__caption"
+                >
+                  Внешний вид товара может отличаться от изображения на сайте
+                </p>
+                <div
+                  class="CartItem__dropdownBtn"
+                >
+                  <span>
+                    есть в аптеках
+                  </span>
+                  <div
+                    class="CartItem__iconContainer"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="CartItem__arrowIcon"
+                      data-icon="angle-up"
+                      data-prefix="fas"
+                      height="1em"
+                      viewBox="0 0 320 512"
+                      width="1em"
+                    >
+                      <path
+                        d="M177 159.7l136 136c9.4 9.4 9.4 24.6 0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9 0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9 0L7 329.7c-9.4-9.4-9.4-24.6 0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="RetailsListDropdown RetailsListDropdown_contentDisabled"
+                style="height: 0px;"
+              >
+                <div
+                  class="RetailsListDropdown__contentDropdown"
+                >
+                  <h3
+                    class="RetailsListDropdown__title"
+                  >
+                    В наличии в аптеке:
+                  </h3>
+                  <div
+                    class="RetailsListDropdown__item"
+                  >
+                    <p
+                      class="RetailsListDropdown__titleItem"
+                    >
+                      ул. Металлургов 34
+                    </p>
+                    <div
+                      class="RetailsListDropdown__priceContainer"
+                    >
+                      <p
+                        class="RetailsListDropdown__count"
+                      >
+                        1шт. * 185 ₽/шт.
+                      </p>
+                      <p
+                        class="RetailsListDropdown__price"
+                      >
+                        185.00 ₽
+                      </p>
+                    </div>
+                  </div>
+                  <div
+                    class="RetailsListDropdown__item"
+                  >
+                    <p
+                      class="RetailsListDropdown__titleItem"
+                    >
+                      ул. Тотмина 8
+                    </p>
+                    <div
+                      class="RetailsListDropdown__priceContainer"
+                    >
+                      <p
+                        class="RetailsListDropdown__count"
+                      >
+                        1шт. * 187 ₽/шт.
+                      </p>
+                      <p
+                        class="RetailsListDropdown__price"
+                      >
+                        187.00 ₽
+                      </p>
+                    </div>
+                  </div>
+                  <div
+                    class="RetailsListDropdown__item"
+                  >
+                    <p
+                      class="RetailsListDropdown__titleItem"
+                    >
+                      ул. Красноярский рабочий 165
+                    </p>
+                    <div
+                      class="RetailsListDropdown__priceContainer"
+                    >
+                      <p
+                        class="RetailsListDropdown__count"
+                      >
+                        1шт. * 232 ₽/шт.
+                      </p>
+                      <p
+                        class="RetailsListDropdown__price"
+                      >
+                        232.00 ₽
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="BlockWrapper Cart__containerInfo"
+          >
+            <h3
+              class="Cart__infoBlock-title"
+            >
+              Почему указана цена "ОТ" ?
+            </h3>
+            <p
+              class="Cart__infoBlock-text"
+            >
+              Цены в разных аптеках отличаются.
+            </p>
+            <p
+              class="Cart__infoBlock-text"
+            >
+              Мы показываем минимальную стоимость товара в вашем городе.
+            </p>
+            <p
+              class="Cart__infoBlock-info"
+            >
+              Вот список товаров из вашей корзины по минимальным ценам:
+            </p>
+            <div
+              class="Cart__infoBlock-minPriceProducts"
+            >
+              <div>
+                <p
+                  class="Cart__infoBlock-productTitle"
+                >
+                  ПИРАЦЕТАМ 200МГ. №60 ТАБ. П/П/О /ОБНОВЛЕНИЕ/
+                </p>
+                <div
+                  class="Cart__infoBlock-streetRetail"
+                >
+                  <p
+                    class="Cart__infoBlock-brand"
+                  >
+                    Дешёвая Аптека
+                  </p>
+                  <p
+                    class="Cart__infoBlock-streetText"
+                  >
+                    ул. Металлургов 34
+                  </p>
+                </div>
+              </div>
+              <p
+                class="Cart__infoBlock-price"
+              >
+                <b>
+                  75 ₽
+                </b>
+              </p>
+            </div>
+            <div
+              class="Cart__infoBlock-minPriceProducts"
+            >
+              <div>
+                <p
+                  class="Cart__infoBlock-productTitle"
+                >
+                  НАЗИВИН 0,01% 5МЛ. №1 НАЗАЛ.КАПЛИ ФЛ./КАП.
+                </p>
+                <div
+                  class="Cart__infoBlock-streetRetail"
+                >
+                  <p
+                    class="Cart__infoBlock-brand"
+                  >
+                    Дешёвая Аптека
+                  </p>
+                  <p
+                    class="Cart__infoBlock-streetText"
+                  >
+                    ул. Металлургов 34
+                  </p>
+                </div>
+              </div>
+              <p
+                class="Cart__infoBlock-price"
+              >
+                <b>
+                  185 ₽
+                </b>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DocumentFragment>
+`;

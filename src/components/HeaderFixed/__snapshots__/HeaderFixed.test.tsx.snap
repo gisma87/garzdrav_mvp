@@ -1,0 +1,105 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HeaderFixed HeaderFixed snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="HeaderFixed"
+  >
+    <div
+      class="wrapper HeaderFixed__wrapper"
+    >
+      <div
+        class="HeaderFixed__leftBlock"
+      >
+        <div
+          class="HeaderFixed__catalog"
+        >
+          <div
+            class="burger "
+          >
+            <div
+              class="burger__span"
+            >
+              <span />
+            </div>
+          </div>
+        </div>
+        <a
+          aria-current="page"
+          class="Logo active"
+          href="/"
+        >
+          <img
+            alt="логотип"
+            class="Logo__img"
+            src="iconALsmall.png"
+          />
+          <div
+            class="Logo__textContent"
+          >
+            <p
+              class="Logo__legko"
+            >
+              легко
+            </p>
+            <div
+              class="Logo__text"
+            >
+              <p
+                class="Logo__internet"
+              >
+                интернет
+              </p>
+              <p>
+                аптека
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+      <p
+        class="test"
+      >
+        Тестирование
+      </p>
+      <div
+        class="HeaderFixed__rightblock"
+      >
+        <button
+          class="ButtonLogIn"
+        >
+          <img
+            alt="Вход"
+            class="ButtonLogIn__img"
+            src="LogInSmall.png"
+          />
+          <p
+            class="ButtonLogIn__text"
+          >
+            войти
+          </p>
+        </button>
+        <a
+          class="HeaderFixed__cart"
+          href="/cart/"
+        >
+          <div
+            class="HeaderFixed__cartImgBox"
+          >
+            <img
+              alt="корзина"
+              class="HeaderFixed__cartImg"
+              src="cartIconSmall.png"
+            />
+          </div>
+          <span
+            class="HeaderFixed__cartCount"
+          >
+            0
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

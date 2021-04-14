@@ -121,10 +121,12 @@ class Cart extends React.Component<PropsCart, StateCart> {
         this.props.fetchCartItems()
 
         // подгружаем доп.продажи - complexes
-        const cartFromLocalStorage: CartItemType[] = JSON.parse(localStorage.getItem("cart") as string)
-        const arrItemId = cartFromLocalStorage.map(item => item.itemId)
-        this.props.getPromoItem(arrItemId)
-        this.count = this.countProducts()
+        const cartFromLocalStorage: CartItemType[] | null = JSON.parse(localStorage.getItem("cart") as string)
+        if(cartFromLocalStorage instanceof Array) {
+            const arrItemId = cartFromLocalStorage.map(item => item.itemId)
+            this.props.getPromoItem(arrItemId)
+            this.count = this.countProducts()
+        }
     }
 
     componentDidUpdate(prevProps: PropsCart, prevState: StateCart, snapshot: any) {

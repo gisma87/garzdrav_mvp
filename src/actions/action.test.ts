@@ -1,5 +1,5 @@
 import {
-    authentication,
+    authentication, authorizedByEmail,
     authorizedByPassOrSMS,
     fetchCartItems,
     fetchCities,
@@ -116,7 +116,6 @@ describe('repeatOrder', () => {
         const thunk = repeatOrder(mockData)
         await thunk(dispatchMock, getStateMock, apiServiceMock)
 
-        // expect(dispatchMock).toBeCalledTimes(6)
         expect(dispatchMock).toHaveBeenCalledWith({type: ActionTypes.DEL_CART_ITEM})
         expect(dispatchMock).toHaveBeenCalledWith({type: ActionTypes.LOADING})
         expect(dispatchMock).toHaveBeenCalledWith({
@@ -292,45 +291,15 @@ describe('authentication', () => {
 
     test('authentication - catch', async () => {
         const thunk = authentication('phoneNumber', 'passwordText')
-        apiServiceMock.authentication.mockReturnValue(Promise.reject({response: 'error'}))
+        apiServiceMock.authentication.mockReturnValue(Promise.reject({response: 'error authentication'}))
 
         await thunk(dispatchMock, getStateMock, apiServiceMock)
 
         expect(dispatchMock).toHaveBeenCalledWith({type: ActionTypes.LOADING})
-        expect(dispatchMock).toHaveBeenCalledWith({type: ActionTypes.AUTH_FAILURE, payload: 'error'})
+        expect(dispatchMock).toHaveBeenCalledWith({type: ActionTypes.AUTH_FAILURE, payload: 'error authentication'})
         expect(dispatchMock).toHaveBeenCalledWith({type: ActionTypes.LOADING_OFF})
         expect(dispatchMock).toBeCalledTimes(3)
     })
-    apiServiceMock.authentication.mockClear()
-})
-
-describe('authorizedByPassOrSMS', () => {
-    const TOKEN = {accessToken: 'string', refreshToken: 'string'}
-    const thunk = authorizedByPassOrSMS('phoneNumber', 'passwordText')
-
-    test('authorizedByPassOrSMS - positive', async () => {
-        apiServiceMock.authentication.mockReturnValue(Promise.resolve(TOKEN))
-
-        await thunk(dispatchMock, getStateMock, apiServiceMock)
-
-        expect(dispatchMock).toBeCalledTimes(6)
-        expect(dispatchMock).toHaveBeenCalledWith({type: ActionTypes.LOADING})
-        expect(dispatchMock).toHaveBeenCalledWith({type: ActionTypes.TOKEN, payload: TOKEN})
-        expect(dispatchMock).toHaveBeenCalledWith({type: ActionTypes.LOADING_OFF})
-    })
-
-    test('authorizedByPassOrSMS: catch', async () => {
-        dispatchMock.mockClear()
-        apiServiceMock.authentication.mockClear()
-        apiServiceMock.authentication.mockReturnValue(Promise.reject({response: 'responseText'}))
-
-        await thunk(dispatchMock, getStateMock, apiServiceMock)
-
-        expect(dispatchMock).toHaveBeenCalledWith({type: ActionTypes.LOADING})
-        expect(dispatchMock).toHaveBeenCalledWith({type: ActionTypes.LOADING_OFF})
-        expect(dispatchMock).toBeCalledTimes(3)
-    })
-
     apiServiceMock.authentication.mockClear()
 })
 
@@ -353,7 +322,7 @@ describe('postSmsCode', () => {
 
     test('postSmsCode: catch', async () => {
         apiServiceMock.postSmsCode.mockClear()
-        apiServiceMock.postSmsCode.mockReturnValue(Promise.reject({response: 'responseText'}))
+        apiServiceMock.postSmsCode.mockReturnValue(Promise.reject({response: 'responseText postSmsCode'}))
 
         await thunk(dispatchMock, getStateMock, apiServiceMock)
 
@@ -364,6 +333,68 @@ describe('postSmsCode', () => {
 
     apiServiceMock.postSmsCode.mockClear()
 })
+
+describe('authorizedByPassOrSMS', () => {
+    const TOKEN = {accessToken: 'string', refreshToken: 'string'}
+    const thunk = authorizedByPassOrSMS('phoneNumber', 'passwordText')
+
+    test('authorizedByPassOrSMS - positive', async () => {
+        apiServiceMock.authentication.mockReturnValue(Promise.resolve(TOKEN))
+
+        await thunk(dispatchMock, getStateMock, apiServiceMock)
+
+        expect(dispatchMock).toBeCalledTimes(6)
+        expect(dispatchMock).toHaveBeenCalledWith({type: ActionTypes.LOADING})
+        expect(dispatchMock).toHaveBeenCalledWith({type: ActionTypes.TOKEN, payload: TOKEN})
+        expect(dispatchMock).toHaveBeenCalledWith({type: ActionTypes.LOADING_OFF})
+    })
+
+    test('authorizedByPassOrSMS: catch', async () => {
+        dispatchMock.mockClear()
+        apiServiceMock.authentication.mockClear()
+        apiServiceMock.authentication.mockReturnValue(Promise.reject({response: 'responseText authorizedByPassOrSMS'}))
+
+        await thunk(dispatchMock, getStateMock, apiServiceMock)
+
+        expect(dispatchMock).toHaveBeenCalledWith({type: ActionTypes.LOADING})
+        expect(dispatchMock).toHaveBeenCalledWith({type: ActionTypes.LOADING_OFF})
+        expect(dispatchMock).toBeCalledTimes(3)
+    })
+
+    apiServiceMock.authentication.mockClear()
+})
+
+describe('authorizedByEmail', () => {
+    const TOKEN = {accessToken: 'string', refreshToken: 'string'}
+    const thunk = authorizedByEmail('emailNumber', 'codeEmail')
+
+    test('authorizedByEmail - positive', async () => {
+        apiServiceMock.authenticationByEmail.mockReturnValue(Promise.resolve(TOKEN))
+
+        await thunk(dispatchMock, getStateMock, apiServiceMock)
+
+        expect(dispatchMock).toBeCalledTimes(6)
+        expect(dispatchMock).toHaveBeenCalledWith({type: ActionTypes.LOADING})
+        expect(dispatchMock).toHaveBeenCalledWith({type: ActionTypes.TOKEN, payload: TOKEN})
+        expect(dispatchMock).toHaveBeenCalledWith({type: ActionTypes.LOADING_OFF})
+    })
+
+    test('authorizedByEmail: catch', async () => {
+        dispatchMock.mockClear()
+        apiServiceMock.authenticationByEmail.mockClear()
+        apiServiceMock.authenticationByEmail.mockReturnValue(Promise.reject({response: 'responseText authorizedByEmail'}))
+
+        await thunk(dispatchMock, getStateMock, apiServiceMock)
+
+        expect(dispatchMock).toHaveBeenCalledWith({type: ActionTypes.LOADING})
+        expect(dispatchMock).toHaveBeenCalledWith({type: ActionTypes.LOADING_OFF})
+        expect(dispatchMock).toBeCalledTimes(3)
+    })
+
+    apiServiceMock.authenticationByEmail.mockClear()
+})
+
+
 
 
 

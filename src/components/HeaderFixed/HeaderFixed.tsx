@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react"
 import './HeaderFixed.scss'
-import {NavLink, withRouter} from "react-router-dom";
+import {NavLink, RouteComponentProps, withRouter} from "react-router-dom";
 import iconCart from '../../img/icon/cartIconSmall.png'
 import ButtonTopScroll from "../UI/ButtonTopScroll";
 import {openPopupLogin, rewriteCart} from "../../actions";
@@ -10,8 +10,24 @@ import Catalog from "../Catalog/Catalog";
 import Logo from "../UI/Logo/Logo";
 import ButtonLogIn from "../UI/ButtonLogIn/ButtonLogIn";
 import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
+import {CartItemType, CategoryElement} from "../../types";
+import {StateType} from "../../store";
+import {ThunkDispatch} from "redux-thunk";
 
-const HeaderFixed = (props) => {
+type MapDispatchPropsType = {
+  openPopupLogin(): void,
+  rewriteCart(cart: CartItemType[]): void
+}
+
+type MapStatePropsType = {
+  cart: CartItemType[],
+  catalog: null | CategoryElement,
+  TOKEN: null | { accessToken: string, refreshToken: string }
+}
+
+type Props = RouteComponentProps & MapStatePropsType & MapDispatchPropsType;
+
+const HeaderFixed: React.FC<Props> = (props) => {
   const count = props.cart.reduce((sum, item) => {
     return item.count + sum
   }, 0)
@@ -78,14 +94,14 @@ const HeaderFixed = (props) => {
   )
 }
 
-const mapStateToProps = ({cart, TOKEN, catalog}) => {
+const mapStateToProps = ({cart, TOKEN, catalog}: StateType) => {
   return {cart, TOKEN, catalog}
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch: ThunkDispatch<StateType, {}, any>) => {
   return {
     openPopupLogin: () => dispatch(openPopupLogin()),
-    rewriteCart: (item) => dispatch(rewriteCart(item)),
+    rewriteCart: (cart: CartItemType[]) => dispatch(rewriteCart(cart)),
   }
 }
 

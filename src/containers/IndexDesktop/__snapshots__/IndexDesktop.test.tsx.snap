@@ -1,0 +1,942 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`IndexDesktop 1`] = `
+<DocumentFragment>
+  <div
+    class="mainPage"
+  >
+    <section
+      class="Advertising wrapper"
+    >
+      <div
+        class="Advertising__slider"
+      >
+        <section
+          class="swiper-container swiper-container-initialized swiper-container-horizontal"
+          style="width: 100%;"
+        >
+          <div
+            class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets"
+          />
+          <ul
+            class="swiper-wrapper"
+            style="transition: 0ms; transform: translate3d(NaNpx, 0px, 0px);"
+          >
+            <li
+              class="swiper-slide swiper-slide-duplicate"
+              data-swiper-slide-index="5"
+              style="display: flex; justify-content: center;"
+            >
+              <img
+                alt="5 slide"
+                class="Advertising__slide"
+                src="april04.jpg"
+              />
+            </li>
+            <li
+              class="swiper-slide"
+              data-swiper-slide-index="0"
+              style="display: flex; justify-content: center;"
+            >
+              <img
+                alt="0 slide"
+                class="Advertising__slide"
+                src="gifts.jpg"
+              />
+            </li>
+            <li
+              class="swiper-slide"
+              data-swiper-slide-index="1"
+              style="display: flex; justify-content: center;"
+            >
+              <img
+                alt="1 slide"
+                class="Advertising__slide"
+                src="seasonalProducts.jpg"
+              />
+            </li>
+            <li
+              class="swiper-slide"
+              data-swiper-slide-index="2"
+              style="display: flex; justify-content: center;"
+            >
+              <img
+                alt="2 slide"
+                class="Advertising__slide"
+                src="april01.jpg"
+              />
+            </li>
+            <li
+              class="swiper-slide"
+              data-swiper-slide-index="3"
+              style="display: flex; justify-content: center;"
+            >
+              <img
+                alt="3 slide"
+                class="Advertising__slide"
+                src="april02.jpg"
+              />
+            </li>
+            <li
+              class="swiper-slide"
+              data-swiper-slide-index="4"
+              style="display: flex; justify-content: center;"
+            >
+              <img
+                alt="4 slide"
+                class="Advertising__slide"
+                src="april03.jpg"
+              />
+            </li>
+            <li
+              class="swiper-slide"
+              data-swiper-slide-index="5"
+              style="display: flex; justify-content: center;"
+            >
+              <img
+                alt="5 slide"
+                class="Advertising__slide"
+                src="april04.jpg"
+              />
+            </li>
+            <li
+              class="swiper-slide swiper-slide-duplicate"
+              data-swiper-slide-index="0"
+              style="display: flex; justify-content: center;"
+            >
+              <img
+                alt="0 slide"
+                class="Advertising__slide"
+                src="gifts.jpg"
+              />
+            </li>
+          </ul>
+        </section>
+      </div>
+      <div
+        class="Advertising__promo"
+      >
+        <img
+          alt="promo"
+          class="Advertising__promo-img"
+          src="smallBaner.jpg"
+        />
+      </div>
+    </section>
+    <div
+      style="padding: 50px;"
+    />
+    <div
+      class="HowToBuy"
+    >
+      <div
+        class="HowToBuy__wrapper"
+      >
+        <div
+          class="HowToBuy__item"
+        >
+          <p
+            class="HowToBuy__number"
+          >
+            1
+          </p>
+          <div
+            class="HowToBuy__text"
+          >
+            <p>
+              Выберите
+            </p>
+            <p>
+              товар в поиске
+            </p>
+            <p>
+              или 
+              <a
+                class="HowToBuy__link"
+                href="/catalog/"
+              >
+                каталоге
+              </a>
+            </p>
+          </div>
+        </div>
+        <svg
+          class="HowToBuy__arrow"
+          height="1em"
+          viewBox="0 0 256 512"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M238.475 475.535l7.071-7.07c4.686-4.686 4.686-12.284 0-16.971L50.053 256 245.546 60.506c4.686-4.686 4.686-12.284 0-16.971l-7.071-7.07c-4.686-4.686-12.284-4.686-16.97 0L10.454 247.515c-4.686 4.686-4.686 12.284 0 16.971l211.051 211.05c4.686 4.686 12.284 4.686 16.97-.001z"
+            fill="currentColor"
+          />
+        </svg>
+        <div
+          class="HowToBuy__item"
+        >
+          <p
+            class="HowToBuy__number"
+          >
+            2
+          </p>
+          <div
+            class="HowToBuy__text"
+          >
+            <p>
+              Оформите
+            </p>
+            <p>
+              заказ в
+            </p>
+            <p>
+              <a
+                class="HowToBuy__link"
+                href="/cities/"
+              >
+                удобную аптеку
+              </a>
+            </p>
+          </div>
+        </div>
+        <svg
+          class="HowToBuy__arrow"
+          height="1em"
+          viewBox="0 0 256 512"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M238.475 475.535l7.071-7.07c4.686-4.686 4.686-12.284 0-16.971L50.053 256 245.546 60.506c4.686-4.686 4.686-12.284 0-16.971l-7.071-7.07c-4.686-4.686-12.284-4.686-16.97 0L10.454 247.515c-4.686 4.686-4.686 12.284 0 16.971l211.051 211.05c4.686 4.686 12.284 4.686 16.97-.001z"
+            fill="currentColor"
+          />
+        </svg>
+        <div
+          class="HowToBuy__item"
+        >
+          <p
+            class="HowToBuy__number"
+          >
+            3
+          </p>
+          <div
+            class="HowToBuy__text"
+          >
+            <p>
+              Заберите
+            </p>
+            <p>
+              ваш заказ в
+            </p>
+            <p>
+              выбранной аптеке
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="PromoBlock2"
+    >
+      <img
+        alt="baner"
+        class="PromoBlock2__baner"
+        src="MiniDoctorEnergy_Banner_1210x250.jpg"
+      />
+    </div>
+    <div
+      class="BrandsBlock wrapper"
+    >
+      <h3
+        class="BrandsBlock__title"
+      >
+        Бренды
+      </h3>
+      <div
+        class="BrandsBlock__content"
+      >
+        <div
+          class="BrandsBlock__item"
+        >
+          <img
+            alt="brand"
+            class="BrandsBlock__img"
+            src="1.png"
+          />
+        </div>
+        <div
+          class="BrandsBlock__item"
+        >
+          <img
+            alt="brand"
+            class="BrandsBlock__img"
+            src="2.png"
+          />
+        </div>
+        <div
+          class="BrandsBlock__item"
+        >
+          <img
+            alt="brand"
+            class="BrandsBlock__img"
+            src="3.png"
+          />
+        </div>
+        <div
+          class="BrandsBlock__item"
+        >
+          <img
+            alt="brand"
+            class="BrandsBlock__img"
+            src="4.png"
+          />
+        </div>
+        <div
+          class="BrandsBlock__item"
+        >
+          <img
+            alt="brand"
+            class="BrandsBlock__img"
+            src="5.png"
+          />
+        </div>
+        <div
+          class="BrandsBlock__item"
+        >
+          <img
+            alt="brand"
+            class="BrandsBlock__img"
+            src="6.png"
+          />
+        </div>
+        <div
+          class="BrandsBlock__item"
+        >
+          <img
+            alt="brand"
+            class="BrandsBlock__img"
+            src="7.png"
+          />
+        </div>
+        <div
+          class="BrandsBlock__item"
+        >
+          <img
+            alt="brand"
+            class="BrandsBlock__img"
+            src="8.png"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="LegkoBlock"
+    >
+      <div
+        class="LegkoBlock__wrapper wrapper"
+      >
+        <div
+          class="LegkoBlock__imageContainer"
+        >
+          <img
+            alt="Карта Легко"
+            class="LegkoBlock__img"
+            src="legkoCardSmall.png"
+          />
+        </div>
+        <div
+          class="LegkoBlock__rightBlock"
+        >
+          <div
+            class="LegkoBlock__textBlock"
+          >
+            <p>
+              Покупайте
+            </p>
+            <p>
+              за полцены
+            </p>
+            <p>
+              с 
+              <a
+                class="LegkoBlock__linkLegko"
+                href="http://kartalegko.ru/"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                картой Легко
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <section
+      class="ArticlesBlock"
+    >
+      <div
+        class="wrapper"
+      >
+        <div
+          class="prev slideButton"
+        >
+          <svg
+            height="1em"
+            viewBox="0 0 256 512"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M238.475 475.535l7.071-7.07c4.686-4.686 4.686-12.284 0-16.971L50.053 256 245.546 60.506c4.686-4.686 4.686-12.284 0-16.971l-7.071-7.07c-4.686-4.686-12.284-4.686-16.97 0L10.454 247.515c-4.686 4.686-4.686 12.284 0 16.971l211.051 211.05c4.686 4.686 12.284 4.686 16.97-.001z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="next slideButton"
+        >
+          <svg
+            height="1em"
+            viewBox="0 0 256 512"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M238.475 475.535l7.071-7.07c4.686-4.686 4.686-12.284 0-16.971L50.053 256 245.546 60.506c4.686-4.686 4.686-12.284 0-16.971l-7.071-7.07c-4.686-4.686-12.284-4.686-16.97 0L10.454 247.515c-4.686 4.686-4.686 12.284 0 16.971l211.051 211.05c4.686 4.686 12.284 4.686 16.97-.001z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="ArticlesBlock__titleBlock"
+        >
+          <h3
+            class="ArticlesBlock__title"
+          >
+            Быть здоровым легко
+          </h3>
+          <a
+            class="ArticlesBlock__title ArticlesBlock__linkAll"
+            href="/promotions/"
+          >
+            все статьи
+          </a>
+        </div>
+        <div
+          style="padding: 0px 30px;"
+        >
+          <section
+            class="swiper-container swiper-container-initialized swiper-container-horizontal"
+            style="padding: 10px 0px;"
+          >
+            <ul
+              class="swiper-wrapper"
+              style="transition: 0ms; transform: translate3d(NaNpx, 0px, 0px);"
+            >
+              <li
+                class="swiper-slide swiper-slide-duplicate"
+                data-swiper-slide-index="0"
+                style="list-style-type: none;"
+              >
+                <div
+                  class="ArticleCard"
+                >
+                  <img
+                    alt="За подарками – в аптеку!"
+                    class="ArticleCard__image"
+                    src="Image_1.jpg"
+                  />
+                  <div
+                    class="ArticleCard__content"
+                  >
+                    <h3
+                      class="ArticleCard__title"
+                    >
+                      За подарками – в аптеку!
+                    </h3>
+                    <p
+                      class="ArticleCard__description"
+                    >
+                      ТОП 10 полезных подарков на 8 марта для прекрасных дам. 
+                    </p>
+                  </div>
+                  <div
+                    class="ArticleCard__date"
+                  >
+                    <img
+                      alt="calendar icon"
+                      src="calendar-alt-regular.svg"
+                    />
+                    <span>
+                      09 марта 2021
+                    </span>
+                  </div>
+                </div>
+              </li>
+              <li
+                class="swiper-slide swiper-slide-duplicate"
+                data-swiper-slide-index="1"
+                style="list-style-type: none;"
+              >
+                <div
+                  class="ArticleCard"
+                >
+                  <img
+                    alt="Держим курс на весну!"
+                    class="ArticleCard__image"
+                    src="Image_2.jpg"
+                  />
+                  <div
+                    class="ArticleCard__content"
+                  >
+                    <h3
+                      class="ArticleCard__title"
+                    >
+                      Держим курс на весну!
+                    </h3>
+                    <p
+                      class="ArticleCard__description"
+                    >
+                      Календарная весна уже наступила, а значит, совсем скоро природа начнет просыпаться от зимней спячки и придет долгожданное тепло. 
+                    </p>
+                  </div>
+                  <div
+                    class="ArticleCard__date"
+                  >
+                    <img
+                      alt="calendar icon"
+                      src="calendar-alt-regular.svg"
+                    />
+                    <span>
+                      09 марта 2021
+                    </span>
+                  </div>
+                </div>
+              </li>
+              <li
+                class="swiper-slide swiper-slide-duplicate"
+                data-swiper-slide-index="2"
+                style="list-style-type: none;"
+              >
+                <div
+                  class="ArticleCard"
+                >
+                  <img
+                    alt="Простуда: что делать и какие препараты добавить в аптечку?"
+                    class="ArticleCard__image"
+                    src="Image_3.jpg"
+                  />
+                  <div
+                    class="ArticleCard__content"
+                  >
+                    <h3
+                      class="ArticleCard__title"
+                    >
+                      Простуда: что делать и какие препараты добавить в аптечку?
+                    </h3>
+                    <p
+                      class="ArticleCard__description"
+                    >
+                      Чаще всего простуда настигает нас в самый неподходящий момент. 
+Мы собрали для вас 5 простых шагов, что делать при первых симптомах простуды, а также список необходимых препаратов от простуды и гриппа.
+                    </p>
+                  </div>
+                  <div
+                    class="ArticleCard__date"
+                  >
+                    <img
+                      alt="calendar icon"
+                      src="calendar-alt-regular.svg"
+                    />
+                    <span>
+                      09 марта 2021
+                    </span>
+                  </div>
+                </div>
+              </li>
+              <li
+                class="swiper-slide swiper-slide-duplicate"
+                data-swiper-slide-index="3"
+                style="list-style-type: none;"
+              >
+                <div
+                  class="ArticleCard"
+                >
+                  <img
+                    alt="Получить выгоду – Легко!"
+                    class="ArticleCard__image"
+                    src="Image_4.jpg"
+                  />
+                  <div
+                    class="ArticleCard__content"
+                  >
+                    <h3
+                      class="ArticleCard__title"
+                    >
+                      Получить выгоду – Легко!
+                    </h3>
+                    <p
+                      class="ArticleCard__description"
+                    >
+                      И это не просто слоган!
+Легко – это единая бонусная карта. 
+Отличительной особенностью данной карты является её универсальность
+                    </p>
+                  </div>
+                  <div
+                    class="ArticleCard__date"
+                  >
+                    <img
+                      alt="calendar icon"
+                      src="calendar-alt-regular.svg"
+                    />
+                    <span>
+                      09 марта 2021
+                    </span>
+                  </div>
+                </div>
+              </li>
+              <li
+                class="swiper-slide"
+                data-swiper-slide-index="0"
+                style="list-style-type: none;"
+              >
+                <div
+                  class="ArticleCard"
+                >
+                  <img
+                    alt="За подарками – в аптеку!"
+                    class="ArticleCard__image"
+                    src="Image_1.jpg"
+                  />
+                  <div
+                    class="ArticleCard__content"
+                  >
+                    <h3
+                      class="ArticleCard__title"
+                    >
+                      За подарками – в аптеку!
+                    </h3>
+                    <p
+                      class="ArticleCard__description"
+                    >
+                      ТОП 10 полезных подарков на 8 марта для прекрасных дам. 
+                    </p>
+                  </div>
+                  <div
+                    class="ArticleCard__date"
+                  >
+                    <img
+                      alt="calendar icon"
+                      src="calendar-alt-regular.svg"
+                    />
+                    <span>
+                      09 марта 2021
+                    </span>
+                  </div>
+                </div>
+              </li>
+              <li
+                class="swiper-slide"
+                data-swiper-slide-index="1"
+                style="list-style-type: none;"
+              >
+                <div
+                  class="ArticleCard"
+                >
+                  <img
+                    alt="Держим курс на весну!"
+                    class="ArticleCard__image"
+                    src="Image_2.jpg"
+                  />
+                  <div
+                    class="ArticleCard__content"
+                  >
+                    <h3
+                      class="ArticleCard__title"
+                    >
+                      Держим курс на весну!
+                    </h3>
+                    <p
+                      class="ArticleCard__description"
+                    >
+                      Календарная весна уже наступила, а значит, совсем скоро природа начнет просыпаться от зимней спячки и придет долгожданное тепло. 
+                    </p>
+                  </div>
+                  <div
+                    class="ArticleCard__date"
+                  >
+                    <img
+                      alt="calendar icon"
+                      src="calendar-alt-regular.svg"
+                    />
+                    <span>
+                      09 марта 2021
+                    </span>
+                  </div>
+                </div>
+              </li>
+              <li
+                class="swiper-slide"
+                data-swiper-slide-index="2"
+                style="list-style-type: none;"
+              >
+                <div
+                  class="ArticleCard"
+                >
+                  <img
+                    alt="Простуда: что делать и какие препараты добавить в аптечку?"
+                    class="ArticleCard__image"
+                    src="Image_3.jpg"
+                  />
+                  <div
+                    class="ArticleCard__content"
+                  >
+                    <h3
+                      class="ArticleCard__title"
+                    >
+                      Простуда: что делать и какие препараты добавить в аптечку?
+                    </h3>
+                    <p
+                      class="ArticleCard__description"
+                    >
+                      Чаще всего простуда настигает нас в самый неподходящий момент. 
+Мы собрали для вас 5 простых шагов, что делать при первых симптомах простуды, а также список необходимых препаратов от простуды и гриппа.
+                    </p>
+                  </div>
+                  <div
+                    class="ArticleCard__date"
+                  >
+                    <img
+                      alt="calendar icon"
+                      src="calendar-alt-regular.svg"
+                    />
+                    <span>
+                      09 марта 2021
+                    </span>
+                  </div>
+                </div>
+              </li>
+              <li
+                class="swiper-slide"
+                data-swiper-slide-index="3"
+                style="list-style-type: none;"
+              >
+                <div
+                  class="ArticleCard"
+                >
+                  <img
+                    alt="Получить выгоду – Легко!"
+                    class="ArticleCard__image"
+                    src="Image_4.jpg"
+                  />
+                  <div
+                    class="ArticleCard__content"
+                  >
+                    <h3
+                      class="ArticleCard__title"
+                    >
+                      Получить выгоду – Легко!
+                    </h3>
+                    <p
+                      class="ArticleCard__description"
+                    >
+                      И это не просто слоган!
+Легко – это единая бонусная карта. 
+Отличительной особенностью данной карты является её универсальность
+                    </p>
+                  </div>
+                  <div
+                    class="ArticleCard__date"
+                  >
+                    <img
+                      alt="calendar icon"
+                      src="calendar-alt-regular.svg"
+                    />
+                    <span>
+                      09 марта 2021
+                    </span>
+                  </div>
+                </div>
+              </li>
+              <li
+                class="swiper-slide swiper-slide-duplicate"
+                data-swiper-slide-index="0"
+                style="list-style-type: none;"
+              >
+                <div
+                  class="ArticleCard"
+                >
+                  <img
+                    alt="За подарками – в аптеку!"
+                    class="ArticleCard__image"
+                    src="Image_1.jpg"
+                  />
+                  <div
+                    class="ArticleCard__content"
+                  >
+                    <h3
+                      class="ArticleCard__title"
+                    >
+                      За подарками – в аптеку!
+                    </h3>
+                    <p
+                      class="ArticleCard__description"
+                    >
+                      ТОП 10 полезных подарков на 8 марта для прекрасных дам. 
+                    </p>
+                  </div>
+                  <div
+                    class="ArticleCard__date"
+                  >
+                    <img
+                      alt="calendar icon"
+                      src="calendar-alt-regular.svg"
+                    />
+                    <span>
+                      09 марта 2021
+                    </span>
+                  </div>
+                </div>
+              </li>
+              <li
+                class="swiper-slide swiper-slide-duplicate"
+                data-swiper-slide-index="1"
+                style="list-style-type: none;"
+              >
+                <div
+                  class="ArticleCard"
+                >
+                  <img
+                    alt="Держим курс на весну!"
+                    class="ArticleCard__image"
+                    src="Image_2.jpg"
+                  />
+                  <div
+                    class="ArticleCard__content"
+                  >
+                    <h3
+                      class="ArticleCard__title"
+                    >
+                      Держим курс на весну!
+                    </h3>
+                    <p
+                      class="ArticleCard__description"
+                    >
+                      Календарная весна уже наступила, а значит, совсем скоро природа начнет просыпаться от зимней спячки и придет долгожданное тепло. 
+                    </p>
+                  </div>
+                  <div
+                    class="ArticleCard__date"
+                  >
+                    <img
+                      alt="calendar icon"
+                      src="calendar-alt-regular.svg"
+                    />
+                    <span>
+                      09 марта 2021
+                    </span>
+                  </div>
+                </div>
+              </li>
+              <li
+                class="swiper-slide swiper-slide-duplicate"
+                data-swiper-slide-index="2"
+                style="list-style-type: none;"
+              >
+                <div
+                  class="ArticleCard"
+                >
+                  <img
+                    alt="Простуда: что делать и какие препараты добавить в аптечку?"
+                    class="ArticleCard__image"
+                    src="Image_3.jpg"
+                  />
+                  <div
+                    class="ArticleCard__content"
+                  >
+                    <h3
+                      class="ArticleCard__title"
+                    >
+                      Простуда: что делать и какие препараты добавить в аптечку?
+                    </h3>
+                    <p
+                      class="ArticleCard__description"
+                    >
+                      Чаще всего простуда настигает нас в самый неподходящий момент. 
+Мы собрали для вас 5 простых шагов, что делать при первых симптомах простуды, а также список необходимых препаратов от простуды и гриппа.
+                    </p>
+                  </div>
+                  <div
+                    class="ArticleCard__date"
+                  >
+                    <img
+                      alt="calendar icon"
+                      src="calendar-alt-regular.svg"
+                    />
+                    <span>
+                      09 марта 2021
+                    </span>
+                  </div>
+                </div>
+              </li>
+              <li
+                class="swiper-slide swiper-slide-duplicate"
+                data-swiper-slide-index="3"
+                style="list-style-type: none;"
+              >
+                <div
+                  class="ArticleCard"
+                >
+                  <img
+                    alt="Получить выгоду – Легко!"
+                    class="ArticleCard__image"
+                    src="Image_4.jpg"
+                  />
+                  <div
+                    class="ArticleCard__content"
+                  >
+                    <h3
+                      class="ArticleCard__title"
+                    >
+                      Получить выгоду – Легко!
+                    </h3>
+                    <p
+                      class="ArticleCard__description"
+                    >
+                      И это не просто слоган!
+Легко – это единая бонусная карта. 
+Отличительной особенностью данной карты является её универсальность
+                    </p>
+                  </div>
+                  <div
+                    class="ArticleCard__date"
+                  >
+                    <img
+                      alt="calendar icon"
+                      src="calendar-alt-regular.svg"
+                    />
+                    <span>
+                      09 марта 2021
+                    </span>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </section>
+        </div>
+        <div
+          style="display: flex; justify-content: center; align-items: center; width: 100%; padding: 0px 0px 15px;"
+        >
+          <a
+            class="ArticlesBlock__button"
+            href="/promotions/"
+          >
+            все полезные советы
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+</DocumentFragment>
+`;

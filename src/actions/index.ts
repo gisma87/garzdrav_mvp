@@ -580,14 +580,17 @@ const authorizedByEmail = (email: string, code: string, callback: null | (() => 
     try {
         const response = await apiService.authenticationByEmail(email, code)
         dispatch(setToken(response))
+        localStorage.setItem('TOKEN', JSON.stringify(response))
         dispatch(getDataProfile())
         dispatch(getToFavorites())
+        dispatch(setErrorAuth(null))
         // запускаю callback для которого нужна авторизация.
         if (callback) callback();
     } catch (e) {
         console.log(e)
         dispatch(setError(e))
     }
+    dispatch(loadingFalse())
 }
 
 // записываем избранное в store
@@ -624,7 +627,7 @@ function getToFavorites(): ThunkType {
                 dispatch(setFavoritesToStore(response))
             }
         } catch (e) {
-            // dispatch(setError(e))
+            console.log('failed getToFavorites', e)
         }
     }
 }
@@ -643,7 +646,7 @@ function addToFavorites(productGuid: string): ThunkType {
                 dispatch(addFavoritesToStore(response))
             }
         } catch (e) {
-            // dispatch(setError(e))
+            console.log('failed addToFavorites', e)
             return Promise.reject('failed addToFavorites')
         }
     }
@@ -661,7 +664,7 @@ function delToFavorites(productGuid: string): ThunkType {
                 }
             }
         } catch (e) {
-            dispatch(setError(e))
+            console.log('failed delToFavorites', e)
             return Promise.reject('failed delToFavorites')
         }
     }
@@ -842,6 +845,7 @@ function setPromoItems(promoItems: TypePromoItems): ActionSetPromoItems {
 
 // доп.продажи complexes для отображения в блоке "Вам пригодится"
 const getPromoItem = (productGuid: string[]): ThunkType => async (dispatch, getState, apiService) => {
+    //присваиваем запросу ID, чтобы записать в результаты только последний запрос, в случае, если их будет несколько.
     const IDfetch = Math.random()
     dispatch(setIDfetchPromo(IDfetch))
     const cityGuid = getState().isCity.guid
