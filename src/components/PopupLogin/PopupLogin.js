@@ -177,8 +177,8 @@ const PopupLogin = props => {
         <div className='PopupLogin__buttonContainer'>
           <button
             type='button'
-            // disabled={!formValid}
             // onClick={() => apiService.getSmsCode(phone)}
+            className={"PopupLogin__button " + ((formValid && !isShowTimer && !isFetchCode) ? "PopupLogin__button_active" : '')}
             onClick={(event) => {
               if (!isShowTimer && !isFetchCode) {
                 validateForm(event)
@@ -186,20 +186,22 @@ const PopupLogin = props => {
                   setIsFetchCode(true)
                   setIsShowTimer(true)
                   apiService.getEmailCode(email)
-                    .then(_ => {
-                      setIsSendCode(true)
-                    })
+                    .then(_ => setIsSendCode(true))
                     .finally(() => setIsFetchCode(false))
                 }
               }
             }}
-            className={"PopupLogin__button " + ((formValid && !isShowTimer && !isFetchCode) ? "PopupLogin__button_active" : '')}>
-            {isShowTimer ? <div><span className='PopupLogin__textMessage'>Отправить повторно</span>
+          >
+            <div style={isShowTimer ? {display: 'block'} : {display: 'none'}}>
+              <span className='PopupLogin__textMessage'>Отправить повторно</span>
               <div className='PopupLogin__timerContainer'>
                 <LoaderTimer active={isShowTimer} seconds={60} hideTimer={() => setIsShowTimer(false)}/>
               </div>
-            </div> : 'Получить код'}
+            </div>
+            <span style={!isShowTimer ? {display: 'block'} : {display: 'none'}}>Получить код</span>
+
           </button>
+
           <button type='submit'
             // disabled={!formValid && !smsCodeOrPassword}
                   className={"PopupLogin__button " + ((formValid && smsCodeOrPassword) ? "PopupLogin__button_active" : '')}
