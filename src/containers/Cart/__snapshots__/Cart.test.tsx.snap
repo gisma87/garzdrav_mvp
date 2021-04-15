@@ -1,10 +1,2850 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Cart Cart page 2 1`] = `
+<DocumentFragment>
+  <div
+    class="Cart wrapper"
+  >
+    <div
+      class="Cart__topPanel"
+    >
+      <div
+        class="Cart__pageTitle"
+      >
+        <p
+          class="Cart__pageNumber"
+        >
+          1
+        </p>
+        <p
+          class="Cart__pageName"
+        >
+          Корзина
+        </p>
+      </div>
+      <svg
+        class="Cart__pageArrow"
+        height="1em"
+        viewBox="0 0 448 512"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M340.485 366l99.03-99.029c4.686-4.686 4.686-12.284 0-16.971l-99.03-99.029c-7.56-7.56-20.485-2.206-20.485 8.485v71.03H12c-6.627 0-12 5.373-12 12v32c0 6.627 5.373 12 12 12h308v71.03c0 10.689 12.926 16.043 20.485 8.484z"
+          fill="currentColor"
+        />
+      </svg>
+      <div
+        class="Cart__pageTitle"
+      >
+        <p
+          class="Cart__pageNumber Cart__pageNumber_active"
+        >
+          2
+        </p>
+        <p
+          class="Cart__pageName"
+        >
+          Выбор аптеки
+        </p>
+      </div>
+      <svg
+        class="Cart__pageArrow"
+        height="1em"
+        viewBox="0 0 448 512"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M340.485 366l99.03-99.029c4.686-4.686 4.686-12.284 0-16.971l-99.03-99.029c-7.56-7.56-20.485-2.206-20.485 8.485v71.03H12c-6.627 0-12 5.373-12 12v32c0 6.627 5.373 12 12 12h308v71.03c0 10.689 12.926 16.043 20.485 8.484z"
+          fill="currentColor"
+        />
+      </svg>
+      <div
+        class="Cart__pageTitle"
+      >
+        <p
+          class="Cart__pageNumber"
+        >
+          3
+        </p>
+        <p
+          class="Cart__pageName"
+        >
+          Подтверждение заказа
+        </p>
+      </div>
+    </div>
+    <section
+      class="Cart__choiceRetail"
+    >
+      <h3
+        class="Cart__choiceRetailTitle"
+      >
+        Выберите аптеку, в которой хотите забрать заказ
+      </h3>
+      <div
+        class="Cart__buttonContainer"
+      >
+        <button
+          class="Cart__menuButton Cart__menuButton_active"
+        >
+          Показать списком
+        </button>
+        <button
+          class="Cart__menuButton"
+        >
+          Показать на карте
+        </button>
+      </div>
+      <div
+        class="Cart__blockTitle"
+      >
+        <h2
+          class="Cart__titleChoice"
+        >
+          Всё в наличии:
+        </h2>
+      </div>
+      <div
+        class="BlockWrapper Cart__blockMoreItems"
+      >
+        <div
+          class="RetailCheckPanel"
+        >
+          <div
+            class="RetailCheckPanel__mainContainer"
+          >
+            <div
+              class="RetailCheckPanel__content RetailCheckPanel__block"
+            >
+              <p
+                class="RetailCheckPanel__name"
+              >
+                <img
+                  alt="Адрес"
+                  src="location.svg"
+                />
+                Адрес:
+                <span
+                  class="RetailCheckPanel__address"
+                >
+                  г. Красноярск, ул. Металлургов, 34
+                </span>
+              </p>
+              <p
+                class="RetailCheckPanel__openHours"
+              >
+                <img
+                  alt="Часы работы"
+                  src="clock.svg"
+                />
+                Часы работы: 
+                <span>
+                  08:00 - 22:00
+                </span>
+              </p>
+              <p
+                class="RetailCheckPanel__tel"
+              >
+                <img
+                  alt="Телефон"
+                  src="phone.svg"
+                />
+                Контактный телефон: 
+                <span>
+                  8 (391) 299-36-36
+                </span>
+              </p>
+            </div>
+            <div
+              class="RetailCheckPanel__priceContainer"
+            >
+              <div
+                class="RetailCheckPanel__price"
+              >
+                <p>
+                  Сумма: 260 ₽
+                </p>
+                <div
+                  class="RetailCheckPanel__descriptionContainer"
+                >
+                  <p
+                    style="font-size: 14px; color: green; display: inline; border-bottom: 1px dashed #000; cursor: pointer;"
+                  >
+                    все товары 
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div
+              class="RetailCheckPanel__btnContainer"
+            >
+              <button
+                class="RetailCheckPanel__button"
+              >
+                Выбрать эту аптеку
+              </button>
+            </div>
+          </div>
+          <div
+            class="ProductListDropdown ProductListDropdown_contentDisabled"
+            style="height: 0px;"
+          >
+            <div
+              class="ProductListDropdown__contentDropdown"
+            >
+              <h3
+                class="ProductListDropdown__title"
+              >
+                В наличии в аптеке:
+              </h3>
+              <div
+                class="ProductListDropdown__item"
+              >
+                <p
+                  class="ProductListDropdown__titleItem"
+                >
+                  ПИРАЦЕТАМ 200МГ. №60 ТАБ. П/П/О /ОБНОВЛЕНИЕ/
+                </p>
+                <div
+                  class="ProductListDropdown__priceContainer"
+                >
+                  <p
+                    class="ProductListDropdown__count"
+                  >
+                    1шт. * 75 ₽/шт.
+                  </p>
+                  <p
+                    class="ProductListDropdown__price"
+                  >
+                    75.00 ₽
+                  </p>
+                </div>
+              </div>
+              <div
+                class="ProductListDropdown__item"
+              >
+                <p
+                  class="ProductListDropdown__titleItem"
+                >
+                  НАЗИВИН 0,01% 5МЛ. №1 НАЗАЛ.КАПЛИ ФЛ./КАП.
+                </p>
+                <div
+                  class="ProductListDropdown__priceContainer"
+                >
+                  <p
+                    class="ProductListDropdown__count"
+                  >
+                    1шт. * 185 ₽/шт.
+                  </p>
+                  <p
+                    class="ProductListDropdown__price"
+                  >
+                    185.00 ₽
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h2
+        class="Cart__titleChoice"
+      >
+        Нет части товаров: 
+      </h2>
+      <div
+        class="BlockWrapper Cart__blockMoreItems"
+      >
+        <div
+          class="RetailCheckPanel"
+        >
+          <div
+            class="RetailCheckPanel__mainContainer"
+          >
+            <div
+              class="RetailCheckPanel__content RetailCheckPanel__block"
+            >
+              <p
+                class="RetailCheckPanel__name"
+              >
+                <img
+                  alt="Адрес"
+                  src="location.svg"
+                />
+                Адрес:
+                <span
+                  class="RetailCheckPanel__address"
+                >
+                  г. Красноярск, ул. Железнодорожников, 14
+                </span>
+              </p>
+              <p
+                class="RetailCheckPanel__openHours"
+              >
+                <img
+                  alt="Часы работы"
+                  src="clock.svg"
+                />
+                Часы работы: 
+                <span>
+                  08:00 - 22:00
+                </span>
+              </p>
+              <p
+                class="RetailCheckPanel__tel"
+              >
+                <img
+                  alt="Телефон"
+                  src="phone.svg"
+                />
+                Контактный телефон: 
+                <span>
+                  8 (391) 200-16-50
+                </span>
+              </p>
+            </div>
+            <div
+              class="RetailCheckPanel__priceContainer"
+            >
+              <div
+                class="RetailCheckPanel__price"
+              >
+                <p>
+                  Сумма: 75 ₽
+                </p>
+                <div
+                  class="RetailCheckPanel__descriptionContainer"
+                >
+                  <p
+                    style="color: red; font-size: 14px; display: inline; border-bottom: 1px dashed #000; cursor: pointer;"
+                  >
+                     1 из 2 товаров 
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div
+              class="RetailCheckPanel__btnContainer"
+            >
+              <button
+                class="RetailCheckPanel__button"
+              >
+                Выбрать эту аптеку
+              </button>
+            </div>
+          </div>
+          <div
+            class="ProductListDropdown ProductListDropdown_contentDisabled"
+            style="height: 0px;"
+          >
+            <div
+              class="ProductListDropdown__contentDropdown"
+            >
+              <h3
+                class="ProductListDropdown__title"
+              >
+                В наличии в аптеке:
+              </h3>
+              <div
+                class="ProductListDropdown__item"
+              >
+                <p
+                  class="ProductListDropdown__titleItem"
+                >
+                  ПИРАЦЕТАМ 200МГ. №60 ТАБ. П/П/О /ОБНОВЛЕНИЕ/
+                </p>
+                <div
+                  class="ProductListDropdown__priceContainer"
+                >
+                  <p
+                    class="ProductListDropdown__count"
+                  >
+                    1шт. * 75 ₽/шт.
+                  </p>
+                  <p
+                    class="ProductListDropdown__price"
+                  >
+                    75.00 ₽
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="RetailCheckPanel"
+        >
+          <div
+            class="RetailCheckPanel__mainContainer"
+          >
+            <div
+              class="RetailCheckPanel__content RetailCheckPanel__block"
+            >
+              <p
+                class="RetailCheckPanel__name"
+              >
+                <img
+                  alt="Адрес"
+                  src="location.svg"
+                />
+                Адрес:
+                <span
+                  class="RetailCheckPanel__address"
+                >
+                  г. Красноярск, ул. Ястынская, 19а
+                </span>
+              </p>
+              <p
+                class="RetailCheckPanel__openHours"
+              >
+                <img
+                  alt="Часы работы"
+                  src="clock.svg"
+                />
+                Часы работы: 
+                <span>
+                  08:00 - 22:00
+                </span>
+              </p>
+              <p
+                class="RetailCheckPanel__tel"
+              >
+                <img
+                  alt="Телефон"
+                  src="phone.svg"
+                />
+                Контактный телефон: 
+                <span>
+                  8 (391) 216-50-77
+                </span>
+              </p>
+            </div>
+            <div
+              class="RetailCheckPanel__priceContainer"
+            >
+              <div
+                class="RetailCheckPanel__price"
+              >
+                <p>
+                  Сумма: 76 ₽
+                </p>
+                <div
+                  class="RetailCheckPanel__descriptionContainer"
+                >
+                  <p
+                    style="color: red; font-size: 14px; display: inline; border-bottom: 1px dashed #000; cursor: pointer;"
+                  >
+                     1 из 2 товаров 
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div
+              class="RetailCheckPanel__btnContainer"
+            >
+              <button
+                class="RetailCheckPanel__button"
+              >
+                Выбрать эту аптеку
+              </button>
+            </div>
+          </div>
+          <div
+            class="ProductListDropdown ProductListDropdown_contentDisabled"
+            style="height: 0px;"
+          >
+            <div
+              class="ProductListDropdown__contentDropdown"
+            >
+              <h3
+                class="ProductListDropdown__title"
+              >
+                В наличии в аптеке:
+              </h3>
+              <div
+                class="ProductListDropdown__item"
+              >
+                <p
+                  class="ProductListDropdown__titleItem"
+                >
+                  ПИРАЦЕТАМ 200МГ. №60 ТАБ. П/П/О /ОБНОВЛЕНИЕ/
+                </p>
+                <div
+                  class="ProductListDropdown__priceContainer"
+                >
+                  <p
+                    class="ProductListDropdown__count"
+                  >
+                    1шт. * 76 ₽/шт.
+                  </p>
+                  <p
+                    class="ProductListDropdown__price"
+                  >
+                    76.00 ₽
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="RetailCheckPanel"
+        >
+          <div
+            class="RetailCheckPanel__mainContainer"
+          >
+            <div
+              class="RetailCheckPanel__content RetailCheckPanel__block"
+            >
+              <p
+                class="RetailCheckPanel__name"
+              >
+                <img
+                  alt="Адрес"
+                  src="location.svg"
+                />
+                Адрес:
+                <span
+                  class="RetailCheckPanel__address"
+                >
+                  г. Красноярск, ул. Мартынова, 24
+                </span>
+              </p>
+              <p
+                class="RetailCheckPanel__openHours"
+              >
+                <img
+                  alt="Часы работы"
+                  src="clock.svg"
+                />
+                Часы работы: 
+                <span>
+                  08:00 - 22:00
+                </span>
+              </p>
+              <p
+                class="RetailCheckPanel__tel"
+              >
+                <img
+                  alt="Телефон"
+                  src="phone.svg"
+                />
+                Контактный телефон: 
+                <span>
+                  8 (391) 218-18-90
+                </span>
+              </p>
+            </div>
+            <div
+              class="RetailCheckPanel__priceContainer"
+            >
+              <div
+                class="RetailCheckPanel__price"
+              >
+                <p>
+                  Сумма: 77 ₽
+                </p>
+                <div
+                  class="RetailCheckPanel__descriptionContainer"
+                >
+                  <p
+                    style="color: red; font-size: 14px; display: inline; border-bottom: 1px dashed #000; cursor: pointer;"
+                  >
+                     1 из 2 товаров 
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div
+              class="RetailCheckPanel__btnContainer"
+            >
+              <button
+                class="RetailCheckPanel__button"
+              >
+                Выбрать эту аптеку
+              </button>
+            </div>
+          </div>
+          <div
+            class="ProductListDropdown ProductListDropdown_contentDisabled"
+            style="height: 0px;"
+          >
+            <div
+              class="ProductListDropdown__contentDropdown"
+            >
+              <h3
+                class="ProductListDropdown__title"
+              >
+                В наличии в аптеке:
+              </h3>
+              <div
+                class="ProductListDropdown__item"
+              >
+                <p
+                  class="ProductListDropdown__titleItem"
+                >
+                  ПИРАЦЕТАМ 200МГ. №60 ТАБ. П/П/О /ОБНОВЛЕНИЕ/
+                </p>
+                <div
+                  class="ProductListDropdown__priceContainer"
+                >
+                  <p
+                    class="ProductListDropdown__count"
+                  >
+                    1шт. * 77 ₽/шт.
+                  </p>
+                  <p
+                    class="ProductListDropdown__price"
+                  >
+                    77.00 ₽
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="RetailCheckPanel"
+        >
+          <div
+            class="RetailCheckPanel__mainContainer"
+          >
+            <div
+              class="RetailCheckPanel__content RetailCheckPanel__block"
+            >
+              <p
+                class="RetailCheckPanel__name"
+              >
+                <img
+                  alt="Адрес"
+                  src="location.svg"
+                />
+                Адрес:
+                <span
+                  class="RetailCheckPanel__address"
+                >
+                  г. Красноярск, ул. Тотмина, 8
+                </span>
+              </p>
+              <p
+                class="RetailCheckPanel__openHours"
+              >
+                <img
+                  alt="Часы работы"
+                  src="clock.svg"
+                />
+                Часы работы: 
+                <span>
+                  08:00 - 22:00
+                </span>
+              </p>
+              <p
+                class="RetailCheckPanel__tel"
+              >
+                <img
+                  alt="Телефон"
+                  src="phone.svg"
+                />
+                Контактный телефон: 
+                <span>
+                  8 (391) 218-15-52
+                </span>
+              </p>
+            </div>
+            <div
+              class="RetailCheckPanel__priceContainer"
+            >
+              <div
+                class="RetailCheckPanel__price"
+              >
+                <p>
+                  Сумма: 187 ₽
+                </p>
+                <div
+                  class="RetailCheckPanel__descriptionContainer"
+                >
+                  <p
+                    style="color: red; font-size: 14px; display: inline; border-bottom: 1px dashed #000; cursor: pointer;"
+                  >
+                     1 из 2 товаров 
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div
+              class="RetailCheckPanel__btnContainer"
+            >
+              <button
+                class="RetailCheckPanel__button"
+              >
+                Выбрать эту аптеку
+              </button>
+            </div>
+          </div>
+          <div
+            class="ProductListDropdown ProductListDropdown_contentDisabled"
+            style="height: 0px;"
+          >
+            <div
+              class="ProductListDropdown__contentDropdown"
+            >
+              <h3
+                class="ProductListDropdown__title"
+              >
+                В наличии в аптеке:
+              </h3>
+              <div
+                class="ProductListDropdown__item"
+              >
+                <p
+                  class="ProductListDropdown__titleItem"
+                >
+                  НАЗИВИН 0,01% 5МЛ. №1 НАЗАЛ.КАПЛИ ФЛ./КАП.
+                </p>
+                <div
+                  class="ProductListDropdown__priceContainer"
+                >
+                  <p
+                    class="ProductListDropdown__count"
+                  >
+                    1шт. * 187 ₽/шт.
+                  </p>
+                  <p
+                    class="ProductListDropdown__price"
+                  >
+                    187.00 ₽
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="RetailCheckPanel"
+        >
+          <div
+            class="RetailCheckPanel__mainContainer"
+          >
+            <div
+              class="RetailCheckPanel__content RetailCheckPanel__block"
+            >
+              <p
+                class="RetailCheckPanel__name"
+              >
+                <img
+                  alt="Адрес"
+                  src="location.svg"
+                />
+                Адрес:
+                <span
+                  class="RetailCheckPanel__address"
+                >
+                  г. Красноярск, ул. Красноярский рабочий, 165
+                </span>
+              </p>
+              <p
+                class="RetailCheckPanel__openHours"
+              >
+                <img
+                  alt="Часы работы"
+                  src="clock.svg"
+                />
+                Часы работы: 
+                <span>
+                  08:00 - 22:00
+                </span>
+              </p>
+              <p
+                class="RetailCheckPanel__tel"
+              >
+                <img
+                  alt="Телефон"
+                  src="phone.svg"
+                />
+                Контактный телефон: 
+                <span>
+                  8 (391) 234-45-45
+                </span>
+              </p>
+            </div>
+            <div
+              class="RetailCheckPanel__priceContainer"
+            >
+              <div
+                class="RetailCheckPanel__price"
+              >
+                <p>
+                  Сумма: 232 ₽
+                </p>
+                <div
+                  class="RetailCheckPanel__descriptionContainer"
+                >
+                  <p
+                    style="color: red; font-size: 14px; display: inline; border-bottom: 1px dashed #000; cursor: pointer;"
+                  >
+                     1 из 2 товаров 
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div
+              class="RetailCheckPanel__btnContainer"
+            >
+              <button
+                class="RetailCheckPanel__button"
+              >
+                Выбрать эту аптеку
+              </button>
+            </div>
+          </div>
+          <div
+            class="ProductListDropdown ProductListDropdown_contentDisabled"
+            style="height: 0px;"
+          >
+            <div
+              class="ProductListDropdown__contentDropdown"
+            >
+              <h3
+                class="ProductListDropdown__title"
+              >
+                В наличии в аптеке:
+              </h3>
+              <div
+                class="ProductListDropdown__item"
+              >
+                <p
+                  class="ProductListDropdown__titleItem"
+                >
+                  НАЗИВИН 0,01% 5МЛ. №1 НАЗАЛ.КАПЛИ ФЛ./КАП.
+                </p>
+                <div
+                  class="ProductListDropdown__priceContainer"
+                >
+                  <p
+                    class="ProductListDropdown__count"
+                  >
+                    1шт. * 232 ₽/шт.
+                  </p>
+                  <p
+                    class="ProductListDropdown__price"
+                  >
+                    232.00 ₽
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="PopupWrapper"
+      >
+        <div
+          class="Backdrop"
+        />
+        <div
+          class="PopupWrapper__content PopupMapCart"
+        >
+          <div
+            class="PopupWrapper__close"
+          >
+            <svg
+              class="closeIcon"
+              height="1em"
+              viewBox="0 0 320 512"
+              width="1em"
+            >
+              <path
+                d="M207.6 256l107.72-107.72c6.23-6.23 6.23-16.34 0-22.58l-25.03-25.03c-6.23-6.23-16.34-6.23-22.58 0L160 208.4 52.28 100.68c-6.23-6.23-16.34-6.23-22.58 0L4.68 125.7c-6.23 6.23-6.23 16.34 0 22.58L112.4 256 4.68 363.72c-6.23 6.23-6.23 16.34 0 22.58l25.03 25.03c6.23 6.23 16.34 6.23 22.58 0L160 303.6l107.72 107.72c6.23 6.23 16.34 6.23 22.58 0l25.03-25.03c6.23-6.23 6.23-16.34 0-22.58L207.6 256z"
+                fill="currentColor"
+              />
+            </svg>
+          </div>
+          <h1>
+            Аптеки в г. Абакан
+          </h1>
+          <div
+            class="PopupMapCart__mainContainer"
+          >
+            <div
+              class="BlockWrapper PopupMapCart__retails"
+            >
+              <ul>
+                <li
+                  class="RetailItem"
+                >
+                  <div
+                    class="RetailItem__retailItemContainer"
+                  >
+                    <div
+                      class="RetailItem__itemBlock"
+                    >
+                      <span
+                        class="RetailItem__itemTitle"
+                      >
+                        Дешёвая Аптека
+                      </span>
+                      <span
+                        class="RetailItem__itemAddress"
+                      >
+                        Металлургов 34
+                      </span>
+                      <span
+                        class="RetailItem__textClock"
+                      >
+                        Часы работы: 08:00 - 22:00
+                      </span>
+                      <span
+                        class="RetailItem__textClock"
+                      >
+                        Телефон: 
+                        <a
+                          href="tel:8 (391) 299-36-36"
+                        >
+                          8 (391) 299-36-36
+                        </a>
+                      </span>
+                    </div>
+                    <div
+                      class="RetailItem__priceContainer"
+                    >
+                      <p>
+                        260 ₽
+                      </p>
+                      <button
+                        class="RetailItem__button"
+                      >
+                        Выбрать
+                      </button>
+                    </div>
+                  </div>
+                </li>
+                <li
+                  class="RetailItem"
+                >
+                  <div
+                    class="RetailItem__retailItemContainer"
+                  >
+                    <div
+                      class="RetailItem__itemBlock"
+                    >
+                      <span
+                        class="RetailItem__itemTitle"
+                      >
+                        Гармония Здоровья
+                      </span>
+                      <span
+                        class="RetailItem__itemAddress"
+                      >
+                        Железнодорожников 14
+                      </span>
+                      <span
+                        class="RetailItem__textClock"
+                      >
+                        Часы работы: 08:00 - 22:00
+                      </span>
+                      <span
+                        class="RetailItem__textClock"
+                      >
+                        Телефон: 
+                        <a
+                          href="tel:8 (391) 200-16-50"
+                        >
+                          8 (391) 200-16-50
+                        </a>
+                      </span>
+                    </div>
+                    <div
+                      class="RetailItem__priceContainer"
+                    >
+                      <p>
+                        75 ₽
+                      </p>
+                      <button
+                        class="RetailItem__button"
+                      >
+                        Выбрать
+                      </button>
+                    </div>
+                  </div>
+                  <p
+                    class="colorRed"
+                  >
+                    не все позиции в наличии
+                  </p>
+                </li>
+                <li
+                  class="RetailItem"
+                >
+                  <div
+                    class="RetailItem__retailItemContainer"
+                  >
+                    <div
+                      class="RetailItem__itemBlock"
+                    >
+                      <span
+                        class="RetailItem__itemTitle"
+                      >
+                        Дешёвая Аптека
+                      </span>
+                      <span
+                        class="RetailItem__itemAddress"
+                      >
+                        Ястынская 19а
+                      </span>
+                      <span
+                        class="RetailItem__textClock"
+                      >
+                        Часы работы: 08:00 - 22:00
+                      </span>
+                      <span
+                        class="RetailItem__textClock"
+                      >
+                        Телефон: 
+                        <a
+                          href="tel:8 (391) 216-50-77"
+                        >
+                          8 (391) 216-50-77
+                        </a>
+                      </span>
+                    </div>
+                    <div
+                      class="RetailItem__priceContainer"
+                    >
+                      <p>
+                        76 ₽
+                      </p>
+                      <button
+                        class="RetailItem__button"
+                      >
+                        Выбрать
+                      </button>
+                    </div>
+                  </div>
+                  <p
+                    class="colorRed"
+                  >
+                    не все позиции в наличии
+                  </p>
+                </li>
+                <li
+                  class="RetailItem"
+                >
+                  <div
+                    class="RetailItem__retailItemContainer"
+                  >
+                    <div
+                      class="RetailItem__itemBlock"
+                    >
+                      <span
+                        class="RetailItem__itemTitle"
+                      >
+                        ВСЕМ (В7)
+                      </span>
+                      <span
+                        class="RetailItem__itemAddress"
+                      >
+                        Мартынова 24
+                      </span>
+                      <span
+                        class="RetailItem__textClock"
+                      >
+                        Часы работы: 08:00 - 22:00
+                      </span>
+                      <span
+                        class="RetailItem__textClock"
+                      >
+                        Телефон: 
+                        <a
+                          href="tel:8 (391) 218-18-90"
+                        >
+                          8 (391) 218-18-90
+                        </a>
+                      </span>
+                    </div>
+                    <div
+                      class="RetailItem__priceContainer"
+                    >
+                      <p>
+                        77 ₽
+                      </p>
+                      <button
+                        class="RetailItem__button"
+                      >
+                        Выбрать
+                      </button>
+                    </div>
+                  </div>
+                  <p
+                    class="colorRed"
+                  >
+                    не все позиции в наличии
+                  </p>
+                </li>
+                <li
+                  class="RetailItem"
+                >
+                  <div
+                    class="RetailItem__retailItemContainer"
+                  >
+                    <div
+                      class="RetailItem__itemBlock"
+                    >
+                      <span
+                        class="RetailItem__itemTitle"
+                      >
+                        Дешёвая Аптека
+                      </span>
+                      <span
+                        class="RetailItem__itemAddress"
+                      >
+                        Тотмина 8
+                      </span>
+                      <span
+                        class="RetailItem__textClock"
+                      >
+                        Часы работы: 08:00 - 22:00
+                      </span>
+                      <span
+                        class="RetailItem__textClock"
+                      >
+                        Телефон: 
+                        <a
+                          href="tel:8 (391) 218-15-52"
+                        >
+                          8 (391) 218-15-52
+                        </a>
+                      </span>
+                    </div>
+                    <div
+                      class="RetailItem__priceContainer"
+                    >
+                      <p>
+                        187 ₽
+                      </p>
+                      <button
+                        class="RetailItem__button"
+                      >
+                        Выбрать
+                      </button>
+                    </div>
+                  </div>
+                  <p
+                    class="colorRed"
+                  >
+                    не все позиции в наличии
+                  </p>
+                </li>
+                <li
+                  class="RetailItem"
+                >
+                  <div
+                    class="RetailItem__retailItemContainer"
+                  >
+                    <div
+                      class="RetailItem__itemBlock"
+                    >
+                      <span
+                        class="RetailItem__itemTitle"
+                      >
+                        Гармония Здоровья
+                      </span>
+                      <span
+                        class="RetailItem__itemAddress"
+                      >
+                        Красноярский рабочий 165
+                      </span>
+                      <span
+                        class="RetailItem__textClock"
+                      >
+                        Часы работы: 08:00 - 22:00
+                      </span>
+                      <span
+                        class="RetailItem__textClock"
+                      >
+                        Телефон: 
+                        <a
+                          href="tel:8 (391) 234-45-45"
+                        >
+                          8 (391) 234-45-45
+                        </a>
+                      </span>
+                    </div>
+                    <div
+                      class="RetailItem__priceContainer"
+                    >
+                      <p>
+                        232 ₽
+                      </p>
+                      <button
+                        class="RetailItem__button"
+                      >
+                        Выбрать
+                      </button>
+                    </div>
+                  </div>
+                  <p
+                    class="colorRed"
+                  >
+                    не все позиции в наличии
+                  </p>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Cart Cart page 2 2`] = `
+<DocumentFragment>
+  <div
+    class="Cart wrapper"
+  >
+    <div
+      class="Cart__topPanel"
+    >
+      <div
+        class="Cart__pageTitle"
+      >
+        <p
+          class="Cart__pageNumber"
+        >
+          1
+        </p>
+        <p
+          class="Cart__pageName"
+        >
+          Корзина
+        </p>
+      </div>
+      <svg
+        class="Cart__pageArrow"
+        height="1em"
+        viewBox="0 0 448 512"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M340.485 366l99.03-99.029c4.686-4.686 4.686-12.284 0-16.971l-99.03-99.029c-7.56-7.56-20.485-2.206-20.485 8.485v71.03H12c-6.627 0-12 5.373-12 12v32c0 6.627 5.373 12 12 12h308v71.03c0 10.689 12.926 16.043 20.485 8.484z"
+          fill="currentColor"
+        />
+      </svg>
+      <div
+        class="Cart__pageTitle"
+      >
+        <p
+          class="Cart__pageNumber Cart__pageNumber_active"
+        >
+          2
+        </p>
+        <p
+          class="Cart__pageName"
+        >
+          Выбор аптеки
+        </p>
+      </div>
+      <svg
+        class="Cart__pageArrow"
+        height="1em"
+        viewBox="0 0 448 512"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M340.485 366l99.03-99.029c4.686-4.686 4.686-12.284 0-16.971l-99.03-99.029c-7.56-7.56-20.485-2.206-20.485 8.485v71.03H12c-6.627 0-12 5.373-12 12v32c0 6.627 5.373 12 12 12h308v71.03c0 10.689 12.926 16.043 20.485 8.484z"
+          fill="currentColor"
+        />
+      </svg>
+      <div
+        class="Cart__pageTitle"
+      >
+        <p
+          class="Cart__pageNumber"
+        >
+          3
+        </p>
+        <p
+          class="Cart__pageName"
+        >
+          Подтверждение заказа
+        </p>
+      </div>
+    </div>
+    <section
+      class="Cart__choiceRetail"
+    >
+      <h3
+        class="Cart__choiceRetailTitle"
+      >
+        Выберите аптеку, в которой хотите забрать заказ
+      </h3>
+      <div
+        class="Cart__buttonContainer"
+      >
+        <button
+          class="Cart__menuButton Cart__menuButton_active"
+        >
+          Показать списком
+        </button>
+        <button
+          class="Cart__menuButton"
+        >
+          Показать на карте
+        </button>
+      </div>
+      <div
+        class="Cart__blockTitle"
+      >
+        <h2
+          class="Cart__titleChoice"
+        >
+          Всё в наличии:
+        </h2>
+      </div>
+      <div
+        class="BlockWrapper Cart__blockMoreItems"
+      >
+        <div
+          class="RetailCheckPanel"
+        >
+          <div
+            class="RetailCheckPanel__mainContainer"
+          >
+            <div
+              class="RetailCheckPanel__content RetailCheckPanel__block"
+            >
+              <p
+                class="RetailCheckPanel__name"
+              >
+                <img
+                  alt="Адрес"
+                  src="location.svg"
+                />
+                Адрес:
+                <span
+                  class="RetailCheckPanel__address"
+                >
+                  г. Красноярск, ул. Металлургов, 34
+                </span>
+              </p>
+              <p
+                class="RetailCheckPanel__openHours"
+              >
+                <img
+                  alt="Часы работы"
+                  src="clock.svg"
+                />
+                Часы работы: 
+                <span>
+                  08:00 - 22:00
+                </span>
+              </p>
+              <p
+                class="RetailCheckPanel__tel"
+              >
+                <img
+                  alt="Телефон"
+                  src="phone.svg"
+                />
+                Контактный телефон: 
+                <span>
+                  8 (391) 299-36-36
+                </span>
+              </p>
+            </div>
+            <div
+              class="RetailCheckPanel__priceContainer"
+            >
+              <div
+                class="RetailCheckPanel__price"
+              >
+                <p>
+                  Сумма: 335 ₽
+                </p>
+                <div
+                  class="RetailCheckPanel__descriptionContainer"
+                >
+                  <p
+                    style="font-size: 14px; color: green; display: inline; border-bottom: 1px dashed #000; cursor: pointer;"
+                  >
+                    все товары 
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div
+              class="RetailCheckPanel__btnContainer"
+            >
+              <button
+                class="RetailCheckPanel__button"
+              >
+                Выбрать эту аптеку
+              </button>
+            </div>
+          </div>
+          <div
+            class="ProductListDropdown ProductListDropdown_contentDisabled"
+            style="height: 0px;"
+          >
+            <div
+              class="ProductListDropdown__contentDropdown"
+            >
+              <h3
+                class="ProductListDropdown__title"
+              >
+                В наличии в аптеке:
+              </h3>
+              <div
+                class="ProductListDropdown__item"
+              >
+                <p
+                  class="ProductListDropdown__titleItem"
+                >
+                  ПИРАЦЕТАМ 200МГ. №60 ТАБ. П/П/О /ОБНОВЛЕНИЕ/
+                </p>
+                <div
+                  class="ProductListDropdown__priceContainer"
+                >
+                  <p
+                    class="ProductListDropdown__count"
+                  >
+                    2шт. * 75 ₽/шт.
+                  </p>
+                  <p
+                    class="ProductListDropdown__price"
+                  >
+                    150.00 ₽
+                  </p>
+                </div>
+              </div>
+              <div
+                class="ProductListDropdown__item"
+              >
+                <p
+                  class="ProductListDropdown__titleItem"
+                >
+                  НАЗИВИН 0,01% 5МЛ. №1 НАЗАЛ.КАПЛИ ФЛ./КАП.
+                </p>
+                <div
+                  class="ProductListDropdown__priceContainer"
+                >
+                  <p
+                    class="ProductListDropdown__count"
+                  >
+                    1шт. * 185 ₽/шт.
+                  </p>
+                  <p
+                    class="ProductListDropdown__price"
+                  >
+                    185.00 ₽
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h2
+        class="Cart__titleChoice"
+      >
+        Нет части товаров: 
+      </h2>
+      <div
+        class="BlockWrapper Cart__blockMoreItems"
+      >
+        <div
+          class="RetailCheckPanel"
+        >
+          <div
+            class="RetailCheckPanel__mainContainer"
+          >
+            <div
+              class="RetailCheckPanel__content RetailCheckPanel__block"
+            >
+              <p
+                class="RetailCheckPanel__name"
+              >
+                <img
+                  alt="Адрес"
+                  src="location.svg"
+                />
+                Адрес:
+                <span
+                  class="RetailCheckPanel__address"
+                >
+                  г. Красноярск, ул. Железнодорожников, 14
+                </span>
+              </p>
+              <p
+                class="RetailCheckPanel__openHours"
+              >
+                <img
+                  alt="Часы работы"
+                  src="clock.svg"
+                />
+                Часы работы: 
+                <span>
+                  08:00 - 22:00
+                </span>
+              </p>
+              <p
+                class="RetailCheckPanel__tel"
+              >
+                <img
+                  alt="Телефон"
+                  src="phone.svg"
+                />
+                Контактный телефон: 
+                <span>
+                  8 (391) 200-16-50
+                </span>
+              </p>
+            </div>
+            <div
+              class="RetailCheckPanel__priceContainer"
+            >
+              <div
+                class="RetailCheckPanel__price"
+              >
+                <p>
+                  Сумма: 75 ₽
+                </p>
+                <div
+                  class="RetailCheckPanel__descriptionContainer"
+                >
+                  <p
+                    style="color: red; font-size: 14px; display: inline; border-bottom: 1px dashed #000; cursor: pointer;"
+                  >
+                     1 из 2 товаров 
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div
+              class="RetailCheckPanel__btnContainer"
+            >
+              <button
+                class="RetailCheckPanel__button"
+              >
+                Выбрать эту аптеку
+              </button>
+            </div>
+          </div>
+          <div
+            class="ProductListDropdown ProductListDropdown_contentDisabled"
+            style="height: 0px;"
+          >
+            <div
+              class="ProductListDropdown__contentDropdown"
+            >
+              <h3
+                class="ProductListDropdown__title"
+              >
+                В наличии в аптеке:
+              </h3>
+              <div
+                class="ProductListDropdown__item"
+              >
+                <p
+                  class="ProductListDropdown__titleItem"
+                >
+                  ПИРАЦЕТАМ 200МГ. №60 ТАБ. П/П/О /ОБНОВЛЕНИЕ/
+                </p>
+                <div
+                  class="ProductListDropdown__priceContainer"
+                >
+                  <p
+                    class="ProductListDropdown__count"
+                  >
+                    1шт. * 75 ₽/шт.
+                  </p>
+                  <p
+                    class="ProductListDropdown__price"
+                  >
+                    75.00 ₽
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="RetailCheckPanel"
+        >
+          <div
+            class="RetailCheckPanel__mainContainer"
+          >
+            <div
+              class="RetailCheckPanel__content RetailCheckPanel__block"
+            >
+              <p
+                class="RetailCheckPanel__name"
+              >
+                <img
+                  alt="Адрес"
+                  src="location.svg"
+                />
+                Адрес:
+                <span
+                  class="RetailCheckPanel__address"
+                >
+                  г. Красноярск, ул. Ястынская, 19а
+                </span>
+              </p>
+              <p
+                class="RetailCheckPanel__openHours"
+              >
+                <img
+                  alt="Часы работы"
+                  src="clock.svg"
+                />
+                Часы работы: 
+                <span>
+                  08:00 - 22:00
+                </span>
+              </p>
+              <p
+                class="RetailCheckPanel__tel"
+              >
+                <img
+                  alt="Телефон"
+                  src="phone.svg"
+                />
+                Контактный телефон: 
+                <span>
+                  8 (391) 216-50-77
+                </span>
+              </p>
+            </div>
+            <div
+              class="RetailCheckPanel__priceContainer"
+            >
+              <div
+                class="RetailCheckPanel__price"
+              >
+                <p>
+                  Сумма: 152 ₽
+                </p>
+                <div
+                  class="RetailCheckPanel__descriptionContainer"
+                >
+                  <p
+                    style="color: red; font-size: 14px; display: inline; border-bottom: 1px dashed #000; cursor: pointer;"
+                  >
+                     1 из 2 товаров 
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div
+              class="RetailCheckPanel__btnContainer"
+            >
+              <button
+                class="RetailCheckPanel__button"
+              >
+                Выбрать эту аптеку
+              </button>
+            </div>
+          </div>
+          <div
+            class="ProductListDropdown ProductListDropdown_contentDisabled"
+            style="height: 0px;"
+          >
+            <div
+              class="ProductListDropdown__contentDropdown"
+            >
+              <h3
+                class="ProductListDropdown__title"
+              >
+                В наличии в аптеке:
+              </h3>
+              <div
+                class="ProductListDropdown__item"
+              >
+                <p
+                  class="ProductListDropdown__titleItem"
+                >
+                  ПИРАЦЕТАМ 200МГ. №60 ТАБ. П/П/О /ОБНОВЛЕНИЕ/
+                </p>
+                <div
+                  class="ProductListDropdown__priceContainer"
+                >
+                  <p
+                    class="ProductListDropdown__count"
+                  >
+                    2шт. * 76 ₽/шт.
+                  </p>
+                  <p
+                    class="ProductListDropdown__price"
+                  >
+                    152.00 ₽
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="RetailCheckPanel"
+        >
+          <div
+            class="RetailCheckPanel__mainContainer"
+          >
+            <div
+              class="RetailCheckPanel__content RetailCheckPanel__block"
+            >
+              <p
+                class="RetailCheckPanel__name"
+              >
+                <img
+                  alt="Адрес"
+                  src="location.svg"
+                />
+                Адрес:
+                <span
+                  class="RetailCheckPanel__address"
+                >
+                  г. Красноярск, ул. Мартынова, 24
+                </span>
+              </p>
+              <p
+                class="RetailCheckPanel__openHours"
+              >
+                <img
+                  alt="Часы работы"
+                  src="clock.svg"
+                />
+                Часы работы: 
+                <span>
+                  08:00 - 22:00
+                </span>
+              </p>
+              <p
+                class="RetailCheckPanel__tel"
+              >
+                <img
+                  alt="Телефон"
+                  src="phone.svg"
+                />
+                Контактный телефон: 
+                <span>
+                  8 (391) 218-18-90
+                </span>
+              </p>
+            </div>
+            <div
+              class="RetailCheckPanel__priceContainer"
+            >
+              <div
+                class="RetailCheckPanel__price"
+              >
+                <p>
+                  Сумма: 154 ₽
+                </p>
+                <div
+                  class="RetailCheckPanel__descriptionContainer"
+                >
+                  <p
+                    style="color: red; font-size: 14px; display: inline; border-bottom: 1px dashed #000; cursor: pointer;"
+                  >
+                     1 из 2 товаров 
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div
+              class="RetailCheckPanel__btnContainer"
+            >
+              <button
+                class="RetailCheckPanel__button"
+              >
+                Выбрать эту аптеку
+              </button>
+            </div>
+          </div>
+          <div
+            class="ProductListDropdown ProductListDropdown_contentDisabled"
+            style="height: 0px;"
+          >
+            <div
+              class="ProductListDropdown__contentDropdown"
+            >
+              <h3
+                class="ProductListDropdown__title"
+              >
+                В наличии в аптеке:
+              </h3>
+              <div
+                class="ProductListDropdown__item"
+              >
+                <p
+                  class="ProductListDropdown__titleItem"
+                >
+                  ПИРАЦЕТАМ 200МГ. №60 ТАБ. П/П/О /ОБНОВЛЕНИЕ/
+                </p>
+                <div
+                  class="ProductListDropdown__priceContainer"
+                >
+                  <p
+                    class="ProductListDropdown__count"
+                  >
+                    2шт. * 77 ₽/шт.
+                  </p>
+                  <p
+                    class="ProductListDropdown__price"
+                  >
+                    154.00 ₽
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="RetailCheckPanel"
+        >
+          <div
+            class="RetailCheckPanel__mainContainer"
+          >
+            <div
+              class="RetailCheckPanel__content RetailCheckPanel__block"
+            >
+              <p
+                class="RetailCheckPanel__name"
+              >
+                <img
+                  alt="Адрес"
+                  src="location.svg"
+                />
+                Адрес:
+                <span
+                  class="RetailCheckPanel__address"
+                >
+                  г. Красноярск, ул. Тотмина, 8
+                </span>
+              </p>
+              <p
+                class="RetailCheckPanel__openHours"
+              >
+                <img
+                  alt="Часы работы"
+                  src="clock.svg"
+                />
+                Часы работы: 
+                <span>
+                  08:00 - 22:00
+                </span>
+              </p>
+              <p
+                class="RetailCheckPanel__tel"
+              >
+                <img
+                  alt="Телефон"
+                  src="phone.svg"
+                />
+                Контактный телефон: 
+                <span>
+                  8 (391) 218-15-52
+                </span>
+              </p>
+            </div>
+            <div
+              class="RetailCheckPanel__priceContainer"
+            >
+              <div
+                class="RetailCheckPanel__price"
+              >
+                <p>
+                  Сумма: 187 ₽
+                </p>
+                <div
+                  class="RetailCheckPanel__descriptionContainer"
+                >
+                  <p
+                    style="color: red; font-size: 14px; display: inline; border-bottom: 1px dashed #000; cursor: pointer;"
+                  >
+                     1 из 2 товаров 
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div
+              class="RetailCheckPanel__btnContainer"
+            >
+              <button
+                class="RetailCheckPanel__button"
+              >
+                Выбрать эту аптеку
+              </button>
+            </div>
+          </div>
+          <div
+            class="ProductListDropdown ProductListDropdown_contentDisabled"
+            style="height: 0px;"
+          >
+            <div
+              class="ProductListDropdown__contentDropdown"
+            >
+              <h3
+                class="ProductListDropdown__title"
+              >
+                В наличии в аптеке:
+              </h3>
+              <div
+                class="ProductListDropdown__item"
+              >
+                <p
+                  class="ProductListDropdown__titleItem"
+                >
+                  НАЗИВИН 0,01% 5МЛ. №1 НАЗАЛ.КАПЛИ ФЛ./КАП.
+                </p>
+                <div
+                  class="ProductListDropdown__priceContainer"
+                >
+                  <p
+                    class="ProductListDropdown__count"
+                  >
+                    1шт. * 187 ₽/шт.
+                  </p>
+                  <p
+                    class="ProductListDropdown__price"
+                  >
+                    187.00 ₽
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="RetailCheckPanel"
+        >
+          <div
+            class="RetailCheckPanel__mainContainer"
+          >
+            <div
+              class="RetailCheckPanel__content RetailCheckPanel__block"
+            >
+              <p
+                class="RetailCheckPanel__name"
+              >
+                <img
+                  alt="Адрес"
+                  src="location.svg"
+                />
+                Адрес:
+                <span
+                  class="RetailCheckPanel__address"
+                >
+                  г. Красноярск, ул. Красноярский рабочий, 165
+                </span>
+              </p>
+              <p
+                class="RetailCheckPanel__openHours"
+              >
+                <img
+                  alt="Часы работы"
+                  src="clock.svg"
+                />
+                Часы работы: 
+                <span>
+                  08:00 - 22:00
+                </span>
+              </p>
+              <p
+                class="RetailCheckPanel__tel"
+              >
+                <img
+                  alt="Телефон"
+                  src="phone.svg"
+                />
+                Контактный телефон: 
+                <span>
+                  8 (391) 234-45-45
+                </span>
+              </p>
+            </div>
+            <div
+              class="RetailCheckPanel__priceContainer"
+            >
+              <div
+                class="RetailCheckPanel__price"
+              >
+                <p>
+                  Сумма: 232 ₽
+                </p>
+                <div
+                  class="RetailCheckPanel__descriptionContainer"
+                >
+                  <p
+                    style="color: red; font-size: 14px; display: inline; border-bottom: 1px dashed #000; cursor: pointer;"
+                  >
+                     1 из 2 товаров 
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div
+              class="RetailCheckPanel__btnContainer"
+            >
+              <button
+                class="RetailCheckPanel__button"
+              >
+                Выбрать эту аптеку
+              </button>
+            </div>
+          </div>
+          <div
+            class="ProductListDropdown ProductListDropdown_contentDisabled"
+            style="height: 0px;"
+          >
+            <div
+              class="ProductListDropdown__contentDropdown"
+            >
+              <h3
+                class="ProductListDropdown__title"
+              >
+                В наличии в аптеке:
+              </h3>
+              <div
+                class="ProductListDropdown__item"
+              >
+                <p
+                  class="ProductListDropdown__titleItem"
+                >
+                  НАЗИВИН 0,01% 5МЛ. №1 НАЗАЛ.КАПЛИ ФЛ./КАП.
+                </p>
+                <div
+                  class="ProductListDropdown__priceContainer"
+                >
+                  <p
+                    class="ProductListDropdown__count"
+                  >
+                    1шт. * 232 ₽/шт.
+                  </p>
+                  <p
+                    class="ProductListDropdown__price"
+                  >
+                    232.00 ₽
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="PopupWrapper"
+      >
+        <div
+          class="Backdrop"
+        />
+        <div
+          class="PopupWrapper__content PopupMapCart"
+        >
+          <div
+            class="PopupWrapper__close"
+          >
+            <svg
+              class="closeIcon"
+              height="1em"
+              viewBox="0 0 320 512"
+              width="1em"
+            >
+              <path
+                d="M207.6 256l107.72-107.72c6.23-6.23 6.23-16.34 0-22.58l-25.03-25.03c-6.23-6.23-16.34-6.23-22.58 0L160 208.4 52.28 100.68c-6.23-6.23-16.34-6.23-22.58 0L4.68 125.7c-6.23 6.23-6.23 16.34 0 22.58L112.4 256 4.68 363.72c-6.23 6.23-6.23 16.34 0 22.58l25.03 25.03c6.23 6.23 16.34 6.23 22.58 0L160 303.6l107.72 107.72c6.23 6.23 16.34 6.23 22.58 0l25.03-25.03c6.23-6.23 6.23-16.34 0-22.58L207.6 256z"
+                fill="currentColor"
+              />
+            </svg>
+          </div>
+          <h1>
+            Аптеки в г. Абакан
+          </h1>
+          <div
+            class="PopupMapCart__mainContainer"
+          >
+            <div
+              class="BlockWrapper PopupMapCart__retails"
+            >
+              <ul>
+                <li
+                  class="RetailItem"
+                >
+                  <div
+                    class="RetailItem__retailItemContainer"
+                  >
+                    <div
+                      class="RetailItem__itemBlock"
+                    >
+                      <span
+                        class="RetailItem__itemTitle"
+                      >
+                        Дешёвая Аптека
+                      </span>
+                      <span
+                        class="RetailItem__itemAddress"
+                      >
+                        Металлургов 34
+                      </span>
+                      <span
+                        class="RetailItem__textClock"
+                      >
+                        Часы работы: 08:00 - 22:00
+                      </span>
+                      <span
+                        class="RetailItem__textClock"
+                      >
+                        Телефон: 
+                        <a
+                          href="tel:8 (391) 299-36-36"
+                        >
+                          8 (391) 299-36-36
+                        </a>
+                      </span>
+                    </div>
+                    <div
+                      class="RetailItem__priceContainer"
+                    >
+                      <p>
+                        335 ₽
+                      </p>
+                      <button
+                        class="RetailItem__button"
+                      >
+                        Выбрать
+                      </button>
+                    </div>
+                  </div>
+                </li>
+                <li
+                  class="RetailItem"
+                >
+                  <div
+                    class="RetailItem__retailItemContainer"
+                  >
+                    <div
+                      class="RetailItem__itemBlock"
+                    >
+                      <span
+                        class="RetailItem__itemTitle"
+                      >
+                        Дешёвая Аптека
+                      </span>
+                      <span
+                        class="RetailItem__itemAddress"
+                      >
+                        Ястынская 19а
+                      </span>
+                      <span
+                        class="RetailItem__textClock"
+                      >
+                        Часы работы: 08:00 - 22:00
+                      </span>
+                      <span
+                        class="RetailItem__textClock"
+                      >
+                        Телефон: 
+                        <a
+                          href="tel:8 (391) 216-50-77"
+                        >
+                          8 (391) 216-50-77
+                        </a>
+                      </span>
+                    </div>
+                    <div
+                      class="RetailItem__priceContainer"
+                    >
+                      <p>
+                        152 ₽
+                      </p>
+                      <button
+                        class="RetailItem__button"
+                      >
+                        Выбрать
+                      </button>
+                    </div>
+                  </div>
+                  <p
+                    class="colorRed"
+                  >
+                    не все позиции в наличии
+                  </p>
+                </li>
+                <li
+                  class="RetailItem"
+                >
+                  <div
+                    class="RetailItem__retailItemContainer"
+                  >
+                    <div
+                      class="RetailItem__itemBlock"
+                    >
+                      <span
+                        class="RetailItem__itemTitle"
+                      >
+                        ВСЕМ (В7)
+                      </span>
+                      <span
+                        class="RetailItem__itemAddress"
+                      >
+                        Мартынова 24
+                      </span>
+                      <span
+                        class="RetailItem__textClock"
+                      >
+                        Часы работы: 08:00 - 22:00
+                      </span>
+                      <span
+                        class="RetailItem__textClock"
+                      >
+                        Телефон: 
+                        <a
+                          href="tel:8 (391) 218-18-90"
+                        >
+                          8 (391) 218-18-90
+                        </a>
+                      </span>
+                    </div>
+                    <div
+                      class="RetailItem__priceContainer"
+                    >
+                      <p>
+                        154 ₽
+                      </p>
+                      <button
+                        class="RetailItem__button"
+                      >
+                        Выбрать
+                      </button>
+                    </div>
+                  </div>
+                  <p
+                    class="colorRed"
+                  >
+                    не все позиции в наличии
+                  </p>
+                </li>
+                <li
+                  class="RetailItem"
+                >
+                  <div
+                    class="RetailItem__retailItemContainer"
+                  >
+                    <div
+                      class="RetailItem__itemBlock"
+                    >
+                      <span
+                        class="RetailItem__itemTitle"
+                      >
+                        Гармония Здоровья
+                      </span>
+                      <span
+                        class="RetailItem__itemAddress"
+                      >
+                        Железнодорожников 14
+                      </span>
+                      <span
+                        class="RetailItem__textClock"
+                      >
+                        Часы работы: 08:00 - 22:00
+                      </span>
+                      <span
+                        class="RetailItem__textClock"
+                      >
+                        Телефон: 
+                        <a
+                          href="tel:8 (391) 200-16-50"
+                        >
+                          8 (391) 200-16-50
+                        </a>
+                      </span>
+                    </div>
+                    <div
+                      class="RetailItem__priceContainer"
+                    >
+                      <p>
+                        75 ₽
+                      </p>
+                      <button
+                        class="RetailItem__button"
+                      >
+                        Выбрать
+                      </button>
+                    </div>
+                  </div>
+                  <p
+                    class="colorRed"
+                  >
+                    не все позиции в наличии
+                  </p>
+                </li>
+                <li
+                  class="RetailItem"
+                >
+                  <div
+                    class="RetailItem__retailItemContainer"
+                  >
+                    <div
+                      class="RetailItem__itemBlock"
+                    >
+                      <span
+                        class="RetailItem__itemTitle"
+                      >
+                        Дешёвая Аптека
+                      </span>
+                      <span
+                        class="RetailItem__itemAddress"
+                      >
+                        Тотмина 8
+                      </span>
+                      <span
+                        class="RetailItem__textClock"
+                      >
+                        Часы работы: 08:00 - 22:00
+                      </span>
+                      <span
+                        class="RetailItem__textClock"
+                      >
+                        Телефон: 
+                        <a
+                          href="tel:8 (391) 218-15-52"
+                        >
+                          8 (391) 218-15-52
+                        </a>
+                      </span>
+                    </div>
+                    <div
+                      class="RetailItem__priceContainer"
+                    >
+                      <p>
+                        187 ₽
+                      </p>
+                      <button
+                        class="RetailItem__button"
+                      >
+                        Выбрать
+                      </button>
+                    </div>
+                  </div>
+                  <p
+                    class="colorRed"
+                  >
+                    не все позиции в наличии
+                  </p>
+                </li>
+                <li
+                  class="RetailItem"
+                >
+                  <div
+                    class="RetailItem__retailItemContainer"
+                  >
+                    <div
+                      class="RetailItem__itemBlock"
+                    >
+                      <span
+                        class="RetailItem__itemTitle"
+                      >
+                        Гармония Здоровья
+                      </span>
+                      <span
+                        class="RetailItem__itemAddress"
+                      >
+                        Красноярский рабочий 165
+                      </span>
+                      <span
+                        class="RetailItem__textClock"
+                      >
+                        Часы работы: 08:00 - 22:00
+                      </span>
+                      <span
+                        class="RetailItem__textClock"
+                      >
+                        Телефон: 
+                        <a
+                          href="tel:8 (391) 234-45-45"
+                        >
+                          8 (391) 234-45-45
+                        </a>
+                      </span>
+                    </div>
+                    <div
+                      class="RetailItem__priceContainer"
+                    >
+                      <p>
+                        232 ₽
+                      </p>
+                      <button
+                        class="RetailItem__button"
+                      >
+                        Выбрать
+                      </button>
+                    </div>
+                  </div>
+                  <p
+                    class="colorRed"
+                  >
+                    не все позиции в наличии
+                  </p>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Cart Cart page 3 1`] = `
+<DocumentFragment>
+  <div
+    class="Cart wrapper"
+  >
+    <div
+      class="Cart__topPanel"
+    >
+      <div
+        class="Cart__pageTitle"
+      >
+        <p
+          class="Cart__pageNumber"
+        >
+          1
+        </p>
+        <p
+          class="Cart__pageName"
+        >
+          Корзина
+        </p>
+      </div>
+      <svg
+        class="Cart__pageArrow"
+        height="1em"
+        viewBox="0 0 448 512"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M340.485 366l99.03-99.029c4.686-4.686 4.686-12.284 0-16.971l-99.03-99.029c-7.56-7.56-20.485-2.206-20.485 8.485v71.03H12c-6.627 0-12 5.373-12 12v32c0 6.627 5.373 12 12 12h308v71.03c0 10.689 12.926 16.043 20.485 8.484z"
+          fill="currentColor"
+        />
+      </svg>
+      <div
+        class="Cart__pageTitle"
+      >
+        <p
+          class="Cart__pageNumber"
+        >
+          2
+        </p>
+        <p
+          class="Cart__pageName"
+        >
+          Выбор аптеки
+        </p>
+      </div>
+      <svg
+        class="Cart__pageArrow"
+        height="1em"
+        viewBox="0 0 448 512"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M340.485 366l99.03-99.029c4.686-4.686 4.686-12.284 0-16.971l-99.03-99.029c-7.56-7.56-20.485-2.206-20.485 8.485v71.03H12c-6.627 0-12 5.373-12 12v32c0 6.627 5.373 12 12 12h308v71.03c0 10.689 12.926 16.043 20.485 8.484z"
+          fill="currentColor"
+        />
+      </svg>
+      <div
+        class="Cart__pageTitle"
+      >
+        <p
+          class="Cart__pageNumber Cart__pageNumber_active"
+        >
+          3
+        </p>
+        <p
+          class="Cart__pageName"
+        >
+          Подтверждение заказа
+        </p>
+      </div>
+    </div>
+    <div
+      class="CartOrderPage"
+    >
+      <div
+        class="BlockWrapper CartOrderPage__container"
+      >
+        <h3
+          class="CartOrderPage__title"
+        >
+          Ваш заказ:
+        </h3>
+        <div
+          class="CartOrderPage__addressAndPrice"
+        >
+          <div
+            class="CartOrderPage__addressContainer"
+          >
+            <p
+              class="CartOrderPage__name"
+            >
+              <img
+                alt="Адрес"
+                src="location.svg"
+              />
+              Адрес:
+              <span
+                class="CartOrderPage__address"
+              >
+                г. Красноярск, ул. Металлургов, 34
+              </span>
+            </p>
+            <p
+              class="CartOrderPage__openHours"
+            >
+              <img
+                alt="Часы работы"
+                src="clock.svg"
+              />
+              Часы работы: 
+              <span>
+                08:00 - 22:00
+              </span>
+            </p>
+            <p
+              class="CartOrderPage__tel"
+            >
+              <img
+                alt="Телефон"
+                src="phone.svg"
+              />
+              Контактный телефон: 
+              <span>
+                8 (391) 299-36-36
+              </span>
+            </p>
+          </div>
+          <p
+            class="CartOrderPage__sum"
+          >
+            260 ₽
+          </p>
+        </div>
+        <div
+          class="CartOrderPage__listOrder"
+        >
+          <div
+            class="CartOrderPage__productContainer"
+          >
+            <p
+              class="CartOrderPage__productTitle"
+            >
+              ПИРАЦЕТАМ 200МГ. №60 ТАБ. П/П/О /ОБНОВЛЕНИЕ/
+            </p>
+            <p
+              class="CartOrderPage__productCount"
+            >
+              1шт. * 75 ₽/шт.
+            </p>
+            <p
+              class="CartOrderPage__price"
+            >
+              75 ₽
+            </p>
+          </div>
+          <div
+            class="CartOrderPage__productContainer"
+          >
+            <p
+              class="CartOrderPage__productTitle"
+            >
+              НАЗИВИН 0,01% 5МЛ. №1 НАЗАЛ.КАПЛИ ФЛ./КАП.
+            </p>
+            <p
+              class="CartOrderPage__productCount"
+            >
+              1шт. * 185 ₽/шт.
+            </p>
+            <p
+              class="CartOrderPage__price"
+            >
+              185 ₽
+            </p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="CartOrderPage__buyPanel"
+      >
+        <div
+          class="Loader "
+        >
+          <div
+            class="container"
+          >
+            <div
+              class="item-1"
+            >
+              <div />
+            </div>
+            <div
+              class="item-2"
+            >
+              <div />
+            </div>
+            <div
+              class="item-3"
+            >
+              <div />
+            </div>
+            <div
+              class="item-4"
+            >
+              <div />
+            </div>
+            <div
+              class="item-5"
+            >
+              <div />
+            </div>
+            <div
+              class="item-6"
+            >
+              <div />
+            </div>
+            <div
+              class="item-7"
+            >
+              <div />
+            </div>
+            <div
+              class="item-8"
+            >
+              <div />
+            </div>
+            <div
+              class="item-9"
+            >
+              <div />
+            </div>
+          </div>
+        </div>
+        <div
+          class="CartOrderPage__authBlock"
+        >
+          <p
+            class="CartOrderPage__authTitle"
+          >
+            Авторизуйтесь или подтвердите номер телефона:
+          </p>
+          <form
+            class="CartOrderPage__form"
+            novalidate=""
+          >
+            <div>
+              <label
+                class="CartOrderPage__element"
+              >
+                <input
+                  class="CartOrderPage__input"
+                  id="CartOrderPage-phone"
+                  name="CartOrderPage-phone"
+                  placeholder=""
+                  required=""
+                  type="tel"
+                  value=""
+                />
+                <p
+                  class="CartOrderPage__label"
+                >
+                  Введите телефон
+                </p>
+                <span
+                  class="CartOrderPage__errorMessage"
+                />
+              </label>
+              <label
+                class="CartOrderPage__element"
+              >
+                <input
+                  class="CartOrderPage__input"
+                  id="CartOrderPage-email"
+                  name="CartOrderPage-email"
+                  required=""
+                  type="text"
+                  value=""
+                />
+                <p
+                  class="CartOrderPage__label"
+                >
+                  Введите Email
+                </p>
+                <span
+                  class="CartOrderPage__errorMessage"
+                />
+              </label>
+              <label
+                class="CartOrderPage__element"
+              >
+                <input
+                  class="CartOrderPage__input"
+                  id="CartOrderPage-smsCode"
+                  name="CartOrderPage-smsCode"
+                  required=""
+                  type="password"
+                  value=""
+                />
+                <p
+                  class="CartOrderPage__label"
+                >
+                  Код из Email
+                </p>
+                <span
+                  class="CartOrderPage__errorMessage CartOrderPage__errorMessage_code"
+                />
+                <div
+                  class="CartOrderPage__eyeShowButton"
+                >
+                  <div
+                    class="EyeButtonShow"
+                  >
+                    <svg
+                      height="1em"
+                      viewBox="0 0 640 512"
+                      width="1em"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M320 400c-75.85 0-137.25-58.71-142.9-133.11L72.2 185.82c-13.79 17.3-26.48 35.59-36.72 55.59a32.35 32.35 0 000 29.19C89.71 376.41 197.07 448 320 448c26.91 0 52.87-4 77.89-10.46L346 397.39a144.13 144.13 0 01-26 2.61zm313.82 58.1l-110.55-85.44a331.25 331.25 0 0081.25-102.07 32.35 32.35 0 000-29.19C550.29 135.59 442.93 64 320 64a308.15 308.15 0 00-147.32 37.7L45.46 3.37A16 16 0 0023 6.18L3.37 31.45A16 16 0 006.18 53.9l588.36 454.73a16 16 0 0022.46-2.81l19.64-25.27a16 16 0 00-2.82-22.45zm-183.72-142l-39.3-30.38A94.75 94.75 0 00416 256a94.76 94.76 0 00-121.31-92.21A47.65 47.65 0 01304 192a46.64 46.64 0 01-1.54 10l-73.61-56.89A142.31 142.31 0 01320 112a143.92 143.92 0 01144 144c0 21.63-5.29 41.79-13.9 60.11z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </label>
+            </div>
+            <div
+              class="CartOrderPage__buttonContainer"
+            >
+              <button
+                class="CartOrderPage__buttonSMS"
+                disabled=""
+              >
+                получить код
+              </button>
+              <div
+                class="LoaderTimer"
+              />
+            </div>
+          </form>
+        </div>
+        <button
+          class="CartOrderPage__buttonToBuy"
+        >
+          оформить заказ
+        </button>
+      </div>
+      <p
+        class="CartOrderPage__messageBonus"
+      >
+        Не забудьте взять с собой  
+        <a
+          href="http://kartalegko.ru/"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Бонусную карту Легко
+        </a>
+      </p>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
 exports[`Cart Cart snapshot / increment / decrement 1`] = `
 <DocumentFragment>
   <div
     class="Cart wrapper"
   >
+    <div
+      class="Cart__topPanel"
+    >
+      <div
+        class="Cart__pageTitle"
+      >
+        <p
+          class="Cart__pageNumber Cart__pageNumber_active"
+        >
+          1
+        </p>
+        <p
+          class="Cart__pageName"
+        >
+          Корзина
+        </p>
+      </div>
+      <svg
+        class="Cart__pageArrow"
+        height="1em"
+        viewBox="0 0 448 512"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M340.485 366l99.03-99.029c4.686-4.686 4.686-12.284 0-16.971l-99.03-99.029c-7.56-7.56-20.485-2.206-20.485 8.485v71.03H12c-6.627 0-12 5.373-12 12v32c0 6.627 5.373 12 12 12h308v71.03c0 10.689 12.926 16.043 20.485 8.484z"
+          fill="currentColor"
+        />
+      </svg>
+      <div
+        class="Cart__pageTitle"
+      >
+        <p
+          class="Cart__pageNumber"
+        >
+          2
+        </p>
+        <p
+          class="Cart__pageName"
+        >
+          Выбор аптеки
+        </p>
+      </div>
+      <svg
+        class="Cart__pageArrow"
+        height="1em"
+        viewBox="0 0 448 512"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M340.485 366l99.03-99.029c4.686-4.686 4.686-12.284 0-16.971l-99.03-99.029c-7.56-7.56-20.485-2.206-20.485 8.485v71.03H12c-6.627 0-12 5.373-12 12v32c0 6.627 5.373 12 12 12h308v71.03c0 10.689 12.926 16.043 20.485 8.484z"
+          fill="currentColor"
+        />
+      </svg>
+      <div
+        class="Cart__pageTitle"
+      >
+        <p
+          class="Cart__pageNumber"
+        >
+          3
+        </p>
+        <p
+          class="Cart__pageName"
+        >
+          Подтверждение заказа
+        </p>
+      </div>
+    </div>
     <section
       class="Cart__containerProductsPage"
     >
@@ -568,6 +3408,38 @@ exports[`Cart Cart snapshot / increment / decrement 1`] = `
               </p>
             </div>
           </div>
+        </div>
+        <div
+          class="Cart__rightPanel"
+        >
+          <p
+            class="Cart__titlePanel"
+          >
+            Ваш заказ
+          </p>
+          <div
+            class="Cart__pricePanel"
+          >
+            <div
+              class="Cart__pricePanelContent"
+            >
+              <div
+                class="Cart__resultPrice"
+              >
+                <span>
+                  2 товара на сумму от 260.00 ₽
+                </span>
+              </div>
+              <button
+                class="Cart__buttonToCart"
+              >
+                выбрать аптеку
+              </button>
+            </div>
+          </div>
+          <div
+            class="Cart__promoContainer"
+          />
         </div>
       </div>
     </section>

@@ -1,10 +1,10 @@
-import {getByText, render, screen} from "@testing-library/react";
+import {getByText, render} from "@testing-library/react";
 import {Provider} from "react-redux";
 import store from "../../store";
 import {BrowserRouter} from "react-router-dom";
 import React from "react";
 import Cart from "./Cart";
-import {addedToCart, setCartItems} from "../../actions";
+import {addedToCart, clearCart, setCartItems} from "../../actions";
 import userEvent from "@testing-library/user-event";
 import '@testing-library/jest-dom'
 
@@ -146,47 +146,53 @@ const cartItemsTest = [
 ]
 
 describe('Cart', () => {
-    store.dispatch(addedToCart("4c3d8870-ed5b-49ec-89cd-a7e662d25e7d"))
-    store.dispatch(addedToCart("08a0e303-439b-4bf2-8a01-a2a4268e97e3"))
-    store.dispatch(setCartItems(cartItemsTest))
-    const {asFragment, container} = render(
-        <Provider store={store}>
-            <BrowserRouter basename="/">
-                <Cart/>
-            </BrowserRouter>
-        </Provider>
-    )
-
-    const titlePanel = container.querySelector('.Cart__titlePanel')
-    const btnIncrement = container.querySelector('.CountButton__increment')
-    const btnDecrement = container.querySelector('.CountButton__decrement')
-    const countFirstProduct = container.querySelector('.CountButton__count')
-    const priceFirstProduct = container.querySelector('.CartItem__price')
-    const closeIconFirstProduct = container.querySelector('.CartItem__closeIcon')
-    const dropdown = container.querySelector('.RetailsListDropdown')
-    const btnDropdown = container.querySelector('.CartItem__dropdownBtn')
-
     test('Cart snapshot / increment / decrement', () => {
+        store.dispatch(addedToCart("4c3d8870-ed5b-49ec-89cd-a7e662d25e7d"))
+        store.dispatch(addedToCart("08a0e303-439b-4bf2-8a01-a2a4268e97e3"))
+        store.dispatch(setCartItems(cartItemsTest))
+        const {asFragment, container} = render(
+            <Provider store={store}>
+                <BrowserRouter basename="/">
+                    <Cart/>
+                </BrowserRouter>
+            </Provider>
+        )
+
+        const titlePanel = container.querySelector('.Cart__titlePanel')
+        const btnIncrement = container.querySelector('.CountButton__increment')
+        const btnDecrement = container.querySelector('.CountButton__decrement')
+        const countFirstProduct = container.querySelector('.CountButton__count')
+        const priceFirstProduct = container.querySelector('.CartItem__price')
+        const closeIconFirstProduct = container.querySelector('.CartItem__closeIcon')
+        const dropdown = container.querySelector('.RetailsListDropdown')
+        const btnDropdown = container.querySelector('.CartItem__dropdownBtn')
+        const resultPrice = container.querySelector('.Cart__resultPrice')?.querySelector('span')
+
         expect(asFragment()).toMatchSnapshot()
 
         expect(titlePanel?.textContent).toBe('В корзине 2 товара')
         expect(countFirstProduct?.textContent).toBe('1')
         expect(priceFirstProduct?.textContent).toBe('от 75.00 ₽')
         expect(getByText(container, /ул. Мартынова 24/i)).toBeInTheDocument()
+        expect(resultPrice?.textContent).toBe('2 товара на сумму от 260.00 ₽')
 
         // кликаем плюс на первом товаре 10 раз - макс.кол. - 5шт
         if (btnIncrement) {
             for (let i = 1; i < 10; i++) {
                 userEvent.click(btnIncrement)
                 if (i < 5) {
-                    expect(countFirstProduct?.textContent).toBe(`${i + 1}`)
-                    expect(priceFirstProduct?.textContent).toBe(`от ${75 * (i + 1)}.00 ₽`)
+                    const count = i + 1;
+                    const priceProduct = 75 * count;
+                    expect(countFirstProduct?.textContent).toBe(`${count}`)
+                    expect(priceFirstProduct?.textContent).toBe(`от ${priceProduct}.00 ₽`)
+                    expect(resultPrice?.textContent).toMatch(`от ${priceProduct + 185}.00 ₽`)
                 }
             }
         }
         expect(titlePanel?.textContent).toBe('В корзине 6 товаров')
         expect(countFirstProduct?.textContent).toBe('5')
         expect(priceFirstProduct?.textContent).toBe(`от ${75 * 5}.00 ₽`)
+        expect(resultPrice?.textContent).toBe('6 товаров на сумму от 560.00 ₽')
 
         // кликаем минус на первом товаре 10 раз - мин.кол. - 1шт
         if (btnDecrement) {
@@ -197,6 +203,7 @@ describe('Cart', () => {
         expect(titlePanel?.textContent).toBe('В корзине 2 товара')
         expect(countFirstProduct?.textContent).toBe('1')
 
+        // проверяем dropdown - "есть в аптеках"
         if (dropdown && btnDropdown) {
             expect(dropdown.classList.contains('RetailsListDropdown_contentDisabled')).toBeTruthy();
             userEvent.click(btnDropdown)
@@ -207,6 +214,107 @@ describe('Cart', () => {
         if (closeIconFirstProduct) userEvent.click(closeIconFirstProduct);
         expect(titlePanel?.textContent).toBe('В корзине 1 товар')
         expect(countFirstProduct).not.toBeInTheDocument()
+    })
+
+    test('Cart page 2', () => {
+        window.scrollTo = jest.fn()
+
+        store.dispatch(clearCart())
+        store.dispatch(addedToCart("4c3d8870-ed5b-49ec-89cd-a7e662d25e7d"))
+        store.dispatch(addedToCart("08a0e303-439b-4bf2-8a01-a2a4268e97e3"))
+        store.dispatch(setCartItems(cartItemsTest))
+        const {asFragment, container, getByText} = render(
+            <Provider store={store}>
+                <BrowserRouter basename="/">
+                    <Cart/>
+                </BrowserRouter>
+            </Provider>
+        )
+
+        const buttonGoToNextPage = container.querySelector('.Cart__buttonToCart')
+
+        if (buttonGoToNextPage) userEvent.click(buttonGoToNextPage);
+        expect(asFragment()).toMatchSnapshot()
+
+        const buttonOpenMap = getByText(/Показать на карте/i)
+        const buttonDropdown = getByText(/все товары/i)
+        const buttonCloseMap = container.querySelector('.PopupWrapper__close')
+        const popupMap = container.querySelector('.PopupWrapper')
+        const dropdownProducts = container.querySelector('.ProductListDropdown')
+        const buttonOnePage = container.querySelector('.Cart__pageTitle')
+        const priceFirstRetail = container.querySelector('.RetailCheckPanel__price')
+
+        expect(getByText(/Сумма: 260 ₽/i)).toBeInTheDocument()
+        expect(priceFirstRetail?.firstChild?.textContent).toMatch('Сумма: 260 ₽')
+
+        // открываем и закрываем карту
+        expect(popupMap?.classList.contains('PopupWrapper_is-opened')).toBeFalsy()
+        userEvent.click(buttonOpenMap);
+        expect(popupMap?.classList.contains('PopupWrapper_is-opened')).toBeTruthy()
+        if (buttonCloseMap) userEvent.click(buttonCloseMap)
+        expect(popupMap?.classList.contains('PopupWrapper_is-opened')).toBeFalsy()
+
+        // открываем и закрываем dropDownRetails
+        expect(dropdownProducts?.classList.contains('ProductListDropdown_contentDisabled')).toBeTruthy()
+        userEvent.click(buttonDropdown)
+        expect(dropdownProducts?.classList.contains('ProductListDropdown_contentDisabled')).toBeFalsy()
+
+
+        // вернулись на первую страницу, нажали плюс на первом товаре и обратно на вторую - цена в аптеках поменялась на 2ой стр.
+        if (buttonOnePage) userEvent.click(buttonOnePage);
+        const btnIncrement = container.querySelector('.CountButton__increment')
+        const resultPrice = container.querySelector('.Cart__resultPrice')?.querySelector('span')
+        // проверяем сумму до добавления кол. товара
+        expect(resultPrice?.textContent).toBe('2 товара на сумму от 260.00 ₽')
+        // кликаем на плюс первого товара
+        if (btnIncrement) userEvent.click(btnIncrement);
+        // сумма изменилась на первой странице
+        expect(resultPrice?.textContent).toBe('3 товара на сумму от 335.00 ₽')
+        // возвращаемся на вторую
+        userEvent.click(getByText(/выбрать аптеку/i));
+        // сумма изменилась и на второй странице
+        expect(getByText(/Сумма: 335 ₽/i)).toBeInTheDocument()
+        expect(container.querySelector('.RetailCheckPanel__price')?.firstChild?.textContent).toMatch('Сумма: 335 ₽')
+        // делаем снимок
+        expect(asFragment()).toMatchSnapshot()
+    })
+
+    test('Cart page 3', () => {
+        window.scrollTo = jest.fn()
+
+        store.dispatch(clearCart())
+        store.dispatch(addedToCart("4c3d8870-ed5b-49ec-89cd-a7e662d25e7d"))
+        store.dispatch(addedToCart("08a0e303-439b-4bf2-8a01-a2a4268e97e3"))
+        store.dispatch(setCartItems(cartItemsTest))
+        const {asFragment, container, getByText, getAllByText} = render(
+            <Provider store={store}>
+                <BrowserRouter basename="/">
+                    <Cart/>
+                </BrowserRouter>
+            </Provider>
+        )
+
+        // переходим на 3-ю страницу
+        userEvent.click(getByText(/выбрать аптеку/i))
+        const btnGoToPage = container.querySelector('.RetailCheckPanel__button')
+        if (btnGoToPage) userEvent.click(btnGoToPage);
+        expect(getByText(/260 ₽/i)).toBeInTheDocument()
+        expect(asFragment()).toMatchSnapshot()
+
+        // переходим на 1-ую страницу
+        const btnOnePage = container.querySelector('.Cart__pageNumber')
+        if (btnOnePage) userEvent.click(btnOnePage)
+        // нажимаем на плюс первого товара - добавляя кол. до 2шт.
+        const btnIncrement = container.querySelector('.CountButton__increment')
+        if (btnIncrement) userEvent.click(btnIncrement)
+        // сумма изменилась.
+        expect(getByText(/3 товара на сумму от 335.00 ₽/i)).toBeInTheDocument()
+
+        // переходим на 3-ю стр.
+        userEvent.click(getByText(/Подтверждение заказа/i))
+        // сумма изменилась.
+        const sum = container.querySelector('.CartOrderPage__sum')
+        expect(sum?.textContent).toMatch('335 ₽')
     })
 })
 

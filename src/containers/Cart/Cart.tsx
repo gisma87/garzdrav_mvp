@@ -2,7 +2,6 @@ import React from "react"
 import './Cart.scss'
 import {connect} from "react-redux";
 import {withRouter, RouteComponentProps} from "react-router-dom";
-import MediaQuery from 'react-responsive'
 import BlockWrapper from "../../components/BlockWrapper";
 import Error from "../../components/Error/Error";
 import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
@@ -83,7 +82,8 @@ export type StateCart = {
     isShowTimer: boolean,
     seconds: number | null,
     thisTime: { date: string | number, iteration: number },
-    errorFetchOrder: boolean
+    errorFetchOrder: boolean,
+    innerWidth: number
 }
 
 class Cart extends React.Component<PropsCart, StateCart> {
@@ -93,12 +93,15 @@ class Cart extends React.Component<PropsCart, StateCart> {
     onLoading = onLoading.bind(this)
     getDataForPromoItem = () => getDataForPromoItem(this.props, this.props.cartItems)
     count: number
+    resizeTimeout: number | null
 
     constructor(props: PropsCart) {
         super(props);
         this.timer = null;
         this.postBuyOrder = this.postBuyOrder.bind(this)
         this.count = 0;
+        this.setIsMobileDebounce = this.setIsMobileDebounce.bind(this)
+        this.resizeTimeout = null;
     }
 
     state = {
@@ -113,16 +116,20 @@ class Cart extends React.Component<PropsCart, StateCart> {
         isShowTimer: false,
         seconds: 60,
         thisTime: {date: Date.now(), iteration: 0},
-        errorFetchOrder: false
+        errorFetchOrder: false,
+        innerWidth: 1280
     }
 
     componentDidMount() {
+        window.addEventListener('resize', this.setIsMobileDebounce, false)
+        this.setIsMobileDebounce()
+
         // подгружаем все товары для корзины
         this.props.fetchCartItems()
 
         // подгружаем доп.продажи - complexes
         const cartFromLocalStorage: CartItemType[] | null = JSON.parse(localStorage.getItem("cart") as string)
-        if(cartFromLocalStorage instanceof Array) {
+        if (cartFromLocalStorage instanceof Array) {
             const arrItemId = cartFromLocalStorage.map(item => item.itemId)
             this.props.getPromoItem(arrItemId)
             this.count = this.countProducts()
@@ -148,6 +155,24 @@ class Cart extends React.Component<PropsCart, StateCart> {
                 this.props.setCartItems(this.props.cartItems)
             }
         }
+    }
+
+    componentWillUnmount() {
+        if (this.resizeTimeout) clearTimeout(this.resizeTimeout);
+        window.removeEventListener('resize', this.setIsMobileDebounce, false)
+    }
+
+    setIsMobileDebounce = () => {
+        const actualResizeHandler = () => {
+            // const isMobile = window.innerWidth < 900;
+            // console.log('width: ', window.innerWidth)
+            this.setState({innerWidth: window.innerWidth})
+        }
+        if (this.resizeTimeout) clearTimeout(this.resizeTimeout);
+        this.resizeTimeout = window.setTimeout(() => {
+            this.resizeTimeout = null;
+            actualResizeHandler();
+        }, 100);
     }
 
     countProducts = () => this.props.cart.reduce((sum, item) => {
@@ -303,44 +328,48 @@ class Cart extends React.Component<PropsCart, StateCart> {
 
         return (
             <div className='Cart wrapper'>
-                <MediaQuery minWidth={901}>
-                    <div className='Cart__topPanel'>
+                {
+                    (this.state.innerWidth > 900)
+                        ? <div className='Cart__topPanel'>
 
-                        <div className="Cart__pageTitle" onClick={() => this.goToPage(1)}>
-                            <p className={'Cart__pageNumber' + (this.state.pageStage === 1 ? ' Cart__pageNumber_active' : '')}>1</p>
-                            <p className="Cart__pageName">Корзина</p>
-                        </div>
-                        <SvgArrowLongRight className="Cart__pageArrow"/>
-                        <div className="Cart__pageTitle" onClick={() => this.goToPage(2)}>
-                            <p className={'Cart__pageNumber' + (this.state.pageStage === 2 ? ' Cart__pageNumber_active' : '')}>2</p>
-                            <p className="Cart__pageName">Выбор аптеки</p>
-                        </div>
-                        <SvgArrowLongRight className="Cart__pageArrow"/>
-                        <div className="Cart__pageTitle" onClick={() => this.goToPageStageThree(null)}>
-                            <p className={'Cart__pageNumber' + (this.state.pageStage === 3 ? ' Cart__pageNumber_active' : '')}>3</p>
-                            <p className="Cart__pageName">Подтверждение заказа</p>
-                        </div>
+                            <div className="Cart__pageTitle" onClick={() => this.goToPage(1)}>
+                                <p
+                                    className={'Cart__pageNumber' + (this.state.pageStage === 1 ? ' Cart__pageNumber_active' : '')}>1</p>
+                                <p className="Cart__pageName">Корзина</p>
+                            </div>
+                            <SvgArrowLongRight className="Cart__pageArrow"/>
+                            <div className="Cart__pageTitle" onClick={() => this.goToPage(2)}>
+                                <p
+                                    className={'Cart__pageNumber' + (this.state.pageStage === 2 ? ' Cart__pageNumber_active' : '')}>2</p>
+                                <p className="Cart__pageName">Выбор аптеки</p>
+                            </div>
+                            <SvgArrowLongRight className="Cart__pageArrow"/>
+                            <div className="Cart__pageTitle" onClick={() => this.goToPageStageThree(null)}>
+                                <p
+                                    className={'Cart__pageNumber' + (this.state.pageStage === 3 ? ' Cart__pageNumber_active' : '')}>3</p>
+                                <p className="Cart__pageName">Подтверждение заказа</p>
+                            </div>
 
-                    </div>
-                </MediaQuery>
-                <MediaQuery maxWidth={900}>
-                    <div className='Cart__topPanel'>
-
-                        <div className="Cart__pageTitle" onClick={() => this.goToPage(1)}>
-                            <p className={'Cart__pageNumber' + (this.state.pageStage === 1 ? ' Cart__pageNumber_active' : '')}>1</p>
                         </div>
-                        <SvgArrowLongRight className="Cart__pageArrow"/>
-                        <div className="Cart__pageTitle" onClick={() => this.goToPage(2)}>
-                            <p className={'Cart__pageNumber' + (this.state.pageStage === 2 ? ' Cart__pageNumber_active' : '')}>2</p>
-                        </div>
-                        <SvgArrowLongRight className="Cart__pageArrow"/>
-                        <div className="Cart__pageTitle" onClick={() => this.goToPageStageThree(null)}>
-                            <p className={'Cart__pageNumber' + (this.state.pageStage === 3 ? ' Cart__pageNumber_active' : '')}>3</p>
-                        </div>
+                        : <div className='Cart__topPanel'>
 
-                    </div>
-                </MediaQuery>
+                            <div className="Cart__pageTitle" onClick={() => this.goToPage(1)}>
+                                <p
+                                    className={'Cart__pageNumber' + (this.state.pageStage === 1 ? ' Cart__pageNumber_active' : '')}>1</p>
+                            </div>
+                            <SvgArrowLongRight className="Cart__pageArrow"/>
+                            <div className="Cart__pageTitle" onClick={() => this.goToPage(2)}>
+                                <p
+                                    className={'Cart__pageNumber' + (this.state.pageStage === 2 ? ' Cart__pageNumber_active' : '')}>2</p>
+                            </div>
+                            <SvgArrowLongRight className="Cart__pageArrow"/>
+                            <div className="Cart__pageTitle" onClick={() => this.goToPageStageThree(null)}>
+                                <p
+                                    className={'Cart__pageNumber' + (this.state.pageStage === 3 ? ' Cart__pageNumber_active' : '')}>3</p>
+                            </div>
 
+                        </div>
+                }
                 <ErrorBoundary>
                     {(this.props.error || this.state.errorFetchOrder || ((this.props.retailsArr.length < 1) && (this.props.cart.length > 0)))
                         ? this.setErrorMessage()
@@ -404,82 +433,79 @@ class Cart extends React.Component<PropsCart, StateCart> {
                                     </div>
 
                                       {
-                                          this.props.cart.length > 0
-                                          && <>
-                                            <MediaQuery maxWidth={1200}>
+                                          this.props.cart.length > 0 &&
+                                          <>
+                                              {
+                                                  (this.state.innerWidth < 1200)
+                                                      ? <div className='Cart__rightPanel'>
+                                                          <div className='Cart__promoContainer'>
 
-                                              <div className='Cart__rightPanel'>
-                                                <div className='Cart__promoContainer'>
+                                                              {/*================== Рекламный блок ===================================*/}
+                                                              {
+                                                                  this.props.promoItems !== null
+                                                                  && <div>
+                                                                    <p className="Cart__titlePanel">Вам пригодится</p>
+                                                                    <CardItem
+                                                                      onItemSelected={(itemId: string, event: React.MouseEvent<HTMLDivElement>) => {
+                                                                          if (!event.currentTarget.closest('button')) this.props.history.push(`/Card/${itemId}`);
+                                                                      }}
+                                                                      classStyle='Cart__promoBlock'
+                                                                      itemProps={this.getDataForPromoItem()}
+                                                                    />
+                                                                  </div>
+                                                              }
 
-                                                    {/*================== Рекламный блок ===================================*/}
-                                                    {
-                                                        this.props.promoItems !== null
-                                                        && <div>
-                                                          <p className="Cart__titlePanel">Вам пригодится</p>
-                                                          <CardItem
-                                                            onItemSelected={(itemId: string, event: React.MouseEvent<HTMLDivElement>) => {
-                                                                if (!event.currentTarget.closest('button')) this.props.history.push(`/Card/${itemId}`);
-                                                            }}
-                                                            classStyle='Cart__promoBlock'
-                                                            itemProps={this.getDataForPromoItem()}
-                                                          />
-                                                        </div>
-                                                    }
-
-                                                </div>
-                                                <div>
-                                                  <p className="Cart__titlePanel">Ваш заказ</p>
-                                                  <div className='Cart__pricePanel'>
-                                                    <div className="Cart__pricePanelContent">
-                                                      <div className='Cart__resultPrice'>
-                                                        <span>{countProducts} {num_word(countProducts, ['товар', 'товара', 'товаров'])} на сумму от {minSum} ₽</span>
+                                                          </div>
+                                                          <div>
+                                                              <p className="Cart__titlePanel">Ваш заказ</p>
+                                                              <div className='Cart__pricePanel'>
+                                                                  <div className="Cart__pricePanelContent">
+                                                                      <div className='Cart__resultPrice'>
+                                                                          <span>{countProducts} {num_word(countProducts, ['товар', 'товара', 'товаров'])} на сумму от {minSum} ₽</span>
+                                                                      </div>
+                                                                      <button className='Cart__buttonToCart'
+                                                                              onClick={() => this.goToPage(2)}>
+                                                                          выбрать аптеку
+                                                                      </button>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
                                                       </div>
-                                                      <button className='Cart__buttonToCart'
-                                                              onClick={() => this.goToPage(2)}>
-                                                        выбрать аптеку
-                                                      </button>
-                                                    </div>
-                                                  </div>
-                                                </div>
-                                              </div>
-                                            </MediaQuery>
+                                                      : <div className='Cart__rightPanel'>
+                                                          <p className="Cart__titlePanel">Ваш заказ</p>
+                                                          <div className='Cart__pricePanel'>
+                                                              <div className="Cart__pricePanelContent">
+                                                                  <div className='Cart__resultPrice'>
+                                                                      <span>{countProducts} {num_word(countProducts, ['товар', 'товара', 'товаров'])} на сумму от {minSum} ₽</span>
+                                                                  </div>
+                                                                  <button className='Cart__buttonToCart'
+                                                                          onClick={() => this.goToPage(2)}>
+                                                                      выбрать аптеку
+                                                                  </button>
+                                                              </div>
+                                                          </div>
+                                                          <div className='Cart__promoContainer'>
 
-                                            <MediaQuery minWidth={1201}>
-                                              <div className='Cart__rightPanel'>
-                                                <p className="Cart__titlePanel">Ваш заказ</p>
-                                                <div className='Cart__pricePanel'>
-                                                  <div className="Cart__pricePanelContent">
-                                                    <div className='Cart__resultPrice'>
-                                                      <span>{countProducts} {num_word(countProducts, ['товар', 'товара', 'товаров'])} на сумму от {minSum} ₽</span>
-                                                    </div>
-                                                    <button className='Cart__buttonToCart'
-                                                            onClick={() => this.goToPage(2)}>
-                                                      выбрать аптеку
-                                                    </button>
-                                                  </div>
-                                                </div>
-                                                <div className='Cart__promoContainer'>
+                                                              {/*================== Рекламный блок ===================================*/}
+                                                              {
+                                                                  (this.props.promoItems !== null)
+                                                                  &&
+                                                                  <div>
+                                                                    <p className="Cart__titlePanel">Вам пригодится</p>
+                                                                    <CardItem
+                                                                      onItemSelected={(itemId: string, event: React.MouseEvent) => {
+                                                                          if (!event.currentTarget.closest('button')) this.props.history.push(`/Card/${itemId}`);
+                                                                      }}
+                                                                      classStyle='Cart__promoBlock'
+                                                                      itemProps={this.getDataForPromoItem()}
+                                                                    />
+                                                                  </div>
 
-                                                    {/*================== Рекламный блок ===================================*/}
-                                                    {
-                                                        (this.props.promoItems !== null)
-                                                        &&
-                                                        <div>
-                                                          <p className="Cart__titlePanel">Вам пригодится</p>
-                                                          <CardItem
-                                                            onItemSelected={(itemId: string, event: React.MouseEvent) => {
-                                                                if (!event.currentTarget.closest('button')) this.props.history.push(`/Card/${itemId}`);
-                                                            }}
-                                                            classStyle='Cart__promoBlock'
-                                                            itemProps={this.getDataForPromoItem()}
-                                                          />
-                                                        </div>
+                                                              }
 
-                                                    }
-
-                                                </div>
-                                              </div>
-                                            </MediaQuery>
+                                                          </div>
+                                                      </div>
+                                              }
                                           </>
                                       }
                                   </div>
