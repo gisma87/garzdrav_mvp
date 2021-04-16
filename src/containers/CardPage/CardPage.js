@@ -214,7 +214,7 @@ const CardPage = (props) => {
                           </p>
                           <p className='CardPage__substance CardPage__description'>
                             <span>Действующее вещество:</span>
-                            <NavLink className='CardPage__link' to={props.history.location}>Оксиметазолин</NavLink>
+                            <NavLink className='CardPage__link' to={props.history.location}>{productInfo.inNameTitle}</NavLink>
                           </p>
                           <div style={{textAlign: 'right', opacity: 0}}>
                             <Link to="anchor" smooth={true} offset={-150} duration={500}>Инструкция</Link>

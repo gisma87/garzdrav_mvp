@@ -170,11 +170,11 @@ describe('Cart', () => {
 
         expect(asFragment()).toMatchSnapshot()
 
-        expect(titlePanel?.textContent).toBe('В корзине 2 товара')
-        expect(countFirstProduct?.textContent).toBe('1')
-        expect(priceFirstProduct?.textContent).toBe('от 75.00 ₽')
+        expect(titlePanel).toHaveTextContent('В корзине 2 товара')
+        expect(countFirstProduct).toHaveTextContent('1')
+        expect(priceFirstProduct).toHaveTextContent('от 75.00 ₽')
         expect(getByText(container, /ул. Мартынова 24/i)).toBeInTheDocument()
-        expect(resultPrice?.textContent).toBe('2 товара на сумму от 260.00 ₽')
+        expect(resultPrice).toHaveTextContent('2 товара на сумму от 260.00 ₽')
 
         // кликаем плюс на первом товаре 10 раз - макс.кол. - 5шт
         if (btnIncrement) {
@@ -183,16 +183,16 @@ describe('Cart', () => {
                 if (i < 5) {
                     const count = i + 1;
                     const priceProduct = 75 * count;
-                    expect(countFirstProduct?.textContent).toBe(`${count}`)
-                    expect(priceFirstProduct?.textContent).toBe(`от ${priceProduct}.00 ₽`)
+                    expect(countFirstProduct).toHaveTextContent(`${count}`)
+                    expect(priceFirstProduct).toHaveTextContent(`от ${priceProduct}.00 ₽`)
                     expect(resultPrice?.textContent).toMatch(`от ${priceProduct + 185}.00 ₽`)
                 }
             }
         }
-        expect(titlePanel?.textContent).toBe('В корзине 6 товаров')
-        expect(countFirstProduct?.textContent).toBe('5')
-        expect(priceFirstProduct?.textContent).toBe(`от ${75 * 5}.00 ₽`)
-        expect(resultPrice?.textContent).toBe('6 товаров на сумму от 560.00 ₽')
+        expect(titlePanel).toHaveTextContent('В корзине 6 товаров')
+        expect(countFirstProduct).toHaveTextContent('5')
+        expect(priceFirstProduct).toHaveTextContent(`от ${75 * 5}.00 ₽`)
+        expect(resultPrice).toHaveTextContent('6 товаров на сумму от 560.00 ₽')
 
         // кликаем минус на первом товаре 10 раз - мин.кол. - 1шт
         if (btnDecrement) {
@@ -200,8 +200,8 @@ describe('Cart', () => {
                 userEvent.click(btnDecrement)
             }
         }
-        expect(titlePanel?.textContent).toBe('В корзине 2 товара')
-        expect(countFirstProduct?.textContent).toBe('1')
+        expect(titlePanel).toHaveTextContent('В корзине 2 товара')
+        expect(countFirstProduct).toHaveTextContent('1')
 
         // проверяем dropdown - "есть в аптеках"
         if (dropdown && btnDropdown) {
@@ -212,7 +212,7 @@ describe('Cart', () => {
 
         // удалили первый продукт
         if (closeIconFirstProduct) userEvent.click(closeIconFirstProduct);
-        expect(titlePanel?.textContent).toBe('В корзине 1 товар')
+        expect(titlePanel).toHaveTextContent('В корзине 1 товар')
         expect(countFirstProduct).not.toBeInTheDocument()
     })
 
@@ -265,11 +265,11 @@ describe('Cart', () => {
         const btnIncrement = container.querySelector('.CountButton__increment')
         const resultPrice = container.querySelector('.Cart__resultPrice')?.querySelector('span')
         // проверяем сумму до добавления кол. товара
-        expect(resultPrice?.textContent).toBe('2 товара на сумму от 260.00 ₽')
+        expect(resultPrice).toHaveTextContent('2 товара на сумму от 260.00 ₽')
         // кликаем на плюс первого товара
         if (btnIncrement) userEvent.click(btnIncrement);
         // сумма изменилась на первой странице
-        expect(resultPrice?.textContent).toBe('3 товара на сумму от 335.00 ₽')
+        expect(resultPrice).toHaveTextContent('3 товара на сумму от 335.00 ₽')
         // возвращаемся на вторую
         userEvent.click(getByText(/выбрать аптеку/i));
         // сумма изменилась и на второй странице
@@ -286,7 +286,7 @@ describe('Cart', () => {
         store.dispatch(addedToCart("4c3d8870-ed5b-49ec-89cd-a7e662d25e7d"))
         store.dispatch(addedToCart("08a0e303-439b-4bf2-8a01-a2a4268e97e3"))
         store.dispatch(setCartItems(cartItemsTest))
-        const {asFragment, container, getByText, getAllByText} = render(
+        const {asFragment, container, getByText} = render(
             <Provider store={store}>
                 <BrowserRouter basename="/">
                     <Cart/>

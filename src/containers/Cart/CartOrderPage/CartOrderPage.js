@@ -11,6 +11,7 @@ import Loader from "../../../components/UI/Loader";
 import {NavLink} from "react-router-dom";
 import LoaderTimer from "../../../components/UI/LoaderTimer/LoaderTimer";
 import EyeButtonShow from "../../../components/UI/EyeButtonShow/EyeButtonShow";
+import dangerIcon from "../../../img/icon/danger.svg"
 // eslint-disable-next-line
 import {authorizedByEmail, authorizedByPassOrSMS, setActiveBonusCard} from "../../../actions";
 import {connect} from "react-redux";
@@ -153,6 +154,13 @@ const CartOrderPage = props => {
   return (
     <div className='CartOrderPage'>
       <ErrorBoundary>
+        <div className='CartOrderPage__warningMessage'>
+          <img src={dangerIcon} alt="danger" className='CartOrderPage__warningIcon' />
+          <p>Добрый день! Спасибо, что выбрали нашу аптеку!</p>
+          <p>Обращаем ваше внимание, на данный момент <b> сайт работает в режиме тестирования</b>, поэтому вы можете
+            заказать выбранные вами товары по телефону.</p>
+          <p>Телефон аптеки указан ниже в карточке «Ваш заказ»</p>
+        </div>
         {
           order &&
           <BlockWrapper classStyle='CartOrderPage__container'>
@@ -168,9 +176,7 @@ const CartOrderPage = props => {
                 <p className='CartOrderPage__openHours'><img src={iconClock} alt="Часы работы"/>Часы
                   работы: <span>{order.weekDayTime}</span>
                 </p>
-                <p className='CartOrderPage__tel'><img src={iconPhone} alt="Телефон"/>Контактный
-                  телефон: <span>{order.phone}</span>
-                </p>
+                <p className='CartOrderPage__tel'><img src={iconPhone} alt="Телефон"/>Контактный телефон: <a href={`tel:${order.phone}`} >{order.phone}</a></p>
               </div>
               <p className="CartOrderPage__sum">{order.sum} ₽</p>
             </div>
