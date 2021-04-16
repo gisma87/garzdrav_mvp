@@ -2481,6 +2481,28 @@ exports[`Cart Cart page 3 1`] = `
       class="CartOrderPage"
     >
       <div
+        class="CartOrderPage__warningMessage"
+      >
+        <img
+          alt="danger"
+          class="CartOrderPage__warningIcon"
+          src="danger.svg"
+        />
+        <p>
+          Добрый день! Спасибо, что выбрали нашу аптеку!
+        </p>
+        <p>
+          Обращаем ваше внимание, на данный момент 
+          <b>
+             сайт работает в режиме тестирования
+          </b>
+          , поэтому вы можете заказать выбранные вами товары по телефону.
+        </p>
+        <p>
+          Телефон аптеки указан ниже в карточке «Ваш заказ»
+        </p>
+      </div>
+      <div
         class="BlockWrapper CartOrderPage__container"
       >
         <h3
@@ -2528,9 +2550,11 @@ exports[`Cart Cart page 3 1`] = `
                 src="phone.svg"
               />
               Контактный телефон: 
-              <span>
+              <a
+                href="tel:8 (391) 299-36-36"
+              >
                 8 (391) 299-36-36
-              </span>
+              </a>
             </p>
           </div>
           <p

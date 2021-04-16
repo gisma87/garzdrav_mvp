@@ -139,11 +139,11 @@ const CardPage = (props) => {
     </button>
 
     const buttonDesktop = <button
-        className={'CardPage__button CardPage__buttonToCart' + (isActive ? ' CardPage__buttonToCart_active' : '')}
-        onClick={() => props.addedToCart(itemId)}>
-        {isActive ? <><SvgCheck style={{color: 'white', marginRight: 15}}/> В
-          корзине</> : 'Добавить в корзину'}
-      </button>
+      className={'CardPage__button CardPage__buttonToCart' + (isActive ? ' CardPage__buttonToCart_active' : '')}
+      onClick={() => props.addedToCart(itemId)}>
+      {isActive ? <><SvgCheck style={{color: 'white', marginRight: 15}}/> В
+        корзине</> : 'Добавить в корзину'}
+    </button>
 
     return isActive
       ? <CountButton
@@ -212,10 +212,14 @@ const CardPage = (props) => {
                             <span>Производитель</span>
                             <span className='CardPage__link' onClick={goToCardsPage}>{productInfo.manufacturer}</span>
                           </p>
-                          <p className='CardPage__substance CardPage__description'>
-                            <span>Действующее вещество:</span>
-                            <NavLink className='CardPage__link' to={props.history.location}>{productInfo.inNameTitle}</NavLink>
-                          </p>
+                          {
+                            productInfo.inNameTitle &&
+                            <p className='CardPage__substance CardPage__description'>
+                              <span>Действующее вещество:</span>
+                              <NavLink className='CardPage__link'
+                                       to={props.history.location}>{productInfo.inNameTitle}</NavLink>
+                            </p>
+                          }
                           <div style={{textAlign: 'right', opacity: 0}}>
                             <Link to="anchor" smooth={true} offset={-150} duration={500}>Инструкция</Link>
                           </div>
