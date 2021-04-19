@@ -63,7 +63,7 @@ export type retailType = {
     brand: string,
     buildNumber: string,
     city: string,
-    coordinates: (number | string)[]
+    coordinates: number[],
     phone: string,
     street: string,
     title: string,
@@ -81,7 +81,7 @@ export type retailCity = {
     phone: string,
     weekDayTime: string,
     coordinates: number[],
-    [key: string]: string | number | number[] | null
+    [key: string]: string | number | ObjType | (number | string | ObjType)[] | null
 }
 export type productInfo = {
     guid: string,
@@ -242,7 +242,7 @@ export type TypeResponseProductInfo = {
             brand: string,
             buildNumber: string,
             city: string,
-            coordinates: (number | string)[]
+            coordinates: number[],
             phone: string,
             street: string,
             title: string,

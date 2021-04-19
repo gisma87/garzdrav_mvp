@@ -1,5 +1,5 @@
 import apiService from "../../service/ApiService";
-import {PromoItemsForCart, TypeOrder, TypeProductInfo, TypeRetailItem} from "../../types";
+import {CartItemType, PromoItemsForCart, TypeOrder, TypeProductInfo, TypePromoItems, TypeRetailItem} from "../../types";
 import {PropsCart, StateCart} from "./Cart";
 import React from "react";
 
@@ -191,7 +191,12 @@ function isChecked(props: PropsCart, id: string) {
 
 // Если подгрузились доп.продажи, то возвращает объект для карточки доп.продаж.
 // 2-ой параметр - массив продуктов, с которым не должен быть похож возвращаемый объект
-export function getDataForPromoItem(props: PropsCart, arrProducts: TypeProductInfo[]): PromoItemsForCart | null {
+export function getDataForPromoItem(props: {
+    promoItems: TypePromoItems | null,
+    cart: CartItemType[],
+    addedToCart(item: string): void,
+    itemRemovedFromCart: (item: string) => void
+}, arrProducts: TypeProductInfo[]): PromoItemsForCart | null {
     if (props.promoItems && (props.promoItems?.promoItems?.length > 0)) {
         const arrPromoItems = props.promoItems?.promoItems
         let index = 0
