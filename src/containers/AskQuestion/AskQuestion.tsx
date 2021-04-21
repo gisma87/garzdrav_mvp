@@ -14,12 +14,31 @@ const AskQuestion = () => {
         })
     }
 
+    const submitForm = async () => {
+        let formData = new FormData();
+        Object.keys(message).forEach(item => {
+            console.log(item, message[item])
+            formData.append(item, message[item]);
+        })
+
+        const response = await fetch('sendmail.php', {
+            method: 'POST',
+            body: formData
+        })
+        if(response.ok) {
+            alert('получилось')
+        } else {
+            alert('провал')
+        }
+    }
+
     return (
         <div className='AskQuestion wrapper'>
 
             <form onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
                 e.preventDefault()
                 if (check) {
+                    submitForm()
                     console.log(message);
                     e.currentTarget.reset()
                 }

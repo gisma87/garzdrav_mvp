@@ -388,7 +388,7 @@ function getProductsFromSearchLimit(options: {
 }
 
 // устанавливаем доп.инфу о товаре - который смотрим на страницу CardPage
-const loadingProductInfo = (product: TypeProductInfo): ActionLoadingProductInfo => {
+export const loadingProductInfo = (product: TypeProductInfo): ActionLoadingProductInfo => {
     return {
         type: ActionTypes.LOADING_PRODUCT_INFO,
         payload: product
