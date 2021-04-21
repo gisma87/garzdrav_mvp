@@ -218,7 +218,8 @@ const PopupLogin = props => {
       </form>
       {isSendCode && <p className='PopupLogin__isFetchCode'>КОД ОТПРАВЛЕН</p>}
       <div className="PopupLogin__description">Нажимая кнопку "Получить код", Вы соглашаетесь
-        c условиями <NavLink to="/confidentiality/">политики конфиденциальности и обработки персональных
+        c условиями <NavLink onClick={props.closePopupLogin} to="/confidentiality/">политики конфиденциальности и
+          обработки персональных
           данных</NavLink></div>
 
     </PopupWrapper>
