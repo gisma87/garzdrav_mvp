@@ -1,11 +1,15 @@
 import React, {useState} from "react";
 import './AskQuestion.scss'
 import {Link} from "react-router-dom";
+import Alert from "../../components/UI/Alert/Alert";
 
 const AskQuestion = () => {
 
     const [message, setMessage] = useState<{ [key: string]: string }>({})
     const [check, setCheck] = useState<boolean>(false)
+    const [alertShow, setAlertShow] = useState(false)
+    const [alertMessage, setAlertMessage] = useState('')
+    const [checkboxLabel, setCheckboxLabel] = useState(false)
 
     const setStatusText = (target: HTMLFormElement) => {
         setMessage({
@@ -21,14 +25,16 @@ const AskQuestion = () => {
             formData.append(item, message[item]);
         })
 
-        const response = await fetch('sendmail.php', {
+        const response = await fetch('../../sendmail.php', {
             method: 'POST',
             body: formData
         })
-        if(response.ok) {
-            alert('получилось')
+        if (response.ok) {
+            setAlertMessage('Ваше сообщение успешно отправлено и будет рассмотрено в ближайшее время.')
+            setAlertShow(true)
         } else {
-            alert('провал')
+            setAlertMessage('При отправке произошла ошибка. Попробуйте перезагрузить страницу и повторить отправку позже.')
+            setAlertShow(true)
         }
     }
 
@@ -39,8 +45,10 @@ const AskQuestion = () => {
                 e.preventDefault()
                 if (check) {
                     submitForm()
-                    console.log(message);
+                    setCheckboxLabel(false)
                     e.currentTarget.reset()
+                } else {
+                    setCheckboxLabel(true)
                 }
             }}
                   onChange={
@@ -90,19 +98,25 @@ const AskQuestion = () => {
                     </label>
                     <div className='AskQuestion__checkboxContainer'>
                         <input type="checkbox"
+                               style={(checkboxLabel && !check) ? {borderColor: 'red'} : {}}
                                name='checkIagree'
                                className='AskQuestion__checkbox'
                                id='AskQuestion__checkbox'
                                checked={check}
                                onChange={(e) => setCheck(e.target.checked)}
                         />
-                        <label htmlFor="AskQuestion__checkbox">Я даю согласие на обработку персональных данных</label>
+                        <label htmlFor="AskQuestion__checkbox"
+                               style={(checkboxLabel && !check) ? {borderBottom: '1px solid red'} : {}}
+                        >Я даю согласие на обработку персональных данных</label>
                     </div>
                     <button className='AskQuestion__buttonBuy'>Отправить</button>
                 </fieldset>
             </form>
             <p className='AskQuestion__faq'>Вы также можете посмотреть раздел: <Link to='/faq/'>
                 Часто Задаваемые Вопросы</Link></p>
+            <Alert show={alertShow} onClose={() => setAlertShow(false)} title='Информируем: '>
+                <p>{alertMessage}</p>
+            </Alert>
         </div>
     )
 }
