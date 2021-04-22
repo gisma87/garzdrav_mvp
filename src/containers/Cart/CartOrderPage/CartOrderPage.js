@@ -302,8 +302,9 @@ const CartOrderPage = props => {
           <p className='CartOrderPage__messageBonus'>
             На вашей карте&nbsp;<span className='CartOrderPage__bold'>№{props.activeBonusCard.barcode}</span>
             &nbsp;при оплате покупки доступно для списания &nbsp;
-            <span
-              className='CartOrderPage__bold'>{Math.min((Math.floor(((order.product.reduce((acc, product) => (product.priceRetail * product.count), 0)) / 2) * 100) / 100), +(props.activeBonusCard.currentBalance).toFixed(2))} Б.</span>
+            <span className='CartOrderPage__bold'>
+              {Math.min((Math.floor((order.sum / 2) * 100) / 100), +(props.activeBonusCard.currentBalance).toFixed(2))} Б.
+            </span>
           </p>
         }
         <p className='CartOrderPage__messageBonus'>Не забудьте взять с собой &nbsp;<a href="http://kartalegko.ru/"

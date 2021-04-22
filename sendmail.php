@@ -36,7 +36,7 @@
       $mail->setFrom('aptekalegko@garzdrav.ru', 'AptekaLegko'); // Адрес самой почты и имя отправителя
 
       // Получатель письма
-      $mail->addAddress('Mankov.SV@garzdrav.ru');
+      $mail->addAddress('info@garzdrav.ru');
 
       // Отправка сообщения
       $mail->isHTML(true);
