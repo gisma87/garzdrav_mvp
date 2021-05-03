@@ -34,11 +34,13 @@ import img33 from "./promo_05.21/ВОЛЬТАРЕН ЭМУЛЬГЕЛЬ 2 100Г. 
 import img34 from "./promo_05.21/БРИЛЛИАНТОВЫЙ ЗЕЛЕН 1 25МЛ. №1 СПИРТ. Р-Р ДНАРУЖ.ПРИМ. ФЛ..png";
 import img35 from "./promo_05.21/ФАЗОСТАБИЛ 75МГ.+15,2МГ. №100 ТАБ. ПО.png";
 import img36 from "./seasonPromoImages/ЭЗЛОР 5МГ. №10 ТАБ..jpg";
-import img37 from "./promo_05.21/АЦЕТИЛСАЛИЦИЛОВАЯ К-ТА РЕНЕВАЛ 500МГ. №20 ТАБ..png";
+import img37 from "./promo_05.21/Ацетил_фармстандарт.jpg";
 import img38 from "./promo_05.21/ЦИТРАМОН П №10 ТАБ..jpg";
 import img39 from "./promo_05.21/КОРВАЛОЛ 25МЛ. КАПЛИ И.jpeg";
 import img40 from "./promo_05.21/УГОЛЬ АКТИВИРОВАННЫЙ 250МГ. №10 ТАБ..jpg";
 import img41 from "./promo_05.21/ЙОДА 5 10МЛ. СПИРТ. Р-Р ВИНТ.jpg";
+import img42 from "./promo_05.21/фестал.png";
+import img43 from "./promo_05.21/Корега_отбел.jpg";
 
 export const promoItemsData = [
     {
@@ -204,4 +206,13 @@ export const promoItemsData = [
         guid: "22588744-bb1c-4ed7-8af1-75686053604b",
         img: img41
     },
+    {
+        guid: "0bfec562-b996-44a6-8921-0df55666aa98",
+        img: img42
+    },
+    {
+        guid: "63ec4ab9-affd-460b-9259-e34866e3a58e",
+        img: img43
+    },
+
 ]
