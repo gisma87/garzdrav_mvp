@@ -3,10 +3,6 @@ import * as React from "react";
 function SvgAngleLeftSolid(props) {
   return (
     <svg
-      aria-hidden="true"
-      data-prefix="fas"
-      data-icon="angle-left"
-      className="angle-left-solid_svg__svg-inline--fa angle-left-solid_svg__fa-angle-left angle-left-solid_svg__fa-w-8"
       viewBox="0 0 256 512"
       width="1em"
       height="1em"

@@ -7,10 +7,13 @@ import {useMediaQuery} from 'react-responsive'
 import smallBaner from '../../img/baners/smallBaner.jpg'
 import img1 from '../../img/forMainSlidr/gifts.jpg'
 import img2 from '../../img/forMainSlidr/seasonalProducts.jpg'
-import img3 from '../../img/forMainSlidr/april/april01.jpg'
-import img4 from '../../img/forMainSlidr/april/april02.jpg'
-import img5 from '../../img/forMainSlidr/april/april03.jpg'
-import img6 from '../../img/forMainSlidr/april/april04.jpg'
+import img3 from '../../img/forMainSlidr/may/май1.jpg'
+import img4 from '../../img/forMainSlidr/may/май2.jpg'
+import img5 from '../../img/forMainSlidr/may/май3.jpg'
+import img6 from '../../img/forMainSlidr/may/май4.jpg'
+import img7 from '../../img/forMainSlidr/may/май5.jpg'
+import img8 from '../../img/forMainSlidr/may/май6.jpg'
+
 import {useHistory} from "react-router-dom";
 import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 import {ThunkDispatch} from "redux-thunk";
@@ -29,7 +32,9 @@ const imgData = [
     {img: img3, link: '/articles/'},
     {img: img4, link: '/articles/'},
     {img: img5, link: '/articles/'},
-    {img: img6, link: '/articles/'}
+    {img: img6, link: '/articles/'},
+    {img: img7, link: '/articles/'},
+    {img: img8, link: '/articles/'}
 ]
 
 const smallBanerObj = {
